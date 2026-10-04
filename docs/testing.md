@@ -10,7 +10,7 @@ those silent failures into red builds, because looking at the app cannot be reli
 
 | Project | What it does | Speed |
 |---|---|---|
-| `tst/Fili.Theme.MudAvalonia.UnitTests` | 345 tests on a headless Avalonia session. They resolve resources, template controls, move a real pointer over them, and read back the values the theme applied. Nothing is rendered. | seconds |
+| `tst/Fili.Theme.MudAvalonia.UnitTests` | 346 tests on a headless Avalonia session. They resolve resources, template controls, move a real pointer over them, and read back the values the theme applied. Nothing is rendered. | seconds |
 | `tst/Fili.Theme.MudAvalonia.PixelTests` | 9 tests. Each renders one gallery frame with Skia and compares it pixel by pixel with a PNG committed in `Baselines/`. | ~20 seconds |
 
 They are separate on purpose. The pixel suite needs Skia with headless drawing turned **off** -
@@ -21,7 +21,7 @@ needed a different platform.
 
 ## The unit tests
 
-345 tests in 23 classes, grouped here by the failure each one exists to catch.
+346 tests in 23 classes, grouped here by the failure each one exists to catch.
 
 ### Tokens: does every value exist, in every variant?
 
@@ -53,7 +53,7 @@ from MudBlazor's SCSS or the component's parameter defaults.
 | `ComponentClassTests` | 38 | Icon buttons, chips, alerts, skeletons, the light divider and `flat`. |
 | `TabsAndAppBarTests` | 31 | MudTabs' defaults, colours, `border` / `outlined` / `rounded` / `centered` / `hide-slider`, and that a bar's colour never reaches a nested `TabControl`; the app bar's gutters, `dense` and colours. |
 | `SplitButtonMatrixTests` | 29 | `SplitButton` as MudButtonGroup, including the separator rule and the hit-testing of each half. |
-| `FieldDetailTests` | 21 | Helper text, the error in its place, the counter, `helper-on-focus`, `dense`, select variants, and that filled and outlined fields pad their content. |
+| `FieldDetailTests` | 22 | Helper text, the error in its place, the counter, `helper-on-focus`, `dense`, select variants, and that filled and outlined fields pad their content. |
 | `SliderMatrixTests` | 13 | `Slider` sizes and colours, and the rings on hover and focus. |
 | `DropDownButtonMatrixTests` | 12 | `DropDownButton` as MudMenu's button activator. |
 | `SelectionGlyphMatrixTests` | 12 | Checkbox and radio glyph colours and sizes. |

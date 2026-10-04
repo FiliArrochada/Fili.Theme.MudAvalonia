@@ -15,7 +15,7 @@ compiled to WebAssembly and served by GitHub Pages.
 
 Coming from MudBlazor? [MudBlazor parity](docs/mudblazor-parity.md) maps every component
 parameter and palette property to its class or token, and [Razor and AXAML](docs/razor-vs-axaml.md)
-shows the same UI written both ways. [Testing](docs/testing.md) explains what the 345 unit tests
+shows the same UI written both ways. [Testing](docs/testing.md) explains what the 346 unit tests
 and nine pixel frames check, how CI runs them, and why each exists.
 
 The token values are MudBlazor's defaults, transcribed from its source rather than eyeballed. The
@@ -1141,8 +1141,8 @@ guards; this is the summary.
 
 | Runner | Builds | Runs |
 |---|---|---|
-| `ubuntu-latest` | the whole solution, browser gallery included | the 345 unit tests |
-| `windows-latest` | the two test projects, which reference every project but the browser gallery | the 345 unit tests **and** the 9 pixel baselines |
+| `ubuntu-latest` | the whole solution, browser gallery included | the 346 unit tests |
+| `windows-latest` | the two test projects, which reference every project but the browser gallery | the 346 unit tests **and** the 9 pixel baselines |
 
 **Only Linux installs the `wasm-tools` workload.** The browser gallery's build natively links Skia
 and HarfBuzz into `dotnet.wasm`, so even restoring it needs the workload. Installing it on Windows
