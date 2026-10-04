@@ -4,7 +4,7 @@
              x:Class="Fili.Theme.MudAvalonia.Gallery.Views.ControlStatesView">
 
   <ScrollViewer>
-    <StackPanel Margin="24" Spacing="24">
+    <StackPanel x:Name="PageContent" Margin="24" Spacing="24">
 
       <StackPanel Spacing="4">
         <TextBlock Classes="h6" Text="Control states" />
