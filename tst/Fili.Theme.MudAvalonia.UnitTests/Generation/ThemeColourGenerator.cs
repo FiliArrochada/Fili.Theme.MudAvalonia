@@ -847,6 +847,15 @@ public static class ThemeColourGenerator
             }
         }
 
+        // SliderColor, after the bar colours so it wins over a coloured bar's contrast indicator:
+        // `.mud-tab-slider.mud-{color}`, the indicator alone in the colour.
+        foreach (var c in Colours)
+        {
+            var cls = $"slider-{c.ToLowerInvariant()}";
+            o.Append(TopStyle($"TabControl.{cls} > TabItem /template/ Border#PART_Indicator", ("Background", Res($"Fili{c}Brush"))));
+            o.Append(TopStyle($"TabStrip.{cls} > TabStripItem:selected /template/ Border#PART_Indicator", ("Background", Res($"Fili{c}Brush"))));
+        }
+
         return o.ToString();
     }
 

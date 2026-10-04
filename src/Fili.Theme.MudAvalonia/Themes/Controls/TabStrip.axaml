@@ -11,7 +11,8 @@
     160px minimum width, MudTabs.MinimumTabWidth
     label text-primary, going to primary when selected
     a 2px indicator in primary under the selected item, on a surface bar
-    the same classes: a colour, border, outlined, rounded, centered
+    the same classes: a colour, border, outlined, rounded, centered, elevation*, slider-{colour}
+    (a strip has no TabStripPlacement; place it with ordinary layout)
 
   If either file changes, change both. The gallery shows them side by side for that reason.
 -->
@@ -86,9 +87,11 @@
 
     <Setter Property="Template">
       <ControlTemplate>
-        <Border x:Name="PART_TabBar" Background="{TemplateBinding Background}">
-          <ItemsPresenter x:Name="PART_ItemsPresenter"
-                          ItemsPanel="{TemplateBinding ItemsPanel}" />
+        <Border x:Name="PART_TabBarHost">
+          <Border x:Name="PART_TabBar" Background="{TemplateBinding Background}">
+            <ItemsPresenter x:Name="PART_ItemsPresenter"
+                            ItemsPanel="{TemplateBinding ItemsPanel}" />
+          </Border>
         </Border>
       </ControlTemplate>
     </Setter>
@@ -117,6 +120,39 @@
     <!-- Centered: .mud-tabs-centered, `margin: auto` on the tab row. -->
     <Style Selector="^.centered /template/ ItemsPresenter#PART_ItemsPresenter">
       <Setter Property="HorizontalAlignment" Value="Center" />
+    </Style>
+
+    <!-- Elevation: `.mud-elevation-{n}` on the bar. The shadow is on the host, outside the bar,
+         because `rounded` clips the bar and would clip its own shadow away. -->
+    <Style Selector="^.elevation0 /template/ Border#PART_TabBarHost">
+      <Setter Property="BoxShadow" Value="{DynamicResource FiliElevation0}" />
+    </Style>
+    <Style Selector="^.elevation1 /template/ Border#PART_TabBarHost">
+      <Setter Property="BoxShadow" Value="{DynamicResource FiliElevation1}" />
+    </Style>
+    <Style Selector="^.elevation2 /template/ Border#PART_TabBarHost">
+      <Setter Property="BoxShadow" Value="{DynamicResource FiliElevation2}" />
+    </Style>
+    <Style Selector="^.elevation4 /template/ Border#PART_TabBarHost">
+      <Setter Property="BoxShadow" Value="{DynamicResource FiliElevation4}" />
+    </Style>
+    <Style Selector="^.elevation6 /template/ Border#PART_TabBarHost">
+      <Setter Property="BoxShadow" Value="{DynamicResource FiliElevation6}" />
+    </Style>
+    <Style Selector="^.elevation8 /template/ Border#PART_TabBarHost">
+      <Setter Property="BoxShadow" Value="{DynamicResource FiliElevation8}" />
+    </Style>
+    <Style Selector="^.elevation12 /template/ Border#PART_TabBarHost">
+      <Setter Property="BoxShadow" Value="{DynamicResource FiliElevation12}" />
+    </Style>
+    <Style Selector="^.elevation16 /template/ Border#PART_TabBarHost">
+      <Setter Property="BoxShadow" Value="{DynamicResource FiliElevation16}" />
+    </Style>
+    <Style Selector="^.elevation24 /template/ Border#PART_TabBarHost">
+      <Setter Property="BoxShadow" Value="{DynamicResource FiliElevation24}" />
+    </Style>
+    <Style Selector="^.rounded /template/ Border#PART_TabBarHost">
+      <Setter Property="CornerRadius" Value="{DynamicResource FiliCornerRadius}" />
     </Style>
   </ControlTheme>
 

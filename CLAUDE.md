@@ -287,7 +287,8 @@ Two conversions are already applied and should stay applied consistently:
   blank, nothing throws, and a pixel suite built on it compares two blank images and passes
   forever. Skia plus `UseHeadlessDrawing = false` is the only configuration that produces a
   frame; `GalleryFrames.Configure` is the single place that says so.
-- **An indeterminate `ProgressBar` is not reproducible.** Its band follows a wall-clock animation
+- **An indeterminate `ProgressBar` is not reproducible** - nor a `striped` one, nor a pulsing
+  skeleton, all masked the same way. Its band follows a wall-clock animation
   clock, so two runs of the SAME BUILD differ by about eighty pixels. The pixel suite masks that
   rectangle, located from the live tree rather than remembered, and compares everything else
   strictly. Do not answer a flaky frame with a wider tolerance: a budget big enough to absorb an

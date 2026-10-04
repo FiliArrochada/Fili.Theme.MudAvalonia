@@ -59,6 +59,21 @@ Application.Current!.RequestedThemeVariant = FiliThemeVariants.HighContrast;
 `Variant`. The fill comes from `filled`.
 
 ```razor
+<MudButton Variant="Variant.Filled" Color="Color.Primary" StartIcon="@Icons.Material.Filled.Add">Add</MudButton>
+```
+
+```xml
+<Button Classes="filled primary">
+  <StackPanel Orientation="Horizontal">
+    <PathIcon Classes="start-icon" Data="{StaticResource AddIcon}" />
+    <TextBlock Text="Add" VerticalAlignment="Center" />
+  </StackPanel>
+</Button>
+```
+
+`start-icon` and `end-icon` give the icon MudButton's size and spacing; on a chip, MudChip's.
+
+```razor
 <MudButton Variant="Variant.Filled" Color="Color.Primary" DropShadow="false">Flat</MudButton>
 <MudIconButton Icon="@Icons.Material.Filled.Menu" />
 <MudIconButton Icon="@Icons.Material.Filled.Favorite" Color="Color.Primary" Size="Size.Small" />
@@ -365,6 +380,12 @@ snaps every value.
 
 <!-- <MudTabs Color="Color.Primary" Centered="true" Rounded="true" Border="true"> -->
 <TabControl Classes="primary centered rounded border">…</TabControl>
+
+<!-- <MudTabs Position="Position.Left" Elevation="4" SliderColor="Color.Secondary"> -->
+<TabControl TabStripPlacement="Left" Classes="elevation4 slider-secondary">…</TabControl>
+
+<!-- <MudProgressLinear Color="Color.Primary" Striped="true" Value="70" /> -->
+<ProgressBar Classes="primary striped" Value="70" />
 
 <ListBox Classes="surface">
   <ListBoxItem Classes="dense">First</ListBoxItem>

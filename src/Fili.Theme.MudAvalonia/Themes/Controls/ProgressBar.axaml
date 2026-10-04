@@ -57,7 +57,27 @@
 
               <Border x:Name="PART_Indicator"
                       Background="{TemplateBinding Foreground}"
-                      IsVisible="{Binding !IsIndeterminate, RelativeSource={RelativeSource TemplatedParent}}" />
+                      ClipToBounds="True"
+                      IsVisible="{Binding !IsIndeterminate, RelativeSource={RelativeSource TemplatedParent}}">
+                <!--
+                  Striped: `.mud-progress-linear-striped`, 25% white bands at 135 degrees on a 40px
+                  tile - the two shapes below are where (x + y) / 80 falls in the gradient's
+                  0-25% and 50-75% stops. The layer is one tile wider than the bar and slides one
+                  tile to the right, over and over: MudBlazor's 320px in 10s, as 40px in 1.25s.
+                -->
+                <Panel x:Name="PART_Stripes"
+                       Margin="-40,0,0,0"
+                       IsVisible="False">
+                  <Panel.Background>
+                    <DrawingBrush TileMode="Tile" DestinationRect="0,0,40,40">
+                      <DrawingBrush.Drawing>
+                        <GeometryDrawing Brush="#40FFFFFF"
+                                         Geometry="M0,0 L20,0 L0,20 Z M40,0 L40,20 L20,40 L0,40 Z" />
+                      </DrawingBrush.Drawing>
+                    </DrawingBrush>
+                  </Panel.Background>
+                </Panel>
+              </Border>
 
               <Border x:Name="PART_IndeterminateIndicator"
                       Background="{TemplateBinding Foreground}"
@@ -92,6 +112,21 @@
         </Grid>
       </ControlTemplate>
     </Setter>
+
+    <!-- Striped. -->
+    <Style Selector="^.striped /template/ Panel#PART_Stripes">
+      <Setter Property="IsVisible" Value="True" />
+      <Style.Animations>
+        <Animation Duration="0:0:1.25" IterationCount="Infinite">
+          <KeyFrame Cue="0%">
+            <Setter Property="TranslateTransform.X" Value="0" />
+          </KeyFrame>
+          <KeyFrame Cue="100%">
+            <Setter Property="TranslateTransform.X" Value="40" />
+          </KeyFrame>
+        </Animation>
+      </Style.Animations>
+    </Style>
 
     <!-- Size.Small is the default, so the bare control is 4px. -->
     <Style Selector="^:horizontal">
