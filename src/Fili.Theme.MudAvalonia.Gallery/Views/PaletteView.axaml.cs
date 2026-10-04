@@ -48,6 +48,12 @@ public partial class PaletteView : UserControl
         ("Overlay",    "FiliOverlayHoverColor"),
         ("Overlay",    "FiliOverlayPressedColor"),
         ("Overlay",    "FiliSkeletonColor"),
+
+        ("Gray",       "FiliGrayLighterColor"),
+        ("Gray",       "FiliGrayLightColor"),
+        ("Gray",       "FiliGrayDefaultColor"),
+        ("Gray",       "FiliGrayDarkColor"),
+        ("Gray",       "FiliGrayDarkerColor"),
     ];
 
     public PaletteView()

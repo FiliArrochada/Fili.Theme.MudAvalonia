@@ -265,6 +265,201 @@
       <Setter Property="Fill" Value="{DynamicResource FiliDarkHoverBrush}" />
     </Style>
 
+    <!-- UncheckedColor: `unchecked-{colour}`, the colour of the glyph and its halo while NOT
+         checked (MudCheckBox: false or null), in place of the colour class. -->
+    <Style Selector="^.unchecked-primary /template/ Path#PART_Unchecked">
+      <Setter Property="Fill" Value="{DynamicResource FiliPrimaryBrush}" />
+    </Style>
+    <Style Selector="^.unchecked-primary /template/ Path#PART_Indeterminate">
+      <Setter Property="Fill" Value="{DynamicResource FiliPrimaryBrush}" />
+    </Style>
+    <Style Selector="^.unchecked-primary:unchecked:pointerover /template/ Ellipse#PART_StateLayer">
+      <Setter Property="Fill" Value="{DynamicResource FiliPrimaryHoverBrush}" />
+    </Style>
+    <Style Selector="^.unchecked-primary:unchecked:focus-visible /template/ Ellipse#PART_StateLayer">
+      <Setter Property="Fill" Value="{DynamicResource FiliPrimaryHoverBrush}" />
+    </Style>
+    <Style Selector="^.unchecked-primary:unchecked:pressed /template/ Ellipse#PART_StateLayer">
+      <Setter Property="Fill" Value="{DynamicResource FiliPrimaryHoverBrush}" />
+    </Style>
+    <Style Selector="^.unchecked-primary:indeterminate:pointerover /template/ Ellipse#PART_StateLayer">
+      <Setter Property="Fill" Value="{DynamicResource FiliPrimaryHoverBrush}" />
+    </Style>
+    <Style Selector="^.unchecked-primary:indeterminate:focus-visible /template/ Ellipse#PART_StateLayer">
+      <Setter Property="Fill" Value="{DynamicResource FiliPrimaryHoverBrush}" />
+    </Style>
+    <Style Selector="^.unchecked-primary:indeterminate:pressed /template/ Ellipse#PART_StateLayer">
+      <Setter Property="Fill" Value="{DynamicResource FiliPrimaryHoverBrush}" />
+    </Style>
+    <Style Selector="^.unchecked-secondary /template/ Path#PART_Unchecked">
+      <Setter Property="Fill" Value="{DynamicResource FiliSecondaryBrush}" />
+    </Style>
+    <Style Selector="^.unchecked-secondary /template/ Path#PART_Indeterminate">
+      <Setter Property="Fill" Value="{DynamicResource FiliSecondaryBrush}" />
+    </Style>
+    <Style Selector="^.unchecked-secondary:unchecked:pointerover /template/ Ellipse#PART_StateLayer">
+      <Setter Property="Fill" Value="{DynamicResource FiliSecondaryHoverBrush}" />
+    </Style>
+    <Style Selector="^.unchecked-secondary:unchecked:focus-visible /template/ Ellipse#PART_StateLayer">
+      <Setter Property="Fill" Value="{DynamicResource FiliSecondaryHoverBrush}" />
+    </Style>
+    <Style Selector="^.unchecked-secondary:unchecked:pressed /template/ Ellipse#PART_StateLayer">
+      <Setter Property="Fill" Value="{DynamicResource FiliSecondaryHoverBrush}" />
+    </Style>
+    <Style Selector="^.unchecked-secondary:indeterminate:pointerover /template/ Ellipse#PART_StateLayer">
+      <Setter Property="Fill" Value="{DynamicResource FiliSecondaryHoverBrush}" />
+    </Style>
+    <Style Selector="^.unchecked-secondary:indeterminate:focus-visible /template/ Ellipse#PART_StateLayer">
+      <Setter Property="Fill" Value="{DynamicResource FiliSecondaryHoverBrush}" />
+    </Style>
+    <Style Selector="^.unchecked-secondary:indeterminate:pressed /template/ Ellipse#PART_StateLayer">
+      <Setter Property="Fill" Value="{DynamicResource FiliSecondaryHoverBrush}" />
+    </Style>
+    <Style Selector="^.unchecked-tertiary /template/ Path#PART_Unchecked">
+      <Setter Property="Fill" Value="{DynamicResource FiliTertiaryBrush}" />
+    </Style>
+    <Style Selector="^.unchecked-tertiary /template/ Path#PART_Indeterminate">
+      <Setter Property="Fill" Value="{DynamicResource FiliTertiaryBrush}" />
+    </Style>
+    <Style Selector="^.unchecked-tertiary:unchecked:pointerover /template/ Ellipse#PART_StateLayer">
+      <Setter Property="Fill" Value="{DynamicResource FiliTertiaryHoverBrush}" />
+    </Style>
+    <Style Selector="^.unchecked-tertiary:unchecked:focus-visible /template/ Ellipse#PART_StateLayer">
+      <Setter Property="Fill" Value="{DynamicResource FiliTertiaryHoverBrush}" />
+    </Style>
+    <Style Selector="^.unchecked-tertiary:unchecked:pressed /template/ Ellipse#PART_StateLayer">
+      <Setter Property="Fill" Value="{DynamicResource FiliTertiaryHoverBrush}" />
+    </Style>
+    <Style Selector="^.unchecked-tertiary:indeterminate:pointerover /template/ Ellipse#PART_StateLayer">
+      <Setter Property="Fill" Value="{DynamicResource FiliTertiaryHoverBrush}" />
+    </Style>
+    <Style Selector="^.unchecked-tertiary:indeterminate:focus-visible /template/ Ellipse#PART_StateLayer">
+      <Setter Property="Fill" Value="{DynamicResource FiliTertiaryHoverBrush}" />
+    </Style>
+    <Style Selector="^.unchecked-tertiary:indeterminate:pressed /template/ Ellipse#PART_StateLayer">
+      <Setter Property="Fill" Value="{DynamicResource FiliTertiaryHoverBrush}" />
+    </Style>
+    <Style Selector="^.unchecked-info /template/ Path#PART_Unchecked">
+      <Setter Property="Fill" Value="{DynamicResource FiliInfoBrush}" />
+    </Style>
+    <Style Selector="^.unchecked-info /template/ Path#PART_Indeterminate">
+      <Setter Property="Fill" Value="{DynamicResource FiliInfoBrush}" />
+    </Style>
+    <Style Selector="^.unchecked-info:unchecked:pointerover /template/ Ellipse#PART_StateLayer">
+      <Setter Property="Fill" Value="{DynamicResource FiliInfoHoverBrush}" />
+    </Style>
+    <Style Selector="^.unchecked-info:unchecked:focus-visible /template/ Ellipse#PART_StateLayer">
+      <Setter Property="Fill" Value="{DynamicResource FiliInfoHoverBrush}" />
+    </Style>
+    <Style Selector="^.unchecked-info:unchecked:pressed /template/ Ellipse#PART_StateLayer">
+      <Setter Property="Fill" Value="{DynamicResource FiliInfoHoverBrush}" />
+    </Style>
+    <Style Selector="^.unchecked-info:indeterminate:pointerover /template/ Ellipse#PART_StateLayer">
+      <Setter Property="Fill" Value="{DynamicResource FiliInfoHoverBrush}" />
+    </Style>
+    <Style Selector="^.unchecked-info:indeterminate:focus-visible /template/ Ellipse#PART_StateLayer">
+      <Setter Property="Fill" Value="{DynamicResource FiliInfoHoverBrush}" />
+    </Style>
+    <Style Selector="^.unchecked-info:indeterminate:pressed /template/ Ellipse#PART_StateLayer">
+      <Setter Property="Fill" Value="{DynamicResource FiliInfoHoverBrush}" />
+    </Style>
+    <Style Selector="^.unchecked-success /template/ Path#PART_Unchecked">
+      <Setter Property="Fill" Value="{DynamicResource FiliSuccessBrush}" />
+    </Style>
+    <Style Selector="^.unchecked-success /template/ Path#PART_Indeterminate">
+      <Setter Property="Fill" Value="{DynamicResource FiliSuccessBrush}" />
+    </Style>
+    <Style Selector="^.unchecked-success:unchecked:pointerover /template/ Ellipse#PART_StateLayer">
+      <Setter Property="Fill" Value="{DynamicResource FiliSuccessHoverBrush}" />
+    </Style>
+    <Style Selector="^.unchecked-success:unchecked:focus-visible /template/ Ellipse#PART_StateLayer">
+      <Setter Property="Fill" Value="{DynamicResource FiliSuccessHoverBrush}" />
+    </Style>
+    <Style Selector="^.unchecked-success:unchecked:pressed /template/ Ellipse#PART_StateLayer">
+      <Setter Property="Fill" Value="{DynamicResource FiliSuccessHoverBrush}" />
+    </Style>
+    <Style Selector="^.unchecked-success:indeterminate:pointerover /template/ Ellipse#PART_StateLayer">
+      <Setter Property="Fill" Value="{DynamicResource FiliSuccessHoverBrush}" />
+    </Style>
+    <Style Selector="^.unchecked-success:indeterminate:focus-visible /template/ Ellipse#PART_StateLayer">
+      <Setter Property="Fill" Value="{DynamicResource FiliSuccessHoverBrush}" />
+    </Style>
+    <Style Selector="^.unchecked-success:indeterminate:pressed /template/ Ellipse#PART_StateLayer">
+      <Setter Property="Fill" Value="{DynamicResource FiliSuccessHoverBrush}" />
+    </Style>
+    <Style Selector="^.unchecked-warning /template/ Path#PART_Unchecked">
+      <Setter Property="Fill" Value="{DynamicResource FiliWarningBrush}" />
+    </Style>
+    <Style Selector="^.unchecked-warning /template/ Path#PART_Indeterminate">
+      <Setter Property="Fill" Value="{DynamicResource FiliWarningBrush}" />
+    </Style>
+    <Style Selector="^.unchecked-warning:unchecked:pointerover /template/ Ellipse#PART_StateLayer">
+      <Setter Property="Fill" Value="{DynamicResource FiliWarningHoverBrush}" />
+    </Style>
+    <Style Selector="^.unchecked-warning:unchecked:focus-visible /template/ Ellipse#PART_StateLayer">
+      <Setter Property="Fill" Value="{DynamicResource FiliWarningHoverBrush}" />
+    </Style>
+    <Style Selector="^.unchecked-warning:unchecked:pressed /template/ Ellipse#PART_StateLayer">
+      <Setter Property="Fill" Value="{DynamicResource FiliWarningHoverBrush}" />
+    </Style>
+    <Style Selector="^.unchecked-warning:indeterminate:pointerover /template/ Ellipse#PART_StateLayer">
+      <Setter Property="Fill" Value="{DynamicResource FiliWarningHoverBrush}" />
+    </Style>
+    <Style Selector="^.unchecked-warning:indeterminate:focus-visible /template/ Ellipse#PART_StateLayer">
+      <Setter Property="Fill" Value="{DynamicResource FiliWarningHoverBrush}" />
+    </Style>
+    <Style Selector="^.unchecked-warning:indeterminate:pressed /template/ Ellipse#PART_StateLayer">
+      <Setter Property="Fill" Value="{DynamicResource FiliWarningHoverBrush}" />
+    </Style>
+    <Style Selector="^.unchecked-error /template/ Path#PART_Unchecked">
+      <Setter Property="Fill" Value="{DynamicResource FiliErrorBrush}" />
+    </Style>
+    <Style Selector="^.unchecked-error /template/ Path#PART_Indeterminate">
+      <Setter Property="Fill" Value="{DynamicResource FiliErrorBrush}" />
+    </Style>
+    <Style Selector="^.unchecked-error:unchecked:pointerover /template/ Ellipse#PART_StateLayer">
+      <Setter Property="Fill" Value="{DynamicResource FiliErrorHoverBrush}" />
+    </Style>
+    <Style Selector="^.unchecked-error:unchecked:focus-visible /template/ Ellipse#PART_StateLayer">
+      <Setter Property="Fill" Value="{DynamicResource FiliErrorHoverBrush}" />
+    </Style>
+    <Style Selector="^.unchecked-error:unchecked:pressed /template/ Ellipse#PART_StateLayer">
+      <Setter Property="Fill" Value="{DynamicResource FiliErrorHoverBrush}" />
+    </Style>
+    <Style Selector="^.unchecked-error:indeterminate:pointerover /template/ Ellipse#PART_StateLayer">
+      <Setter Property="Fill" Value="{DynamicResource FiliErrorHoverBrush}" />
+    </Style>
+    <Style Selector="^.unchecked-error:indeterminate:focus-visible /template/ Ellipse#PART_StateLayer">
+      <Setter Property="Fill" Value="{DynamicResource FiliErrorHoverBrush}" />
+    </Style>
+    <Style Selector="^.unchecked-error:indeterminate:pressed /template/ Ellipse#PART_StateLayer">
+      <Setter Property="Fill" Value="{DynamicResource FiliErrorHoverBrush}" />
+    </Style>
+    <Style Selector="^.unchecked-dark /template/ Path#PART_Unchecked">
+      <Setter Property="Fill" Value="{DynamicResource FiliDarkBrush}" />
+    </Style>
+    <Style Selector="^.unchecked-dark /template/ Path#PART_Indeterminate">
+      <Setter Property="Fill" Value="{DynamicResource FiliDarkBrush}" />
+    </Style>
+    <Style Selector="^.unchecked-dark:unchecked:pointerover /template/ Ellipse#PART_StateLayer">
+      <Setter Property="Fill" Value="{DynamicResource FiliDarkHoverBrush}" />
+    </Style>
+    <Style Selector="^.unchecked-dark:unchecked:focus-visible /template/ Ellipse#PART_StateLayer">
+      <Setter Property="Fill" Value="{DynamicResource FiliDarkHoverBrush}" />
+    </Style>
+    <Style Selector="^.unchecked-dark:unchecked:pressed /template/ Ellipse#PART_StateLayer">
+      <Setter Property="Fill" Value="{DynamicResource FiliDarkHoverBrush}" />
+    </Style>
+    <Style Selector="^.unchecked-dark:indeterminate:pointerover /template/ Ellipse#PART_StateLayer">
+      <Setter Property="Fill" Value="{DynamicResource FiliDarkHoverBrush}" />
+    </Style>
+    <Style Selector="^.unchecked-dark:indeterminate:focus-visible /template/ Ellipse#PART_StateLayer">
+      <Setter Property="Fill" Value="{DynamicResource FiliDarkHoverBrush}" />
+    </Style>
+    <Style Selector="^.unchecked-dark:indeterminate:pressed /template/ Ellipse#PART_StateLayer">
+      <Setter Property="Fill" Value="{DynamicResource FiliDarkHoverBrush}" />
+    </Style>
+
     <!-- `mud-icon-size-small` / `-large`: 1.25rem and 2.25rem against 1.5rem. -->
     <Style Selector="^.small /template/ LayoutTransformControl#PART_Scale">
       <Setter Property="LayoutTransform" Value="scale(0.8333333)" />

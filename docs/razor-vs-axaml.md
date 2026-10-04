@@ -294,6 +294,21 @@ slider. Colour and size are classes, exactly as `Color` and `Size` are parameter
 <Slider Value="{Binding Volume}" Classes="secondary medium" />
 ```
 
+```razor
+<MudCheckBox @bind-Value="_sync" Color="Color.Primary" UncheckedColor="Color.Error" Label="Agree" />
+<MudSlider @bind-Value="_volume" Variant="Variant.Filled" TickMarks="true" Step="10" ValueLabel="true" />
+```
+
+```xml
+<CheckBox IsChecked="{Binding Sync}" Classes="primary unchecked-error" Content="Agree" />
+<Slider Value="{Binding Volume}" Classes="filled value-label"
+        TickPlacement="BottomRight" TickFrequency="10" IsSnapToTickEnabled="True" />
+```
+
+`UncheckedColor` is a second colour class, `unchecked-{colour}`. A slider's ticks are Avalonia's
+own `TickPlacement` and `TickFrequency`; `IsSnapToTickEnabled` gives MudSlider's `Step`, which
+snaps every value.
+
 ## Progress, dividers, links
 
 ```razor

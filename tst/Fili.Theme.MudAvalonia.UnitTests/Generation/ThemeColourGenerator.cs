@@ -48,8 +48,12 @@ public static class ThemeColourGenerator
             (SplitButtonPath, SplitLabel, SplitRegion()),
             (SplitButtonPath, DropDownLabel, DropDownRegion()),
             (FiliThemePath, TextLabel, TextBlockRegion()),
-            (Controls("CheckBox.axaml"), CheckBoxLabel, GlyphRegion(["PART_Unchecked", "PART_Checked", "PART_Indeterminate"])),
-            (Controls("RadioButton.axaml"), RadioLabel, GlyphRegion(["PART_Unchecked", "PART_Checked"])),
+            (Controls("CheckBox.axaml"), CheckBoxLabel, GlyphRegion(
+                ["PART_Unchecked", "PART_Checked", "PART_Indeterminate"],
+                ["PART_Unchecked", "PART_Indeterminate"], [":unchecked", ":indeterminate"])),
+            (Controls("RadioButton.axaml"), RadioLabel, GlyphRegion(
+                ["PART_Unchecked", "PART_Checked"],
+                ["PART_Unchecked"], [":unchecked"])),
             (Controls("ToggleSwitch.axaml"), SwitchLabel, SwitchRegion()),
             (Controls("Slider.axaml"), SliderLabel, SliderRegion()),
             (Controls("ProgressBar.axaml"), ProgressLabel, ProgressRegion()),
@@ -534,7 +538,7 @@ public static class ThemeColourGenerator
     // tint to the halo. Size is MudIcon's: 20 / 24 / 36px, scaled with its halo.
     // ---------------------------------------------------------------------------------------
 
-    private static string GlyphRegion(string[] glyphs)
+    private static string GlyphRegion(string[] glyphs, string[] uncheckedGlyphs, string[] uncheckedStates)
     {
         var o = new StringBuilder();
         o.Append("    <!-- No colour: the action-default halo. -->\n");
@@ -546,6 +550,19 @@ public static class ThemeColourGenerator
             var cls = c.ToLowerInvariant();
             o.Append(string.Concat(glyphs.Select(g => Style($"^.{cls} /template/ Path#{g}", ("Fill", Res($"Fili{c}Brush"))))));
             o.Append(string.Concat(States.Select(s => Style($"^.{cls}{s} /template/ Ellipse#PART_StateLayer", ("Fill", Res($"Fili{c}HoverBrush"))))));
+        }
+
+        // After the colours, so it wins where both are set: `primary unchecked-error` is
+        // Color.Primary with UncheckedColor.Error, the unchecked glyph and its halo in error.
+        o.Append("\n    <!-- UncheckedColor: `unchecked-{colour}`, the colour of the glyph and its halo while NOT\n");
+        o.Append("         checked (MudCheckBox: false or null), in place of the colour class. -->\n");
+
+        foreach (var c in Colours)
+        {
+            var cls = $"unchecked-{c.ToLowerInvariant()}";
+            o.Append(string.Concat(uncheckedGlyphs.Select(g => Style($"^.{cls} /template/ Path#{g}", ("Fill", Res($"Fili{c}Brush"))))));
+            o.Append(string.Concat(uncheckedStates.SelectMany(u => States.Select(s =>
+                Style($"^.{cls}{u}{s} /template/ Ellipse#PART_StateLayer", ("Fill", Res($"Fili{c}HoverBrush")))))));
         }
 
         o.Append("\n    <!-- `mud-icon-size-small` / `-large`: 1.25rem and 2.25rem against 1.5rem. -->\n");
@@ -619,11 +636,14 @@ public static class ThemeColourGenerator
         var o = new StringBuilder();
         o.Append("    <!-- Small, the default: a 12px thumb, so the knob is inset 14px. -->\n");
         o.Append(SliderStates("", 14));
-        o.Append("\n    <!-- Colours: the thumb and both halves of the rail, the inactive one at 30%. -->\n");
+        o.Append("\n    <!-- Colours: the thumb, the rail at 30%, the filled part and the ticks all follow\n");
+        o.Append("         Foreground; the thumb's own Foreground is the value label's text. -->\n");
 
         foreach (var c in Colours)
         {
-            o.Append(Style($"^.{c.ToLowerInvariant()}", ("Foreground", Res($"Fili{c}Brush"))));
+            var cls = c.ToLowerInvariant();
+            o.Append(Style($"^.{cls}", ("Foreground", Res($"Fili{c}Brush"))));
+            o.Append(Style($"^.{cls} /template/ Thumb#PART_Thumb", ("Foreground", Res($"Fili{c}ContrastTextBrush"))));
         }
 
         foreach (var (size, rail, thumb) in SliderSizes)
@@ -632,6 +652,10 @@ public static class ThemeColourGenerator
             o.Append($"\n    <!-- `.mud-slider-{size}`: a {rail}px rail and a {thumb}px thumb. -->\n");
             o.Append(Style($"^.{size}:horizontal /template/ RepeatButton", ("Height", $"{rail}")));
             o.Append(Style($"^.{size}:vertical /template/ RepeatButton", ("Width", $"{rail}")));
+            o.Append(Style($"^.{size}:horizontal /template/ Border#PART_Rail", ("Height", $"{rail}")));
+            o.Append(Style($"^.{size}:vertical /template/ Border#PART_Rail", ("Width", $"{rail}")));
+            o.Append(Style($"^.{size}:horizontal /template/ ItemsControl#PART_TickMarks", ("Height", $"{rail}")));
+            o.Append(Style($"^.{size}:vertical /template/ ItemsControl#PART_TickMarks", ("Width", $"{rail}")));
             o.Append(Style($"^.{size} /template/ Thumb#PART_Thumb", ("Padding", $"{inset}"), ("BorderThickness", $"{inset}")));
             o.Append(SliderStates($".{size}", inset));
         }

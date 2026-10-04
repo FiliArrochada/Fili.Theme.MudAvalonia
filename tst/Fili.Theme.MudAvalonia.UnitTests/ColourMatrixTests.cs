@@ -221,8 +221,13 @@ public class SliderMatrixTests
 
         Assert.Equal(Matrix.Token("FiliPrimaryColor"), Matrix.Colour(slider.Foreground));
         Assert.Equal(2, Matrix.Part<RepeatButton>(slider, "PART_DecreaseButton").Height);
-        Assert.Equal(0.30, Matrix.Part<RepeatButton>(slider, "PART_IncreaseButton").Opacity, 2);
         Assert.Equal(new Thickness(14), Matrix.Part<Thumb>(slider, "PART_Thumb").Padding);
+
+        // Variant.Text, MudSlider's default: the whole rail at 30%, no solid part.
+        var rail = Matrix.Part<Border>(slider, "PART_Rail");
+        Assert.Equal(2, rail.Height);
+        Assert.Equal(0.30, rail.Opacity, 2);
+        Assert.Equal(0, Matrix.Part<RepeatButton>(slider, "PART_DecreaseButton").Opacity);
     });
 
     [Theory]

@@ -28,12 +28,13 @@ dictionaries and every adopting app both have to be able to name that object. An
 wants to be public is a design change, not an addition.
 
 `internal` helpers are allowed where XAML genuinely cannot express something — compiled XAML in
-the same assembly can construct an internal type, so nothing leaks to a consumer. There are two
+the same assembly can construct an internal type, so nothing leaks to a consumer. There are three
 today: `Converters/FactorConverter`, which multiplies a bound pixel dimension by a constant,
 because MudBlazor sizes several things as a percentage of their container and Avalonia has no way
-to say that (its transform parser rejects `%` outright, at runtime); and
+to say that (its transform parser rejects `%` outright, at runtime);
 `Converters/ErrorMessageConverter`, which turns a validation-error entry (usually an `Exception`)
-into the sentence to show. Reach for one only after establishing that the XAML route does not
+into the sentence to show; and `Converters/TickPositionsConverter`, which places a slider's tick
+dots along its track, because Avalonia's `TickBar` can only draw lines. Reach for one only after establishing that the XAML route does not
 exist; a public type still needs a separate package.
 
 Scope discipline matters here, and the line is between **retemplating an Avalonia control** and
