@@ -207,7 +207,16 @@ Two conversions are already applied and should stay applied consistently:
   the desktop head, the browser head AND `GalleryFrames.Configure` - so the pixel baselines do not
   depend on whichever Arabic face the machine has installed either. New non-Latin text in the
   gallery needs a face added there too; on desktop nothing fails without one, so the checks are
-  the published page and a baseline that changes when it should not.
+  the published page and a baseline that changes when it should not. Symbols count too: the
+  embedded Roboto has no `→` (U+2192), so a caption that used one showed boxes on the published
+  page only; it was reworded. Check a new symbol against Roboto's character map before using it.
+- **Avalonia's browser host swallows every key.** It calls `preventDefault` on keydown for
+  effectively all keys, so on the published gallery Ctrl+F, zoom, reload, print and the dev tools
+  did nothing. `wwwroot/main.js` registers a capture listener on `window` before the runtime
+  starts and stops browser-only shortcuts there, so Avalonia never sees them and the browser acts.
+  Editing keys (Ctrl+A/C/V/X/Y/Z, arrows, Tab) are deliberately left to Avalonia. Verified in
+  headless Chrome by wrapping `KeyboardEvent.prototype.preventDefault`; the find bar opens but
+  finds nothing, because the gallery is drawn on a canvas.
 - **RTL needs nothing from a template, and one thing from a glyph.** Avalonia mirrors a whole
   subtree with a single transform where the flow direction CHANGES, so hardcoded `Left`/`Right`
   alignment, dock sides and grid columns flip on their own — do not "fix" them. What does need

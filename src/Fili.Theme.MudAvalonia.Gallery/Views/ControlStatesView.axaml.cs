@@ -5,15 +5,24 @@ using Avalonia.Controls;
 using Avalonia.Controls.Primitives;
 using Avalonia.Input;
 using Avalonia.Interactivity;
+using Avalonia.LogicalTree;
 using Avalonia.VisualTree;
 
 namespace Fili.Theme.MudAvalonia.Gallery.Views;
 
 public partial class ControlStatesView : UserControl
 {
+    /// <summary>
+    /// True while the page itself moves focus for a screenshot prop, which is not somewhere the
+    /// reader asked to go either.
+    /// </summary>
+    private bool _placingFocus;
+
     public ControlStatesView()
     {
         InitializeComponent();
+
+        BuildSectionIndex();
 
         // The page opens at the top. Every sample with a selection - the tab strips, the drawer's
         // list, the pips - asks to bring its selected item into view, and the ones with no scroll
@@ -28,7 +37,7 @@ public partial class ControlStatesView : UserControl
                 .OfType<InputElement>()
                 .Any(element => element.IsFocused) == true;
 
-            if (!focused)
+            if (!focused || _placingFocus)
             {
                 e.Handled = true;
             }
@@ -51,9 +60,37 @@ public partial class ControlStatesView : UserControl
         // directly. That is not something an app should do - it is a screenshot prop.
         Loaded += (_, _) =>
         {
+            // Without the guard, focusing it scrolled the page to it - below the fold in a browser
+            // tab, so the page opened halfway down its first screen.
+            _placingFocus = true;
             FocusedSample.Focus(NavigationMethod.Tab);
+            _placingFocus = false;
             SelectedNode.IsSelected = true;
             ((IPseudoClasses)FocusedText.Classes).Add(":focus-visible");
         };
+    }
+
+    /// <summary>
+    /// One link per section heading (a TextBlock tagged "section"), at the top of the page. The
+    /// page is long enough that a reader looking for one control should not have to scroll for
+    /// it. A link sets the scroll offset itself, because this page ignores bring-into-view
+    /// requests that do not come from keyboard focus - see the constructor.
+    /// </summary>
+    private void BuildSectionIndex()
+    {
+        foreach (var heading in PageContent.GetLogicalDescendants().OfType<TextBlock>().Where(t => Equals(t.Tag, "section")))
+        {
+            var link = new Button { Content = heading.Text, Classes = { "primary", "small" } };
+
+            link.Click += (_, _) =>
+            {
+                var top = heading.TranslatePoint(default, PageContent)?.Y ?? 0;
+
+                // Back off a little, so the divider above the heading shows too.
+                Page.Offset = new Vector(Page.Offset.X, Math.Max(0, top + PageContent.Margin.Top - 16));
+            };
+
+            SectionIndex.Children.Add(link);
+        }
     }
 }
