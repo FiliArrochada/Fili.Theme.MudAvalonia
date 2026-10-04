@@ -3,7 +3,7 @@
              xmlns:notifications="using:Avalonia.Controls.Notifications"
              x:Class="Fili.Theme.MudAvalonia.Gallery.Views.ControlStatesView">
 
-  <ScrollViewer>
+  <ScrollViewer x:Name="Page">
     <StackPanel x:Name="PageContent" Margin="24" Spacing="24">
 
       <StackPanel Spacing="4">
@@ -13,10 +13,15 @@
                    MaxWidth="760"
                    HorizontalAlignment="Left"
                    Text="States are where a theme breaks, and they are exactly what you never notice using the app normally. Hover and press each column, then flip the theme and do it again — a token wired with StaticResource will hold its light value here." />
+        <!-- Jump links, one per section heading, built in code-behind. -->
+        <WrapPanel x:Name="SectionIndex" Margin="-8,8,0,0" />
       </StackPanel>
 
       <!-- Buttons -->
       <StackPanel Spacing="8">
+        <!-- A section heading: the jump links at the top are built from Tag="section". -->
+        <Separator Margin="0,8,0,0" />
+        <TextBlock Classes="h5" Tag="section" Text="Buttons" Margin="0,8,0,4" />
         <TextBlock Classes="overline" Text="Button — variant × colour" />
         <TextBlock Classes="caption" Text="Text (the default variant)" />
         <StackPanel Orientation="Horizontal" Spacing="8">
@@ -58,7 +63,7 @@
                    TextWrapping="Wrap"
                    MaxWidth="760"
                    HorizontalAlignment="Left"
-                   Text="MudButton's Variant × Color, one class each: Classes=&quot;outlined error&quot; is Variant.Outlined, Color.Error. A colour class is only a colour, so primary on its own is a primary TEXT button; the fill comes from filled. Hover each one: text and outlined tint with the colour at 6%, filled switches to the colour's darken shade and lifts 2 → 4 → 8, which no forked template can express because Button has no BoxShadow — only the Border inside a template has one. Default is Color.Default: text-primary, and a grey fill when filled. No ripple — the tint is the static half of it." />
+                   Text="MudButton's Variant × Color, one class each: Classes=&quot;outlined error&quot; is Variant.Outlined, Color.Error. A colour class is only a colour, so primary on its own is a primary TEXT button; the fill comes from filled. Hover each one: text and outlined tint with the colour at 6%, filled switches to the colour's darken shade and lifts from elevation 2 to 4 to 8, which no forked template can express because Button has no BoxShadow — only the Border inside a template has one. Default is Color.Default: text-primary, and a grey fill when filled. No ripple — the tint is the static half of it." />
 
         <TextBlock Classes="overline" Text="Button — size and inherit" Margin="0,8,0,0" />
         <StackPanel Orientation="Horizontal" Spacing="8" VerticalAlignment="Center">
@@ -101,7 +106,8 @@
 
       <!-- Split and drop-down buttons -->
       <StackPanel Spacing="8">
-        <TextBlock Classes="overline" Text="Split and drop-down button" />
+        <Separator Margin="0,8,0,0" />
+        <TextBlock Classes="h5" Tag="section" Text="Split and drop-down buttons" Margin="0,8,0,4" />
         <StackPanel Orientation="Horizontal" Spacing="16">
           <SplitButton Content="Save">
             <SplitButton.Flyout>
@@ -140,6 +146,8 @@
 
       <!-- Icon buttons, chips, alerts, skeletons -->
       <StackPanel Spacing="8">
+        <Separator Margin="0,8,0,0" />
+        <TextBlock Classes="h5" Tag="section" Text="Icon buttons, chips, alerts, skeletons" Margin="0,8,0,4" />
         <TextBlock Classes="overline" Text="Icon button" />
         <StackPanel Orientation="Horizontal" Spacing="8" VerticalAlignment="Center">
           <Button Classes="icon" VerticalAlignment="Center"><PathIcon Data="{StaticResource GalleryMenuIcon}" /></Button>
@@ -201,7 +209,8 @@
 
       <!-- Selection -->
       <StackPanel Spacing="8">
-        <TextBlock Classes="overline" Text="Selection" />
+        <Separator Margin="0,8,0,0" />
+        <TextBlock Classes="h5" Tag="section" Text="Checkboxes, radios and switches" Margin="0,8,0,4" />
         <StackPanel Orientation="Horizontal" Spacing="24">
           <StackPanel Spacing="4">
             <CheckBox Content="Unchecked" />
@@ -264,6 +273,8 @@
 
       <!-- Inputs -->
       <StackPanel Spacing="8">
+        <Separator Margin="0,8,0,0" />
+        <TextBlock Classes="h5" Tag="section" Text="Text fields and selects" Margin="0,8,0,4" />
         <TextBlock Classes="overline" Text="Text field — filled" />
         <StackPanel Orientation="Horizontal" Spacing="12">
           <TextBox Classes="filled" Width="190" PlaceholderText="Label" />
@@ -356,7 +367,8 @@
 
       <!-- Range and progress -->
       <StackPanel Spacing="8">
-        <TextBlock Classes="overline" Text="Range and progress" />
+        <Separator Margin="0,8,0,0" />
+        <TextBlock Classes="h5" Tag="section" Text="Sliders and progress" Margin="0,8,0,4" />
         <StackPanel Orientation="Horizontal" Spacing="24" VerticalAlignment="Center">
           <Slider Width="220" Value="40" />
           <Slider Classes="secondary medium" Width="220" Value="55" />
@@ -402,7 +414,8 @@
 
       <!-- Dividers -->
       <StackPanel Spacing="8">
-        <TextBlock Classes="overline" Text="Divider" />
+        <Separator Margin="0,8,0,0" />
+        <TextBlock Classes="h5" Tag="section" Text="Dividers" Margin="0,8,0,4" />
         <TextBlock Classes="caption"
                    TextWrapping="Wrap"
                    MaxWidth="760"
@@ -427,7 +440,8 @@
 
       <!-- Surfaces -->
       <StackPanel Spacing="8">
-        <TextBlock Classes="overline" Text="Surfaces" />
+        <Separator Margin="0,8,0,0" />
+        <TextBlock Classes="h5" Tag="section" Text="Surfaces" Margin="0,8,0,4" />
         <StackPanel Orientation="Horizontal" Spacing="16">
           <Border Classes="surface elevation1" Width="200" Height="96" Padding="16">
             <StackPanel Spacing="4">
@@ -452,7 +466,8 @@
 
       <!-- Lists and tabs -->
       <StackPanel Spacing="8">
-        <TextBlock Classes="overline" Text="Lists, tabs and menus" />
+        <Separator Margin="0,8,0,0" />
+        <TextBlock Classes="h5" Tag="section" Text="Lists, tabs and menus" Margin="0,8,0,4" />
         <StackPanel Orientation="Horizontal" Spacing="16">
           <ListBox Width="220" Height="140" SelectedIndex="1">
             <ListBoxItem>First item</ListBoxItem>
@@ -521,7 +536,8 @@
 
       <!-- Lists, toggles, links and panels -->
       <StackPanel Spacing="8">
-        <TextBlock Classes="overline" Text="List, toggle, link" />
+        <Separator Margin="0,8,0,0" />
+        <TextBlock Classes="h5" Tag="section" Text="Toggles, links and panels" Margin="0,8,0,4" />
         <TextBlock Classes="caption"
                    TextWrapping="Wrap"
                    MaxWidth="760"
@@ -583,7 +599,8 @@
 
       <!-- Drawer -->
       <StackPanel Spacing="8">
-        <TextBlock Classes="overline" Text="Drawer" />
+        <Separator Margin="0,8,0,0" />
+        <TextBlock Classes="h5" Tag="section" Text="Drawer" Margin="0,8,0,4" />
         <TextBlock Classes="caption"
                    TextWrapping="Wrap"
                    MaxWidth="760"
@@ -613,7 +630,8 @@
 
       <!-- Snackbars -->
       <StackPanel Spacing="8">
-        <TextBlock Classes="overline" Text="Snackbar" />
+        <Separator Margin="0,8,0,0" />
+        <TextBlock Classes="h5" Tag="section" Text="Snackbars" Margin="0,8,0,4" />
         <TextBlock Classes="caption"
                    TextWrapping="Wrap"
                    MaxWidth="760"
@@ -631,7 +649,8 @@
 
       <!-- Tab strip and pips -->
       <StackPanel Spacing="8">
-        <TextBlock Classes="overline" Text="Tab strip and pips" />
+        <Separator Margin="0,8,0,0" />
+        <TextBlock Classes="h5" Tag="section" Text="Tab strips, pips and the app bar" Margin="0,8,0,4" />
         <StackPanel Orientation="Horizontal" Spacing="24" VerticalAlignment="Center">
           <TabStrip Width="480" SelectedIndex="0">
             <TabStripItem>Library</TabStripItem>
@@ -684,7 +703,8 @@
 
       <!-- Right to left -->
       <StackPanel Spacing="8">
-        <TextBlock Classes="overline" Text="Right to left" />
+        <Separator Margin="0,8,0,0" />
+        <TextBlock Classes="h5" Tag="section" Text="Right to left" Margin="0,8,0,4" />
         <TextBlock Classes="caption"
                    TextWrapping="Wrap"
                    MaxWidth="760"
@@ -718,7 +738,8 @@
 
       <!-- Semantic colours in use -->
       <StackPanel Spacing="8">
-        <TextBlock Classes="overline" Text="Semantic colours" />
+        <Separator Margin="0,8,0,0" />
+        <TextBlock Classes="h5" Tag="section" Text="Semantic colours" Margin="0,8,0,4" />
         <StackPanel Orientation="Horizontal" Spacing="12">
           <Border Classes="surface elevation1" Padding="12,8" Background="{DynamicResource FiliInfoBrush}">
             <TextBlock Classes="body2" Foreground="White" Text="Info" />

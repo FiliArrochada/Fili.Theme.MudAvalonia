@@ -1,5 +1,7 @@
+using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Input;
+using Avalonia.Interactivity;
 using Avalonia.Threading;
 using Avalonia.VisualTree;
 using Fili.Theme.MudAvalonia.Gallery.Views;
@@ -18,7 +20,9 @@ public class GalleryPageTests
     private static (ControlStatesView View, ScrollViewer Page) Open()
     {
         var view = new ControlStatesView();
-        var window = new Window { Content = view, Width = 1180, Height = 800 };
+        // Shorter than the page's first screen of samples, as a browser tab is: the focused "Tabbed
+        // to" sample then sits below the fold, which is what made the page open scrolled.
+        var window = new Window { Content = view, Width = 1180, Height = 560 };
         window.Show();
 
         for (var i = 0; i < 5; i++)
@@ -54,5 +58,29 @@ public class GalleryPageTests
         Dispatcher.UIThread.RunJobs();
 
         Assert.True(page.Offset.Y > 0, "Tabbing to a field at the bottom did not scroll the page.");
+    });
+
+    /// <summary>
+    /// Every section heading has a jump link at the top, and the link brings its heading to the
+    /// top of the page - by setting the offset itself, since the page ignores scroll requests
+    /// that do not come from keyboard focus.
+    /// </summary>
+    [Fact]
+    public Task AJumpLinkScrollsToItsSection() => UiThread.RunAsync(() =>
+    {
+        var (view, page) = Open();
+        var headings = view.GetVisualDescendants().OfType<TextBlock>().Where(t => Equals(t.Tag, "section")).ToList();
+        var links = view.GetVisualDescendants().OfType<WrapPanel>().Single(p => p.Name == "SectionIndex").Children.OfType<Button>().ToList();
+
+        Assert.Equal(15, headings.Count);
+        Assert.Equal(headings.Select(h => h.Text), links.Select(l => l.Content as string));
+
+        var sliders = links.Single(l => (string?)l.Content == "Sliders and progress");
+        sliders.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
+        Dispatcher.UIThread.RunJobs();
+
+        var heading = headings.Single(h => h.Text == "Sliders and progress");
+        var top = heading.TranslatePoint(default, page)!.Value.Y;
+        Assert.InRange(top, 0, 48);
     });
 }
