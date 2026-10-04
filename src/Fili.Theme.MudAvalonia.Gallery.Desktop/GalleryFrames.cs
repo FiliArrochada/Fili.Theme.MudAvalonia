@@ -242,8 +242,8 @@ public static class GalleryFrames
     /// rather than by remembering coordinates.
     ///
     /// <para>
-    /// There are two today, both animated for ever: an indeterminate ProgressBar, and a pulsing
-    /// skeleton. A `no-animation` skeleton holds still, so it is compared like everything else. Each is driven by an animation clock that follows wall time, so
+    /// There are three today, all animated for ever: an indeterminate or striped ProgressBar, and
+    /// a pulsing skeleton. A `no-animation` skeleton holds still, so it is compared like everything else. Each is driven by an animation clock that follows wall time, so
     /// the phase depends on how long the process took to get here — two runs of the SAME BUILD
     /// differ, every time, and no settle time can wait out an infinite animation.
     /// </para>
@@ -263,7 +263,7 @@ public static class GalleryFrames
     [
         .. window.GetVisualDescendants()
             .OfType<Control>()
-            .Where(c => c is ProgressBar { IsIndeterminate: true }
+            .Where(c => c is ProgressBar { IsIndeterminate: true } || (c is ProgressBar && c.Classes.Contains("striped"))
                 || (c is Border && c.Classes.Contains("skeleton") && !c.Classes.Contains("no-animation")))
             .Where(c => c.Bounds is { Width: > 0, Height: > 0 })
             .Select(c =>

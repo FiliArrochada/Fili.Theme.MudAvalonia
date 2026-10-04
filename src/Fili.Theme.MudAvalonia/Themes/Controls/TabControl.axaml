@@ -22,6 +22,12 @@
     Outlined       outlined    a lines-default ring round the bar
     Rounded        rounded     default-borderradius on the bar
     Centered       centered    the tab row centred in the bar
+    Elevation      elevation0 ... elevation24, the shadow under the bar
+    SliderColor    slider-{colour}: the indicator in that colour, whatever the bar's
+    Position       TabStripPlacement - Top, Bottom, Left or Right. The bar docks to that edge,
+                   `border` draws its rule on the content side, the tabs stack for Left and
+                   Right, and each tab moves its indicator to the content side: a TabItem knows
+                   its own TabStripPlacement, so it needs nothing from its parent.
 
   The colours are generated, into a region of FiliTheme.axaml: a TabItem's theme cannot see its
   TabControl's class, so they are `TabControl.primary > TabItem` styles there.
@@ -84,6 +90,24 @@
       <Setter Property="Opacity" Value="1" />
     </Style>
 
+    <!-- `.mud-tab-slider-horizontal-reverse` / `-vertical` / `-vertical-reverse`: the indicator
+         sits on the side that faces the content. -->
+    <Style Selector="^[TabStripPlacement=Bottom] /template/ Border#PART_Indicator">
+      <Setter Property="VerticalAlignment" Value="Top" />
+    </Style>
+    <Style Selector="^[TabStripPlacement=Left] /template/ Border#PART_Indicator">
+      <Setter Property="Height" Value="NaN" />
+      <Setter Property="Width" Value="2" />
+      <Setter Property="VerticalAlignment" Value="Stretch" />
+      <Setter Property="HorizontalAlignment" Value="Right" />
+    </Style>
+    <Style Selector="^[TabStripPlacement=Right] /template/ Border#PART_Indicator">
+      <Setter Property="Height" Value="NaN" />
+      <Setter Property="Width" Value="2" />
+      <Setter Property="VerticalAlignment" Value="Stretch" />
+      <Setter Property="HorizontalAlignment" Value="Left" />
+    </Style>
+
     <!-- _tabs.scss: action-default-hover on a tab, primary-hover on the active one. Keyboard
          focus paints the same tint - that IS the affordance in MudBlazor, where _reset.scss drops
          the browser ring. -->
@@ -120,9 +144,11 @@
                 BorderBrush="{TemplateBinding BorderBrush}"
                 BorderThickness="{TemplateBinding BorderThickness}">
           <DockPanel>
-            <Border x:Name="PART_TabBar" DockPanel.Dock="Top">
-              <ItemsPresenter x:Name="PART_ItemsPresenter"
-                              ItemsPanel="{TemplateBinding ItemsPanel}" />
+            <Border x:Name="PART_TabBarHost">
+              <Border x:Name="PART_TabBar">
+                <ItemsPresenter x:Name="PART_ItemsPresenter"
+                                ItemsPanel="{TemplateBinding ItemsPanel}" />
+              </Border>
             </Border>
 
             <ContentPresenter x:Name="PART_SelectedContentHost"
@@ -159,6 +185,92 @@
     <!-- Centered: .mud-tabs-centered, `margin: auto` on the tab row. -->
     <Style Selector="^.centered /template/ ItemsPresenter#PART_ItemsPresenter">
       <Setter Property="HorizontalAlignment" Value="Center" />
+    </Style>
+
+    <!-- Elevation: `.mud-elevation-{n}` on the bar. The shadow is on the host, outside the bar,
+         because `rounded` clips the bar and would clip its own shadow away. -->
+    <Style Selector="^.elevation0 /template/ Border#PART_TabBarHost">
+      <Setter Property="BoxShadow" Value="{DynamicResource FiliElevation0}" />
+    </Style>
+    <Style Selector="^.elevation1 /template/ Border#PART_TabBarHost">
+      <Setter Property="BoxShadow" Value="{DynamicResource FiliElevation1}" />
+    </Style>
+    <Style Selector="^.elevation2 /template/ Border#PART_TabBarHost">
+      <Setter Property="BoxShadow" Value="{DynamicResource FiliElevation2}" />
+    </Style>
+    <Style Selector="^.elevation4 /template/ Border#PART_TabBarHost">
+      <Setter Property="BoxShadow" Value="{DynamicResource FiliElevation4}" />
+    </Style>
+    <Style Selector="^.elevation6 /template/ Border#PART_TabBarHost">
+      <Setter Property="BoxShadow" Value="{DynamicResource FiliElevation6}" />
+    </Style>
+    <Style Selector="^.elevation8 /template/ Border#PART_TabBarHost">
+      <Setter Property="BoxShadow" Value="{DynamicResource FiliElevation8}" />
+    </Style>
+    <Style Selector="^.elevation12 /template/ Border#PART_TabBarHost">
+      <Setter Property="BoxShadow" Value="{DynamicResource FiliElevation12}" />
+    </Style>
+    <Style Selector="^.elevation16 /template/ Border#PART_TabBarHost">
+      <Setter Property="BoxShadow" Value="{DynamicResource FiliElevation16}" />
+    </Style>
+    <Style Selector="^.elevation24 /template/ Border#PART_TabBarHost">
+      <Setter Property="BoxShadow" Value="{DynamicResource FiliElevation24}" />
+    </Style>
+    <Style Selector="^.rounded /template/ Border#PART_TabBarHost">
+      <Setter Property="CornerRadius" Value="{DynamicResource FiliCornerRadius}" />
+    </Style>
+
+    <!--
+      Position. The dock is a style, not inline in the template, so these can move it. MudTabs'
+      Bottom reverses the column, Left and Right turn it into a row with the tabs stacked, and
+      `.mud-tabs-border-{position}` puts the rule on the side that faces the content.
+    -->
+    <Style Selector="^ /template/ Border#PART_TabBarHost">
+      <Setter Property="DockPanel.Dock" Value="Top" />
+    </Style>
+    <Style Selector="^[TabStripPlacement=Bottom] /template/ Border#PART_TabBarHost">
+      <Setter Property="DockPanel.Dock" Value="Bottom" />
+    </Style>
+    <Style Selector="^[TabStripPlacement=Left] /template/ Border#PART_TabBarHost">
+      <Setter Property="DockPanel.Dock" Value="Left" />
+    </Style>
+    <Style Selector="^[TabStripPlacement=Right] /template/ Border#PART_TabBarHost">
+      <Setter Property="DockPanel.Dock" Value="Right" />
+    </Style>
+
+    <Style Selector="^[TabStripPlacement=Left]">
+      <Setter Property="ItemsPanel">
+        <ItemsPanelTemplate>
+          <StackPanel />
+        </ItemsPanelTemplate>
+      </Setter>
+    </Style>
+    <Style Selector="^[TabStripPlacement=Right]">
+      <Setter Property="ItemsPanel">
+        <ItemsPanelTemplate>
+          <StackPanel />
+        </ItemsPanelTemplate>
+      </Setter>
+    </Style>
+
+    <Style Selector="^.border[TabStripPlacement=Bottom] /template/ Border#PART_TabBar">
+      <Setter Property="BorderThickness" Value="0,1,0,0" />
+    </Style>
+    <Style Selector="^.border[TabStripPlacement=Left] /template/ Border#PART_TabBar">
+      <Setter Property="BorderThickness" Value="0,0,1,0" />
+    </Style>
+    <Style Selector="^.border[TabStripPlacement=Right] /template/ Border#PART_TabBar">
+      <Setter Property="BorderThickness" Value="1,0,0,0" />
+    </Style>
+
+    <!-- A vertical bar centres its tabs vertically. -->
+    <Style Selector="^.centered[TabStripPlacement=Left] /template/ ItemsPresenter#PART_ItemsPresenter">
+      <Setter Property="HorizontalAlignment" Value="Stretch" />
+      <Setter Property="VerticalAlignment" Value="Center" />
+    </Style>
+    <Style Selector="^.centered[TabStripPlacement=Right] /template/ ItemsPresenter#PART_ItemsPresenter">
+      <Setter Property="HorizontalAlignment" Value="Stretch" />
+      <Setter Property="VerticalAlignment" Value="Center" />
     </Style>
   </ControlTheme>
 

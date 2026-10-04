@@ -73,6 +73,13 @@ public class ClassVocabularyTests
         // MudCheckBox's and MudRadio's UncheckedColor, one per palette colour.
         "unchecked-dark", "unchecked-error", "unchecked-info", "unchecked-primary",
         "unchecked-secondary", "unchecked-success", "unchecked-tertiary", "unchecked-warning",
+
+        // MudTabs' SliderColor, one per palette colour.
+        "slider-dark", "slider-error", "slider-info", "slider-primary",
+        "slider-secondary", "slider-success", "slider-tertiary", "slider-warning",
+
+        // MudProgressLinear's Striped, and MudButton's and MudChip's icon placement.
+        "end-icon", "start-icon", "striped",
     ];
 
     /// <summary>

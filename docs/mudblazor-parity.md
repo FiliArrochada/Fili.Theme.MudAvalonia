@@ -6,7 +6,7 @@ where the two differ. For side-by-side markup, see [Razor and AXAML](razor-vs-ax
 The rule behind every row: **a class only ever names a MudBlazor variant.** Every control the
 theme templates is keyed to its type, so an unclassed control is already the MudBlazor default.
 Class names are MudBlazor's own words (`primary`, `outlined`, `small`), deliberately not
-namespaced. `ClassVocabularyTests` pins the full list of 68.
+namespaced. `ClassVocabularyTests` pins the full list of 79.
 
 | Mark | Meaning |
 |---|---|
@@ -35,7 +35,7 @@ Variant, colour and size are one class each and combine freely:
 | elevation 2 → 4 → 8 | the same | ✅ |
 | `DropShadow="false"` | `flat` | ✅ elevation 0 at rest, hover, focus and press |
 | `FullWidth` | `HorizontalAlignment="Stretch"` | ≈ |
-| `StartIcon` / `EndIcon` | put an icon in `Content` | ≈ no icon margins applied |
+| `StartIcon` / `EndIcon` | an icon in `Content` with `start-icon` / `end-icon` | ✅ 20px (18 small, 22 large), 4px out and 8px from the label (2px out when small) |
 | ripple | — | ❌ no Avalonia primitive; the state tint is its static half |
 | uppercase label | — | ❌ Avalonia has no text-transform |
 
@@ -63,7 +63,9 @@ Put a `PathIcon` in `Content`: `<Button Classes="icon primary"><PathIcon Data="�
 | `Size.Small` / `Large` | `small` / `large` | ✅ 24 / 40px high, 12 / 16px text |
 | selected (in a `MudChipSet`) | `IsChecked` on a `ToggleButton.chip` | ✅ `MudChip.GetVariant`'s swap: a selected filled chip draws as text, a selected text chip as filled |
 | `Disabled` | `IsEnabled="False"` | ✅ |
-| `OnClose` close icon, `Avatar`, `Icon` | put them in `Content` | ≈ no close glyph or icon margins applied |
+| `Icon` | an icon in `Content` with `start-icon` | ✅ 20px (18 small, 24 large), 4px out and 4px in (6px on a large chip) |
+| close icon | an icon or button in `Content` with `end-icon` | ≈ the close button's 18px and spacing; closing is the app's |
+| `Avatar` | put it in `Content` | ≈ no avatar margins applied |
 | `MudChipSet` selection rules | — | ❌ single/multi selection is the app's, through `IsChecked` bindings |
 
 ### MudFab, MudBadge, MudAvatar
@@ -171,7 +173,8 @@ Put a `PathIcon` in `Content`: `<Button Classes="icon primary"><PathIcon Data="�
 | `Rounded` | `rounded` | ✅ |
 | `Indeterminate` | `IsIndeterminate` | ✅ MudBlazor's two-bar animation |
 | `Color` | `primary` … `dark` | ✅ every palette colour, the track at 20% of it |
-| `Buffer`, `Striped` | — | ❌ |
+| `Striped` | `striped` | ✅ 25% white bands at 135°, 40px apart, sliding as MudBlazor's do |
+| `Buffer` | — | ❌ it needs a second value `ProgressBar` does not have |
 | `MudProgressCircular` | — | ❌ no circular progress control in Avalonia |
 
 ### MudDivider → `Separator`
@@ -205,7 +208,9 @@ Put a `PathIcon` in `Content`: `<Button Classes="icon primary"><PathIcon Data="�
 | `Border` / `Outlined` | `border` / `outlined` | ✅ a `lines-default` rule under the bar, or round it |
 | `Rounded` / `Centered` | `rounded` / `centered` | ✅ |
 | `HideSlider` | `hide-slider` | ✅ |
-| `SliderColor`, `Elevation`, `Position` | — | ❌ |
+| `Position` | `TabStripPlacement` on a `TabControl` | ✅ Top, Bottom, Left, Right: the bar docks there, `border` draws its rule on the content side, and the indicator follows |
+| `Elevation` | `elevation0` … `elevation24` | ✅ on the bar, outside `rounded`'s clip |
+| `SliderColor` | `slider-primary` … `slider-dark` | ✅ the indicator alone, over any bar colour |
 | sliding indicator | — | ❌ it fades per tab instead |
 
 ### MudList → `ListBox`

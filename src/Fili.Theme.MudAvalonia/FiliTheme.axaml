@@ -867,6 +867,54 @@
   <Style Selector="TabStrip.dark > TabStripItem:selected:focus-visible /template/ Border#PART_StateLayer">
     <Setter Property="Background" Value="{DynamicResource FiliDarkLightenBrush}" />
   </Style>
+  <Style Selector="TabControl.slider-primary > TabItem /template/ Border#PART_Indicator">
+    <Setter Property="Background" Value="{DynamicResource FiliPrimaryBrush}" />
+  </Style>
+  <Style Selector="TabStrip.slider-primary > TabStripItem:selected /template/ Border#PART_Indicator">
+    <Setter Property="Background" Value="{DynamicResource FiliPrimaryBrush}" />
+  </Style>
+  <Style Selector="TabControl.slider-secondary > TabItem /template/ Border#PART_Indicator">
+    <Setter Property="Background" Value="{DynamicResource FiliSecondaryBrush}" />
+  </Style>
+  <Style Selector="TabStrip.slider-secondary > TabStripItem:selected /template/ Border#PART_Indicator">
+    <Setter Property="Background" Value="{DynamicResource FiliSecondaryBrush}" />
+  </Style>
+  <Style Selector="TabControl.slider-tertiary > TabItem /template/ Border#PART_Indicator">
+    <Setter Property="Background" Value="{DynamicResource FiliTertiaryBrush}" />
+  </Style>
+  <Style Selector="TabStrip.slider-tertiary > TabStripItem:selected /template/ Border#PART_Indicator">
+    <Setter Property="Background" Value="{DynamicResource FiliTertiaryBrush}" />
+  </Style>
+  <Style Selector="TabControl.slider-info > TabItem /template/ Border#PART_Indicator">
+    <Setter Property="Background" Value="{DynamicResource FiliInfoBrush}" />
+  </Style>
+  <Style Selector="TabStrip.slider-info > TabStripItem:selected /template/ Border#PART_Indicator">
+    <Setter Property="Background" Value="{DynamicResource FiliInfoBrush}" />
+  </Style>
+  <Style Selector="TabControl.slider-success > TabItem /template/ Border#PART_Indicator">
+    <Setter Property="Background" Value="{DynamicResource FiliSuccessBrush}" />
+  </Style>
+  <Style Selector="TabStrip.slider-success > TabStripItem:selected /template/ Border#PART_Indicator">
+    <Setter Property="Background" Value="{DynamicResource FiliSuccessBrush}" />
+  </Style>
+  <Style Selector="TabControl.slider-warning > TabItem /template/ Border#PART_Indicator">
+    <Setter Property="Background" Value="{DynamicResource FiliWarningBrush}" />
+  </Style>
+  <Style Selector="TabStrip.slider-warning > TabStripItem:selected /template/ Border#PART_Indicator">
+    <Setter Property="Background" Value="{DynamicResource FiliWarningBrush}" />
+  </Style>
+  <Style Selector="TabControl.slider-error > TabItem /template/ Border#PART_Indicator">
+    <Setter Property="Background" Value="{DynamicResource FiliErrorBrush}" />
+  </Style>
+  <Style Selector="TabStrip.slider-error > TabStripItem:selected /template/ Border#PART_Indicator">
+    <Setter Property="Background" Value="{DynamicResource FiliErrorBrush}" />
+  </Style>
+  <Style Selector="TabControl.slider-dark > TabItem /template/ Border#PART_Indicator">
+    <Setter Property="Background" Value="{DynamicResource FiliDarkBrush}" />
+  </Style>
+  <Style Selector="TabStrip.slider-dark > TabStripItem:selected /template/ Border#PART_Indicator">
+    <Setter Property="Background" Value="{DynamicResource FiliDarkBrush}" />
+  </Style>
   <!-- END GENERATED -->
 
   <!-- ============================== Controls ==============================
@@ -923,6 +971,60 @@
   <Style Selector="Button.icon.large.outlined PathIcon, Button.icon.large.filled PathIcon">
     <Setter Property="Width" Value="32" />
     <Setter Property="Height" Value="32" />
+  </Style>
+
+  <!--
+    MudButton's StartIcon and EndIcon, and MudChip's Icon, as classes on whatever icon a button's
+    content carries: `<PathIcon Classes="start-icon" />` before the label, `end-icon` after it.
+    From _button.scss: 20px (18 small, 22 large), the start icon pulled 4px out and spaced 8px
+    from the label (2px out when small), the end icon the mirror. A chip's icon is
+    `.mud-chip-icon` at MudIcon Size.Small: 20px (18 on a small chip, 24 on a large one), 4px out
+    and 4px in (6px on a large chip); its end icon takes the close button's place, 18px, 6px from
+    the label and 4px out.
+  -->
+  <Style Selector="Button :is(Control).start-icon, ToggleButton :is(Control).start-icon, SplitButton :is(Control).start-icon, DropDownButton :is(Control).start-icon">
+    <Setter Property="Width" Value="20" />
+    <Setter Property="Height" Value="20" />
+    <Setter Property="Margin" Value="-4,0,8,0" />
+  </Style>
+  <Style Selector="Button :is(Control).end-icon, ToggleButton :is(Control).end-icon, SplitButton :is(Control).end-icon, DropDownButton :is(Control).end-icon">
+    <Setter Property="Width" Value="20" />
+    <Setter Property="Height" Value="20" />
+    <Setter Property="Margin" Value="8,0,-4,0" />
+  </Style>
+  <Style Selector="Button.small :is(Control).start-icon, ToggleButton.small :is(Control).start-icon, SplitButton.small :is(Control).start-icon, DropDownButton.small :is(Control).start-icon">
+    <Setter Property="Width" Value="18" />
+    <Setter Property="Height" Value="18" />
+    <Setter Property="Margin" Value="-2,0,8,0" />
+  </Style>
+  <Style Selector="Button.small :is(Control).end-icon, ToggleButton.small :is(Control).end-icon, SplitButton.small :is(Control).end-icon, DropDownButton.small :is(Control).end-icon">
+    <Setter Property="Width" Value="18" />
+    <Setter Property="Height" Value="18" />
+    <Setter Property="Margin" Value="8,0,-2,0" />
+  </Style>
+  <Style Selector="Button.large :is(Control).start-icon, ToggleButton.large :is(Control).start-icon, SplitButton.large :is(Control).start-icon, DropDownButton.large :is(Control).start-icon, Button.large :is(Control).end-icon, ToggleButton.large :is(Control).end-icon, SplitButton.large :is(Control).end-icon, DropDownButton.large :is(Control).end-icon">
+    <Setter Property="Width" Value="22" />
+    <Setter Property="Height" Value="22" />
+  </Style>
+
+  <Style Selector="Button.chip :is(Control).start-icon, ToggleButton.chip :is(Control).start-icon">
+    <Setter Property="Width" Value="20" />
+    <Setter Property="Height" Value="20" />
+    <Setter Property="Margin" Value="-4,0,4,0" />
+  </Style>
+  <Style Selector="Button.chip.small :is(Control).start-icon, ToggleButton.chip.small :is(Control).start-icon">
+    <Setter Property="Width" Value="18" />
+    <Setter Property="Height" Value="18" />
+  </Style>
+  <Style Selector="Button.chip.large :is(Control).start-icon, ToggleButton.chip.large :is(Control).start-icon">
+    <Setter Property="Width" Value="24" />
+    <Setter Property="Height" Value="24" />
+    <Setter Property="Margin" Value="-6,0,6,0" />
+  </Style>
+  <Style Selector="Button.chip :is(Control).end-icon, ToggleButton.chip :is(Control).end-icon">
+    <Setter Property="Width" Value="18" />
+    <Setter Property="Height" Value="18" />
+    <Setter Property="Margin" Value="6,0,-4,0" />
   </Style>
 
   <Style Selector="TextBox.filled">

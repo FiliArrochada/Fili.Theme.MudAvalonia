@@ -15,7 +15,7 @@ compiled to WebAssembly and served by GitHub Pages.
 
 Coming from MudBlazor? [MudBlazor parity](docs/mudblazor-parity.md) maps every component
 parameter and palette property to its class or token, and [Razor and AXAML](docs/razor-vs-axaml.md)
-shows the same UI written both ways. [Testing](docs/testing.md) explains what the 362 unit tests
+shows the same UI written both ways. [Testing](docs/testing.md) explains what the 384 unit tests
 and nine pixel frames check, how CI runs them, and why each exists.
 
 The token values are MudBlazor's defaults, transcribed from its source rather than eyeballed. The
@@ -154,7 +154,7 @@ the matrix, at rest and on a real pointer hover. Both helpers live in the unit-t
 `Variant.Outlined`, `Variant.Text` and `Variant.Filled` — API familiarity is the point of this
 package, so they are not namespaced to `mud-primary` or hidden behind an attached property.
 
-**All 68 of them, which is the list to grep an app against before adopting:**
+**All 79 of them, which is the list to grep an app against before adopting:**
 
 | | |
 |---|---|
@@ -165,7 +165,9 @@ package, so they are not namespaced to `mud-primary` or hidden behind an attache
 | Size (`Size`) | `small`, `medium`, `large`, `dense` |
 | Placement | `inset`, `middle`, `vertical`, `light`, `underline`, `no-underline`, `border`, `centered`, `hide-slider` |
 | Component | `icon`, `chip`, `alert`, `skeleton`, `circle`, `rectangle`, `counter` |
-| Behaviour | `helper-on-focus`, `no-animation`, `value-label` |
+| Behaviour | `helper-on-focus`, `no-animation`, `value-label`, `striped` |
+| Icons in content | `start-icon`, `end-icon` |
+| Tab indicator colour (`SliderColor`) | `slider-primary`, `slider-secondary`, `slider-tertiary`, `slider-info`, `slider-success`, `slider-warning`, `slider-error`, `slider-dark` |
 | Unchecked colour (`UncheckedColor`) | `unchecked-primary`, `unchecked-secondary`, `unchecked-tertiary`, `unchecked-info`, `unchecked-success`, `unchecked-warning`, `unchecked-error`, `unchecked-dark` |
 
 `ClassVocabularyTests` asserts that list is exactly what the theme uses, in both directions — an
@@ -1153,8 +1155,8 @@ guards; this is the summary.
 
 | Runner | Builds | Runs |
 |---|---|---|
-| `ubuntu-latest` | the whole solution, browser gallery included | the 362 unit tests |
-| `windows-latest` | the two test projects, which reference every project but the browser gallery | the 362 unit tests **and** the 9 pixel baselines |
+| `ubuntu-latest` | the whole solution, browser gallery included | the 384 unit tests |
+| `windows-latest` | the two test projects, which reference every project but the browser gallery | the 384 unit tests **and** the 9 pixel baselines |
 
 **Only Linux installs the `wasm-tools` workload.** The browser gallery's build natively links Skia
 and HarfBuzz into `dotnet.wasm`, so even restoring it needs the workload. Installing it on Windows

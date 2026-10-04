@@ -161,6 +161,25 @@
           <Button Classes="filled primary flat" Content="Flat" VerticalAlignment="Center" />
         </StackPanel>
 
+        <TextBlock Classes="overline" Text="Start and end icons" Margin="0,8,0,0" />
+        <StackPanel Orientation="Horizontal" Spacing="8" VerticalAlignment="Center">
+          <Button Classes="filled primary" VerticalAlignment="Center">
+            <StackPanel Orientation="Horizontal"><PathIcon Classes="start-icon" Data="{StaticResource GalleryAddIcon}" /><TextBlock Text="Add" VerticalAlignment="Center" /></StackPanel>
+          </Button>
+          <Button Classes="outlined error small" VerticalAlignment="Center">
+            <StackPanel Orientation="Horizontal"><PathIcon Classes="start-icon" Data="{StaticResource GalleryDeleteIcon}" /><TextBlock Text="Delete" VerticalAlignment="Center" /></StackPanel>
+          </Button>
+          <Button Classes="secondary large" VerticalAlignment="Center">
+            <StackPanel Orientation="Horizontal"><TextBlock Text="Favourite" VerticalAlignment="Center" /><PathIcon Classes="end-icon" Data="{StaticResource GalleryFavoriteIcon}" /></StackPanel>
+          </Button>
+          <Button Classes="chip primary" VerticalAlignment="Center">
+            <StackPanel Orientation="Horizontal"><PathIcon Classes="start-icon" Data="{StaticResource GalleryFavoriteIcon}" /><TextBlock Text="Chip icon" VerticalAlignment="Center" /></StackPanel>
+          </Button>
+          <Button Classes="chip outlined" VerticalAlignment="Center">
+            <StackPanel Orientation="Horizontal"><TextBlock Text="Closable" VerticalAlignment="Center" /><PathIcon Classes="end-icon" Data="{StaticResource GalleryDeleteIcon}" /></StackPanel>
+          </Button>
+        </StackPanel>
+
         <TextBlock Classes="overline" Text="Chip" Margin="0,8,0,0" />
         <WrapPanel Orientation="Horizontal">
           <Button Classes="chip" Content="Default" />
@@ -408,6 +427,11 @@
             <TextBlock Classes="caption" Text="Indeterminate" />
             <ProgressBar Classes="medium rounded" IsIndeterminate="True" />
             <ProgressBar Classes="primary medium rounded" IsIndeterminate="True" />
+          </StackPanel>
+          <StackPanel Width="220" Spacing="12">
+            <TextBlock Classes="caption" Text="Striped" />
+            <ProgressBar Classes="primary large rounded striped" Value="70" />
+            <ProgressBar Classes="success large rounded striped" Value="45" />
           </StackPanel>
         </StackPanel>
       </StackPanel>
@@ -687,6 +711,26 @@
             <TabStripItem>Outlined, no slider</TabStripItem>
             <TabStripItem>Rounded</TabStripItem>
           </TabStrip>
+          <TabStrip Classes="elevation4 rounded slider-secondary" Width="480" SelectedIndex="0" Margin="0,0,0,8">
+            <TabStripItem>Elevation 4</TabStripItem>
+            <TabStripItem>Slider colour</TabStripItem>
+          </TabStrip>
+          <TabStrip Classes="primary slider-warning" Width="480" SelectedIndex="1">
+            <TabStripItem>Primary bar</TabStripItem>
+            <TabStripItem>Warning slider</TabStripItem>
+          </TabStrip>
+          <TabControl Classes="border" TabStripPlacement="Bottom" Width="480" Height="150">
+            <TabItem Header="Bottom">
+              <TextBlock Classes="body2" Margin="12" TextWrapping="Wrap" Text="TabStripPlacement Bottom: the bar under the content, its rule and indicator on top." />
+            </TabItem>
+            <TabItem Header="Second" />
+          </TabControl>
+          <TabControl Classes="border" TabStripPlacement="Left" Width="480" Height="150">
+            <TabItem Header="Left">
+              <TextBlock Classes="body2" Margin="12" TextWrapping="Wrap" Text="TabStripPlacement Left: the tabs stack, and the indicator is a column on the content side." />
+            </TabItem>
+            <TabItem Header="Second" />
+          </TabControl>
           <Border Classes="appbar dense" Width="480">
             <TextBlock Classes="h6" Text="Dense app bar" VerticalAlignment="Center" />
           </Border>
@@ -698,7 +742,7 @@
                    TextWrapping="Wrap"
                    MaxWidth="760"
                    HorizontalAlignment="Left"
-                   Text="MudTabs' defaults: a surface bar with no rule under it, tabs in text-primary and at least 160px wide. A colour class is MudTabs' Color, the bar in the colour and the tabs in its contrast text; border, outlined, rounded, centered and hide-slider are its parameters of the same names, on a TabControl or a TabStrip. An app bar is 64px with 24px gutters, dense is 48px, and a colour class is MudAppBar's Color." />
+                   Text="MudTabs' defaults: a surface bar with no rule under it, tabs in text-primary and at least 160px wide. A colour class is MudTabs' Color, the bar in the colour and the tabs in its contrast text; border, outlined, rounded, centered and hide-slider are its parameters of the same names, on a TabControl or a TabStrip; elevation4 and the like are Elevation, and slider-warning and the like are SliderColor. Position is TabStripPlacement on a TabControl. An app bar is 64px with 24px gutters, dense is 48px, and a colour class is MudAppBar's Color." />
       </StackPanel>
 
       <!-- Right to left -->
