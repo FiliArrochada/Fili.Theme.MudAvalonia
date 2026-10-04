@@ -70,6 +70,13 @@
       <!-- Palette.cs DividerLight: black at 0.8 (CC), and PaletteDark.cs white at 0.06 (0F).
            `.mud-divider-light` paints it - in light, the STRONGER line, despite the name. -->
       <Color x:Key="FiliDividerLightColor">#CC000000</Color>
+      <!-- Palette.GrayDefault ... GrayDarker: Colors.Gray.Default, Lighten1, Lighten2, Darken1 and
+           Darken2. PaletteDark.cs does not override them, so dark repeats them. -->
+      <Color x:Key="FiliGrayDefaultColor">#9E9E9E</Color>
+      <Color x:Key="FiliGrayLightColor">#BDBDBD</Color>
+      <Color x:Key="FiliGrayLighterColor">#E0E0E0</Color>
+      <Color x:Key="FiliGrayDarkColor">#757575</Color>
+      <Color x:Key="FiliGrayDarkerColor">#616161</Color>
       <Color x:Key="FiliTableLinesColor">#E0E0E0</Color>
       <Color x:Key="FiliTableStripedColor">#05000000</Color>
       <Color x:Key="FiliTableHoverColor">#0A000000</Color>
@@ -203,6 +210,11 @@
       <Color x:Key="FiliLinesInputsColor">#4DFFFFFF</Color>
       <Color x:Key="FiliDividerColor">#1FFFFFFF</Color>
       <Color x:Key="FiliDividerLightColor">#0FFFFFFF</Color>
+      <Color x:Key="FiliGrayDefaultColor">#9E9E9E</Color>
+      <Color x:Key="FiliGrayLightColor">#BDBDBD</Color>
+      <Color x:Key="FiliGrayLighterColor">#E0E0E0</Color>
+      <Color x:Key="FiliGrayDarkColor">#757575</Color>
+      <Color x:Key="FiliGrayDarkerColor">#616161</Color>
       <Color x:Key="FiliTableLinesColor">#1FFFFFFF</Color>
       <Color x:Key="FiliTableStripedColor">#33FFFFFF</Color>
       <Color x:Key="FiliTableHoverColor">#14FFFFFF</Color>
@@ -337,6 +349,13 @@
       <Color x:Key="FiliDividerColor">#9C9CA8</Color>
       <!-- The line colour, opaque: a 6% hairline over black would not exist. -->
       <Color x:Key="FiliDividerLightColor">#E8E8EE</Color>
+      <!-- The grays, each one Material step lighter than light and dark, so every one keeps its
+           distance from a black ground. -->
+      <Color x:Key="FiliGrayDefaultColor">#BDBDBD</Color>
+      <Color x:Key="FiliGrayLightColor">#E0E0E0</Color>
+      <Color x:Key="FiliGrayLighterColor">#EEEEEE</Color>
+      <Color x:Key="FiliGrayDarkColor">#9E9E9E</Color>
+      <Color x:Key="FiliGrayDarkerColor">#757575</Color>
       <Color x:Key="FiliTableLinesColor">#9C9CA8</Color>
       <Color x:Key="FiliTableStripedColor">#1F1F1F</Color>
       <Color x:Key="FiliTableHoverColor">#333333</Color>
@@ -472,6 +491,11 @@
   <SolidColorBrush x:Key="FiliLinesInputsBrush"  Color="{DynamicResource FiliLinesInputsColor}" />
   <SolidColorBrush x:Key="FiliDividerBrush"      Color="{DynamicResource FiliDividerColor}" />
   <SolidColorBrush x:Key="FiliDividerLightBrush" Color="{DynamicResource FiliDividerLightColor}" />
+  <SolidColorBrush x:Key="FiliGrayDefaultBrush" Color="{DynamicResource FiliGrayDefaultColor}" />
+  <SolidColorBrush x:Key="FiliGrayLightBrush" Color="{DynamicResource FiliGrayLightColor}" />
+  <SolidColorBrush x:Key="FiliGrayLighterBrush" Color="{DynamicResource FiliGrayLighterColor}" />
+  <SolidColorBrush x:Key="FiliGrayDarkBrush" Color="{DynamicResource FiliGrayDarkColor}" />
+  <SolidColorBrush x:Key="FiliGrayDarkerBrush" Color="{DynamicResource FiliGrayDarkerColor}" />
   <SolidColorBrush x:Key="FiliTableLinesBrush"   Color="{DynamicResource FiliTableLinesColor}" />
   <SolidColorBrush x:Key="FiliTableStripedBrush" Color="{DynamicResource FiliTableStripedColor}" />
   <SolidColorBrush x:Key="FiliTableHoverBrush"   Color="{DynamicResource FiliTableHoverColor}" />

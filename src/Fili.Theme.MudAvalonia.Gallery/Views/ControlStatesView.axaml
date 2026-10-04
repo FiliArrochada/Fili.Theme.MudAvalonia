@@ -238,6 +238,11 @@
             <ToggleSwitch Classes="success" Content="Success" IsChecked="True" />
             <ToggleSwitch Classes="error" Content="Error, off" />
           </StackPanel>
+          <StackPanel Spacing="4">
+            <CheckBox Classes="primary unchecked-error" Content="Unchecked colour" />
+            <CheckBox Classes="primary unchecked-error" Content="Checked: primary" IsChecked="True" />
+            <RadioButton Classes="secondary unchecked-success" Content="Unchecked colour" GroupName="unchecked-colour" />
+          </StackPanel>
         </StackPanel>
 
         <TextBlock Classes="caption" Text="Sizes" Margin="0,8,0,0" />
@@ -358,11 +363,17 @@
           <Slider Classes="success large" Width="220" Value="70" />
           <Slider Width="220" Value="40" IsEnabled="False" />
         </StackPanel>
+        <StackPanel Orientation="Horizontal" Spacing="24" VerticalAlignment="Center">
+          <Slider Classes="filled" Width="220" Value="40" />
+          <Slider Classes="filled secondary medium" Width="220" Value="50" TickPlacement="BottomRight" TickFrequency="10" />
+          <Slider Classes="tertiary large value-label" Width="220" Value="75" TickPlacement="BottomRight" TickFrequency="25" />
+          <Slider Classes="filled value-label" Width="220" Value="30" />
+        </StackPanel>
         <TextBlock Classes="caption"
                    TextWrapping="Wrap"
                    MaxWidth="760"
                    HorizontalAlignment="Left"
-                   Text="MudSlider defaults to Size.Small and Color.Primary: a 2px rail and a 12px thumb, the inactive rail at 30% of the colour. medium and large are 4px / 20px and 6px / 24px. Hover a thumb: it does not grow, it gains a 1px ring of the colour at 24%, and 2px while dragged or focused." />
+                   Text="MudSlider defaults to Size.Small, Color.Primary and Variant.Text: a 2px rail and a 12px thumb, the whole rail the colour at 30%. medium and large are 4px / 20px and 6px / 24px. filled is Variant.Filled, solid up to the thumb; TickPlacement and TickFrequency are TickMarks, dots on the rail; value-label shows the value above the thumb while it is held. Hover a thumb: it does not grow, it gains a 1px ring of the colour at 24%, and 2px while dragged or focused." />
 
         <TextBlock Classes="caption"
                    TextWrapping="Wrap"

@@ -15,7 +15,7 @@ compiled to WebAssembly and served by GitHub Pages.
 
 Coming from MudBlazor? [MudBlazor parity](docs/mudblazor-parity.md) maps every component
 parameter and palette property to its class or token, and [Razor and AXAML](docs/razor-vs-axaml.md)
-shows the same UI written both ways. [Testing](docs/testing.md) explains what the 346 unit tests
+shows the same UI written both ways. [Testing](docs/testing.md) explains what the 362 unit tests
 and nine pixel frames check, how CI runs them, and why each exists.
 
 The token values are MudBlazor's defaults, transcribed from its source rather than eyeballed. The
@@ -154,7 +154,7 @@ the matrix, at rest and on a real pointer hover. Both helpers live in the unit-t
 `Variant.Outlined`, `Variant.Text` and `Variant.Filled` — API familiarity is the point of this
 package, so they are not namespaced to `mud-primary` or hidden behind an attached property.
 
-**All 59 of them, which is the list to grep an app against before adopting:**
+**All 68 of them, which is the list to grep an app against before adopting:**
 
 | | |
 |---|---|
@@ -165,7 +165,8 @@ package, so they are not namespaced to `mud-primary` or hidden behind an attache
 | Size (`Size`) | `small`, `medium`, `large`, `dense` |
 | Placement | `inset`, `middle`, `vertical`, `light`, `underline`, `no-underline`, `border`, `centered`, `hide-slider` |
 | Component | `icon`, `chip`, `alert`, `skeleton`, `circle`, `rectangle`, `counter` |
-| Behaviour | `helper-on-focus`, `no-animation` |
+| Behaviour | `helper-on-focus`, `no-animation`, `value-label` |
+| Unchecked colour (`UncheckedColor`) | `unchecked-primary`, `unchecked-secondary`, `unchecked-tertiary`, `unchecked-info`, `unchecked-success`, `unchecked-warning`, `unchecked-error`, `unchecked-dark` |
 
 `ClassVocabularyTests` asserts that list is exactly what the theme uses, in both directions — an
 undeclared class is a collision nobody signed off on, and a declared one no selector uses is a
@@ -357,14 +358,25 @@ the data is already in 0–24 space.
 <TabControl> <TabItem Header="One" /> </TabControl>
 ```
 
-- **Slider** — `MudSlider` defaults to `Size.Small` and `Color.Primary`: a 2px rail and a 12px
-  thumb, with the inactive half at 30% of the colour. `medium` and `large` are 4px / 20px and
+- **Slider** — `MudSlider` defaults to `Size.Small`, `Color.Primary` and `Variant.Text`: a 2px
+  rail and a 12px thumb, the whole rail the colour at 30%. `medium` and `large` are 4px / 20px and
   6px / 24px, and a colour class repaints it. The thumb does not grow: MudBlazor rings it, 1px of
-  the colour at 24% on hover and 2px on focus and press. The two halves of the rail reach under the
-  thumb so it reads as one continuous line, as MudBlazor's native range input does. Structure is dictated by Avalonia, not Material: `Slider` requires a `Track`
-  named `PART_Track`, and the `Track`'s two `RepeatButton`s **are** the active and inactive halves
-  of the rail — there is no separate fill element. Both orientations need their own `Template`; a
-  horizontal one applied to a vertical slider renders sideways rather than degrading.
+  the colour at 24% on hover and 2px on focus and press.
+
+  ```xml
+  <Slider Classes="filled" Value="40" />                                   Variant.Filled
+  <Slider TickPlacement="BottomRight" TickFrequency="10" Value="50" />     TickMarks
+  <Slider Classes="value-label" Value="75" />                              ValueLabel
+  ```
+
+  `filled` draws the colour solid up to the thumb. Tick marks are Avalonia's own `TickPlacement`
+  and `TickFrequency` (or `Ticks`), drawn as MudBlazor draws them: dots on the rail, its thickness
+  and the colour. `value-label` shows the value in a chip of the colour above the thumb while it is
+  held, in the app's number format. Structure is dictated by Avalonia, not Material: `Slider`
+  requires a `Track` named `PART_Track` with two `RepeatButton`s, which here are the hit areas a
+  click pages through and, for the decrease half, the `filled` part; the 30% rail and the dots sit
+  behind them. Both orientations need their own `Template`; a horizontal one applied to a
+  vertical slider renders sideways rather than degrading.
 - **TabControl** — MudTabs' 48px bar with a 2px primary indicator. MudTabs' defaults decide the
   rest, and this theme used to differ on each: the bar is `surface` with **no** rule under it
   (`Border` defaults to false), tabs are text-primary rather than text-secondary, and
@@ -1141,8 +1153,8 @@ guards; this is the summary.
 
 | Runner | Builds | Runs |
 |---|---|---|
-| `ubuntu-latest` | the whole solution, browser gallery included | the 346 unit tests |
-| `windows-latest` | the two test projects, which reference every project but the browser gallery | the 346 unit tests **and** the 9 pixel baselines |
+| `ubuntu-latest` | the whole solution, browser gallery included | the 362 unit tests |
+| `windows-latest` | the two test projects, which reference every project but the browser gallery | the 362 unit tests **and** the 9 pixel baselines |
 
 **Only Linux installs the `wasm-tools` workload.** The browser gallery's build natively links Skia
 and HarfBuzz into `dotnet.wasm`, so even restoring it needs the workload. Installing it on Windows

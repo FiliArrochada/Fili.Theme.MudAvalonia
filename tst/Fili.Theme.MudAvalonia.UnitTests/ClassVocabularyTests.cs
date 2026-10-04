@@ -66,6 +66,13 @@ public class ClassVocabularyTests
         // Behaviour parameters named as MudBlazor names them: HelperTextOnFocus on a field, and
         // MudSkeleton's Animation.False.
         "helper-on-focus", "no-animation",
+
+        // MudSlider's ValueLabel.
+        "value-label",
+
+        // MudCheckBox's and MudRadio's UncheckedColor, one per palette colour.
+        "unchecked-dark", "unchecked-error", "unchecked-info", "unchecked-primary",
+        "unchecked-secondary", "unchecked-success", "unchecked-tertiary", "unchecked-warning",
     ];
 
     /// <summary>

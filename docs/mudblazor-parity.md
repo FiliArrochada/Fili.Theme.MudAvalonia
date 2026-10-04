@@ -6,7 +6,7 @@ where the two differ. For side-by-side markup, see [Razor and AXAML](razor-vs-ax
 The rule behind every row: **a class only ever names a MudBlazor variant.** Every control the
 theme templates is keyed to its type, so an unclassed control is already the MudBlazor default.
 Class names are MudBlazor's own words (`primary`, `outlined`, `small`), deliberately not
-namespaced. `ClassVocabularyTests` pins the full list of 59.
+namespaced. `ClassVocabularyTests` pins the full list of 68.
 
 | Mark | Meaning |
 |---|---|
@@ -144,7 +144,7 @@ Put a `PathIcon` in `Content`: `<Button Classes="icon primary"><PathIcon Data="�
 | `Color.Default` (default) | no class | ✅ grey `action-default` glyphs, checked or not; the switch's `#fafafa` thumb on and off |
 | `Color.Primary` … `Color.Dark` | `primary` … `dark` | ✅ every glyph and the halo; on a switch, thumb and track only when on |
 | `Size.Small` / `Large` | `small` / `large` | ✅ glyph 20 / 36px; switch 14 / 26px thumb on its own span |
-| `UncheckedColor` | — | ❌ the colour reaches the unchecked state too, as when it is unset |
+| `UncheckedColor` | `unchecked-primary` … `unchecked-dark` | ✅ on a checkbox or radio: the glyph and its halo while not checked (a checkbox's null too), in place of the colour class |
 
 ### MudSlider → `Slider`
 
@@ -152,10 +152,15 @@ Put a `PathIcon` in `Content`: `<Button Classes="icon primary"><PathIcon Data="�
 |---|---|---|
 | `Size.Small` (default) | no class | ✅ 2px rail, 12px thumb |
 | `Size.Medium` / `Large` | `medium` / `large` | ✅ 4px / 20px and 6px / 24px |
-| `Color.Primary` (default) … `Color.Dark` | no class, or `secondary` … `dark` | ✅ thumb and active rail; inactive rail at 30% |
+| `Variant.Text` (default) | no class | ✅ the whole rail the colour at 30%, no solid part |
+| `Variant.Filled` | `filled` | ✅ the colour, solid, from the start to the thumb |
+| `Color.Primary` (default) … `Color.Dark` | no class, or `secondary` … `dark` | ✅ thumb, rail, filled part, ticks and value label |
 | hover, focus and press | the same | ✅ a 1px / 2px ring of the colour at 24%; no growth |
 | vertical | `Orientation="Vertical"` | ✅ |
-| `Variant.Filled`, tick marks, value label | — | ❌ |
+| `TickMarks` | `TickPlacement` other than `None`, at `TickFrequency` or `Ticks` | ✅ dots on the rail, its thickness and the colour |
+| `TickMarkLabels` | — | ❌ |
+| `ValueLabel` | `value-label` | ✅ a 12px chip of the colour above the thumb while it is held |
+| `ValueLabelFormat`, `Culture` | — | ≈ at most two decimals, in the app's culture rather than MudBlazor's invariant default |
 
 ### MudProgressLinear → `ProgressBar`
 
@@ -300,7 +305,7 @@ Light and dark are MudBlazor's `Palette.cs` and `PaletteDark.cs`; high contrast 
 | `Skeleton` | `FiliSkeletonColor` | ✅ |
 | `OverlayDark` / `OverlayLight` | `FiliOverlayDark/LightColor` | ✅ |
 | `DividerLight` | `FiliDividerLightColor` | ✅ high contrast keeps a visible line |
-| `GrayDefault` … `GrayDarker` | — | ❌ only `GrayDarker` is used, inlined in the tooltip |
+| `GrayDefault` … `GrayDarker` | `FiliGrayDefaultColor` … `FiliGrayDarkerColor` | ✅ the same in light and dark, as PaletteDark.cs leaves them; a step lighter in high contrast |
 | `HoverOpacity` / `BorderOpacity` | — | ≈ folded into the hover and line tokens rather than exposed |
 | `RippleOpacity` / `RippleOpacitySecondary` | — | ❌ no ripple |
 

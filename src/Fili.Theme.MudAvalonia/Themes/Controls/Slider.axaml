@@ -3,9 +3,23 @@
 
   MudSlider.Size defaults to Size.SMALL - a 2px rail and a 12px thumb - and MudSlider.Color to
   Color.Primary, so an unclassed slider is primary. `medium` and `large` are 4px / 20px and
-  6px / 24px; a colour class paints the thumb and the active rail, with the inactive rail at 30%
-  of the same colour. The thumb does not grow on interaction: MudBlazor draws a ring around it
-  instead, `0 0 0 1px` of the colour at 24% on hover and `2px` on focus and press.
+  6px / 24px. The thumb does not grow on interaction: MudBlazor draws a ring around it instead,
+  `0 0 0 1px` of the colour at 24% on hover and `2px` on focus and press.
+
+  MudSlider.Variant defaults to Variant.Text, and in that variant the WHOLE rail is the colour at
+  30% - the native range track - with no solid part. `filled` is Variant.Filled, which lays
+  `.mud-slider-filled` over it: the colour, solid, from the start to the thumb. This theme drew
+  the solid part on every slider until 0.4.0.
+
+  Three more MudSlider parameters, as Avalonia already names them or as classes:
+
+    TickMarks     TickPlacement other than None, at TickFrequency (or Ticks): dots ON the rail,
+                  the rail's thickness and the slider's colour (`.mud-slider-track-tick`).
+                  Avalonia's TickBar can only draw lines, so the dots are positioned by the
+                  internal TickPositionsConverter.
+    ValueLabel    `value-label`: the value in a 12px chip of the colour above the thumb, shown
+                  while the thumb is held (`.mud-slider-value-label`, opacity on :active).
+    Vertical      the Orientation property, with its own template below.
 
   Structure is dictated by Avalonia, not by Material: Slider.OnApplyTemplate requires a Track
   named PART_Track, and the Track in turn requires a Thumb plus a DecreaseButton and an
@@ -17,7 +31,10 @@
   Slider does not degrade, it renders sideways, so the :vertical override below is not optional.
 -->
 <ResourceDictionary xmlns="https://github.com/avaloniaui"
-                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:fili="using:Fili.Theme.MudAvalonia.Converters">
+
+  <fili:TickPositionsConverter x:Key="FiliTickPositions" />
 
   <!-- A rail half. Height/width is set by the orientation selectors on the Slider itself. -->
   <ControlTheme x:Key="FiliSliderTrackPiece" TargetType="RepeatButton">
@@ -43,6 +60,8 @@
     <Setter Property="Height" Value="40" />
     <Setter Property="Padding" Value="14" />
     <Setter Property="BorderThickness" Value="14" />
+    <Setter Property="Foreground" Value="{DynamicResource FiliPrimaryContrastTextBrush}" />
+    <Setter Property="ClipToBounds" Value="False" />
     <Setter Property="Cursor" Value="Hand" />
     <Setter Property="Template">
       <ControlTemplate>
@@ -54,9 +73,48 @@
           <Ellipse x:Name="PART_Knob"
                    Margin="{TemplateBinding Padding}"
                    Fill="{TemplateBinding Background}" />
+
+          <!--
+            MudSlider's ValueLabel. The thumb is 40px wide and a Panel arranges a child no wider
+            than its slot, so the label's host reaches 60px past each side and centres the chip
+            in that: centred on the knob, up to 160px wide. `translateY(-125%)` of the chip is
+            -27.5px at its height, 12px text at line-height normal plus 4px above and below.
+
+            The Slider turns it on through the thumb's Tag and colours its text through the
+            thumb's Foreground, because a style may cross only one /template/ boundary and this
+            sits inside the thumb's. The value is formatted with at most two decimals: MudSlider
+            snaps to Step, 1 by default, while an Avalonia slider drags continuously.
+          -->
+          <Panel x:Name="PART_ValueLabel"
+                 Margin="-60,0"
+                 VerticalAlignment="Top"
+                 IsHitTestVisible="False"
+                 Opacity="0"
+                 IsVisible="{TemplateBinding Tag, Converter={x:Static ObjectConverters.IsNotNull}}">
+            <Panel.Transitions>
+              <Transitions>
+                <DoubleTransition Property="Opacity" Duration="0:0:0.2" Easing="SineEaseInOut" />
+              </Transitions>
+            </Panel.Transitions>
+            <Border HorizontalAlignment="Center"
+                    Padding="8,4"
+                    CornerRadius="2"
+                    Background="{TemplateBinding Background}"
+                    RenderTransform="translateY(-27.5px)">
+              <TextBlock Text="{Binding $parent[Slider].Value, StringFormat='{}{0:0.##}'}"
+                         FontFamily="{DynamicResource FiliFontFamily}"
+                         FontSize="12"
+                         LineHeight="NaN"
+                         Foreground="{TemplateBinding Foreground}" />
+            </Border>
+          </Panel>
         </Panel>
       </ControlTemplate>
     </Setter>
+
+    <Style Selector="^:pressed /template/ Panel#PART_ValueLabel">
+      <Setter Property="Opacity" Value="1" />
+    </Style>
   </ControlTheme>
 
   <ControlTheme x:Key="FiliSlider" TargetType="Slider">
@@ -64,6 +122,8 @@
     <Setter Property="Foreground" Value="{DynamicResource FiliPrimaryBrush}" />
     <Setter Property="FontFamily" Value="{DynamicResource FiliFontFamily}" />
     <Setter Property="MinHeight" Value="40" />
+    <!-- The value label rises above the thumb, outside the slider's bounds. -->
+    <Setter Property="ClipToBounds" Value="False" />
 
     <!--
       A MEASUREMENT FLOOR, and the one number here MudBlazor cannot supply. `.mud-slider` is
@@ -80,6 +140,49 @@
     <Setter Property="Template">
       <ControlTemplate>
         <Grid x:Name="PART_Container" Margin="{TemplateBinding Padding}">
+          <!-- The rail: one piece, the colour at 30%, under everything - Variant.Text's whole look. -->
+          <Border x:Name="PART_Rail"
+                  Height="2"
+                  VerticalAlignment="Center"
+                  Background="{TemplateBinding Foreground}"
+                  Opacity="0.30"
+                  CornerRadius="{DynamicResource FiliCornerRadius}" />
+
+          <!-- TickMarks: a dot per tick, the rail's thickness, on top of it. -->
+          <ItemsControl x:Name="PART_TickMarks"
+                        Height="2"
+                        VerticalAlignment="Center"
+                        IsHitTestVisible="False">
+            <ItemsControl.ItemsSource>
+              <MultiBinding Converter="{StaticResource FiliTickPositions}" ConverterParameter="Horizontal">
+                <Binding Path="Minimum" RelativeSource="{RelativeSource TemplatedParent}" />
+                <Binding Path="Maximum" RelativeSource="{RelativeSource TemplatedParent}" />
+                <Binding Path="TickFrequency" RelativeSource="{RelativeSource TemplatedParent}" />
+                <Binding Path="Ticks" RelativeSource="{RelativeSource TemplatedParent}" />
+                <Binding Path="IsDirectionReversed" RelativeSource="{RelativeSource TemplatedParent}" />
+                <Binding Path="Bounds.Width" ElementName="PART_Track" />
+                <Binding Path="Bounds.Height" RelativeSource="{RelativeSource Self}" />
+              </MultiBinding>
+            </ItemsControl.ItemsSource>
+            <ItemsControl.ItemsPanel>
+              <ItemsPanelTemplate>
+                <Canvas />
+              </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+            <ItemsControl.Styles>
+              <Style Selector="ContentPresenter" x:DataType="x:Double">
+                <Setter Property="Canvas.Left" Value="{Binding}" />
+              </Style>
+            </ItemsControl.Styles>
+            <ItemsControl.ItemTemplate>
+              <DataTemplate>
+                <Ellipse Width="{Binding $parent[ItemsControl].Bounds.Height}"
+                         Height="{Binding $parent[ItemsControl].Bounds.Height}"
+                         Fill="{Binding $parent[Slider].Foreground}" />
+              </DataTemplate>
+            </ItemsControl.ItemTemplate>
+          </ItemsControl>
+
           <Track x:Name="PART_Track"
                  Minimum="{TemplateBinding Minimum}"
                  Maximum="{TemplateBinding Maximum}"
@@ -87,13 +190,13 @@
                  IsDirectionReversed="{TemplateBinding IsDirectionReversed}"
                  Orientation="Horizontal">
             <Track.DecreaseButton>
-              <!-- Each half reaches 20px - half the thumb's hit area - under the thumb, so the two
-                   meet at its centre and the knob covers the join. Without it the rail stopped at
-                   the 40px hit area and a gap showed on both sides of a 12px knob, where
-                   MudBlazor's native range input draws one continuous rail. -->
+              <!-- The two halves are the hit areas a click pages through, and the decrease
+                   half is also Variant.Filled's solid part: hidden until `filled`. Each reaches
+                   20px - half the thumb - under the thumb, so the solid part meets the knob. -->
               <RepeatButton x:Name="PART_DecreaseButton"
                             Theme="{StaticResource FiliSliderTrackPiece}"
                             Background="{TemplateBinding Foreground}"
+                            Opacity="0"
                             Height="2"
                             Margin="0,0,-20,0"
                             VerticalAlignment="Center" />
@@ -101,8 +204,7 @@
             <Track.IncreaseButton>
               <RepeatButton x:Name="PART_IncreaseButton"
                             Theme="{StaticResource FiliSliderTrackPiece}"
-                            Background="{TemplateBinding Foreground}"
-                            Opacity="0.30"
+                            Background="Transparent"
                             Height="2"
                             Margin="-20,0,0,0"
                             VerticalAlignment="Center" />
@@ -121,6 +223,49 @@
       <Setter Property="Template">
         <ControlTemplate>
           <Grid x:Name="PART_Container" Margin="{TemplateBinding Padding}">
+            <!-- The rail: one piece, the colour at 30%, under everything - Variant.Text's whole look. -->
+            <Border x:Name="PART_Rail"
+                    Width="2"
+                    HorizontalAlignment="Center"
+                    Background="{TemplateBinding Foreground}"
+                    Opacity="0.30"
+                    CornerRadius="{DynamicResource FiliCornerRadius}" />
+
+            <!-- TickMarks: a dot per tick, the rail's thickness, on top of it. -->
+            <ItemsControl x:Name="PART_TickMarks"
+                          Width="2"
+                          HorizontalAlignment="Center"
+                          IsHitTestVisible="False">
+              <ItemsControl.ItemsSource>
+                <MultiBinding Converter="{StaticResource FiliTickPositions}" ConverterParameter="Vertical">
+                  <Binding Path="Minimum" RelativeSource="{RelativeSource TemplatedParent}" />
+                  <Binding Path="Maximum" RelativeSource="{RelativeSource TemplatedParent}" />
+                  <Binding Path="TickFrequency" RelativeSource="{RelativeSource TemplatedParent}" />
+                  <Binding Path="Ticks" RelativeSource="{RelativeSource TemplatedParent}" />
+                  <Binding Path="IsDirectionReversed" RelativeSource="{RelativeSource TemplatedParent}" />
+                  <Binding Path="Bounds.Height" ElementName="PART_Track" />
+                  <Binding Path="Bounds.Width" RelativeSource="{RelativeSource Self}" />
+                </MultiBinding>
+              </ItemsControl.ItemsSource>
+              <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                  <Canvas />
+                </ItemsPanelTemplate>
+              </ItemsControl.ItemsPanel>
+              <ItemsControl.Styles>
+                <Style Selector="ContentPresenter" x:DataType="x:Double">
+                  <Setter Property="Canvas.Top" Value="{Binding}" />
+                </Style>
+              </ItemsControl.Styles>
+              <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                  <Ellipse Width="{Binding $parent[ItemsControl].Bounds.Width}"
+                           Height="{Binding $parent[ItemsControl].Bounds.Width}"
+                           Fill="{Binding $parent[Slider].Foreground}" />
+                </DataTemplate>
+              </ItemsControl.ItemTemplate>
+            </ItemsControl>
+
             <Track x:Name="PART_Track"
                    Minimum="{TemplateBinding Minimum}"
                    Maximum="{TemplateBinding Maximum}"
@@ -128,9 +273,13 @@
                    IsDirectionReversed="{TemplateBinding IsDirectionReversed}"
                    Orientation="Vertical">
               <Track.DecreaseButton>
+                <!-- The two halves are the hit areas a click pages through, and the decrease
+                     half is also Variant.Filled's solid part: hidden until `filled`. Each reaches
+                     20px - half the thumb - under the thumb, so the solid part meets the knob. -->
                 <RepeatButton x:Name="PART_DecreaseButton"
                               Theme="{StaticResource FiliSliderTrackPiece}"
                               Background="{TemplateBinding Foreground}"
+                              Opacity="0"
                               Width="2"
                               Margin="0,-20,0,0"
                               HorizontalAlignment="Center" />
@@ -138,8 +287,7 @@
               <Track.IncreaseButton>
                 <RepeatButton x:Name="PART_IncreaseButton"
                               Theme="{StaticResource FiliSliderTrackPiece}"
-                              Background="{TemplateBinding Foreground}"
-                              Opacity="0.30"
+                              Background="Transparent"
                               Width="2"
                               Margin="0,0,0,-20"
                               HorizontalAlignment="Center" />
@@ -171,30 +319,55 @@
       <Setter Property="BorderThickness" Value="12" />
     </Style>
 
-    <!-- Colours: the thumb and both halves of the rail, the inactive one at 30%. -->
+    <!-- Colours: the thumb, the rail at 30%, the filled part and the ticks all follow
+         Foreground; the thumb's own Foreground is the value label's text. -->
     <Style Selector="^.primary">
       <Setter Property="Foreground" Value="{DynamicResource FiliPrimaryBrush}" />
+    </Style>
+    <Style Selector="^.primary /template/ Thumb#PART_Thumb">
+      <Setter Property="Foreground" Value="{DynamicResource FiliPrimaryContrastTextBrush}" />
     </Style>
     <Style Selector="^.secondary">
       <Setter Property="Foreground" Value="{DynamicResource FiliSecondaryBrush}" />
     </Style>
+    <Style Selector="^.secondary /template/ Thumb#PART_Thumb">
+      <Setter Property="Foreground" Value="{DynamicResource FiliSecondaryContrastTextBrush}" />
+    </Style>
     <Style Selector="^.tertiary">
       <Setter Property="Foreground" Value="{DynamicResource FiliTertiaryBrush}" />
+    </Style>
+    <Style Selector="^.tertiary /template/ Thumb#PART_Thumb">
+      <Setter Property="Foreground" Value="{DynamicResource FiliTertiaryContrastTextBrush}" />
     </Style>
     <Style Selector="^.info">
       <Setter Property="Foreground" Value="{DynamicResource FiliInfoBrush}" />
     </Style>
+    <Style Selector="^.info /template/ Thumb#PART_Thumb">
+      <Setter Property="Foreground" Value="{DynamicResource FiliInfoContrastTextBrush}" />
+    </Style>
     <Style Selector="^.success">
       <Setter Property="Foreground" Value="{DynamicResource FiliSuccessBrush}" />
+    </Style>
+    <Style Selector="^.success /template/ Thumb#PART_Thumb">
+      <Setter Property="Foreground" Value="{DynamicResource FiliSuccessContrastTextBrush}" />
     </Style>
     <Style Selector="^.warning">
       <Setter Property="Foreground" Value="{DynamicResource FiliWarningBrush}" />
     </Style>
+    <Style Selector="^.warning /template/ Thumb#PART_Thumb">
+      <Setter Property="Foreground" Value="{DynamicResource FiliWarningContrastTextBrush}" />
+    </Style>
     <Style Selector="^.error">
       <Setter Property="Foreground" Value="{DynamicResource FiliErrorBrush}" />
     </Style>
+    <Style Selector="^.error /template/ Thumb#PART_Thumb">
+      <Setter Property="Foreground" Value="{DynamicResource FiliErrorContrastTextBrush}" />
+    </Style>
     <Style Selector="^.dark">
       <Setter Property="Foreground" Value="{DynamicResource FiliDarkBrush}" />
+    </Style>
+    <Style Selector="^.dark /template/ Thumb#PART_Thumb">
+      <Setter Property="Foreground" Value="{DynamicResource FiliDarkContrastTextBrush}" />
     </Style>
 
     <!-- `.mud-slider-medium`: a 4px rail and a 20px thumb. -->
@@ -202,6 +375,18 @@
       <Setter Property="Height" Value="4" />
     </Style>
     <Style Selector="^.medium:vertical /template/ RepeatButton">
+      <Setter Property="Width" Value="4" />
+    </Style>
+    <Style Selector="^.medium:horizontal /template/ Border#PART_Rail">
+      <Setter Property="Height" Value="4" />
+    </Style>
+    <Style Selector="^.medium:vertical /template/ Border#PART_Rail">
+      <Setter Property="Width" Value="4" />
+    </Style>
+    <Style Selector="^.medium:horizontal /template/ ItemsControl#PART_TickMarks">
+      <Setter Property="Height" Value="4" />
+    </Style>
+    <Style Selector="^.medium:vertical /template/ ItemsControl#PART_TickMarks">
       <Setter Property="Width" Value="4" />
     </Style>
     <Style Selector="^.medium /template/ Thumb#PART_Thumb">
@@ -225,6 +410,18 @@
     <Style Selector="^.large:vertical /template/ RepeatButton">
       <Setter Property="Width" Value="6" />
     </Style>
+    <Style Selector="^.large:horizontal /template/ Border#PART_Rail">
+      <Setter Property="Height" Value="6" />
+    </Style>
+    <Style Selector="^.large:vertical /template/ Border#PART_Rail">
+      <Setter Property="Width" Value="6" />
+    </Style>
+    <Style Selector="^.large:horizontal /template/ ItemsControl#PART_TickMarks">
+      <Setter Property="Height" Value="6" />
+    </Style>
+    <Style Selector="^.large:vertical /template/ ItemsControl#PART_TickMarks">
+      <Setter Property="Width" Value="6" />
+    </Style>
     <Style Selector="^.large /template/ Thumb#PART_Thumb">
       <Setter Property="Padding" Value="8" />
       <Setter Property="BorderThickness" Value="8" />
@@ -239,6 +436,21 @@
       <Setter Property="BorderThickness" Value="6" />
     </Style>
     <!-- END GENERATED -->
+
+    <!-- Variant.Filled: `.mud-slider-filled`, the colour solid from the start to the thumb. -->
+    <Style Selector="^.filled /template/ RepeatButton#PART_DecreaseButton">
+      <Setter Property="Opacity" Value="1" />
+    </Style>
+
+    <!-- TickMarks: only when the slider asks for ticks. -->
+    <Style Selector="^[TickPlacement=None] /template/ ItemsControl#PART_TickMarks">
+      <Setter Property="IsVisible" Value="False" />
+    </Style>
+
+    <!-- ValueLabel: the thumb draws it; the slider only asks. -->
+    <Style Selector="^.value-label /template/ Thumb#PART_Thumb">
+      <Setter Property="Tag" Value="True" />
+    </Style>
 
     <!-- Reversed, the halves sit on the other sides of the thumb, so they reach the other way. -->
     <Style Selector="^:horizontal[IsDirectionReversed=True] /template/ RepeatButton#PART_DecreaseButton">
