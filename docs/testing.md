@@ -11,7 +11,7 @@ those silent failures into red builds, because looking at the app cannot be reli
 | Project | What it does | Speed |
 |---|---|---|
 | `tst/Fili.Theme.MudAvalonia.UnitTests` | 346 tests on a headless Avalonia session. They resolve resources, template controls, move a real pointer over them, and read back the values the theme applied. Nothing is rendered. | seconds |
-| `tst/Fili.Theme.MudAvalonia.PixelTests` | 9 tests. Each renders one gallery frame with Skia and compares it pixel by pixel with a PNG committed in `Baselines/`. | ~20 seconds |
+| `tst/Fili.Theme.MudAvalonia.PixelTests` | 11 tests. Nine render one gallery frame each with Skia and compare it pixel by pixel with a PNG committed in `Baselines/`; two, in `GalleryPageTests`, check how the gallery's controls page behaves - that it opens at the top, and that keyboard focus still scrolls it. | ~30 seconds |
 
 They are separate on purpose. The pixel suite needs Skia with headless drawing turned **off** -
 Avalonia's default headless renderer draws nothing at all, and a pixel suite built on it would

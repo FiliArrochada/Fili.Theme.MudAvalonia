@@ -1,7 +1,11 @@
 using System;
+using System.Linq;
+using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.Primitives;
 using Avalonia.Input;
+using Avalonia.Interactivity;
+using Avalonia.VisualTree;
 
 namespace Fili.Theme.MudAvalonia.Gallery.Views;
 
@@ -10,6 +14,25 @@ public partial class ControlStatesView : UserControl
     public ControlStatesView()
     {
         InitializeComponent();
+
+        // The page opens at the top. Every sample with a selection - the tab strips, the drawer's
+        // list, the pips - asks to bring its selected item into view, and the ones with no scroll
+        // area of their own pass that request up to this page's ScrollViewer, which obeyed the
+        // last of them and opened the tab near the bottom. A selection set in markup is a sample,
+        // not a place the reader asked to go, so only a request from where keyboard focus is -
+        // tabbing, typing - is let through. The handler sits on the content, BELOW the
+        // ScrollViewer, because the scroller handles the request on its way up.
+        PageContent.AddHandler(RequestBringIntoViewEvent, (_, e) =>
+        {
+            var focused = e.TargetObject?.GetSelfAndVisualAncestors()
+                .OfType<InputElement>()
+                .Any(element => element.IsFocused) == true;
+
+            if (!focused)
+            {
+                e.Handled = true;
+            }
+        });
 
         // A real validation failure, set the way a failing binding sets one. It is done here
         // rather than in markup because DataValidationErrors.Errors takes a live collection and
