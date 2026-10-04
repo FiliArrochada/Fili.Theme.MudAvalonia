@@ -6,6 +6,7 @@ What changed in each release of `Fili.Theme.MudAvalonia`, newest first. The pack
 
 | Version | |
 |---|---|
+| *Unreleased* | An outlined text field's or select's floated label is no longer cut off along its top edge: Avalonia clips both controls to their bounds, and the label sits on the stroke, 6px above them. |
 | **0.3.0** | The project is renamed `Fili.Theme.MudAvalonia`: the assembly, namespaces, `avares://` paths and repository. The NuGet id stays `Fili.MudAvalonia.Theme`. See [Upgrading from 0.2 to 0.3](#upgrading-from-02-to-03). |
 | 0.2.0 | MudBlazor parity. A colour class is now only a colour, as `Color` is in MudBlazor - on buttons, split and drop-down buttons, checkboxes, radios, switches, sliders, progress bars, text, tabs and the app bar - with Button's full Variant × Color × Size matrix. Icon buttons, chips, alerts and skeletons as classes; helper text, a counter and dense fields; select variants; MudTabs and MudAppBar options. See [Upgrading from 0.1 to 0.2](#upgrading-from-01-to-02). |
 | 0.1.1 | The app bar's text colour is inherited rather than set on every `TextBlock`, which had turned an app-bar select's drop-down white on white. The gallery loses its Fluent comparison switch. |

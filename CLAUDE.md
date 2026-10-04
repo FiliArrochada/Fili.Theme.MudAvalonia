@@ -168,6 +168,13 @@ Two conversions are already applied and should stay applied consistently:
   `ButtonContentKeepsItsContrastForeground`, `FilledTextFieldKeepsTopOnlyRounding` and
   `AppBarTests` pin all three. A descendant selector reaching into popups is the specific thing
   to suspect whenever a container's style shows up somewhere it should not.
+- **Avalonia clips a `TextBox` and a `ComboBox` to their bounds.** The outlined label floats
+  onto the stroke, 6px above the field as MudBlazor's `translate(14px, -6px)` puts it, so with
+  the default clip its top and its mask were cut off - since the first release, because nothing but an
+  eye on the gallery could see it. Both base themes set `ClipToBounds="False"`; the select's
+  `PART_ContentPresenter` clips itself instead, so a long item still stops at the chevron.
+  `AFloatedOutlinedLabelIsNotClippedByItsField` pins it. Anything else drawn outside a control's
+  bounds needs the same check.
 - **`TextPresenter` has no `Foreground` AvaloniaProperty.** It reads the inherited
   `TextElement.Foreground` from its parent, so a setter targeting `PART_TextPresenter` fails to
   compile with `AVLN3000`. Set `Foreground` on the `TextBox` itself instead.

@@ -49,6 +49,11 @@
 
   <!-- Standard / Variant.Text: no fill, no box, just the rule. MudTextField's default. -->
   <ControlTheme x:Key="FiliStandardTextBox" TargetType="TextBox">
+    <!-- Avalonia clips a TextBox to its bounds by default, and the outlined label floats onto the
+         stroke - MudBlazor's translate(14px, -6px) - so its top 6px, mask and all, sat outside and
+         were cut off. The text itself still scrolls inside PART_ScrollViewer, which clips on its
+         own; nothing else in the template reaches past the field. -->
+    <Setter Property="ClipToBounds" Value="False" />
     <Setter Property="MinWidth" Value="{DynamicResource FiliInputMinWidth}" />
     <Setter Property="Background" Value="Transparent" />
     <Setter Property="Foreground" Value="{DynamicResource FiliTextPrimaryBrush}" />

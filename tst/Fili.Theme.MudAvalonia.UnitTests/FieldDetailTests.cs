@@ -1,6 +1,7 @@
 using Avalonia;
 using Avalonia.Automation;
 using Avalonia.Controls;
+using Avalonia.Controls.Presenters;
 using Avalonia.Controls.Primitives;
 using Avalonia.Media;
 using Avalonia.Media.Transformation;
@@ -226,6 +227,28 @@ public class FieldDetailTests
         Assert.Equal(side, Named<Grid>(combo, "PART_ContentArea").Margin.Left);
         Assert.Equal(top, Named<Grid>(combo, "PART_ContentArea").Margin.Top);
         Assert.Equal(side, Block(combo, "PART_FloatingLabel").Margin.Left);
+    });
+
+    /// <summary>
+    /// The outlined label floats onto the stroke, 6px above the field's top edge as MudBlazor's
+    /// translate(14px, -6px) puts it. Avalonia clips a TextBox and a ComboBox to their bounds by
+    /// default, which cut the top off the label and its mask; the fields now do not clip, and the
+    /// select's own content clips itself so a long item still cannot spill past the chevron.
+    /// </summary>
+    [Fact]
+    public Task AFloatedOutlinedLabelIsNotClippedByItsField() => UiThread.RunAsync(() =>
+    {
+        var box = Matrix.Show(new TextBox { Width = 190, Classes = { "outlined" }, PlaceholderText = "Title", Text = "Content" });
+        var combo = ShowSelect("outlined", selected: true);
+
+        Assert.False(box.ClipToBounds);
+        Assert.False(combo.ClipToBounds);
+        Assert.True(Named<ContentPresenter>(combo, "PART_ContentPresenter").ClipToBounds);
+
+        // The label really does reach above the field - which is why the clip mattered.
+        var label = Block(box, "PART_FloatingLabel");
+        var top = label.TranslatePoint(default, box)!.Value.Y;
+        Assert.True(top < 0, $"The floated label's top is at {top}, inside the field.");
     });
 
     // --------------------------------------------------------------------------------------

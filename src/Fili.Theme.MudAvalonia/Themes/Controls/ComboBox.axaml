@@ -77,6 +77,12 @@
   </ControlTheme>
 
   <ControlTheme x:Key="FiliComboBox" TargetType="ComboBox">
+    <!-- Avalonia clips a ComboBox to its bounds by default, and the outlined label floats onto the
+         stroke - MudBlazor's translate(14px, -6px) - so its top 6px, mask and all, sat outside and
+         were cut off. The selected item clips itself instead (PART_ContentPresenter), as
+         `.mud-select-input .mud-input-slot` hides its overflow, and the popup is a separate
+         surface. -->
+    <Setter Property="ClipToBounds" Value="False" />
     <Setter Property="MinWidth" Value="{DynamicResource FiliInputMinWidth}" />
     <Setter Property="Background" Value="Transparent" />
     <Setter Property="Foreground" Value="{DynamicResource FiliTextPrimaryBrush}" />
@@ -130,6 +136,7 @@
             <Grid x:Name="PART_ContentArea" ColumnDefinitions="*,Auto">
               <ContentPresenter x:Name="PART_ContentPresenter"
                                 Grid.Column="0"
+                                ClipToBounds="True"
                                 Content="{TemplateBinding SelectionBoxItem}"
                                 ContentTemplate="{TemplateBinding ItemTemplate}"
                                 Foreground="{TemplateBinding Foreground}"
