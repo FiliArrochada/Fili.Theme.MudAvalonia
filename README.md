@@ -47,18 +47,18 @@ dotnet add package Fili.MudAvalonia.Theme
 or, in a project file:
 
 ```xml
-<PackageReference Include="Fili.MudAvalonia.Theme" Version="0.5.0" />
+<PackageReference Include="Fili.MudAvalonia.Theme" Version="0.5.1" />
 ```
 
 Under Central Package Management the version goes in `Directory.Packages.props` instead, as
-`<PackageVersion Include="Fili.MudAvalonia.Theme" Version="0.5.0" />`, and the reference stays
+`<PackageVersion Include="Fili.MudAvalonia.Theme" Version="0.5.1" />`, and the reference stays
 version-less.
 
 | | |
 |---|---|
 | Package | [`Fili.MudAvalonia.Theme`](https://www.nuget.org/packages/Fili.MudAvalonia.Theme) on nuget.org, with symbols (`.snupkg`) |
 | Target framework | `net10.0` |
-| Depends on | `Avalonia` 12.1.2 or later, and nothing else - no `Avalonia.Themes.*` package |
+| Depends on | `Avalonia` 12.1.3 or later, and nothing else - no `Avalonia.Themes.*` package |
 | Fonts | Roboto (Light, Regular, Medium) embedded, under the SIL Open Font License |
 | Licence | MIT |
 
@@ -755,7 +755,7 @@ template, so it measures to nothing and renders nothing — not an unstyled butt
 theme has to supply a template for every control type used.
 
 This package supplies its own. `Themes/Base/` holds **79 templates forked verbatim from Avalonia's
-Simple theme at 12.1.2**, rebased onto this package and repaletted by a single hand-written file,
+Simple theme at 12.1.3**, rebased onto this package and repaletted by a single hand-written file,
 `Themes/Base/Accents.axaml`, which redefines the ~96 resource keys those templates paint from in
 terms of Fili tokens. One file repalettes all 79.
 
@@ -899,7 +899,7 @@ and rewriting one file.**
 
 The whole adaptation was:
 
-1. Fetch `src/Avalonia.Themes.Simple/Controls/*.xaml` at tag 12.1.2.
+1. Fetch `src/Avalonia.Themes.Simple/Controls/*.xaml` at tag 12.1.3.
 2. `.xaml` → `.axaml`, and rebase `avares://Avalonia.Themes.Simple/...` onto this package. Both by
    script; no template was touched by hand.
 3. Write `Accents.axaml`, mapping the ~96 keys those templates paint from onto Fili tokens.

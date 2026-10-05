@@ -190,6 +190,14 @@ one.
   Avalonia picks a face per weight rather than setting an axis, so Light and Medium would render
   as Regular.
 
+- **An `avares://` name resolves by PREFIX to a loaded assembly** (since Avalonia 12.1.3, in
+  `AssemblyDescriptorResolver`). Until the theme assembly is loaded, `avares://Fili.Theme.MudAvalonia/`
+  matches `Fili.Theme.MudAvalonia.UnitTests.dll` instead, and a `StyleInclude` built in code throws
+  *"No precompiled XAML found"* - which, from `TestApp.Initialize`, fails nearly every test in the
+  assembly at once. `TestApp` touches `typeof(FiliThemeVariants).Assembly` first. A compiled
+  include in an `.axaml` file is not affected, which is why the gallery and the pixel suite never
+  noticed.
+
 ## The browser build and fonts
 
 - **A browser build has no system fonts.** Text in any script Roboto and Inter lack — the
@@ -276,7 +284,7 @@ the same few pixels: a rasteriser difference would touch every rounded edge in t
 
 Avalonia has no implicit default theme: a control with no `ControlTheme` in scope has no template
 and renders nothing at all. `Themes/Base/` holds 79 templates forked verbatim from Avalonia Simple
-at tag 12.1.2, rebased onto this package and repaletted by `Themes/Base/Accents.axaml`. There is
+at tag 12.1.3, rebased onto this package and repaletted by `Themes/Base/Accents.axaml`. There is
 no `Avalonia.Themes.*` reference anywhere in the library.
 
 **Do not restyle a forked template.** Keeping them byte-faithful is what makes an Avalonia upgrade

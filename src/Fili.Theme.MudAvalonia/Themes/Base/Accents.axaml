@@ -1,7 +1,7 @@
 <!--
   The bridge. This is the whole trick of the fork.
 
-  The 79 templates under Base/Controls are Avalonia's Simple theme, taken verbatim at 12.1.2 and
+  The 79 templates under Base/Controls are Avalonia's Simple theme, taken verbatim at 12.1.3 and
   rebased onto this package. Not one of them was restyled. They all paint themselves out of the
   ~75 resource keys defined here, so REPLACING THIS ONE FILE REPALETTES EVERY CONTROL AT ONCE -
   which is why forking Simple is so much cheaper than writing 72 templates.
