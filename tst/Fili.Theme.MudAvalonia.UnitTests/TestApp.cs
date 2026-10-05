@@ -44,6 +44,12 @@ public class TestApp : Application
         // Same two lines a consuming app writes, in the same order. No FluentTheme anywhere.
         var baseUri = new Uri("avares://Fili.Theme.MudAvalonia.UnitTests");
 
+        // Load the theme assembly before naming it in an avares:// URI. Since 12.1.3 Avalonia
+        // resolves that name to the shortest LOADED assembly whose module name starts with it, and
+        // until the theme is loaded the only match is this test assembly - which has no compiled
+        // XAML for the theme's paths, so every include throws "No precompiled XAML found".
+        _ = typeof(FiliThemeVariants).Assembly;
+
         Styles.Add(new StyleInclude(baseUri)
         {
             Source = new Uri("avares://Fili.Theme.MudAvalonia/Themes/Base/FiliBaseTheme.axaml"),

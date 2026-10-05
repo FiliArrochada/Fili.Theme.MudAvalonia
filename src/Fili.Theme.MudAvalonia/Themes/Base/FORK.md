@@ -1,7 +1,7 @@
 # Forked from Avalonia's Simple theme
 
 Everything under `Controls/`, plus `InvariantResources.axaml`, is taken **verbatim** from the
-Avalonia repository at tag **12.1.2** and is under Avalonia's MIT licence:
+Avalonia repository at tag **12.1.3** and is under Avalonia's MIT licence:
 
 - `Controls/*.axaml` — `src/Avalonia.Themes.Simple/Controls/*.xaml`
 - `InvariantResources.axaml` — `src/Avalonia.Themes.Fluent/Strings/InvariantResources.xaml`

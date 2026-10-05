@@ -112,6 +112,8 @@ One line each; [`docs/traps.md`](docs/traps.md) has the full account and the tes
 - Re-focusing a focused control does not revisit `:focus-visible`; use two controls.
 - Transitioned properties cannot be asserted synchronously; assert a non-transitioned property of
   the same state.
+- Load the theme assembly before naming it in an `avares://` URI built in code: since 12.1.3 the
+  name resolves by prefix to a LOADED assembly, and the test assembly matches first.
 - Roboto's static instances use legacy family names; assert with `StartsWith`. Do not swap in the
   variable font.
 
@@ -127,7 +129,7 @@ One line each; [`docs/traps.md`](docs/traps.md) has the full account and the tes
 
 ## The base is forked, not depended on
 
-`Themes/Base/` holds 79 templates forked verbatim from Avalonia Simple at tag 12.1.2, repaletted by
+`Themes/Base/` holds 79 templates forked verbatim from Avalonia Simple at tag 12.1.3, repaletted by
 `Themes/Base/Accents.axaml`. There is no `Avalonia.Themes.*` reference in the library.
 
 - **Do not restyle a forked template.** Byte-faithful forks make an upgrade a re-download and a
@@ -142,7 +144,7 @@ One line each; [`docs/traps.md`](docs/traps.md) has the full account and the tes
 ## Layout and conventions
 
 Standard workspace shape (see the workspace CLAUDE.md). Repo-specific: the Avalonia version
-(**12.1.2**) is the tag `Themes/Base/` is forked from, so the two move together (`FORK.md`).
+(**12.1.3**) is the tag `Themes/Base/` is forked from, so the two move together (`FORK.md`).
 
 `global.json` pins the SDK and opts `dotnet test` into Microsoft.Testing.Platform, which xunit v3
 needs on SDK 10.
