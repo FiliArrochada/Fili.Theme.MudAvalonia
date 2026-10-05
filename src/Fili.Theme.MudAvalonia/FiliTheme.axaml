@@ -67,8 +67,8 @@
 
     They were there once, set to body2's metrics on every TextBlock in the app. That silently
     CLIPS any text bigger than 20px: a 28px heading gets a 20px line box and loses its
-    descenders. It cost Fili.PlaySphere every page title - "Game library" and "Settings" rendered
-    with their tails cut off - and it was invisible in this package's own gallery, because the
+    descenders. It cost one adopting app every page title - each rendered with its tails cut
+    off - and it was invisible in this package's own gallery, because the
     gallery labels everything with a ramp class that sets its own LineHeight.
 
     That is the giveaway: a blanket style is only safe when every control it reaches also gets

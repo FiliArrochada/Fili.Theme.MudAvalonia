@@ -28,8 +28,8 @@
     when nothing stretches it?" - Avalonia asks that of anything not stretched, and a field
     template's answer is its CONTENT, which for an empty field is zero. The result is a control
     that renders nothing at all: no error, no missing key, just a label with blank space where
-    the input should be. Fili.Plex's debrid API-token box shipped exactly that, and its
-    interface-scale slider shipped as a lone dot.
+    the input should be. An adopting app's API-token box shipped exactly that, and its
+    settings slider shipped as a lone dot.
 
     This is a floor and not a size. A stretched field ignores it completely, which is the
     behaviour that actually matches width: 100%.

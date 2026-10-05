@@ -132,7 +132,7 @@
       A slider that opts OUT of stretch - HorizontalAlignment="Left", or an Auto grid column -
       measures to its desired width instead, and a Track's desired width is zero. What renders
       then is the thumb and nothing else: a single dot where a control should be, with no error
-      and no missing resource to find. Fili.Plex's interface-scale slider shipped exactly that.
+      and no missing resource to find. An adopting app's settings slider shipped exactly that.
       FiliInputMinWidth is a floor, not a size, and does not constrain a stretched slider.
     -->
     <Setter Property="MinWidth" Value="{DynamicResource FiliInputMinWidth}" />

@@ -6,8 +6,8 @@
     A realistic screen, deliberately.
 
     A wall of controls looks fine under any theme; a real layout is what exposes flat
-    hierarchy and wrong spacing. This one is shaped like a Fili.PlaySphere library view:
-    drawer, content header, filter row, card grid, detail panel.
+    hierarchy and wrong spacing. This one is shaped like a game library: drawer, content
+    header, filter row, card grid, detail panel.
   -->
   <Border Background="{DynamicResource FiliBackgroundGrayBrush}">
     <Grid ColumnDefinitions="240,*,300">

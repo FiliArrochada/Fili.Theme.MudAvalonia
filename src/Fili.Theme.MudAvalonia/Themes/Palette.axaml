@@ -266,8 +266,8 @@
     <!-- ========================= HIGH CONTRAST ========================== -->
     <!--
       NOT a MudBlazor palette. MudBlazor ships light and dark and nothing else, so there was
-      nothing to transcribe here; this variant is derived, and the reference for how an app
-      wants it to behave is Fili.PlaySphere's Palette.HighContrast.axaml.
+      nothing to transcribe here; this variant is derived from how an app swapping to a
+      high-contrast palette expects the theme's own controls to follow it.
 
       Three rules produced every value below.
 
