@@ -676,7 +676,7 @@ public class ThemeCompositionTests
     /// This package used to set body2's LineHeight on a blanket <c>TextBlock</c> selector, which
     /// silently CLIPPED any text larger than 20px — a 28px heading got a 20px line box and lost
     /// its descenders. It was invisible here, because this package's own gallery labels
-    /// everything with a ramp class that sets its own LineHeight, and it cost Fili.PlaySphere
+    /// everything with a ramp class that sets its own LineHeight, and it cost an adopting app
     /// every page title before anyone rendered it.
     /// </para>
     /// <para>

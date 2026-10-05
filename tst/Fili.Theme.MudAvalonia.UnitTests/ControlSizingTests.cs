@@ -25,8 +25,8 @@ public class ControlSizingTests
     /// <para>
     /// Without a floor, a <c>Track</c>'s desired width is zero, so the control measures to its
     /// thumb: a single dot where a slider should be, with nothing thrown, no missing resource and
-    /// nothing in the visual tree to suggest a problem. Fili.PlaySphere never hit it because its
-    /// sliders stretch; Fili.Plex's interface-scale slider — <c>MaxWidth="320"</c> with
+    /// nothing in the visual tree to suggest a problem. A stretched slider never hits it; an
+    /// adopting app's settings slider — <c>MaxWidth="320"</c> with
     /// <c>HorizontalAlignment="Left"</c>, which asks for a desired width — shipped as that dot.
     /// </para>
     /// </summary>
@@ -74,7 +74,7 @@ public class ControlSizingTests
     ///
     /// <para>
     /// An EMPTY field is the case that matters: its content is nothing, so it measures to
-    /// nothing, so it draws nothing — no box, no underline, no label. Fili.Plex's debrid API
+    /// nothing, so it draws nothing — no box, no underline, no label. An adopting app's API
     /// token box was a row reading "API token" followed by blank space, which is precisely the
     /// failure this repo keeps warning about in another costume: nothing threw, nothing was
     /// missing, and there was nothing in the tree to find.

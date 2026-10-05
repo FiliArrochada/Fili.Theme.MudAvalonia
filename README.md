@@ -180,8 +180,8 @@ Note how ordinary those words are — `small`, `flat`, `middle`, `vertical`, `er
 hazard, and it is why the list is a published interface rather than an implementation detail.
 
 The cost is real and adopters should expect it: **an app that already uses those words gets its
-controls retemplated the moment it includes this theme.** Fili.PlaySphere collided on `primary`
-in 20 places on its first day. Nothing broke visibly — its `/template/` selectors still matched
+controls retemplated the moment it includes this theme.** One early adopter collided on
+`primary` in 20 places on its first day. Nothing broke visibly — its `/template/` selectors still matched
 by name — but hover and press were being driven by the app's flat fill *and* the theme's state
 layer at once. The reconciliation is to let the theme own shape and interaction and keep the app's
 colour, which is two setters and a deletion. Grep for `Classes="` before adopting.
@@ -306,7 +306,7 @@ used to have no error host at all, so a failing binding on one showed nothing.
 
 **Filled and outlined fields had no side padding until 0.2.0**, though the themes declared 12px
 and 14px. The template wrote the content margin inline, which binds at Template priority, and a
-variant's plain `^ /template/` style cannot beat that; see the trap in `CLAUDE.md`.
+variant's plain `^ /template/` style cannot beat that; see [the trap](docs/traps.md#styles-priority-and-selectors).
 `VariantsPadTheirContentFromTheSide` now pins it.
 
 The outlined variant masks the border behind the floated label with an opaque patch rather than
@@ -590,7 +590,7 @@ the variant falls back to.
 ```
 
 An app that swaps whole palette dictionaries at runtime rather than using `RequestedThemeVariant`
-— Fili.PlaySphere does — needs nothing new: its high-contrast palette just has to carry the same
+needs nothing new: its high-contrast palette just has to carry the same
 `Fili*` overrides as its other palettes.
 
 ### One rule for adopters: no blanket metric styles
@@ -600,7 +600,7 @@ The type ramp sets `LineHeight` and `LetterSpacing` on its own classes — `body
 
 It used to set body2's `LineHeight` on every `TextBlock`. Inside this package that is harmless,
 because the gallery labels everything with a ramp class that supplies its own. In an adopting app
-it is not: Fili.PlaySphere's headings set `FontSize` and nothing else, so a 28px title rendered in
+it is not: an app whose headings set `FontSize` and nothing else had its 28px titles rendered in
 a 20px line box with its descenders sliced off — on every page, silently, until somebody looked at
 a screenshot.
 
@@ -887,9 +887,8 @@ The evidence came from `--capture`, which rendered both substrates at the time. 
 shipping base only now.
 
 `Material.Avalonia` would be a visually closer substrate, but consuming it means binding to *its*
-slot names (`PrimaryHueMidBrush`, `MaterialCardBackgroundBrush`) — exactly the coupling
-`Fili.MangaReader` has, which ties its Avalonia upgrades to Material.Avalonia shipping a matching
-build.
+slot names (`PrimaryHueMidBrush`, `MaterialCardBackgroundBrush`) — the coupling that ties an
+app's Avalonia upgrades to Material.Avalonia shipping a matching build.
 
 </details>
 
@@ -984,9 +983,9 @@ this repo downloaded 79 and wrote one. The difference is whether you author temp
 them and change only what they paint from.
 
 `Material.Avalonia` remains the closest *visual* match, but consuming it would mean binding to
-*its* slot names (`PrimaryHueMidBrush`, `MaterialCardBackgroundBrush`) — exactly the coupling
-`Fili.MangaReader` has, which ties its Avalonia upgrades to Material.Avalonia shipping a matching
-build. Forking Simple avoids taking on anyone else's vocabulary.
+*its* slot names (`PrimaryHueMidBrush`, `MaterialCardBackgroundBrush`) — the coupling that ties
+an app's Avalonia upgrades to Material.Avalonia shipping a matching build. Forking Simple avoids
+taking on anyone else's vocabulary.
 
 ## The one rule
 
@@ -1290,15 +1289,11 @@ And the things that are not controls:
   rather than inventing a lighter shadow. Use `FiliSurfaceBrush` against `FiliBackgroundGrayBrush`
   to separate surfaces in dark, not elevation alone.
 
-## Prior art in this workspace
+## Where the light palette's colours come from
 
-`Fili.MangaReader/src/Fili.MangaReader.Views/Themes/MudBlazorPalette.axaml` already applies this
-palette, over **Material.Avalonia** rather than Fluent, on Avalonia 12, **dark only**. It is worth
-reading before changing anything here: it documents the light/dark primary trap and the silent-key
-problem from experience, and its `TestAppFidelityTests` is the same idea as the tests here.
-
-The gap it names as unfinished — "MudBlazor's light palette leans on internal swatch constants
-that were not read back" — is closed here. Those constants are `Colors.cs` in MudBlazor:
+MudBlazor's light palette does not spell most of its colours out: it names swatch constants, and
+a port that does not read them back gets the light palette subtly wrong. They are `Colors.cs` in
+MudBlazor:
 `Pink.Accent2` = `#FF4081`, `Blue.Default` = `#2196F3`, `Green.Accent4` = `#00C853`,
 `Orange.Default` = `#FF9800`, `Red.Default` = `#F44336`, `Gray.Darken3` = `#424242`.
 

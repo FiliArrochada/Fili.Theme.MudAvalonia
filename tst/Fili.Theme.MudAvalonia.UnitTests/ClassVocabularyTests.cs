@@ -20,8 +20,8 @@ namespace Fili.Theme.MudAvalonia.UnitTests;
 ///
 /// <para>
 /// A collision does not fail loudly. The app wins for the setters it declares, and every setter
-/// it does NOT declare leaks through from the theme. Fili.PlaySphere hit this twice: `primary` in
-/// 20 places, and `h2` rendering 19px headings inside a 72px line box, because the app set
+/// it does NOT declare leaks through from the theme. One adopting app hit this twice: `primary`
+/// in 20 places, and `h2` rendering 19px headings inside a 72px line box, because the app set
 /// FontSize while the theme supplied LineHeight.
 /// </para>
 ///
