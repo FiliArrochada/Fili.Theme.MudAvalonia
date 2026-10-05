@@ -1,3 +1,4 @@
+using System.Reflection;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
@@ -12,7 +13,37 @@ namespace Fili.Theme.MudAvalonia.Gallery;
 /// </summary>
 public partial class MainView : UserControl
 {
-    public MainView() => AvaloniaXamlLoader.Load(this);
+    public MainView()
+    {
+        AvaloniaXamlLoader.Load(this);
+        this.FindControl<TextBlock>("ThemeVersion")!.Text = ThemeVersionText();
+    }
+
+    /// <summary>
+    /// "v0.4.0", or "v0.4.0 · 6d8ed36" for a build the SDK could stamp with its commit - which
+    /// is every build from a clone, the published gallery included. It reads the THEME's
+    /// assembly, not the gallery's, so it names the package the page is showing; between
+    /// releases the commit is what tells two builds of the same version apart.
+    /// </summary>
+    internal static string ThemeVersionText()
+    {
+        var assembly = typeof(FiliThemeVariants).Assembly;
+        var informational = assembly.GetCustomAttribute<AssemblyInformationalVersionAttribute>()?.InformationalVersion;
+
+        if (string.IsNullOrEmpty(informational))
+        {
+            return $"v{assembly.GetName().Version?.ToString(3)}";
+        }
+
+        var plus = informational.IndexOf('+');
+        if (plus < 0)
+        {
+            return $"v{informational}";
+        }
+
+        var commit = informational[(plus + 1)..];
+        return $"v{informational[..plus]} · {commit[..System.Math.Min(7, commit.Length)]}";
+    }
 
     /// <summary>
     /// Switches the application theme variant at runtime. This is the single most useful thing
