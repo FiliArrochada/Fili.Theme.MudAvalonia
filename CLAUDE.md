@@ -13,7 +13,8 @@ the project name.
 
 A **design-token theme for Avalonia 12**, not a component library: resource dictionaries, style
 classes, `ControlTheme`s where a Material look cannot be faked without one, and a gallery. Read
-`README.md` first; it carries the usage, the token tables and the known gaps.
+`README.md` first: install, the published class list, the tokens and fonts. Per-control usage is
+`docs/controls.md`, the fork's rationale `docs/the-base.md`, and the gaps `docs/known-gaps.md`.
 
 - **The docs are part of the change, not a follow-up.** Adding, renaming or dropping a class or
   token updates its row in `docs/mudblazor-parity.md` in the same commit.
@@ -171,5 +172,5 @@ publishes to nuget.org via trusted publishing and creates the GitHub release. A 
 can never be replaced: bump `<Version>` in a reviewed commit, add its row to `docs/versions.md`
 (plus an "Upgrading" section when existing markup changes look), and leave the tag to the human.
 
-**`docs/testing.md` describes every test class and workflow.** It, the README's CI table and the
-comment in `build.yml` all carry the unit-test total, so a change that adds tests updates all three.
+**`docs/testing.md` describes every test class and workflow.** It and the comment in `build.yml`
+carry the unit-test total, so a change that adds tests updates both.

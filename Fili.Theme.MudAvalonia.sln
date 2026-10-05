@@ -25,9 +25,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		README.md = README.md
 		CLAUDE.md = CLAUDE.md
 		LICENSE = LICENSE
+		docs\controls.md = docs\controls.md
+		docs\known-gaps.md = docs\known-gaps.md
 		docs\mudblazor-parity.md = docs\mudblazor-parity.md
 		docs\razor-vs-axaml.md = docs\razor-vs-axaml.md
+		docs\releasing.md = docs\releasing.md
 		docs\testing.md = docs\testing.md
+		docs\the-base.md = docs\the-base.md
 		docs\traps.md = docs\traps.md
 		docs\versions.md = docs\versions.md
 	EndProjectSection

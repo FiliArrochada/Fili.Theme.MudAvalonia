@@ -37,7 +37,7 @@ needed a different platform.
 | Class | Tests | What it checks | Why it matters |
 |---|---|---|---|
 | `StandaloneReadinessTests` | 3 | The exact set of hand-written control themes (39 of the 89 templated types) and that every one resolves; every other type is classified with the reason it stays on its forked template. | Avalonia has no implicit default theme. A control with no theme does not look wrong - it renders **nothing**. An Avalonia upgrade that adds a control type fails here asking to be classified. |
-| `ClassVocabularyTests` | 1 | The classes the theme's selectors use are exactly the 59 the README publishes, in both directions. | Class names are MudBlazor's ordinary words (`small`, `error`, `vertical`) and they collide with an app's own. An undeclared class is a collision nobody signed off on; a declared one nothing uses is a lie to adopters. |
+| `ClassVocabularyTests` | 1 | The classes the theme's selectors use are exactly the 79 the README publishes, in both directions. | Class names are MudBlazor's ordinary words (`small`, `error`, `vertical`) and they collide with an app's own. An undeclared class is a collision nobody signed off on; a declared one nothing uses is a lie to adopters. |
 | `GeneratedThemeTests` | 1 | `Button.axaml` and the marked regions in eight other files are exactly what `ThemeColourGenerator` writes from the one list of eight colours. | Hundreds of colour styles are generated so that no colour can differ from the others. Editing one block by hand fails the build. `FILI_REGENERATE=1` rewrites the files. |
 
 ### Controls: does each one look and behave as MudBlazor's does?
