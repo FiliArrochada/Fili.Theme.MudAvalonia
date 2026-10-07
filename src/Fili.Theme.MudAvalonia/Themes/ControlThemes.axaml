@@ -43,6 +43,7 @@
     <ResourceInclude Source="avares://Fili.Theme.MudAvalonia/Themes/Controls/Expander.axaml" />
     <ResourceInclude Source="avares://Fili.Theme.MudAvalonia/Themes/Controls/Fields.axaml" />
     <ResourceInclude Source="avares://Fili.Theme.MudAvalonia/Themes/Controls/ProgressBar.axaml" />
+    <ResourceInclude Source="avares://Fili.Theme.MudAvalonia/Themes/Controls/ProgressCircular.axaml" />
     <ResourceInclude Source="avares://Fili.Theme.MudAvalonia/Themes/Controls/Separator.axaml" />
     <ResourceInclude Source="avares://Fili.Theme.MudAvalonia/Themes/Controls/TabControl.axaml" />
     <ResourceInclude Source="avares://Fili.Theme.MudAvalonia/Themes/Controls/TabStrip.axaml" />

@@ -104,6 +104,8 @@ One line each; [`docs/traps.md`](docs/traps.md) has the full account and the tes
 - `TextPresenter` has no `Foreground` property; set it on the `TextBox`.
 - Avalonia's transform parser has no `%` unit, and fails at runtime; use `FactorConverter`.
 - `:empty` on an `ItemsControl` means no items, not no selection.
+- A property animated between gradients must REST on a gradient too, or the animation throws
+  `InvalidCastException` when it starts.
 - A `DataValidationErrors.Errors` entry is usually an `Exception`; show it through
   `ErrorMessageConverter`.
 

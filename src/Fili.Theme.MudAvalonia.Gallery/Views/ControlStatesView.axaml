@@ -209,6 +209,7 @@
           <StackPanel Width="220" Spacing="4">
             <Border Classes="skeleton" Width="200" HorizontalAlignment="Left" />
             <Border Classes="skeleton no-animation" Width="160" HorizontalAlignment="Left" />
+            <Border Classes="skeleton wave" Width="180" HorizontalAlignment="Left" />
           </StackPanel>
           <Border Classes="skeleton circle" Width="40" Height="40" />
           <Border Classes="skeleton rectangle" Width="120" Height="60" />
@@ -223,7 +224,7 @@
                    TextWrapping="Wrap"
                    MaxWidth="760"
                    HorizontalAlignment="Left"
-                   Text="Each of these is a class on a control Avalonia already has. icon on a Button is MudIconButton: round, 12px round a 24px PathIcon, and action-default rather than text-primary; flat is DropShadow=&quot;false&quot;. chip on a Button or ToggleButton is MudChip, filled by default, and a selected filled chip draws as text. alert and skeleton on a Border are MudAlert, whose text is the colour&apos;s darken shade, and MudSkeleton, pulsing (the second line is no-animation, Animation.False). light on a Separator is MudDivider.Light." />
+                   Text="Each of these is a class on a control Avalonia already has. icon on a Button is MudIconButton: round, 12px round a 24px PathIcon, and action-default rather than text-primary; flat is DropShadow=&quot;false&quot;. chip on a Button or ToggleButton is MudChip, filled by default, and a selected filled chip draws as text. alert and skeleton on a Border are MudAlert, whose text is the colour&apos;s darken shade, and MudSkeleton, pulsing (the second line is no-animation, Animation.False, and the third wave, Animation.Wave). light on a Separator is MudDivider.Light." />
       </StackPanel>
 
       <!-- Selection -->
@@ -433,6 +434,23 @@
             <ProgressBar Classes="primary large rounded striped" Value="70" />
             <ProgressBar Classes="success large rounded striped" Value="45" />
           </StackPanel>
+        </StackPanel>
+
+        <TextBlock Classes="caption"
+                   TextWrapping="Wrap"
+                   MaxWidth="760"
+                   HorizontalAlignment="Left"
+                   Text="circular is MudProgressCircular: the same ProgressBar as a ring, 40px by default, text-secondary with no colour, small and large at 24px and 56px. It starts at twelve o'clock and fills clockwise; rounded rounds the ends, ShowProgressText puts the value in the middle, and IsIndeterminate spins it with MudBlazor's growing and shrinking dash." />
+
+        <StackPanel Orientation="Horizontal" Spacing="24" VerticalAlignment="Center">
+          <ProgressBar Classes="circular small" Value="65" />
+          <ProgressBar Classes="circular" Value="65" />
+          <ProgressBar Classes="circular large" Value="65" />
+          <ProgressBar Classes="circular primary rounded" Value="40" />
+          <ProgressBar Classes="circular success large" Value="80" ShowProgressText="True" />
+          <ProgressBar Classes="circular" IsIndeterminate="True" />
+          <ProgressBar Classes="circular primary" IsIndeterminate="True" />
+          <ProgressBar Classes="circular secondary large rounded" IsIndeterminate="True" />
         </StackPanel>
       </StackPanel>
 

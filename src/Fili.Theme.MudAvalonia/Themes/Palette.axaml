@@ -81,6 +81,9 @@
       <Color x:Key="FiliTableStripedColor">#05000000</Color>
       <Color x:Key="FiliTableHoverColor">#0A000000</Color>
       <Color x:Key="FiliSkeletonColor">#1C000000</Color>
+      <!-- Animation.Wave's band: rgba(0,0,0,0.04) composited over the skeleton colour, which is
+           black at 0.11 + 0.04 x 0.89 = 0.145 (25). -->
+      <Color x:Key="FiliSkeletonWaveColor">#25000000</Color>
 
       <!--
         Primary at 6%. MudBlazor Palette.cs derives it as PrimaryColor with HoverOpacity, and it
@@ -219,6 +222,9 @@
       <Color x:Key="FiliTableStripedColor">#33FFFFFF</Color>
       <Color x:Key="FiliTableHoverColor">#14FFFFFF</Color>
       <Color x:Key="FiliSkeletonColor">#1CFFFFFF</Color>
+      <!-- 4% black over white at 0.11: alpha 0.145 (25), and white's share of it 0.105 / 0.145 =
+           0.725 of full (B9). -->
+      <Color x:Key="FiliSkeletonWaveColor">#25B9B9B9</Color>
 
       <Color x:Key="FiliPrimaryHoverColor">#0F776BE7</Color>
 
@@ -360,6 +366,8 @@
       <Color x:Key="FiliTableStripedColor">#1F1F1F</Color>
       <Color x:Key="FiliTableHoverColor">#333333</Color>
       <Color x:Key="FiliSkeletonColor">#2A2A2A</Color>
+      <!-- 4% black over the opaque skeleton: 0x2A x 0.96. -->
+      <Color x:Key="FiliSkeletonWaveColor">#282828</Color>
 
       <!--
         Selection tint at 35%, where light and dark use 6%. Six percent of anything over black
@@ -500,6 +508,18 @@
   <SolidColorBrush x:Key="FiliTableStripedBrush" Color="{DynamicResource FiliTableStripedColor}" />
   <SolidColorBrush x:Key="FiliTableHoverBrush"   Color="{DynamicResource FiliTableHoverColor}" />
   <SolidColorBrush x:Key="FiliSkeletonBrush"     Color="{DynamicResource FiliSkeletonColor}" />
+  <!-- Animation.Wave's two key frames: the band one skeleton wide, entirely off the left edge and
+       entirely off the right. FiliTheme.axaml animates Background between them. -->
+  <LinearGradientBrush x:Key="FiliSkeletonWaveStartBrush" StartPoint="-100%,0%" EndPoint="0%,0%">
+    <GradientStop Offset="0" Color="{DynamicResource FiliSkeletonColor}" />
+    <GradientStop Offset="0.5" Color="{DynamicResource FiliSkeletonWaveColor}" />
+    <GradientStop Offset="1" Color="{DynamicResource FiliSkeletonColor}" />
+  </LinearGradientBrush>
+  <LinearGradientBrush x:Key="FiliSkeletonWaveEndBrush" StartPoint="100%,0%" EndPoint="200%,0%">
+    <GradientStop Offset="0" Color="{DynamicResource FiliSkeletonColor}" />
+    <GradientStop Offset="0.5" Color="{DynamicResource FiliSkeletonWaveColor}" />
+    <GradientStop Offset="1" Color="{DynamicResource FiliSkeletonColor}" />
+  </LinearGradientBrush>
 
   <SolidColorBrush x:Key="FiliPrimaryHoverBrush"   Color="{DynamicResource FiliPrimaryHoverColor}" />
   <!--

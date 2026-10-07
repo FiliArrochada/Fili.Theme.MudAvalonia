@@ -27,6 +27,7 @@ public static class ThemeColourGenerator
     public const string SwitchLabel = "switch colours and sizes.";
     public const string SliderLabel = "slider colours and sizes.";
     public const string ProgressLabel = "progress bar colours.";
+    public const string CircularLabel = "circular progress colours.";
     public const string ChipLabel = "chip variants, colours, selection and sizes.";
     public const string AlertLabel = "alert colours.";
     public const string TabsLabel = "tab bar colours.";
@@ -57,6 +58,7 @@ public static class ThemeColourGenerator
             (Controls("ToggleSwitch.axaml"), SwitchLabel, SwitchRegion()),
             (Controls("Slider.axaml"), SliderLabel, SliderRegion()),
             (Controls("ProgressBar.axaml"), ProgressLabel, ProgressRegion()),
+            (Controls("ProgressCircular.axaml"), CircularLabel, CircularRegion()),
             (Controls("Chip.axaml"), ChipLabel, ChipRegion()),
             (FiliThemePath, AlertLabel, AlertRegion()),
             (FiliThemePath, TabsLabel, TabsRegion()),
@@ -670,6 +672,11 @@ public static class ThemeColourGenerator
 
     private static string ProgressRegion() =>
         string.Concat(Colours.Select(c => Style($"^.{c.ToLowerInvariant()}", ("Background", Res($"Fili{c}Brush")), ("Foreground", Res($"Fili{c}Brush")))));
+
+    // ProgressCircular.axaml: `mud-{color}-text` on MudProgressCircular's root. The ring strokes in
+    // the foreground and there is no track, so a colour is the foreground and nothing else.
+    private static string CircularRegion() =>
+        string.Concat(Colours.Select(c => Style($"^.{c.ToLowerInvariant()}", ("Foreground", Res($"Fili{c}Brush")))));
 
     // ---------------------------------------------------------------------------------------
     // Chip.axaml: MudChip, from _chip.scss. Filled is the default variant. The 12% tint of a text

@@ -418,8 +418,8 @@
     MudSkeleton: `<Border Classes="skeleton" Width="..." />`, from _skeleton.scss. SkeletonType.Text
     is the default - a 4px-rounded bar drawn at 60% of its height from 60% down, so a 20px line
     (body2's line height) shows a 12px bar. `circle` and `rectangle` are the other two types, at
-    `.mud-skeleton`'s 1.2em unless sized. Animation.Pulse is the default and the only one here:
-    opacity 1 -> 0.4 -> 1 over 1.5s, ease-in-out, after a 0.5s delay, for ever.
+    `.mud-skeleton`'s 1.2em unless sized. Animation.Pulse is the default: opacity 1 -> 0.4 -> 1
+    over 1.5s, ease-in-out, after a 0.5s delay, for ever. `wave` is Animation.Wave, below.
   -->
   <Style Selector="Border.skeleton">
     <Setter Property="Background" Value="{DynamicResource FiliSkeletonBrush}" />
@@ -428,10 +428,8 @@
     <Setter Property="RenderTransformOrigin" Value="0%,60%" />
     <Setter Property="RenderTransform" Value="scaleY(0.6)" />
   </Style>
-  <!-- Animation.Pulse, the default; `no-animation` is Animation.False. Animation.Wave is not here:
-       its band is an ::after pseudo-element sliding over the skeleton, and a plain Border has no
-       second layer to animate. -->
-  <Style Selector="Border.skeleton:not(.no-animation)">
+  <!-- Animation.Pulse, the default; `no-animation` is Animation.False. -->
+  <Style Selector="Border.skeleton:not(.no-animation):not(.wave)">
     <Style.Animations>
       <Animation Duration="0:0:1.5" Delay="0:0:0.5" IterationCount="Infinite" Easing="0.42,0,0.58,1">
         <KeyFrame Cue="0%">
@@ -442,6 +440,40 @@
         </KeyFrame>
         <KeyFrame Cue="100%">
           <Setter Property="Opacity" Value="1" />
+        </KeyFrame>
+      </Animation>
+    </Style.Animations>
+  </Style>
+  <!--
+    Animation.Wave. MudBlazor slides an ::after layer across the skeleton - as wide as it, a
+    gradient of transparent -> rgba(0,0,0,0.04) -> transparent, translateX -100% -> 100% over the
+    first 60% of 1.6s, linear, after a 0.5s delay - and clips it to the skeleton's shape.
+
+    A Border has no second layer, so the band is drawn INTO the background instead: a gradient of
+    the skeleton colour -> FiliSkeletonWaveColor -> the skeleton colour, one skeleton wide, whose
+    start and end points slide from -100% to +100%. Source-over compositing is associative, so 4%
+    black over the skeleton colour is a single colour per variant, and the result is the same
+    pixels. Outside the band the gradient pads with the skeleton colour, which is the resting
+    look, so the delay and the last 40% of each cycle show the plain skeleton, as on the web.
+
+    The RESTING background is the start gradient too, not the plain skeleton brush. Avalonia picks
+    a gradient animator from the key frames and casts the property's own value to a gradient
+    when the animation starts, so a solid resting brush throws InvalidCastException - in an app,
+    a crash on the first frame. The start gradient has its band wholly off the left edge, so it
+    draws exactly the plain skeleton.
+  -->
+  <Style Selector="Border.skeleton.wave:not(.no-animation)">
+    <Setter Property="Background" Value="{DynamicResource FiliSkeletonWaveStartBrush}" />
+    <Style.Animations>
+      <Animation Duration="0:0:1.6" Delay="0:0:0.5" IterationCount="Infinite">
+        <KeyFrame Cue="0%">
+          <Setter Property="Background" Value="{DynamicResource FiliSkeletonWaveStartBrush}" />
+        </KeyFrame>
+        <KeyFrame Cue="60%">
+          <Setter Property="Background" Value="{DynamicResource FiliSkeletonWaveEndBrush}" />
+        </KeyFrame>
+        <KeyFrame Cue="100%">
+          <Setter Property="Background" Value="{DynamicResource FiliSkeletonWaveEndBrush}" />
         </KeyFrame>
       </Animation>
     </Style.Animations>
@@ -948,6 +980,12 @@
   </Style>
   <Style Selector="ToggleButton.chip">
     <Setter Property="Theme" Value="{StaticResource FiliChip}" />
+  </Style>
+
+  <!-- MudProgressCircular is a theme a ProgressBar takes, as a chip is one a Button takes; it reads
+       the size, colour and `rounded` classes itself. Themes/Controls/ProgressCircular.axaml. -->
+  <Style Selector="ProgressBar.circular">
+    <Setter Property="Theme" Value="{StaticResource FiliProgressCircular}" />
   </Style>
 
   <!--
