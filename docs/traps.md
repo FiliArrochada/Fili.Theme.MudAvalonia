@@ -170,6 +170,14 @@ one.
   renders `"System.InvalidOperationException: the message"`. `ErrorMessageConverter` exists for
   exactly that.
 
+- **A gradient key frame needs a gradient resting value.** Animating `Background` between two
+  `LinearGradientBrush`es makes Avalonia pick its gradient animator, which casts the property's
+  own value to a gradient when the animation starts - so over a `SolidColorBrush` it throws
+  `InvalidCastException`, and in an app that is a crash on the first frame. Nothing fails until
+  the animation actually runs: it compiles, the resources resolve, and a headless test whose clock
+  never advances passes. The skeleton `wave` therefore rests on its own start gradient, whose band
+  is wholly off the edge and so draws the plain skeleton.
+
 ## Writing tests
 
 - **Re-focusing an already-focused control does not revisit `:focus-visible`.** A test that

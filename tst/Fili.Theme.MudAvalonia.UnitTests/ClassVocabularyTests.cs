@@ -60,12 +60,13 @@ public class ClassVocabularyTests
         "vertical",
 
         // Components that are a class on an existing control: MudIconButton and MudChip on a
-        // Button, MudAlert and MudSkeleton on a Border, with MudSkeleton's SkeletonType.
-        "alert", "chip", "circle", "counter", "icon", "rectangle", "skeleton",
+        // Button, MudAlert and MudSkeleton on a Border, with MudSkeleton's SkeletonType, and
+        // MudProgressCircular on a ProgressBar.
+        "alert", "chip", "circle", "circular", "counter", "icon", "rectangle", "skeleton",
 
         // Behaviour parameters named as MudBlazor names them: HelperTextOnFocus on a field, and
-        // MudSkeleton's Animation.False.
-        "helper-on-focus", "no-animation",
+        // MudSkeleton's Animation.False and Animation.Wave.
+        "helper-on-focus", "no-animation", "wave",
 
         // MudSlider's ValueLabel.
         "value-label",

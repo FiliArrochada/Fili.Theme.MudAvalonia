@@ -237,19 +237,27 @@ the inline style in that razor file. (`NavigateNext` turns out to be byte-identi
 ```xml
 <ProgressBar Value="65" />                                4px, square — the MudBlazor defaults
 <ProgressBar Classes="primary large rounded" Value="65" />
+<ProgressBar Classes="circular" Value="65" />            MudProgressCircular, 40px
+<ProgressBar Classes="circular primary small" IsIndeterminate="True" />
 <Separator />                                             1px, no margin
 <Separator Classes="inset" />                             72px indent, to clear an avatar column
 <Expander Header="Details"> … </Expander>
 <HyperlinkButton Content="Learn more" />
 ```
 
-Four places where the MudBlazor default is not the one you would guess:
+Five places where the MudBlazor default is not the one you would guess:
 
 - **A bare `ProgressBar` is a 4px square hairline.** `MudProgressLinear.Size` defaults to
   `Size.Small` and `Rounded` to `false`; `medium` and `large` are 8px and 12px, `rounded` opts
   into the 4px radius. The track is always the bar's own colour at 20% — only `Color.Default`
   splits them (track `action-disabled`, bar `action-default`), which is why `Background` and
   `Foreground` are the two knobs.
+- **`circular` is MudProgressCircular, and it is grey with no colour.** Its default is
+  `text-secondary`, not primary, and there is no track. It is a theme the same `ProgressBar` takes,
+  as `chip` is one a `Button` takes, so `Value`, `Minimum`, `Maximum` and `IsIndeterminate` all
+  carry over: 40px (`small` 24, `large` 56), starting at twelve o'clock and filling clockwise.
+  `rounded` rounds the ends and `ShowProgressText` puts the value in the middle, which is where
+  MudBlazor puts its `ChildContent`.
 - **A `Separator` has `margin: 0`.** The forked Simple template ships `Margin="29,1,0,1"`, a
   menu-shaped indent baked into every divider, which used to survive because the theme only
   recoloured it. `inset` (72px) and `middle` (16px) are MudBlazor's real variants.

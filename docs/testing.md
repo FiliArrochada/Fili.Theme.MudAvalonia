@@ -10,7 +10,7 @@ those silent failures into red builds, because looking at the app cannot be reli
 
 | Project | What it does | Speed |
 |---|---|---|
-| `tst/Fili.Theme.MudAvalonia.UnitTests` | 384 tests on a headless Avalonia session. They resolve resources, template controls, move a real pointer over them, and read back the values the theme applied. Nothing is rendered. | seconds |
+| `tst/Fili.Theme.MudAvalonia.UnitTests` | 407 tests on a headless Avalonia session. They resolve resources, template controls, move a real pointer over them, and read back the values the theme applied. Nothing is rendered. | seconds |
 | `tst/Fili.Theme.MudAvalonia.PixelTests` | 13 tests. Nine render one gallery frame each with Skia and compare it pixel by pixel with a PNG committed in `Baselines/`; four, in `GalleryPageTests`, check how the gallery behaves - that the controls page opens at the top in a window shorter than its first screen, that keyboard focus still scrolls it, that each section's jump link lands on it, and that the app bar shows the theme's version. | ~30 seconds |
 
 They are separate on purpose. The pixel suite needs Skia with headless drawing turned **off** -
@@ -21,7 +21,7 @@ needed a different platform.
 
 ## The unit tests
 
-384 tests in 26 classes, grouped here by the failure each one exists to catch.
+407 tests in 28 classes, grouped here by the failure each one exists to catch.
 
 ### Tokens: does every value exist, in every variant?
 
@@ -37,7 +37,7 @@ needed a different platform.
 | Class | Tests | What it checks | Why it matters |
 |---|---|---|---|
 | `StandaloneReadinessTests` | 3 | The exact set of hand-written control themes (39 of the 89 templated types) and that every one resolves; every other type is classified with the reason it stays on its forked template. | Avalonia has no implicit default theme. A control with no theme does not look wrong - it renders **nothing**. An Avalonia upgrade that adds a control type fails here asking to be classified. |
-| `ClassVocabularyTests` | 1 | The classes the theme's selectors use are exactly the 79 the README publishes, in both directions. | Class names are MudBlazor's ordinary words (`small`, `error`, `vertical`) and they collide with an app's own. An undeclared class is a collision nobody signed off on; a declared one nothing uses is a lie to adopters. |
+| `ClassVocabularyTests` | 1 | The classes the theme's selectors use are exactly the 81 the README publishes, in both directions. | Class names are MudBlazor's ordinary words (`small`, `error`, `vertical`) and they collide with an app's own. An undeclared class is a collision nobody signed off on; a declared one nothing uses is a lie to adopters. |
 | `GeneratedThemeTests` | 1 | `Button.axaml` and the marked regions in eight other files are exactly what `ThemeColourGenerator` writes from the one list of eight colours. | Hundreds of colour styles are generated so that no colour can differ from the others. Editing one block by hand fails the build. `FILI_REGENERATE=1` rewrites the files. |
 
 ### Controls: does each one look and behave as MudBlazor's does?
@@ -64,6 +64,8 @@ from MudBlazor's SCSS or the component's parameter defaults.
 | `TextColourTests` | 9 | `TextBlock` colours, MudText's `Color`. |
 | `ControlSizingTests` | 8 | The minimum sizes a control needs to exist when nothing stretches it - a number MudBlazor never has to give, because CSS sizes by container. |
 | `ProgressColourTests` | 8 | `ProgressBar` colours. |
+| `ProgressCircularTests` | 17 | `circular`: sizes, stroke, colours, the sweep, `rounded`, the indeterminate key frames and the centred value. |
+| `SkeletonWaveTests` | 6 | `wave`: its timing, its two gradients, the band colour in every variant, and that it does not also pulse. |
 | `RightToLeftTests` | 2 | Avalonia mirrors a subtree with one transform, so layout flips on its own; a checkmark must opt out and does. |
 | `AppBarTests` | 2 | The app bar's text colour is inherited, so a select on the bar keeps text-primary in its popup instead of white on white. |
 | `LinkInheritTests` | 1 | `HyperlinkButton.inherit` really takes the surrounding text colour. |

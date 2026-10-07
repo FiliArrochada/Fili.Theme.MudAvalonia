@@ -121,7 +121,7 @@ base became a fork of Simple that this repo owns, the hazard went with it: a `Te
 `Variant.Outlined`, `Variant.Text` and `Variant.Filled` — API familiarity is the point of this
 package, so they are not namespaced to `mud-primary` or hidden behind an attached property.
 
-**All 79 of them, which is the list to grep an app against before adopting:**
+**All 81 of them, which is the list to grep an app against before adopting:**
 
 | | |
 |---|---|
@@ -131,8 +131,8 @@ package, so they are not namespaced to `mud-primary` or hidden behind an attache
 | Shape (`Variant`) | `text`, `filled`, `outlined`, `rounded`, `flat` |
 | Size (`Size`) | `small`, `medium`, `large`, `dense` |
 | Placement | `inset`, `middle`, `vertical`, `light`, `underline`, `no-underline`, `border`, `centered`, `hide-slider` |
-| Component | `icon`, `chip`, `alert`, `skeleton`, `circle`, `rectangle`, `counter` |
-| Behaviour | `helper-on-focus`, `no-animation`, `value-label`, `striped` |
+| Component | `icon`, `chip`, `alert`, `skeleton`, `circle`, `rectangle`, `counter`, `circular` |
+| Behaviour | `helper-on-focus`, `no-animation`, `value-label`, `striped`, `wave` |
 | Icons in content | `start-icon`, `end-icon` |
 | Tab indicator colour (`SliderColor`) | `slider-primary`, `slider-secondary`, `slider-tertiary`, `slider-info`, `slider-success`, `slider-warning`, `slider-error`, `slider-dark` |
 | Unchecked colour (`UncheckedColor`) | `unchecked-primary`, `unchecked-secondary`, `unchecked-tertiary`, `unchecked-info`, `unchecked-success`, `unchecked-warning`, `unchecked-error`, `unchecked-dark` |
@@ -182,9 +182,9 @@ MudAlert: the colour at 6% behind text in the colour's *darken* shade, which is 
 does and is easy to mistake for the colour itself; a `PathIcon` inside takes the colour.
 `outlined`, `filled` and `dense` are MudAlert's own. `<Border Classes="skeleton" Width="200" />`
 pulses on MudSkeleton's timing, and `circle` / `rectangle` are its other two types;
-`no-animation` is `Animation.False`. The pixel suite masks a pulsing skeleton for the same reason
-it masks an indeterminate progress bar, and compares a still one like everything else.
-`Animation.Wave` is not here: its band is an `::after` layer, which a `Border` does not have.
+`no-animation` is `Animation.False` and `wave` is `Animation.Wave`. The pixel suite masks an
+animated skeleton for the same reason it masks an indeterminate progress bar, and compares a still
+one like everything else.
 
 ### One rule for adopters: no blanket metric styles
 

@@ -6,7 +6,7 @@ where the two differ. For side-by-side markup, see [Razor and AXAML](razor-vs-ax
 The rule behind every row: **a class only ever names a MudBlazor variant.** Every control the
 theme templates is keyed to its type, so an unclassed control is already the MudBlazor default.
 Class names are MudBlazor's own words (`primary`, `outlined`, `small`), deliberately not
-namespaced. `ClassVocabularyTests` pins the full list of 79.
+namespaced. `ClassVocabularyTests` pins the full list of 81.
 
 | Mark | Meaning |
 |---|---|
@@ -175,7 +175,19 @@ Put a `PathIcon` in `Content`: `<Button Classes="icon primary"><PathIcon Data="�
 | `Color` | `primary` … `dark` | ✅ every palette colour, the track at 20% of it |
 | `Striped` | `striped` | ✅ 25% white bands at 135°, 40px apart, sliding as MudBlazor's do |
 | `Buffer` | — | ❌ it needs a second value `ProgressBar` does not have |
-| `MudProgressCircular` | — | ❌ no circular progress control in Avalonia |
+
+### MudProgressCircular → `ProgressBar.circular`
+
+| MudBlazor | Here | |
+|---|---|---|
+| the component | `circular` on a `ProgressBar` | ✅ a ring drawn with an `Arc`, from 12 o'clock clockwise |
+| `Size.Medium` (default) / `Small` / `Large` | no class / `small` / `large` | ✅ 40 / 24 / 56px |
+| `StrokeWidth` | — | ≈ fixed at MudBlazor's default 3, scaled with the ring as the SVG viewBox scales it |
+| `Color` | no class, `primary` … `dark` | ✅ `text-secondary` by default, no track |
+| `Rounded` | `rounded` | ✅ round line caps |
+| `Indeterminate` | `IsIndeterminate` | ✅ circular-rotate and circular-dash, key frame for key frame, eased per segment |
+| `Min`, `Max`, `Value` | `Minimum`, `Maximum`, `Value` | ✅ the 300ms ease on a value change too |
+| `ChildContent` | `ShowProgressText` | ≈ the formatted value in the middle, in the ring's colour; not arbitrary content |
 
 ### MudDivider → `Separator`
 
@@ -273,7 +285,7 @@ The message goes in the `Border`; an icon is a `PathIcon` inside it, and takes t
 | `SkeletonType.Circle` / `Rectangle` | `circle` / `rectangle` | ✅ |
 | `Animation.Pulse` (default) | the same | ✅ 1.5s ease-in-out, 0.5s delay, opacity 1 → 0.4 → 1 |
 | `Animation.False` | `no-animation` | ✅ |
-| `Animation.Wave` | — | ❌ its band is an `::after` layer sliding over the skeleton; a `Border` has no second layer to animate |
+| `Animation.Wave` | `wave` | ✅ 1.6s linear after 0.5s, the 4% band crossing in the first 60%; drawn into the background, since a `Border` has no `::after` layer |
 | `Width`, `Height` | `Width`, `Height` | ✅ |
 
 ### Not here

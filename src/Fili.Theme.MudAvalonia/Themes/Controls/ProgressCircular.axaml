@@ -1,0 +1,195 @@
+<!--
+  ProgressCircular: MudProgressCircular. Not a new control - a theme a ProgressBar takes with the
+  `circular` class, as a chip is a theme a Button takes:
+
+    <ProgressBar Classes="circular" Value="60" />                    determinate, 40px
+    <ProgressBar Classes="circular primary small" IsIndeterminate="True" />
+
+  Transcribed from Styles/components/_progresscircular.scss and
+  Components/Progress/MudProgressCircular.razor(.cs):
+
+    Size.Small / Medium / Large   24px / 40px / 56px; Medium is the default
+    the circle                    r 20 in a viewBox of 2r + StrokeWidth, StrokeWidth 3 - so the ring
+                                  fills the box and the stroke scales with it: 3 x size / 43
+    Color.Default                 `.mud-progress-circular` colour, text-secondary
+    Color.<named>                 `mud-{color}-text`, the palette colour; there is no track
+    Rounded                       stroke-linecap: round; square ends otherwise
+    the start                     the svg is rotated -90deg, so the arc starts at 12 o'clock and
+                                  runs clockwise
+
+  Avalonia's Arc measures its angles from 3 o'clock, clockwise, and deflates its bounds by half
+  the stroke - which is exactly the viewBox above - so StartAngle -90 is MudBlazor's start, and
+  the determinate sweep is Percentage x 3.6 degrees. FiliRailFactor is that multiply.
+
+  ShowProgressText shows the formatted value in the middle, which is where MudBlazor puts its
+  ChildContent; it takes the ring's colour, as ChildContent inherits it there.
+
+  PART_Indicator is required by ProgressBar itself (it sizes it for the linear bar), so it is here,
+  collapsed, and nothing reads it.
+-->
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:converters="using:Avalonia.Controls.Converters"
+                    xmlns:fili="using:Fili.Theme.MudAvalonia.Converters">
+
+  <converters:StringFormatConverter x:Key="FiliCircularStringFormatConverter" />
+  <fili:FactorConverter x:Key="FiliCircularFactor" />
+
+  <ControlTheme x:Key="FiliProgressCircular" TargetType="ProgressBar">
+    <Setter Property="Background" Value="Transparent" />
+    <Setter Property="Foreground" Value="{DynamicResource FiliTextSecondaryBrush}" />
+    <Setter Property="FontFamily" Value="{DynamicResource FiliFontFamily}" />
+    <Setter Property="FontSize" Value="{DynamicResource FiliCaptionFontSize}" />
+    <Setter Property="Width" Value="40" />
+    <Setter Property="Height" Value="40" />
+    <Setter Property="MinWidth" Value="0" />
+    <Setter Property="MinHeight" Value="0" />
+    <!-- display: inline-block: it keeps its own size rather than stretching to its slot. -->
+    <Setter Property="HorizontalAlignment" Value="Left" />
+    <Setter Property="VerticalAlignment" Value="Center" />
+
+    <Setter Property="Template">
+      <ControlTemplate TargetType="ProgressBar">
+        <Panel>
+          <Border x:Name="PART_Indicator" IsVisible="False" />
+
+          <Panel x:Name="PART_Spinner">
+            <!-- Determinate: `.mud-progress-static`, the dash offset eased over 300ms. -->
+            <Arc x:Name="PART_Circle"
+                 Stroke="{TemplateBinding Foreground}"
+                 StrokeThickness="2.7907"
+                 StartAngle="-90"
+                 SweepAngle="{Binding Percentage, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource FiliCircularFactor}, ConverterParameter=3.6}"
+                 IsVisible="{Binding !IsIndeterminate, RelativeSource={RelativeSource TemplatedParent}}">
+              <Arc.Transitions>
+                <Transitions>
+                  <DoubleTransition Property="SweepAngle" Duration="0:0:0.3" Easing="0.4,0,0.2,1" />
+                </Transitions>
+              </Arc.Transitions>
+            </Arc>
+
+            <Arc x:Name="PART_IndeterminateCircle"
+                 Stroke="{TemplateBinding Foreground}"
+                 StrokeThickness="2.7907"
+                 IsVisible="{Binding IsIndeterminate, RelativeSource={RelativeSource TemplatedParent}}" />
+          </Panel>
+
+          <TextBlock HorizontalAlignment="Center"
+                     VerticalAlignment="Center"
+                     Foreground="{TemplateBinding Foreground}"
+                     FontFamily="{TemplateBinding FontFamily}"
+                     FontSize="{TemplateBinding FontSize}"
+                     LineHeight="NaN"
+                     IsVisible="{Binding ShowProgressText, RelativeSource={RelativeSource TemplatedParent}}">
+            <TextBlock.Text>
+              <MultiBinding Converter="{StaticResource FiliCircularStringFormatConverter}">
+                <TemplateBinding Property="ProgressTextFormat" />
+                <Binding Path="Value" RelativeSource="{RelativeSource TemplatedParent}" />
+                <TemplateBinding Property="Percentage" />
+                <TemplateBinding Property="Minimum" />
+                <TemplateBinding Property="Maximum" />
+              </MultiBinding>
+            </TextBlock.Text>
+          </TextBlock>
+        </Panel>
+      </ControlTemplate>
+    </Setter>
+
+    <!-- Size: the stroke is StrokeWidth 3 in a 43-unit viewBox, so it scales with the box. -->
+    <Style Selector="^.small">
+      <Setter Property="Width" Value="24" />
+      <Setter Property="Height" Value="24" />
+    </Style>
+    <Style Selector="^.small /template/ Arc">
+      <Setter Property="StrokeThickness" Value="1.6744" />
+    </Style>
+    <Style Selector="^.large">
+      <Setter Property="Width" Value="56" />
+      <Setter Property="Height" Value="56" />
+    </Style>
+    <Style Selector="^.large /template/ Arc">
+      <Setter Property="StrokeThickness" Value="3.9070" />
+    </Style>
+
+    <Style Selector="^.rounded /template/ Arc">
+      <Setter Property="StrokeLineCap" Value="Round" />
+    </Style>
+
+    <!--
+      Indeterminate: MudBlazor's two animations, both 1.4s.
+
+        circular-rotate   the whole svg turns 0 -> 360deg, linear
+        circular-dash     0%    dasharray 1px, 200px     offset 0
+                          50%   dasharray 100px, 200px   offset -15px
+                          100%  dasharray 100px, 200px   offset -125px
+                          ease-in-out, which CSS applies to EACH segment
+
+      On a circle of r 20 (circumference 125.66), a dash of L px is L / 125.66 x 360 degrees and an
+      offset of -D px moves the dash's start D px further round. So the dash is a sweep of
+      2.865 -> 286.48 -> 286.48 degrees, starting 0 -> 42.97 -> 358.10 degrees past 12 o'clock.
+      KeySpline on a key frame eases the segment that ENDS there, which is CSS's per-segment
+      ease-in-out exactly; an Animation.Easing would ease the whole cycle instead.
+    -->
+    <Style Selector="^:indeterminate /template/ Panel#PART_Spinner">
+      <Style.Animations>
+        <Animation Duration="0:0:1.4" IterationCount="Infinite">
+          <KeyFrame Cue="0%">
+            <Setter Property="RotateTransform.Angle" Value="0" />
+          </KeyFrame>
+          <KeyFrame Cue="100%">
+            <Setter Property="RotateTransform.Angle" Value="360" />
+          </KeyFrame>
+        </Animation>
+      </Style.Animations>
+    </Style>
+    <Style Selector="^:indeterminate /template/ Arc#PART_IndeterminateCircle">
+      <Setter Property="StartAngle" Value="-90" />
+      <Setter Property="SweepAngle" Value="2.865" />
+      <Style.Animations>
+        <Animation Duration="0:0:1.4" IterationCount="Infinite">
+          <KeyFrame Cue="0%">
+            <Setter Property="StartAngle" Value="-90" />
+            <Setter Property="SweepAngle" Value="2.865" />
+          </KeyFrame>
+          <KeyFrame Cue="50%" KeySpline="0.42,0,0.58,1">
+            <Setter Property="StartAngle" Value="-47.03" />
+            <Setter Property="SweepAngle" Value="286.48" />
+          </KeyFrame>
+          <KeyFrame Cue="100%" KeySpline="0.42,0,0.58,1">
+            <Setter Property="StartAngle" Value="268.10" />
+            <Setter Property="SweepAngle" Value="286.48" />
+          </KeyFrame>
+        </Animation>
+      </Style.Animations>
+    </Style>
+
+    <!-- The colour is only a colour: `mud-{color}-text` on the root, which the ring strokes in. -->
+    <!-- GENERATED by ThemeColourGenerator: circular progress colours. -->
+    <Style Selector="^.primary">
+      <Setter Property="Foreground" Value="{DynamicResource FiliPrimaryBrush}" />
+    </Style>
+    <Style Selector="^.secondary">
+      <Setter Property="Foreground" Value="{DynamicResource FiliSecondaryBrush}" />
+    </Style>
+    <Style Selector="^.tertiary">
+      <Setter Property="Foreground" Value="{DynamicResource FiliTertiaryBrush}" />
+    </Style>
+    <Style Selector="^.info">
+      <Setter Property="Foreground" Value="{DynamicResource FiliInfoBrush}" />
+    </Style>
+    <Style Selector="^.success">
+      <Setter Property="Foreground" Value="{DynamicResource FiliSuccessBrush}" />
+    </Style>
+    <Style Selector="^.warning">
+      <Setter Property="Foreground" Value="{DynamicResource FiliWarningBrush}" />
+    </Style>
+    <Style Selector="^.error">
+      <Setter Property="Foreground" Value="{DynamicResource FiliErrorBrush}" />
+    </Style>
+    <Style Selector="^.dark">
+      <Setter Property="Foreground" Value="{DynamicResource FiliDarkBrush}" />
+    </Style>
+    <!-- END GENERATED -->
+  </ControlTheme>
+
+</ResourceDictionary>
