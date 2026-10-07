@@ -6,7 +6,8 @@ What changed in each release of `Fili.Theme.MudAvalonia`, newest first. The pack
 
 | Version | |
 |---|---|
-| **0.5.1** | Avalonia 12.1.3, which the package now requires. The forked base templates are re-synced to that tag; the only upstream change is the drawn window title bar's decoration role. |
+| **0.6.0** | MudProgressCircular as `circular` on a `ProgressBar`: sizes, colours, `rounded`, `ShowProgressText` and MudBlazor's indeterminate spin. MudSkeleton's `Animation.Wave` as `wave`. The published class list grows to 81. |
+| 0.5.1 | Avalonia 12.1.3, which the package now requires. The forked base templates are re-synced to that tag; the only upstream change is the drawn window title bar's decoration role. |
 | 0.5.0 | MudTabs' `Position` through `TabStripPlacement`, `Elevation` as `elevation*` and `SliderColor` as `slider-{colour}`; MudProgressLinear's `Striped` as `striped`; MudButton's `StartIcon` / `EndIcon` and MudChip's `Icon` spacing as `start-icon` / `end-icon` on the icon in the content. |
 | 0.4.0 | MudSlider's `Variant`, `TickMarks` and `ValueLabel`: `filled`, tick dots through `TickPlacement`, and `value-label`. `UncheckedColor` on checkboxes and radios as `unchecked-{colour}`. The `GrayDefault` … `GrayDarker` tokens. An outlined text field's or select's floated label is no longer cut off along its top edge. See [Upgrading from 0.3 to 0.4](#upgrading-from-03-to-04). |
 | 0.3.0 | The project is renamed `Fili.Theme.MudAvalonia`: the assembly, namespaces, `avares://` paths and repository. The NuGet id stays `Fili.MudAvalonia.Theme`. See [Upgrading from 0.2 to 0.3](#upgrading-from-02-to-03). |
