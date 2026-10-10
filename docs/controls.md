@@ -268,6 +268,56 @@ Five places where the MudBlazor default is not the one you would guess:
 - **A `HyperlinkButton` is not underlined at rest.** `MudLink.Underline` defaults to
   `Underline.Hover`. `Classes="underline"` is always-on, `no-underline` is never.
 
+## FABs, avatars, badges and cards
+
+Four more MudBlazor components that are a look on a control Avalonia already has:
+
+```xml
+<Button Classes="fab primary"><PathIcon Data="…" /></Button>               MudFab, 56px
+<Button Classes="fab extended secondary medium">                           with a Label
+  <StackPanel Orientation="Horizontal">
+    <PathIcon Classes="start-icon" Data="…" /><TextBlock Text="Share" />
+  </StackPanel>
+</Button>
+<Border Classes="avatar primary"><TextBlock Text="M" /></Border>           MudAvatar, 40px
+<HeaderedContentControl Classes="badge error" Header="{Binding Unread}">   MudBadge
+  <PathIcon Data="…" />
+</HeaderedContentControl>
+<Border Classes="card" Width="345">                                        MudCard
+  <StackPanel>
+    <DockPanel Classes="card-header">
+      <Border Classes="avatar secondary card-header-avatar"><TextBlock Text="I" /></Border>
+      <Button Classes="icon card-header-actions"><PathIcon Data="…" /></Button>
+      <TextBlock Classes="card-header-content body1" Text="Istra Croatia" />
+    </DockPanel>
+    <Border Classes="card-media" Height="140"><Image Source="…" /></Border>
+    <TextBlock Classes="card-content body2" TextWrapping="Wrap" Text="…" />
+    <StackPanel Classes="card-actions"><Button Classes="primary" Content="Share" /></StackPanel>
+  </StackPanel>
+</Border>
+```
+
+- **A FAB is filled, grey and large by default.** `MudFab.Variant` defaults to `Filled`, unlike
+  MudButton's `Text`, and `Size` to `Large`: 56px of `action-default-hover` at elevation 6, lifting
+  to 8 on hover and 12 on press. `medium` and `small` are 48 and 40px, `outlined` and `text` never
+  cast a shadow, and `extended` is the pill MudFab draws when it has a `Label`. Its icons are 24px
+  at every size, as `IconSize` defaults to `Medium`.
+- **An avatar is a `Border`, and it does not clip itself.** Clipping a `Border` would clip its own
+  elevation shadow too, because Avalonia pushes a visual's clip before it draws itself. So an
+  `Image` inside is scaled to cover and clipped to the shape by the theme, at the three sizes; an
+  `ImageBrush` as the `Background` needs no clip at any size. `text` is the bare `.mud-avatar`,
+  white on gray-light whatever the colour, because `_avatar.scss` has no rule for the variant.
+- **A badge is a `HeaderedContentControl`: `Content` is what it decorates, `Header` the badge.**
+  It hangs 4px into the corner (`overlap`: 12px), an `int` over 99 reads `99+` as `MudBadge.Max`
+  makes it, and a `null` `Header` hides it, which is how `Visible="false"` reads here. The colour
+  classes paint the badge, never the content. The badge sits outside the control's bounds, so the
+  theme turns off the clip every templated control has, and the badge still takes the pointer.
+- **A card is a `Border` with MudCard's parts as classes on what lays it out.** `card` is a paper
+  at elevation 1; `outlined` drops the shadow whatever elevation class it also carries, because
+  MudPaper only adds one when it is not outlined. `card-header` belongs on a `DockPanel`: the avatar
+  and actions dock to the sides and the content goes LAST so it fills. A `card-media` that comes
+  first takes the card's top corners.
+
 ## The drawer, and a third way to theme a control
 
 `SplitView` is MudDrawer, and it is the one control here treated with **styles rather than a
@@ -447,10 +497,10 @@ The affordance is a 4% tint, which is what MudBlazor ships and is on the subtle 
 a stricter accessibility bar should add a ring of its own; the theme deliberately does not invent
 one.
 
-## Two converters
+## The converters
 
-Besides `FiliThemeVariants`, the package's only code is two `internal` converters, each for
-something XAML cannot express on its own:
+Besides `FiliThemeVariants`, the package's only code is a handful of `internal` converters, each
+for something XAML cannot express on its own:
 
 - **`FactorConverter`** multiplies a bound pixel dimension by a constant. The indeterminate
   progress bar needs it: MudBlazor's keyframes animate `left`/`right` percentages, so each bar
@@ -460,6 +510,10 @@ something XAML cannot express on its own:
 - **`ErrorMessageConverter`** turns one `DataValidationErrors.Errors` entry into the sentence to
   show. An entry is usually an `Exception`, and binding straight to it renders
   `"System.InvalidOperationException: Must be a valid email address"`.
+- **`TickPositionsConverter`** places a slider's tick dots along its track, because `TickBar`
+  only draws lines.
+- **`BadgeContentConverter`** caps a numeric badge at `MudBadge.Max`'s default: an `int` over 99
+  reads `99+`. A binding cannot compare.
 
 Compiled XAML in the same assembly can construct an `internal` type, so being internal costs
 nothing and keeps the public surface at that one type. Reach for one only after establishing

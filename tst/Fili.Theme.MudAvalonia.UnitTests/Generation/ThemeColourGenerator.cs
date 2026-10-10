@@ -29,6 +29,9 @@ public static class ThemeColourGenerator
     public const string ProgressLabel = "progress bar colours.";
     public const string CircularLabel = "circular progress colours.";
     public const string ChipLabel = "chip variants, colours, selection and sizes.";
+    public const string FabLabel = "fab variants, colours and sizes.";
+    public const string BadgeLabel = "badge origins, colours and elevation.";
+    public const string AvatarLabel = "avatar colours.";
     public const string AlertLabel = "alert colours.";
     public const string TabsLabel = "tab bar colours.";
     public const string AppBarLabel = "app bar colours.";
@@ -60,7 +63,10 @@ public static class ThemeColourGenerator
             (Controls("ProgressBar.axaml"), ProgressLabel, ProgressRegion()),
             (Controls("ProgressCircular.axaml"), CircularLabel, CircularRegion()),
             (Controls("Chip.axaml"), ChipLabel, ChipRegion()),
+            (Controls("Fab.axaml"), FabLabel, FabRegion()),
+            (Controls("Badge.axaml"), BadgeLabel, BadgeRegion()),
             (FiliThemePath, AlertLabel, AlertRegion()),
+            (FiliThemePath, AvatarLabel, AvatarRegion()),
             (FiliThemePath, TabsLabel, TabsRegion()),
             (FiliThemePath, AppBarLabel, AppBarRegion()),
         };
@@ -790,6 +796,188 @@ public static class ThemeColourGenerator
         o.Append(Style("^.large", ("Height", "40"), ("CornerRadius", "20"), ("FontSize", "16"), ("Padding", "16,0")));
         o.Append("\n    <!-- `.mud-disabled`: half opacity. -->\n");
         o.Append(Style("^:disabled", ("Opacity", "0.5")));
+        return o.ToString();
+    }
+
+    // ---------------------------------------------------------------------------------------
+    // Fab.axaml: MudFab, from _fab.scss. Filled is the default variant and its ground changes on
+    // hover, focus and press - no state layer, since every state has a token. Filled lifts 6 -> 8
+    // (hover, focus) -> 12 (press); outlined and text never cast a shadow.
+    // ---------------------------------------------------------------------------------------
+
+    private static string FabStates(string prefix, params (string, string)[] setters) =>
+        string.Concat(States.Select(s => Style($"^{prefix}{s} /template/ Border#PART_Root", setters)));
+
+    /// <summary>No shadow at rest or in any state.</summary>
+    private static string FabGrounded(string prefix) =>
+        Style($"^{prefix} /template/ Border#PART_Root", ("BoxShadow", Res("FiliElevation0")))
+        + FabStates(prefix, ("BoxShadow", Res("FiliElevation0")));
+
+    private static string FabRegion()
+    {
+        var o = new StringBuilder();
+        o.Append("    <!-- Filled, the default: lifts on hover and focus, more on press. -->\n");
+        o.Append(Style("^:pointerover /template/ Border#PART_Root", ("BoxShadow", Res("FiliElevation8"))));
+        o.Append(Style("^:focus-visible /template/ Border#PART_Root", ("BoxShadow", Res("FiliElevation8"))));
+        o.Append(Style("^:pressed /template/ Border#PART_Root", ("BoxShadow", Res("FiliElevation12"))));
+        o.Append("\n    <!-- No colour: grey, going to action-disabled-background. -->\n");
+        o.Append(FabStates("", ("Background", Res("FiliActionDisabledBackgroundBrush"))));
+        o.Append("\n    <!-- `.mud-fab-{color}`: the colour, {color}-text on it, {color}-darken on hover. -->\n");
+        foreach (var c in Colours)
+        {
+            var cls = c.ToLowerInvariant();
+            o.Append(Style($"^.{cls}", ("Background", Res($"Fili{c}Brush")), ("Foreground", Res($"Fili{c}ContrastTextBrush"))));
+            o.Append(FabStates($".{cls}", ("Background", Res($"Fili{c}DarkenBrush"))));
+        }
+
+        o.Append("\n    <!-- `.mud-fab-text`: no ground and no shadow; the colour as content, its tint on hover. -->\n");
+        o.Append(Style("^.text", ("Background", "Transparent"), ("Foreground", Res("FiliTextPrimaryBrush"))));
+        o.Append(FabGrounded(".text"));
+        o.Append(FabStates(".text", ("Background", Res("FiliActionDefaultHoverBrush"))));
+        foreach (var c in Colours)
+        {
+            var cls = c.ToLowerInvariant();
+            o.Append(Style($"^.text.{cls}", ("Background", "Transparent"), ("Foreground", Res($"Fili{c}Brush"))));
+            o.Append(FabStates($".text.{cls}", ("Background", Res($"Fili{c}HoverBrush"))));
+        }
+
+        o.Append("\n    <!-- `.mud-fab-outlined`: the text look plus a 1px line, text-primary or the colour\n");
+        o.Append("         (BorderOpacity is 1.0, so the line IS the colour). -->\n");
+        o.Append(Style("^.outlined", ("Background", "Transparent"), ("Foreground", Res("FiliTextPrimaryBrush")), ("BorderBrush", Res("FiliTextPrimaryBrush")), ("BorderThickness", "1")));
+        o.Append(FabGrounded(".outlined"));
+        o.Append(FabStates(".outlined", ("Background", Res("FiliActionDefaultHoverBrush"))));
+        foreach (var c in Colours)
+        {
+            var cls = c.ToLowerInvariant();
+            o.Append(Style($"^.outlined.{cls}", ("Background", "Transparent"), ("Foreground", Res($"Fili{c}Brush")), ("BorderBrush", Res($"Fili{c}Brush"))));
+            o.Append(FabStates($".outlined.{cls}", ("Background", Res($"Fili{c}HoverBrush"))));
+        }
+
+        o.Append("\n    <!-- `.mud-fab-size-small` / `-medium`: 40px / 48px. -->\n");
+        o.Append(Style("^.small", ("Width", "40"), ("Height", "40"), ("CornerRadius", "20")));
+        o.Append(Style("^.medium", ("Width", "48"), ("Height", "48"), ("CornerRadius", "24")));
+        o.Append("\n    <!-- `.mud-fab-extended`: a pill as wide as its label, 48 / 40 / 34px high. -->\n");
+        o.Append(Style("^.extended", ("Width", "NaN"), ("Height", "48"), ("MinWidth", "48"), ("MinHeight", "0"), ("Padding", "16,0"), ("CornerRadius", "24")));
+        o.Append(Style("^.extended.medium", ("Height", "40"), ("MinWidth", "40"), ("CornerRadius", "20")));
+        o.Append(Style("^.extended.small", ("Height", "34"), ("MinWidth", "34"), ("Padding", "12,0"), ("CornerRadius", "17")));
+        o.Append("\n    <!-- `flat` is DropShadow=\"false\": `.mud-fab-disable-elevation` drops the shadow in every state. -->\n");
+        o.Append(FabGrounded(".flat"));
+        o.Append("\n    <!-- Disabled: action-disabled on action-disabled-background, flat; outlined and text keep\n");
+        o.Append("         no ground, and outlined's line turns action-disabled-background. -->\n");
+        o.Append(Style("^:disabled /template/ Border#PART_Root", ("BoxShadow", Res("FiliElevation0")), ("Background", Res("FiliActionDisabledBackgroundBrush"))));
+        o.Append(Style("^:disabled /template/ ContentPresenter#PART_ContentPresenter", ("Foreground", Res("FiliActionDisabledBrush"))));
+        o.Append(Style("^.text:disabled /template/ Border#PART_Root", ("Background", "Transparent")));
+        o.Append(Style("^.outlined:disabled /template/ Border#PART_Root", ("Background", "Transparent"), ("BorderBrush", Res("FiliActionDisabledBackgroundBrush"))));
+        return o.ToString();
+    }
+
+    // ---------------------------------------------------------------------------------------
+    // Badge.axaml: MudBadge, from _badge.scss. Origin hangs PART_BadgeAnchor off one edge per
+    // axis - a 10000px panel past the edge by all but 4px (12px with `overlap`), the badge
+    // aligned to its near side - or spans a centred axis with 10000px either side. Colour is
+    // `.mud-theme-{color}` on the badge alone, never on what it decorates.
+    // ---------------------------------------------------------------------------------------
+
+    /// <summary>MudBlazor's Origin values but the default TopRight, as (class, vertical, horizontal).</summary>
+    public static readonly (string Class, string Vertical, string Horizontal)[] BadgeOrigins =
+    [
+        ("top-left", "Top", "Left"), ("top-center", "Top", "Center"),
+        ("center-left", "Center", "Left"), ("center-center", "Center", "Center"),
+        ("center-right", "Center", "Right"),
+        ("bottom-left", "Bottom", "Left"), ("bottom-center", "Bottom", "Center"),
+        ("bottom-right", "Bottom", "Right"),
+    ];
+
+    /// <summary>How far PART_BadgeAnchor reaches past the edge it hangs from.</summary>
+    public const int BadgeReach = 10000;
+
+    /// <summary>
+    /// One axis: the anchor's alignment, size and its near and far margins, and the badge's own
+    /// alignment inside it. Hung off the right edge, the anchor's left side sits `inset` inside
+    /// that edge and the badge hugs it; a centred axis spans the content with BadgeReach either side.
+    /// </summary>
+    private static (string Align, string Size, int Near, int Far, string Badge) BadgeAxis(string side, int inset) =>
+        side switch
+        {
+            "Right" => ("Right", $"{BadgeReach}", 0, -(BadgeReach - inset), "Left"),
+            "Bottom" => ("Bottom", $"{BadgeReach}", 0, -(BadgeReach - inset), "Top"),
+            "Left" => ("Left", $"{BadgeReach}", -(BadgeReach - inset), 0, "Right"),
+            "Top" => ("Top", $"{BadgeReach}", -(BadgeReach - inset), 0, "Bottom"),
+            _ => ("Stretch", "NaN", -BadgeReach, -BadgeReach, "Center"),
+        };
+
+    private static string BadgeAnchor(string prefix, string vertical, string horizontal, int inset, bool alignments)
+    {
+        var (hAlign, width, left, right, hBadge) = BadgeAxis(horizontal, inset);
+        var (vAlign, height, top, bottom, vBadge) = BadgeAxis(vertical, inset);
+        var margin = $"{left},{top},{right},{bottom}";
+
+        if (!alignments)
+        {
+            return Style($"^{prefix} /template/ Panel#PART_BadgeAnchor", ("Margin", margin));
+        }
+
+        return Style(
+                $"^{prefix} /template/ Panel#PART_BadgeAnchor",
+                ("HorizontalAlignment", hAlign), ("VerticalAlignment", vAlign),
+                ("Width", width), ("Height", height), ("Margin", margin))
+            + Style($"^{prefix} /template/ Border#PART_Badge", ("HorizontalAlignment", hBadge), ("VerticalAlignment", vBadge));
+    }
+
+    private static string BadgeRegion()
+    {
+        var o = new StringBuilder();
+        o.Append("    <!-- Origin: `.mud-badge-{vertical}.{horizontal}`, calc(100% - 4px) from the opposite edge. -->\n");
+        foreach (var (cls, vertical, horizontal) in BadgeOrigins)
+        {
+            o.Append(BadgeAnchor($".{cls}", vertical, horizontal, 4, alignments: true));
+        }
+
+        o.Append("\n    <!-- `.mud-badge-overlap`: calc(100% - 12px), 12px into the corner. A centred axis does not move. -->\n");
+        o.Append(BadgeAnchor(".overlap", "Top", "Right", 12, alignments: false));
+        foreach (var (cls, vertical, horizontal) in BadgeOrigins.Where(x => (x.Vertical, x.Horizontal) != ("Center", "Center")))
+        {
+            o.Append(BadgeAnchor($".overlap.{cls}", vertical, horizontal, 12, alignments: false));
+        }
+
+        o.Append("\n    <!-- `.mud-theme-{color}`: the colour, with its contrast text. -->\n");
+        foreach (var c in Colours)
+        {
+            var cls = c.ToLowerInvariant();
+            o.Append(Style($"^.{cls} /template/ Border#PART_Badge", ("Background", Res($"Fili{c}Brush"))));
+            o.Append(Style($"^.{cls} /template/ ContentPresenter#PART_HeaderPresenter", ("Foreground", Res($"Fili{c}ContrastTextBrush"))));
+        }
+
+        o.Append("\n    <!-- `mud-elevation-{n}`, on the badge. -->\n");
+        foreach (var level in Elevations)
+        {
+            o.Append(Style($"^.elevation{level} /template/ Border#PART_Badge", ("BoxShadow", Res($"FiliElevation{level}"))));
+        }
+
+        return o.ToString();
+    }
+
+    /// <summary>The elevation classes the theme publishes, as on a Border.</summary>
+    public static readonly int[] Elevations = [0, 1, 2, 4, 6, 8, 12, 16, 24];
+
+    // ---------------------------------------------------------------------------------------
+    // FiliTheme.axaml region: MudAvatar's Color, from _avatar.scss. Filled is the colour with its
+    // contrast text; outlined the colour as text and as a 1px line.
+    // ---------------------------------------------------------------------------------------
+
+    private static string AvatarRegion()
+    {
+        var o = new StringBuilder();
+        foreach (var c in Colours)
+        {
+            o.Append(TopStyle($"Border.avatar.{c.ToLowerInvariant()}", ("Background", Res($"Fili{c}Brush")), ("TextElement.Foreground", Res($"Fili{c}ContrastTextBrush"))));
+        }
+
+        foreach (var c in Colours)
+        {
+            o.Append(TopStyle($"Border.avatar.outlined.{c.ToLowerInvariant()}", ("Background", "Transparent"), ("TextElement.Foreground", Res($"Fili{c}Brush")), ("BorderBrush", Res($"Fili{c}Brush"))));
+        }
+
         return o.ToString();
     }
 

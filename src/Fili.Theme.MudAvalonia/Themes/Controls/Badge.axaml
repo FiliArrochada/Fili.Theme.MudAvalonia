@@ -1,0 +1,331 @@
+<!--
+  Badge: MudBadge. Not a new control - a theme a HeaderedContentControl takes with the `badge`
+  class. Content is what MudBadge wraps (its ChildContent) and Header is the badge (its Content):
+
+    <HeaderedContentControl Classes="badge primary" Header="{Binding Unread}">
+      <PathIcon Data="…" />
+    </HeaderedContentControl>
+
+  Transcribed from Styles/components/_badge.scss and Components/Badge/MudBadge.razor(.cs):
+
+    the badge         a 20px pill, at least 20px wide, 4px 6px round 12px text, letter-spacing 0
+    Color.Default     text-primary on gray-light (black in High Contrast, where gray-light is
+                      near-white); a colour class is `.mud-theme-{color}`, the colour with its
+                      contrast text
+    Origin.TopRight   the default: no class. `top-left`, `top-center`, `center-left`,
+                      `center-center`, `center-right`, `bottom-left`, `bottom-center` and
+                      `bottom-right` are the others
+    Overlap           `overlap`: the badge sits 12px into the corner rather than 4px
+    Dot               `dot`: a 9px circle, the content not shown
+    Bordered          `bordered`: a 2px surface-coloured ring
+    Icon              `icon`: a PathIcon as the Header, drawn at 12px in a 20px circle
+    Elevation         the elevation classes, on the badge rather than on what it decorates
+    Max               99: an int Header above it reads "99+"
+    Visible           a Header that is not null - set it to null to hide the badge, a dot too
+
+  Where it sits: `.mud-badge-wrapper` lays a box over the content, and the badge is absolutely
+  positioned against one of its edges - `calc(100% - 4px)` from the opposite one, so it overlaps
+  the corner by 4px each way. A margin cannot express "the badge's own width past the edge", so
+  the badge sits inside PART_BadgeAnchor: a panel 10000px wide hung off that edge by a negative
+  margin, with the badge aligned to the near side. The panel paints nothing and has no
+  background, so it is never hit; only the badge is, which is `pointer-events: auto` in
+  _badge.scss. A centred axis instead spans the content with -10000px either side, so a badge
+  wider than what it decorates still centres on it.
+
+  The root shrinks to its content like `.mud-badge-root`, an inline-block, so the badge is pinned
+  to the content's corner and not to a stretched slot's.
+-->
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:fili="using:Fili.Theme.MudAvalonia.Converters">
+
+  <fili:BadgeContentConverter x:Key="FiliBadgeContent" />
+
+  <ControlTheme x:Key="FiliBadge" TargetType="HeaderedContentControl">
+    <Setter Property="Background" Value="Transparent" />
+    <Setter Property="HorizontalAlignment" Value="Left" />
+    <Setter Property="VerticalAlignment" Value="Center" />
+    <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+    <Setter Property="VerticalContentAlignment" Value="Stretch" />
+    <!-- The badge hangs past the control's edge, and every TemplatedControl clips to its bounds in
+         Avalonia 12: without this the badge is cut off, and cannot be clicked either. -->
+    <Setter Property="ClipToBounds" Value="False" />
+
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Panel>
+          <ContentPresenter x:Name="PART_ContentPresenter"
+                            Background="{TemplateBinding Background}"
+                            Content="{TemplateBinding Content}"
+                            ContentTemplate="{TemplateBinding ContentTemplate}"
+                            Padding="{TemplateBinding Padding}"
+                            HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                            VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" />
+
+          <!-- Origin.TopRight: the badge's left edge 4px inside the right, its bottom edge 4px
+               below the top. -->
+          <Panel x:Name="PART_BadgeAnchor"
+                 Width="10000" Height="10000"
+                 HorizontalAlignment="Right" VerticalAlignment="Top"
+                 Margin="0,-9996,-9996,0"
+                 IsVisible="{TemplateBinding Header, Converter={x:Static ObjectConverters.IsNotNull}}">
+            <Border x:Name="PART_Badge"
+                    HorizontalAlignment="Left" VerticalAlignment="Bottom"
+                    Height="20" MinWidth="20"
+                    Padding="6,4"
+                    CornerRadius="10"
+                    Background="{DynamicResource FiliGrayLightBrush}"
+                    BorderBrush="{DynamicResource FiliSurfaceBrush}"
+                    BorderThickness="0">
+              <!-- Stretch="None" passes text through untouched; `icon` makes it a 12px box the
+                   Header's PathIcon is scaled into, `.mud-icon-badge`'s font-size: 12px. -->
+              <Viewbox x:Name="PART_HeaderBox"
+                       Stretch="None"
+                       HorizontalAlignment="Center" VerticalAlignment="Center">
+                <ContentPresenter x:Name="PART_HeaderPresenter"
+                                  Content="{TemplateBinding Header, Converter={StaticResource FiliBadgeContent}}"
+                                  ContentTemplate="{TemplateBinding HeaderTemplate}"
+                                  Foreground="{DynamicResource FiliBadgeTextBrush}"
+                                  FontSize="12"
+                                  LineHeight="12"
+                                  LetterSpacing="0" />
+              </Viewbox>
+            </Border>
+          </Panel>
+        </Panel>
+      </ControlTemplate>
+    </Setter>
+
+    <!-- `.mud-badge-dot`: a 9px circle with nothing in it. -->
+    <Style Selector="^.dot /template/ Border#PART_Badge">
+      <Setter Property="Width" Value="9" />
+      <Setter Property="Height" Value="9" />
+      <Setter Property="MinWidth" Value="0" />
+      <Setter Property="Padding" Value="0" />
+      <Setter Property="CornerRadius" Value="4.5" />
+    </Style>
+    <Style Selector="^.dot /template/ Viewbox#PART_HeaderBox">
+      <Setter Property="IsVisible" Value="False" />
+    </Style>
+
+    <!-- `.mud-badge-bordered`: 2px of surface round the pill, 3px 4px inside it. The vertical 3px
+         is 2px here: CSS centres the 12px line in what is left, which puts its top where 2px
+         puts it, and Avalonia would otherwise squeeze the line instead. -->
+    <Style Selector="^.bordered /template/ Border#PART_Badge">
+      <Setter Property="BorderThickness" Value="2" />
+      <Setter Property="Padding" Value="4,2" />
+    </Style>
+
+    <!-- `.mud-badge-icon`: a fixed 20px circle, the icon 12px and centred in it. -->
+    <Style Selector="^.icon /template/ Border#PART_Badge">
+      <Setter Property="Width" Value="20" />
+      <Setter Property="Padding" Value="0" />
+    </Style>
+    <Style Selector="^.icon /template/ Viewbox#PART_HeaderBox">
+      <Setter Property="Stretch" Value="Uniform" />
+      <Setter Property="Width" Value="12" />
+      <Setter Property="Height" Value="12" />
+    </Style>
+    <Style Selector="^.dot.icon /template/ Border#PART_Badge">
+      <Setter Property="Width" Value="9" />
+    </Style>
+
+    <!-- GENERATED by ThemeColourGenerator: badge origins, colours and elevation. -->
+    <!-- Origin: `.mud-badge-{vertical}.{horizontal}`, calc(100% - 4px) from the opposite edge. -->
+    <Style Selector="^.top-left /template/ Panel#PART_BadgeAnchor">
+      <Setter Property="HorizontalAlignment" Value="Left" />
+      <Setter Property="VerticalAlignment" Value="Top" />
+      <Setter Property="Width" Value="10000" />
+      <Setter Property="Height" Value="10000" />
+      <Setter Property="Margin" Value="-9996,-9996,0,0" />
+    </Style>
+    <Style Selector="^.top-left /template/ Border#PART_Badge">
+      <Setter Property="HorizontalAlignment" Value="Right" />
+      <Setter Property="VerticalAlignment" Value="Bottom" />
+    </Style>
+    <Style Selector="^.top-center /template/ Panel#PART_BadgeAnchor">
+      <Setter Property="HorizontalAlignment" Value="Stretch" />
+      <Setter Property="VerticalAlignment" Value="Top" />
+      <Setter Property="Width" Value="NaN" />
+      <Setter Property="Height" Value="10000" />
+      <Setter Property="Margin" Value="-10000,-9996,-10000,0" />
+    </Style>
+    <Style Selector="^.top-center /template/ Border#PART_Badge">
+      <Setter Property="HorizontalAlignment" Value="Center" />
+      <Setter Property="VerticalAlignment" Value="Bottom" />
+    </Style>
+    <Style Selector="^.center-left /template/ Panel#PART_BadgeAnchor">
+      <Setter Property="HorizontalAlignment" Value="Left" />
+      <Setter Property="VerticalAlignment" Value="Stretch" />
+      <Setter Property="Width" Value="10000" />
+      <Setter Property="Height" Value="NaN" />
+      <Setter Property="Margin" Value="-9996,-10000,0,-10000" />
+    </Style>
+    <Style Selector="^.center-left /template/ Border#PART_Badge">
+      <Setter Property="HorizontalAlignment" Value="Right" />
+      <Setter Property="VerticalAlignment" Value="Center" />
+    </Style>
+    <Style Selector="^.center-center /template/ Panel#PART_BadgeAnchor">
+      <Setter Property="HorizontalAlignment" Value="Stretch" />
+      <Setter Property="VerticalAlignment" Value="Stretch" />
+      <Setter Property="Width" Value="NaN" />
+      <Setter Property="Height" Value="NaN" />
+      <Setter Property="Margin" Value="-10000,-10000,-10000,-10000" />
+    </Style>
+    <Style Selector="^.center-center /template/ Border#PART_Badge">
+      <Setter Property="HorizontalAlignment" Value="Center" />
+      <Setter Property="VerticalAlignment" Value="Center" />
+    </Style>
+    <Style Selector="^.center-right /template/ Panel#PART_BadgeAnchor">
+      <Setter Property="HorizontalAlignment" Value="Right" />
+      <Setter Property="VerticalAlignment" Value="Stretch" />
+      <Setter Property="Width" Value="10000" />
+      <Setter Property="Height" Value="NaN" />
+      <Setter Property="Margin" Value="0,-10000,-9996,-10000" />
+    </Style>
+    <Style Selector="^.center-right /template/ Border#PART_Badge">
+      <Setter Property="HorizontalAlignment" Value="Left" />
+      <Setter Property="VerticalAlignment" Value="Center" />
+    </Style>
+    <Style Selector="^.bottom-left /template/ Panel#PART_BadgeAnchor">
+      <Setter Property="HorizontalAlignment" Value="Left" />
+      <Setter Property="VerticalAlignment" Value="Bottom" />
+      <Setter Property="Width" Value="10000" />
+      <Setter Property="Height" Value="10000" />
+      <Setter Property="Margin" Value="-9996,0,0,-9996" />
+    </Style>
+    <Style Selector="^.bottom-left /template/ Border#PART_Badge">
+      <Setter Property="HorizontalAlignment" Value="Right" />
+      <Setter Property="VerticalAlignment" Value="Top" />
+    </Style>
+    <Style Selector="^.bottom-center /template/ Panel#PART_BadgeAnchor">
+      <Setter Property="HorizontalAlignment" Value="Stretch" />
+      <Setter Property="VerticalAlignment" Value="Bottom" />
+      <Setter Property="Width" Value="NaN" />
+      <Setter Property="Height" Value="10000" />
+      <Setter Property="Margin" Value="-10000,0,-10000,-9996" />
+    </Style>
+    <Style Selector="^.bottom-center /template/ Border#PART_Badge">
+      <Setter Property="HorizontalAlignment" Value="Center" />
+      <Setter Property="VerticalAlignment" Value="Top" />
+    </Style>
+    <Style Selector="^.bottom-right /template/ Panel#PART_BadgeAnchor">
+      <Setter Property="HorizontalAlignment" Value="Right" />
+      <Setter Property="VerticalAlignment" Value="Bottom" />
+      <Setter Property="Width" Value="10000" />
+      <Setter Property="Height" Value="10000" />
+      <Setter Property="Margin" Value="0,0,-9996,-9996" />
+    </Style>
+    <Style Selector="^.bottom-right /template/ Border#PART_Badge">
+      <Setter Property="HorizontalAlignment" Value="Left" />
+      <Setter Property="VerticalAlignment" Value="Top" />
+    </Style>
+
+    <!-- `.mud-badge-overlap`: calc(100% - 12px), 12px into the corner. A centred axis does not move. -->
+    <Style Selector="^.overlap /template/ Panel#PART_BadgeAnchor">
+      <Setter Property="Margin" Value="0,-9988,-9988,0" />
+    </Style>
+    <Style Selector="^.overlap.top-left /template/ Panel#PART_BadgeAnchor">
+      <Setter Property="Margin" Value="-9988,-9988,0,0" />
+    </Style>
+    <Style Selector="^.overlap.top-center /template/ Panel#PART_BadgeAnchor">
+      <Setter Property="Margin" Value="-10000,-9988,-10000,0" />
+    </Style>
+    <Style Selector="^.overlap.center-left /template/ Panel#PART_BadgeAnchor">
+      <Setter Property="Margin" Value="-9988,-10000,0,-10000" />
+    </Style>
+    <Style Selector="^.overlap.center-right /template/ Panel#PART_BadgeAnchor">
+      <Setter Property="Margin" Value="0,-10000,-9988,-10000" />
+    </Style>
+    <Style Selector="^.overlap.bottom-left /template/ Panel#PART_BadgeAnchor">
+      <Setter Property="Margin" Value="-9988,0,0,-9988" />
+    </Style>
+    <Style Selector="^.overlap.bottom-center /template/ Panel#PART_BadgeAnchor">
+      <Setter Property="Margin" Value="-10000,0,-10000,-9988" />
+    </Style>
+    <Style Selector="^.overlap.bottom-right /template/ Panel#PART_BadgeAnchor">
+      <Setter Property="Margin" Value="0,0,-9988,-9988" />
+    </Style>
+
+    <!-- `.mud-theme-{color}`: the colour, with its contrast text. -->
+    <Style Selector="^.primary /template/ Border#PART_Badge">
+      <Setter Property="Background" Value="{DynamicResource FiliPrimaryBrush}" />
+    </Style>
+    <Style Selector="^.primary /template/ ContentPresenter#PART_HeaderPresenter">
+      <Setter Property="Foreground" Value="{DynamicResource FiliPrimaryContrastTextBrush}" />
+    </Style>
+    <Style Selector="^.secondary /template/ Border#PART_Badge">
+      <Setter Property="Background" Value="{DynamicResource FiliSecondaryBrush}" />
+    </Style>
+    <Style Selector="^.secondary /template/ ContentPresenter#PART_HeaderPresenter">
+      <Setter Property="Foreground" Value="{DynamicResource FiliSecondaryContrastTextBrush}" />
+    </Style>
+    <Style Selector="^.tertiary /template/ Border#PART_Badge">
+      <Setter Property="Background" Value="{DynamicResource FiliTertiaryBrush}" />
+    </Style>
+    <Style Selector="^.tertiary /template/ ContentPresenter#PART_HeaderPresenter">
+      <Setter Property="Foreground" Value="{DynamicResource FiliTertiaryContrastTextBrush}" />
+    </Style>
+    <Style Selector="^.info /template/ Border#PART_Badge">
+      <Setter Property="Background" Value="{DynamicResource FiliInfoBrush}" />
+    </Style>
+    <Style Selector="^.info /template/ ContentPresenter#PART_HeaderPresenter">
+      <Setter Property="Foreground" Value="{DynamicResource FiliInfoContrastTextBrush}" />
+    </Style>
+    <Style Selector="^.success /template/ Border#PART_Badge">
+      <Setter Property="Background" Value="{DynamicResource FiliSuccessBrush}" />
+    </Style>
+    <Style Selector="^.success /template/ ContentPresenter#PART_HeaderPresenter">
+      <Setter Property="Foreground" Value="{DynamicResource FiliSuccessContrastTextBrush}" />
+    </Style>
+    <Style Selector="^.warning /template/ Border#PART_Badge">
+      <Setter Property="Background" Value="{DynamicResource FiliWarningBrush}" />
+    </Style>
+    <Style Selector="^.warning /template/ ContentPresenter#PART_HeaderPresenter">
+      <Setter Property="Foreground" Value="{DynamicResource FiliWarningContrastTextBrush}" />
+    </Style>
+    <Style Selector="^.error /template/ Border#PART_Badge">
+      <Setter Property="Background" Value="{DynamicResource FiliErrorBrush}" />
+    </Style>
+    <Style Selector="^.error /template/ ContentPresenter#PART_HeaderPresenter">
+      <Setter Property="Foreground" Value="{DynamicResource FiliErrorContrastTextBrush}" />
+    </Style>
+    <Style Selector="^.dark /template/ Border#PART_Badge">
+      <Setter Property="Background" Value="{DynamicResource FiliDarkBrush}" />
+    </Style>
+    <Style Selector="^.dark /template/ ContentPresenter#PART_HeaderPresenter">
+      <Setter Property="Foreground" Value="{DynamicResource FiliDarkContrastTextBrush}" />
+    </Style>
+
+    <!-- `mud-elevation-{n}`, on the badge. -->
+    <Style Selector="^.elevation0 /template/ Border#PART_Badge">
+      <Setter Property="BoxShadow" Value="{DynamicResource FiliElevation0}" />
+    </Style>
+    <Style Selector="^.elevation1 /template/ Border#PART_Badge">
+      <Setter Property="BoxShadow" Value="{DynamicResource FiliElevation1}" />
+    </Style>
+    <Style Selector="^.elevation2 /template/ Border#PART_Badge">
+      <Setter Property="BoxShadow" Value="{DynamicResource FiliElevation2}" />
+    </Style>
+    <Style Selector="^.elevation4 /template/ Border#PART_Badge">
+      <Setter Property="BoxShadow" Value="{DynamicResource FiliElevation4}" />
+    </Style>
+    <Style Selector="^.elevation6 /template/ Border#PART_Badge">
+      <Setter Property="BoxShadow" Value="{DynamicResource FiliElevation6}" />
+    </Style>
+    <Style Selector="^.elevation8 /template/ Border#PART_Badge">
+      <Setter Property="BoxShadow" Value="{DynamicResource FiliElevation8}" />
+    </Style>
+    <Style Selector="^.elevation12 /template/ Border#PART_Badge">
+      <Setter Property="BoxShadow" Value="{DynamicResource FiliElevation12}" />
+    </Style>
+    <Style Selector="^.elevation16 /template/ Border#PART_Badge">
+      <Setter Property="BoxShadow" Value="{DynamicResource FiliElevation16}" />
+    </Style>
+    <Style Selector="^.elevation24 /template/ Border#PART_Badge">
+      <Setter Property="BoxShadow" Value="{DynamicResource FiliElevation24}" />
+    </Style>
+    <!-- END GENERATED -->
+  </ControlTheme>
+
+</ResourceDictionary>

@@ -145,7 +145,7 @@ public static class GalleryFrames
         // grow the window to fit. The cap is a guard against a runaway measurement producing a
         // gigabyte of PNG, not a layout decision.
         view.Measure(new Size(window.Width, double.PositiveInfinity));
-        window.Height = Math.Clamp(Math.Ceiling(view.DesiredSize.Height), 800, 8000);
+        window.Height = Math.Clamp(Math.Ceiling(view.DesiredSize.Height), 800, 12000);
 
         // Two passes: the first builds templates, the second lets the styles that those templates
         // triggered settle before the frame is taken.

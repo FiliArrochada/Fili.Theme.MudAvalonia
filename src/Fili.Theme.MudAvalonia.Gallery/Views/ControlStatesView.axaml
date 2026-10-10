@@ -227,6 +227,96 @@
                    Text="Each of these is a class on a control Avalonia already has. icon on a Button is MudIconButton: round, 12px round a 24px PathIcon, and action-default rather than text-primary; flat is DropShadow=&quot;false&quot;. chip on a Button or ToggleButton is MudChip, filled by default, and a selected filled chip draws as text. alert and skeleton on a Border are MudAlert, whose text is the colour&apos;s darken shade, and MudSkeleton, pulsing (the second line is no-animation, Animation.False, and the third wave, Animation.Wave). light on a Separator is MudDivider.Light." />
       </StackPanel>
 
+      <!-- FABs, avatars, badges and cards -->
+      <StackPanel Spacing="8">
+        <Separator Margin="0,8,0,0" />
+        <TextBlock Classes="h5" Tag="section" Text="FABs, avatars, badges and cards" Margin="0,8,0,4" />
+
+        <TextBlock Classes="overline" Text="FAB" />
+        <WrapPanel Orientation="Horizontal" ItemSpacing="16" LineSpacing="16">
+          <Button Classes="fab" VerticalAlignment="Center"><PathIcon Data="{StaticResource GalleryAddIcon}" /></Button>
+          <Button Classes="fab primary" VerticalAlignment="Center"><PathIcon Data="{StaticResource GalleryAddIcon}" /></Button>
+          <Button Classes="fab secondary medium" VerticalAlignment="Center"><PathIcon Data="{StaticResource GalleryEditIcon}" /></Button>
+          <Button Classes="fab tertiary small" VerticalAlignment="Center"><PathIcon Data="{StaticResource GalleryFavoriteIcon}" /></Button>
+          <Button Classes="fab outlined primary" VerticalAlignment="Center"><PathIcon Data="{StaticResource GalleryShareIcon}" /></Button>
+          <Button Classes="fab text error" VerticalAlignment="Center"><PathIcon Data="{StaticResource GalleryDeleteIcon}" /></Button>
+          <Button Classes="fab primary flat" VerticalAlignment="Center"><PathIcon Data="{StaticResource GalleryAddIcon}" /></Button>
+          <Button Classes="fab" IsEnabled="False" VerticalAlignment="Center"><PathIcon Data="{StaticResource GalleryAddIcon}" /></Button>
+          <Button Classes="fab extended primary" VerticalAlignment="Center">
+            <StackPanel Orientation="Horizontal"><PathIcon Classes="start-icon" Data="{StaticResource GalleryEditIcon}" /><TextBlock Text="Edit" VerticalAlignment="Center" /></StackPanel>
+          </Button>
+          <Button Classes="fab extended secondary medium" VerticalAlignment="Center">
+            <StackPanel Orientation="Horizontal"><PathIcon Classes="start-icon" Data="{StaticResource GalleryShareIcon}" /><TextBlock Text="Share" VerticalAlignment="Center" /></StackPanel>
+          </Button>
+          <Button Classes="fab extended small" Content="Small" VerticalAlignment="Center" />
+        </WrapPanel>
+
+        <TextBlock Classes="overline" Text="Avatar" Margin="0,8,0,0" />
+        <StackPanel Orientation="Horizontal" Spacing="16">
+          <Border Classes="avatar"><TextBlock Text="OP" /></Border>
+          <Border Classes="avatar primary"><TextBlock Text="M" /></Border>
+          <Border Classes="avatar secondary small"><TextBlock Text="S" /></Border>
+          <Border Classes="avatar success large"><TextBlock Text="L" /></Border>
+          <Border Classes="avatar outlined info"><PathIcon Data="{StaticResource GalleryPersonIcon}" /></Border>
+          <Border Classes="avatar warning rounded"><PathIcon Data="{StaticResource GalleryMailIcon}" /></Border>
+          <Border Classes="avatar error square"><TextBlock Text="SQ" /></Border>
+          <Border Classes="avatar text"><TextBlock Text="T" /></Border>
+          <Border Classes="avatar primary elevation4"><TextBlock Text="E" /></Border>
+        </StackPanel>
+
+        <TextBlock Classes="overline" Text="Badge" Margin="0,8,0,0" />
+        <StackPanel Orientation="Horizontal" Spacing="40" Margin="0,12">
+          <HeaderedContentControl Classes="badge" Header="4"><PathIcon Data="{StaticResource GalleryMailIcon}" /></HeaderedContentControl>
+          <HeaderedContentControl Classes="badge primary" Header="99"><PathIcon Data="{StaticResource GalleryMailIcon}" /></HeaderedContentControl>
+          <HeaderedContentControl Classes="badge error"><HeaderedContentControl.Header><x:Int32>120</x:Int32></HeaderedContentControl.Header><PathIcon Data="{StaticResource GalleryNotificationsIcon}" /></HeaderedContentControl>
+          <HeaderedContentControl Classes="badge secondary dot" Header=""><PathIcon Data="{StaticResource GalleryNotificationsIcon}" /></HeaderedContentControl>
+          <HeaderedContentControl Classes="badge success bordered" Header="3"><Border Classes="avatar"><TextBlock Text="B" /></Border></HeaderedContentControl>
+          <HeaderedContentControl Classes="badge info overlap" Header="7"><Border Classes="avatar"><TextBlock Text="O" /></Border></HeaderedContentControl>
+          <HeaderedContentControl Classes="badge warning icon bottom-right overlap"><HeaderedContentControl.Header><PathIcon Data="{StaticResource GalleryEditIcon}" /></HeaderedContentControl.Header><Border Classes="avatar"><TextBlock Text="I" /></Border></HeaderedContentControl>
+          <HeaderedContentControl Classes="badge primary top-left" Header="New"><Button Classes="outlined" Content="Origin" /></HeaderedContentControl>
+        </StackPanel>
+
+        <TextBlock Classes="overline" Text="Card" Margin="0,8,0,0" />
+        <StackPanel Orientation="Horizontal" Spacing="24">
+          <Border Classes="card" Width="345" VerticalAlignment="Top">
+            <StackPanel>
+              <DockPanel Classes="card-header">
+                <Border Classes="avatar secondary card-header-avatar"><TextBlock Text="I" /></Border>
+                <Button Classes="icon card-header-actions"><PathIcon Data="{StaticResource GalleryMoreVertIcon}" /></Button>
+                <StackPanel Classes="card-header-content">
+                  <TextBlock Classes="body1" Text="Istra Croatia" />
+                  <TextBlock Classes="body2" Text="Peninsula in Europe" Foreground="{DynamicResource FiliTextSecondaryBrush}" />
+                </StackPanel>
+              </DockPanel>
+              <Border Classes="card-media" Height="140" Background="{DynamicResource FiliPrimaryLightenBrush}" />
+              <TextBlock Classes="card-content body2" TextWrapping="Wrap"
+                         Text="Istria is the largest peninsula within the Adriatic Sea. The peninsula is located at the head of the Adriatic between the Gulf of Trieste and the Kvarner Gulf." />
+              <StackPanel Classes="card-actions">
+                <Button Classes="icon"><PathIcon Data="{StaticResource GalleryFavoriteIcon}" /></Button>
+                <Button Classes="icon"><PathIcon Data="{StaticResource GalleryShareIcon}" /></Button>
+              </StackPanel>
+            </StackPanel>
+          </Border>
+          <Border Classes="card outlined" Width="275" VerticalAlignment="Top">
+            <StackPanel>
+              <StackPanel Classes="card-content" Spacing="4">
+                <TextBlock Classes="body2" Text="Outlined, so no elevation" />
+                <TextBlock Classes="h5" Text="Word of the day" />
+                <TextBlock Classes="body2" Text="adjective" Foreground="{DynamicResource FiliTextSecondaryBrush}" />
+              </StackPanel>
+              <StackPanel Classes="card-actions">
+                <Button Classes="primary" Content="Learn more" />
+              </StackPanel>
+            </StackPanel>
+          </Border>
+        </StackPanel>
+        <TextBlock Classes="caption"
+                   TextWrapping="Wrap"
+                   MaxWidth="760"
+                   HorizontalAlignment="Left"
+                   Text="These are classes too. fab on a Button is MudFab: filled, grey and 56px by default, at elevation 6, lifting to 8 on hover and 12 on press; medium and small are 48 and 40px and extended is the pill MudFab draws for a Label. avatar on a Border is MudAvatar, 40px and filled; text is its bare white-on-grey variant. badge on a HeaderedContentControl is MudBadge: Content is what it decorates and Header the badge, an int over 99 reads 99+, and a null Header hides it. card on a Border is MudCard, at elevation 1, and its parts are classes on what lays it out: card-header, card-media, card-content and card-actions." />
+      </StackPanel>
+
       <!-- Selection -->
       <StackPanel Spacing="8">
         <Separator Margin="0,8,0,0" />

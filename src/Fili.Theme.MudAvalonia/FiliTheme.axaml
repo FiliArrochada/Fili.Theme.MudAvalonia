@@ -205,6 +205,14 @@
     <Setter Property="CornerRadius" Value="{DynamicResource FiliCornerRadius}" />
   </Style>
 
+  <!-- MudCard: MudPaper at its default Elevation 1, in text-primary. Its parts are below. -->
+  <Style Selector="Border.card">
+    <Setter Property="Background" Value="{DynamicResource FiliSurfaceBrush}" />
+    <Setter Property="CornerRadius" Value="{DynamicResource FiliCornerRadius}" />
+    <Setter Property="BoxShadow" Value="{DynamicResource FiliElevation1}" />
+    <Setter Property="TextElement.Foreground" Value="{DynamicResource FiliTextPrimaryBrush}" />
+  </Style>
+
   <Style Selector="Border.outlined">
     <Setter Property="BorderBrush" Value="{DynamicResource FiliLinesDefaultBrush}" />
     <Setter Property="BorderThickness" Value="{DynamicResource FiliBorderThickness}" />
@@ -236,6 +244,75 @@
   </Style>
   <Style Selector="Border.elevation24">
     <Setter Property="BoxShadow" Value="{DynamicResource FiliElevation24}" />
+  </Style>
+
+  <!-- MudPaper.Square, on a paper or a card: `.mud-paper-square`, no radius. -->
+  <Style Selector="Border.surface.square, Border.card.square">
+    <Setter Property="CornerRadius" Value="0" />
+  </Style>
+  <!-- An outlined card has no elevation at all: MudPaper adds `mud-elevation-{n}` only when it is
+       not outlined, so this beats an elevation class too. -->
+  <Style Selector="Border.card.outlined">
+    <Setter Property="BoxShadow" Value="{DynamicResource FiliElevation0}" />
+  </Style>
+
+  <!--
+    MudCard's parts, from _card.scss, as classes on whatever lays the card out - usually a
+    StackPanel inside the `card` Border:
+
+      card-header           MudCardHeader: 16px round; a DockPanel, so its content fills
+        card-header-avatar    CardHeaderAvatar: docked at the start, 16px from the content
+        card-header-actions   CardHeaderActions: docked at the end, pulled 8px up and out
+        card-header-content   CardHeaderContent: the rest, and last, so the DockPanel fills with it
+      card-media            MudCardMedia: a Border 300px high; an Image in it covers it, and the
+                            top corners follow the card's when it comes first
+      card-content          MudCardContent: 16px round
+      card-actions          MudCardActions: a row, 8px round, its items centred
+
+    The paddings are margins here, since a Panel has none; nothing paints behind them, so they
+    look the same. ContentPadding="false" is Margin="0" on the part.
+  -->
+  <Style Selector=":is(Control).card-header">
+    <Setter Property="Margin" Value="16" />
+  </Style>
+  <Style Selector=":is(Control).card-header-avatar">
+    <Setter Property="DockPanel.Dock" Value="Left" />
+    <Setter Property="Margin" Value="0,0,16,0" />
+    <Setter Property="VerticalAlignment" Value="Center" />
+  </Style>
+  <Style Selector=":is(Control).card-header-actions">
+    <Setter Property="DockPanel.Dock" Value="Right" />
+    <Setter Property="Margin" Value="0,-8,-8,0" />
+    <Setter Property="VerticalAlignment" Value="Top" />
+  </Style>
+  <Style Selector=":is(Control).card-header-content">
+    <Setter Property="VerticalAlignment" Value="Center" />
+  </Style>
+  <Style Selector="Border.card-media">
+    <Setter Property="Height" Value="300" />
+    <Setter Property="ClipToBounds" Value="True" />
+  </Style>
+  <Style Selector="Border.card-media > Image">
+    <Setter Property="Stretch" Value="UniformToFill" />
+  </Style>
+  <!-- `border-top-*-radius: inherit`, dropped to 0 after a header. FiliCornerRadius on the top. -->
+  <Style Selector="Border.card-media:nth-child(1)">
+    <Setter Property="CornerRadius" Value="4,4,0,0" />
+  </Style>
+  <Style Selector="Border.card.square Border.card-media">
+    <Setter Property="CornerRadius" Value="0" />
+  </Style>
+  <Style Selector=":is(Control).card-content">
+    <Setter Property="Margin" Value="16" />
+  </Style>
+  <Style Selector=":is(Control).card-actions">
+    <Setter Property="Margin" Value="8" />
+  </Style>
+  <Style Selector="StackPanel.card-actions">
+    <Setter Property="Orientation" Value="Horizontal" />
+  </Style>
+  <Style Selector=":is(Panel).card-actions > :is(Control)">
+    <Setter Property="VerticalAlignment" Value="Center" />
   </Style>
 
   <!--
@@ -413,6 +490,217 @@
     <Setter Property="Foreground" Value="{DynamicResource FiliDarkContrastTextBrush}" />
   </Style>
   <!-- END GENERATED -->
+
+  <!--
+    MudAvatar: `<Border Classes="avatar">`, from _avatar.scss and MudAvatar.razor.cs. Put initials,
+    a PathIcon or an Image inside; it is centred, as `.mud-avatar` is inline-flex and centred.
+
+    Variant.Filled is the default: text-primary on lines-inputs with no colour (black in High
+    Contrast, where lines-inputs is near-white), the colour with its contrast text otherwise. `outlined` is the colour (text-primary with none) as text and as a 1px
+    line on no ground. `text` is the bare `.mud-avatar`: white on gray-light, whatever the colour,
+    since _avatar.scss has no text-variant rule. Size.Medium is the default, 40px with 20px text;
+    `small` is 24px with 12px and `large` 56px with 24px. `rounded` is the default 4px radius and
+    `square` none. Elevation is the elevation classes, which this Border already takes.
+
+    A photo is an Image child or an ImageBrush as the Background. The Image is scaled to cover and
+    clipped to the shape here, because clipping the Border itself would clip its own elevation
+    shadow too: Avalonia pushes a visual's clip before it draws itself. An ImageBrush needs neither,
+    being painted inside the Border's own rounded outline. A size of your own needs a CornerRadius
+    of half of it, and an Image in it a Clip of your own.
+  -->
+  <Style Selector="Border.avatar">
+    <Setter Property="Width" Value="40" />
+    <Setter Property="Height" Value="40" />
+    <Setter Property="CornerRadius" Value="20" />
+    <Setter Property="Background" Value="{DynamicResource FiliLinesInputsBrush}" />
+    <Setter Property="BorderThickness" Value="0" />
+    <!-- text-primary; its own token only so High Contrast can make it black. -->
+    <Setter Property="TextElement.Foreground" Value="{DynamicResource FiliAvatarTextBrush}" />
+    <Setter Property="TextElement.FontSize" Value="20" />
+  </Style>
+  <Style Selector="Border.avatar.small">
+    <Setter Property="Width" Value="24" />
+    <Setter Property="Height" Value="24" />
+    <Setter Property="CornerRadius" Value="12" />
+    <Setter Property="TextElement.FontSize" Value="12" />
+  </Style>
+  <Style Selector="Border.avatar.large">
+    <Setter Property="Width" Value="56" />
+    <Setter Property="Height" Value="56" />
+    <Setter Property="CornerRadius" Value="28" />
+    <Setter Property="TextElement.FontSize" Value="24" />
+  </Style>
+  <Style Selector="Border.avatar.rounded">
+    <Setter Property="CornerRadius" Value="{DynamicResource FiliCornerRadius}" />
+  </Style>
+  <Style Selector="Border.avatar.square">
+    <Setter Property="CornerRadius" Value="0" />
+  </Style>
+  <Style Selector="Border.avatar.outlined">
+    <Setter Property="Background" Value="Transparent" />
+    <Setter Property="TextElement.Foreground" Value="{DynamicResource FiliTextPrimaryBrush}" />
+    <Setter Property="BorderBrush" Value="{DynamicResource FiliTextPrimaryBrush}" />
+    <Setter Property="BorderThickness" Value="1" />
+  </Style>
+  <!-- GENERATED by ThemeColourGenerator: avatar colours. -->
+  <Style Selector="Border.avatar.primary">
+    <Setter Property="Background" Value="{DynamicResource FiliPrimaryBrush}" />
+    <Setter Property="TextElement.Foreground" Value="{DynamicResource FiliPrimaryContrastTextBrush}" />
+  </Style>
+  <Style Selector="Border.avatar.secondary">
+    <Setter Property="Background" Value="{DynamicResource FiliSecondaryBrush}" />
+    <Setter Property="TextElement.Foreground" Value="{DynamicResource FiliSecondaryContrastTextBrush}" />
+  </Style>
+  <Style Selector="Border.avatar.tertiary">
+    <Setter Property="Background" Value="{DynamicResource FiliTertiaryBrush}" />
+    <Setter Property="TextElement.Foreground" Value="{DynamicResource FiliTertiaryContrastTextBrush}" />
+  </Style>
+  <Style Selector="Border.avatar.info">
+    <Setter Property="Background" Value="{DynamicResource FiliInfoBrush}" />
+    <Setter Property="TextElement.Foreground" Value="{DynamicResource FiliInfoContrastTextBrush}" />
+  </Style>
+  <Style Selector="Border.avatar.success">
+    <Setter Property="Background" Value="{DynamicResource FiliSuccessBrush}" />
+    <Setter Property="TextElement.Foreground" Value="{DynamicResource FiliSuccessContrastTextBrush}" />
+  </Style>
+  <Style Selector="Border.avatar.warning">
+    <Setter Property="Background" Value="{DynamicResource FiliWarningBrush}" />
+    <Setter Property="TextElement.Foreground" Value="{DynamicResource FiliWarningContrastTextBrush}" />
+  </Style>
+  <Style Selector="Border.avatar.error">
+    <Setter Property="Background" Value="{DynamicResource FiliErrorBrush}" />
+    <Setter Property="TextElement.Foreground" Value="{DynamicResource FiliErrorContrastTextBrush}" />
+  </Style>
+  <Style Selector="Border.avatar.dark">
+    <Setter Property="Background" Value="{DynamicResource FiliDarkBrush}" />
+    <Setter Property="TextElement.Foreground" Value="{DynamicResource FiliDarkContrastTextBrush}" />
+  </Style>
+  <Style Selector="Border.avatar.outlined.primary">
+    <Setter Property="Background" Value="Transparent" />
+    <Setter Property="TextElement.Foreground" Value="{DynamicResource FiliPrimaryBrush}" />
+    <Setter Property="BorderBrush" Value="{DynamicResource FiliPrimaryBrush}" />
+  </Style>
+  <Style Selector="Border.avatar.outlined.secondary">
+    <Setter Property="Background" Value="Transparent" />
+    <Setter Property="TextElement.Foreground" Value="{DynamicResource FiliSecondaryBrush}" />
+    <Setter Property="BorderBrush" Value="{DynamicResource FiliSecondaryBrush}" />
+  </Style>
+  <Style Selector="Border.avatar.outlined.tertiary">
+    <Setter Property="Background" Value="Transparent" />
+    <Setter Property="TextElement.Foreground" Value="{DynamicResource FiliTertiaryBrush}" />
+    <Setter Property="BorderBrush" Value="{DynamicResource FiliTertiaryBrush}" />
+  </Style>
+  <Style Selector="Border.avatar.outlined.info">
+    <Setter Property="Background" Value="Transparent" />
+    <Setter Property="TextElement.Foreground" Value="{DynamicResource FiliInfoBrush}" />
+    <Setter Property="BorderBrush" Value="{DynamicResource FiliInfoBrush}" />
+  </Style>
+  <Style Selector="Border.avatar.outlined.success">
+    <Setter Property="Background" Value="Transparent" />
+    <Setter Property="TextElement.Foreground" Value="{DynamicResource FiliSuccessBrush}" />
+    <Setter Property="BorderBrush" Value="{DynamicResource FiliSuccessBrush}" />
+  </Style>
+  <Style Selector="Border.avatar.outlined.warning">
+    <Setter Property="Background" Value="Transparent" />
+    <Setter Property="TextElement.Foreground" Value="{DynamicResource FiliWarningBrush}" />
+    <Setter Property="BorderBrush" Value="{DynamicResource FiliWarningBrush}" />
+  </Style>
+  <Style Selector="Border.avatar.outlined.error">
+    <Setter Property="Background" Value="Transparent" />
+    <Setter Property="TextElement.Foreground" Value="{DynamicResource FiliErrorBrush}" />
+    <Setter Property="BorderBrush" Value="{DynamicResource FiliErrorBrush}" />
+  </Style>
+  <Style Selector="Border.avatar.outlined.dark">
+    <Setter Property="Background" Value="Transparent" />
+    <Setter Property="TextElement.Foreground" Value="{DynamicResource FiliDarkBrush}" />
+    <Setter Property="BorderBrush" Value="{DynamicResource FiliDarkBrush}" />
+  </Style>
+  <!-- END GENERATED -->
+  <!-- After the colours, which it ignores: `mud-avatar-text-{color}` has no rule. -->
+  <Style Selector="Border.avatar.text">
+    <Setter Property="Background" Value="{DynamicResource FiliGrayLightBrush}" />
+    <Setter Property="TextElement.Foreground" Value="{DynamicResource FiliAvatarBareTextBrush}" />
+    <Setter Property="BorderThickness" Value="0" />
+  </Style>
+
+  <!-- The content, centred; an icon is MudIcon's Size.Medium, 24px, at every avatar size. -->
+  <Style Selector="Border.avatar > :is(Control)">
+    <Setter Property="HorizontalAlignment" Value="Center" />
+    <Setter Property="VerticalAlignment" Value="Center" />
+  </Style>
+  <Style Selector="Border.avatar > PathIcon">
+    <Setter Property="Width" Value="24" />
+    <Setter Property="Height" Value="24" />
+  </Style>
+
+  <!-- `.mud-avatar > .mud-image`: the whole avatar, object-fit: cover, clipped to the shape -
+       inside the line when outlined, at the line's inner radius. -->
+  <Style Selector="Border.avatar > Image">
+    <Setter Property="HorizontalAlignment" Value="Stretch" />
+    <Setter Property="VerticalAlignment" Value="Stretch" />
+    <Setter Property="Stretch" Value="UniformToFill" />
+    <Setter Property="Clip">
+      <RectangleGeometry Rect="0,0,40,40" RadiusX="20" RadiusY="20" />
+    </Setter>
+  </Style>
+  <Style Selector="Border.avatar.small > Image">
+    <Setter Property="Clip">
+      <RectangleGeometry Rect="0,0,24,24" RadiusX="12" RadiusY="12" />
+    </Setter>
+  </Style>
+  <Style Selector="Border.avatar.large > Image">
+    <Setter Property="Clip">
+      <RectangleGeometry Rect="0,0,56,56" RadiusX="28" RadiusY="28" />
+    </Setter>
+  </Style>
+  <Style Selector="Border.avatar.rounded > Image">
+    <Setter Property="Clip">
+      <RectangleGeometry Rect="0,0,40,40" RadiusX="4" RadiusY="4" />
+    </Setter>
+  </Style>
+  <Style Selector="Border.avatar.rounded.small > Image">
+    <Setter Property="Clip">
+      <RectangleGeometry Rect="0,0,24,24" RadiusX="4" RadiusY="4" />
+    </Setter>
+  </Style>
+  <Style Selector="Border.avatar.rounded.large > Image">
+    <Setter Property="Clip">
+      <RectangleGeometry Rect="0,0,56,56" RadiusX="4" RadiusY="4" />
+    </Setter>
+  </Style>
+  <Style Selector="Border.avatar.outlined > Image">
+    <Setter Property="Clip">
+      <RectangleGeometry Rect="0,0,38,38" RadiusX="19" RadiusY="19" />
+    </Setter>
+  </Style>
+  <Style Selector="Border.avatar.outlined.small > Image">
+    <Setter Property="Clip">
+      <RectangleGeometry Rect="0,0,22,22" RadiusX="11" RadiusY="11" />
+    </Setter>
+  </Style>
+  <Style Selector="Border.avatar.outlined.large > Image">
+    <Setter Property="Clip">
+      <RectangleGeometry Rect="0,0,54,54" RadiusX="27" RadiusY="27" />
+    </Setter>
+  </Style>
+  <Style Selector="Border.avatar.outlined.rounded > Image">
+    <Setter Property="Clip">
+      <RectangleGeometry Rect="0,0,38,38" RadiusX="3" RadiusY="3" />
+    </Setter>
+  </Style>
+  <Style Selector="Border.avatar.outlined.rounded.small > Image">
+    <Setter Property="Clip">
+      <RectangleGeometry Rect="0,0,22,22" RadiusX="3" RadiusY="3" />
+    </Setter>
+  </Style>
+  <Style Selector="Border.avatar.outlined.rounded.large > Image">
+    <Setter Property="Clip">
+      <RectangleGeometry Rect="0,0,54,54" RadiusX="3" RadiusY="3" />
+    </Setter>
+  </Style>
+  <Style Selector="Border.avatar.square > Image">
+    <Setter Property="Clip" Value="{x:Null}" />
+  </Style>
 
   <!--
     MudSkeleton: `<Border Classes="skeleton" Width="..." />`, from _skeleton.scss. SkeletonType.Text
@@ -982,6 +1270,18 @@
     <Setter Property="Theme" Value="{StaticResource FiliChip}" />
   </Style>
 
+  <!-- MudFab is a theme a Button takes, like a chip, and reads `outlined` and `text` itself as ITS
+       variants - filled being its default. Themes/Controls/Fab.axaml. -->
+  <Style Selector="Button.fab">
+    <Setter Property="Theme" Value="{StaticResource FiliFab}" />
+  </Style>
+
+  <!-- MudBadge is a theme a HeaderedContentControl takes: Content is what it decorates, Header the
+       badge. Themes/Controls/Badge.axaml. -->
+  <Style Selector="HeaderedContentControl.badge">
+    <Setter Property="Theme" Value="{StaticResource FiliBadge}" />
+  </Style>
+
   <!-- MudProgressCircular is a theme a ProgressBar takes, as a chip is one a Button takes; it reads
        the size, colour and `rounded` classes itself. Themes/Controls/ProgressCircular.axaml. -->
   <Style Selector="ProgressBar.circular">
@@ -1063,6 +1363,29 @@
     <Setter Property="Width" Value="18" />
     <Setter Property="Height" Value="18" />
     <Setter Property="Margin" Value="6,0,-4,0" />
+  </Style>
+
+  <!-- A FAB's icons are MudIcon at its IconSize, Size.Medium: 24px whatever the FAB's size. In an
+       `extended` FAB the label's gap sits between icon and text, 8px (4px when small). -->
+  <Style Selector="Button.fab PathIcon">
+    <Setter Property="Width" Value="24" />
+    <Setter Property="Height" Value="24" />
+  </Style>
+  <Style Selector="Button.fab :is(Control).start-icon">
+    <Setter Property="Width" Value="24" />
+    <Setter Property="Height" Value="24" />
+    <Setter Property="Margin" Value="0,0,8,0" />
+  </Style>
+  <Style Selector="Button.fab :is(Control).end-icon">
+    <Setter Property="Width" Value="24" />
+    <Setter Property="Height" Value="24" />
+    <Setter Property="Margin" Value="8,0,0,0" />
+  </Style>
+  <Style Selector="Button.fab.small :is(Control).start-icon">
+    <Setter Property="Margin" Value="0,0,4,0" />
+  </Style>
+  <Style Selector="Button.fab.small :is(Control).end-icon">
+    <Setter Property="Margin" Value="4,0,0,0" />
   </Style>
 
   <Style Selector="TextBox.filled">

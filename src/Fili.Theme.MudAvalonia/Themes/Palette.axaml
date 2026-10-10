@@ -85,6 +85,14 @@
            black at 0.11 + 0.04 x 0.89 = 0.145 (25). -->
       <Color x:Key="FiliSkeletonWaveColor">#25000000</Color>
 
+      <!-- The text MudBlazor puts on its two light-grey grounds: text-primary on a default avatar
+           (lines-inputs) and a default badge (gray-light), white on a Variant.Text avatar
+           (gray-light). Tokens of their own only so High Contrast can differ: here they ARE
+           text-primary and white. -->
+      <Color x:Key="FiliAvatarTextColor">#424242</Color>
+      <Color x:Key="FiliAvatarBareTextColor">#FFFFFF</Color>
+      <Color x:Key="FiliBadgeTextColor">#424242</Color>
+
       <!--
         Primary at 6%. MudBlazor Palette.cs derives it as PrimaryColor with HoverOpacity, and it
         is what a selected list row paints under itself (`mud-primary-hover`, alongside
@@ -225,6 +233,11 @@
       <!-- 4% black over white at 0.11: alpha 0.145 (25), and white's share of it 0.105 / 0.145 =
            0.725 of full (B9). -->
       <Color x:Key="FiliSkeletonWaveColor">#25B9B9B9</Color>
+
+      <!-- text-primary and white, as in Light. -->
+      <Color x:Key="FiliAvatarTextColor">#B3FFFFFF</Color>
+      <Color x:Key="FiliAvatarBareTextColor">#FFFFFF</Color>
+      <Color x:Key="FiliBadgeTextColor">#B3FFFFFF</Color>
 
       <Color x:Key="FiliPrimaryHoverColor">#0F776BE7</Color>
 
@@ -369,6 +382,12 @@
       <!-- 4% black over the opaque skeleton: 0x2A x 0.96. -->
       <Color x:Key="FiliSkeletonWaveColor">#282828</Color>
 
+      <!-- Black, where text-primary and white are white: lines-inputs and gray-light are near-white
+           here (#E8E8EE, #E0E0E0), and white on them is the least readable text in the variant. -->
+      <Color x:Key="FiliAvatarTextColor">#000000</Color>
+      <Color x:Key="FiliAvatarBareTextColor">#000000</Color>
+      <Color x:Key="FiliBadgeTextColor">#000000</Color>
+
       <!--
         Selection tint at 35%, where light and dark use 6%. Six percent of anything over black
         is black, so the tint that marks a selected row would simply not exist.
@@ -508,6 +527,9 @@
   <SolidColorBrush x:Key="FiliTableStripedBrush" Color="{DynamicResource FiliTableStripedColor}" />
   <SolidColorBrush x:Key="FiliTableHoverBrush"   Color="{DynamicResource FiliTableHoverColor}" />
   <SolidColorBrush x:Key="FiliSkeletonBrush"     Color="{DynamicResource FiliSkeletonColor}" />
+  <SolidColorBrush x:Key="FiliAvatarTextBrush"     Color="{DynamicResource FiliAvatarTextColor}" />
+  <SolidColorBrush x:Key="FiliAvatarBareTextBrush" Color="{DynamicResource FiliAvatarBareTextColor}" />
+  <SolidColorBrush x:Key="FiliBadgeTextBrush"      Color="{DynamicResource FiliBadgeTextColor}" />
   <!-- Animation.Wave's two key frames: the band one skeleton wide, entirely off the left edge and
        entirely off the right. FiliTheme.axaml animates Background between them. -->
   <LinearGradientBrush x:Key="FiliSkeletonWaveStartBrush" StartPoint="-100%,0%" EndPoint="0%,0%">

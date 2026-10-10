@@ -22,8 +22,8 @@ The token values are MudBlazor's defaults, transcribed from its source rather th
 aim is the *look* — this is not a component library: no new control types, no services, and one
 public type. That type is `FiliThemeVariants`, whose only member is the high-contrast
 `ThemeVariant`; it has to be public, because XAML can reach a custom variant only through
-`x:Static`. Two `internal` converters exist where XAML cannot express a MudBlazor rule; see
-[Two converters](docs/controls.md#two-converters).
+`x:Static`. A few `internal` converters exist where XAML cannot express a MudBlazor rule; see
+[The converters](docs/controls.md#the-converters).
 
 ```
 src/Fili.Theme.MudAvalonia                  the theme (the NuGet package, id Fili.MudAvalonia.Theme)
@@ -121,17 +121,19 @@ base became a fork of Simple that this repo owns, the hazard went with it: a `Te
 `Variant.Outlined`, `Variant.Text` and `Variant.Filled` — API familiarity is the point of this
 package, so they are not namespaced to `mud-primary` or hidden behind an attached property.
 
-**All 81 of them, which is the list to grep an app against before adopting:**
+**All 105 of them, which is the list to grep an app against before adopting:**
 
 | | |
 |---|---|
 | Type ramp (`TextBlock`) | `h1`–`h6`, `subtitle1`, `subtitle2`, `body1`, `body2`, `caption`, `overline` |
-| Surfaces (`Border`) | `surface`, `appbar`, `elevation0/1/2/4/6/8/12/16/24` |
+| Surfaces (`Border`) | `surface`, `appbar`, `square`, `elevation0/1/2/4/6/8/12/16/24` |
 | Colour (`Color`) | `primary`, `secondary`, `tertiary`, `info`, `success`, `warning`, `error`, `dark`, `inherit` |
 | Shape (`Variant`) | `text`, `filled`, `outlined`, `rounded`, `flat` |
 | Size (`Size`) | `small`, `medium`, `large`, `dense` |
 | Placement | `inset`, `middle`, `vertical`, `light`, `underline`, `no-underline`, `border`, `centered`, `hide-slider` |
-| Component | `icon`, `chip`, `alert`, `skeleton`, `circle`, `rectangle`, `counter`, `circular` |
+| Component | `icon`, `chip`, `fab`, `extended`, `alert`, `avatar`, `badge`, `card`, `skeleton`, `circle`, `rectangle`, `counter`, `circular` |
+| Card parts | `card-header`, `card-header-avatar`, `card-header-content`, `card-header-actions`, `card-media`, `card-content`, `card-actions` |
+| Badge (`Origin`, `Dot`, `Bordered`, `Overlap`) | `top-left`, `top-center`, `center-left`, `center-center`, `center-right`, `bottom-left`, `bottom-center`, `bottom-right`, `dot`, `bordered`, `overlap` |
 | Behaviour | `helper-on-focus`, `no-animation`, `value-label`, `striped`, `wave` |
 | Icons in content | `start-icon`, `end-icon` |
 | Tab indicator colour (`SliderColor`) | `slider-primary`, `slider-secondary`, `slider-tertiary`, `slider-info`, `slider-success`, `slider-warning`, `slider-error`, `slider-dark` |
@@ -186,6 +188,12 @@ pulses on MudSkeleton's timing, and `circle` / `rectangle` are its other two typ
 animated skeleton for the same reason it masks an indeterminate progress bar, and compares a still
 one like everything else.
 
+**`fab`, `avatar`, `badge` and `card` are MudFab, MudAvatar, MudBadge and MudCard.** A FAB is a
+`Button`, filled, grey and 56px by default; an avatar and a card are a `Border`; a badge is a
+`HeaderedContentControl` whose `Content` is what it decorates and whose `Header` is the badge.
+The card's parts are classes on whatever lays it out. [Controls](docs/controls.md#fabs-avatars-badges-and-cards)
+has the details.
+
 ### One rule for adopters: no blanket metric styles
 
 The type ramp sets `LineHeight` and `LetterSpacing` on its own classes — `body2`, `h4`, `caption`
@@ -209,7 +217,8 @@ clip, and `UnclassedTextKeepsItsNaturalLineHeight` keeps it that way.
 
 [Controls](docs/controls.md) is the usage guide, one section per control: buttons, split and
 drop-down buttons, text fields, selection controls, slider and tabs, progress, dividers, panels
-and links, the drawer, snackbars, right to left, high contrast, keyboard focus, the two converters,
+and links, FABs, avatars, badges and cards, the drawer, snackbars, right to left, high contrast,
+keyboard focus, the converters,
 lists and selects, scrolling and menus, and overlays.
 
 [The base](docs/the-base.md) explains the forked Avalonia Simple templates under every control
@@ -334,7 +343,7 @@ publish to nuget.org and its one-time setup. [Versions](docs/versions.md) is the
 
 ## Known gaps
 
-39 of the 89 templated control types are hand-written; the other 50 wear forked Simple
+40 of the 89 templated control types are hand-written; the other 49 wear forked Simple
 templates repaletted onto these tokens, each classified with a reason. There is no ripple, no
 uppercase button text, no date or time picker restyle and no data grid. [Known gaps](docs/known-gaps.md)
 has the full list and the reason for each.
