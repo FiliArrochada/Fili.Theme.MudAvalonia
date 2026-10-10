@@ -345,6 +345,9 @@ public static class ThemeColourGenerator
     <Setter Property="BorderBrush" Value="Transparent" />
     <Setter Property="BorderThickness" Value="0" />
     <Setter Property="Padding" Value="16,6" />
+    <!-- Every TemplatedControl clips to its bounds in Avalonia 12, which would cut the shadow
+         off at the edge it is drawn past. -->
+    <Setter Property="ClipToBounds" Value="False" />
 
 """);
         o.Append(Common).Append(Template(true)).Append('\n');

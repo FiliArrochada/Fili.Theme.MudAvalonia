@@ -89,13 +89,20 @@ one.
   Button style silently stop applying, which looked like three separate bugs. When a parent must
   reach a grandchild part, set a property on the child and have the child's template bind to it —
   `Slider` lights the `Thumb`'s halo through `BorderBrush` for exactly this reason.
-- **Avalonia clips a `TextBox` and a `ComboBox` to their bounds.** The outlined label floats
-  onto the stroke, 6px above the field as MudBlazor's `translate(14px, -6px)` puts it, so with
-  the default clip its top and its mask were cut off - since the first release, because nothing but an
-  eye on the gallery could see it. Both base themes set `ClipToBounds="False"`; the select's
-  `PART_ContentPresenter` clips itself instead, so a long item still stops at the chevron.
-  `AFloatedOutlinedLabelIsNotClippedByItsField` pins it. Anything else drawn outside a control's
-  bounds needs the same check.
+- **Every `TemplatedControl` clips to its bounds.** Avalonia 12 overrides `ClipToBounds` to
+  true for the whole family, so anything a template draws past the control's edge is cut off,
+  and cannot be clicked either. It bit twice. The outlined label of a `TextBox` and a
+  `ComboBox` floats onto the stroke, 6px above the field as MudBlazor's `translate(14px, -6px)`
+  puts it, and lost its top and its mask - since the first release, because nothing but an eye on
+  the gallery could see it; both base themes set `ClipToBounds="False"`, and the select's
+  `PART_ContentPresenter` clips itself instead, so a long item still stops at the chevron. Then
+  every resting SHADOW: a filled button's elevation is drawn by the `Border` inside its template,
+  past the button's edge, so filled buttons, split and drop-down buttons, the expander and the
+  snackbar shipped with their elevation set, asserted by value and never drawn. The pixel
+  baselines had captured them flat. `AFloatedOutlinedLabelIsNotClippedByItsField` and
+  `ARaisedControlDoesNotClipItsOwnShadow` pin them. Anything drawn outside a control's bounds
+  needs the same setter - and a test that looks at the control, because a test of the part's
+  value passes either way.
 - **RTL needs nothing from a template, and one thing from a glyph.** Avalonia mirrors a whole
   subtree with a single transform where the flow direction CHANGES, so hardcoded `Left`/`Right`
   alignment, dock sides and grid columns flip on their own — do not "fix" them. What does need
