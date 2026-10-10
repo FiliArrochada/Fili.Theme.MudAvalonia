@@ -91,7 +91,7 @@ one.
   `Slider` lights the `Thumb`'s halo through `BorderBrush` for exactly this reason.
 - **Every `TemplatedControl` clips to its bounds.** Avalonia 12 overrides `ClipToBounds` to
   true for the whole family, so anything a template draws past the control's edge is cut off,
-  and cannot be clicked either. It bit twice. The outlined label of a `TextBox` and a
+  and cannot be clicked either. It bit three times. The outlined label of a `TextBox` and a
   `ComboBox` floats onto the stroke, 6px above the field as MudBlazor's `translate(14px, -6px)`
   puts it, and lost its top and its mask - since the first release, because nothing but an eye on
   the gallery could see it; both base themes set `ClipToBounds="False"`, and the select's
@@ -99,10 +99,14 @@ one.
   every resting SHADOW: a filled button's elevation is drawn by the `Border` inside its template,
   past the button's edge, so filled buttons, split and drop-down buttons, the expander and the
   snackbar shipped with their elevation set, asserted by value and never drawn. The pixel
-  baselines had captured them flat. `AFloatedOutlinedLabelIsNotClippedByItsField` and
-  `ARaisedControlDoesNotClipItsOwnShadow` pin them. Anything drawn outside a control's bounds
-  needs the same setter - and a test that looks at the control, because a test of the part's
-  value passes either way.
+  baselines had captured them flat. And a badge, which hangs past the corner of what it decorates
+  by design. `AFloatedOutlinedLabelIsNotClippedByItsField`, `ARaisedControlDoesNotClipItsOwnShadow`
+  and `OnlyThePillIsHitTestable` pin them. Anything drawn outside a control's bounds needs the
+  same setter - and a test that looks at the control, because a test of the part's value passes
+  either way.
+- **Clipping a `Border` clips its own shadow.** Avalonia pushes a visual's clip before it draws
+  the visual itself, so `ClipToBounds` on a `Border` with a `BoxShadow` deletes the shadow. An
+  avatar therefore never clips; the theme clips the `Image` inside it instead.
 - **RTL needs nothing from a template, and one thing from a glyph.** Avalonia mirrors a whole
   subtree with a single transform where the flow direction CHANGES, so hardcoded `Left`/`Right`
   alignment, dock sides and grid columns flip on their own — do not "fix" them. What does need
@@ -322,7 +326,7 @@ the package does not ship and drew Fluent's dark theme under the High contrast l
 Fluent back for a comparison - `StandaloneReadinessTests` is the record of what is hand-written.
 
 **Coverage is pinned, not reported.** `StandaloneReadinessTests` asserts the exact set of
-hand-written themes — **39 of the 89 templated types** — plus the count of both. The other 50 wear
+hand-written themes — **40 of the 89 templated types** — plus the count of both. The other 49 wear
 forked templates, and `SimpleBridgeTests` asserts the ~96 contract keys those paint from still
 resolve in both variants. Adding a theme means adding its `Fili*` key AND its target type to the
 first test in the same change; that is what keeps the number honest and turns an Avalonia version

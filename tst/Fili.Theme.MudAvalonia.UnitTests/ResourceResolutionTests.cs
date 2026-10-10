@@ -37,6 +37,7 @@ public class ResourceResolutionTests
         "FiliLinesDefaultColor", "FiliLinesInputsColor", "FiliDividerColor",
         "FiliTableLinesColor", "FiliTableStripedColor", "FiliTableHoverColor",
         "FiliSkeletonColor", "FiliSkeletonWaveColor", "FiliPrimaryHoverColor",
+        "FiliAvatarTextColor", "FiliAvatarBareTextColor", "FiliBadgeTextColor",
         "FiliOverlayHoverColor", "FiliOverlayPressedColor",
         "FiliInputFilledColor",
         "FiliOverlayDarkColor", "FiliOverlayLightColor", "FiliTooltipBackgroundColor",
@@ -78,6 +79,7 @@ public class ResourceResolutionTests
         "FiliDividerLightBrush",
         // Animation.Wave's key frames: gradients whose stops are the skeleton tokens.
         "FiliSkeletonWaveStartBrush", "FiliSkeletonWaveEndBrush",
+        "FiliAvatarTextBrush", "FiliAvatarBareTextBrush", "FiliBadgeTextBrush",
         "FiliGrayDefaultBrush",
         "FiliGrayLightBrush",
         "FiliGrayLighterBrush",

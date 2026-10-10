@@ -22,12 +22,13 @@ classes, `ControlTheme`s where a Material look cannot be faked without one, and 
   only because a custom variant is unreachable from XAML except through `x:Static`. Anything else
   public is a design change, and belongs in a separate package.
 - **`internal` helpers only where XAML genuinely cannot express something** (compiled XAML can
-  construct them, so nothing leaks): `FactorConverter`, `ErrorMessageConverter` and
-  `TickPositionsConverter` in `Converters/`.
+  construct them, so nothing leaks): `FactorConverter`, `ErrorMessageConverter`,
+  `TickPositionsConverter` and `BadgeContentConverter` in `Converters/`.
 - **Retemplating an Avalonia control is in scope; inventing one is not.** A MudBlazor component
-  that is a *look* on an existing control is a class (`Button.icon`, `Button.chip`,
-  `Border.alert`, `Border.skeleton`, pinned by `ComponentClassTests`). A `Card`, `DataGrid`, date
-  picker or dialog service belongs in a separate `Fili.Theme.MudAvalonia.*` package.
+  that is a *look* on an existing control is a class (`Button.icon`, `Button.chip`, `Button.fab`,
+  `Border.alert`, `Border.avatar`, `Border.card`, `Border.skeleton`,
+  `HeaderedContentControl.badge`). A `DataGrid`, date picker or dialog service belongs in a
+  separate `Fili.Theme.MudAvalonia.*` package.
 
 ## The one rule
 
@@ -77,7 +78,7 @@ One line each; [`docs/traps.md`](docs/traps.md) has the full account and the tes
 - A selector may cross only ONE `/template/` boundary; two throw at load and take other themes
   down with them.
 - Every `TemplatedControl` clips to its bounds: a template that draws past its edge (a shadow, a
-  floated label) sets `ClipToBounds="False"`.
+  floated label, a badge) sets `ClipToBounds="False"`. And never clip a `Border` that has a shadow.
 - RTL needs nothing from a template - do not "fix" hardcoded `Left`/`Right`. A glyph that must not
   mirror opts out.
 

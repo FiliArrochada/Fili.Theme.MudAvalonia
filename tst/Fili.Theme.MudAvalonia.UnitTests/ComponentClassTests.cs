@@ -104,10 +104,12 @@ public class ComponentClassTests
     /// </summary>
     [Theory]
     [InlineData(typeof(Button), "filled")]
+    [InlineData(typeof(Button), "fab")]
     [InlineData(typeof(SplitButton), "filled")]
     [InlineData(typeof(DropDownButton), "filled")]
     [InlineData(typeof(Expander), null)]
     [InlineData(typeof(NotificationCard), null)]
+    [InlineData(typeof(HeaderedContentControl), "badge")]
     public Task ARaisedControlDoesNotClipItsOwnShadow(Type type, string? cls) => UiThread.RunAsync(() =>
     {
         var control = (Control)Activator.CreateInstance(type)!;

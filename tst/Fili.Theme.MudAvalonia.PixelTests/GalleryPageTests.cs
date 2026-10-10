@@ -73,7 +73,7 @@ public class GalleryPageTests
         var headings = view.GetVisualDescendants().OfType<TextBlock>().Where(t => Equals(t.Tag, "section")).ToList();
         var links = view.GetVisualDescendants().OfType<WrapPanel>().Single(p => p.Name == "SectionIndex").Children.OfType<Button>().ToList();
 
-        Assert.Equal(15, headings.Count);
+        Assert.Equal(16, headings.Count);
         Assert.Equal(headings.Select(h => h.Text), links.Select(l => l.Content as string));
 
         var sliders = links.Single(l => (string?)l.Content == "Sliders and progress");

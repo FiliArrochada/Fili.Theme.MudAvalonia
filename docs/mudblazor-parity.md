@@ -6,7 +6,7 @@ where the two differ. For side-by-side markup, see [Razor and AXAML](razor-vs-ax
 The rule behind every row: **a class only ever names a MudBlazor variant.** Every control the
 theme templates is keyed to its type, so an unclassed control is already the MudBlazor default.
 Class names are MudBlazor's own words (`primary`, `outlined`, `small`), deliberately not
-namespaced. `ClassVocabularyTests` pins the full list of 81.
+namespaced. `ClassVocabularyTests` pins the full list of 105.
 
 | Mark | Meaning |
 |---|---|
@@ -68,9 +68,60 @@ Put a `PathIcon` in `Content`: `<Button Classes="icon primary"><PathIcon Data="�
 | `Avatar` | put it in `Content` | ≈ no avatar margins applied |
 | `MudChipSet` selection rules | — | ❌ single/multi selection is the app's, through `IsChecked` bindings |
 
-### MudFab, MudBadge, MudAvatar
+### MudFab → `Button.fab`
 
-❌ None yet. Badge needs an adorner, so it would be a new control, not a class.
+| MudBlazor | Here | |
+|---|---|---|
+| the component | `fab` on a `Button` | ✅ round, at elevation 6, lifting to 8 on hover and focus and 12 on press |
+| `Variant.Filled` (default) / `Outlined` / `Text` | no class / `outlined` / `text` | ✅ filled is grey `action-default-hover`, `action-disabled-background` on hover; outlined and text never cast a shadow |
+| `Color.Default` (default) | no colour class | ✅ text-primary |
+| `Color.Primary` … `Color.Dark` | the colour classes | ✅ filled: the colour, `{color}-darken` on hover; outlined and text: the colour as content, `{color}-hover` on hover |
+| `Color.Inherit` | — | ✅ draws as `Color.Default`, because `_fab.scss` has no rule for the classes it emits |
+| `Size.Large` (default) / `Medium` / `Small` | no class / `medium` / `small` | ✅ 56 / 48 / 40px |
+| `Label` | `extended`, the label in `Content` | ✅ a pill 48 / 40 / 34px high and 16 / 16 / 12px a side |
+| `StartIcon`, `EndIcon` | an icon in `Content` with `start-icon` / `end-icon` | ✅ 24px, `IconSize`'s default; 8px from the label (4px small) |
+| `IconSize`, `IconColor` | the icon's own `Width`, `Height`, `Foreground` | ≈ ordinary Avalonia properties |
+| `DropShadow="false"` | `flat` | ✅ |
+| `Disabled` | `IsEnabled="False"` | ✅ action-disabled on action-disabled-background, flat; outlined and text keep no ground |
+| ripple, uppercase label | — | ❌ as on every button |
+
+### MudAvatar → `Border.avatar`
+
+Put initials, a `PathIcon` or an `Image` inside: `<Border Classes="avatar primary"><TextBlock Text="M" /></Border>`.
+
+| MudBlazor | Here | |
+|---|---|---|
+| the component | `avatar` on a `Border` | ✅ its content centred |
+| `Variant.Filled` (default) / `Outlined` / `Text` | no class / `outlined` / `text` | ✅ filled is text-primary on lines-inputs; outlined a 1px line on no ground; text the bare `.mud-avatar`, white on gray-light whatever the colour, since `_avatar.scss` has no text-variant rule |
+| `Color.Primary` … `Color.Dark` | the colour classes | ✅ filled: the colour with its contrast text; outlined: the colour as text and line |
+| `Size.Medium` (default) / `Small` / `Large` | no class / `small` / `large` | ✅ 40 / 24 / 56px, with 20 / 12 / 24px text |
+| `Rounded` / `Square` | `rounded` / `square` | ✅ 4px / no radius |
+| `Elevation` | the elevation classes | ✅ the avatar never clips itself, so its shadow survives |
+| a `MudImage` child | an `Image` inside, or an `ImageBrush` as `Background` | ✅ covers the avatar and is clipped to its shape (at a size of your own, an `ImageBrush` needs nothing more) |
+| a `MudIcon` child | a `PathIcon` inside | ✅ 24px, `MudIcon`'s default size |
+| `MudAvatarGroup` | — | ❌ its `Max` and its "+n" avatar count the avatars, which is code |
+
+### MudBadge → `HeaderedContentControl.badge`
+
+`Content` is what MudBadge wraps and `Header` is the badge:
+`<HeaderedContentControl Classes="badge error" Header="{Binding Unread}"><PathIcon Data="…" /></HeaderedContentControl>`.
+
+| MudBlazor | Here | |
+|---|---|---|
+| the component | `badge` on a `HeaderedContentControl` | ✅ the root shrinks to its content, like the inline-block `.mud-badge-root` |
+| `Content` | `Header` | ✅ a 20px pill, at least 20px wide, 12px text |
+| `Max` | — | ≈ fixed at its default: an `int` over 99 reads `99+` |
+| `Color.Default` (default) | no colour class | ✅ text-primary on gray-light |
+| `Color.Primary` … `Color.Dark` | the colour classes | ✅ `.mud-theme-{color}`, on the badge alone and not on what it decorates |
+| `Origin.TopRight` (default) | no class | ✅ `calc(100% - 4px)` from the opposite edges: 4px into the corner |
+| the other `Origin`s | `top-left`, `top-center`, `center-left`, `center-center`, `center-right`, `bottom-left`, `bottom-center`, `bottom-right` | ✅ |
+| `Overlap` | `overlap` | ✅ 12px into the corner |
+| `Dot` | `dot` | ✅ a 9px circle with nothing in it |
+| `Bordered` | `bordered` | ✅ a 2px surface ring |
+| `Icon` | `icon`, with a `PathIcon` as the `Header` | ✅ 12px in a 20px circle |
+| `Elevation` | the elevation classes | ✅ on the badge |
+| `Visible` | a `Header` that is not null | ≈ `null` hides the badge, a dot's too |
+| `OnClick` | — | ≈ the badge takes the pointer; put a control that handles the click in `Header` |
 
 ### MudText → `TextBlock`
 
@@ -85,15 +136,21 @@ Put a `PathIcon` in `Content`: `<Button Classes="icon primary"><PathIcon Data="�
 | `mud-text-secondary` (grey) | `Foreground="{DynamicResource FiliTextSecondaryBrush}"` | ≈ a utility class in MudBlazor, not a `Color` |
 | `Align`, `GutterBottom`, `Inline` | `TextAlignment`, `Margin` | ≈ ordinary Avalonia properties |
 
-### MudPaper, MudCard → `Border`
+### MudPaper and MudCard → `Border`
 
 | MudBlazor | Here | |
 |---|---|---|
-| `MudPaper` | `Border.surface` | ✅ surface fill and the default radius |
+| `MudPaper` | `Border.surface` | ≈ surface fill and the default radius, but no shadow: MudPaper's `Elevation` defaults to 1, so it is `surface elevation1` (a `card` carries it) |
 | `Elevation="0…24"` | `elevation0` `1` `2` `4` `6` `8` `12` `16` `24` | ✅ the ladder levels apps use; three shadow layers each, from `Shadow.cs` |
 | `Outlined` | `outlined` | ✅ 1px `lines-default` |
-| `Square` | `CornerRadius="0"` | ≈ |
-| `MudCard`, `MudCardHeader`, `MudCardContent` | a `Border.surface` you lay out yourself | ≈ no card parts |
+| `Square` | `square` | ✅ no radius, on a paper or a card |
+| `MudCard` | `Border.card` | ✅ a paper at elevation 1 in text-primary; `outlined` drops the shadow whatever elevation class is on it, as MudPaper does |
+| `MudCardHeader` | `card-header`, on a `DockPanel` | ✅ 16px round |
+| `CardHeaderAvatar` / `CardHeaderContent` / `CardHeaderActions` | `card-header-avatar` / `card-header-content` / `card-header-actions` | ✅ docked at the start 16px from the content, filling the rest (so it goes last), docked at the end pulled 8px up and out |
+| `MudCardMedia` | `card-media`, on a `Border` | ✅ 300px high; an `Image` inside covers it; it takes the card's top corners when it comes first |
+| `MudCardContent` | `card-content` | ✅ 16px round |
+| `MudCardActions` | `card-actions`, on a `StackPanel` | ✅ a row, 8px round, its items centred |
+| `ContentPadding="false"` | `Margin="0"` on the part | ≈ the paddings are margins here, since a panel has none |
 
 ### MudAppBar → `Border.appbar`
 

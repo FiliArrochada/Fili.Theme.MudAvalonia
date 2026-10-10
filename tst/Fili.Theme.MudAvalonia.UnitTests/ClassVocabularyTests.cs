@@ -40,8 +40,8 @@ public class ClassVocabularyTests
         "body1", "body2", "caption", "h1", "h2", "h3", "h4", "h5", "h6",
         "overline", "subtitle1", "subtitle2",
 
-        // Surfaces, on Border.
-        "appbar", "surface",
+        // Surfaces, on Border, and MudPaper's and MudAvatar's Square.
+        "appbar", "square", "surface",
         "elevation0", "elevation1", "elevation2", "elevation4", "elevation6",
         "elevation8", "elevation12", "elevation16", "elevation24",
 
@@ -59,10 +59,21 @@ public class ClassVocabularyTests
         "border", "centered", "hide-slider", "inset", "light", "middle", "no-underline", "underline",
         "vertical",
 
-        // Components that are a class on an existing control: MudIconButton and MudChip on a
-        // Button, MudAlert and MudSkeleton on a Border, with MudSkeleton's SkeletonType, and
-        // MudProgressCircular on a ProgressBar.
-        "alert", "chip", "circle", "circular", "counter", "icon", "rectangle", "skeleton",
+        // Components that are a class on an existing control: MudIconButton, MudChip and MudFab
+        // on a Button, MudAlert, MudAvatar, MudCard and MudSkeleton on a Border, with
+        // MudSkeleton's SkeletonType, MudProgressCircular on a ProgressBar and MudBadge on a
+        // HeaderedContentControl.
+        "alert", "avatar", "badge", "card", "chip", "circle", "circular", "counter", "fab",
+        "icon", "rectangle", "skeleton",
+
+        // MudCard's parts, after the CSS classes that draw them.
+        "card-actions", "card-content", "card-header", "card-header-actions",
+        "card-header-avatar", "card-header-content", "card-media",
+
+        // MudFab's Label, and MudBadge's Dot, Bordered, Overlap and Origin.
+        "bordered", "dot", "extended", "overlap",
+        "bottom-center", "bottom-left", "bottom-right", "center-center", "center-left",
+        "center-right", "top-center", "top-left",
 
         // Behaviour parameters named as MudBlazor names them: HelperTextOnFocus on a field, and
         // MudSkeleton's Animation.False and Animation.Wave.

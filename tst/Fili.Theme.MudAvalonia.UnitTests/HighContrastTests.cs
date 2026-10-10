@@ -44,6 +44,7 @@ public class HighContrastTests
         "FiliLinesDefaultColor", "FiliLinesInputsColor", "FiliDividerColor",
         "FiliTableLinesColor", "FiliTableStripedColor", "FiliTableHoverColor",
         "FiliSkeletonColor", "FiliSkeletonWaveColor", "FiliPrimaryHoverColor",
+        "FiliAvatarTextColor", "FiliAvatarBareTextColor", "FiliBadgeTextColor",
         "FiliOverlayHoverColor", "FiliOverlayPressedColor", "FiliInputFilledColor",
         "FiliOverlayDarkColor", "FiliOverlayLightColor", "FiliTooltipBackgroundColor",
         "FiliSwitchThumbColor",

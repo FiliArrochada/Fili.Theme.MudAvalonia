@@ -10,7 +10,7 @@ those silent failures into red builds, because looking at the app cannot be reli
 
 | Project | What it does | Speed |
 |---|---|---|
-| `tst/Fili.Theme.MudAvalonia.UnitTests` | 412 tests on a headless Avalonia session. They resolve resources, template controls, move a real pointer over them, and read back the values the theme applied. Nothing is rendered. | seconds |
+| `tst/Fili.Theme.MudAvalonia.UnitTests` | 512 tests on a headless Avalonia session. They resolve resources, template controls, move a real pointer over them, and read back the values the theme applied. Nothing is rendered. | seconds |
 | `tst/Fili.Theme.MudAvalonia.PixelTests` | 13 tests. Nine render one gallery frame each with Skia and compare it pixel by pixel with a PNG committed in `Baselines/`; four, in `GalleryPageTests`, check how the gallery behaves - that the controls page opens at the top in a window shorter than its first screen, that keyboard focus still scrolls it, that each section's jump link lands on it, and that the app bar shows the theme's version. | ~30 seconds |
 
 They are separate on purpose. The pixel suite needs Skia with headless drawing turned **off** -
@@ -21,7 +21,7 @@ needed a different platform.
 
 ## The unit tests
 
-412 tests in 28 classes, grouped here by the failure each one exists to catch.
+512 tests in 33 classes, grouped here by the failure each one exists to catch.
 
 ### Tokens: does every value exist, in every variant?
 
@@ -36,9 +36,9 @@ needed a different platform.
 
 | Class | Tests | What it checks | Why it matters |
 |---|---|---|---|
-| `StandaloneReadinessTests` | 3 | The exact set of hand-written control themes (39 of the 89 templated types) and that every one resolves; every other type is classified with the reason it stays on its forked template. | Avalonia has no implicit default theme. A control with no theme does not look wrong - it renders **nothing**. An Avalonia upgrade that adds a control type fails here asking to be classified. |
-| `ClassVocabularyTests` | 1 | The classes the theme's selectors use are exactly the 81 the README publishes, in both directions. | Class names are MudBlazor's ordinary words (`small`, `error`, `vertical`) and they collide with an app's own. An undeclared class is a collision nobody signed off on; a declared one nothing uses is a lie to adopters. |
-| `GeneratedThemeTests` | 1 | `Button.axaml` and the marked regions in eight other files are exactly what `ThemeColourGenerator` writes from the one list of eight colours. | Hundreds of colour styles are generated so that no colour can differ from the others. Editing one block by hand fails the build. `FILI_REGENERATE=1` rewrites the files. |
+| `StandaloneReadinessTests` | 3 | The exact set of hand-written control themes (40 of the 89 templated types) and that every one resolves; every other type is classified with the reason it stays on its forked template. | Avalonia has no implicit default theme. A control with no theme does not look wrong - it renders **nothing**. An Avalonia upgrade that adds a control type fails here asking to be classified. |
+| `ClassVocabularyTests` | 1 | The classes the theme's selectors use are exactly the 105 the README publishes, in both directions. | Class names are MudBlazor's ordinary words (`small`, `error`, `vertical`) and they collide with an app's own. An undeclared class is a collision nobody signed off on; a declared one nothing uses is a lie to adopters. |
+| `GeneratedThemeTests` | 1 | `Button.axaml` and the marked regions in eleven other files are exactly what `ThemeColourGenerator` writes from the one list of eight colours. | Hundreds of colour styles are generated so that no colour can differ from the others. Editing one block by hand fails the build. `FILI_REGENERATE=1` rewrites the files. |
 
 ### Controls: does each one look and behave as MudBlazor's does?
 
@@ -50,7 +50,12 @@ from MudBlazor's SCSS or the component's parameter defaults.
 |---|---|---|
 | `ThemeCompositionTests` | 49 | The cross-cutting rules: Roboto loads with a face per weight, button content keeps its contrast colour, the filled field keeps its top-only corners, the select floats its label only with a selection, validation shows the message rather than the exception type, keyboard focus lights the state layer and pointer focus does not, tree indent, drawer metrics. |
 | `ButtonMatrixTests` | 45 | `Button`: three variants × eight colours × three sizes, at rest and under a real pointer hover, plus contrast ratios. |
-| `ComponentClassTests` | 43 | Icon buttons, chips, alerts, skeletons, the light divider and `flat`, and that no raised control clips the shadow its template draws past its edge. |
+| `ComponentClassTests` | 45 | Icon buttons, chips, alerts, skeletons, the light divider and `flat`, and that no raised control clips the shadow its template draws past its edge. |
+| `BadgeTests` | 34 | `badge`: the pill, every `Origin` and `overlap` to the pixel, a wide badge centring on narrow content, the colours on the badge alone, `99+`, a null `Header`, `dot`, `bordered`, `icon`, elevation, and that only the pill takes the pointer. |
+| `FabTests` | 31 | `fab`: 56px grey at elevation 6, lifting to 8 and 12 under a real pointer, sizes, colours, `outlined` and `text`, `extended`, the 24px icon and its gap, `flat` and disabled. |
+| `AvatarTests` | 22 | `avatar`: sizes, the three variants and every colour, `rounded` and `square`, an elevation that is not clipped, and an `Image` covering the shape and clipped to it. |
+| `CardTests` | 8 | `card` at elevation 1, `outlined` and `square`, and the header, media, content and actions laid out to MudCard's metrics. |
+| `GreyGroundTextTests` | 3 | The text on a default avatar and badge is text-primary (white on a `text` avatar) in light and dark, and black in high contrast. |
 | `TabsAndAppBarTests` | 31 | MudTabs' defaults, colours, `border` / `outlined` / `rounded` / `centered` / `hide-slider`, and that a bar's colour never reaches a nested `TabControl`; the app bar's gutters, `dense` and colours. |
 | `SplitButtonMatrixTests` | 29 | `SplitButton` as MudButtonGroup, including the separator rule and the hit-testing of each half. |
 | `FieldDetailTests` | 22 | Helper text, the error in its place, the counter, `helper-on-focus`, `dense`, select variants, and that filled and outlined fields pad their content. |
