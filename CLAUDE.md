@@ -76,8 +76,8 @@ One line each; [`docs/traps.md`](docs/traps.md) has the full account and the tes
   `{Binding}` in a template binds at LocalValue and beats every style.
 - A selector may cross only ONE `/template/` boundary; two throw at load and take other themes
   down with them.
-- `TextBox` and `ComboBox` clip to bounds by default; their base themes set `ClipToBounds="False"`
-  so the outlined label survives.
+- Every `TemplatedControl` clips to its bounds: a template that draws past its edge (a shadow, a
+  floated label) sets `ClipToBounds="False"`.
 - RTL needs nothing from a template - do not "fix" hardcoded `Left`/`Right`. A glyph that must not
   mirror opts out.
 

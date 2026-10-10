@@ -1,5 +1,6 @@
 using Avalonia;
 using Avalonia.Controls;
+using Avalonia.Controls.Notifications;
 using Avalonia.Controls.Primitives;
 using Avalonia.Media;
 using Xunit;
@@ -93,6 +94,31 @@ public class ComponentClassTests
         Assert.Equal(0, Matrix.Part<Border>(split, "PART_Root").BoxShadow.Count);
         Assert.Equal(0, Matrix.Part<Border>(dropDown, "RootBorder").BoxShadow.Count);
         Assert.NotEqual(0, Matrix.Part<Border>(raised, "RootBorder").BoxShadow.Count);
+    });
+
+    /// <summary>
+    /// Every TemplatedControl clips to its bounds in Avalonia 12, and a resting shadow is drawn
+    /// past them by the template's root Border - so a raised control that keeps the default has no
+    /// visible shadow at all. Filled buttons shipped that way until this was caught: their elevation
+    /// was set, asserted and never drawn.
+    /// </summary>
+    [Theory]
+    [InlineData(typeof(Button), "filled")]
+    [InlineData(typeof(SplitButton), "filled")]
+    [InlineData(typeof(DropDownButton), "filled")]
+    [InlineData(typeof(Expander), null)]
+    [InlineData(typeof(NotificationCard), null)]
+    public Task ARaisedControlDoesNotClipItsOwnShadow(Type type, string? cls) => UiThread.RunAsync(() =>
+    {
+        var control = (Control)Activator.CreateInstance(type)!;
+        if (cls is not null)
+        {
+            control.Classes.Add(cls);
+        }
+
+        Matrix.Show(control);
+
+        Assert.False(control.ClipToBounds, $"{type.Name} {cls} clips the shadow its template draws past its edge.");
     });
 
     // --------------------------------------------------------------------------------------

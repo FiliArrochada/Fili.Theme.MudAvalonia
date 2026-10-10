@@ -10,7 +10,7 @@ those silent failures into red builds, because looking at the app cannot be reli
 
 | Project | What it does | Speed |
 |---|---|---|
-| `tst/Fili.Theme.MudAvalonia.UnitTests` | 407 tests on a headless Avalonia session. They resolve resources, template controls, move a real pointer over them, and read back the values the theme applied. Nothing is rendered. | seconds |
+| `tst/Fili.Theme.MudAvalonia.UnitTests` | 412 tests on a headless Avalonia session. They resolve resources, template controls, move a real pointer over them, and read back the values the theme applied. Nothing is rendered. | seconds |
 | `tst/Fili.Theme.MudAvalonia.PixelTests` | 13 tests. Nine render one gallery frame each with Skia and compare it pixel by pixel with a PNG committed in `Baselines/`; four, in `GalleryPageTests`, check how the gallery behaves - that the controls page opens at the top in a window shorter than its first screen, that keyboard focus still scrolls it, that each section's jump link lands on it, and that the app bar shows the theme's version. | ~30 seconds |
 
 They are separate on purpose. The pixel suite needs Skia with headless drawing turned **off** -
@@ -21,7 +21,7 @@ needed a different platform.
 
 ## The unit tests
 
-407 tests in 28 classes, grouped here by the failure each one exists to catch.
+412 tests in 28 classes, grouped here by the failure each one exists to catch.
 
 ### Tokens: does every value exist, in every variant?
 
@@ -50,7 +50,7 @@ from MudBlazor's SCSS or the component's parameter defaults.
 |---|---|---|
 | `ThemeCompositionTests` | 49 | The cross-cutting rules: Roboto loads with a face per weight, button content keeps its contrast colour, the filled field keeps its top-only corners, the select floats its label only with a selection, validation shows the message rather than the exception type, keyboard focus lights the state layer and pointer focus does not, tree indent, drawer metrics. |
 | `ButtonMatrixTests` | 45 | `Button`: three variants × eight colours × three sizes, at rest and under a real pointer hover, plus contrast ratios. |
-| `ComponentClassTests` | 38 | Icon buttons, chips, alerts, skeletons, the light divider and `flat`. |
+| `ComponentClassTests` | 43 | Icon buttons, chips, alerts, skeletons, the light divider and `flat`, and that no raised control clips the shadow its template draws past its edge. |
 | `TabsAndAppBarTests` | 31 | MudTabs' defaults, colours, `border` / `outlined` / `rounded` / `centered` / `hide-slider`, and that a bar's colour never reaches a nested `TabControl`; the app bar's gutters, `dense` and colours. |
 | `SplitButtonMatrixTests` | 29 | `SplitButton` as MudButtonGroup, including the separator rule and the hit-testing of each half. |
 | `FieldDetailTests` | 22 | Helper text, the error in its place, the counter, `helper-on-focus`, `dense`, select variants, and that filled and outlined fields pad their content. |
