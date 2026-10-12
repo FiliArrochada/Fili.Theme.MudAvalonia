@@ -348,12 +348,15 @@ has no default theme, so the grid then needs the package's own theme included to
 - **The sort arrow sits at the far end of the header**, where `.sortable-column-header` taking
   the width puts it, not next to the title: ArrowUpward, 18px in a 5px icon button, action-default,
   hidden until the column is sorted and turned for descending. The header has no column menu,
-  filter or resize handle.
+  filter or resize line: see [Known gaps](known-gaps.md).
+- **`dense` pads the last column 16px on the right**, header included, where every other column
+  has 24 - the last *visible* column in display order, so hiding or moving one moves it.
 - **The last row has no rule under it**, as `.mud-table-root` takes it away. Rows cannot tell they
   are last, so the rows reach 1px past the grid's clip instead.
 - **Grouping** is a `DataGridCollectionView` with `GroupDescriptions`: background-gray rows,
-  "Title: Key" in bold, no count. A nested group's header is not indented, because Avalonia's
-  indent would move the data rows under it too, which MudBlazor never does.
+  "Title: Key" in bold, no count. A nested group's header steps in 48px per level, up to a fifth
+  level, and the data rows stay where they are. The grid's own `SublevelIndent` stays at 0,
+  because it would move the rows as well.
 
 ## The drawer, and a third way to theme a control
 
@@ -555,6 +558,15 @@ for something XAML cannot express on its own:
   12's DataGrid has no alternating row brush, and a binding cannot take a remainder.
 - **`SlidingIndicator`** slides a tab's indicator over from the one it replaces. Where to start
   is the old indicator's position, which only code can read at the moment the selection moves.
+- **`DataGridLastColumn`** marks the cells and header of a grid's last visible column, for
+  `dense`'s 16px on the right. The grid knows which column is last, but tells no one.
+- **`GroupIndentConverter`** indents a nested group's header 48px per level. A header's level is
+  internal to the DataGrid, so it is counted from the public group tree.
+- **`OptionalStyleInclude`** loads the DataGrid's files only when the app has the package; see
+  [Data grid](#data-grid).
+
+The two DataGrid helpers name the package's types, so they live in `Themes/Optional/DataGrid/`
+with the files that use them.
 
 Compiled XAML in the same assembly can construct an `internal` type, so being internal costs
 nothing and keeps the public surface at that one type. Reach for one only after establishing

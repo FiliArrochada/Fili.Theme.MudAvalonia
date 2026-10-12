@@ -180,6 +180,12 @@ one.
 - **A `DataValidationErrors.Errors` entry is usually an `Exception`**, so binding straight to it
   renders `"System.InvalidOperationException: the message"`. `ErrorMessageConverter` exists for
   exactly that.
+- **A template part works only under the exact name the control looks for.** The DataGrid's
+  group row finds its row header as `PART_RowHeader`, to hide it with the grid's other row
+  headers; the template named it `RowHeader`, as Avalonia's own DataGrid theme does, so it was
+  never found, always showed, and its 1px edge pushed every group title right. Nothing fails or
+  logs. `ANestedGroupHeaderIsIndented48PxPerLevel` measures the expander to the pixel, which is
+  what caught it; check the `[TemplatePart]` names in the control's source when writing one.
 
 - **A gradient key frame needs a gradient resting value.** Animating `Background` between two
   `LinearGradientBrush`es makes Avalonia pick its gradient animator, which casts the property's

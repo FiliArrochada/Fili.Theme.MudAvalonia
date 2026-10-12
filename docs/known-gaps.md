@@ -44,11 +44,16 @@ hits them:
   rewrite per template with no shortcut.
 - **`TableView`**, Avalonia's newer table. MudDataGrid's look is on the `DataGrid` package's
   control instead, the one apps use.
-- **What MudDataGrid does beyond its look.** No column options menu, no filter row, no pager, no
-  column resize handle; a nested group's header is not indented 48px per level, because
-  Avalonia's indent would move the data rows too; and a dense grid's last column keeps 24px on
-  its right where MudBlazor gives it 16. A selected row is tinted although MudDataGrid draws
+- **What MudDataGrid does beyond its look.** No column options menu, no filter row, no pager:
+  each is a control with behaviour of its own, which belongs in a separate package rather than
+  a theme. Columns resize when `CanUserResizeColumns` is set, but without MudBlazor's 2px primary
+  line down the grid: the DataGrid keeps its resize state internal, and showing the line would
+  mean re-implementing its pointer handling. A selected row is tinted although MudDataGrid draws
   none - see [Data grid](controls.md#data-grid).
+- **MudSlider's `TickMarkLabels` and MudProgressLinear's `Buffer`.** Both are data the Avalonia
+  control has no property for - an array of strings, a second value - and the only way to pass
+  it would be a public attached property, which this package does not add: its public API is
+  one type. The tick dots and the bar itself are themed.
 
 And the things that are not controls:
 

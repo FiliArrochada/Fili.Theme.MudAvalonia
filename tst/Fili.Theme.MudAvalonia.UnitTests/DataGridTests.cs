@@ -115,6 +115,42 @@ public class DataGridTests
         Assert.Equal(39, Header(grid, "Name").Bounds.Height);
     });
 
+    /// <summary>
+    /// `.mud-table-dense .mud-table-cell:last-child`: 16px on the right of the last column, header
+    /// included - and the last column is the last VISIBLE one in display order, so hiding or moving
+    /// a column moves the padding with it.
+    /// </summary>
+    [Fact]
+    public Task DensePadsTheLastColumn16OnTheRight() => UiThread.RunAsync(() =>
+    {
+        var grid = Show(null, "dense");
+        Thickness Right(string header) => new(16, 6, Equals(header, "Nr") ? 16 : 24, 6);
+        DataGridCell Cell(int column) => Rows(grid)[0].GetVisualDescendants().OfType<DataGridCell>()
+            .Single(c => DataGridColumn.GetColumnContainingElement(c) == grid.Columns[column]);
+
+        Assert.Equal(Right("Name"), Cell(0).Padding);
+        Assert.Equal(Right("Nr"), Cell(1).Padding);
+        Assert.Equal(new Thickness(16, 0, 24, 0), Header(grid, "Name").Padding);
+        Assert.Equal(new Thickness(16, 0, 16, 0), Header(grid, "Nr").Padding);
+
+        grid.Columns[1].DisplayIndex = 0;
+        Dispatcher.UIThread.RunJobs();
+        Assert.Equal(new Thickness(16, 6, 16, 6), Cell(0).Padding);
+        Assert.Equal(new Thickness(16, 6, 24, 6), Cell(1).Padding);
+
+        grid.Columns[0].IsVisible = false;
+        Dispatcher.UIThread.RunJobs();
+        Assert.Equal(new Thickness(16, 6, 16, 6), Cell(1).Padding);
+    });
+
+    /// <summary>Without `dense` every cell keeps the 16px all round.</summary>
+    [Fact]
+    public Task TheLastColumnIsPaddedLikeTheRestWhenNotDense() => UiThread.RunAsync(() =>
+    {
+        var grid = Show();
+        Assert.All(Rows(grid)[0].GetVisualDescendants().OfType<DataGridCell>(), cell => Assert.Equal(new Thickness(16), cell.Padding));
+    });
+
     /// <summary>`:nth-of-type(odd)` counts from one: the rows at index 0 and 2.</summary>
     [Fact]
     public Task StripedPaintsTheFirstThirdAndFifthRows() => UiThread.RunAsync(() =>
@@ -239,6 +275,54 @@ public class DataGridTests
 
         var text = Rows(grid)[0].GetVisualDescendants().OfType<TextBlock>().First(t => t.Text is not null);
         Assert.Equal(16, text.TranslatePoint(default, Rows(grid)[0])!.Value.X);
+    });
+
+    /// <summary>
+    /// `.mud-row-group-indented-{level}`: a nested group's header starts (level - 1) * 48px in, the
+    /// top level keeps the cell's 16, and the data rows under either are not moved.
+    /// </summary>
+    [Fact]
+    public Task ANestedGroupHeaderIsIndented48PxPerLevel() => UiThread.RunAsync(() =>
+    {
+        var view = new DataGridCollectionView(Elements);
+        view.GroupDescriptions.Add(new DataGridPathGroupDescription(nameof(Element.Group)));
+        view.GroupDescriptions.Add(new DataGridPathGroupDescription(nameof(Element.Number)));
+        var grid = Show(view, "dense");
+        grid.Height = 600;
+        Dispatcher.UIThread.RunJobs();
+
+        var headers = grid.GetVisualDescendants().OfType<DataGridRowGroupHeader>().Where(h => h.IsVisible)
+            .OrderBy(h => h.TranslatePoint(default, grid)!.Value.Y).ToList();
+        double ExpanderX(DataGridRowGroupHeader header) =>
+            Matrix.Part<ToggleButton>(header, "PART_ExpanderButton").TranslatePoint(default, header)!.Value.X;
+
+        Assert.Equal(16, ExpanderX(headers[0]));
+        Assert.Equal(48, ExpanderX(headers[1]));
+
+        var text = Rows(grid)[0].GetVisualDescendants().OfType<TextBlock>().First(t => t.Text is not null);
+        Assert.Equal(16, text.TranslatePoint(default, Rows(grid)[0])!.Value.X);
+    });
+
+    /// <summary>Levels 3, 4 and 5 go on in 48px steps, and a deeper one stays at level 5's.</summary>
+    [Fact]
+    public Task GroupIndentStepsTo192AndStops() => UiThread.RunAsync(() =>
+    {
+        var levels = Enumerable.Range(0, 6).Select(_ => nameof(Element.Group)).ToArray();
+        var view = new DataGridCollectionView(Elements);
+        foreach (var level in levels)
+        {
+            view.GroupDescriptions.Add(new DataGridPathGroupDescription(level));
+        }
+
+        var grid = Show(view);
+        grid.Height = 900;
+        Dispatcher.UIThread.RunJobs();
+
+        var expanders = grid.GetVisualDescendants().OfType<DataGridRowGroupHeader>().Where(h => h.IsVisible)
+            .OrderBy(h => h.TranslatePoint(default, grid)!.Value.Y).Take(6)
+            .Select(h => Matrix.Part<ToggleButton>(h, "PART_ExpanderButton").TranslatePoint(default, h)!.Value.X);
+
+        Assert.Equal([16d, 48, 96, 144, 192, 192], expanders);
     });
 
     /// <summary>`.edit-mode-cell`: no resting line, the cell's font size.</summary>
