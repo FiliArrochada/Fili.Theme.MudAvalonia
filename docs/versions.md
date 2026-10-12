@@ -6,7 +6,8 @@ What changed in each release of `Fili.Theme.MudAvalonia`, newest first. The pack
 
 | Version | |
 |---|---|
-| **0.6.0** | MudProgressCircular as `circular` on a `ProgressBar`: sizes, colours, `rounded`, `ShowProgressText` and MudBlazor's indeterminate spin. MudSkeleton's `Animation.Wave` as `wave`. The published class list grows to 81. |
+| **0.7.0** | MudDataGrid on Avalonia's `DataGrid`, themed by type when the app references `Avalonia.Controls.DataGrid` 12.1.2 or later - the package does not depend on it: `dense`, `striped`, `bordered`, `hover`, `outlined`, `square` and elevation, sorting and group rows. MudFab as `fab` on a `Button`, MudAvatar as `avatar` and MudCard as `card` on a `Border`, MudBadge as `badge` on a `HeaderedContentControl`. Filled buttons, split and drop-down buttons, the expander and snackbars now draw the shadows Avalonia had been clipping. The published class list grows to 106. See [Upgrading from 0.6 to 0.7](#upgrading-from-06-to-07). |
+| 0.6.0 | MudProgressCircular as `circular` on a `ProgressBar`: sizes, colours, `rounded`, `ShowProgressText` and MudBlazor's indeterminate spin. MudSkeleton's `Animation.Wave` as `wave`. The published class list grows to 81. |
 | 0.5.1 | Avalonia 12.1.3, which the package now requires. The forked base templates are re-synced to that tag; the only upstream change is the drawn window title bar's decoration role. |
 | 0.5.0 | MudTabs' `Position` through `TabStripPlacement`, `Elevation` as `elevation*` and `SliderColor` as `slider-{colour}`; MudProgressLinear's `Striped` as `striped`; MudButton's `StartIcon` / `EndIcon` and MudChip's `Icon` spacing as `start-icon` / `end-icon` on the icon in the content. |
 | 0.4.0 | MudSlider's `Variant`, `TickMarks` and `ValueLabel`: `filled`, tick dots through `TickPlacement`, and `value-label`. `UncheckedColor` on checkboxes and radios as `unchecked-{colour}`. The `GrayDefault` … `GrayDarker` tokens. An outlined text field's or select's floated label is no longer cut off along its top edge. See [Upgrading from 0.3 to 0.4](#upgrading-from-03-to-04). |
@@ -18,6 +19,21 @@ What changed in each release of `Fili.Theme.MudAvalonia`, newest first. The pack
 Every version and its release notes are on the
 [releases page](https://github.com/FiliArrochada/Fili.Theme.MudAvalonia/releases); a version on
 nuget.org can be unlisted but never replaced.
+
+## Upgrading from 0.6 to 0.7
+
+- **Raised controls now show their shadow.** A filled button, a filled split or drop-down button,
+  an expander and a snackbar had their elevation set but never drawn, because Avalonia 12 clips
+  every templated control to its bounds. They now look as MudBlazor's do, which is a visible
+  change on every screen that has one. Nothing needs to change in markup.
+- **A `DataGrid` is now themed**, if the app references `Avalonia.Controls.DataGrid`. It becomes
+  MudDataGrid: elevation 1 on surface, no hover highlight unless the grid has `hover`. Remove any
+  `StyleInclude` of the package's own theme (`avares://Avalonia.Controls.DataGrid/Themes/...`):
+  included after this theme it wins, and before it, it is dead weight. A grid on a version older
+  than 12.1.2 is left alone, with a warning in Avalonia's log: keep the package's own theme
+  included there, or the grid has no theme at all.
+- **New classes can collide with an app's own:** `fab`, `avatar`, `card` and its parts, `badge`
+  and its options, and `hover` on a `DataGrid`. The README's class list is the one to grep against.
 
 ## Upgrading from 0.3 to 0.4
 
