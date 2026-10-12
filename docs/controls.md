@@ -323,8 +323,9 @@ Four more MudBlazor components that are a look on a control Avalonia already has
 Avalonia's own `DataGrid`, from the `Avalonia.Controls.DataGrid` package, is MudDataGrid with
 nothing to opt into. This package does not pull it in: reference it in the app (12.1.2 or later,
 the version the theme is built against) and the theme picks it up. An app without it never
-downloads it and never loads the DataGrid rules; an app on an older version keeps the package's
-own look, and Avalonia's log says why, rather than getting templates that name parts it lacks.
+downloads it and never loads the DataGrid rules. On an older version the theme leaves the grid
+alone rather than apply templates that name parts it lacks, and Avalonia's log says why; Avalonia
+has no default theme, so the grid then needs the package's own theme included to show at all.
 
 ```xml
 <DataGrid ItemsSource="{Binding Elements}">                    elevation 1, no hover

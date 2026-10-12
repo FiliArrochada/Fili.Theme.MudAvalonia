@@ -26,7 +26,8 @@ namespace Fili.Theme.MudAvalonia;
 /// </para>
 /// <para>
 /// An older package is skipped with a warning rather than half themed: the theme's templates
-/// name parts of the version it was built against. The app then shows the package's own look.
+/// name parts of the version it was built against. Its controls then have only whatever theme the
+/// app includes for them - Avalonia has no default, so none at all if the app includes none.
 /// </para>
 /// <para>
 /// The constructor keeps the XAML service provider so the loaded file sees the theme above it,
@@ -72,7 +73,7 @@ internal sealed class OptionalStyleInclude : Styles, ISupportInitialize
         {
             Logger.TryGet(LogEventLevel.Warning, LogArea.Visual)?.Log(
                 this,
-                "Fili.Theme.MudAvalonia: {Assembly} {Version} is older than {Minimum}, the version this theme is built against; its controls keep their own look. Reference {Minimum} or later to theme them.",
+                "Fili.Theme.MudAvalonia: {Assembly} {Version} is older than {Minimum}, the version this theme is built against, so this theme leaves its controls alone. Reference {Minimum} or later to theme them.",
                 Requires,
                 version,
                 MinimumVersion,
