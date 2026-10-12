@@ -769,7 +769,17 @@
           </Expander>
           <Expander Width="330" Header="Expanded panel" IsExpanded="True">
             <TextBlock Classes="body2" TextWrapping="Wrap"
-                       Text="The panel carries the surface and elevation 1 because MudExpansionPanels is a MudPaper. Add the flat class to drop both when it already sits on a card." />
+                       Text="The panel carries the surface and elevation 1 because MudExpansionPanels is a MudPaper. The elevation classes change the shadow; elevation0 drops it and keeps the surface." />
+          </Expander>
+        </StackPanel>
+        <StackPanel Orientation="Horizontal" Spacing="24">
+          <Expander Width="330" Classes="dense square" Header="dense square" IsExpanded="True">
+            <TextBlock Classes="body2" TextWrapping="Wrap"
+                       Text="Dense drops the content's 16px top and bottom; square drops the radius." />
+          </Expander>
+          <Expander Width="330" Classes="no-gutters elevation4" Header="no-gutters elevation4" IsExpanded="True">
+            <TextBlock Classes="body2" TextWrapping="Wrap"
+                       Text="Gutters off: neither the header nor the content keeps its 24px sides." />
           </Expander>
         </StackPanel>
 

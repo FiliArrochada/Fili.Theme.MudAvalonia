@@ -1,5 +1,7 @@
 <!--
-  Elevation tokens: the 24-step Material shadow ladder, from MudBlazor Themes/Models/Shadow.cs.
+  Elevation tokens: the Material shadow ladder, 0 to 24, and MudBlazor's own level 25, from
+  Themes/Models/Shadow.cs. Level 25 is not a 25th step up: it is a much softer shadow (alphas
+  .06, .042 and .036 -> 0F, 0B, 09), which MudBlazor publishes as `mud-elevation-25` like the rest.
 
   Each CSS layer "0px 2px 1px -1px rgba(0,0,0,0.2)" becomes the Avalonia BoxShadows form
   "offsetX offsetY blur spread colour" -> "0 2 1 -1 #33000000". The three stacked layers
@@ -71,6 +73,7 @@
       <BoxShadows x:Key="FiliElevation22">0 10 14 -6 #33000000, 0 22 35 3 #24000000, 0 8 42 7 #1F000000</BoxShadows>
       <BoxShadows x:Key="FiliElevation23">0 11 14 -7 #33000000, 0 23 36 3 #24000000, 0 9 44 8 #1F000000</BoxShadows>
       <BoxShadows x:Key="FiliElevation24">0 11 15 -7 #33000000, 0 24 38 3 #24000000, 0 9 46 8 #1F000000</BoxShadows>
+      <BoxShadows x:Key="FiliElevation25">0 5 5 -3 #0F000000, 0 8 10 1 #0B000000, 0 3 14 2 #09000000</BoxShadows>
     </ResourceDictionary>
 
     <ResourceDictionary x:Key="Dark">
@@ -99,6 +102,7 @@
       <BoxShadows x:Key="FiliElevation22">0 10 14 -6 #33000000, 0 22 35 3 #24000000, 0 8 42 7 #1F000000</BoxShadows>
       <BoxShadows x:Key="FiliElevation23">0 11 14 -7 #33000000, 0 23 36 3 #24000000, 0 9 44 8 #1F000000</BoxShadows>
       <BoxShadows x:Key="FiliElevation24">0 11 15 -7 #33000000, 0 24 38 3 #24000000, 0 9 46 8 #1F000000</BoxShadows>
+      <BoxShadows x:Key="FiliElevation25">0 5 5 -3 #0F000000, 0 8 10 1 #0B000000, 0 3 14 2 #09000000</BoxShadows>
     </ResourceDictionary>
 
     <ResourceDictionary x:Key="{x:Static theme:FiliThemeVariants.HighContrast}">
@@ -127,6 +131,7 @@
       <BoxShadows x:Key="FiliElevation22">0 0 0 1 #E8E8EE</BoxShadows>
       <BoxShadows x:Key="FiliElevation23">0 0 0 1 #E8E8EE</BoxShadows>
       <BoxShadows x:Key="FiliElevation24">0 0 0 1 #E8E8EE</BoxShadows>
+      <BoxShadows x:Key="FiliElevation25">0 0 0 1 #E8E8EE</BoxShadows>
     </ResourceDictionary>
 
   </ResourceDictionary.ThemeDictionaries>

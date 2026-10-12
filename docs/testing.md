@@ -10,7 +10,7 @@ those silent failures into red builds, because looking at the app cannot be reli
 
 | Project | What it does | Speed |
 |---|---|---|
-| `tst/Fili.Theme.MudAvalonia.UnitTests` | 545 tests on a headless Avalonia session. They resolve resources, template controls, move a real pointer over them, and read back the values the theme applied. Nothing is rendered. | seconds |
+| `tst/Fili.Theme.MudAvalonia.UnitTests` | 554 tests on a headless Avalonia session. They resolve resources, template controls, move a real pointer over them, and read back the values the theme applied. Nothing is rendered. | seconds |
 | `tst/Fili.Theme.MudAvalonia.NoDataGridTests` | 3 tests. The theme in an app that does not reference `Avalonia.Controls.DataGrid`: the assembly is really absent, `FiliTheme.axaml` loads and themes a button, and no DataGrid rule was loaded. | seconds |
 | `tst/Fili.Theme.MudAvalonia.PixelTests` | 15 tests. Nine render one gallery frame each with Skia and compare it pixel by pixel with a PNG committed in `Baselines/`; six, in `GalleryPageTests`, check how the gallery behaves - that the controls page opens at the top in a window shorter than its first screen, that keyboard focus still scrolls it, that each row of the index beside it lands on its section and the index follows the scroll, that every section fits beside the index in the desktop window and in a frame, and that the app bar shows the theme's version. | ~30 seconds |
 
@@ -27,7 +27,7 @@ needed a different platform.
 
 ## The unit tests
 
-545 tests in 35 classes, grouped here by the failure each one exists to catch.
+554 tests in 36 classes, grouped here by the failure each one exists to catch.
 
 ### Tokens: does every value exist, in every variant?
 
@@ -61,6 +61,7 @@ from MudBlazor's SCSS or the component's parameter defaults.
 | `BadgeTests` | 34 | `badge`: the pill, every `Origin` and `overlap` to the pixel, a wide badge centring on narrow content, the colours on the badge alone, `99+`, a null `Header`, `dot`, `bordered`, `icon`, elevation, and that only the pill takes the pointer. |
 | `FabTests` | 31 | `fab`: 56px grey at elevation 6, lifting to 8 and 12 under a real pointer, sizes, colours, `outlined` and `text`, `extended`, the 24px icon and its gap, `flat` and disabled. |
 | `AvatarTests` | 22 | `avatar`: sizes, the three variants and every colour, `rounded` and `square`, an elevation that is not clipped, and an `Image` covering the shape and clipped to it. |
+| `ExpansionPanelTests` | 9 | MudExpansionPanels' options on an `Expander` - elevation 1 by default, `elevation0` keeping the surface, `square`, `dense`, `no-gutters`, each ExpandDirection keeping its own sides, and `flat` gone - plus every elevation level 0 to 25 as a class on a `Border`, an `Expander` and a `TabControl`, MudBlazor's soft level 25, and the `button` type class. |
 | `DataGridTests` | 22 | `DataGrid`: elevation 1, the 59px subtitle2 header row and 53px body2 rows, no rule under the last row, `dense` and its 16px on the right of the last visible column as columns move and hide, `striped`, `hover` replacing the stripe, the selection tint, `bordered` without header rules, `outlined`, `square`, the sort arrow, group rows, their glyph and a nested group's 48px-per-level indent with the rows left alone, and the edit box - which must still be based on the standard field, the one static link out of `Themes/Optional/DataGrid`. |
 | `CardTests` | 8 | `card` at elevation 1, `outlined` and `square`, and the header, media, content and actions laid out to MudCard's metrics. |
 | `GreyGroundTextTests` | 3 | The text on a default avatar and badge is text-primary (white on a `text` avatar) in light and dark, and black in high contrast. |

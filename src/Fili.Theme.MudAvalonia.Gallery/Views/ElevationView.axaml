@@ -9,7 +9,7 @@
                  TextWrapping="Wrap"
                  MaxWidth="680"
                  HorizontalAlignment="Left"
-                 Text="Levels 0 to 24, each three stacked shadow layers. This is the biggest single difference from Fluent, which separates surfaces with a one-pixel border instead. Check the low end carefully: 1 through 4 are what most of an app actually uses, and they should be distinguishable without being heavy." />
+                 Text="Levels 0 to 25, each three stacked shadow layers; 25 is MudBlazor's own soft shadow, not a step up from 24. This is the biggest single difference from Fluent, which separates surfaces with a one-pixel border instead. Check the low end carefully: 1 through 4 are what most of an app actually uses, and they should be distinguishable without being heavy." />
       <WrapPanel x:Name="Root" ItemWidth="150" ItemHeight="130" />
     </StackPanel>
   </ScrollViewer>

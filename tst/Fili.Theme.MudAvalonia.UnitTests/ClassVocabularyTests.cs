@@ -36,14 +36,19 @@ public class ClassVocabularyTests
 {
     private static readonly string[] Vocabulary =
     [
-        // Type ramp, on TextBlock.
-        "body1", "body2", "caption", "h1", "h2", "h3", "h4", "h5", "h6",
+        // Type ramp, on TextBlock: every Typo but inherit.
+        "body1", "body2", "button", "caption", "h1", "h2", "h3", "h4", "h5", "h6",
         "overline", "subtitle1", "subtitle2",
 
-        // Surfaces, on Border, and MudPaper's and MudAvatar's Square.
+        // Surfaces, on Border, and MudPaper's, MudAvatar's and MudExpansionPanels' Square.
         "appbar", "square", "surface",
-        "elevation0", "elevation1", "elevation2", "elevation4", "elevation6",
-        "elevation8", "elevation12", "elevation16", "elevation24",
+
+        // Elevation: every level _elevation.scss has, mud-elevation-0 to mud-elevation-25.
+        "elevation0", "elevation1", "elevation2", "elevation3", "elevation4", "elevation5",
+        "elevation6", "elevation7", "elevation8", "elevation9", "elevation10", "elevation11",
+        "elevation12", "elevation13", "elevation14", "elevation15", "elevation16", "elevation17",
+        "elevation18", "elevation19", "elevation20", "elevation21", "elevation22", "elevation23",
+        "elevation24", "elevation25",
 
         // Colour, from MudBlazor's Color enum.
         "dark", "error", "info", "inherit", "primary", "secondary", "success", "tertiary",
@@ -76,8 +81,9 @@ public class ClassVocabularyTests
         "center-right", "top-center", "top-left",
 
         // Behaviour parameters named as MudBlazor names them: HelperTextOnFocus on a field,
-        // MudSkeleton's Animation.False and Animation.Wave, and MudDataGrid's Hover.
-        "helper-on-focus", "hover", "no-animation", "wave",
+        // MudSkeleton's Animation.False and Animation.Wave, MudDataGrid's Hover, and
+        // MudExpansionPanels' Gutters="false".
+        "helper-on-focus", "hover", "no-animation", "no-gutters", "wave",
 
         // MudSlider's ValueLabel.
         "value-label",
