@@ -280,7 +280,7 @@ Put initials, a `PathIcon` or an `Image` inside: `<Border Classes="avatar primar
 | `Position` | `TabStripPlacement` on a `TabControl` | ✅ Top, Bottom, Left, Right: the bar docks there, `border` draws its rule on the content side, and the indicator follows |
 | `Elevation` | `elevation0` … `elevation24` | ✅ on the bar, outside `rounded`'s clip |
 | `SliderColor` | `slider-primary` … `slider-dark` | ✅ the indicator alone, over any bar colour |
-| sliding indicator | — | ❌ it fades per tab instead |
+| sliding indicator, `SliderAnimation` | the indicator slides | ✅ .3s, cubic-bezier(.64,.09,.08,1), the width jumping ≈ no switch to turn it off |
 
 ### MudList → `ListBox`
 

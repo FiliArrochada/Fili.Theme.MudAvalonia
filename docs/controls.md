@@ -215,9 +215,12 @@ its contrast text, and the active tab's hover is `{color}-lighten`. A tab's them
 parent's class, so those are `TabControl.primary > TabItem` child selectors in `FiliTheme.axaml`;
 a descendant selector would also repaint a `TabControl` nested in the content.
 
-The indicator does not slide between tabs — that needs to measure both headers and animate
-between them, which means code-behind and a custom panel. A per-item indicator that fades is the
-declarative 90%.
+The indicator slides between tabs, as MudTabs' does: over .3s on cubic-bezier(.64,.09,.08,1),
+moving its position while its width jumps to the new tab's. Each tab still has its own indicator,
+so every class above reaches it; `SlidingIndicator` starts the newly selected one where the old
+one was drawn and lets its transition bring it home, from wherever an interrupted slide had got
+to. The tabs do not clip, or it would vanish outside its own tab. There is no switch for
+MudTabs' `SliderAnimation="false"`.
 
 **`TabStrip` is the same thing without a content area.** Avalonia splits the header row and the
 tab control into two types; MudBlazor does not, so both carry the same metrics. They are written
@@ -533,7 +536,7 @@ one.
 
 ## The converters
 
-Besides `FiliThemeVariants`, the package's only code is a handful of `internal` converters, each
+Besides `FiliThemeVariants`, the package's only code is a handful of `internal` helpers, each
 for something XAML cannot express on its own:
 
 - **`FactorConverter`** multiplies a bound pixel dimension by a constant. The indeterminate
@@ -550,6 +553,8 @@ for something XAML cannot express on its own:
   reads `99+`. A binding cannot compare.
 - **`StripedRowConverter`** tells `striped` which rows to paint from `DataGridRow.Index`. Avalonia
   12's DataGrid has no alternating row brush, and a binding cannot take a remainder.
+- **`SlidingIndicator`** slides a tab's indicator over from the one it replaces. Where to start
+  is the old indicator's position, which only code can read at the moment the selection moves.
 
 Compiled XAML in the same assembly can construct an `internal` type, so being internal costs
 nothing and keeps the public surface at that one type. Reach for one only after establishing
