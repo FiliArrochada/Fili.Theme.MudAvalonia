@@ -6,7 +6,8 @@ What changed in each release of `Fili.Theme.MudAvalonia`, newest first. The pack
 
 | Version | |
 |---|---|
-| **0.7.0** | MudDataGrid on Avalonia's `DataGrid`, themed by type when the app references `Avalonia.Controls.DataGrid` 12.1.2 or later - the package does not depend on it: `dense`, `striped`, `bordered`, `hover`, `outlined`, `square` and elevation, sorting and group rows. MudFab as `fab` on a `Button`, MudAvatar as `avatar` and MudCard as `card` on a `Border`, MudBadge as `badge` on a `HeaderedContentControl`. Filled buttons, split and drop-down buttons, the expander and snackbars now draw the shadows Avalonia had been clipping. The published class list grows to 106. See [Upgrading from 0.6 to 0.7](#upgrading-from-06-to-07). |
+| **0.8.0** | MudTabs' sliding indicator: selecting a tab slides the indicator over from the old one, on a `TabControl` or a `TabStrip`, on any side. MudDataGrid's nested groups: a nested group's header steps in 48px per level and its rows stay put. A `dense` grid's last visible column has 16px on its right, as MudDataGrid's does. A group row's 1px stray edge is gone. No new classes. See [Upgrading from 0.7 to 0.8](#upgrading-from-07-to-08). |
+| 0.7.0 | MudDataGrid on Avalonia's `DataGrid`, themed by type when the app references `Avalonia.Controls.DataGrid` 12.1.2 or later - the package does not depend on it: `dense`, `striped`, `bordered`, `hover`, `outlined`, `square` and elevation, sorting and group rows. MudFab as `fab` on a `Button`, MudAvatar as `avatar` and MudCard as `card` on a `Border`, MudBadge as `badge` on a `HeaderedContentControl`. Filled buttons, split and drop-down buttons, the expander and snackbars now draw the shadows Avalonia had been clipping. The published class list grows to 106. See [Upgrading from 0.6 to 0.7](#upgrading-from-06-to-07). |
 | 0.6.0 | MudProgressCircular as `circular` on a `ProgressBar`: sizes, colours, `rounded`, `ShowProgressText` and MudBlazor's indeterminate spin. MudSkeleton's `Animation.Wave` as `wave`. The published class list grows to 81. |
 | 0.5.1 | Avalonia 12.1.3, which the package now requires. The forked base templates are re-synced to that tag; the only upstream change is the drawn window title bar's decoration role. |
 | 0.5.0 | MudTabs' `Position` through `TabStripPlacement`, `Elevation` as `elevation*` and `SliderColor` as `slider-{colour}`; MudProgressLinear's `Striped` as `striped`; MudButton's `StartIcon` / `EndIcon` and MudChip's `Icon` spacing as `start-icon` / `end-icon` on the icon in the content. |
@@ -19,6 +20,17 @@ What changed in each release of `Fili.Theme.MudAvalonia`, newest first. The pack
 Every version and its release notes are on the
 [releases page](https://github.com/FiliArrochada/Fili.Theme.MudAvalonia/releases); a version on
 nuget.org can be unlisted but never replaced.
+
+## Upgrading from 0.7 to 0.8
+
+Nothing needs to change in markup; three things look different.
+
+- **The tab indicator slides** between tabs instead of fading, over 0.3s. There is no class to
+  turn it off.
+- **A `dense` `DataGrid` gives its last column 8px less** on the right, so an auto-sized last
+  column is 8px narrower and a star-sized column takes the difference.
+- **Grouped `DataGrid`s:** with more than one group level, the nested group headers move in 48px
+  per level. Every group row's title moves 1px left, where a stray row-header edge had pushed it.
 
 ## Upgrading from 0.6 to 0.7
 
