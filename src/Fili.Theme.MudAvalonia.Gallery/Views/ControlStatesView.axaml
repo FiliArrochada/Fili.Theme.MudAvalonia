@@ -4,7 +4,18 @@
              xmlns:v="using:Fili.Theme.MudAvalonia.Gallery.Views"
              x:Class="Fili.Theme.MudAvalonia.Gallery.Views.ControlStatesView">
 
-  <ScrollViewer x:Name="Page">
+  <!--
+    The index on the left stays put while the samples scroll: one row per section heading (a
+    TextBlock tagged "section"), built in code-behind, and the row of the section in view is the
+    selected one.
+  -->
+  <Grid ColumnDefinitions="Auto,*">
+  <DockPanel Grid.Column="0" Width="208" Margin="24,24,0,24" VerticalAlignment="Top">
+    <TextBlock DockPanel.Dock="Top" Classes="overline" Text="On this page" Margin="16,0,0,8" />
+    <ListBox x:Name="SectionIndex" Background="Transparent" />
+  </DockPanel>
+
+  <ScrollViewer x:Name="Page" Grid.Column="1">
     <StackPanel x:Name="PageContent" Margin="24" Spacing="24">
 
       <StackPanel Spacing="4">
@@ -14,13 +25,11 @@
                    MaxWidth="760"
                    HorizontalAlignment="Left"
                    Text="States are where a theme breaks, and they are exactly what you never notice using the app normally. Hover and press each column, then flip the theme and do it again — a token wired with StaticResource will hold its light value here." />
-        <!-- Jump links, one per section heading, built in code-behind. -->
-        <WrapPanel x:Name="SectionIndex" Margin="-8,8,0,0" />
       </StackPanel>
 
       <!-- Buttons -->
       <StackPanel Spacing="8">
-        <!-- A section heading: the jump links at the top are built from Tag="section". -->
+        <!-- A section heading: the index on the left is built from Tag="section". -->
         <Separator Margin="0,8,0,0" />
         <TextBlock Classes="h5" Tag="section" Text="Buttons" Margin="0,8,0,4" />
         <TextBlock Classes="overline" Text="Button — variant × colour" />
@@ -133,6 +142,8 @@
             </SplitButton.Flyout>
           </SplitButton>
           <SplitButton Content="Disabled" IsEnabled="False" />
+        </StackPanel>
+        <StackPanel Orientation="Horizontal" Spacing="16">
           <DropDownButton Content="Sort by" />
           <DropDownButton Classes="outlined" Content="Filter" />
           <DropDownButton Classes="filled primary" Content="Create" />
@@ -462,7 +473,7 @@
           <TextBox Classes="error" Width="190" PlaceholderText="Label" Text="Invalid" />
           <TextBox Width="190" PlaceholderText="Label" IsEnabled="False" />
         </StackPanel>
-        <StackPanel Orientation="Horizontal" Spacing="12">
+        <WrapPanel ItemSpacing="12" LineSpacing="12">
           <ComboBox Width="190" PlaceholderText="Select">
             <ComboBoxItem>Combo box</ComboBoxItem>
             <ComboBoxItem>Second item</ComboBoxItem>
@@ -477,7 +488,7 @@
           </ComboBox>
           <NumericUpDown Width="190" Value="42" />
           <AutoCompleteBox Width="190" PlaceholderText="Autocomplete" />
-        </StackPanel>
+        </WrapPanel>
 
         <TextBlock Classes="overline" Text="Field details — helper text, counter, dense, select variants" Margin="0,8,0,0" />
         <StackPanel Orientation="Horizontal" Spacing="12" VerticalAlignment="Top">
@@ -528,16 +539,16 @@
         <Separator Margin="0,8,0,0" />
         <TextBlock Classes="h5" Tag="section" Text="Sliders and progress" Margin="0,8,0,4" />
         <StackPanel Orientation="Horizontal" Spacing="24" VerticalAlignment="Center">
-          <Slider Width="220" Value="40" />
-          <Slider Classes="secondary medium" Width="220" Value="55" />
-          <Slider Classes="success large" Width="220" Value="70" />
-          <Slider Width="220" Value="40" IsEnabled="False" />
+          <Slider Width="190" Value="40" />
+          <Slider Classes="secondary medium" Width="190" Value="55" />
+          <Slider Classes="success large" Width="190" Value="70" />
+          <Slider Width="190" Value="40" IsEnabled="False" />
         </StackPanel>
         <StackPanel Orientation="Horizontal" Spacing="24" VerticalAlignment="Center">
-          <Slider Classes="filled" Width="220" Value="40" />
-          <Slider Classes="filled secondary medium" Width="220" Value="50" TickPlacement="BottomRight" TickFrequency="10" />
-          <Slider Classes="tertiary large value-label" Width="220" Value="75" TickPlacement="BottomRight" TickFrequency="25" />
-          <Slider Classes="filled value-label" Width="220" Value="30" />
+          <Slider Classes="filled" Width="190" Value="40" />
+          <Slider Classes="filled secondary medium" Width="190" Value="50" TickPlacement="BottomRight" TickFrequency="10" />
+          <Slider Classes="tertiary large value-label" Width="190" Value="75" TickPlacement="BottomRight" TickFrequency="25" />
+          <Slider Classes="filled value-label" Width="190" Value="30" />
         </StackPanel>
         <TextBlock Classes="caption"
                    TextWrapping="Wrap"
@@ -552,22 +563,22 @@
                    Text="MudProgressLinear defaults to Size.Small and to square ends, so a bare ProgressBar is a 4px hairline. medium and large are 8px and 12px, rounded opts into the 4px radius, and the track is always the bar's own colour at 20%." />
 
         <StackPanel Orientation="Horizontal" Spacing="24" VerticalAlignment="Center">
-          <StackPanel Width="220" Spacing="12">
+          <StackPanel Width="190" Spacing="12">
             <ProgressBar Value="65" />
             <ProgressBar Classes="medium" Value="65" />
             <ProgressBar Classes="large rounded" Value="65" />
           </StackPanel>
-          <StackPanel Width="220" Spacing="12">
+          <StackPanel Width="190" Spacing="12">
             <ProgressBar Classes="primary medium rounded" Value="65" />
             <ProgressBar Classes="success medium rounded" Value="40" />
             <ProgressBar Classes="error medium rounded" Value="20" />
           </StackPanel>
-          <StackPanel Width="220" Spacing="12">
+          <StackPanel Width="190" Spacing="12">
             <TextBlock Classes="caption" Text="Indeterminate" />
             <ProgressBar Classes="medium rounded" IsIndeterminate="True" />
             <ProgressBar Classes="primary medium rounded" IsIndeterminate="True" />
           </StackPanel>
-          <StackPanel Width="220" Spacing="12">
+          <StackPanel Width="190" Spacing="12">
             <TextBlock Classes="caption" Text="Striped" />
             <ProgressBar Classes="primary large rounded striped" Value="70" />
             <ProgressBar Classes="success large rounded striped" Value="45" />
@@ -649,7 +660,7 @@
         <Separator Margin="0,8,0,0" />
         <TextBlock Classes="h5" Tag="section" Text="Lists, tabs and menus" Margin="0,8,0,4" />
         <StackPanel Orientation="Horizontal" Spacing="16">
-          <ListBox Width="220" Height="140" SelectedIndex="1">
+          <ListBox Width="180" Height="140" SelectedIndex="1">
             <ListBoxItem>First item</ListBoxItem>
             <ListBoxItem>Selected item</ListBoxItem>
             <ListBoxItem>Third item</ListBoxItem>
@@ -664,7 +675,7 @@
             </TabItem>
             <TabItem Header="Disabled" IsEnabled="False" />
           </TabControl>
-          <TreeView x:Name="SampleTree" Classes="surface" Width="220" Height="140">
+          <TreeView x:Name="SampleTree" Classes="surface" Width="180" Height="140">
             <TreeViewItem Header="Library" IsExpanded="True">
               <TreeViewItem x:Name="SelectedNode" Header="Installed" IsExpanded="True">
                 <TreeViewItem Header="Recently played" />
@@ -958,5 +969,6 @@
 
     </StackPanel>
   </ScrollViewer>
+  </Grid>
 
 </UserControl>

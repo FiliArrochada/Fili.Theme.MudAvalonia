@@ -31,7 +31,7 @@ public class GalleryPageTests
             Dispatcher.UIThread.RunJobs();
         }
 
-        return (view, view.GetVisualDescendants().OfType<ScrollViewer>().First());
+        return (view, view.GetVisualDescendants().OfType<ScrollViewer>().Single(s => s.Name == "Page"));
     }
 
     /// <summary>
@@ -61,29 +61,111 @@ public class GalleryPageTests
         Assert.True(page.Offset.Y > 0, "Tabbing to a field at the bottom did not scroll the page.");
     });
 
+    private static (List<TextBlock> Headings, ListBox Index) Sections(ControlStatesView view) =>
+        (view.GetVisualDescendants().OfType<TextBlock>().Where(t => Equals(t.Tag, "section")).ToList(),
+         view.GetVisualDescendants().OfType<ListBox>().Single(l => l.Name == "SectionIndex"));
+
     /// <summary>
-    /// Every section heading has a jump link at the top, and the link brings its heading to the
-    /// top of the page - by setting the offset itself, since the page ignores scroll requests
+    /// Every section heading has a row in the index beside the page, and choosing it brings the
+    /// heading to the top - by setting the offset itself, since the page ignores scroll requests
     /// that do not come from keyboard focus.
     /// </summary>
     [Fact]
-    public Task AJumpLinkScrollsToItsSection() => UiThread.RunAsync(() =>
+    public Task AnIndexRowScrollsToItsSection() => UiThread.RunAsync(() =>
     {
         var (view, page) = Open();
-        var headings = view.GetVisualDescendants().OfType<TextBlock>().Where(t => Equals(t.Tag, "section")).ToList();
-        var links = view.GetVisualDescendants().OfType<WrapPanel>().Single(p => p.Name == "SectionIndex").Children.OfType<Button>().ToList();
+        var (headings, index) = Sections(view);
 
         Assert.Equal(17, headings.Count);
-        Assert.Equal(headings.Select(h => h.Text), links.Select(l => l.Content as string));
+        Assert.Equal(headings.Select(h => h.Text), index.Items.OfType<ListBoxItem>().Select(i => (i.Content as TextBlock)?.Text));
 
-        var sliders = links.Single(l => (string?)l.Content == "Sliders and progress");
-        sliders.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
+        index.SelectedIndex = headings.FindIndex(h => h.Text == "Sliders and progress");
         Dispatcher.UIThread.RunJobs();
 
-        var heading = headings.Single(h => h.Text == "Sliders and progress");
-        var top = heading.TranslatePoint(default, page)!.Value.Y;
+        var top = headings.Single(h => h.Text == "Sliders and progress").TranslatePoint(default, page)!.Value.Y;
         Assert.InRange(top, 0, 48);
+        Assert.Equal("Sliders and progress", ((index.SelectedItem as ListBoxItem)?.Content as TextBlock)?.Text);
     });
+
+    /// <summary>
+    /// The index follows the page: scrolling selects the row of the section in view - the first at
+    /// the top, whose heading is already on screen, and the last at the bottom, whose heading can
+    /// never reach the top - and following it does not move the page.
+    /// </summary>
+    [Fact]
+    public Task TheIndexFollowsTheScroll() => UiThread.RunAsync(() =>
+    {
+        var (view, page) = Open();
+        var (headings, index) = Sections(view);
+
+        Assert.Equal(0, index.SelectedIndex);
+
+        var dividers = headings.Single(h => h.Text == "Dividers");
+        page.Offset = new Vector(0, dividers.TranslatePoint(default, page)!.Value.Y + page.Offset.Y + 40);
+        Dispatcher.UIThread.RunJobs();
+        var offset = page.Offset.Y;
+        Assert.Equal("Dividers", ((index.SelectedItem as ListBoxItem)?.Content as TextBlock)?.Text);
+        Assert.Equal(offset, page.Offset.Y);
+
+        page.Offset = new Vector(0, page.Extent.Height);
+        Dispatcher.UIThread.RunJobs();
+        Assert.Equal(headings.Count - 1, index.SelectedIndex);
+
+        page.Offset = default;
+        Dispatcher.UIThread.RunJobs();
+        Assert.Equal(0, index.SelectedIndex);
+    });
+
+    /// <summary>
+    /// Every section fits beside the index, in the desktop window and in the 1180px screenshot
+    /// frame: a row wider than the space left does not wrap or scroll, it is cut off at the edge.
+    /// </summary>
+    [Fact]
+    public Task EverySectionFitsBesideTheIndex() => UiThread.RunAsync(() =>
+    {
+        var window = new MainWindow();
+        window.Show();
+        var tabs = window.GetVisualDescendants().OfType<TabControl>().First();
+        tabs.SelectedIndex = tabs.Items.OfType<TabItem>().ToList().FindIndex(t => (string?)t.Header == "Control states");
+        Dispatcher.UIThread.RunJobs();
+        AssertSectionsFit(window.GetVisualDescendants().OfType<ControlStatesView>().Single(), "the desktop window");
+        window.Close();
+
+        var frame = new Window { Content = new ControlStatesView(), Width = 1180, Height = 800 };
+        frame.Show();
+        Dispatcher.UIThread.RunJobs();
+        AssertSectionsFit((ControlStatesView)frame.Content, "a screenshot frame");
+        frame.Close();
+    });
+
+    /// <summary>
+    /// Every item of every horizontal row ends inside the page. A row's own size is no help: a
+    /// panel never reports more than the width it was given, and arranges the rest past its edge.
+    /// Rows inside a nested scroller (a data grid's cells, a scrolling sample) may run on.
+    /// </summary>
+    private static void AssertSectionsFit(ControlStatesView view, string where)
+    {
+        var content = view.GetVisualDescendants().OfType<StackPanel>().Single(p => p.Name == "PageContent");
+        var room = content.Bounds.Width;
+
+        var tooWide = content.GetVisualDescendants()
+            .OfType<Panel>()
+            .Where(panel => panel is WrapPanel or StackPanel { Orientation: Avalonia.Layout.Orientation.Horizontal })
+            .Where(panel => !panel.GetVisualAncestors().TakeWhile(a => a != content).Any(a => a is ScrollViewer))
+            .SelectMany(panel => panel.Children)
+            .Where(item => item.IsVisible)
+            .Select(item => (Item: item, Right: item.TranslatePoint(new Point(item.Bounds.Width, 0), content)?.X ?? 0))
+            .Where(found => found.Right > room + 0.5)
+            .Select(found => $"{found.Item.GetType().Name} ending at {found.Right:0} under "
+                + (Section(found.Item)?.Text ?? "the introduction"))
+            .ToList();
+
+        Assert.True(tooWide.Count == 0, $"Too wide for {where} ({room:0}px): {string.Join("; ", tooWide)}");
+
+        TextBlock? Section(Control item) =>
+            item.GetVisualAncestors().OfType<StackPanel>().FirstOrDefault(p => p.GetVisualParent() == content)?
+                .GetVisualDescendants().OfType<TextBlock>().FirstOrDefault(t => Equals(t.Tag, "section"));
+    }
 
     /// <summary>
     /// The app bar names the theme version it is showing, read from the theme's own assembly:
