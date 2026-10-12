@@ -3,8 +3,11 @@
         xmlns:local="clr-namespace:Fili.Theme.MudAvalonia.Gallery"
         x:Class="Fili.Theme.MudAvalonia.Gallery.MainWindow"
         Title="Fili.Theme.MudAvalonia - Gallery"
-        Width="1180" Height="820"
+        Width="1280" Height="820"
         Background="{DynamicResource FiliBackgroundGrayBrush}">
+
+  <!-- 100px wider than the 1180px screenshot frames, which have no tab margin or scroll bar: the
+       control states page then lays its samples out beside its index exactly as the frames do. -->
 
   <local:MainView />
 

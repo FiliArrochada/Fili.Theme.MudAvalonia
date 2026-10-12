@@ -7,6 +7,7 @@ using Avalonia.Controls.Primitives;
 using Avalonia.Input;
 using Avalonia.Interactivity;
 using Avalonia.LogicalTree;
+using Avalonia.Media;
 using Avalonia.VisualTree;
 
 namespace Fili.Theme.MudAvalonia.Gallery.Views;
@@ -89,27 +90,98 @@ public partial class ControlStatesView : UserControl
         };
     }
 
+    /// <summary>The section headings, top to bottom: TextBlocks tagged "section".</summary>
+    private TextBlock[] _headings = [];
+
+    /// <summary>True while scrolling moves the index's selection, which is not a request to go there.</summary>
+    private bool _followingScroll;
+
     /// <summary>
-    /// One link per section heading (a TextBlock tagged "section"), at the top of the page. The
-    /// page is long enough that a reader looking for one control should not have to scroll for
-    /// it. A link sets the scroll offset itself, because this page ignores bring-into-view
-    /// requests that do not come from keyboard focus - see the constructor.
+    /// The index on the left: one row per section heading, in a pane that stays put while the
+    /// samples scroll. Choosing a row brings its heading to the top - by setting the offset
+    /// itself, since this page ignores bring-into-view requests that do not come from keyboard
+    /// focus (see the constructor) - and scrolling selects the row of the section in view.
     /// </summary>
     private void BuildSectionIndex()
     {
-        foreach (var heading in PageContent.GetLogicalDescendants().OfType<TextBlock>().Where(t => Equals(t.Tag, "section")))
+        _headings = PageContent.GetLogicalDescendants().OfType<TextBlock>().Where(t => Equals(t.Tag, "section")).ToArray();
+
+        foreach (var heading in _headings)
         {
-            var link = new Button { Content = heading.Text, Classes = { "primary", "small" } };
-
-            link.Click += (_, _) =>
+            SectionIndex.Items.Add(new ListBoxItem
             {
-                var top = heading.TranslatePoint(default, PageContent)?.Y ?? 0;
-
-                // Back off a little, so the divider above the heading shows too.
-                Page.Offset = new Vector(Page.Offset.X, Math.Max(0, top + PageContent.Margin.Top - 16));
-            };
-
-            SectionIndex.Children.Add(link);
+                Content = new TextBlock { Text = heading.Text, TextWrapping = TextWrapping.Wrap },
+                Classes = { "dense" },
+            });
         }
+
+        SectionIndex.SelectionChanged += (_, _) =>
+        {
+            if (!_followingScroll)
+            {
+                ScrollToSection(SectionIndex.SelectedIndex);
+            }
+        };
+
+        // Choosing the row that is already selected changes nothing, yet the reader may have
+        // scrolled past the top of that section and wants its heading back.
+        SectionIndex.Tapped += (_, _) => ScrollToSection(SectionIndex.SelectedIndex);
+
+        Page.ScrollChanged += (_, _) => FollowScroll();
+    }
+
+    private void ScrollToSection(int index)
+    {
+        if (index < 0)
+        {
+            return;
+        }
+
+        var top = _headings[index].TranslatePoint(default, PageContent)?.Y ?? 0;
+
+        // Back off a little, so the divider above the heading shows too.
+        Page.Offset = new Vector(Page.Offset.X, Math.Max(0, top + PageContent.Margin.Top - 16));
+    }
+
+    /// <summary>
+    /// Selects the last section whose heading has reached the top third of the page, or none on a
+    /// page that does not scroll - a screenshot frame sized to the whole content.
+    /// </summary>
+    private void FollowScroll()
+    {
+        if (Page.Extent.Height <= Page.Viewport.Height)
+        {
+            SelectSection(-1);
+            return;
+        }
+
+        var line = Page.Viewport.Height / 3;
+        var current = -1;
+
+        for (var i = 0; i < _headings.Length; i++)
+        {
+            var top = _headings[i].TranslatePoint(default, Page)?.Y;
+            if (top is null || top > line)
+            {
+                break;
+            }
+
+            current = i;
+        }
+
+        // At the very bottom the last sections can never reach the line, so the last one wins.
+        if (Page.Offset.Y > 0 && Page.Offset.Y >= Page.Extent.Height - Page.Viewport.Height - 1)
+        {
+            current = _headings.Length - 1;
+        }
+
+        SelectSection(current);
+    }
+
+    private void SelectSection(int index)
+    {
+        _followingScroll = true;
+        SectionIndex.SelectedIndex = index;
+        _followingScroll = false;
     }
 }
