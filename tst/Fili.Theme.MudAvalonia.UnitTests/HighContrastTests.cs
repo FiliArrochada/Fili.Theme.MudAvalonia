@@ -238,7 +238,7 @@ public class HighContrastTests
     {
         Assert.Equal(0, Elevation(0, HighContrast).Count);
 
-        for (var level = 1; level <= 24; level++)
+        for (var level = 1; level <= 25; level++)
         {
             var shadows = Elevation(level, HighContrast);
 
@@ -258,7 +258,7 @@ public class HighContrastTests
     [Fact]
     public Task LightAndDarkShareTheSameLadder() => UiThread.RunAsync(() =>
     {
-        for (var level = 0; level <= 24; level++)
+        for (var level = 0; level <= 25; level++)
         {
             Assert.Equal(
                 Elevation(level, ThemeVariant.Light).ToString(),

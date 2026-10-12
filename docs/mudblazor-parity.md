@@ -6,7 +6,7 @@ where the two differ. For side-by-side markup, see [Razor and AXAML](razor-vs-ax
 The rule behind every row: **a class only ever names a MudBlazor variant.** Every control the
 theme templates is keyed to its type, so an unclassed control is already the MudBlazor default.
 Class names are MudBlazor's own words (`primary`, `outlined`, `small`), deliberately not
-namespaced. `ClassVocabularyTests` pins the full list of 106.
+namespaced. `ClassVocabularyTests` pins the full list of 125.
 
 | Mark | Meaning |
 |---|---|
@@ -131,7 +131,7 @@ Put initials, a `PathIcon` or an `Image` inside: `<Border Classes="avatar primar
 | `Typo.subtitle1` / `subtitle2` | `subtitle1` / `subtitle2` | ✅ |
 | `Typo.body1` / `body2` | `body1` / `body2` | ✅ body1 is also the default text |
 | `Typo.caption` / `overline` | `caption` / `overline` | ✅ |
-| `Typo.button` | `FiliButton*` tokens | ≈ no class; a button applies them itself |
+| `Typo.button` | `button` | ✅ 14px, 500, a 24px line, 0.4px tracking ≈ not uppercase: Avalonia has no text-transform |
 | `Color.Primary` … `Color.Dark` | `primary` `secondary` `tertiary` `info` `success` `warning` `error` `dark` | ✅ the palette colour; beats a type style's own colour |
 | `mud-text-secondary` (grey) | `Foreground="{DynamicResource FiliTextSecondaryBrush}"` | ≈ a utility class in MudBlazor, not a `Color` |
 | `Align`, `GutterBottom`, `Inline` | `TextAlignment`, `Margin` | ≈ ordinary Avalonia properties |
@@ -296,7 +296,11 @@ Put initials, a `PathIcon` or an `Image` inside: `<Border Classes="avatar primar
 |---|---|---|
 | panel on a surface at elevation 1 | the same | ✅ |
 | 15px header | the same | ✅ `.9375rem`, sized on its own |
-| `Elevation="0"`, sitting on a card | `flat` | ≈ drops both surface and shadow |
+| `Elevation` (default 1) | no class, or `elevation0` … `elevation25` | ✅ on the panel; `elevation0` keeps the surface |
+| `Square` | `square` | ✅ no radius |
+| `Dense` | `dense` | ✅ the content loses its 16px top and bottom |
+| `Gutters` (default true) | `no-gutters` for false | ✅ the header and the content lose their 24px sides |
+| `Outlined` (default true), an expanded panel's 16px margin | — | ❌ rules and margins between stacked panels: an `Expander` has no group |
 
 ### MudToggleGroup, MudButtonGroup, MudMenu
 
@@ -412,7 +416,7 @@ Light and dark are MudBlazor's `Palette.cs` and `PaletteDark.cs`; high contrast 
 | MudBlazor | Here | |
 |---|---|---|
 | `Typography.cs` | `Fili{Style}FontSize`, `…LineHeight`, `…LetterSpacing` per style | ✅ line height and letter spacing converted to absolute pixels |
-| `Shadow.cs` | `FiliElevation0` … `FiliElevation24` | ✅ three layers each; a 1px ring in high contrast |
+| `Shadow.cs` | `FiliElevation0` … `FiliElevation25` | ✅ three layers each; a 1px ring in high contrast |
 | `DefaultBorderRadius` | `FiliCornerRadius` | ✅ 4px |
 | `AppbarHeight`, `DrawerWidthLeft`, `DrawerMiniWidthLeft` | `FiliAppbarHeight`, `FiliDrawerWidth`, `FiliDrawerMiniWidth` | ✅ |
 | spacing scale (`pa-4` and friends) | `FiliSpacing1` … `FiliSpacing8` | ≈ values only, no utility classes |

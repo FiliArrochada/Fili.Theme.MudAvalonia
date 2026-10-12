@@ -33,6 +33,9 @@ public static class ThemeColourGenerator
     public const string BadgeLabel = "badge origins, colours and elevation.";
     public const string AvatarLabel = "avatar colours.";
     public const string DataGridLabel = "data grid elevation.";
+    public const string PaperLabel = "paper elevation.";
+    public const string TabBarLabel = "tab bar elevation.";
+    public const string ExpanderLabel = "expander elevation.";
     public const string AlertLabel = "alert colours.";
     public const string TabsLabel = "tab bar colours.";
     public const string AppBarLabel = "app bar colours.";
@@ -67,6 +70,10 @@ public static class ThemeColourGenerator
             (Controls("Fab.axaml"), FabLabel, FabRegion()),
             (Controls("Badge.axaml"), BadgeLabel, BadgeRegion()),
             (Path.Combine("Themes", "Optional", "DataGrid", "DataGrid.axaml"), DataGridLabel, DataGridRegion()),
+            (FiliThemePath, PaperLabel, PaperRegion()),
+            (Controls("TabControl.axaml"), TabBarLabel, ElevationRegion("PART_TabBarHost")),
+            (Controls("TabStrip.axaml"), TabBarLabel, ElevationRegion("PART_TabBarHost")),
+            (Controls("Expander.axaml"), ExpanderLabel, ElevationRegion("PART_Root")),
             (FiliThemePath, AlertLabel, AlertRegion()),
             (FiliThemePath, AvatarLabel, AvatarRegion()),
             (FiliThemePath, TabsLabel, TabsRegion()),
@@ -960,11 +967,21 @@ public static class ThemeColourGenerator
     }
 
     // Optional/DataGrid/DataGrid.axaml: MudDataGrid's Elevation, on the Border its template draws the table with.
-    private static string DataGridRegion() =>
-        string.Concat(Elevations.Select(level => Style($"^.elevation{level} /template/ Border#DataGridBorder", ("BoxShadow", Res($"FiliElevation{level}")))));
+    private static string DataGridRegion() => ElevationRegion("DataGridBorder");
 
-    /// <summary>The elevation classes the theme publishes, as on a Border.</summary>
-    public static readonly int[] Elevations = [0, 1, 2, 4, 6, 8, 12, 16, 24];
+    /// <summary>`.mud-elevation-{n}` inside a control theme, on the named Border of its template.</summary>
+    private static string ElevationRegion(string part) =>
+        string.Concat(Elevations.Select(level => Style($"^.elevation{level} /template/ Border#{part}", ("BoxShadow", Res($"FiliElevation{level}")))));
+
+    // FiliTheme.axaml: `.mud-elevation-{n}` on a Border - a paper, a card, an app bar.
+    private static string PaperRegion() =>
+        string.Concat(Elevations.Select(level => TopStyle($"Border.elevation{level}", ("BoxShadow", Res($"FiliElevation{level}")))));
+
+    /// <summary>
+    /// The elevation classes the theme publishes: every level _elevation.scss has, `mud-elevation-0`
+    /// through `mud-elevation-25`.
+    /// </summary>
+    public static readonly int[] Elevations = [.. Enumerable.Range(0, 26)];
 
     // ---------------------------------------------------------------------------------------
     // FiliTheme.axaml region: MudAvatar's Color, from _avatar.scss. Filled is the colour with its

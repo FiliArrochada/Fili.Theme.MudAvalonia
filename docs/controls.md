@@ -266,8 +266,11 @@ Five places where the MudBlazor default is not the one you would guess:
   recoloured it. `inset` (72px) and `middle` (16px) are MudBlazor's real variants.
 - **An `Expander` header is 15px**, which is neither body1 (16) nor body2 (14) — MudBlazor sizes
   `.mud-expand-panel-header` on its own at `.9375rem`. The panel carries a surface and elevation 1
-  because `MudExpansionPanels` is a `MudPaper`; `Classes="flat"` drops both when it already sits
-  on a card.
+  because `MudExpansionPanels` is a `MudPaper`. MudExpansionPanels' options are classes on the
+  panel: the elevation classes (`elevation0` when it already sits on a card), `square`, `dense`
+  (no padding above and below the content) and `no-gutters` (`Gutters="false"`: no 24px sides on
+  the header or the content). `Outlined`, a rule between stacked panels, is not here: it is a
+  relationship between panels in a group, and an Avalonia `Expander` stands alone.
 - **A `HyperlinkButton` is not underlined at rest.** `MudLink.Underline` defaults to
   `Underline.Hover`. `Classes="underline"` is always-on, `no-underline` is never.
 

@@ -9,7 +9,7 @@ namespace Fili.Theme.MudAvalonia.Gallery.Views;
 
 public partial class ElevationView : UserControl
 {
-    private const int MaxElevation = 24;
+    private const int MaxElevation = 25;
 
     public ElevationView()
     {

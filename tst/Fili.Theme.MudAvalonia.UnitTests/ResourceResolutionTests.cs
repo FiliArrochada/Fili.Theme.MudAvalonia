@@ -130,7 +130,7 @@ public class ResourceResolutionTests
     [Fact]
     public Task EveryElevationLevelResolves() => UiThread.RunAsync(() =>
     {
-        for (var level = 0; level <= 24; level++)
+        for (var level = 0; level <= 25; level++)
         {
             var key = $"FiliElevation{level}";
 

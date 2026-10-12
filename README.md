@@ -122,12 +122,12 @@ base became a fork of Simple that this repo owns, the hazard went with it: a `Te
 `Variant.Outlined`, `Variant.Text` and `Variant.Filled` — API familiarity is the point of this
 package, so they are not namespaced to `mud-primary` or hidden behind an attached property.
 
-**All 106 of them, which is the list to grep an app against before adopting:**
+**All 125 of them, which is the list to grep an app against before adopting:**
 
 | | |
 |---|---|
-| Type ramp (`TextBlock`) | `h1`–`h6`, `subtitle1`, `subtitle2`, `body1`, `body2`, `caption`, `overline` |
-| Surfaces (`Border`) | `surface`, `appbar`, `square`, `elevation0/1/2/4/6/8/12/16/24` |
+| Type ramp (`TextBlock`) | `h1`–`h6`, `subtitle1`, `subtitle2`, `body1`, `body2`, `button`, `caption`, `overline` |
+| Surfaces (`Border`) | `surface`, `appbar`, `square`, `elevation0` to `elevation25` (all 26 of MudBlazor's levels) |
 | Colour (`Color`) | `primary`, `secondary`, `tertiary`, `info`, `success`, `warning`, `error`, `dark`, `inherit` |
 | Shape (`Variant`) | `text`, `filled`, `outlined`, `rounded`, `flat` |
 | Size (`Size`) | `small`, `medium`, `large`, `dense` |
@@ -135,7 +135,7 @@ package, so they are not namespaced to `mud-primary` or hidden behind an attache
 | Component | `icon`, `chip`, `fab`, `extended`, `alert`, `avatar`, `badge`, `card`, `skeleton`, `circle`, `rectangle`, `counter`, `circular` |
 | Card parts | `card-header`, `card-header-avatar`, `card-header-content`, `card-header-actions`, `card-media`, `card-content`, `card-actions` |
 | Badge (`Origin`, `Dot`, `Bordered`, `Overlap`) | `top-left`, `top-center`, `center-left`, `center-center`, `center-right`, `bottom-left`, `bottom-center`, `bottom-right`, `dot`, `bordered`, `overlap` |
-| Behaviour | `helper-on-focus`, `hover`, `no-animation`, `value-label`, `striped`, `wave` |
+| Behaviour | `helper-on-focus`, `hover`, `no-animation`, `no-gutters`, `value-label`, `striped`, `wave` |
 | Icons in content | `start-icon`, `end-icon` |
 | Tab indicator colour (`SliderColor`) | `slider-primary`, `slider-secondary`, `slider-tertiary`, `slider-info`, `slider-success`, `slider-warning`, `slider-error`, `slider-dark` |
 | Unchecked colour (`UncheckedColor`) | `unchecked-primary`, `unchecked-secondary`, `unchecked-tertiary`, `unchecked-info`, `unchecked-success`, `unchecked-warning`, `unchecked-error`, `unchecked-dark` |
@@ -247,7 +247,7 @@ Every token is asserted to resolve under **both** theme variants. Add a token, a
 | Group | File | Notes |
 |---|---|---|
 | Palette | `Themes/Palette.axaml` | Light, dark and high contrast, as `ThemeDictionaries`. Colours and brushes. |
-| Elevation | `Themes/Elevation.axaml` | Levels 0–24, three stacked shadow layers each — one hard ring each in high contrast. |
+| Elevation | `Themes/Elevation.axaml` | Levels 0–25 (25 is MudBlazor's softer last entry), three stacked shadow layers each — one hard ring each in high contrast. |
 | Typography | `Themes/Typography.axaml` | Roboto, embedded; base size **14px**, not 16. |
 | Controls | `Themes/ControlThemes.axaml` | Aggregator; one file per control under `Themes/Controls/`. Keyed by type. |
 | Icons | `Themes/Icons.axaml` | The ten Material glyphs the templates cannot do without. Not an icon set. |

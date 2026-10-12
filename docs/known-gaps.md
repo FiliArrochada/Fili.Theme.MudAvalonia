@@ -50,6 +50,11 @@ hits them:
   line down the grid: the DataGrid keeps its resize state internal, and showing the line would
   mean re-implementing its pointer handling. A selected row is tinted although MudDataGrid draws
   none - see [Data grid](controls.md#data-grid).
+- **MudExpansionPanels as a group.** Each `Expander` is one panel, with Elevation, Square, Dense
+  and Gutters as classes. What MudBlazor does between the panels of a group - the `Outlined` rule
+  under each (on by default), and the 16px an expanded one moves away from its neighbours - has
+  nothing to hang on: Avalonia has no expansion-panel group, and its selectors cannot see the
+  panel before an expanded one.
 - **MudSlider's `TickMarkLabels` and MudProgressLinear's `Buffer`.** Both are data the Avalonia
   control has no property for - an array of strings, a second value - and the only way to pass
   it would be a public attached property, which this package does not add: its public API is
