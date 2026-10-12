@@ -8,7 +8,8 @@
   OptionalBoundaryTests names the file and line that crosses it, and NoDataGridTests is the app.
 -->
 <Styles xmlns="https://github.com/avaloniaui"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:optional="using:Fili.Theme.MudAvalonia.Optional">
 
   <Styles.Resources>
     <ResourceDictionary>
@@ -40,14 +41,22 @@
     <Setter Property="Background" Value="Transparent" />
   </Style>
 
-  <!-- `.mud-table-dense`: 6px 24px 6px 16px on every cell, the headers' too, and a 39px header row
-       ($header-height-dense); the group row's expander drops to 4px round its icon. -->
+  <!-- `.mud-table-dense`: 6px 24px 6px 16px on every cell, the headers' too, but 16px on the right
+       of the last, and a 39px header row ($header-height-dense); the group row's expander drops
+       to 4px round its icon. -->
   <Style Selector="DataGrid.dense DataGridCell">
     <Setter Property="Padding" Value="16,6,24,6" />
   </Style>
   <Style Selector="DataGrid.dense DataGridColumnHeader">
     <Setter Property="Padding" Value="16,0,24,0" />
     <Setter Property="MinHeight" Value="39" />
+  </Style>
+  <!-- `.mud-table-cell:last-child`: 16px on the right, the header's too. -->
+  <Style Selector="DataGrid.dense DataGridCell[(optional|DataGridLastColumn.IsLast)=True]">
+    <Setter Property="Padding" Value="16,6,16,6" />
+  </Style>
+  <Style Selector="DataGrid.dense DataGridColumnHeader[(optional|DataGridLastColumn.IsLast)=True]">
+    <Setter Property="Padding" Value="16,0,16,0" />
   </Style>
   <Style Selector="DataGrid.dense DataGridRowGroupHeader">
     <Setter Property="Padding" Value="16,6,0,6" />

@@ -55,7 +55,8 @@ public partial class ControlStatesView : UserControl
             new InvalidOperationException("Must be a valid email address"));
 
         // The data grid samples. A collection view carries the sort and the grouping, which is
-        // what lights a header's arrow and draws the group rows.
+        // what lights a header's arrow and draws the group rows. Two levels, so a nested group's
+        // header shows its 48px indent.
         var sorted = new DataGridCollectionView(GalleryElement.FirstSix);
         sorted.SortDescriptions.Add(DataGridSortDescription.FromPath(nameof(GalleryElement.Name)));
         PlainGrid.ItemsSource = sorted;
@@ -65,6 +66,7 @@ public partial class ControlStatesView : UserControl
 
         var grouped = new DataGridCollectionView(GalleryElement.FirstSix);
         grouped.GroupDescriptions.Add(new DataGridPathGroupDescription(nameof(GalleryElement.Group)));
+        grouped.GroupDescriptions.Add(new DataGridPathGroupDescription(nameof(GalleryElement.Position)));
         GroupedGrid.ItemsSource = grouped;
 
         // Keyboard focus, pinned so it shows up in a capture. NavigationMethod.Tab is what sets

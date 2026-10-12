@@ -24,8 +24,9 @@ classes, `ControlTheme`s where a Material look cannot be faked without one, and 
 - **`internal` helpers only where XAML genuinely cannot express something** (compiled XAML can
   construct them, so nothing leaks): `FactorConverter`, `ErrorMessageConverter`,
   `TickPositionsConverter`, `BadgeContentConverter` and `StripedRowConverter` in `Converters/`;
-  `OptionalStyleInclude`, a `StyleInclude` that loads only when the app has the package; and
-  `SlidingIndicator`, the tabs' slide.
+  `OptionalStyleInclude`, a `StyleInclude` that loads only when the app has the package;
+  `SlidingIndicator`, the tabs' slide; and `DataGridLastColumn` and `GroupIndentConverter`,
+  which name DataGrid types and so live in `Themes/Optional/DataGrid/`.
 - **Retemplating an Avalonia control is in scope; inventing one is not.** A MudBlazor component
   that is a *look* on an existing control is a class (`Button.icon`, `Button.chip`, `Button.fab`,
   `Border.alert`, `Border.avatar`, `Border.card`, `Border.skeleton`,
@@ -122,6 +123,8 @@ One line each; [`docs/traps.md`](docs/traps.md) has the full account and the tes
   `InvalidCastException` when it starts.
 - A `DataValidationErrors.Errors` entry is usually an `Exception`; show it through
   `ErrorMessageConverter`.
+- A template part works only under the exact `[TemplatePart]` name its control looks for; any
+  other name is silently ignored (the DataGrid's group row and `PART_RowHeader`).
 
 **Writing tests**
 

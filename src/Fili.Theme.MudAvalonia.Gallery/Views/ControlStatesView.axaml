@@ -358,7 +358,7 @@
             </DataGrid.Columns>
         </DataGrid>
 
-        <TextBlock Classes="overline" Text="outlined square, grouped" />
+        <TextBlock Classes="overline" Text="outlined square dense, grouped by group and then position" />
         <DataGrid x:Name="GroupedGrid" Classes="outlined square dense" Width="760" HorizontalAlignment="Left">
             <DataGrid.Columns>
               <DataGridTextColumn Header="Nr" Binding="{Binding Number}" x:DataType="v:GalleryElement" />
@@ -373,7 +373,7 @@
                    TextWrapping="Wrap"
                    MaxWidth="760"
                    HorizontalAlignment="Left"
-                   Text="Avalonia's own DataGrid needs nothing to look like MudDataGrid: surface at elevation 1, subtitle2 headers in a 59px row, body2 cells 16px round with a table-lines rule under every row but the last, and MudIconButton's ArrowUpward at the end of a sorted header. dense, striped, bordered and hover are MudDataGrid's Dense, Striped, Bordered and Hover; outlined and square are the paper's. MudDataGrid does not draw a selected row, so selection borrows a selected list row's primary-hover." />
+                   Text="Avalonia's own DataGrid needs nothing to look like MudDataGrid: surface at elevation 1, subtitle2 headers in a 59px row, body2 cells 16px round with a table-lines rule under every row but the last, and MudIconButton's ArrowUpward at the end of a sorted header. dense, striped, bordered and hover are MudDataGrid's Dense, Striped, Bordered and Hover; outlined and square are the paper's. A nested group's header steps in 48px; its rows do not. MudDataGrid does not draw a selected row, so selection borrows a selected list row's primary-hover." />
       </StackPanel>
 
       <!-- Selection -->

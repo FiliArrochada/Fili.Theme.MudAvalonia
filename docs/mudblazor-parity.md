@@ -217,7 +217,7 @@ Put initials, a `PathIcon` or an `Image` inside: `<Border Classes="avatar primar
 | hover, focus and press | the same | ✅ a 1px / 2px ring of the colour at 24%; no growth |
 | vertical | `Orientation="Vertical"` | ✅ |
 | `TickMarks` | `TickPlacement` other than `None`, at `TickFrequency` or `Ticks` | ✅ dots on the rail, its thickness and the colour |
-| `TickMarkLabels` | — | ❌ |
+| `TickMarkLabels` | — | ❌ a `Slider` has nowhere to put the strings; see [Known gaps](known-gaps.md) |
 | `ValueLabel` | `value-label` | ✅ a 12px chip of the colour above the thumb while it is held |
 | `ValueLabelFormat`, `Culture` | — | ≈ at most two decimals, in the app's culture rather than MudBlazor's invariant default |
 
@@ -357,15 +357,16 @@ the app references it; this package does not depend on it.
 | `Outlined` / `Square` | `outlined` / `square` | ✅ outlined drops the elevation, as MudPaper does |
 | header row | the column headers | ✅ subtitle2, 16px round, 59px with the rule under it; no rule between headers |
 | body row | the rows | ✅ body2, 16px round, a table-lines rule under every row but the last |
-| `Dense` | `dense` | ✅ 6px 24px 6px 16px, a 39px header row ≈ the last column keeps 24px on its right, not 16 |
+| `Dense` | `dense` | ✅ 6px 24px 6px 16px, 16px on the right of the last visible column, a 39px header row |
 | `Hover` | `hover` | ✅ table-hover, off by default |
 | `Striped` | `striped` | ✅ the 1st, 3rd, 5th… row; hover replaces it |
 | `Bordered` | `bordered` | ✅ table-lines between body cells, none after the last, none in the header |
 | `SortIcon`, sorting | the column's sort | ✅ ArrowUpward in a small icon button at the end of the header, action-default, hidden until sorted, 0.8 on hover, turned for descending |
 | a selected row | `SelectedItem` | ≈ MudDataGrid draws none; here a selected list row's primary-hover, so selection is visible |
-| `Groupable`, a group row | a `DataGridCollectionView` with `GroupDescriptions` | ✅ background-gray, "Title: Key" in bold, ExpandMore / ChevronRight ≈ a nested group's header is not indented |
+| `Groupable`, a group row | a `DataGridCollectionView` with `GroupDescriptions` | ✅ background-gray, "Title: Key" in bold, ExpandMore / ChevronRight, a nested group's header 48px further in per level and its rows not at all |
 | edit mode | `IsReadOnly="False"` | ✅ the field loses its resting line and keeps its focused one, as `_datagrid.scss` (with its typo) leaves it |
-| `ShowColumnOptions`, `Filterable`, `MudDataGridPager`, column resize handle | — | ❌ no column menu, filter row, pager or resize indicator |
+| `ShowColumnOptions`, `Filterable`, `MudDataGridPager` | — | ❌ no column menu, filter row or pager: each is a control of its own, not a look |
+| `ColumnResizeMode` | `CanUserResizeColumns` | ≈ Avalonia's resizing works and shows its cursor; MudBlazor's 2px primary line down the grid does not appear, because the grid keeps its resize state to itself |
 | `FixedHeader`, `Virtualize` | built in | ≈ Avalonia's header never scrolls and its rows always virtualize |
 
 ### Not here

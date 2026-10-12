@@ -32,7 +32,8 @@
                     action-default, hidden until sorted, 0.8 while the header is hovered, turned
                     180 degrees for descending - 300ms on the opacity and 200ms on the turn
     a group row     `.mud-datagrid-group`: background-gray, "Title: Key" in bold, ExpandMore /
-                    ChevronRight in a 48px icon button, 48px further in per level
+                    ChevronRight in a 48px icon button; a nested group's header 48px further in
+                    per level, its rows not at all
 
   ONE DELIBERATE DEPARTURE: a selected row. MudDataGrid does not draw selection at all - it is a
   checkbox column's job - so transcribed exactly, an Avalonia grid's selection would be invisible.
@@ -48,9 +49,11 @@
 <ResourceDictionary xmlns="https://github.com/avaloniaui"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:collections="using:Avalonia.Collections"
-                    xmlns:fili="using:Fili.Theme.MudAvalonia.Converters">
+                    xmlns:fili="using:Fili.Theme.MudAvalonia.Converters"
+                    xmlns:optional="using:Fili.Theme.MudAvalonia.Optional">
 
   <fili:StripedRowConverter x:Key="FiliStripedRow" />
+  <optional:GroupIndentConverter x:Key="FiliGroupIndent" />
 
   <!-- Icons/Material/Filled.cs ArrowUpward, the default MudDataGrid.SortIcon. -->
   <StreamGeometry x:Key="FiliArrowUpwardGeometry">M4 12l1.41 1.41L11 7.83V20h2V7.83l5.58 5.59L20 12l-8-8-8 8z</StreamGeometry>
@@ -80,6 +83,13 @@
     <Setter Property="Background" Value="Transparent" />
     <!-- `.mud-table-cell`: padding 16px. -->
     <Setter Property="Padding" Value="16" />
+    <!-- `:last-child`, which `dense` pads differently: see DataGridLastColumn. -->
+    <Setter Property="optional:DataGridLastColumn.IsLast">
+      <MultiBinding Converter="{x:Static optional:DataGridLastColumn.IsLastConverter}">
+        <Binding RelativeSource="{RelativeSource Self}" />
+        <Binding Path="(optional:DataGridLastColumn.Last)" RelativeSource="{RelativeSource AncestorType=DataGrid}" />
+      </MultiBinding>
+    </Setter>
     <Setter Property="HorizontalContentAlignment" Value="Stretch" />
     <Setter Property="VerticalContentAlignment" Value="Center" />
     <Setter Property="Template">
@@ -126,6 +136,12 @@
     <Setter Property="VerticalContentAlignment" Value="Center" />
     <Setter Property="SeparatorBrush" Value="{DynamicResource FiliTableLinesBrush}" />
     <Setter Property="Padding" Value="16,0" />
+    <Setter Property="optional:DataGridLastColumn.IsLast">
+      <MultiBinding Converter="{x:Static optional:DataGridLastColumn.IsLastConverter}">
+        <Binding RelativeSource="{RelativeSource Self}" />
+        <Binding Path="(optional:DataGridLastColumn.Last)" RelativeSource="{RelativeSource AncestorType=DataGrid}" />
+      </MultiBinding>
+    </Setter>
     <!-- $header-height: 59px, the line under the headers included. -->
     <Setter Property="MinHeight" Value="59" />
     <Setter Property="Template">
@@ -344,10 +360,10 @@
          name where MudBlazor's is the column's Title; with no [Display] they are the same word. -->
     <Setter Property="IsPropertyNameVisible" Value="True" />
     <Setter Property="IsItemCountVisible" Value="False" />
-    <!-- No indent. `.mud-row-group-indented-{n}` moves only a NESTED group's own header 48px in
-         per level; the data rows under a group are never indented. Avalonia's SublevelIndent
-         moves every row and header under the group, so it stays at 0 and nested group headers
-         sit flush - the one part of grouping not transcribed. -->
+    <!-- `.mud-row-group-indented-{n}` moves only a NESTED group's own header in, 48px per level;
+         the data rows under a group are never indented. Avalonia's SublevelIndent moves every row
+         under the group too, so it stays at 0 and PART_GroupIndent below does the header's part
+         (GroupIndentConverter). -->
     <Setter Property="SublevelIndent" Value="0" />
     <Setter Property="Template">
       <ControlTemplate x:DataType="collections:DataGridCollectionViewGroup">
@@ -359,6 +375,17 @@
           <Rectangle Name="PART_IndentSpacer"
                      Grid.Row="1"
                      Grid.Column="1" />
+          <!-- Not PART_IndentSpacer: the grid sets that one's width itself, from SublevelIndent. -->
+          <Rectangle Name="PART_GroupIndent"
+                     Grid.Row="1"
+                     Grid.Column="1">
+            <Rectangle.Width>
+              <MultiBinding Converter="{StaticResource FiliGroupIndent}">
+                <Binding />
+                <Binding Path="ItemsSource" RelativeSource="{RelativeSource AncestorType=DataGrid}" />
+              </MultiBinding>
+            </Rectangle.Width>
+          </Rectangle>
           <ToggleButton Name="PART_ExpanderButton"
                         Grid.Row="1"
                         Grid.Column="2"
@@ -389,7 +416,9 @@
                      Height="1"
                      Fill="{DynamicResource FiliTableLinesBrush}" />
 
-          <DataGridRowHeader Name="RowHeader"
+          <!-- PART_RowHeader, the name the grid looks for to hide it with the other row headers;
+               under any other name it shows, and its 1px edge pushes the title over. -->
+          <DataGridRowHeader Name="PART_RowHeader"
                              Grid.RowSpan="3"
                              DataGridFrozenGrid.IsFrozen="True" />
         </DataGridFrozenGrid>
@@ -398,6 +427,7 @@
   </ControlTheme>
 
   <ControlTheme x:Key="FiliDataGrid" TargetType="DataGrid">
+    <Setter Property="optional:DataGridLastColumn.Tracks" Value="True" />
     <!-- `.mud-table`: text-primary on surface, the default radius, at MudDataGrid.Elevation's 1. -->
     <Setter Property="Background" Value="{DynamicResource FiliSurfaceBrush}" />
     <Setter Property="Foreground" Value="{DynamicResource FiliTextPrimaryBrush}" />
