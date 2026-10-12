@@ -1,8 +1,12 @@
 using Avalonia;
+using Avalonia.Animation;
+using Avalonia.Animation.Easings;
 using Avalonia.Controls;
 using Avalonia.Controls.Presenters;
 using Avalonia.Controls.Primitives;
 using Avalonia.Layout;
+using Avalonia.Media;
+using Avalonia.Threading;
 using Avalonia.VisualTree;
 using Xunit;
 
@@ -40,6 +44,135 @@ public class TabsAndAppBarTests
     }
 
     private static TabItem Item(TabControl tabs, int index) => (TabItem)tabs.Items[index]!;
+
+    // --------------------------------------------------------------------------------------
+    // The sliding indicator
+    // --------------------------------------------------------------------------------------
+
+    /// <summary>
+    /// Where an indicator is drawn, its slide included, relative to its bar. Read straight after a
+    /// selection, before the dispatcher runs: the slide moves on in real time from there.
+    /// </summary>
+    private static Point Drawn(Control bar, Control item) =>
+        Named<Border>(item, "PART_Indicator").TranslatePoint(default, bar)!.Value;
+
+    /// <summary>
+    /// Where the slide ends: the indicator's resting transform, under the transition. The headless
+    /// session never advances animation time, so the slide itself is never seen here; that it
+    /// starts at the old tab, comes to rest at its own and is declared with MudBlazor's timing is
+    /// what can be asserted.
+    /// </summary>
+    private static void AssertSlidesHome(Control item)
+    {
+        var indicator = Named<Border>(item, "PART_Indicator");
+        var rest = Assert.IsAssignableFrom<ITransform>(indicator.GetBaseValue(Visual.RenderTransformProperty).Value);
+        Assert.True(rest.Value.IsIdentity, "The indicator should come to rest under its own tab.");
+
+        var slide = Assert.IsType<TransformOperationsTransition>(Assert.Single(indicator.Transitions!));
+        Assert.Equal(Visual.RenderTransformProperty, slide.Property);
+        Assert.Equal(TimeSpan.FromMilliseconds(300), slide.Duration);
+        var easing = Assert.IsType<SplineEasing>(slide.Easing);
+        Assert.Equal((0.64, 0.09, 0.08, 1d), (easing.X1, easing.Y1, easing.X2, easing.Y2));
+    }
+
+    /// <summary>
+    /// `.mud-tab-slider`: selecting another tab moves the indicator over from the old one, by .3s
+    /// cubic-bezier(.64,.09,.08,1), rather than fading one out and the other in. The old tab's
+    /// indicator is gone at once, and the new one is its own tab's width from the start.
+    /// </summary>
+    [Fact]
+    public Task TheIndicatorSlidesToTheSelectedTab() => UiThread.RunAsync(() =>
+    {
+        var tabs = Tabs();
+        var start = Drawn(tabs, Item(tabs, 0));
+
+        tabs.SelectedIndex = 1;
+        Assert.Equal(start, Drawn(tabs, Item(tabs, 1)));
+        Dispatcher.UIThread.RunJobs();
+
+        Assert.Equal(0, Named<Border>(Item(tabs, 0), "PART_Indicator").Opacity);
+        Assert.Equal(Item(tabs, 1).Bounds.Width, Named<Border>(Item(tabs, 1), "PART_Indicator").Bounds.Width);
+        Assert.False(Item(tabs, 1).ClipToBounds);
+        AssertSlidesHome(Item(tabs, 1));
+    });
+
+    /// <summary>A strip's indicator slides the same way.</summary>
+    [Fact]
+    public Task AStripsIndicatorSlides() => UiThread.RunAsync(() =>
+    {
+        var strip = Strip();
+        var first = (TabStripItem)strip.Items[0]!;
+        var second = (TabStripItem)strip.Items[1]!;
+        var left = Drawn(strip, first);
+
+        strip.SelectedIndex = 1;
+        Assert.Equal(left, Drawn(strip, second));
+        Dispatcher.UIThread.RunJobs();
+        Assert.False(second.ClipToBounds);
+        AssertSlidesHome(second);
+    });
+
+    /// <summary>
+    /// A slide starts wherever the old indicator is drawn, so one interrupted mid-way carries on from
+    /// there; and leftwards works like rightwards.
+    /// </summary>
+    [Fact]
+    public Task ASlideStartsFromWhereTheLastOneHadGot() => UiThread.RunAsync(() =>
+    {
+        var strip = Strip();
+        var first = (TabStripItem)strip.Items[0]!;
+        var second = (TabStripItem)strip.Items[1]!;
+        var left = Drawn(strip, first);
+
+        strip.SelectedIndex = 1;
+        var midway = Drawn(strip, second);
+        strip.SelectedIndex = 0;
+        Assert.Equal(midway, Drawn(strip, first));
+        Dispatcher.UIThread.RunJobs();
+        AssertSlidesHome(first);
+
+        var settled = new TabStrip { Width = 560 };
+        settled.Items.Add(new TabStripItem { Content = "One" });
+        settled.Items.Add(new TabStripItem { Content = "Two" });
+        settled.SelectedIndex = 1;
+        Matrix.Show(settled);
+        var from = Drawn(settled, (TabStripItem)settled.Items[1]!);
+        Assert.True(from.X > left.X);
+
+        settled.SelectedIndex = 0;
+        Assert.Equal(from, Drawn(settled, (TabStripItem)settled.Items[0]!));
+    });
+
+    /// <summary>A vertical bar slides on the other axis, from the indicators' own positions.</summary>
+    [Fact]
+    public Task AVerticalBarSlidesDown() => UiThread.RunAsync(() =>
+    {
+        var tabs = Tabs();
+        tabs.TabStripPlacement = Dock.Left;
+        Dispatcher.UIThread.RunJobs();
+        var top = Drawn(tabs, Item(tabs, 0));
+
+        tabs.SelectedIndex = 1;
+        Assert.Equal(top, Drawn(tabs, Item(tabs, 1)));
+        Assert.True(Named<Border>(Item(tabs, 1), "PART_Indicator").TranslatePoint(default, Item(tabs, 1))!.Value.Y < 0,
+            "The indicator should start above its own tab, at the one before it.");
+        Dispatcher.UIThread.RunJobs();
+        AssertSlidesHome(Item(tabs, 1));
+    });
+
+    /// <summary>Nothing slides on first show: a selection made before then has no tab to come from.</summary>
+    [Fact]
+    public Task TheFirstSelectionDoesNotSlide() => UiThread.RunAsync(() =>
+    {
+        var tabs = new TabControl { Width = 560 };
+        tabs.Items.Add(new TabItem { Header = "One" });
+        tabs.Items.Add(new TabItem { Header = "Two" });
+        tabs.SelectedIndex = 1;
+        Matrix.Show(tabs);
+
+        Assert.Equal(Item(tabs, 1).Bounds.X, Drawn(tabs, Item(tabs, 1)).X);
+        Assert.Null(Named<Border>(Item(tabs, 1), "PART_Indicator").RenderTransform);
+    });
 
     // --------------------------------------------------------------------------------------
     // MudTabs defaults

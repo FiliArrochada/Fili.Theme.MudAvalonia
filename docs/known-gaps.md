@@ -70,7 +70,6 @@ And the things that are not controls:
   `FlowDirection` to set, not the theme's.
 - **No spacing utility classes.** The 4px scale exists as values; `pa-4`-style generated classes
   do not.
-- **The tab indicator does not slide** between tabs — see [Slider and tabs](controls.md#slider-and-tabs).
 - **High contrast does not reach the ring colour.** Every raised surface is outlined there rather
   than shadowed, but the outline is a `BoxShadows` string and those cannot carry a
   `DynamicResource`, so `#E8E8EE` is fixed. An app whose high-contrast palette uses a different

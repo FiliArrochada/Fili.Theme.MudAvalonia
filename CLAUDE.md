@@ -23,8 +23,9 @@ classes, `ControlTheme`s where a Material look cannot be faked without one, and 
   public is a design change, and belongs in a separate package.
 - **`internal` helpers only where XAML genuinely cannot express something** (compiled XAML can
   construct them, so nothing leaks): `FactorConverter`, `ErrorMessageConverter`,
-  `TickPositionsConverter`, `BadgeContentConverter` and `StripedRowConverter` in `Converters/`,
-  and `OptionalStyleInclude`, a `StyleInclude` that loads only when the app has the package.
+  `TickPositionsConverter`, `BadgeContentConverter` and `StripedRowConverter` in `Converters/`;
+  `OptionalStyleInclude`, a `StyleInclude` that loads only when the app has the package; and
+  `SlidingIndicator`, the tabs' slide.
 - **Retemplating an Avalonia control is in scope; inventing one is not.** A MudBlazor component
   that is a *look* on an existing control is a class (`Button.icon`, `Button.chip`, `Button.fab`,
   `Border.alert`, `Border.avatar`, `Border.card`, `Border.skeleton`,
@@ -127,7 +128,8 @@ One line each; [`docs/traps.md`](docs/traps.md) has the full account and the tes
 - Every test body runs inside `UiThread.RunAsync`; one that does not poisons the headless session.
 - Re-focusing a focused control does not revisit `:focus-visible`; use two controls.
 - Transitioned properties cannot be asserted synchronously; assert a non-transitioned property of
-  the same state.
+  the same state, or read an animation's start before the dispatcher runs and its end with
+  `GetBaseValue`.
 - Load the theme assembly before naming it in an `avares://` URI built in code: since 12.1.3 the
   name resolves by prefix to a LOADED assembly, and the test assembly matches first.
 - Roboto's static instances use legacy family names; assert with `StartsWith`. Do not swap in the

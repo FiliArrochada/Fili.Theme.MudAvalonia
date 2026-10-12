@@ -203,6 +203,11 @@ one.
   `TransformOperationsTransition` or `BrushTransition` is still interpolating when a test reads
   it, and compares equal to its resting value. Assert a non-transitioned property of the same
   state instead — `CheckedToggleSwitchTintsItsTrack` uses track opacity for exactly this reason.
+  When the motion IS the point, as with the tabs' sliding indicator, read the starting value
+  straight after the change, before `Dispatcher.UIThread.RunJobs()`: the animation moves on in
+  real time from there, a few pixels per run, and no headless call advances it on demand
+  (`ForceRenderTimerTick` does not). Read where it will end with `GetBaseValue`, and the timing
+  from its `Transitions`.
 - **Roboto's static instances use legacy name tables.** `Roboto-Light` reports family
   `Roboto Light`, not weight 300 of `Roboto`. Avalonia groups them correctly; assert family names
   with `StartsWith`, not `Equal`. And do not swap in the variable `Roboto[wdth,wght].ttf` —
