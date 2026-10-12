@@ -14,6 +14,10 @@
 
   <ItemGroup>
     <PackageReference Include="Avalonia" />
+    <!-- MudDataGrid's look is a theme for this package's DataGrid. Built against, never passed on:
+         an app that adds the package gets the look with nothing to opt into, and one that does not
+         never downloads it. OptionalDataGridStyles loads the DataGrid XAML only when it is there. -->
+    <PackageReference Include="Avalonia.Controls.DataGrid" PrivateAssets="all" />
   </ItemGroup>
 
   <ItemGroup>

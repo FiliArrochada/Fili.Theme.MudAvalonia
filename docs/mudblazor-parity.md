@@ -6,7 +6,7 @@ where the two differ. For side-by-side markup, see [Razor and AXAML](razor-vs-ax
 The rule behind every row: **a class only ever names a MudBlazor variant.** Every control the
 theme templates is keyed to its type, so an unclassed control is already the MudBlazor default.
 Class names are MudBlazor's own words (`primary`, `outlined`, `small`), deliberately not
-namespaced. `ClassVocabularyTests` pins the full list of 105.
+namespaced. `ClassVocabularyTests` pins the full list of 106.
 
 | Mark | Meaning |
 |---|---|
@@ -345,9 +345,32 @@ The message goes in the `Border`; an icon is a `PathIcon` inside it, and takes t
 | `Animation.Wave` | `wave` | ✅ 1.6s linear after 0.5s, the 4% band crossing in the first 60%; drawn into the background, since a `Border` has no `::after` layer |
 | `Width`, `Height` | `Width`, `Height` | ✅ |
 
+### MudDataGrid → `DataGrid`
+
+Avalonia's own `DataGrid`, from the `Avalonia.Controls.DataGrid` package, themed by type when
+the app references it; this package does not depend on it.
+
+| MudBlazor | Here | |
+|---|---|---|
+| the component | any `DataGrid` | ✅ surface, the default radius, text-primary |
+| `Elevation` (default 1) | no class, or the elevation classes | ✅ |
+| `Outlined` / `Square` | `outlined` / `square` | ✅ outlined drops the elevation, as MudPaper does |
+| header row | the column headers | ✅ subtitle2, 16px round, 59px with the rule under it; no rule between headers |
+| body row | the rows | ✅ body2, 16px round, a table-lines rule under every row but the last |
+| `Dense` | `dense` | ✅ 6px 24px 6px 16px, a 39px header row ≈ the last column keeps 24px on its right, not 16 |
+| `Hover` | `hover` | ✅ table-hover, off by default |
+| `Striped` | `striped` | ✅ the 1st, 3rd, 5th… row; hover replaces it |
+| `Bordered` | `bordered` | ✅ table-lines between body cells, none after the last, none in the header |
+| `SortIcon`, sorting | the column's sort | ✅ ArrowUpward in a small icon button at the end of the header, action-default, hidden until sorted, 0.8 on hover, turned for descending |
+| a selected row | `SelectedItem` | ≈ MudDataGrid draws none; here a selected list row's primary-hover, so selection is visible |
+| `Groupable`, a group row | a `DataGridCollectionView` with `GroupDescriptions` | ✅ background-gray, "Title: Key" in bold, ExpandMore / ChevronRight ≈ a nested group's header is not indented |
+| edit mode | `IsReadOnly="False"` | ✅ the field loses its resting line and keeps its focused one, as `_datagrid.scss` (with its typo) leaves it |
+| `ShowColumnOptions`, `Filterable`, `MudDataGridPager`, column resize handle | — | ❌ no column menu, filter row, pager or resize indicator |
+| `FixedHeader`, `Virtualize` | built in | ≈ Avalonia's header never scrolls and its rows always virtualize |
+
 ### Not here
 
-These need a whole new control, or are not visual: MudDataGrid, MudTable, MudDatePicker,
+These need a whole new control, or are not visual: MudTable (MudDataGrid's look, above, is the same `.mud-table`), MudDatePicker,
 MudTimePicker, MudColorPicker, MudChart, MudRating, MudPagination, MudStepper, MudTimeline,
 MudBreadcrumbs, MudCarousel (left on the forked template), MudFileUpload, MudDialog (no dialog
 service), MudOverlay, MudHidden, MudFocusTrap, MudHotkey, MudForm, MudGrid,

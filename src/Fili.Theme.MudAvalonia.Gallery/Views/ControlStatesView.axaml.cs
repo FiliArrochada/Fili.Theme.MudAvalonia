@@ -1,6 +1,7 @@
 using System;
 using System.Linq;
 using Avalonia;
+using Avalonia.Collections;
 using Avalonia.Controls;
 using Avalonia.Controls.Primitives;
 using Avalonia.Input;
@@ -52,6 +53,19 @@ public partial class ControlStatesView : UserControl
             InvalidField,
             new InvalidOperationException("Must be a valid email address"));
 
+        // The data grid samples. A collection view carries the sort and the grouping, which is
+        // what lights a header's arrow and draws the group rows.
+        var sorted = new DataGridCollectionView(GalleryElement.FirstSix);
+        sorted.SortDescriptions.Add(DataGridSortDescription.FromPath(nameof(GalleryElement.Name)));
+        PlainGrid.ItemsSource = sorted;
+
+        OptionsGrid.ItemsSource = GalleryElement.FirstSix;
+        OptionsGrid.SelectedIndex = 2;
+
+        var grouped = new DataGridCollectionView(GalleryElement.FirstSix);
+        grouped.GroupDescriptions.Add(new DataGridPathGroupDescription(nameof(GalleryElement.Group)));
+        GroupedGrid.ItemsSource = grouped;
+
         // Keyboard focus, pinned so it shows up in a capture. NavigationMethod.Tab is what sets
         // :focus-visible; focusing with Pointer deliberately does not, which is the whole reason
         // the theme keys off :focus-visible rather than :focus.
@@ -66,6 +80,11 @@ public partial class ControlStatesView : UserControl
             FocusedSample.Focus(NavigationMethod.Tab);
             _placingFocus = false;
             SelectedNode.IsSelected = true;
+
+            // A collection view makes its first item current, and the grid selects what is current.
+            // Only the options sample is meant to show a selected row.
+            PlainGrid.SelectedIndex = -1;
+            GroupedGrid.SelectedIndex = -1;
             ((IPseudoClasses)FocusedText.Classes).Add(":focus-visible");
         };
     }

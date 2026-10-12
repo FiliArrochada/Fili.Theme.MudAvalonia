@@ -10,6 +10,8 @@
   <ItemGroup>
     <PackageReference Include="Avalonia" />
     <PackageReference Include="Avalonia.Headless" />
+    <!-- As an app that shows a grid: the theme does not pass the package on. -->
+    <PackageReference Include="Avalonia.Controls.DataGrid" />
     <PackageReference Include="xunit.v3" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" />
   </ItemGroup>

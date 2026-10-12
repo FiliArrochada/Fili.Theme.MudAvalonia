@@ -55,6 +55,10 @@ public class StandaloneReadinessTests
         // MudBadge. Opt-in through the `badge` class: an unclassed HeaderedContentControl keeps
         // the forked template, as an unclassed Button keeps the text one.
         "FiliBadge",
+
+        // MudDataGrid, on the Avalonia.Controls.DataGrid package's controls.
+        "FiliDataGrid", "FiliDataGridCell", "FiliDataGridColumnHeader", "FiliDataGridRowHeader",
+        "FiliDataGridRow", "FiliDataGridRowGroupHeader", "FiliDataGridGroupExpander",
     ];
 
     /// <summary>
@@ -111,8 +115,9 @@ public class StandaloneReadinessTests
         // does not scroll. Written once while layering, deleted when the fork made it redundant.
         ("Deliberately deleted", ["ScrollViewer"]),
 
-        // Bespoke MudBlazor components. Matching MudDatePicker or MudTable means a rewrite per
-        // template with no shortcut, and a real data grid is explicitly out of scope here.
+        // Bespoke MudBlazor components. Matching MudDatePicker means a rewrite per template with
+        // no shortcut. TableView is Avalonia's newer table; MudDataGrid's look is on the
+        // DataGrid package's control, the one apps use.
         ("Out of scope: a rewrite, not a restyle",
             [
                 "Calendar", "CalendarButton", "CalendarDatePicker", "CalendarDayButton",
@@ -181,7 +186,9 @@ public class StandaloneReadinessTests
         Assert.Equal(
             [
                 "AutoCompleteBox", "Button", "ButtonSpinner", "CheckBox", "ComboBox",
-                "ComboBoxItem", "ContextMenu", "DataValidationErrors", "DropDownButton", "Expander",
+                "ComboBoxItem", "ContextMenu", "DataGrid", "DataGridCell", "DataGridColumnHeader",
+                "DataGridRow", "DataGridRowGroupHeader", "DataGridRowHeader",
+                "DataValidationErrors", "DropDownButton", "Expander",
                 "FlyoutPresenter", "HeaderedContentControl", "HyperlinkButton", "Label", "ListBox", "ListBoxItem", "Menu",
                 "MenuFlyoutPresenter", "MenuItem", "NotificationCard", "NumericUpDown",
                 "PipsPager", "ProgressBar", "RadioButton", "RepeatButton", "ScrollBar",
@@ -192,21 +199,21 @@ public class StandaloneReadinessTests
             ],
             themed.Select(t => t.Name).ToArray());
 
-        // THE NUMBER THAT SAYS HOW MUCH OF THE FORK IS STILL DOING THE WORK. 40 of 89 templated
+        // THE NUMBER THAT SAYS HOW MUCH OF THE FORK IS STILL DOING THE WORK. 46 of 95 templated
         // control types are hand-written here; the other 49 are still wearing the forked Simple
         // templates from Themes/Base. Pinned rather than merely reported, so it cannot drift
         // unnoticed and so an Avalonia version that adds controls surfaces as a failure here.
         var templated = TemplatedControlTypes();
 
-        Assert.Equal(40, themed.Count);
-        Assert.Equal(89, templated.Count);
+        Assert.Equal(46, themed.Count);
+        Assert.Equal(95, templated.Count);
     });
 
     /// <summary>
     /// The inventory is complete and says each type once.
     ///
     /// <para>
-    /// This is what turns the coverage number from a claim into a fact. Without it, "40 of 89"
+    /// This is what turns the coverage number from a claim into a fact. Without it, "46 of 95"
     /// only says how many themes exist; with it, every one of the other forty-nine has a stated reason
     /// for not being one, and a control type added by a future Avalonia fails here by name rather
     /// than by making 89 into 90.
@@ -236,9 +243,13 @@ public class StandaloneReadinessTests
             })
             .Distinct();
 
+    /// <summary>
+    /// Every public templated control in Avalonia.Controls and in the DataGrid package, the two
+    /// control assemblies this theme depends on.
+    /// </summary>
     private static List<Type> TemplatedControlTypes() =>
-        typeof(Button).Assembly
-            .GetTypes()
+        new[] { typeof(Button).Assembly, typeof(DataGrid).Assembly }
+            .SelectMany(assembly => assembly.GetTypes())
             .Where(t => t.IsPublic
                 && !t.IsAbstract
                 && !t.IsGenericTypeDefinition

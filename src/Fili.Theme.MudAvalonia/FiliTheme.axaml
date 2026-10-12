@@ -26,7 +26,8 @@
   ever a workaround for layering over Fluent.
 -->
 <Styles xmlns="https://github.com/avaloniaui"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:theme="using:Fili.Theme.MudAvalonia">
 
   <Styles.Resources>
     <ResourceDictionary>
@@ -1240,6 +1241,15 @@
   <!-- ============================== Controls ==============================
        VARIANTS ONLY. The templates live in Themes/Controls/, keyed by type.
   -->
+
+  <!--
+    Packages this theme builds against but does not depend on, each loaded only when the app has
+    it. Here, among the control styles, because their row and state rules are Styles and the later
+    style wins. MinimumVersion is the version Directory.Packages.props builds against.
+  -->
+  <theme:OptionalStyleInclude Requires="Avalonia.Controls.DataGrid"
+                              MinimumVersion="12.1.2"
+                              Source="avares://Fili.Theme.MudAvalonia/Themes/Optional/DataGrid/DataGridStyles.axaml" />
 
   <!--
     MudButton.Variant defaults to Variant.Text, so an unclassed Button is already the text one.

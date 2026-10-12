@@ -47,6 +47,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fili.Theme.MudAvalonia.Pixe
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fili.Theme.MudAvalonia.Gallery.Browser", "src\Fili.Theme.MudAvalonia.Gallery.Browser\Fili.Theme.MudAvalonia.Gallery.Browser.csproj", "{851AD5C4-BED4-422E-A34E-77914211E045}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fili.Theme.MudAvalonia.NoDataGridTests", "tst\Fili.Theme.MudAvalonia.NoDataGridTests\Fili.Theme.MudAvalonia.NoDataGridTests.csproj", "{C06CE220-5B84-433F-96CF-B2EBC2369815}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -129,6 +131,18 @@ Global
 		{851AD5C4-BED4-422E-A34E-77914211E045}.Release|x64.Build.0 = Release|Any CPU
 		{851AD5C4-BED4-422E-A34E-77914211E045}.Release|x86.ActiveCfg = Release|Any CPU
 		{851AD5C4-BED4-422E-A34E-77914211E045}.Release|x86.Build.0 = Release|Any CPU
+		{C06CE220-5B84-433F-96CF-B2EBC2369815}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C06CE220-5B84-433F-96CF-B2EBC2369815}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C06CE220-5B84-433F-96CF-B2EBC2369815}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{C06CE220-5B84-433F-96CF-B2EBC2369815}.Debug|x64.Build.0 = Debug|Any CPU
+		{C06CE220-5B84-433F-96CF-B2EBC2369815}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{C06CE220-5B84-433F-96CF-B2EBC2369815}.Debug|x86.Build.0 = Debug|Any CPU
+		{C06CE220-5B84-433F-96CF-B2EBC2369815}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C06CE220-5B84-433F-96CF-B2EBC2369815}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C06CE220-5B84-433F-96CF-B2EBC2369815}.Release|x64.ActiveCfg = Release|Any CPU
+		{C06CE220-5B84-433F-96CF-B2EBC2369815}.Release|x64.Build.0 = Release|Any CPU
+		{C06CE220-5B84-433F-96CF-B2EBC2369815}.Release|x86.ActiveCfg = Release|Any CPU
+		{C06CE220-5B84-433F-96CF-B2EBC2369815}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -140,5 +154,6 @@ Global
 		{FECD1649-CF79-4065-8E67-D25132020907} = {927D5C5A-C3F5-A059-FD9E-09B4C1EC2C3D}
 		{BE90DF42-D8F7-438D-8BD6-7B3F8CAE3189} = {927D5C5A-C3F5-A059-FD9E-09B4C1EC2C3D}
 		{851AD5C4-BED4-422E-A34E-77914211E045} = {827E0CD3-B72D-47B6-A68D-7590B98EB39B}
+		{C06CE220-5B84-433F-96CF-B2EBC2369815} = {927D5C5A-C3F5-A059-FD9E-09B4C1EC2C3D}
 	EndGlobalSection
 EndGlobal

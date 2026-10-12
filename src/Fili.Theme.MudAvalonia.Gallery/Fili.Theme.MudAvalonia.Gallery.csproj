@@ -9,6 +9,8 @@
   <ItemGroup>
     <PackageReference Include="Avalonia" />
     <PackageReference Include="Avalonia.Fonts.Inter" />
+    <!-- The theme only builds against the DataGrid; an app shows one by referencing it, as here. -->
+    <PackageReference Include="Avalonia.Controls.DataGrid" />
   </ItemGroup>
 
   <ItemGroup>

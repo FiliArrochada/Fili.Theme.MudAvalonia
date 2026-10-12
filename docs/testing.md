@@ -6,14 +6,20 @@ high-contrast variant forgets falls back to dark without a word, a style that lo
 contest just does not apply. Nothing throws and the app still starts. The tests are there to turn
 those silent failures into red builds, because looking at the app cannot be relied on to find them.
 
-## Two test projects
+## Three test projects
 
 | Project | What it does | Speed |
 |---|---|---|
-| `tst/Fili.Theme.MudAvalonia.UnitTests` | 512 tests on a headless Avalonia session. They resolve resources, template controls, move a real pointer over them, and read back the values the theme applied. Nothing is rendered. | seconds |
+| `tst/Fili.Theme.MudAvalonia.UnitTests` | 536 tests on a headless Avalonia session. They resolve resources, template controls, move a real pointer over them, and read back the values the theme applied. Nothing is rendered. | seconds |
+| `tst/Fili.Theme.MudAvalonia.NoDataGridTests` | 3 tests. The theme in an app that does not reference `Avalonia.Controls.DataGrid`: the assembly is really absent, `FiliTheme.axaml` loads and themes a button, and no DataGrid rule was loaded. | seconds |
 | `tst/Fili.Theme.MudAvalonia.PixelTests` | 13 tests. Nine render one gallery frame each with Skia and compare it pixel by pixel with a PNG committed in `Baselines/`; four, in `GalleryPageTests`, check how the gallery behaves - that the controls page opens at the top in a window shorter than its first screen, that keyboard focus still scrolls it, that each section's jump link lands on it, and that the app bar shows the theme's version. | ~30 seconds |
 
-They are separate on purpose. The pixel suite needs Skia with headless drawing turned **off** -
+The no-DataGrid project is its own assembly because what it tests is an absence: the main suite
+references the package to test the grid, so it can never see a theme that only loads WITH it. A
+DataGrid selector left in `FiliTheme.axaml` passes every other test and fails here with the
+missing assembly's name.
+
+The unit and pixel suites are separate on purpose. The pixel suite needs Skia with headless drawing turned **off** -
 Avalonia's default headless renderer draws nothing at all, and a pixel suite built on it would
 compare two blank images and pass forever. Turning real drawing on also changes how text is
 measured, and the unit suite should not start measuring differently because the pixel suite
@@ -21,7 +27,7 @@ needed a different platform.
 
 ## The unit tests
 
-512 tests in 33 classes, grouped here by the failure each one exists to catch.
+536 tests in 35 classes, grouped here by the failure each one exists to catch.
 
 ### Tokens: does every value exist, in every variant?
 
@@ -36,9 +42,10 @@ needed a different platform.
 
 | Class | Tests | What it checks | Why it matters |
 |---|---|---|---|
-| `StandaloneReadinessTests` | 3 | The exact set of hand-written control themes (40 of the 89 templated types) and that every one resolves; every other type is classified with the reason it stays on its forked template. | Avalonia has no implicit default theme. A control with no theme does not look wrong - it renders **nothing**. An Avalonia upgrade that adds a control type fails here asking to be classified. |
-| `ClassVocabularyTests` | 1 | The classes the theme's selectors use are exactly the 105 the README publishes, in both directions. | Class names are MudBlazor's ordinary words (`small`, `error`, `vertical`) and they collide with an app's own. An undeclared class is a collision nobody signed off on; a declared one nothing uses is a lie to adopters. |
-| `GeneratedThemeTests` | 1 | `Button.axaml` and the marked regions in eleven other files are exactly what `ThemeColourGenerator` writes from the one list of eight colours. | Hundreds of colour styles are generated so that no colour can differ from the others. Editing one block by hand fails the build. `FILI_REGENERATE=1` rewrites the files. |
+| `OptionalBoundaryTests` | 6 | The packages the theme builds against but does not depend on: only a package's own folder under `Themes/Optional/` names its types (a scan of every `.axaml` and `.cs`, reporting file and line), each `OptionalStyleInclude`'s `MinimumVersion` is the version `Directory.Packages.props` builds against, an absent package loads nothing, an older one loads nothing and logs why, and the one here is loaded. | A DataGrid selector anywhere else passes every other test - this suite has the package - and takes the whole theme down at startup in every app that does not. |
+| `StandaloneReadinessTests` | 3 | The exact set of hand-written control themes (46 of the 95 templated types, the DataGrid package's included) and that every one resolves; every other type is classified with the reason it stays on its forked template. | Avalonia has no implicit default theme. A control with no theme does not look wrong - it renders **nothing**. An Avalonia upgrade that adds a control type fails here asking to be classified. |
+| `ClassVocabularyTests` | 1 | The classes the theme's selectors use are exactly the 106 the README publishes, in both directions. | Class names are MudBlazor's ordinary words (`small`, `error`, `vertical`) and they collide with an app's own. An undeclared class is a collision nobody signed off on; a declared one nothing uses is a lie to adopters. |
+| `GeneratedThemeTests` | 1 | `Button.axaml` and the marked regions in twelve other files are exactly what `ThemeColourGenerator` writes from the one list of eight colours. | Hundreds of colour styles are generated so that no colour can differ from the others. Editing one block by hand fails the build. `FILI_REGENERATE=1` rewrites the files. |
 
 ### Controls: does each one look and behave as MudBlazor's does?
 
@@ -54,6 +61,7 @@ from MudBlazor's SCSS or the component's parameter defaults.
 | `BadgeTests` | 34 | `badge`: the pill, every `Origin` and `overlap` to the pixel, a wide badge centring on narrow content, the colours on the badge alone, `99+`, a null `Header`, `dot`, `bordered`, `icon`, elevation, and that only the pill takes the pointer. |
 | `FabTests` | 31 | `fab`: 56px grey at elevation 6, lifting to 8 and 12 under a real pointer, sizes, colours, `outlined` and `text`, `extended`, the 24px icon and its gap, `flat` and disabled. |
 | `AvatarTests` | 22 | `avatar`: sizes, the three variants and every colour, `rounded` and `square`, an elevation that is not clipped, and an `Image` covering the shape and clipped to it. |
+| `DataGridTests` | 18 | `DataGrid`: elevation 1, the 59px subtitle2 header row and 53px body2 rows, no rule under the last row, `dense`, `striped`, `hover` replacing the stripe, the selection tint, `bordered` without header rules, `outlined`, `square`, the sort arrow, group rows and their glyph, and the edit box - which must still be based on the standard field, the one static link out of `Themes/Optional/DataGrid`. |
 | `CardTests` | 8 | `card` at elevation 1, `outlined` and `square`, and the header, media, content and actions laid out to MudCard's metrics. |
 | `GreyGroundTextTests` | 3 | The text on a default avatar and badge is text-primary (white on a `text` avatar) in light and dark, and black in high contrast. |
 | `TabsAndAppBarTests` | 31 | MudTabs' defaults, colours, `border` / `outlined` / `rounded` / `centered` / `hide-slider`, and that a bar's colour never reaches a nested `TabControl`; the app bar's gutters, `dense` and colours. |
@@ -131,8 +139,8 @@ Three workflows, in `.github/workflows/`.
 
 | Runner | Builds | Runs |
 |---|---|---|
-| `ubuntu-latest` | the whole solution, the WebAssembly gallery included | the unit tests |
-| `windows-latest` | the two test projects, which reference every other project | the unit tests **and** the pixel tests |
+| `ubuntu-latest` | the whole solution, the WebAssembly gallery included | the unit and no-DataGrid tests |
+| `windows-latest` | the three test projects, which reference every other project | the unit and no-DataGrid tests **and** the pixel tests |
 
 - **Linux** is there to catch a Windows-only assumption in a library other people will build on
   whatever they have, and to build the browser gallery, which needs the `wasm-tools` workload.
@@ -163,6 +171,7 @@ include that trimming strips, shows up there and nowhere else.
 dotnet test tst/Fili.Theme.MudAvalonia.UnitTests                     # everything, seconds
 dotnet test tst/Fili.Theme.MudAvalonia.UnitTests --filter-class "*FieldDetailTests"
 dotnet test tst/Fili.Theme.MudAvalonia.PixelTests                    # the nine frames
+dotnet test tst/Fili.Theme.MudAvalonia.NoDataGridTests               # the theme without a DataGrid
 ```
 
 ```bash

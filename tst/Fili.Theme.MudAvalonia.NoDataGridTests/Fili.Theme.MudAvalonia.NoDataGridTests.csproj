@@ -1,0 +1,26 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <RootNamespace>Fili.Theme.MudAvalonia.NoDataGridTests</RootNamespace>
+    <AssemblyName>Fili.Theme.MudAvalonia.NoDataGridTests</AssemblyName>
+    <IsPackable>false</IsPackable>
+    <OutputType>Exe</OutputType>
+  </PropertyGroup>
+
+  <!--
+    An app WITHOUT Avalonia.Controls.DataGrid. The theme builds against it but does not pass it on,
+    so this project must never reference it, directly or through the gallery - that absence is the
+    whole test. Its own assembly so its own headless session: the main suite has the package.
+  -->
+  <ItemGroup>
+    <PackageReference Include="Avalonia" />
+    <PackageReference Include="Avalonia.Headless" />
+    <PackageReference Include="xunit.v3" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\Fili.Theme.MudAvalonia\Fili.Theme.MudAvalonia.csproj" />
+  </ItemGroup>
+
+</Project>

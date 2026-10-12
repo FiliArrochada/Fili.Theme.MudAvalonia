@@ -36,7 +36,7 @@ jobs:
   #
   # Only Linux builds the browser gallery. Its build links Skia and HarfBuzz into dotnet.wasm,
   # which needs the wasm-tools workload, and installing that on Windows cost every run time for
-  # a project no Windows step uses. Windows builds the two test projects instead, which between
+  # a project no Windows step uses. Windows builds the three test projects instead, which between
   # them reference every other project in the solution.
   # ---------------------------------------------------------------------------------------
   test:
@@ -50,7 +50,7 @@ jobs:
             projects: Fili.Theme.MudAvalonia.sln
             wasm: true
           - os: windows-latest
-            projects: tst/Fili.Theme.MudAvalonia.UnitTests tst/Fili.Theme.MudAvalonia.PixelTests
+            projects: tst/Fili.Theme.MudAvalonia.UnitTests tst/Fili.Theme.MudAvalonia.PixelTests tst/Fili.Theme.MudAvalonia.NoDataGridTests
             wasm: false
 
     env:
@@ -90,10 +90,21 @@ jobs:
         shell: bash
         run: for p in ${{ matrix.projects }}; do dotnet build "$p" --configuration Release --no-restore; done
 
-      # The fast suite: 512 tests, no rendering, identical everywhere.
+      # The fast suite: 536 tests, no rendering, identical everywhere.
       - name: Test (unit)
         run: >
           dotnet test tst/Fili.Theme.MudAvalonia.UnitTests
+          --configuration Release
+          --no-build
+          --
+          --report-xunit-trx
+          --results-directory ${{ github.workspace }}/artifacts/test-results
+
+      # The theme in an app without Avalonia.Controls.DataGrid, which it builds against but does
+      # not depend on: a DataGrid type leaking out of the optional files fails here and only here.
+      - name: Test (no data grid)
+        run: >
+          dotnet test tst/Fili.Theme.MudAvalonia.NoDataGridTests
           --configuration Release
           --no-build
           --

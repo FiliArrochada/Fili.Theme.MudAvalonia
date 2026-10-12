@@ -270,14 +270,17 @@ its own, so tune against the gallery rather than against an app.
   capture. Anything else that varies per machine (time zone, current date) needs the same
   treatment before it appears in a baselined view.
 
-**There are two test projects.** `tst/{Name}.UnitTests` is the fast one and renders nothing;
+**There are three test projects.** `tst/{Name}.NoDataGridTests` is an app without the DataGrid
+package, the one place a DataGrid type leaking out of `Themes/Optional/DataGrid/` shows at run
+time; `OptionalBoundaryTests` in the unit suite catches the same leak by reading the source.
+`tst/{Name}.UnitTests` is the fast one and renders nothing;
 `tst/{Name}.PixelTests` renders nine gallery frames with Skia and diffs them against committed
 PNGs. The split is deliberate - the pixel suite needs headless drawing turned OFF, which changes
 text measurement, and the unit suite should not silently start measuring differently because the
 pixel suite needed a different platform.
 
-**CI runs both, on two runners, and the pixel suite on only one of them.** Linux builds the
-whole solution and runs the unit tests; Windows builds only the two test projects (everything but
+**CI runs all three, on two runners, and the pixel suite on only one of them.** Linux builds the
+whole solution and runs the unit and no-DataGrid tests; Windows builds only the three test projects (everything but
 the browser gallery, so it skips the `wasm-tools` install) and also runs the baselines, because
 those PNGs were rendered on Windows with Skia. A failing frame uploads the rendered image and the
 diff as the `pixel-diffs` artifact - which is why the diff directory is overridable through
@@ -326,7 +329,7 @@ the package does not ship and drew Fluent's dark theme under the High contrast l
 Fluent back for a comparison - `StandaloneReadinessTests` is the record of what is hand-written.
 
 **Coverage is pinned, not reported.** `StandaloneReadinessTests` asserts the exact set of
-hand-written themes — **40 of the 89 templated types** — plus the count of both. The other 49 wear
+hand-written themes — **46 of the 95 templated types** — plus the count of both. The other 49 wear
 forked templates, and `SimpleBridgeTests` asserts the ~96 contract keys those paint from still
 resolve in both variants. Adding a theme means adding its `Fili*` key AND its target type to the
 first test in the same change; that is what keeps the number honest and turns an Avalonia version

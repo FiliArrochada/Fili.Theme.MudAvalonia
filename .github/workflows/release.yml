@@ -32,7 +32,7 @@ env:
   DOTNET_CLI_TELEMETRY_OPTOUT: true
 
 jobs:
-  # The same gate build.yml applies on Windows: both suites, pixel baselines included. A tag can
+  # The same gate build.yml applies on Windows: all three suites, pixel baselines included. A tag can
   # point at any commit, including one build.yml never saw go green, so the release checks again.
   test:
     name: Test (windows-latest)
@@ -50,12 +50,15 @@ jobs:
       - name: Build
         shell: bash
         run: |
-          for p in tst/Fili.Theme.MudAvalonia.UnitTests tst/Fili.Theme.MudAvalonia.PixelTests; do
+          for p in tst/Fili.Theme.MudAvalonia.UnitTests tst/Fili.Theme.MudAvalonia.PixelTests tst/Fili.Theme.MudAvalonia.NoDataGridTests; do
             dotnet build "$p" --configuration Release
           done
 
       - name: Test (unit)
         run: dotnet test tst/Fili.Theme.MudAvalonia.UnitTests --configuration Release --no-build
+
+      - name: Test (no data grid)
+        run: dotnet test tst/Fili.Theme.MudAvalonia.NoDataGridTests --configuration Release --no-build
 
       - name: Test (pixel baselines)
         run: dotnet test tst/Fili.Theme.MudAvalonia.PixelTests --configuration Release --no-build

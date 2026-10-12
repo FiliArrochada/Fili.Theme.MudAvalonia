@@ -23,12 +23,22 @@ classes, `ControlTheme`s where a Material look cannot be faked without one, and 
   public is a design change, and belongs in a separate package.
 - **`internal` helpers only where XAML genuinely cannot express something** (compiled XAML can
   construct them, so nothing leaks): `FactorConverter`, `ErrorMessageConverter`,
-  `TickPositionsConverter` and `BadgeContentConverter` in `Converters/`.
+  `TickPositionsConverter`, `BadgeContentConverter` and `StripedRowConverter` in `Converters/`,
+  and `OptionalStyleInclude`, a `StyleInclude` that loads only when the app has the package.
 - **Retemplating an Avalonia control is in scope; inventing one is not.** A MudBlazor component
   that is a *look* on an existing control is a class (`Button.icon`, `Button.chip`, `Button.fab`,
   `Border.alert`, `Border.avatar`, `Border.card`, `Border.skeleton`,
-  `HeaderedContentControl.badge`). A `DataGrid`, date picker or dialog service belongs in a
-  separate `Fili.Theme.MudAvalonia.*` package.
+  `HeaderedContentControl.badge`). A date picker or dialog service belongs in a separate
+  `Fili.Theme.MudAvalonia.*` package.
+- **One package, one dependency: `Avalonia`.** `Avalonia.Controls.DataGrid` is built against
+  (`PrivateAssets="all"`) and not passed on; in an app that references it, its controls are
+  themed by type with nothing to opt into. **Its types are named only under
+  `Themes/Optional/DataGrid/`**, which FiliTheme.axaml's `OptionalStyleInclude` loads by URI
+  once the assembly is there at its `MinimumVersion` (an older one is skipped with a warning).
+  A DataGrid selector anywhere else takes the theme down at startup in every app without the
+  package; `OptionalBoundaryTests` names the line, `NoDataGridTests` is that app. Another
+  control package joins the same way: a folder under `Themes/Optional/`, one include line,
+  `MinimumVersion` equal to its version in `Directory.Packages.props`.
 
 ## The one rule
 
@@ -79,6 +89,8 @@ One line each; [`docs/traps.md`](docs/traps.md) has the full account and the tes
   down with them.
 - Every `TemplatedControl` clips to its bounds: a template that draws past its edge (a shadow, a
   floated label, a badge) sets `ClipToBounds="False"`. And never clip a `Border` that has a shadow.
+- An optional package's types live only in its `Themes/Optional/` folder; one anywhere else breaks
+  every app without the package, and the main suite cannot see it.
 - RTL needs nothing from a template - do not "fix" hardcoded `Left`/`Right`. A glyph that must not
   mirror opts out.
 

@@ -16,7 +16,7 @@ Simple theme at 12.1.3**, rebased onto this package and repaletted by a single h
 `Themes/Base/Accents.axaml`, which redefines the ~96 resource keys those templates paint from in
 terms of Fili tokens. One file repalettes all 79.
 
-On top of that sit **hand-written Material control themes for 40 of the 89 templated control
+On top of that sit **hand-written Material control themes for 46 of the 95 templated control
 types**, which win over their forked counterparts because `FiliTheme.axaml` is included second:
 
 | | |
@@ -29,6 +29,7 @@ types**, which win over their forked counterparts because `FiliTheme.axaml` is i
 | Menus and overlays | `Menu`, `MenuItem`, `ContextMenu`, `ToolTip`, `FlyoutPresenter`, `MenuFlyoutPresenter` |
 | Notifications | `NotificationCard`, `WindowNotificationManager` |
 | Opt-in through a class | `HeaderedContentControl` (`badge`, MudBadge) |
+| Data grid (the `Avalonia.Controls.DataGrid` package, when the app has it) | `DataGrid`, `DataGridColumnHeader`, `DataGridRow`, `DataGridCell`, `DataGridRowHeader`, `DataGridRowGroupHeader` |
 
 `StandaloneReadinessTests` pins that list — and the count — so neither can drift without a failing
 build, and so an Avalonia version that adds control types shows up as a failure rather than as a
