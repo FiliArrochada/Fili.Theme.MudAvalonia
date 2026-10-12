@@ -75,9 +75,9 @@ public class ClassVocabularyTests
         "bottom-center", "bottom-left", "bottom-right", "center-center", "center-left",
         "center-right", "top-center", "top-left",
 
-        // Behaviour parameters named as MudBlazor names them: HelperTextOnFocus on a field, and
-        // MudSkeleton's Animation.False and Animation.Wave.
-        "helper-on-focus", "no-animation", "wave",
+        // Behaviour parameters named as MudBlazor names them: HelperTextOnFocus on a field,
+        // MudSkeleton's Animation.False and Animation.Wave, and MudDataGrid's Hover.
+        "helper-on-focus", "hover", "no-animation", "wave",
 
         // MudSlider's ValueLabel.
         "value-label",

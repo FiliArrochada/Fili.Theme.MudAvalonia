@@ -4,7 +4,7 @@ What this theme does not do, and why. Per-parameter differences are in
 [MudBlazor parity](mudblazor-parity.md).
 
 
-**40 of the 89 templated control types are hand-written**; the other 49 wear forked Simple
+**46 of the 95 templated control types are hand-written**; the other 49 wear forked Simple
 templates repaletted onto these tokens. Nothing is invisible and nothing external is required —
 the remaining gap is Material *shape*, not colour.
 
@@ -39,10 +39,16 @@ hits them:
   `TabbedPage`, and was never in scope. `GroupBox` has no MudBlazor counterpart at all: the
   nearest things are `MudCard` and `MudPaper`, which are different shapes, so theming it would be
   invention rather than transcription.
-- **The date and time pickers** (`Calendar` and its four helpers, `DatePicker`, `TimePicker`) and
-  **`TableView`**. These are not restyling jobs: `MudDatePicker` and `MudTable` are bespoke
-  components, so matching them means a rewrite per template with no shortcut. A real data grid is
-  explicitly out of scope for this package.
+- **The date and time pickers** (`Calendar` and its four helpers, `DatePicker`, `TimePicker`).
+  These are not restyling jobs: `MudDatePicker` is a bespoke component, so matching it means a
+  rewrite per template with no shortcut.
+- **`TableView`**, Avalonia's newer table. MudDataGrid's look is on the `DataGrid` package's
+  control instead, the one apps use.
+- **What MudDataGrid does beyond its look.** No column options menu, no filter row, no pager, no
+  column resize handle; a nested group's header is not indented 48px per level, because
+  Avalonia's indent would move the data rows too; and a dense grid's last column keeps 24px on
+  its right where MudBlazor gives it 16. A selected row is tinted although MudDataGrid draws
+  none - see [Data grid](controls.md#data-grid).
 
 And the things that are not controls:
 

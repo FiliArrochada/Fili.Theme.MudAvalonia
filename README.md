@@ -32,6 +32,7 @@ src/Fili.Theme.MudAvalonia.Gallery.Desktop  desktop head
 src/Fili.Theme.MudAvalonia.Gallery.Browser  browser head (WebAssembly), deployed to GitHub Pages
 tst/Fili.Theme.MudAvalonia.UnitTests        headless resource-resolution tests
 tst/Fili.Theme.MudAvalonia.PixelTests       gallery frames diffed against committed PNGs
+tst/Fili.Theme.MudAvalonia.NoDataGridTests  the theme in an app without the DataGrid package
 ```
 
 ## Install
@@ -58,7 +59,7 @@ version-less.
 |---|---|
 | Package | [`Fili.MudAvalonia.Theme`](https://www.nuget.org/packages/Fili.MudAvalonia.Theme) on nuget.org, with symbols (`.snupkg`) |
 | Target framework | `net10.0` |
-| Depends on | `Avalonia` 12.1.3 or later, and nothing else - no `Avalonia.Themes.*` package |
+| Depends on | `Avalonia` 12.1.3 or later, and nothing else - no `Avalonia.Themes.*` package. `Avalonia.Controls.DataGrid` is optional: built against 12.1.2, themed when the app references it |
 | Fonts | Roboto (Light, Regular, Medium) embedded, under the SIL Open Font License |
 | Licence | MIT |
 
@@ -121,7 +122,7 @@ base became a fork of Simple that this repo owns, the hazard went with it: a `Te
 `Variant.Outlined`, `Variant.Text` and `Variant.Filled` — API familiarity is the point of this
 package, so they are not namespaced to `mud-primary` or hidden behind an attached property.
 
-**All 105 of them, which is the list to grep an app against before adopting:**
+**All 106 of them, which is the list to grep an app against before adopting:**
 
 | | |
 |---|---|
@@ -134,7 +135,7 @@ package, so they are not namespaced to `mud-primary` or hidden behind an attache
 | Component | `icon`, `chip`, `fab`, `extended`, `alert`, `avatar`, `badge`, `card`, `skeleton`, `circle`, `rectangle`, `counter`, `circular` |
 | Card parts | `card-header`, `card-header-avatar`, `card-header-content`, `card-header-actions`, `card-media`, `card-content`, `card-actions` |
 | Badge (`Origin`, `Dot`, `Bordered`, `Overlap`) | `top-left`, `top-center`, `center-left`, `center-center`, `center-right`, `bottom-left`, `bottom-center`, `bottom-right`, `dot`, `bordered`, `overlap` |
-| Behaviour | `helper-on-focus`, `no-animation`, `value-label`, `striped`, `wave` |
+| Behaviour | `helper-on-focus`, `hover`, `no-animation`, `value-label`, `striped`, `wave` |
 | Icons in content | `start-icon`, `end-icon` |
 | Tab indicator colour (`SliderColor`) | `slider-primary`, `slider-secondary`, `slider-tertiary`, `slider-info`, `slider-success`, `slider-warning`, `slider-error`, `slider-dark` |
 | Unchecked colour (`UncheckedColor`) | `unchecked-primary`, `unchecked-secondary`, `unchecked-tertiary`, `unchecked-info`, `unchecked-success`, `unchecked-warning`, `unchecked-error`, `unchecked-dark` |
@@ -194,6 +195,13 @@ one like everything else.
 The card's parts are classes on whatever lays it out. [Controls](docs/controls.md#fabs-avatars-badges-and-cards)
 has the details.
 
+**A `DataGrid` is MudDataGrid with nothing to opt into.** The package does not depend on
+`Avalonia.Controls.DataGrid`; it is built against it, and when the app references it (12.1.2 or
+later) the theme finds it and themes its controls by type, so a grid on screen is surface at
+elevation 1 with MudDataGrid's header, rows and sort arrow. `dense`, `striped`, `bordered` and
+`hover` are its `Dense`, `Striped`, `Bordered` and `Hover`; `outlined`, `square` and the elevation
+classes are the paper's. [Controls](docs/controls.md#data-grid) has the rest.
+
 ### One rule for adopters: no blanket metric styles
 
 The type ramp sets `LineHeight` and `LetterSpacing` on its own classes — `body2`, `h4`, `caption`
@@ -217,7 +225,7 @@ clip, and `UnclassedTextKeepsItsNaturalLineHeight` keeps it that way.
 
 [Controls](docs/controls.md) is the usage guide, one section per control: buttons, split and
 drop-down buttons, text fields, selection controls, slider and tabs, progress, dividers, panels
-and links, FABs, avatars, badges and cards, the drawer, snackbars, right to left, high contrast,
+and links, FABs, avatars, badges and cards, the data grid, the drawer, snackbars, right to left, high contrast,
 keyboard focus, the converters,
 lists and selects, scrolling and menus, and overlays.
 
@@ -343,9 +351,9 @@ publish to nuget.org and its one-time setup. [Versions](docs/versions.md) is the
 
 ## Known gaps
 
-40 of the 89 templated control types are hand-written; the other 49 wear forked Simple
+46 of the 95 templated control types are hand-written; the other 49 wear forked Simple
 templates repaletted onto these tokens, each classified with a reason. There is no ripple, no
-uppercase button text, no date or time picker restyle and no data grid. [Known gaps](docs/known-gaps.md)
+uppercase button text and no date or time picker restyle. [Known gaps](docs/known-gaps.md)
 has the full list and the reason for each.
 
 ## Where the light palette's colours come from

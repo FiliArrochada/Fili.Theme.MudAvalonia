@@ -1,0 +1,59 @@
+<!--
+  MudDataGrid, loaded by FiliTheme.axaml's OptionalStyleInclude only when the app has
+  Avalonia.Controls.DataGrid 12.1.2 or later.
+
+  THE BOUNDARY: Avalonia.Controls.DataGrid's types are named in this folder and nowhere else. An
+  app without the package never loads these two files, so it never asks for the assembly; a
+  DataGrid selector or type anywhere else would take the whole theme down at startup in that app.
+  OptionalBoundaryTests names the file and line that crosses it, and NoDataGridTests is the app.
+-->
+<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+  <Styles.Resources>
+    <ResourceDictionary>
+      <ResourceDictionary.MergedDictionaries>
+        <ResourceInclude Source="avares://Fili.Theme.MudAvalonia/Themes/Optional/DataGrid/DataGrid.axaml" />
+      </ResourceDictionary.MergedDictionaries>
+    </ResourceDictionary>
+  </Styles.Resources>
+
+  <!--
+    MudDataGrid's row states, from _table.scss. Here rather than in DataGrid.axaml because a row's
+    theme cannot see its grid's classes, and in this order because the later style wins: a stripe,
+    then `hover`, which replaces the stripe under the pointer as `.mud-table-hover.mud-table-striped`
+    does, then selection - this theme's one addition to MudDataGrid, which draws none.
+  -->
+  <Style Selector="DataGrid.striped DataGridRow /template/ Border#PART_Stripe">
+    <Setter Property="Background" Value="{DynamicResource FiliTableStripedBrush}" />
+  </Style>
+  <Style Selector="DataGrid.hover DataGridRow:pointerover /template/ Rectangle#BackgroundRectangle">
+    <Setter Property="Fill" Value="{DynamicResource FiliTableHoverBrush}" />
+  </Style>
+  <Style Selector="DataGrid.hover DataGridRow:pointerover /template/ Border#PART_Stripe">
+    <Setter Property="Background" Value="Transparent" />
+  </Style>
+  <Style Selector="DataGridRow:selected /template/ Rectangle#BackgroundRectangle">
+    <Setter Property="Fill" Value="{DynamicResource FiliPrimaryHoverBrush}" />
+  </Style>
+  <Style Selector="DataGridRow:selected /template/ Border#PART_Stripe">
+    <Setter Property="Background" Value="Transparent" />
+  </Style>
+
+  <!-- `.mud-table-dense`: 6px 24px 6px 16px on every cell, the headers' too, and a 39px header row
+       ($header-height-dense); the group row's expander drops to 4px round its icon. -->
+  <Style Selector="DataGrid.dense DataGridCell">
+    <Setter Property="Padding" Value="16,6,24,6" />
+  </Style>
+  <Style Selector="DataGrid.dense DataGridColumnHeader">
+    <Setter Property="Padding" Value="16,0,24,0" />
+    <Setter Property="MinHeight" Value="39" />
+  </Style>
+  <Style Selector="DataGrid.dense DataGridRowGroupHeader">
+    <Setter Property="Padding" Value="16,6,0,6" />
+  </Style>
+  <Style Selector="DataGrid.dense DataGridRowGroupHeader /template/ ToggleButton#PART_ExpanderButton">
+    <Setter Property="Padding" Value="4" />
+  </Style>
+
+</Styles>

@@ -318,6 +318,39 @@ Four more MudBlazor components that are a look on a control Avalonia already has
   and actions dock to the sides and the content goes LAST so it fills. A `card-media` that comes
   first takes the card's top corners.
 
+## Data grid
+
+Avalonia's own `DataGrid`, from the `Avalonia.Controls.DataGrid` package, is MudDataGrid with
+nothing to opt into. This package does not pull it in: reference it in the app (12.1.2 or later,
+the version the theme is built against) and the theme picks it up. An app without it never
+downloads it and never loads the DataGrid rules; an app on an older version keeps the package's
+own look, and Avalonia's log says why, rather than getting templates that name parts it lacks.
+
+```xml
+<DataGrid ItemsSource="{Binding Elements}">                    elevation 1, no hover
+  <DataGrid.Columns>
+    <DataGridTextColumn Header="Name" Binding="{Binding Name}" />
+  </DataGrid.Columns>
+</DataGrid>
+<DataGrid Classes="dense striped bordered hover" ItemsSource="…" />
+<DataGrid Classes="outlined square" ItemsSource="…" />
+```
+
+- **Hover is off, and so are the stripes.** `MudDataGrid.Hover` and `Striped` default to false;
+  `hover` and `striped` turn them on, and under the pointer the hover replaces the stripe.
+- **A selected row is tinted, which MudDataGrid never does.** Its selection is a checkbox column's
+  job, so transcribed exactly, an Avalonia grid's selection would be invisible. It takes what
+  MudBlazor draws for a selected list row instead: primary-hover.
+- **The sort arrow sits at the far end of the header**, where `.sortable-column-header` taking
+  the width puts it, not next to the title: ArrowUpward, 18px in a 5px icon button, action-default,
+  hidden until the column is sorted and turned for descending. The header has no column menu,
+  filter or resize handle.
+- **The last row has no rule under it**, as `.mud-table-root` takes it away. Rows cannot tell they
+  are last, so the rows reach 1px past the grid's clip instead.
+- **Grouping** is a `DataGridCollectionView` with `GroupDescriptions`: background-gray rows,
+  "Title: Key" in bold, no count. A nested group's header is not indented, because Avalonia's
+  indent would move the data rows under it too, which MudBlazor never does.
+
 ## The drawer, and a third way to theme a control
 
 `SplitView` is MudDrawer, and it is the one control here treated with **styles rather than a
@@ -514,6 +547,8 @@ for something XAML cannot express on its own:
   only draws lines.
 - **`BadgeContentConverter`** caps a numeric badge at `MudBadge.Max`'s default: an `int` over 99
   reads `99+`. A binding cannot compare.
+- **`StripedRowConverter`** tells `striped` which rows to paint from `DataGridRow.Index`. Avalonia
+  12's DataGrid has no alternating row brush, and a binding cannot take a remainder.
 
 Compiled XAML in the same assembly can construct an `internal` type, so being internal costs
 nothing and keeps the public surface at that one type. Reach for one only after establishing

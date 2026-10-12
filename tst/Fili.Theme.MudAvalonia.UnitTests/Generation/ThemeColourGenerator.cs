@@ -32,6 +32,7 @@ public static class ThemeColourGenerator
     public const string FabLabel = "fab variants, colours and sizes.";
     public const string BadgeLabel = "badge origins, colours and elevation.";
     public const string AvatarLabel = "avatar colours.";
+    public const string DataGridLabel = "data grid elevation.";
     public const string AlertLabel = "alert colours.";
     public const string TabsLabel = "tab bar colours.";
     public const string AppBarLabel = "app bar colours.";
@@ -65,6 +66,7 @@ public static class ThemeColourGenerator
             (Controls("Chip.axaml"), ChipLabel, ChipRegion()),
             (Controls("Fab.axaml"), FabLabel, FabRegion()),
             (Controls("Badge.axaml"), BadgeLabel, BadgeRegion()),
+            (Path.Combine("Themes", "Optional", "DataGrid", "DataGrid.axaml"), DataGridLabel, DataGridRegion()),
             (FiliThemePath, AlertLabel, AlertRegion()),
             (FiliThemePath, AvatarLabel, AvatarRegion()),
             (FiliThemePath, TabsLabel, TabsRegion()),
@@ -956,6 +958,10 @@ public static class ThemeColourGenerator
 
         return o.ToString();
     }
+
+    // Optional/DataGrid/DataGrid.axaml: MudDataGrid's Elevation, on the Border its template draws the table with.
+    private static string DataGridRegion() =>
+        string.Concat(Elevations.Select(level => Style($"^.elevation{level} /template/ Border#DataGridBorder", ("BoxShadow", Res($"FiliElevation{level}")))));
 
     /// <summary>The elevation classes the theme publishes, as on a Border.</summary>
     public static readonly int[] Elevations = [0, 1, 2, 4, 6, 8, 12, 16, 24];

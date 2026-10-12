@@ -1,6 +1,7 @@
 <UserControl xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:notifications="using:Avalonia.Controls.Notifications"
+             xmlns:v="using:Fili.Theme.MudAvalonia.Gallery.Views"
              x:Class="Fili.Theme.MudAvalonia.Gallery.Views.ControlStatesView">
 
   <ScrollViewer x:Name="Page">
@@ -315,6 +316,53 @@
                    MaxWidth="760"
                    HorizontalAlignment="Left"
                    Text="These are classes too. fab on a Button is MudFab: filled, grey and 56px by default, at elevation 6, lifting to 8 on hover and 12 on press; medium and small are 48 and 40px and extended is the pill MudFab draws for a Label. avatar on a Border is MudAvatar, 40px and filled; text is its bare white-on-grey variant. badge on a HeaderedContentControl is MudBadge: Content is what it decorates and Header the badge, an int over 99 reads 99+, and a null Header hides it. card on a Border is MudCard, at elevation 1, and its parts are classes on what lays it out: card-header, card-media, card-content and card-actions." />
+      </StackPanel>
+
+      <!-- Data grid -->
+      <StackPanel Spacing="8">
+        <Separator Margin="0,8,0,0" />
+        <TextBlock Classes="h5" Tag="section" Text="Data grid" Margin="0,8,0,4" />
+
+        <TextBlock Classes="overline" Text="No class: MudDataGrid's defaults, sorted by name" />
+        <DataGrid x:Name="PlainGrid" Width="760" HorizontalAlignment="Left" Margin="0,0,0,8">
+            <DataGrid.Columns>
+              <DataGridTextColumn Header="Nr" Binding="{Binding Number}" x:DataType="v:GalleryElement" />
+              <DataGridTextColumn Header="Sign" Binding="{Binding Sign}" x:DataType="v:GalleryElement" />
+              <DataGridTextColumn Header="Name" Binding="{Binding Name}" x:DataType="v:GalleryElement" Width="*" />
+              <DataGridTextColumn Header="Position" Binding="{Binding Position}" x:DataType="v:GalleryElement" />
+              <DataGridTextColumn Header="Molar mass" Binding="{Binding Molar}" x:DataType="v:GalleryElement" />
+              <DataGridTextColumn Header="Group" Binding="{Binding Group}" x:DataType="v:GalleryElement" />
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <TextBlock Classes="overline" Text="dense striped bordered hover, a row selected" />
+        <DataGrid x:Name="OptionsGrid" Classes="dense striped bordered hover" Width="760" HorizontalAlignment="Left" Margin="0,0,0,8">
+            <DataGrid.Columns>
+              <DataGridTextColumn Header="Nr" Binding="{Binding Number}" x:DataType="v:GalleryElement" />
+              <DataGridTextColumn Header="Sign" Binding="{Binding Sign}" x:DataType="v:GalleryElement" />
+              <DataGridTextColumn Header="Name" Binding="{Binding Name}" x:DataType="v:GalleryElement" Width="*" />
+              <DataGridTextColumn Header="Position" Binding="{Binding Position}" x:DataType="v:GalleryElement" />
+              <DataGridTextColumn Header="Molar mass" Binding="{Binding Molar}" x:DataType="v:GalleryElement" />
+              <DataGridTextColumn Header="Group" Binding="{Binding Group}" x:DataType="v:GalleryElement" />
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <TextBlock Classes="overline" Text="outlined square, grouped" />
+        <DataGrid x:Name="GroupedGrid" Classes="outlined square dense" Width="760" HorizontalAlignment="Left">
+            <DataGrid.Columns>
+              <DataGridTextColumn Header="Nr" Binding="{Binding Number}" x:DataType="v:GalleryElement" />
+              <DataGridTextColumn Header="Sign" Binding="{Binding Sign}" x:DataType="v:GalleryElement" />
+              <DataGridTextColumn Header="Name" Binding="{Binding Name}" x:DataType="v:GalleryElement" Width="*" />
+              <DataGridTextColumn Header="Position" Binding="{Binding Position}" x:DataType="v:GalleryElement" />
+              <DataGridTextColumn Header="Molar mass" Binding="{Binding Molar}" x:DataType="v:GalleryElement" />
+              <DataGridTextColumn Header="Group" Binding="{Binding Group}" x:DataType="v:GalleryElement" />
+            </DataGrid.Columns>
+        </DataGrid>
+        <TextBlock Classes="caption"
+                   TextWrapping="Wrap"
+                   MaxWidth="760"
+                   HorizontalAlignment="Left"
+                   Text="Avalonia's own DataGrid needs nothing to look like MudDataGrid: surface at elevation 1, subtitle2 headers in a 59px row, body2 cells 16px round with a table-lines rule under every row but the last, and MudIconButton's ArrowUpward at the end of a sorted header. dense, striped, bordered and hover are MudDataGrid's Dense, Striped, Bordered and Hover; outlined and square are the paper's. MudDataGrid does not draw a selected row, so selection borrows a selected list row's primary-hover." />
       </StackPanel>
 
       <!-- Selection -->

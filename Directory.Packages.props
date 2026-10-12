@@ -13,6 +13,9 @@
     <PackageVersion Include="Avalonia.Headless" Version="12.1.3" />
     <PackageVersion Include="Avalonia.Skia" Version="12.1.3" />
     <PackageVersion Include="Avalonia.Browser" Version="12.1.3" />
+    <!-- Versioned apart from Avalonia since 12: 12.1.2 is the newest, built against Avalonia 12.1.0.
+         The theme builds against it without passing it on; the gallery and the tests reference it. -->
+    <PackageVersion Include="Avalonia.Controls.DataGrid" Version="12.1.2" />
     <PackageVersion Include="AvaloniaUI.DiagnosticsSupport" Version="2.2.3" />
   </ItemGroup>
 

@@ -1,0 +1,538 @@
+<!--
+  DataGrid: MudDataGrid, on Avalonia's own DataGrid (the Avalonia.Controls.DataGrid package). Nothing
+  to opt into: in an app that has the package, a DataGrid on screen is a MudDataGrid. This package
+  only builds against it; DataGridStyles.axaml, beside this file, merges it, and only when it is
+  there - the boundary is that file's to explain.
+
+  ONE STATIC REFERENCE OUT OF THIS FOLDER: DataGridCellTextBoxTheme is BasedOn FiliStandardTextBox,
+  which has to be a StaticResource. It resolves because OptionalStyleInclude hands the theme above
+  to the loader; DataGridTests pins the link. Every other outside reference is dynamic.
+
+    <DataGrid ItemsSource="{Binding Elements}" />                       elevation 1, no hover
+    <DataGrid Classes="dense hover striped" ItemsSource="…" />
+    <DataGrid Classes="outlined square bordered" ItemsSource="…" />
+
+  Transcribed from Styles/components/_table.scss (MudDataGrid IS a `.mud-table`), _datagrid.scss
+  and Components/DataGrid/MudDataGrid.razor.cs and HeaderCell.razor:
+
+    the table       `.mud-table`: text-primary on surface, the default radius, Elevation 1 by
+                    default; `outlined` is a 1px lines-default line and no elevation at all,
+                    `square` no radius, the elevation classes replace the 1
+    a header cell   subtitle2 (14px, 500, a 22px line), 16px round, a 59px row (39px dense) -
+                    the heights _table.scss records as $header-height; no line between headers,
+                    even when bordered, because MudDataGrid never adds `table-head-bordered`
+    a body cell     body2 (14px, a 20px line), 16px round, and a 1px table-lines line under the
+                    row - but not under the last one, which `.mud-table-root` takes away
+    Dense           `dense`: 6px 24px 6px 16px
+    Hover           `hover`: table-hover under the pointer. Off by default, as in MudBlazor
+    Striped         `striped`: table-striped on the 1st, 3rd, 5th… row; hover still wins
+    Bordered        `bordered`: a table-lines line between body cells, never after the last
+    the sort icon   MudIconButton Size.Small with ArrowUpward: 18px inside 5px, 4px from the title
+                    and at the far end of the cell, as `.sortable-column-header` takes the width;
+                    action-default, hidden until sorted, 0.8 while the header is hovered, turned
+                    180 degrees for descending - 300ms on the opacity and 200ms on the turn
+    a group row     `.mud-datagrid-group`: background-gray, "Title: Key" in bold, ExpandMore /
+                    ChevronRight in a 48px icon button, 48px further in per level
+
+  ONE DELIBERATE DEPARTURE: a selected row. MudDataGrid does not draw selection at all - it is a
+  checkbox column's job - so transcribed exactly, an Avalonia grid's selection would be invisible.
+  It borrows what MudBlazor DOES draw for a selected list row: primary-hover, the colour at 6%.
+
+  The last row's line: rows cannot tell they are last (they live in a recycling panel), so the rows
+  presenter reaches 1px past the bottom of the grid's clip and the last line falls outside it.
+
+  The row-state styles (`hover`, `striped`, selection) and `dense` live in DataGridStyles.axaml,
+  not here: a row's theme cannot see its grid's classes, and a Style outranks a ControlTheme, so
+  they have to be styles in a known order.
+-->
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:collections="using:Avalonia.Collections"
+                    xmlns:fili="using:Fili.Theme.MudAvalonia.Converters">
+
+  <fili:StripedRowConverter x:Key="FiliStripedRow" />
+
+  <!-- Icons/Material/Filled.cs ArrowUpward, the default MudDataGrid.SortIcon. -->
+  <StreamGeometry x:Key="FiliArrowUpwardGeometry">M4 12l1.41 1.41L11 7.83V20h2V7.83l5.58 5.59L20 12l-8-8-8 8z</StreamGeometry>
+
+  <!-- A cell's text: body2, which `.mud-table-body .mud-table-cell` sets. The cell pads it. -->
+  <ControlTheme x:Key="DataGridCellTextBlockTheme" TargetType="TextBlock">
+    <Setter Property="Margin" Value="0" />
+    <Setter Property="VerticalAlignment" Value="Center" />
+    <Setter Property="LineHeight" Value="{DynamicResource FiliBody2LineHeight}" />
+    <Setter Property="LetterSpacing" Value="{DynamicResource FiliBody2LetterSpacing}" />
+  </ControlTheme>
+
+  <!-- `.edit-mode-cell`: the field loses its resting line (`.mud-input:before { content: none }`)
+       and its margins, and takes the cell's font size. The focused line stays: the rule meant to
+       remove it is written `&after`, without the colon, so it matches nothing. -->
+  <ControlTheme x:Key="DataGridCellTextBoxTheme" TargetType="TextBox" BasedOn="{StaticResource FiliStandardTextBox}">
+    <Setter Property="MinHeight" Value="0" />
+    <Setter Property="MinWidth" Value="0" />
+    <Setter Property="FontSize" Value="{DynamicResource FiliBody2FontSize}" />
+    <Setter Property="VerticalAlignment" Value="Center" />
+    <Style Selector="^ /template/ Border#PART_Underline">
+      <Setter Property="IsVisible" Value="False" />
+    </Style>
+  </ControlTheme>
+
+  <ControlTheme x:Key="FiliDataGridCell" TargetType="DataGridCell">
+    <Setter Property="Background" Value="Transparent" />
+    <!-- `.mud-table-cell`: padding 16px. -->
+    <Setter Property="Padding" Value="16" />
+    <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+    <Setter Property="VerticalContentAlignment" Value="Center" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Border x:Name="CellBorder"
+                Background="{TemplateBinding Background}"
+                BorderBrush="{TemplateBinding BorderBrush}"
+                BorderThickness="{TemplateBinding BorderThickness}"
+                CornerRadius="{TemplateBinding CornerRadius}">
+          <Grid ColumnDefinitions="*,Auto">
+            <ContentPresenter Margin="{TemplateBinding Padding}"
+                              HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                              VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                              Content="{TemplateBinding Content}"
+                              ContentTemplate="{TemplateBinding ContentTemplate}"
+                              Foreground="{TemplateBinding Foreground}" />
+            <Rectangle x:Name="InvalidVisualElement"
+                       IsVisible="False"
+                       IsHitTestVisible="False"
+                       Stroke="{DynamicResource FiliErrorBrush}"
+                       StrokeThickness="1" />
+            <!-- The DataGrid fills and shows this from VerticalGridLinesBrush: `bordered`. -->
+            <Rectangle Name="PART_RightGridLine"
+                       Grid.Column="1"
+                       Width="1"
+                       VerticalAlignment="Stretch" />
+          </Grid>
+        </Border>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^:invalid /template/ Rectangle#InvalidVisualElement">
+      <Setter Property="IsVisible" Value="True" />
+    </Style>
+  </ControlTheme>
+
+  <ControlTheme x:Key="FiliDataGridColumnHeader" TargetType="DataGridColumnHeader">
+    <!-- `.mud-table-head .mud-table-cell`: subtitle2 in text-primary, on the table's own ground. -->
+    <Setter Property="Background" Value="Transparent" />
+    <Setter Property="Foreground" Value="{DynamicResource FiliTextPrimaryBrush}" />
+    <Setter Property="FontSize" Value="{DynamicResource FiliSubtitle2FontSize}" />
+    <Setter Property="FontWeight" Value="Medium" />
+    <Setter Property="LetterSpacing" Value="{DynamicResource FiliSubtitle2LetterSpacing}" />
+    <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+    <Setter Property="VerticalContentAlignment" Value="Center" />
+    <Setter Property="SeparatorBrush" Value="{DynamicResource FiliTableLinesBrush}" />
+    <Setter Property="Padding" Value="16,0" />
+    <!-- $header-height: 59px, the line under the headers included. -->
+    <Setter Property="MinHeight" Value="59" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Border x:Name="HeaderBorder"
+                Background="{TemplateBinding Background}"
+                BorderBrush="{TemplateBinding BorderBrush}"
+                BorderThickness="{TemplateBinding BorderThickness}"
+                CornerRadius="{TemplateBinding CornerRadius}">
+          <Grid x:Name="PART_ColumnHeaderRoot" ColumnDefinitions="*,Auto">
+            <!-- `.column-header`: flex, space-between - the title takes the width and the sort
+                 button sits at the far end. -->
+            <Grid Margin="{TemplateBinding Padding}"
+                  HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                  VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                  ColumnDefinitions="*,Auto">
+              <ContentPresenter x:Name="PART_ContentPresenter"
+                                VerticalAlignment="Center"
+                                LineHeight="{DynamicResource FiliSubtitle2LineHeight}"
+                                Content="{TemplateBinding Content}"
+                                ContentTemplate="{TemplateBinding ContentTemplate}" />
+
+              <!-- `.sort-direction-icon` on a small MudIconButton: 5px round an 18px icon, 4px
+                   from the title, action-default. Opacity and turn are transitioned. -->
+              <Border x:Name="PART_SortButton"
+                      Grid.Column="1"
+                      Margin="4,0,0,0"
+                      Padding="5"
+                      VerticalAlignment="Center"
+                      Opacity="0">
+                <Border.Transitions>
+                  <Transitions>
+                    <DoubleTransition Property="Opacity" Duration="0:0:0.3" Easing="0.4,0,0.2,1" />
+                  </Transitions>
+                </Border.Transitions>
+                <Viewbox x:Name="PART_SortIcon"
+                         Width="18" Height="18"
+                         RenderTransformOrigin="50%,50%"
+                         RenderTransform="rotate(0deg)">
+                  <Viewbox.Transitions>
+                    <Transitions>
+                      <TransformOperationsTransition Property="RenderTransform" Duration="0:0:0.2" Easing="0.4,0,0.2,1" />
+                    </Transitions>
+                  </Viewbox.Transitions>
+                  <Panel Width="24" Height="24">
+                    <Path Data="{StaticResource FiliArrowUpwardGeometry}"
+                          Fill="{DynamicResource FiliActionDefaultBrush}"
+                          Stretch="None" />
+                  </Panel>
+                </Viewbox>
+              </Border>
+            </Grid>
+
+            <!-- Never shown: MudDataGrid draws no line between its headers. -->
+            <Rectangle Name="VerticalSeparator"
+                       Grid.Column="1"
+                       Width="1"
+                       VerticalAlignment="Stretch"
+                       Fill="{TemplateBinding SeparatorBrush}"
+                       IsVisible="False" />
+          </Grid>
+        </Border>
+      </ControlTemplate>
+    </Setter>
+
+    <Style Selector="^:sortascending /template/ Border#PART_SortButton">
+      <Setter Property="Opacity" Value="1" />
+    </Style>
+    <Style Selector="^:sortdescending /template/ Border#PART_SortButton">
+      <Setter Property="Opacity" Value="1" />
+    </Style>
+    <Style Selector="^:sortdescending /template/ Viewbox#PART_SortIcon">
+      <Setter Property="RenderTransform" Value="rotate(180deg)" />
+    </Style>
+    <!-- `.column-header:hover .sort-direction-icon { opacity: 0.8 }`, sorted or not: the hover rule
+         is the more specific one. -->
+    <Style Selector="^:pointerover /template/ Border#PART_SortButton">
+      <Setter Property="Opacity" Value="0.8" />
+    </Style>
+    <Style Selector="^:dragIndicator">
+      <Setter Property="Opacity" Value="0.5" />
+    </Style>
+  </ControlTheme>
+
+  <!-- Row headers are off (HeadersVisibility="Column"), as MudDataGrid has none; shown, they are
+       bare, with a table-lines edge. -->
+  <ControlTheme x:Key="FiliDataGridRowHeader" TargetType="DataGridRowHeader">
+    <Setter Property="SeparatorBrush" Value="{DynamicResource FiliTableLinesBrush}" />
+    <Setter Property="AreSeparatorsVisible" Value="False" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Grid x:Name="PART_Root"
+              ColumnDefinitions="Auto,*"
+              RowDefinitions="*,*,Auto">
+          <Border Grid.RowSpan="3"
+                  Grid.ColumnSpan="2"
+                  BorderBrush="{TemplateBinding SeparatorBrush}"
+                  BorderThickness="0,0,1,0">
+            <Grid Background="{TemplateBinding Background}">
+              <Rectangle x:Name="RowInvalidVisualElement" Stretch="Fill" />
+              <Rectangle x:Name="BackgroundRectangle" Stretch="Fill" />
+            </Grid>
+          </Border>
+          <Rectangle x:Name="HorizontalSeparator"
+                     Grid.Row="2"
+                     Grid.ColumnSpan="2"
+                     Height="1"
+                     HorizontalAlignment="Stretch"
+                     Fill="{TemplateBinding SeparatorBrush}"
+                     IsVisible="{TemplateBinding AreSeparatorsVisible}" />
+          <ContentPresenter Grid.RowSpan="2"
+                            Grid.Column="1"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            Content="{TemplateBinding Content}" />
+        </Grid>
+      </ControlTemplate>
+    </Setter>
+  </ControlTheme>
+
+  <ControlTheme x:Key="FiliDataGridRow" TargetType="DataGridRow">
+    <Setter Property="Background" Value="{Binding $parent[DataGrid].RowBackground}" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Border x:Name="RowBorder"
+                Background="{TemplateBinding Background}"
+                BorderBrush="{TemplateBinding BorderBrush}"
+                BorderThickness="{TemplateBinding BorderThickness}"
+                CornerRadius="{TemplateBinding CornerRadius}">
+          <DataGridFrozenGrid Name="PART_Root"
+                              ColumnDefinitions="Auto,*"
+                              RowDefinitions="*,Auto,Auto">
+
+            <!-- `striped`: shown on the 1st, 3rd, 5th… row; FiliTheme.axaml paints it. -->
+            <Border x:Name="PART_Stripe"
+                    Grid.RowSpan="2"
+                    Grid.ColumnSpan="2"
+                    Background="Transparent"
+                    IsVisible="{Binding Index, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource FiliStripedRow}}" />
+            <!-- Hover and selection, over the stripe; FiliTheme.axaml paints it. -->
+            <Rectangle Name="BackgroundRectangle"
+                       Grid.RowSpan="2"
+                       Grid.ColumnSpan="2"
+                       Fill="Transparent" />
+            <Rectangle x:Name="InvalidVisualElement"
+                       Grid.ColumnSpan="2"
+                       Opacity="0"
+                       Fill="{DynamicResource FiliErrorBrush}" />
+
+            <DataGridRowHeader Name="PART_RowHeader"
+                               Grid.RowSpan="3"
+                               DataGridFrozenGrid.IsFrozen="True" />
+            <DataGridCellsPresenter Name="PART_CellsPresenter"
+                                    Grid.Column="1"
+                                    DataGridFrozenGrid.IsFrozen="True" />
+            <DataGridDetailsPresenter Name="PART_DetailsPresenter"
+                                      Grid.Row="1"
+                                      Grid.Column="1" />
+            <!-- `.mud-table-cell`'s border-bottom; the DataGrid fills it from
+                 HorizontalGridLinesBrush. -->
+            <Rectangle Name="PART_BottomGridLine"
+                       Grid.Row="2"
+                       Grid.Column="1"
+                       Height="1"
+                       HorizontalAlignment="Stretch" />
+          </DataGridFrozenGrid>
+        </Border>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^:invalid /template/ Rectangle#InvalidVisualElement">
+      <Setter Property="Opacity" Value="0.4" />
+    </Style>
+  </ControlTheme>
+
+  <!-- The group row's expander: MudIconButton, round, 12px round a 24px icon, action-default. -->
+  <ControlTheme x:Key="FiliDataGridGroupExpander" TargetType="ToggleButton">
+    <Setter Property="Foreground" Value="{DynamicResource FiliActionDefaultBrush}" />
+    <Setter Property="Background" Value="Transparent" />
+    <Setter Property="Padding" Value="12" />
+    <Setter Property="CornerRadius" Value="999" />
+    <Setter Property="Cursor" Value="Hand" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Border x:Name="PART_Root"
+                Background="{TemplateBinding Background}"
+                CornerRadius="{TemplateBinding CornerRadius}"
+                Padding="{TemplateBinding Padding}">
+          <Panel Width="24" Height="24">
+            <Path x:Name="PART_Glyph"
+                  Data="{DynamicResource FiliChevronRightGeometry}"
+                  Fill="{TemplateBinding Foreground}"
+                  Stretch="None" />
+          </Panel>
+        </Border>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^:pointerover /template/ Border#PART_Root">
+      <Setter Property="Background" Value="{DynamicResource FiliActionDefaultHoverBrush}" />
+    </Style>
+    <Style Selector="^:focus-visible /template/ Border#PART_Root">
+      <Setter Property="Background" Value="{DynamicResource FiliActionDefaultHoverBrush}" />
+    </Style>
+    <Style Selector="^:checked /template/ Path#PART_Glyph">
+      <Setter Property="Data" Value="{DynamicResource FiliExpandMoreGeometry}" />
+    </Style>
+  </ControlTheme>
+
+  <ControlTheme x:Key="FiliDataGridRowGroupHeader" TargetType="DataGridRowGroupHeader">
+    <!-- `.mud-datagrid-group`: background-gray, in a 16px-padded cell. -->
+    <Setter Property="Background" Value="{DynamicResource FiliBackgroundGrayBrush}" />
+    <Setter Property="Foreground" Value="{DynamicResource FiliTextPrimaryBrush}" />
+    <Setter Property="FontSize" Value="{DynamicResource FiliBody2FontSize}" />
+    <!-- The cell's 16px, carried by the expander; the title follows it with no gap. -->
+    <Setter Property="Padding" Value="16,16,0,16" />
+    <!-- MudBlazor shows "Title: Key" and no count. Avalonia's name is the property's display
+         name where MudBlazor's is the column's Title; with no [Display] they are the same word. -->
+    <Setter Property="IsPropertyNameVisible" Value="True" />
+    <Setter Property="IsItemCountVisible" Value="False" />
+    <!-- No indent. `.mud-row-group-indented-{n}` moves only a NESTED group's own header 48px in
+         per level; the data rows under a group are never indented. Avalonia's SublevelIndent
+         moves every row and header under the group, so it stays at 0 and nested group headers
+         sit flush - the one part of grouping not transcribed. -->
+    <Setter Property="SublevelIndent" Value="0" />
+    <Setter Property="Template">
+      <ControlTemplate x:DataType="collections:DataGridCollectionViewGroup">
+        <DataGridFrozenGrid Name="Root"
+                            Background="{TemplateBinding Background}"
+                            ColumnDefinitions="Auto,Auto,Auto,Auto,*"
+                            RowDefinitions="Auto,*,Auto">
+
+          <Rectangle Name="PART_IndentSpacer"
+                     Grid.Row="1"
+                     Grid.Column="1" />
+          <ToggleButton Name="PART_ExpanderButton"
+                        Grid.Row="1"
+                        Grid.Column="2"
+                        Margin="{TemplateBinding Padding}"
+                        VerticalAlignment="Center"
+                        Theme="{StaticResource FiliDataGridGroupExpander}" />
+
+          <!-- font-weight: bold. -->
+          <StackPanel Grid.Row="1"
+                      Grid.Column="3"
+                      VerticalAlignment="Center"
+                      Orientation="Horizontal"
+                      TextElement.FontWeight="Bold">
+            <TextBlock Name="PART_PropertyNameElement"
+                       Margin="0,0,4,0"
+                       LineHeight="{DynamicResource FiliBody2LineHeight}"
+                       IsVisible="{TemplateBinding IsPropertyNameVisible}" />
+            <TextBlock LineHeight="{DynamicResource FiliBody2LineHeight}"
+                       Text="{Binding Key}" />
+            <TextBlock Name="PART_ItemCountElement"
+                       Margin="4,0,0,0"
+                       LineHeight="{DynamicResource FiliBody2LineHeight}"
+                       IsVisible="{TemplateBinding IsItemCountVisible}" />
+          </StackPanel>
+
+          <Rectangle Grid.Row="2"
+                     Grid.ColumnSpan="5"
+                     Height="1"
+                     Fill="{DynamicResource FiliTableLinesBrush}" />
+
+          <DataGridRowHeader Name="RowHeader"
+                             Grid.RowSpan="3"
+                             DataGridFrozenGrid.IsFrozen="True" />
+        </DataGridFrozenGrid>
+      </ControlTemplate>
+    </Setter>
+  </ControlTheme>
+
+  <ControlTheme x:Key="FiliDataGrid" TargetType="DataGrid">
+    <!-- `.mud-table`: text-primary on surface, the default radius, at MudDataGrid.Elevation's 1. -->
+    <Setter Property="Background" Value="{DynamicResource FiliSurfaceBrush}" />
+    <Setter Property="Foreground" Value="{DynamicResource FiliTextPrimaryBrush}" />
+    <Setter Property="FontFamily" Value="{DynamicResource FiliFontFamily}" />
+    <Setter Property="FontSize" Value="{DynamicResource FiliBody2FontSize}" />
+    <Setter Property="CornerRadius" Value="{DynamicResource FiliCornerRadius}" />
+    <Setter Property="BorderBrush" Value="Transparent" />
+    <Setter Property="BorderThickness" Value="0" />
+    <Setter Property="RowBackground" Value="Transparent" />
+    <Setter Property="HeadersVisibility" Value="Column" />
+    <Setter Property="GridLinesVisibility" Value="Horizontal" />
+    <Setter Property="HorizontalGridLinesBrush" Value="{DynamicResource FiliTableLinesBrush}" />
+    <Setter Property="VerticalGridLinesBrush" Value="{DynamicResource FiliTableLinesBrush}" />
+    <Setter Property="HorizontalScrollBarVisibility" Value="Auto" />
+    <Setter Property="VerticalScrollBarVisibility" Value="Auto" />
+    <Setter Property="SelectionMode" Value="Extended" />
+    <!-- Every TemplatedControl clips to its bounds in Avalonia 12, which would cut the elevation
+         off. The rows are clipped by the Grid inside instead. -->
+    <Setter Property="ClipToBounds" Value="False" />
+    <Setter Property="DropLocationIndicatorTemplate">
+      <Template>
+        <Rectangle Width="2" Fill="{DynamicResource FiliPrimaryBrush}" />
+      </Template>
+    </Setter>
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Border x:Name="DataGridBorder"
+                Background="{TemplateBinding Background}"
+                BorderBrush="{TemplateBinding BorderBrush}"
+                BorderThickness="{TemplateBinding BorderThickness}"
+                CornerRadius="{TemplateBinding CornerRadius}"
+                BoxShadow="{DynamicResource FiliElevation1}">
+          <Grid ColumnDefinitions="Auto,*,Auto"
+                RowDefinitions="Auto,*,Auto,Auto"
+                ClipToBounds="True">
+            <DataGridColumnHeader Name="PART_TopLeftCornerHeader" Width="22" />
+            <DataGridColumnHeadersPresenter Name="PART_ColumnHeadersPresenter" Grid.Column="1" />
+            <DataGridColumnHeader Name="PART_TopRightCornerHeader" Grid.Column="2" />
+            <!-- The header cells' border-bottom, 1px of table-lines. -->
+            <Rectangle Name="PART_ColumnHeadersAndRowsSeparator"
+                       Grid.ColumnSpan="3"
+                       Height="1"
+                       VerticalAlignment="Bottom"
+                       Fill="{DynamicResource FiliTableLinesBrush}" />
+
+            <!-- 1px past the clip, so the last row's line is not drawn: `.mud-table-root`
+                 removes the last row's border-bottom. -->
+            <DataGridRowsPresenter Name="PART_RowsPresenter"
+                                   Grid.Row="1"
+                                   Grid.ColumnSpan="2"
+                                   Margin="0,0,0,-1"
+                                   ScrollViewer.IsScrollInertiaEnabled="{TemplateBinding IsScrollInertiaEnabled}">
+              <DataGridRowsPresenter.GestureRecognizers>
+                <ScrollGestureRecognizer CanHorizontallyScroll="True"
+                                         CanVerticallyScroll="True"
+                                         IsScrollInertiaEnabled="{Binding (ScrollViewer.IsScrollInertiaEnabled), ElementName=PART_RowsPresenter}" />
+              </DataGridRowsPresenter.GestureRecognizers>
+            </DataGridRowsPresenter>
+            <Rectangle Name="PART_BottomRightCorner"
+                       Grid.Row="2"
+                       Grid.Column="2"
+                       Fill="Transparent" />
+            <ScrollBar Name="PART_VerticalScrollbar"
+                       AllowAutoHide="{Binding Path=(ScrollViewer.AllowAutoHide), RelativeSource={RelativeSource TemplatedParent}}"
+                       Grid.Row="1"
+                       Grid.Column="2"
+                       Width="{DynamicResource ScrollBarThickness}"
+                       Orientation="Vertical" />
+
+            <Grid Grid.Row="2"
+                  Grid.Column="1"
+                  ColumnDefinitions="Auto,*">
+              <Rectangle Name="PART_FrozenColumnScrollBarSpacer" />
+              <ScrollBar Name="PART_HorizontalScrollbar"
+                         AllowAutoHide="{Binding Path=(ScrollViewer.AllowAutoHide), RelativeSource={RelativeSource TemplatedParent}}"
+                         Grid.Column="1"
+                         Height="{DynamicResource ScrollBarThickness}"
+                         Orientation="Horizontal" />
+            </Grid>
+          </Grid>
+        </Border>
+      </ControlTemplate>
+    </Setter>
+
+    <!-- Size, line and shape. `outlined` comes last: MudPaper adds no elevation at all when it is
+         outlined, whatever Elevation says. -->
+    <Style Selector="^.bordered">
+      <Setter Property="GridLinesVisibility" Value="All" />
+    </Style>
+    <Style Selector="^.square">
+      <Setter Property="CornerRadius" Value="0" />
+    </Style>
+    <!-- GENERATED by ThemeColourGenerator: data grid elevation. -->
+    <Style Selector="^.elevation0 /template/ Border#DataGridBorder">
+      <Setter Property="BoxShadow" Value="{DynamicResource FiliElevation0}" />
+    </Style>
+    <Style Selector="^.elevation1 /template/ Border#DataGridBorder">
+      <Setter Property="BoxShadow" Value="{DynamicResource FiliElevation1}" />
+    </Style>
+    <Style Selector="^.elevation2 /template/ Border#DataGridBorder">
+      <Setter Property="BoxShadow" Value="{DynamicResource FiliElevation2}" />
+    </Style>
+    <Style Selector="^.elevation4 /template/ Border#DataGridBorder">
+      <Setter Property="BoxShadow" Value="{DynamicResource FiliElevation4}" />
+    </Style>
+    <Style Selector="^.elevation6 /template/ Border#DataGridBorder">
+      <Setter Property="BoxShadow" Value="{DynamicResource FiliElevation6}" />
+    </Style>
+    <Style Selector="^.elevation8 /template/ Border#DataGridBorder">
+      <Setter Property="BoxShadow" Value="{DynamicResource FiliElevation8}" />
+    </Style>
+    <Style Selector="^.elevation12 /template/ Border#DataGridBorder">
+      <Setter Property="BoxShadow" Value="{DynamicResource FiliElevation12}" />
+    </Style>
+    <Style Selector="^.elevation16 /template/ Border#DataGridBorder">
+      <Setter Property="BoxShadow" Value="{DynamicResource FiliElevation16}" />
+    </Style>
+    <Style Selector="^.elevation24 /template/ Border#DataGridBorder">
+      <Setter Property="BoxShadow" Value="{DynamicResource FiliElevation24}" />
+    </Style>
+    <!-- END GENERATED -->
+    <Style Selector="^.outlined">
+      <Setter Property="BorderBrush" Value="{DynamicResource FiliLinesDefaultBrush}" />
+      <Setter Property="BorderThickness" Value="1" />
+    </Style>
+    <Style Selector="^.outlined /template/ Border#DataGridBorder">
+      <Setter Property="BoxShadow" Value="{DynamicResource FiliElevation0}" />
+    </Style>
+  </ControlTheme>
+
+  <ControlTheme x:Key="{x:Type DataGrid}" TargetType="DataGrid" BasedOn="{StaticResource FiliDataGrid}" />
+  <ControlTheme x:Key="{x:Type DataGridCell}" TargetType="DataGridCell" BasedOn="{StaticResource FiliDataGridCell}" />
+  <ControlTheme x:Key="{x:Type DataGridColumnHeader}" TargetType="DataGridColumnHeader" BasedOn="{StaticResource FiliDataGridColumnHeader}" />
+  <ControlTheme x:Key="{x:Type DataGridRowHeader}" TargetType="DataGridRowHeader" BasedOn="{StaticResource FiliDataGridRowHeader}" />
+  <ControlTheme x:Key="{x:Type DataGridRow}" TargetType="DataGridRow" BasedOn="{StaticResource FiliDataGridRow}" />
+  <ControlTheme x:Key="{x:Type DataGridRowGroupHeader}" TargetType="DataGridRowGroupHeader" BasedOn="{StaticResource FiliDataGridRowGroupHeader}" />
+
+</ResourceDictionary>
