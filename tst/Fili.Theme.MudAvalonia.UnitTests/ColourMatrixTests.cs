@@ -153,14 +153,31 @@ public class SelectionGlyphMatrixTests
     });
 
     [Theory]
-    [InlineData("small", 20)]
-    [InlineData("large", 36)]
-    public Task SizeScalesTheGlyph(string size, double glyph) => UiThread.RunAsync(() =>
+    [InlineData("small", 20, 44)]
+    [InlineData("large", 36, 60)]
+    public Task SizeScalesTheGlyph(string size, double glyph, double halo) => UiThread.RunAsync(() =>
     {
-        var box = Matrix.Show(new CheckBox { Classes = { size } });
-        var scale = Matrix.Part<LayoutTransformControl>(box, "PART_Scale");
+        foreach (var control in new ToggleButton[] { new CheckBox(), new RadioButton() })
+        {
+            control.Classes.Add(size);
+            Matrix.Show(control);
+            var scale = Matrix.Part<LayoutTransformControl>(control, "PART_Scale");
 
-        Assert.Equal(glyph, 24 * scale.LayoutTransform!.Value.M11, 2);
+            Assert.Equal(glyph, 24 * scale.LayoutTransform!.Value.M11, 2);
+            Assert.Equal(halo, Matrix.Part<Shapes.Ellipse>(control, "PART_StateLayer").Bounds.Height);
+        }
+    });
+
+    /// <summary>`.mud-icon-button` pads the glyph 12px, so MudCheckBox's and MudRadio's halo is 48px.</summary>
+    [Fact]
+    public Task TheHaloIs48() => UiThread.RunAsync(() =>
+    {
+        foreach (var control in new ToggleButton[] { new CheckBox(), new RadioButton() })
+        {
+            Matrix.Show(control);
+            Assert.Equal(48, Matrix.Part<Shapes.Ellipse>(control, "PART_StateLayer").Bounds.Width);
+            Assert.Equal(48, Matrix.Part<Shapes.Ellipse>(control, "PART_StateLayer").Bounds.Height);
+        }
     });
 }
 
