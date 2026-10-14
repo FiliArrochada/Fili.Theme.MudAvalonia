@@ -11,8 +11,14 @@
                                   spinners" - so the column is 24 wide, and that is where the
                                   number below comes from rather than from taste)
 
-  Everything else - the underline, the floating label, the accent rule - belongs to the TextBox
-  inside, which already wears Controls/TextBox.axaml. So this theme's real job is to REMOVE the
+  Everything else - the underline, the floating label, the accent rule, the helper line and a
+  validation error - belongs to the TextBox inside, which already wears Controls/TextBox.axaml.
+  The text field's classes (`filled`, `outlined`, `dense`, `error`, `counter`,
+  `helper-on-focus`) are set on the NumericUpDown and mirrored onto it by FieldClasses.
+
+  One difference stays: the spin column is docked BESIDE that TextBox, so its underline stops
+  short of the column, where MudBlazor's spinners sit over the input's full-width line. Moving
+  the column into the TextBox's end slot would size the field to two 28px buttons. So this theme's real job is to REMOVE the
   box the substrate draws around that TextBox: its own border, background and padding would
   otherwise frame a field that is already drawn.
 
@@ -21,7 +27,8 @@
   is looked up too, for the button-location flip.
 -->
 <ResourceDictionary xmlns="https://github.com/avaloniaui"
-                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:theme="using:Fili.Theme.MudAvalonia">
 
   <!-- One spin button: a 24px-wide RepeatButton with 2px of vertical padding and no minimums. -->
   <ControlTheme x:Key="FiliSpinnerButton" TargetType="RepeatButton">
@@ -91,7 +98,7 @@
                               IsTabStop="{TemplateBinding IsTabStop}">
                   <Path Width="24" Height="24"
                         Stretch="None"
-                        Data="{StaticResource FiliArrowDropUpGeometry}"
+                        Data="{DynamicResource FiliArrowDropUpGeometry}"
                         Fill="{DynamicResource FiliActionDefaultBrush}" />
                 </RepeatButton>
                 <RepeatButton x:Name="PART_DecreaseButton"
@@ -99,7 +106,7 @@
                               IsTabStop="{TemplateBinding IsTabStop}">
                   <Path Width="24" Height="24"
                         Stretch="None"
-                        Data="{StaticResource FiliArrowDropDownGeometry}"
+                        Data="{DynamicResource FiliArrowDropDownGeometry}"
                         Fill="{DynamicResource FiliActionDefaultBrush}" />
                 </RepeatButton>
               </UniformGrid>
@@ -137,37 +144,40 @@
 
     <Setter Property="Template">
       <ControlTemplate>
-        <DataValidationErrors>
-          <ButtonSpinner x:Name="PART_Spinner"
-                         Theme="{StaticResource FiliButtonSpinner}"
-                         IsTabStop="False"
-                         Padding="0"
-                         MinWidth="0"
-                         AllowSpin="{TemplateBinding AllowSpin}"
-                         ButtonSpinnerLocation="{TemplateBinding ButtonSpinnerLocation}"
-                         ShowButtonSpinner="{TemplateBinding ShowButtonSpinner}"
-                         HorizontalContentAlignment="Stretch"
-                         VerticalContentAlignment="Stretch">
-            <!-- No Margin and no BorderThickness: the TextBox already IS the field. -->
-            <TextBox x:Name="PART_TextBox"
-                     MinWidth="20"
-                     Margin="0"
-                     Padding="{TemplateBinding Padding}"
-                     Background="Transparent"
-                     BorderThickness="0"
-                     AcceptsReturn="False"
-                     TextWrapping="NoWrap"
-                     ScrollViewer.VerticalScrollBarVisibility="Disabled"
-                     HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
-                     VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
-                     IsReadOnly="{TemplateBinding IsReadOnly}"
-                     Text="{TemplateBinding Text}"
-                     TextAlignment="{TemplateBinding TextAlignment}"
-                     PlaceholderText="{TemplateBinding PlaceholderText}"
-                     InnerLeftContent="{Binding InnerLeftContent, RelativeSource={RelativeSource TemplatedParent}}"
-                     InnerRightContent="{Binding InnerRightContent, RelativeSource={RelativeSource TemplatedParent}}" />
-          </ButtonSpinner>
-        </DataValidationErrors>
+        <!-- No DataValidationErrors around it: the TextBox shows the error in its own helper
+             line, under the field and with the red rule, as MudInputControl does. -->
+        <ButtonSpinner x:Name="PART_Spinner"
+                       Theme="{StaticResource FiliButtonSpinner}"
+                       IsTabStop="False"
+                       Padding="0"
+                       MinWidth="0"
+                       AllowSpin="{TemplateBinding AllowSpin}"
+                       ButtonSpinnerLocation="{TemplateBinding ButtonSpinnerLocation}"
+                       ShowButtonSpinner="{TemplateBinding ShowButtonSpinner}"
+                       HorizontalContentAlignment="Stretch"
+                       VerticalContentAlignment="Stretch">
+          <!-- No Margin and no BorderThickness: the TextBox already IS the field. -->
+          <TextBox x:Name="PART_TextBox"
+                   theme:FieldClasses.Mirrors="True"
+                   DataValidationErrors.Errors="{TemplateBinding (DataValidationErrors.Errors)}"
+                   AutomationProperties.HelpText="{TemplateBinding (AutomationProperties.HelpText)}"
+                   MinWidth="20"
+                   Margin="0"
+                   Padding="{TemplateBinding Padding}"
+                   Background="Transparent"
+                   BorderThickness="0"
+                   AcceptsReturn="False"
+                   TextWrapping="NoWrap"
+                   ScrollViewer.VerticalScrollBarVisibility="Disabled"
+                   HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                   VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+                   IsReadOnly="{TemplateBinding IsReadOnly}"
+                   Text="{TemplateBinding Text}"
+                   TextAlignment="{TemplateBinding TextAlignment}"
+                   PlaceholderText="{TemplateBinding PlaceholderText}"
+                   InnerLeftContent="{Binding InnerLeftContent, RelativeSource={RelativeSource TemplatedParent}}"
+                   InnerRightContent="{Binding InnerRightContent, RelativeSource={RelativeSource TemplatedParent}}" />
+        </ButtonSpinner>
       </ControlTemplate>
     </Setter>
   </ControlTheme>
