@@ -1,6 +1,6 @@
 <!--
   MudDataGrid, loaded by FiliTheme.axaml's OptionalStyleInclude only when the app has
-  Avalonia.Controls.DataGrid 12.1.2 or later.
+  Avalonia.Controls.DataGrid 12.1.0 or later.
 
   THE BOUNDARY: Avalonia.Controls.DataGrid's types are named in this folder and nowhere else. An
   app without the package never loads these two files, so it never asks for the assembly; a
