@@ -18,7 +18,11 @@ namespace Fili.Theme.MudAvalonia.UnitTests;
 /// </summary>
 public class CustomisationTests
 {
-    private static readonly Geometry Heart = Geometry.Parse("M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z");
+    // Parsed on first use, inside a test: a static initialiser runs whenever xunit first touches the
+    // class, which can be before any test has started Avalonia, and a geometry needs its renderer.
+    private static Geometry? _heart;
+
+    private static Geometry Heart => _heart ??= Geometry.Parse("M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z");
 
     /// <summary>CheckedIcon and friends: every glyph is a DynamicResource, so a key set on the control wins.</summary>
     [Fact]
