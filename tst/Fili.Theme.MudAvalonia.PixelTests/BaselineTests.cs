@@ -82,11 +82,27 @@ public class BaselineTests
 
         // Size first, and on its own. A frame that changed height differs in every row below the
         // change, so a pixel count would report a million differences and say nothing; the height
-        // IS the finding, and it usually means a control's measurement changed.
-        Assert.True(
-            actual.Size == baseline.Size,
-            $"{name} rendered {actual.Size} against a baseline of {baseline.Size}. "
-            + "Something changed how the view measures, not only how it paints.");
+        // IS the finding, and it usually means a control's measurement changed. The rendered frame
+        // is still written, and an earlier run's diff removed: a stale pair left beside it would
+        // be reviewed as this run's.
+        var actualPath = Path.Combine(DiffDirectory, $"{name}-actual.png");
+        var diffPath = Path.Combine(DiffDirectory, $"{name}-diff.png");
+
+        if (actual.Size != baseline.Size)
+        {
+            Directory.CreateDirectory(DiffDirectory);
+            Frames.Save(rendered.Bitmap, actualPath);
+            File.Delete(diffPath);
+
+            Assert.Fail(
+                $"""
+                 {name} rendered {actual.Size} against a baseline of {baseline.Size}.
+                 Something changed how the view measures, not only how it paints.
+
+                   rendered: {actualPath}   (no diff: the sizes differ)
+                   baseline: {baselinePath}
+                 """);
+        }
 
         var comparison = Frames.Compare(actual, baseline, rendered.UnstableRegions);
 
@@ -96,9 +112,6 @@ public class BaselineTests
         }
 
         Directory.CreateDirectory(DiffDirectory);
-
-        var actualPath = Path.Combine(DiffDirectory, $"{name}-actual.png");
-        var diffPath = Path.Combine(DiffDirectory, $"{name}-diff.png");
 
         Frames.Save(rendered.Bitmap, actualPath);
         Frames.WriteDiff(diffPath, actual, baseline, rendered.UnstableRegions);

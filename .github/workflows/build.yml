@@ -90,7 +90,7 @@ jobs:
         shell: bash
         run: for p in ${{ matrix.projects }}; do dotnet build "$p" --configuration Release --no-restore; done
 
-      # The fast suite: 554 tests, no rendering, identical everywhere.
+      # The fast suite: 748 tests, no rendering, identical everywhere.
       - name: Test (unit)
         run: >
           dotnet test tst/Fili.Theme.MudAvalonia.UnitTests
@@ -111,7 +111,7 @@ jobs:
           --report-xunit-trx
           --results-directory ${{ github.workspace }}/artifacts/test-results
 
-      # The pixel suite: nine gallery frames, Skia, diffed against committed PNGs. Windows only,
+      # The pixel suite: twelve gallery frames, Skia, diffed against committed PNGs. Windows only,
       # for the reason in the job comment above.
       - name: Test (pixel baselines)
         if: runner.os == 'Windows'
