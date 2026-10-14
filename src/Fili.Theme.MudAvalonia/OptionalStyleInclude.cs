@@ -13,7 +13,7 @@ namespace Fili.Theme.MudAvalonia;
 /// the file loads only when the app has the package, at the version the theme was built against
 /// or later.
 /// <code>
-/// &lt;theme:OptionalStyleInclude Requires="Avalonia.Controls.DataGrid" MinimumVersion="12.1.2"
+/// &lt;theme:OptionalStyleInclude Requires="Avalonia.Controls.DataGrid" MinimumVersion="12.1.0"
 ///                             Source="avares://Fili.Theme.MudAvalonia/Themes/Optional/DataGrid/DataGridStyles.axaml" /&gt;
 /// </code>
 /// </summary>

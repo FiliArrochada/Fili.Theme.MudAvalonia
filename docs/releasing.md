@@ -31,3 +31,31 @@ instead of the runner's directory layout, and Source Link points each file at th
 
 A version cannot be replaced on nuget.org, only unlisted. Re-running a release that failed after
 the push is safe (`--skip-duplicate`), but fixing a bad package means a new version.
+
+## Supported Avalonia versions
+
+The package declares **`Avalonia` 12.1.3 or later**: that is the tag `Themes/Base/` is forked
+from, and the two move together. Measured on 2026-10-13 by building a clean export of the
+repository against each version and running all three suites (unit, pixel, no-DataGrid):
+
+| Avalonia | Result |
+|---|---|
+| 12.0.0 - 12.0.5 | Does not compile: the forked templates use 12.1 API (`ScrollBar.PageUp`, `DatePicker.VerticalContentAlignment`) |
+| 12.1.0, 12.1.1 | Does not compile: the forked date and time picker templates use a property those versions lack |
+| 12.1.2 | Builds; every test passes |
+| **12.1.3** | Builds; every test passes - the declared minimum |
+| 12.1.4 | Builds; every test passes |
+
+12.1.2 is therefore the measured floor, one patch under the declared one. The declared one stays,
+because a fork taken from 12.1.3 and promised on 12.1.2 would be a promise no build checks.
+
+`Avalonia.Controls.DataGrid` is optional and gated at runtime by `MinimumVersion` in
+`FiliTheme.axaml`, equal to its version in `Directory.Packages.props` (`OptionalBoundaryTests`
+pins the two together). Both are **12.1.0**, the first 12.1 release: 12.1.0, 12.1.1 and 12.1.2
+each build and pass every test, and every 12.1 release needs Avalonia 12.1.0 or later. 12.0.x
+needs Avalonia 12.0, which the theme cannot compile against. An app with a DataGrid under the
+gate keeps its grid on the package's own theme, with a warning in Avalonia's log. CI builds and
+tests on 12.1.0, the floor; the newest is checked by the measurement above.
+
+To re-measure after an upgrade, export `HEAD` (`git archive`), set every `Avalonia*` version in
+the copy's `Directory.Packages.props`, and build and test it there; never in the working tree.
