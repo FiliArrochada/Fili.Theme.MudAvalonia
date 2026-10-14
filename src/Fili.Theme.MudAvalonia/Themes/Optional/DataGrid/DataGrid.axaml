@@ -187,7 +187,7 @@
                     </Transitions>
                   </Viewbox.Transitions>
                   <Panel Width="24" Height="24">
-                    <Path Data="{StaticResource FiliArrowUpwardGeometry}"
+                    <Path Data="{DynamicResource FiliArrowUpwardGeometry}"
                           Fill="{DynamicResource FiliActionDefaultBrush}"
                           Stretch="None" />
                   </Panel>

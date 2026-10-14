@@ -223,6 +223,15 @@
     <Setter Property="TextElement.Foreground" Value="{DynamicResource FiliTextPrimaryBrush}" />
   </Style>
 
+  <!--
+    MudAppBar's Elevation defaults to 4. Declared here, ahead of the elevation classes, so that
+    `appbar elevation0` and the rest win over it, as they do over the card's 1; the rest of the
+    app bar is under "App bar" below.
+  -->
+  <Style Selector="Border.appbar">
+    <Setter Property="BoxShadow" Value="{DynamicResource FiliElevation4}" />
+  </Style>
+
   <Style Selector="Border.outlined">
     <Setter Property="BorderBrush" Value="{DynamicResource FiliLinesDefaultBrush}" />
     <Setter Property="BorderThickness" Value="{DynamicResource FiliBorderThickness}" />
@@ -393,6 +402,11 @@
     <Setter Property="Background" Value="{DynamicResource FiliDarkHoverBrush}" />
     <Setter Property="BorderThickness" Value="0" />
     <Setter Property="TextElement.Foreground" Value="{DynamicResource FiliTextPrimaryBrush}" />
+  </Style>
+
+  <!-- MudAlert.Square: `.mud-alert.mud-square`, no radius. -->
+  <Style Selector="Border.alert.square">
+    <Setter Property="CornerRadius" Value="0" />
   </Style>
   <Style Selector="Border.alert.dense">
     <Setter Property="Padding" Value="12,0" />
@@ -853,7 +867,6 @@
   <Style Selector="Border.appbar">
     <Setter Property="Background" Value="{DynamicResource FiliAppbarBackgroundBrush}" />
     <Setter Property="Height" Value="{DynamicResource FiliAppbarHeight}" />
-    <Setter Property="BoxShadow" Value="{DynamicResource FiliElevation4}" />
     <Setter Property="TextElement.Foreground" Value="{DynamicResource FiliAppbarTextBrush}" />
     <!-- MudAppBar.Gutters defaults to true: _toolbar.scss's .mud-toolbar-gutters, 24px a side
          from the sm breakpoint up. An app that wants none sets Padding="0". -->
@@ -862,6 +875,26 @@
   <!-- Dense: .mud-appbar-dense, the bar height less a quarter, 64 -> 48. -->
   <Style Selector="Border.appbar.dense">
     <Setter Property="Height" Value="48" />
+  </Style>
+
+  <!--
+    MudToolBar: `<Border Classes="toolbar">`, from _toolbar.scss. A flex row, centred, 64px high
+    with 24px gutters from the sm breakpoint up (the desktop case); `dense` is 48px and
+    `no-gutters` is Gutters="false", which also works on an app bar. The row is the app's own
+    panel inside; its children are centred, as `align-items: center` centres them.
+  -->
+  <Style Selector="Border.toolbar">
+    <Setter Property="Height" Value="64" />
+    <Setter Property="Padding" Value="24,0" />
+  </Style>
+  <Style Selector="Border.toolbar.dense">
+    <Setter Property="Height" Value="48" />
+  </Style>
+  <Style Selector="Border.toolbar.no-gutters, Border.appbar.no-gutters">
+    <Setter Property="Padding" Value="0" />
+  </Style>
+  <Style Selector="Border.toolbar > :is(Control), Border.toolbar > :is(Panel) > :is(Control)">
+    <Setter Property="VerticalAlignment" Value="Center" />
   </Style>
 
   <!-- MudAppBar's Color is .mud-theme-{color}: the colour as the ground, its contrast text
@@ -1310,7 +1343,7 @@
     style wins. MinimumVersion is the version Directory.Packages.props builds against.
   -->
   <theme:OptionalStyleInclude Requires="Avalonia.Controls.DataGrid"
-                              MinimumVersion="12.1.2"
+                              MinimumVersion="12.1.0"
                               Source="avares://Fili.Theme.MudAvalonia/Themes/Optional/DataGrid/DataGridStyles.axaml" />
 
   <!--
@@ -1338,8 +1371,47 @@
   <Style Selector="Button.chip">
     <Setter Property="Theme" Value="{StaticResource FiliChip}" />
   </Style>
+
+  <!--
+    MudToggleIconButton is `icon` on a ToggleButton: the icon button's look and variants
+    (Themes/Controls/ToggleButton.axaml). A colour class is ToggledColor, shown while checked, and
+    `unchecked-{color}` is Color, shown while not; with neither it is action-default, as both
+    default to Color.Default. ToggledIcon is a second PathIcon: put both in a Panel, Icon first,
+    and the second shows only while checked. Before the chip's, so `chip` wins over `icon`.
+  -->
+  <Style Selector="ToggleButton.icon">
+    <Setter Property="Theme" Value="{StaticResource FiliToggleIconButton}" />
+  </Style>
+  <Style Selector="ToggleButton.icon.outlined">
+    <Setter Property="Theme" Value="{StaticResource FiliOutlinedToggleIconButton}" />
+  </Style>
+  <Style Selector="ToggleButton.icon.filled">
+    <Setter Property="Theme" Value="{StaticResource FiliFilledToggleIconButton}" />
+  </Style>
+  <Style Selector="ToggleButton.icon:checked :is(Panel) > PathIcon:nth-child(1):nth-last-child(2)">
+    <Setter Property="IsVisible" Value="False" />
+  </Style>
+  <Style Selector="ToggleButton.icon:unchecked :is(Panel) > PathIcon:nth-child(2):nth-last-child(1)">
+    <Setter Property="IsVisible" Value="False" />
+  </Style>
   <Style Selector="ToggleButton.chip">
     <Setter Property="Theme" Value="{StaticResource FiliChip}" />
+  </Style>
+
+  <!--
+    DrawerPage's pane toggles are MudLayout's drawer button, a MudIconButton: an action-default
+    icon in a round hover tint, the same open or closed. As plain ToggleButtons they would be
+    MudToggleItem, filled once checked, and the template's own Background="Transparent" beats that
+    fill and leaves the contrast-coloured icon on nothing. The forked template stays as it is, so
+    the toggles take the icon toggle's theme here, with the four values its `icon` class would
+    add: a style cannot add a class. No colour class, so checked looks as unchecked does.
+  -->
+  <Style Selector="DrawerPage /template/ ToggleButton#PART_PaneButton, DrawerPage /template/ ToggleButton#PART_BottomPaneButton, DrawerPage /template/ ToggleButton#PART_CompactPaneToggle">
+    <Setter Property="Theme" Value="{StaticResource FiliToggleIconButton}" />
+    <Setter Property="CornerRadius" Value="999" />
+    <Setter Property="Padding" Value="12" />
+    <Setter Property="MinWidth" Value="0" />
+    <Setter Property="Foreground" Value="{DynamicResource FiliActionDefaultBrush}" />
   </Style>
 
   <!-- MudFab is a theme a Button takes, like a chip, and reads `outlined` and `text` itself as ITS
@@ -1366,19 +1438,19 @@
     (1.125rem), 36px large for a text icon button (`.mud-icon-size-large` 2.25rem) and 32px large
     for an outlined or filled one (2rem). A local Width/Height on the icon still wins.
   -->
-  <Style Selector="Button.icon PathIcon">
+  <Style Selector="Button.icon PathIcon, ToggleButton.icon PathIcon">
     <Setter Property="Width" Value="24" />
     <Setter Property="Height" Value="24" />
   </Style>
-  <Style Selector="Button.icon.small PathIcon">
+  <Style Selector="Button.icon.small PathIcon, ToggleButton.icon.small PathIcon">
     <Setter Property="Width" Value="18" />
     <Setter Property="Height" Value="18" />
   </Style>
-  <Style Selector="Button.icon.large PathIcon">
+  <Style Selector="Button.icon.large PathIcon, ToggleButton.icon.large PathIcon">
     <Setter Property="Width" Value="36" />
     <Setter Property="Height" Value="36" />
   </Style>
-  <Style Selector="Button.icon.large.outlined PathIcon, Button.icon.large.filled PathIcon">
+  <Style Selector="Button.icon.large.outlined PathIcon, Button.icon.large.filled PathIcon, ToggleButton.icon.large.outlined PathIcon, ToggleButton.icon.large.filled PathIcon">
     <Setter Property="Width" Value="32" />
     <Setter Property="Height" Value="32" />
   </Style>
@@ -1544,6 +1616,608 @@
   <Style Selector="SplitView /template/ Rectangle#LightDismissLayer">
     <Setter Property="Fill" Value="{DynamicResource FiliOverlayDarkBrush}" />
   </Style>
+
+  <!-- MudDrawer's Color is .mud-theme-{color}: the pane in the colour, its content in the
+       contrast text. -->
+  <!--
+    MudTooltip's Arrow, on a ToolTip with `arrow`. The ToolTip's logical parent is its Popup, so the
+    placement picks the side: Top puts the arrow under the chip pointing down, Bottom over it
+    pointing up, Left at its right pointing right, Right at its left pointing left - the four
+    `.mud-tooltip-{placement}.mud-tooltip-arrow::after` rules. Pointer, MudBlazor's lack, draws none.
+  -->
+  <Style Selector="Popup[Placement=Top] > ToolTip.arrow /template/ Path#PART_Arrow">
+    <Setter Property="IsVisible" Value="True" />
+  </Style>
+  <Style Selector="Popup[Placement=Bottom] > ToolTip.arrow /template/ Path#PART_Arrow">
+    <Setter Property="IsVisible" Value="True" />
+    <Setter Property="DockPanel.Dock" Value="Top" />
+    <Setter Property="Margin" Value="0,4,0,0" />
+    <Setter Property="Data" Value="M0,6 L12,6 L6,0 Z" />
+  </Style>
+  <Style Selector="Popup[Placement=Left] > ToolTip.arrow /template/ Path#PART_Arrow">
+    <Setter Property="IsVisible" Value="True" />
+    <Setter Property="DockPanel.Dock" Value="Right" />
+    <Setter Property="Width" Value="6" />
+    <Setter Property="Height" Value="12" />
+    <Setter Property="Margin" Value="0,0,4,0" />
+    <Setter Property="Data" Value="M0,0 L6,6 L0,12 Z" />
+  </Style>
+  <Style Selector="Popup[Placement=Right] > ToolTip.arrow /template/ Path#PART_Arrow">
+    <Setter Property="IsVisible" Value="True" />
+    <Setter Property="DockPanel.Dock" Value="Left" />
+    <Setter Property="Width" Value="6" />
+    <Setter Property="Height" Value="12" />
+    <Setter Property="Margin" Value="4,0,0,0" />
+    <Setter Property="Data" Value="M6,0 L0,6 L6,12 Z" />
+  </Style>
+
+  <!-- GENERATED by ThemeColourGenerator: drawer colours. -->
+  <Style Selector="SplitView.primary">
+    <Setter Property="PaneBackground" Value="{DynamicResource FiliPrimaryBrush}" />
+  </Style>
+  <Style Selector="SplitView.primary /template/ ContentPresenter#PART_PanePresenter">
+    <Setter Property="TextElement.Foreground" Value="{DynamicResource FiliPrimaryContrastTextBrush}" />
+  </Style>
+  <Style Selector="SplitView.secondary">
+    <Setter Property="PaneBackground" Value="{DynamicResource FiliSecondaryBrush}" />
+  </Style>
+  <Style Selector="SplitView.secondary /template/ ContentPresenter#PART_PanePresenter">
+    <Setter Property="TextElement.Foreground" Value="{DynamicResource FiliSecondaryContrastTextBrush}" />
+  </Style>
+  <Style Selector="SplitView.tertiary">
+    <Setter Property="PaneBackground" Value="{DynamicResource FiliTertiaryBrush}" />
+  </Style>
+  <Style Selector="SplitView.tertiary /template/ ContentPresenter#PART_PanePresenter">
+    <Setter Property="TextElement.Foreground" Value="{DynamicResource FiliTertiaryContrastTextBrush}" />
+  </Style>
+  <Style Selector="SplitView.info">
+    <Setter Property="PaneBackground" Value="{DynamicResource FiliInfoBrush}" />
+  </Style>
+  <Style Selector="SplitView.info /template/ ContentPresenter#PART_PanePresenter">
+    <Setter Property="TextElement.Foreground" Value="{DynamicResource FiliInfoContrastTextBrush}" />
+  </Style>
+  <Style Selector="SplitView.success">
+    <Setter Property="PaneBackground" Value="{DynamicResource FiliSuccessBrush}" />
+  </Style>
+  <Style Selector="SplitView.success /template/ ContentPresenter#PART_PanePresenter">
+    <Setter Property="TextElement.Foreground" Value="{DynamicResource FiliSuccessContrastTextBrush}" />
+  </Style>
+  <Style Selector="SplitView.warning">
+    <Setter Property="PaneBackground" Value="{DynamicResource FiliWarningBrush}" />
+  </Style>
+  <Style Selector="SplitView.warning /template/ ContentPresenter#PART_PanePresenter">
+    <Setter Property="TextElement.Foreground" Value="{DynamicResource FiliWarningContrastTextBrush}" />
+  </Style>
+  <Style Selector="SplitView.error">
+    <Setter Property="PaneBackground" Value="{DynamicResource FiliErrorBrush}" />
+  </Style>
+  <Style Selector="SplitView.error /template/ ContentPresenter#PART_PanePresenter">
+    <Setter Property="TextElement.Foreground" Value="{DynamicResource FiliErrorContrastTextBrush}" />
+  </Style>
+  <Style Selector="SplitView.dark">
+    <Setter Property="PaneBackground" Value="{DynamicResource FiliDarkBrush}" />
+  </Style>
+  <Style Selector="SplitView.dark /template/ ContentPresenter#PART_PanePresenter">
+    <Setter Property="TextElement.Foreground" Value="{DynamicResource FiliDarkContrastTextBrush}" />
+  </Style>
+  <!-- END GENERATED -->
+
+  <!--
+    MudTreeView.Hover, false by default: only a `hover` tree tints the row under the pointer, in
+    action-default-hover. A Style rather than part of Themes/Controls/TreeView.axaml, because it
+    reaches from the tree to its items and a ControlTheme may not hold a descendant selector.
+    The ROW, not the item: an item is :pointerover while the pointer is anywhere over its
+    children too, which would light a branch's row along with the child's. A selected row keeps
+    its own tint, as `.mud-treeview-item-selected` outranks the hover rule in _treeview.scss.
+  -->
+  <Style Selector="TreeView.hover TreeViewItem:not(:selected) /template/ Border#SelectionBorder:pointerover">
+    <Setter Property="Background" Value="{DynamicResource FiliOverlayHoverBrush}" />
+  </Style>
+
+  <!--
+    MudTreeView.Dense: `.mud-treeview-dense` drops the 32px minimum from the row and the arrow and
+    pads the row 1px 4px.
+  -->
+  <Style Selector="TreeView.dense TreeViewItem">
+    <Setter Property="MinHeight" Value="0" />
+    <Setter Property="Padding" Value="4,1" />
+  </Style>
+  <Style Selector="TreeView.dense TreeViewItem /template/ ToggleButton#PART_ExpandCollapseChevron">
+    <Setter Property="MinHeight" Value="0" />
+  </Style>
+  <!-- MudNavMenu.Dense: `.mud-navmenu-dense .mud-nav-link`, 4px 16px. -->
+  <Style Selector="TreeView.nav.dense TreeViewItem">
+    <Setter Property="Padding" Value="16,4" />
+  </Style>
+
+  <!--
+    MudNavMenu: `nav` on a TreeView swaps every row to the nav link (FiliNavItem, in
+    Themes/Controls/TreeView.axaml). Its options reach from the tree to the rows, so they are
+    here: `dense` (4px 16px), `rounded` (the default radius), `bordered` (a 2px line at the end
+    of the active link, in its colour), the link icon in drawer-icon with 12px before the text,
+    and the colours, which share the tree's selection colours below and add their own.
+  -->
+  <Style Selector="TreeView.nav">
+    <Setter Property="Theme" Value="{StaticResource FiliNavMenu}" />
+  </Style>
+  <Style Selector="TreeView.nav TreeViewItem">
+    <Setter Property="Theme" Value="{StaticResource FiliNavItem}" />
+  </Style>
+  <Style Selector="TreeView.nav.rounded TreeViewItem">
+    <Setter Property="CornerRadius" Value="{DynamicResource FiliCornerRadius}" />
+  </Style>
+  <Style Selector="TreeView.nav.bordered TreeViewItem:selected /template/ Border#SelectionBorder">
+    <Setter Property="BorderThickness" Value="0,0,2,0" />
+  </Style>
+  <!-- The text keeps its 12px from where the padding ends; an icon pulls itself back into it. -->
+  <Style Selector="TreeView.nav TreeViewItem :is(Control).start-icon">
+    <Setter Property="Width" Value="24" />
+    <Setter Property="Height" Value="24" />
+    <Setter Property="Margin" Value="-12,0,12,0" />
+    <Setter Property="TextElement.Foreground" Value="{DynamicResource FiliDrawerIconBrush}" />
+  </Style>
+  <Style Selector="TreeView.nav TreeViewItem:disabled :is(Control).start-icon">
+    <Setter Property="TextElement.Foreground" Value="{DynamicResource FiliTextDisabledBrush}" />
+  </Style>
+  <!-- GENERATED by ThemeColourGenerator: nav menu colours. -->
+  <Style Selector="TreeView.nav.secondary TreeViewItem:selected /template/ Border#SelectionBorder">
+    <Setter Property="BorderBrush" Value="{DynamicResource FiliSecondaryBrush}" />
+  </Style>
+  <Style Selector="TreeView.nav.secondary TreeViewItem:selected :is(Control).start-icon">
+    <Setter Property="TextElement.Foreground" Value="{DynamicResource FiliSecondaryBrush}" />
+  </Style>
+  <Style Selector="TreeView.nav.secondary TreeViewItem[IsExpanded=True] /template/ Path#PART_ExpandIcon">
+    <Setter Property="Fill" Value="{DynamicResource FiliSecondaryBrush}" />
+  </Style>
+  <Style Selector="TreeView.nav.secondary TreeViewItem:selected /template/ Border#PART_Tint:pointerover">
+    <Setter Property="Background" Value="{DynamicResource FiliSecondaryBrush}" />
+    <Setter Property="Opacity" Value="0.064" />
+  </Style>
+  <Style Selector="TreeView.nav.secondary TreeViewItem:selected:focus-visible /template/ Border#PART_Tint">
+    <Setter Property="Background" Value="{DynamicResource FiliSecondaryBrush}" />
+    <Setter Property="Opacity" Value="0.064" />
+  </Style>
+  <Style Selector="TreeView.nav.tertiary TreeViewItem:selected /template/ Border#SelectionBorder">
+    <Setter Property="BorderBrush" Value="{DynamicResource FiliTertiaryBrush}" />
+  </Style>
+  <Style Selector="TreeView.nav.tertiary TreeViewItem:selected :is(Control).start-icon">
+    <Setter Property="TextElement.Foreground" Value="{DynamicResource FiliTertiaryBrush}" />
+  </Style>
+  <Style Selector="TreeView.nav.tertiary TreeViewItem[IsExpanded=True] /template/ Path#PART_ExpandIcon">
+    <Setter Property="Fill" Value="{DynamicResource FiliTertiaryBrush}" />
+  </Style>
+  <Style Selector="TreeView.nav.tertiary TreeViewItem:selected /template/ Border#PART_Tint:pointerover">
+    <Setter Property="Background" Value="{DynamicResource FiliTertiaryBrush}" />
+    <Setter Property="Opacity" Value="0.064" />
+  </Style>
+  <Style Selector="TreeView.nav.tertiary TreeViewItem:selected:focus-visible /template/ Border#PART_Tint">
+    <Setter Property="Background" Value="{DynamicResource FiliTertiaryBrush}" />
+    <Setter Property="Opacity" Value="0.064" />
+  </Style>
+  <Style Selector="TreeView.nav.info TreeViewItem:selected /template/ Border#SelectionBorder">
+    <Setter Property="BorderBrush" Value="{DynamicResource FiliInfoBrush}" />
+  </Style>
+  <Style Selector="TreeView.nav.info TreeViewItem:selected :is(Control).start-icon">
+    <Setter Property="TextElement.Foreground" Value="{DynamicResource FiliInfoBrush}" />
+  </Style>
+  <Style Selector="TreeView.nav.info TreeViewItem[IsExpanded=True] /template/ Path#PART_ExpandIcon">
+    <Setter Property="Fill" Value="{DynamicResource FiliInfoBrush}" />
+  </Style>
+  <Style Selector="TreeView.nav.info TreeViewItem:selected /template/ Border#PART_Tint:pointerover">
+    <Setter Property="Background" Value="{DynamicResource FiliInfoBrush}" />
+    <Setter Property="Opacity" Value="0.064" />
+  </Style>
+  <Style Selector="TreeView.nav.info TreeViewItem:selected:focus-visible /template/ Border#PART_Tint">
+    <Setter Property="Background" Value="{DynamicResource FiliInfoBrush}" />
+    <Setter Property="Opacity" Value="0.064" />
+  </Style>
+  <Style Selector="TreeView.nav.success TreeViewItem:selected /template/ Border#SelectionBorder">
+    <Setter Property="BorderBrush" Value="{DynamicResource FiliSuccessBrush}" />
+  </Style>
+  <Style Selector="TreeView.nav.success TreeViewItem:selected :is(Control).start-icon">
+    <Setter Property="TextElement.Foreground" Value="{DynamicResource FiliSuccessBrush}" />
+  </Style>
+  <Style Selector="TreeView.nav.success TreeViewItem[IsExpanded=True] /template/ Path#PART_ExpandIcon">
+    <Setter Property="Fill" Value="{DynamicResource FiliSuccessBrush}" />
+  </Style>
+  <Style Selector="TreeView.nav.success TreeViewItem:selected /template/ Border#PART_Tint:pointerover">
+    <Setter Property="Background" Value="{DynamicResource FiliSuccessBrush}" />
+    <Setter Property="Opacity" Value="0.064" />
+  </Style>
+  <Style Selector="TreeView.nav.success TreeViewItem:selected:focus-visible /template/ Border#PART_Tint">
+    <Setter Property="Background" Value="{DynamicResource FiliSuccessBrush}" />
+    <Setter Property="Opacity" Value="0.064" />
+  </Style>
+  <Style Selector="TreeView.nav.warning TreeViewItem:selected /template/ Border#SelectionBorder">
+    <Setter Property="BorderBrush" Value="{DynamicResource FiliWarningBrush}" />
+  </Style>
+  <Style Selector="TreeView.nav.warning TreeViewItem:selected :is(Control).start-icon">
+    <Setter Property="TextElement.Foreground" Value="{DynamicResource FiliWarningBrush}" />
+  </Style>
+  <Style Selector="TreeView.nav.warning TreeViewItem[IsExpanded=True] /template/ Path#PART_ExpandIcon">
+    <Setter Property="Fill" Value="{DynamicResource FiliWarningBrush}" />
+  </Style>
+  <Style Selector="TreeView.nav.warning TreeViewItem:selected /template/ Border#PART_Tint:pointerover">
+    <Setter Property="Background" Value="{DynamicResource FiliWarningBrush}" />
+    <Setter Property="Opacity" Value="0.064" />
+  </Style>
+  <Style Selector="TreeView.nav.warning TreeViewItem:selected:focus-visible /template/ Border#PART_Tint">
+    <Setter Property="Background" Value="{DynamicResource FiliWarningBrush}" />
+    <Setter Property="Opacity" Value="0.064" />
+  </Style>
+  <Style Selector="TreeView.nav.error TreeViewItem:selected /template/ Border#SelectionBorder">
+    <Setter Property="BorderBrush" Value="{DynamicResource FiliErrorBrush}" />
+  </Style>
+  <Style Selector="TreeView.nav.error TreeViewItem:selected :is(Control).start-icon">
+    <Setter Property="TextElement.Foreground" Value="{DynamicResource FiliErrorBrush}" />
+  </Style>
+  <Style Selector="TreeView.nav.error TreeViewItem[IsExpanded=True] /template/ Path#PART_ExpandIcon">
+    <Setter Property="Fill" Value="{DynamicResource FiliErrorBrush}" />
+  </Style>
+  <Style Selector="TreeView.nav.error TreeViewItem:selected /template/ Border#PART_Tint:pointerover">
+    <Setter Property="Background" Value="{DynamicResource FiliErrorBrush}" />
+    <Setter Property="Opacity" Value="0.064" />
+  </Style>
+  <Style Selector="TreeView.nav.error TreeViewItem:selected:focus-visible /template/ Border#PART_Tint">
+    <Setter Property="Background" Value="{DynamicResource FiliErrorBrush}" />
+    <Setter Property="Opacity" Value="0.064" />
+  </Style>
+  <Style Selector="TreeView.nav.dark TreeViewItem:selected /template/ Border#SelectionBorder">
+    <Setter Property="BorderBrush" Value="{DynamicResource FiliDarkBrush}" />
+  </Style>
+  <Style Selector="TreeView.nav.dark TreeViewItem:selected :is(Control).start-icon">
+    <Setter Property="TextElement.Foreground" Value="{DynamicResource FiliDarkBrush}" />
+  </Style>
+  <Style Selector="TreeView.nav.dark TreeViewItem[IsExpanded=True] /template/ Path#PART_ExpandIcon">
+    <Setter Property="Fill" Value="{DynamicResource FiliDarkBrush}" />
+  </Style>
+  <Style Selector="TreeView.nav.dark TreeViewItem:selected /template/ Border#PART_Tint:pointerover">
+    <Setter Property="Background" Value="{DynamicResource FiliDarkBrush}" />
+    <Setter Property="Opacity" Value="0.064" />
+  </Style>
+  <Style Selector="TreeView.nav.dark TreeViewItem:selected:focus-visible /template/ Border#PART_Tint">
+    <Setter Property="Background" Value="{DynamicResource FiliDarkBrush}" />
+    <Setter Property="Opacity" Value="0.064" />
+  </Style>
+  <!-- END GENERATED -->
+
+  <!--
+    A mini drawer's nav: a compact SplitView (CompactInline or CompactOverlay) with its pane closed
+    is a closed `.mud-drawer-mini`. The text beside a link's icon goes (sr-only there,
+    so a TextBlock in the header's panel here), leaving the icon in the 56px rail, and every row
+    is 8px 16px whatever its depth.
+
+    A DrawerPage's drawer is the same mini drawer, matched on the DrawerPage itself: its SplitView
+    is inside its template, and the menu's logical parent is the DrawerPage, so a SplitView
+    selector never reaches it. Its rail is DrawerMiniWidthLeft's 56px too, unless the app sets
+    CompactDrawerLength.
+  -->
+  <Style Selector="SplitView:closed:compactinline TreeView.nav TreeViewItem > StackPanel > TextBlock,
+                   SplitView:closed:compactoverlay TreeView.nav TreeViewItem > StackPanel > TextBlock,
+                   DrawerPage[IsOpen=False][DisplayMode=CompactInline] TreeView.nav TreeViewItem > StackPanel > TextBlock,
+                   DrawerPage[IsOpen=False][DisplayMode=CompactOverlay] TreeView.nav TreeViewItem > StackPanel > TextBlock">
+    <Setter Property="IsVisible" Value="False" />
+  </Style>
+  <Style Selector="SplitView:closed:compactinline TreeView.nav TreeViewItem /template/ Border#PART_Indent,
+                   SplitView:closed:compactoverlay TreeView.nav TreeViewItem /template/ Border#PART_Indent,
+                   DrawerPage[IsOpen=False][DisplayMode=CompactInline] TreeView.nav TreeViewItem /template/ Border#PART_Indent,
+                   DrawerPage[IsOpen=False][DisplayMode=CompactOverlay] TreeView.nav TreeViewItem /template/ Border#PART_Indent">
+    <Setter Property="Width" Value="0" />
+  </Style>
+  <!-- The 12px between icon and text is `.mud-nav-link-text`'s, so it goes with the text: an icon
+       keeping it would make each row 68px in a 56px rail, and the menu would scroll sideways. -->
+  <Style Selector="SplitView:closed:compactinline TreeView.nav TreeViewItem :is(Control).start-icon,
+                   SplitView:closed:compactoverlay TreeView.nav TreeViewItem :is(Control).start-icon,
+                   DrawerPage[IsOpen=False][DisplayMode=CompactInline] TreeView.nav TreeViewItem :is(Control).start-icon,
+                   DrawerPage[IsOpen=False][DisplayMode=CompactOverlay] TreeView.nav TreeViewItem :is(Control).start-icon">
+    <Setter Property="Margin" Value="-12,0,0,0" />
+  </Style>
+  <!-- A group's row still carries its ExpandMore at the end, which MudBlazor's closed mini drawer
+       does not hide either: its rows are the rail's width and the arrow runs past the edge. So the
+       menu lays out at the rail's width rather than scrolling sideways to reach the arrow. -->
+  <Style Selector="SplitView:closed:compactinline TreeView.nav,
+                   SplitView:closed:compactoverlay TreeView.nav,
+                   DrawerPage[IsOpen=False][DisplayMode=CompactInline] TreeView.nav,
+                   DrawerPage[IsOpen=False][DisplayMode=CompactOverlay] TreeView.nav">
+    <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Disabled" />
+  </Style>
+  <Style Selector="DrawerPage">
+    <Setter Property="CompactDrawerLength" Value="{DynamicResource FiliDrawerMiniWidth}" />
+  </Style>
+
+  <!--
+    MudTreeView.Color: the selected row's colour, `.mud-treeview-selected-{color}` - the colour as
+    the text over its hover tint. Primary, the default, is the item's own theme.
+  -->
+  <!-- GENERATED by ThemeColourGenerator: tree view selection colours. -->
+  <Style Selector="TreeView.secondary TreeViewItem:selected /template/ ContentPresenter#PART_HeaderPresenter">
+    <Setter Property="Foreground" Value="{DynamicResource FiliSecondaryBrush}" />
+  </Style>
+  <Style Selector="TreeView.secondary TreeViewItem:selected /template/ Border#SelectionBorder">
+    <Setter Property="Background" Value="{DynamicResource FiliSecondaryHoverBrush}" />
+  </Style>
+  <Style Selector="TreeView.tertiary TreeViewItem:selected /template/ ContentPresenter#PART_HeaderPresenter">
+    <Setter Property="Foreground" Value="{DynamicResource FiliTertiaryBrush}" />
+  </Style>
+  <Style Selector="TreeView.tertiary TreeViewItem:selected /template/ Border#SelectionBorder">
+    <Setter Property="Background" Value="{DynamicResource FiliTertiaryHoverBrush}" />
+  </Style>
+  <Style Selector="TreeView.info TreeViewItem:selected /template/ ContentPresenter#PART_HeaderPresenter">
+    <Setter Property="Foreground" Value="{DynamicResource FiliInfoBrush}" />
+  </Style>
+  <Style Selector="TreeView.info TreeViewItem:selected /template/ Border#SelectionBorder">
+    <Setter Property="Background" Value="{DynamicResource FiliInfoHoverBrush}" />
+  </Style>
+  <Style Selector="TreeView.success TreeViewItem:selected /template/ ContentPresenter#PART_HeaderPresenter">
+    <Setter Property="Foreground" Value="{DynamicResource FiliSuccessBrush}" />
+  </Style>
+  <Style Selector="TreeView.success TreeViewItem:selected /template/ Border#SelectionBorder">
+    <Setter Property="Background" Value="{DynamicResource FiliSuccessHoverBrush}" />
+  </Style>
+  <Style Selector="TreeView.warning TreeViewItem:selected /template/ ContentPresenter#PART_HeaderPresenter">
+    <Setter Property="Foreground" Value="{DynamicResource FiliWarningBrush}" />
+  </Style>
+  <Style Selector="TreeView.warning TreeViewItem:selected /template/ Border#SelectionBorder">
+    <Setter Property="Background" Value="{DynamicResource FiliWarningHoverBrush}" />
+  </Style>
+  <Style Selector="TreeView.error TreeViewItem:selected /template/ ContentPresenter#PART_HeaderPresenter">
+    <Setter Property="Foreground" Value="{DynamicResource FiliErrorBrush}" />
+  </Style>
+  <Style Selector="TreeView.error TreeViewItem:selected /template/ Border#SelectionBorder">
+    <Setter Property="Background" Value="{DynamicResource FiliErrorHoverBrush}" />
+  </Style>
+  <Style Selector="TreeView.dark TreeViewItem:selected /template/ ContentPresenter#PART_HeaderPresenter">
+    <Setter Property="Foreground" Value="{DynamicResource FiliDarkBrush}" />
+  </Style>
+  <Style Selector="TreeView.dark TreeViewItem:selected /template/ Border#SelectionBorder">
+    <Setter Property="Background" Value="{DynamicResource FiliDarkHoverBrush}" />
+  </Style>
+  <!-- END GENERATED -->
+
+  <!--
+    MudList's Dense and Gutters, set on the ListBox for every row (on a row, they are its own
+    theme's classes), and its Color, the selected row's colour: `mud-{color}-text` over
+    `mud-{color}-hover`. Primary, the default, is the row's own theme.
+  -->
+  <Style Selector="ListBox.dense ListBoxItem">
+    <Setter Property="Padding" Value="16,4" />
+    <Setter Property="MinHeight" Value="36" />
+    <Setter Property="FontSize" Value="{DynamicResource FiliBody2FontSize}" />
+  </Style>
+  <Style Selector="ListBox.no-gutters ListBoxItem">
+    <Setter Property="Padding" Value="0,8" />
+  </Style>
+  <Style Selector="ListBox.dense.no-gutters ListBoxItem, ListBox.dense ListBoxItem.no-gutters, ListBox.no-gutters ListBoxItem.dense">
+    <Setter Property="Padding" Value="0,4" />
+  </Style>
+
+  <!-- MudSelect's Dense, on every option: `dense-items`, since `dense` on a select is its field's
+       Margin.Dense. -->
+  <Style Selector="ComboBox.dense-items ComboBoxItem">
+    <Setter Property="Padding" Value="16,4" />
+    <Setter Property="MinHeight" Value="36" />
+    <Setter Property="FontSize" Value="{DynamicResource FiliBody2FontSize}" />
+  </Style>
+  <!-- GENERATED by ThemeColourGenerator: list selection colours. -->
+  <Style Selector="ListBox.secondary ListBoxItem:selected">
+    <Setter Property="Foreground" Value="{DynamicResource FiliSecondaryBrush}" />
+  </Style>
+  <Style Selector="ListBox.secondary ListBoxItem:selected /template/ Border#PART_StateLayer">
+    <Setter Property="Background" Value="{DynamicResource FiliSecondaryHoverBrush}" />
+  </Style>
+  <Style Selector="ListBox.secondary ListBoxItem:selected:pointerover /template/ Border#PART_StateLayer">
+    <Setter Property="Background" Value="{DynamicResource FiliOverlayPressedBrush}" />
+  </Style>
+  <Style Selector="ListBox.tertiary ListBoxItem:selected">
+    <Setter Property="Foreground" Value="{DynamicResource FiliTertiaryBrush}" />
+  </Style>
+  <Style Selector="ListBox.tertiary ListBoxItem:selected /template/ Border#PART_StateLayer">
+    <Setter Property="Background" Value="{DynamicResource FiliTertiaryHoverBrush}" />
+  </Style>
+  <Style Selector="ListBox.tertiary ListBoxItem:selected:pointerover /template/ Border#PART_StateLayer">
+    <Setter Property="Background" Value="{DynamicResource FiliOverlayPressedBrush}" />
+  </Style>
+  <Style Selector="ListBox.info ListBoxItem:selected">
+    <Setter Property="Foreground" Value="{DynamicResource FiliInfoBrush}" />
+  </Style>
+  <Style Selector="ListBox.info ListBoxItem:selected /template/ Border#PART_StateLayer">
+    <Setter Property="Background" Value="{DynamicResource FiliInfoHoverBrush}" />
+  </Style>
+  <Style Selector="ListBox.info ListBoxItem:selected:pointerover /template/ Border#PART_StateLayer">
+    <Setter Property="Background" Value="{DynamicResource FiliOverlayPressedBrush}" />
+  </Style>
+  <Style Selector="ListBox.success ListBoxItem:selected">
+    <Setter Property="Foreground" Value="{DynamicResource FiliSuccessBrush}" />
+  </Style>
+  <Style Selector="ListBox.success ListBoxItem:selected /template/ Border#PART_StateLayer">
+    <Setter Property="Background" Value="{DynamicResource FiliSuccessHoverBrush}" />
+  </Style>
+  <Style Selector="ListBox.success ListBoxItem:selected:pointerover /template/ Border#PART_StateLayer">
+    <Setter Property="Background" Value="{DynamicResource FiliOverlayPressedBrush}" />
+  </Style>
+  <Style Selector="ListBox.warning ListBoxItem:selected">
+    <Setter Property="Foreground" Value="{DynamicResource FiliWarningBrush}" />
+  </Style>
+  <Style Selector="ListBox.warning ListBoxItem:selected /template/ Border#PART_StateLayer">
+    <Setter Property="Background" Value="{DynamicResource FiliWarningHoverBrush}" />
+  </Style>
+  <Style Selector="ListBox.warning ListBoxItem:selected:pointerover /template/ Border#PART_StateLayer">
+    <Setter Property="Background" Value="{DynamicResource FiliOverlayPressedBrush}" />
+  </Style>
+  <Style Selector="ListBox.error ListBoxItem:selected">
+    <Setter Property="Foreground" Value="{DynamicResource FiliErrorBrush}" />
+  </Style>
+  <Style Selector="ListBox.error ListBoxItem:selected /template/ Border#PART_StateLayer">
+    <Setter Property="Background" Value="{DynamicResource FiliErrorHoverBrush}" />
+  </Style>
+  <Style Selector="ListBox.error ListBoxItem:selected:pointerover /template/ Border#PART_StateLayer">
+    <Setter Property="Background" Value="{DynamicResource FiliOverlayPressedBrush}" />
+  </Style>
+  <Style Selector="ListBox.dark ListBoxItem:selected">
+    <Setter Property="Foreground" Value="{DynamicResource FiliDarkBrush}" />
+  </Style>
+  <Style Selector="ListBox.dark ListBoxItem:selected /template/ Border#PART_StateLayer">
+    <Setter Property="Background" Value="{DynamicResource FiliDarkHoverBrush}" />
+  </Style>
+  <Style Selector="ListBox.dark ListBoxItem:selected:pointerover /template/ Border#PART_StateLayer">
+    <Setter Property="Background" Value="{DynamicResource FiliOverlayPressedBrush}" />
+  </Style>
+  <!-- END GENERATED -->
+
+  <!--
+    SelectionMode.MultiSelection on MudList and MudTreeView: `multi-selection` puts a checkbox on
+    each row, checked while the row is selected; the app sets SelectionMode="Multiple, Toggle",
+    the behaviour. The class cannot: a SelectingItemsControl declared in XAML creates its selection
+    model at EndInit, before any style applies, and that writes SelectionMode as a LOCAL value,
+    which no style setter outranks. The row itself is no longer marked (`mud-selected-item` is only added for single selection), so it keeps
+    the text colour and takes the hover and focus tints like any other. The checkbox is
+    CheckBoxColor: action-default with no colour class, or the colour class on the list - which
+    names the selection's Color otherwise, unused while selecting many. A tree's branch does not
+    work out its children's state: its box is checked or not, never indeterminate.
+  -->
+  <Style Selector="ListBox.multi-selection ListBoxItem /template/ Panel#PART_CheckBox, TreeView.multi-selection TreeViewItem /template/ Panel#PART_CheckBox">
+    <Setter Property="IsVisible" Value="True" />
+  </Style>
+  <Style Selector="ListBox.multi-selection ListBoxItem:selected /template/ Path#PART_CheckUnchecked, TreeView.multi-selection TreeViewItem:selected /template/ Path#PART_CheckUnchecked">
+    <Setter Property="IsVisible" Value="False" />
+  </Style>
+  <Style Selector="ListBox.multi-selection ListBoxItem:selected /template/ Path#PART_CheckChecked, TreeView.multi-selection TreeViewItem:selected /template/ Path#PART_CheckChecked">
+    <Setter Property="IsVisible" Value="True" />
+  </Style>
+  <Style Selector="ListBox.multi-selection ListBoxItem /template/ Panel#PART_CheckBox:pointerover > Ellipse#PART_CheckHalo, TreeView.multi-selection TreeViewItem /template/ Panel#PART_CheckBox:pointerover > Ellipse#PART_CheckHalo">
+    <Setter Property="Fill" Value="{DynamicResource FiliActionDefaultHoverBrush}" />
+  </Style>
+  <Style Selector="ListBox.multi-selection ListBoxItem:selected">
+    <Setter Property="Foreground" Value="{DynamicResource FiliTextPrimaryBrush}" />
+  </Style>
+  <Style Selector="ListBox.multi-selection ListBoxItem:selected /template/ Border#PART_StateLayer">
+    <Setter Property="Background" Value="Transparent" />
+  </Style>
+  <Style Selector="ListBox.multi-selection ListBoxItem:selected:pointerover /template/ Border#PART_StateLayer, ListBox.multi-selection ListBoxItem:selected:focus-visible /template/ Border#PART_StateLayer">
+    <Setter Property="Background" Value="{DynamicResource FiliOverlayHoverBrush}" />
+  </Style>
+  <Style Selector="TreeView.multi-selection TreeViewItem:selected /template/ ContentPresenter#PART_HeaderPresenter">
+    <Setter Property="Foreground" Value="{DynamicResource FiliTextPrimaryBrush}" />
+  </Style>
+  <Style Selector="TreeView.multi-selection TreeViewItem:selected /template/ Border#SelectionBorder">
+    <Setter Property="Background" Value="Transparent" />
+  </Style>
+  <Style Selector="TreeView.multi-selection.hover TreeViewItem:selected /template/ Border#SelectionBorder:pointerover, TreeView.multi-selection TreeViewItem:selected:focus-visible /template/ Border#SelectionBorder">
+    <Setter Property="Background" Value="{DynamicResource FiliOverlayHoverBrush}" />
+  </Style>
+  <!-- `.mud-treeview-dense .mud-icon-button`: no padding, so the checkbox is the bare 24px glyph. -->
+  <Style Selector="TreeView.dense TreeViewItem /template/ Panel#PART_CheckBox">
+    <Setter Property="Width" Value="24" />
+    <Setter Property="Height" Value="24" />
+  </Style>
+  <!-- GENERATED by ThemeColourGenerator: multi-selection checkbox colours. -->
+  <Style Selector="ListBox.multi-selection.primary ListBoxItem /template/ Panel#PART_CheckBox > Path, TreeView.multi-selection.primary TreeViewItem /template/ Panel#PART_CheckBox > Path">
+    <Setter Property="Fill" Value="{DynamicResource FiliPrimaryBrush}" />
+  </Style>
+  <Style Selector="ListBox.multi-selection.primary ListBoxItem /template/ Panel#PART_CheckBox:pointerover > Ellipse#PART_CheckHalo, TreeView.multi-selection.primary TreeViewItem /template/ Panel#PART_CheckBox:pointerover > Ellipse#PART_CheckHalo">
+    <Setter Property="Fill" Value="{DynamicResource FiliPrimaryHoverBrush}" />
+  </Style>
+  <Style Selector="ListBox.multi-selection.secondary ListBoxItem /template/ Panel#PART_CheckBox > Path, TreeView.multi-selection.secondary TreeViewItem /template/ Panel#PART_CheckBox > Path">
+    <Setter Property="Fill" Value="{DynamicResource FiliSecondaryBrush}" />
+  </Style>
+  <Style Selector="ListBox.multi-selection.secondary ListBoxItem /template/ Panel#PART_CheckBox:pointerover > Ellipse#PART_CheckHalo, TreeView.multi-selection.secondary TreeViewItem /template/ Panel#PART_CheckBox:pointerover > Ellipse#PART_CheckHalo">
+    <Setter Property="Fill" Value="{DynamicResource FiliSecondaryHoverBrush}" />
+  </Style>
+  <Style Selector="ListBox.multi-selection.tertiary ListBoxItem /template/ Panel#PART_CheckBox > Path, TreeView.multi-selection.tertiary TreeViewItem /template/ Panel#PART_CheckBox > Path">
+    <Setter Property="Fill" Value="{DynamicResource FiliTertiaryBrush}" />
+  </Style>
+  <Style Selector="ListBox.multi-selection.tertiary ListBoxItem /template/ Panel#PART_CheckBox:pointerover > Ellipse#PART_CheckHalo, TreeView.multi-selection.tertiary TreeViewItem /template/ Panel#PART_CheckBox:pointerover > Ellipse#PART_CheckHalo">
+    <Setter Property="Fill" Value="{DynamicResource FiliTertiaryHoverBrush}" />
+  </Style>
+  <Style Selector="ListBox.multi-selection.info ListBoxItem /template/ Panel#PART_CheckBox > Path, TreeView.multi-selection.info TreeViewItem /template/ Panel#PART_CheckBox > Path">
+    <Setter Property="Fill" Value="{DynamicResource FiliInfoBrush}" />
+  </Style>
+  <Style Selector="ListBox.multi-selection.info ListBoxItem /template/ Panel#PART_CheckBox:pointerover > Ellipse#PART_CheckHalo, TreeView.multi-selection.info TreeViewItem /template/ Panel#PART_CheckBox:pointerover > Ellipse#PART_CheckHalo">
+    <Setter Property="Fill" Value="{DynamicResource FiliInfoHoverBrush}" />
+  </Style>
+  <Style Selector="ListBox.multi-selection.success ListBoxItem /template/ Panel#PART_CheckBox > Path, TreeView.multi-selection.success TreeViewItem /template/ Panel#PART_CheckBox > Path">
+    <Setter Property="Fill" Value="{DynamicResource FiliSuccessBrush}" />
+  </Style>
+  <Style Selector="ListBox.multi-selection.success ListBoxItem /template/ Panel#PART_CheckBox:pointerover > Ellipse#PART_CheckHalo, TreeView.multi-selection.success TreeViewItem /template/ Panel#PART_CheckBox:pointerover > Ellipse#PART_CheckHalo">
+    <Setter Property="Fill" Value="{DynamicResource FiliSuccessHoverBrush}" />
+  </Style>
+  <Style Selector="ListBox.multi-selection.warning ListBoxItem /template/ Panel#PART_CheckBox > Path, TreeView.multi-selection.warning TreeViewItem /template/ Panel#PART_CheckBox > Path">
+    <Setter Property="Fill" Value="{DynamicResource FiliWarningBrush}" />
+  </Style>
+  <Style Selector="ListBox.multi-selection.warning ListBoxItem /template/ Panel#PART_CheckBox:pointerover > Ellipse#PART_CheckHalo, TreeView.multi-selection.warning TreeViewItem /template/ Panel#PART_CheckBox:pointerover > Ellipse#PART_CheckHalo">
+    <Setter Property="Fill" Value="{DynamicResource FiliWarningHoverBrush}" />
+  </Style>
+  <Style Selector="ListBox.multi-selection.error ListBoxItem /template/ Panel#PART_CheckBox > Path, TreeView.multi-selection.error TreeViewItem /template/ Panel#PART_CheckBox > Path">
+    <Setter Property="Fill" Value="{DynamicResource FiliErrorBrush}" />
+  </Style>
+  <Style Selector="ListBox.multi-selection.error ListBoxItem /template/ Panel#PART_CheckBox:pointerover > Ellipse#PART_CheckHalo, TreeView.multi-selection.error TreeViewItem /template/ Panel#PART_CheckBox:pointerover > Ellipse#PART_CheckHalo">
+    <Setter Property="Fill" Value="{DynamicResource FiliErrorHoverBrush}" />
+  </Style>
+  <Style Selector="ListBox.multi-selection.dark ListBoxItem /template/ Panel#PART_CheckBox > Path, TreeView.multi-selection.dark TreeViewItem /template/ Panel#PART_CheckBox > Path">
+    <Setter Property="Fill" Value="{DynamicResource FiliDarkBrush}" />
+  </Style>
+  <Style Selector="ListBox.multi-selection.dark ListBoxItem /template/ Panel#PART_CheckBox:pointerover > Ellipse#PART_CheckHalo, TreeView.multi-selection.dark TreeViewItem /template/ Panel#PART_CheckBox:pointerover > Ellipse#PART_CheckHalo">
+    <Setter Property="Fill" Value="{DynamicResource FiliDarkHoverBrush}" />
+  </Style>
+  <!-- END GENERATED -->
+  <Style Selector="ListBox.multi-selection ListBoxItem:disabled /template/ Panel#PART_CheckBox > Path, TreeView.multi-selection TreeViewItem:disabled /template/ Panel#PART_CheckBox > Path">
+    <Setter Property="Fill" Value="{DynamicResource FiliTextDisabledBrush}" />
+  </Style>
+
+  <!--
+    MudMenu.Dense: rows of 2px 12px in body2. On the ContextMenu, the MenuFlyout's presenter
+    (FlyoutPresenterClasses) or the item whose submenu it is, so it reaches every row under it.
+  -->
+  <Style Selector="ContextMenu.dense MenuItem, MenuFlyoutPresenter.dense MenuItem, MenuItem.dense MenuItem">
+    <Setter Property="Padding" Value="12,2" />
+    <Setter Property="MinHeight" Value="32" />
+    <Setter Property="FontSize" Value="{DynamicResource FiliBody2FontSize}" />
+  </Style>
+
+  <!--
+    MudIcon on a PathIcon: `small`, `medium` and `large` are its Size (20, 24 and 36px), and a
+    colour class its Color. Last of the icon rules, so an icon's own class beats one that sizes
+    or colours it by where it sits - an icon button's, an alert's. Color.Default, text-secondary,
+    has no class; with none the icon inherits, as Color.Inherit, MudIcon's default, does.
+  -->
+  <!-- GENERATED by ThemeColourGenerator: icon sizes and colours. -->
+  <Style Selector="PathIcon.small">
+    <Setter Property="Width" Value="20" />
+    <Setter Property="Height" Value="20" />
+  </Style>
+  <Style Selector="PathIcon.medium">
+    <Setter Property="Width" Value="24" />
+    <Setter Property="Height" Value="24" />
+  </Style>
+  <Style Selector="PathIcon.large">
+    <Setter Property="Width" Value="36" />
+    <Setter Property="Height" Value="36" />
+  </Style>
+  <Style Selector="PathIcon.primary">
+    <Setter Property="Foreground" Value="{DynamicResource FiliPrimaryBrush}" />
+  </Style>
+  <Style Selector="PathIcon.secondary">
+    <Setter Property="Foreground" Value="{DynamicResource FiliSecondaryBrush}" />
+  </Style>
+  <Style Selector="PathIcon.tertiary">
+    <Setter Property="Foreground" Value="{DynamicResource FiliTertiaryBrush}" />
+  </Style>
+  <Style Selector="PathIcon.info">
+    <Setter Property="Foreground" Value="{DynamicResource FiliInfoBrush}" />
+  </Style>
+  <Style Selector="PathIcon.success">
+    <Setter Property="Foreground" Value="{DynamicResource FiliSuccessBrush}" />
+  </Style>
+  <Style Selector="PathIcon.warning">
+    <Setter Property="Foreground" Value="{DynamicResource FiliWarningBrush}" />
+  </Style>
+  <Style Selector="PathIcon.error">
+    <Setter Property="Foreground" Value="{DynamicResource FiliErrorBrush}" />
+  </Style>
+  <Style Selector="PathIcon.dark">
+    <Setter Property="Foreground" Value="{DynamicResource FiliDarkBrush}" />
+  </Style>
+  <!-- END GENERATED -->
 
   <!--
     The pickers, which are still wearing forked Simple templates. Type and radius are all a

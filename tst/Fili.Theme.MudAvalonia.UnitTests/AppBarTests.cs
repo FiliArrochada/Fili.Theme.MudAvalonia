@@ -31,6 +31,25 @@ public class AppBarTests
         Assert.Equal(Resolve("FiliAppbarTextColor"), Colour(label.Foreground));
     });
 
+    /// <summary>
+    /// MudAppBar's Elevation defaults to 4 and takes any other. The bar's own shadow once came
+    /// after the elevation classes, so `appbar elevation0` stayed at 4.
+    /// </summary>
+    [Fact]
+    public Task TheBarIsAtElevation4AndTakesAnyOther() => UiThread.RunAsync(() =>
+    {
+        var bar = new Border { Classes = { "appbar" } };
+        Show(bar);
+        Assert.Equal(FabTests.Shadow(4), bar.BoxShadow);
+
+        foreach (var level in new[] { 0, 1, 12, 25 })
+        {
+            var classed = new Border { Classes = { "appbar", $"elevation{level}" } };
+            Show(classed);
+            Assert.Equal(FabTests.Shadow(level), classed.BoxShadow);
+        }
+    });
+
     /// <summary>The reported bug: the open dropdown of a select on the bar.</summary>
     [Fact]
     public Task DropDownItemsOfASelectOnTheBarKeepTheirOwnText() => UiThread.RunAsync(() =>

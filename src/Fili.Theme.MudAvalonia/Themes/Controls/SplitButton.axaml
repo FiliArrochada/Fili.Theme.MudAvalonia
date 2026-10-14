@@ -149,7 +149,7 @@
                     KeyboardNavigation.IsTabStop="False">
               <Path Width="24" Height="24"
                     Stretch="None"
-                    Data="{StaticResource FiliExpandMoreGeometry}"
+                    Data="{DynamicResource FiliExpandMoreGeometry}"
                     Fill="{Binding $parent[SplitButton].Foreground}" />
             </Button>
           </Grid>
@@ -592,7 +592,7 @@
                     Margin="4,0,0,0"
                     Width="24" Height="24"
                     Stretch="None"
-                    Data="{StaticResource FiliExpandMoreGeometry}"
+                    Data="{DynamicResource FiliExpandMoreGeometry}"
                     Fill="{TemplateBinding Foreground}"
                     VerticalAlignment="Center" />
             </Grid>
