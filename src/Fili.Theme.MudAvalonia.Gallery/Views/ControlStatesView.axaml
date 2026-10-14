@@ -433,11 +433,35 @@
           <ToggleSwitch Classes="primary large" Content="Large" IsChecked="True" VerticalAlignment="Center" />
         </StackPanel>
 
+        <TextBlock Classes="caption" Text="Label placement, a thumb icon and custom glyphs" Margin="0,8,0,0" />
+        <StackPanel Orientation="Horizontal" Spacing="24">
+          <CheckBox Classes="primary label-start" Content="Start" IsChecked="True" VerticalAlignment="Center" />
+          <CheckBox Classes="primary label-top" Content="Top" IsChecked="True" />
+          <RadioButton Classes="secondary label-bottom" Content="Bottom" GroupName="placed" IsChecked="True" />
+          <ToggleSwitch Classes="thumb-success" Content="Thumb icon" IsChecked="True" VerticalAlignment="Center">
+            <ToggleSwitch.Resources>
+              <StaticResource x:Key="FiliSwitchThumbIconGeometry" ResourceKey="GalleryDoneIcon" />
+            </ToggleSwitch.Resources>
+          </ToggleSwitch>
+          <CheckBox Classes="error" Content="Custom glyphs" IsChecked="True" VerticalAlignment="Center">
+            <CheckBox.Resources>
+              <StaticResource x:Key="FiliCheckBoxCheckedGeometry" ResourceKey="GalleryFavoriteIcon" />
+              <StaticResource x:Key="FiliCheckBoxUncheckedGeometry" ResourceKey="GalleryFavoriteBorderIcon" />
+            </CheckBox.Resources>
+          </CheckBox>
+          <CheckBox Classes="error" Content="Unchecked" VerticalAlignment="Center">
+            <CheckBox.Resources>
+              <StaticResource x:Key="FiliCheckBoxCheckedGeometry" ResourceKey="GalleryFavoriteIcon" />
+              <StaticResource x:Key="FiliCheckBoxUncheckedGeometry" ResourceKey="GalleryFavoriteBorderIcon" />
+            </CheckBox.Resources>
+          </CheckBox>
+        </StackPanel>
+
         <TextBlock Classes="caption"
                    TextWrapping="Wrap"
                    MaxWidth="760"
                    HorizontalAlignment="Left"
-                   Text="The first row carries no class, which is MudBlazor's Color.Default: grey, checked or not, because the icon button the glyph sits in is action-default — and a switch keeps its #fafafa thumb on and off. A colour class is Color: on a checkbox or radio it paints the glyph in every state, on a switch the thumb and track only when on. small and large are MudIcon's 20 and 36px and the switch's own spans. MudBlazor renders Material icons here rather than drawing boxes, so these are the real CheckBox and RadioButtonChecked glyphs." />
+                   Text="The first row carries no class, which is MudBlazor's Color.Default: grey, checked or not, because the icon button the glyph sits in is action-default — and a switch keeps its #fafafa thumb on and off. A colour class is Color: on a checkbox or radio it paints the glyph in every state, on a switch the thumb and track only when on. small and large are MudIcon's 20 and 36px and the switch's own spans. MudBlazor renders Material icons here rather than drawing boxes, so these are the real CheckBox and RadioButtonChecked glyphs. The last row is LabelPlacement as label-start, label-top and label-bottom; MudSwitch's ThumbIcon, a glyph key in the switch's Resources, coloured by thumb-success; and CheckedIcon and UncheckedIcon, the checkbox's glyph keys set to Favorite and FavoriteBorder." />
       </StackPanel>
 
       <!-- Inputs -->
@@ -512,6 +536,12 @@
           </ComboBox>
         </StackPanel>
         <StackPanel Orientation="Horizontal" Spacing="12" VerticalAlignment="Top">
+          <TextBox Classes="required" Width="190" VerticalAlignment="Top" PlaceholderText="Required" />
+          <TextBox Classes="filled shrink-label" Width="190" VerticalAlignment="Top" PlaceholderText="Shrink label" />
+          <TextBox Classes="filled no-underline" Width="190" VerticalAlignment="Top" PlaceholderText="No underline" Text="Filled" />
+          <ComboBox Classes="outlined required" Width="190" VerticalAlignment="Top" PlaceholderText="Required select" />
+        </StackPanel>
+        <StackPanel Orientation="Horizontal" Spacing="12" VerticalAlignment="Top">
           <ComboBox Classes="filled" Width="190" VerticalAlignment="Top" PlaceholderText="Library"
                     AutomationProperties.HelpText="Where new files go">
             <ComboBoxItem>Manga</ComboBoxItem>
@@ -531,7 +561,7 @@
                    TextWrapping="Wrap"
                    MaxWidth="760"
                    HorizontalAlignment="Left"
-                   Text="Helper text is AutomationProperties.HelpText, which a screen reader announces too; an error takes its place. counter is MudTextField's Counter over MaxLength, the length alone when there is none, and helper-on-focus is HelperTextOnFocus: the third field's help appears when it has focus. dense is Margin.Dense, and a select takes filled and outlined exactly as a text field does." />
+                   Text="Helper text is AutomationProperties.HelpText, which a screen reader announces too; an error takes its place. counter is MudTextField's Counter over MaxLength, the length alone when there is none, and helper-on-focus is HelperTextOnFocus: the third field's help appears when it has focus. dense is Margin.Dense, and a select takes filled and outlined exactly as a text field does. required is Required, the label's asterisk; shrink-label is ShrinkLabel, the label up with nothing typed; no-underline is Underline=&quot;false&quot;. Open a select and its arrow turns up, as MudSelect's OpenIcon." />
       </StackPanel>
 
       <!-- Range and progress -->
@@ -674,6 +704,9 @@
               <TextBlock Classes="body2" Margin="12" Text="Second tab content" />
             </TabItem>
             <TabItem Header="Disabled" IsEnabled="False" />
+            <TabItem Header="Four">
+              <TextBlock Classes="body2" Margin="12" Text="Four tabs do not fit 480px, so the bar scrolls" />
+            </TabItem>
           </TabControl>
           <TreeView x:Name="SampleTree" Classes="surface" Width="180" Height="140">
             <TreeViewItem Header="Library" IsExpanded="True">
@@ -683,6 +716,26 @@
               <TreeViewItem Header="Collections" />
             </TreeViewItem>
           </TreeView>
+        </StackPanel>
+
+        <TextBlock Classes="overline" Text="Multi-selection" Margin="0,8,0,0" />
+        <StackPanel Orientation="Horizontal" Spacing="16">
+          <ListBox x:Name="MultiList" Classes="multi-selection primary" SelectionMode="Multiple, Toggle" Width="220" Height="160">
+            <ListBoxItem>Inbox</ListBoxItem>
+            <ListBoxItem>Starred</ListBoxItem>
+            <ListBoxItem>Sent</ListBoxItem>
+          </ListBox>
+          <TreeView x:Name="MultiTree" Classes="multi-selection surface" SelectionMode="Multiple, Toggle" Width="220" Height="160">
+            <TreeViewItem Header="Library" IsExpanded="True">
+              <TreeViewItem Header="Installed" />
+              <TreeViewItem Header="Collections" />
+            </TreeViewItem>
+          </TreeView>
+          <TextBlock Classes="caption"
+                     TextWrapping="Wrap"
+                     Width="360"
+                     VerticalAlignment="Top"
+                     Text="multi-selection with SelectionMode Multiple, Toggle is SelectionMode.MultiSelection: rows toggle in and out of the selection, each with a checkbox in CheckBoxColor - grey with no class, the list's colour class otherwise - and no row is marked selected. Every list row is 48px, body1 with .mud-list-item-text's 4px above and below." />
         </StackPanel>
 
         <TextBlock Classes="overline" Text="Menu and scrolling" Margin="0,8,0,0" />
@@ -733,7 +786,7 @@
                    TextWrapping="Wrap"
                    MaxWidth="760"
                    HorizontalAlignment="Left"
-                   Text="A selected list row is primary text over primary at 6%, not a filled bar — MudList marks it with mud-primary-text plus mud-primary-hover, which keeps it as readable as the rows around it. The toggles use the same rule, because MudToggleItem does." />
+                   Text="A selected list row is primary text over primary at 6%, not a filled bar — MudList marks it with mud-primary-text plus mud-primary-hover, which keeps it as readable as the rows around it. A toggle is MudToggleItem, a button in the group's colour: the colour as text while off, filled once on; the second row adds outlined, the group's line. icon on a ToggleButton is MudToggleIconButton: a colour class is ToggledColor, unchecked-{colour} is Color, so the grey heart is the red one switched off; the bell becomes a letter, its second PathIcon being ToggledIcon." />
         <StackPanel Orientation="Horizontal" Spacing="24">
           <ListBox Classes="surface" Width="220" Height="176" SelectedIndex="1">
             <ListBoxItem>First item</ListBoxItem>
@@ -752,6 +805,18 @@
               <ToggleButton Classes="outlined" Content="Day" IsChecked="True" />
               <ToggleButton Classes="outlined" Content="Week" />
               <ToggleButton Classes="outlined" Content="Month" />
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Spacing="4">
+              <ToggleButton Classes="icon error" IsChecked="True"><PathIcon Data="{StaticResource GalleryFavoriteIcon}" /></ToggleButton>
+              <ToggleButton Classes="icon error"><PathIcon Data="{StaticResource GalleryFavoriteIcon}" /></ToggleButton>
+              <ToggleButton Classes="icon primary unchecked-secondary">
+                <Panel>
+                  <PathIcon Data="{StaticResource GalleryNotificationsIcon}" />
+                  <PathIcon Data="{StaticResource GalleryMailIcon}" />
+                </Panel>
+              </ToggleButton>
+              <ToggleButton Classes="icon filled primary" IsChecked="True"><PathIcon Data="{StaticResource GalleryEditIcon}" /></ToggleButton>
+              <ToggleButton Classes="icon outlined success" IsChecked="True"><PathIcon Data="{StaticResource GalleryAddIcon}" /></ToggleButton>
             </StackPanel>
             <StackPanel Orientation="Horizontal" Spacing="16">
               <HyperlinkButton Content="Hover to underline" />
@@ -806,17 +871,19 @@
                    TextWrapping="Wrap"
                    MaxWidth="760"
                    HorizontalAlignment="Left"
-                   Text="SplitView is MudDrawer, and it is the one control here treated with styles rather than a ControlTheme: everything MudDrawer contributes is a value — 240px open, 56px mini, the drawer-background and drawer-text tokens — while the pane sliding and the display modes are structure the forked template already gets right. A Style outranks a ControlTheme setter, which is normally the trap this repo warns about and is exactly what makes it work." />
+                   Text="SplitView is MudDrawer, and it is the one control here treated with styles rather than a ControlTheme: everything MudDrawer contributes is a value — 240px open, 56px mini, the drawer-background and drawer-text tokens — while the pane sliding and the display modes are structure the forked template already gets right. A Style outranks a ControlTheme setter, which is normally the trap this repo warns about and is exactly what makes it work. The pane holds a nav TreeView, MudNavMenu: the active link in primary at weight 500, and Downloads a group that opens on a click." />
+        <StackPanel Orientation="Horizontal" Spacing="16">
         <Border Classes="surface elevation1" Width="520" Height="180" ClipToBounds="True">
           <SplitView IsPaneOpen="True" DisplayMode="Inline">
             <SplitView.Pane>
-              <StackPanel Margin="0,8">
-                <ListBox SelectedIndex="0" Background="Transparent">
-                  <ListBoxItem>Library</ListBoxItem>
-                  <ListBoxItem>Store</ListBoxItem>
-                  <ListBoxItem>Downloads</ListBoxItem>
-                </ListBox>
-              </StackPanel>
+              <TreeView Classes="nav" Margin="0,8">
+                <TreeViewItem Header="Library" IsSelected="True" />
+                <TreeViewItem Header="Store" />
+                <TreeViewItem Header="Downloads">
+                  <TreeViewItem Header="Queue" />
+                  <TreeViewItem Header="History" />
+                </TreeViewItem>
+              </TreeView>
             </SplitView.Pane>
             <SplitView.Content>
               <StackPanel Margin="16" Spacing="4">
@@ -827,6 +894,43 @@
             </SplitView.Content>
           </SplitView>
         </Border>
+        <Border Classes="surface elevation1" Width="240" Height="180" ClipToBounds="True">
+          <SplitView IsPaneOpen="False" DisplayMode="CompactInline">
+            <SplitView.Pane>
+              <TreeView Classes="nav" Margin="0,8">
+                <TreeViewItem IsSelected="True">
+                  <TreeViewItem.Header>
+                  <StackPanel Orientation="Horizontal">
+                    <PathIcon Classes="start-icon" Data="{StaticResource GalleryInboxIcon}" />
+                    <TextBlock Text="Inbox" />
+                  </StackPanel>
+                  </TreeViewItem.Header>
+                </TreeViewItem>
+                <TreeViewItem>
+                  <TreeViewItem.Header>
+                  <StackPanel Orientation="Horizontal">
+                    <PathIcon Classes="start-icon" Data="{StaticResource GallerySendIcon}" />
+                    <TextBlock Text="Sent" />
+                  </StackPanel>
+                  </TreeViewItem.Header>
+                </TreeViewItem>
+                <TreeViewItem>
+                  <TreeViewItem.Header>
+                  <StackPanel Orientation="Horizontal">
+                    <PathIcon Classes="start-icon" Data="{StaticResource GalleryFavoriteIcon}" />
+                    <TextBlock Text="Favourites" />
+                  </StackPanel>
+                  </TreeViewItem.Header>
+                </TreeViewItem>
+              </TreeView>
+            </SplitView.Pane>
+            <SplitView.Content>
+              <TextBlock Classes="body2" Margin="16" TextWrapping="Wrap"
+                         Text="A mini drawer, closed: CompactInline at 56px, only the links' icons." />
+            </SplitView.Content>
+          </SplitView>
+        </Border>
+        </StackPanel>
       </StackPanel>
 
       <!-- Snackbars -->
@@ -837,7 +941,7 @@
                    TextWrapping="Wrap"
                    MaxWidth="760"
                    HorizontalAlignment="Left"
-                   Text="MudSnackbar is a filled MudAlert on an elevation-6 surface: 6px/16px padding, 288px minimum, 500px maximum, Medium weight in the colour's contrast text. The shadow is not a guess — _snackbar.scss spells out the same three layers FiliElevation6 carries. Normally the notification manager builds these; here they are placed by hand so they hold still." />
+                   Text="MudSnackbar is a filled MudAlert on an elevation-6 surface: 6px/16px padding, 288px minimum, 500px maximum, Medium weight in the colour's contrast text. The shadow is not a guess — _snackbar.scss spells out the same three layers FiliElevation6 carries. Each card leads with MudSnackbar's severity icon and ends with its close button. The last row is Severity.Normal, then the outlined and text variants, classes WindowNotificationManager.Show passes to the card. Normally the notification manager builds these; here they are placed by hand so they hold still." />
         <StackPanel Orientation="Horizontal" Spacing="12">
           <notifications:NotificationCard NotificationType="Information" Content="Library scan finished" />
           <notifications:NotificationCard NotificationType="Success" Content="12 games added" />
@@ -845,6 +949,24 @@
         <StackPanel Orientation="Horizontal" Spacing="12">
           <notifications:NotificationCard NotificationType="Warning" Content="Two folders were skipped" />
           <notifications:NotificationCard NotificationType="Error" Content="Could not reach the store" />
+        </StackPanel>
+        <StackPanel Orientation="Horizontal" Spacing="12">
+          <notifications:NotificationCard Classes="normal" Content="Settings saved" />
+          <notifications:NotificationCard Classes="outlined" NotificationType="Success" Content="Outlined" />
+          <notifications:NotificationCard Classes="text hide-close" NotificationType="Error" Content="Text, no close" />
+        </StackPanel>
+
+        <TextBlock Classes="caption"
+                   TextWrapping="Wrap"
+                   MaxWidth="760"
+                   HorizontalAlignment="Left"
+                   Text="MudTooltip's Color: a ToolTip the app builds as the Tip carries its classes. Placed by hand here, so without the popup that would place its arrow." />
+        <StackPanel Orientation="Horizontal" Spacing="12">
+          <ToolTip Content="Default" />
+          <ToolTip Classes="primary" Content="Primary" />
+          <ToolTip Classes="secondary" Content="Secondary" />
+          <ToolTip Classes="error" Content="Error" />
+          <ToolTip Classes="dark" Content="Dark" />
         </StackPanel>
       </StackPanel>
 
@@ -914,12 +1036,19 @@
           <Border Classes="appbar primary" Width="480">
             <TextBlock Classes="h6" Text="Primary app bar" VerticalAlignment="Center" />
           </Border>
+          <Border Classes="toolbar surface" Width="480">
+            <StackPanel Orientation="Horizontal" Spacing="8">
+              <Button Classes="icon"><PathIcon Data="{StaticResource GalleryMenuIcon}" /></Button>
+              <TextBlock Classes="subtitle1" Text="Toolbar" />
+              <PathIcon Classes="small primary" Data="{StaticResource GalleryFavoriteIcon}" />
+            </StackPanel>
+          </Border>
         </WrapPanel>
         <TextBlock Classes="caption"
                    TextWrapping="Wrap"
                    MaxWidth="760"
                    HorizontalAlignment="Left"
-                   Text="MudTabs' defaults: a surface bar with no rule under it, tabs in text-primary and at least 160px wide. A colour class is MudTabs' Color, the bar in the colour and the tabs in its contrast text; border, outlined, rounded, centered and hide-slider are its parameters of the same names, on a TabControl or a TabStrip; elevation4 and the like are Elevation, and slider-warning and the like are SliderColor. Position is TabStripPlacement on a TabControl. An app bar is 64px with 24px gutters, dense is 48px, and a colour class is MudAppBar's Color." />
+                   Text="MudTabs' defaults: a surface bar with no rule under it, tabs in text-primary and at least 160px wide. A colour class is MudTabs' Color, the bar in the colour and the tabs in its contrast text; border, outlined, rounded, centered and hide-slider are its parameters of the same names, on a TabControl or a TabStrip; elevation4 and the like are Elevation, and slider-warning and the like are SliderColor. Position is TabStripPlacement on a TabControl. An app bar is 64px with 24px gutters, dense is 48px, and a colour class is MudAppBar's Color. toolbar on a Border is MudToolBar's box, the same 64px and 24px without the colour; the heart in it is a PathIcon with small and primary, MudIcon's Size and Color." />
       </StackPanel>
 
       <!-- Right to left -->

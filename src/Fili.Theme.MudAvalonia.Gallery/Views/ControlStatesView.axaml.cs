@@ -75,6 +75,11 @@ public partial class ControlStatesView : UserControl
         //
         // Only one element can hold focus, so the second sample is faked with the pseudo-class
         // directly. That is not something an app should do - it is a screenshot prop.
+        // Two of three rows in, and one of the tree's: multi-selection's checkboxes, checked and not.
+        MultiList.SelectedItems!.Add(MultiList.Items[0]);
+        MultiList.SelectedItems.Add(MultiList.Items[2]);
+        MultiTree.SelectedItems.Add(((TreeViewItem)MultiTree.Items[0]!).Items[0]);
+
         Loaded += (_, _) =>
         {
             // Without the guard, focusing it scrolled the page to it - below the fold in a browser

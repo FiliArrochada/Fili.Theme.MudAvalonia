@@ -54,6 +54,7 @@ public static class GalleryFrames
         ("controls", () => new ControlStatesView()),
         ("screen", () => new SampleScreenView()),
         ("palette", () => new PaletteView()),
+        ("custom", () => new CustomStylesView()),
     ];
 
     private static readonly ThemeVariant[] Variants =

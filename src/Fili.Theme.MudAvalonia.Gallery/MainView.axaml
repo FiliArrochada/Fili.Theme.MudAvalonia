@@ -80,6 +80,9 @@
       <TabItem Header="Sample screen">
         <views:SampleScreenView />
       </TabItem>
+      <TabItem Header="Custom styles">
+        <views:CustomStylesView />
+      </TabItem>
     </TabControl>
 
   </DockPanel>
