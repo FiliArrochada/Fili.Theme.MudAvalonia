@@ -22,7 +22,7 @@
     Outlined       outlined    a lines-default ring round the bar
     Rounded        rounded     default-borderradius on the bar
     Centered       centered    the tab row centred in the bar
-    Elevation      elevation0 ... elevation24, the shadow under the bar
+    Elevation      elevation0 ... elevation25, the shadow under the bar
     SliderColor    slider-{colour}: the indicator in that colour, whatever the bar's
     Position       TabStripPlacement - Top, Bottom, Left or Right. The bar docks to that edge,
                    `border` draws its rule on the content side, the tabs stack for Left and
@@ -144,6 +144,7 @@
     <!-- This is the line that carries the header theme down to bare <TabItem> children. -->
     <Setter Property="ItemContainerTheme" Value="{StaticResource FiliTabItem}" />
     <Setter Property="theme:SlidingIndicator.Slides" Value="True" />
+    <Setter Property="theme:TabBarScroll.Scrolls" Value="True" />
 
     <Setter Property="Template">
       <ControlTemplate>
@@ -153,8 +154,25 @@
           <DockPanel>
             <Border x:Name="PART_TabBarHost">
               <Border x:Name="PART_TabBar">
-                <ItemsPresenter x:Name="PART_ItemsPresenter"
-                                ItemsPanel="{TemplateBinding ItemsPanel}" />
+                <!-- MudTabs' scroll buttons, at the bar's ends while the tabs overflow it: icon buttons with
+                     ChevronLeft and ChevronRight (NavigateBefore is the same path). TabBarScroll shows them,
+                     disables each at its end and scrolls a bar's length per click. -->
+                <DockPanel>
+                  <Button x:Name="PART_ScrollPrev" Classes="icon" DockPanel.Dock="Left" Focusable="False" IsVisible="False">
+                    <Path x:Name="PART_PrevIcon" Width="24" Height="24" Stretch="None" RenderTransformOrigin="50%,50%" Fill="{Binding $parent[Button].Foreground}"
+                          Data="{DynamicResource FiliNavigateBeforeGeometry}" />
+                  </Button>
+                  <Button x:Name="PART_ScrollNext" Classes="icon" DockPanel.Dock="Right" Focusable="False" IsVisible="False">
+                    <Path x:Name="PART_NextIcon" Width="24" Height="24" Stretch="None" RenderTransformOrigin="50%,50%" Fill="{Binding $parent[Button].Foreground}"
+                          Data="{DynamicResource FiliChevronRightGeometry}" />
+                  </Button>
+                  <ScrollViewer x:Name="PART_TabScroller"
+                                HorizontalScrollBarVisibility="Hidden"
+                                VerticalScrollBarVisibility="Disabled">
+                    <ItemsPresenter x:Name="PART_ItemsPresenter"
+                                    ItemsPanel="{TemplateBinding ItemsPanel}" />
+                  </ScrollViewer>
+                </DockPanel>
               </Border>
             </Border>
 
@@ -296,6 +314,28 @@
     </Style>
     <Style Selector="^[TabStripPlacement=Right] /template/ Border#PART_TabBarHost">
       <Setter Property="DockPanel.Dock" Value="Right" />
+    </Style>
+
+    <!-- A bar on the left or right scrolls down, its buttons the bar's width and 32px high, the
+         chevrons turned a quarter: `.mud-tabs-vertical .mud-tabs-scroll-button`. -->
+    <Style Selector="^[TabStripPlacement=Left] /template/ ScrollViewer#PART_TabScroller, ^[TabStripPlacement=Right] /template/ ScrollViewer#PART_TabScroller">
+      <Setter Property="HorizontalScrollBarVisibility" Value="Disabled" />
+      <Setter Property="VerticalScrollBarVisibility" Value="Hidden" />
+    </Style>
+    <Style Selector="^[TabStripPlacement=Left] /template/ Button#PART_ScrollPrev, ^[TabStripPlacement=Right] /template/ Button#PART_ScrollPrev">
+      <Setter Property="DockPanel.Dock" Value="Top" />
+    </Style>
+    <Style Selector="^[TabStripPlacement=Left] /template/ Button#PART_ScrollNext, ^[TabStripPlacement=Right] /template/ Button#PART_ScrollNext">
+      <Setter Property="DockPanel.Dock" Value="Bottom" />
+    </Style>
+    <Style Selector="^[TabStripPlacement=Left] /template/ Button.icon, ^[TabStripPlacement=Right] /template/ Button.icon">
+      <Setter Property="HorizontalAlignment" Value="Stretch" />
+      <Setter Property="Height" Value="32" />
+      <Setter Property="Padding" Value="0" />
+      <Setter Property="CornerRadius" Value="0" />
+    </Style>
+    <Style Selector="^[TabStripPlacement=Left] /template/ Path#PART_PrevIcon, ^[TabStripPlacement=Left] /template/ Path#PART_NextIcon, ^[TabStripPlacement=Right] /template/ Path#PART_PrevIcon, ^[TabStripPlacement=Right] /template/ Path#PART_NextIcon">
+      <Setter Property="RenderTransform" Value="rotate(90deg)" />
     </Style>
 
     <Style Selector="^[TabStripPlacement=Left]">
