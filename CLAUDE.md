@@ -163,6 +163,8 @@ One line each; [`docs/traps.md`](docs/traps.md) has the full account and the tes
 - Indeterminate, striped and pulsing-skeleton regions are masked, located from the live tree.
 - A one-shot animation is waited out (`SettleTime`), never masked.
 - A frame must not depend on the locale; `GalleryFrames.Render` pins the invariant culture.
+- Anything loaded by URI at runtime is invisible to trimming: `OptionalStyleInclude` keeps the
+  compiled XAML with a `DynamicDependency`, or the browser gallery and trimmed apps fail at startup.
 - Capture with `RenderTargetBitmap`, never `CaptureRenderedFrame`.
 
 ## The base is forked, not depended on
