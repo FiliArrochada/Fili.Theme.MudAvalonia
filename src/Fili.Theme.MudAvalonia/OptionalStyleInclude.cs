@@ -1,5 +1,6 @@
 using System;
 using System.ComponentModel;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Reflection;
 using Avalonia.Logging;
@@ -56,6 +57,15 @@ internal sealed class OptionalStyleInclude : Styles, ISupportInitialize
     {
     }
 
+    /// <remarks>
+    /// Loading by URI finds the compiled XAML through reflection, by the name of the type the XAML
+    /// compiler generates, so a trimmed app - the browser gallery, or any app published trimmed
+    /// or AOT - dropped it, and with the DataGrid present the theme threw at startup: "No
+    /// precompiled XAML found". The dependency keeps that type, and every file it can load, in
+    /// this assembly.
+    /// </remarks>
+    [DynamicDependency(DynamicallyAccessedMemberTypes.PublicMethods | DynamicallyAccessedMemberTypes.NonPublicMethods, "CompiledAvaloniaXaml.!XamlLoader", "Fili.Theme.MudAvalonia")]
+    [UnconditionalSuppressMessage("Trimming", "IL2026", Justification = "The compiled XAML the URI names is kept by the DynamicDependency above.")]
     void ISupportInitialize.EndInit()
     {
         if (Requires is null || Source is null)

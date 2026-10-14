@@ -298,6 +298,16 @@ the window, or the GitHub Pages build silently loses it. And never construct a `
 gallery code: the two in App.axaml compile to code, while one built in C# loads by reflection,
 which the browser build's trimming can strip - leaving the page with no base theme at all.
 
+**The theme's own `OptionalStyleInclude` loads by URI too, so it keeps what it loads.** Loading a
+URI finds the compiled XAML by reflection, through the type the XAML compiler generates
+(`CompiledAvaloniaXaml.!XamlLoader`), and trimming removed it: from 0.7.0 to 0.9.0 the published
+gallery threw "No precompiled XAML found" for `DataGridStyles.axaml` at startup and drew nothing
+past the splash, as would any trimmed or AOT app with the DataGrid. Every test passed, because
+none of them is trimmed. A `DynamicDependency` on `EndInit` keeps that type;
+`OptionalBoundaryTests` pins the attribute, and a trimmed app without the DataGrid still publishes
+with no warnings. Check the published page, not only the suites, after touching how the theme
+loads.
+
 The gallery is the development loop, not a deliverable added at the end. A theme has no surface of
 its own, so tune against the gallery rather than against an app.
 

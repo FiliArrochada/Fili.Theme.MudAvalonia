@@ -1,4 +1,5 @@
 using System.ComponentModel;
+using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
 using System.Text.RegularExpressions;
 using System.Xml.Linq;
@@ -154,6 +155,26 @@ public class OptionalBoundaryTests
             style => style.GetType().Name == "OptionalStyleInclude");
         Assert.NotEmpty((Styles)include);
     });
+
+    /// <summary>
+    /// Loading by URI finds the compiled XAML by reflection, through the type the XAML compiler
+    /// generates, so a trimmed app dropped it: the browser gallery threw "No precompiled XAML
+    /// found" for DataGridStyles.axaml at startup, and so would any app published trimmed or AOT
+    /// with the DataGrid. Untrimmed, as every test here runs, it always loads, so the guard is the
+    /// DynamicDependency that keeps that type, and that the type it names is really there.
+    /// </summary>
+    [Fact]
+    public void TheIncludeKeepsTheCompiledXamlThroughTrimming()
+    {
+        var theme = typeof(FiliThemeVariants).Assembly;
+        var include = theme.GetType("Fili.Theme.MudAvalonia.OptionalStyleInclude", throwOnError: true)!;
+        var endInit = include.GetMethod("System.ComponentModel.ISupportInitialize.EndInit", BindingFlags.Instance | BindingFlags.NonPublic)!;
+
+        var keep = Assert.Single(endInit.GetCustomAttributes<DynamicDependencyAttribute>());
+        Assert.Equal(theme.GetName().Name, keep.AssemblyName);
+        Assert.NotNull(theme.GetType(keep.TypeName!));
+        Assert.True(keep.MemberTypes.HasFlag(DynamicallyAccessedMemberTypes.PublicMethods) && keep.MemberTypes.HasFlag(DynamicallyAccessedMemberTypes.NonPublicMethods));
+    }
 
     /// <summary>The internal include, built and initialised as compiled XAML does.</summary>
     private static Styles NewInclude(string requires, Version? minimum)
