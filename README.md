@@ -13,10 +13,17 @@ and high contrast, with a gallery app to look at it in.
 **[See the gallery live](https://filiarrochada.github.io/Fili.Theme.MudAvalonia/)** — the same app,
 compiled to WebAssembly and served by GitHub Pages.
 
-Coming from MudBlazor? [MudBlazor parity](docs/mudblazor-parity.md) maps every component
-parameter and palette property to its class or token, and [Razor and AXAML](docs/razor-vs-axaml.md)
-shows the same UI written both ways. [Testing](docs/testing.md) explains what the unit and pixel
-tests check, how CI runs them, and why each exists.
+**Where to read what**, in the order most people need it:
+
+| If you want to | Read |
+|---|---|
+| install it and see the classes | this page |
+| write a MudBlazor screen in AXAML | [Razor and AXAML](docs/razor-vs-axaml.md): the same UI written both ways |
+| find the class or key for one parameter | [MudBlazor parity](docs/mudblazor-parity.md): every parameter, with ✅, ≈ or ❌ |
+| know how a control behaves, and why | [Controls](docs/controls.md) |
+| know what is not there | [Known gaps](docs/known-gaps.md) |
+| upgrade | [Versions](docs/versions.md): what changed, and what to change |
+| work on the theme itself | [Traps](docs/traps.md), [The base](docs/the-base.md), [Testing](docs/testing.md), [Releasing](docs/releasing.md) |
 
 The token values are MudBlazor's defaults, transcribed from its source rather than eyeballed. The
 aim is the *look* — this is not a component library: no new control types, no services, and one
@@ -59,7 +66,7 @@ version-less.
 |---|---|
 | Package | [`Fili.MudAvalonia.Theme`](https://www.nuget.org/packages/Fili.MudAvalonia.Theme) on nuget.org, with symbols (`.snupkg`) |
 | Target framework | `net10.0` |
-| Depends on | `Avalonia` 12.1.3 or later, and nothing else - no `Avalonia.Themes.*` package. `Avalonia.Controls.DataGrid` is optional: built against 12.1.2, themed when the app references it |
+| Depends on | `Avalonia` 12.1.3 or later, and nothing else - no `Avalonia.Themes.*` package. `Avalonia.Controls.DataGrid` is optional: built against 12.1.0, themed when the app references it. [Which versions were tested](docs/releasing.md#supported-avalonia-versions) |
 | Fonts | Roboto (Light, Regular, Medium) embedded, under the SIL Open Font License |
 | Licence | MIT |
 
@@ -122,7 +129,7 @@ base became a fork of Simple that this repo owns, the hazard went with it: a `Te
 `Variant.Outlined`, `Variant.Text` and `Variant.Filled` — API familiarity is the point of this
 package, so they are not namespaced to `mud-primary` or hidden behind an attached property.
 
-**All 125 of them, which is the list to grep an app against before adopting:**
+**All 146 of them, which is the list to grep an app against before adopting:**
 
 | | |
 |---|---|
@@ -132,13 +139,15 @@ package, so they are not namespaced to `mud-primary` or hidden behind an attache
 | Shape (`Variant`) | `text`, `filled`, `outlined`, `rounded`, `flat` |
 | Size (`Size`) | `small`, `medium`, `large`, `dense` |
 | Placement | `inset`, `middle`, `vertical`, `light`, `underline`, `no-underline`, `border`, `centered`, `hide-slider` |
-| Component | `icon`, `chip`, `fab`, `extended`, `alert`, `avatar`, `badge`, `card`, `skeleton`, `circle`, `rectangle`, `counter`, `circular` |
+| Component | `icon`, `chip`, `fab`, `extended`, `alert`, `avatar`, `badge`, `card`, `skeleton`, `circle`, `rectangle`, `counter`, `circular`, `nav`, `toolbar`, `normal` |
 | Card parts | `card-header`, `card-header-avatar`, `card-header-content`, `card-header-actions`, `card-media`, `card-content`, `card-actions` |
 | Badge (`Origin`, `Dot`, `Bordered`, `Overlap`) | `top-left`, `top-center`, `center-left`, `center-center`, `center-right`, `bottom-left`, `bottom-center`, `bottom-right`, `dot`, `bordered`, `overlap` |
-| Behaviour | `helper-on-focus`, `hover`, `no-animation`, `no-gutters`, `value-label`, `striped`, `wave` |
+| Behaviour | `arrow`, `dense-items`, `helper-on-focus`, `hide-close`, `hide-icon`, `hover`, `multi-selection`, `no-animation`, `no-gutters`, `required`, `shrink-label`, `value-label`, `striped`, `wave` |
+| Label placement (`LabelPlacement`) | `label-start`, `label-top`, `label-bottom` |
 | Icons in content | `start-icon`, `end-icon` |
 | Tab indicator colour (`SliderColor`) | `slider-primary`, `slider-secondary`, `slider-tertiary`, `slider-info`, `slider-success`, `slider-warning`, `slider-error`, `slider-dark` |
 | Unchecked colour (`UncheckedColor`) | `unchecked-primary`, `unchecked-secondary`, `unchecked-tertiary`, `unchecked-info`, `unchecked-success`, `unchecked-warning`, `unchecked-error`, `unchecked-dark` |
+| Switch thumb icon colour (`ThumbIconColor`) | `thumb-primary`, `thumb-secondary`, `thumb-tertiary`, `thumb-info`, `thumb-success`, `thumb-warning`, `thumb-error`, `thumb-dark` |
 
 `ClassVocabularyTests` asserts that list is exactly what the theme uses, in both directions — an
 undeclared class is a collision nobody signed off on, and a declared one no selector uses is a
@@ -196,7 +205,7 @@ The card's parts are classes on whatever lays it out. [Controls](docs/controls.m
 has the details.
 
 **A `DataGrid` is MudDataGrid with nothing to opt into.** The package does not depend on
-`Avalonia.Controls.DataGrid`; it is built against it, and when the app references it (12.1.2 or
+`Avalonia.Controls.DataGrid`; it is built against it, and when the app references it (12.1.0 or
 later) the theme finds it and themes its controls by type, so a grid on screen is surface at
 elevation 1 with MudDataGrid's header, rows and sort arrow. `dense`, `striped`, `bordered` and
 `hover` are its `Dense`, `Striped`, `Bordered` and `Hover`; `outlined`, `square` and the elevation
@@ -250,7 +259,7 @@ Every token is asserted to resolve under **both** theme variants. Add a token, a
 | Elevation | `Themes/Elevation.axaml` | Levels 0–25 (25 is MudBlazor's softer last entry), three stacked shadow layers each — one hard ring each in high contrast. |
 | Typography | `Themes/Typography.axaml` | Roboto, embedded; base size **14px**, not 16. |
 | Controls | `Themes/ControlThemes.axaml` | Aggregator; one file per control under `Themes/Controls/`. Keyed by type. |
-| Icons | `Themes/Icons.axaml` | The ten Material glyphs the templates cannot do without. Not an icon set. |
+| Icons | `Themes/Icons.axaml` | The seventeen Material glyphs the templates draw, and the switch's empty thumb icon. Each is a key an app can set in a control's `Resources` to swap that control's glyph: MudBlazor's icon parameters. Not an icon set. |
 | Geometry | `Themes/Geometry.axaml` | 4px radius, 4px spacing scale, appbar and drawer sizes, and `FiliInputMinWidth` — the floor that keeps an unstretched empty field from measuring to nothing. |
 
 Three things worth knowing before changing any of them:
@@ -303,13 +312,18 @@ pixel baselines are compared on.
 dotnet run --project src/Fili.Theme.MudAvalonia.Gallery.Desktop
 ```
 
-Five tabs: palette swatches with computed WCAG contrast ratios, the elevation ladder, the type
-ramp, a control-state matrix, and a realistic sample screen. The variant selector in the app bar
+Six tabs: palette swatches with computed WCAG contrast ratios, the elevation ladder, the type
+ramp, a control-state matrix, a realistic sample screen, and **custom styles**: worked examples
+rather than parity. One is an Avalonia control MudBlazor has no counterpart for, where the theme
+styles only the part that matters: `DrawerPage`, with MudBlazor's drawer button and mini drawer.
+The other is a pattern built from the theme's pieces: a page loader, MudOverlay with a spinning
+MudProgressCircular. Each is a pixel frame, so the examples are tested like everything else, and
+copying one into an app starts from markup that is known to render. The variant selector in the app bar
 switches between light, dark and high contrast at runtime — which is the fastest way to find a
 token that was wired statically, or one that high contrast never got its own value for.
 
 `--capture <dir>` renders every view in every variant to PNG without a display, for reviewing
-without running the app. They are the same nine frames the pixel suite compares.
+without running the app. They are the same twelve frames the pixel suite compares.
 
 There used to be a substrate selector beside the variant one, flipping the base under the forked
 controls between this package's Simple fork and Avalonia's Fluent. It mattered while the package

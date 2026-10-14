@@ -6,13 +6,44 @@ where the two differ. For side-by-side markup, see [Razor and AXAML](razor-vs-ax
 The rule behind every row: **a class only ever names a MudBlazor variant.** Every control the
 theme templates is keyed to its type, so an unclassed control is already the MudBlazor default.
 Class names are MudBlazor's own words (`primary`, `outlined`, `small`), deliberately not
-namespaced. `ClassVocabularyTests` pins the full list of 125.
+namespaced. `ClassVocabularyTests` pins the full list of 146.
 
 | Mark | Meaning |
 |---|---|
 | ✅ | Same values, transcribed from MudBlazor's source |
 | ≈ | Same look, reached differently, or close with a stated difference |
-| ❌ | Not available |
+| ❌ | Not available, with the reason |
+
+**A MudBlazor icon parameter is a resource key.** Every glyph the theme draws is a
+`DynamicResource`, so the app sets the key in the control's `Resources` (or a parent's, for a
+whole region) and that control draws its own glyph in the theme's place:
+
+```xml
+<CheckBox Content="Favourite">
+  <CheckBox.Resources>
+    <StreamGeometry x:Key="FiliCheckBoxCheckedGeometry">M12 21.35l-1.45-1.32C5.4 15.36 …</StreamGeometry>
+  </CheckBox.Resources>
+</CheckBox>
+```
+
+| MudBlazor | Key |
+|---|---|
+| MudCheckBox `CheckedIcon`, `UncheckedIcon`, `IndeterminateIcon`; MudList's and MudTreeView's the same | `FiliCheckBoxCheckedGeometry`, `FiliCheckBoxUncheckedGeometry`, `FiliCheckBoxIndeterminateGeometry` |
+| MudRadio `CheckedIcon`, `UncheckedIcon` | `FiliRadioCheckedGeometry`, `FiliRadioUncheckedGeometry` |
+| MudSwitch `ThumbIcon` (none by default) | `FiliSwitchThumbIconGeometry` |
+| MudSelect `OpenIcon` (shown while closed), `CloseIcon` (shown while open) | `FiliArrowDropDownGeometry`, `FiliArrowDropUpGeometry` |
+| MudExpansionPanel `Icon`, MudNavGroup `ExpandIcon` | `FiliExpandMoreGeometry` |
+| MudTreeView `ExpandButtonIcon` | `FiliChevronRightGeometry` |
+| MudTabs `PrevIcon`, `NextIcon` | `FiliNavigateBeforeGeometry`, `FiliChevronRightGeometry` |
+| MudSnackbar `CloseIcon`; CommonSnackbarOptions' `InfoIcon`, `SuccessIcon`, `WarningIcon`, `ErrorIcon`, `NormalIcon` | on the `WindowNotificationManager`: `FiliCloseGeometry`; `FiliInfoOutlinedGeometry`, `FiliAlertSuccessGeometry`, `FiliReportProblemGeometry`, `FiliErrorOutlineGeometry`, `FiliEventNoteGeometry` |
+
+A glyph is drawn in a 24px box at its own size, as MudIcon draws its 24px viewBox, so a Material
+path from MudBlazor's `Icons` class fits as it is. A key reaches everything under the control it
+is set on: on an `Expander`, the expanders inside it too.
+
+Every parameter of a MudBlazor 9.11 component that changes how it looks has a row, and every
+component is in a section or under [Not here](#not-here). Parameters that only change behaviour
+(events, binding, validation logic, `Class`, `Style`, `UserAttributes`) do not.
 
 ## Components
 
@@ -38,6 +69,8 @@ Variant, colour and size are one class each and combine freely:
 | `StartIcon` / `EndIcon` | an icon in `Content` with `start-icon` / `end-icon` | ✅ 20px (18 small, 22 large), 4px out and 8px from the label (2px out when small) |
 | ripple | — | ❌ no Avalonia primitive; the state tint is its static half |
 | uppercase label | — | ❌ Avalonia has no text-transform |
+| `IconColor`, `IconSize`, `IconClass` | the icon's own `Foreground`, `Width` / `Height`, `Classes` | ≈ ordinary Avalonia properties |
+| `Href`, `Target` | — | ≈ no look of their own; a link is `HyperlinkButton` |
 
 ### MudIconButton → `Button.icon`
 
@@ -52,12 +85,29 @@ Put a `PathIcon` in `Content`: `<Button Classes="icon primary"><PathIcon Data="�
 | `Size.Small` / `Large` | `small` / `large` | ✅ 3px round 18px; 12px round 36px (32px when outlined or filled) |
 | `Edge` | `Margin` | ≈ an ordinary Avalonia property |
 | `Icon` | a `PathIcon` in `Content` | ≈ the gallery carries a few Material glyphs; the theme ships no icon set |
+| `DropShadow="false"` | `icon filled flat` | ✅ |
+| `Disabled` | `IsEnabled="False"` | ✅ action-disabled |
+| ripple | — | ❌ no ripple |
+
+### MudToggleIconButton → `ToggleButton.icon`
+
+| MudBlazor | Here | |
+|---|---|---|
+| the component | `icon` on a `ToggleButton` | ✅ MudIconButton's look in all three variants, from the same generator as `Button.icon` |
+| `Toggled` | `IsChecked` | ✅ |
+| `Color` (default `Default`) | `unchecked-primary` … `unchecked-dark` | ✅ the colour while not checked; action-default with none |
+| `ToggledColor` (default: `Color`) | `primary` … `dark` | ✅ the colour while checked; for one colour in both states, put both classes on |
+| `Icon`, `ToggledIcon` | a `PathIcon`; for two, a `Panel` holding both, `Icon` first | ✅ the second shows only while checked; a lone icon stays |
+| `Variant`, `Size`, `DropShadow="false"` | `outlined` / `filled`, `small` / `large`, `flat` | ✅ as on `Button.icon` |
+| `ToggledSize`, `ToggledVariant` | the classes, bound to `IsChecked` | ≈ one size and one variant unless the app swaps them |
+| `Disabled` | `IsEnabled="False"` | ✅ action-disabled |
 
 ### MudChip → `Button.chip`, `ToggleButton.chip`
 
 | MudBlazor | Here | |
 |---|---|---|
 | `Variant.Filled` (default) | `chip` | ✅ 32px pill, `action-disabled-background` grey, `action-disabled` on hover |
+| `Color.Default` (default) | no colour class | ✅ text-primary on that grey |
 | `Variant.Outlined` / `Text` | `chip outlined` / `chip text` | ✅ |
 | `Color.Primary` … `Color.Dark` | the colour classes | ✅ filled: colour, `{color}-darken` on hover; text: `{color}-hover` ground, 12% on hover |
 | `Size.Small` / `Large` | `small` / `large` | ✅ 24 / 40px high, 12 / 16px text |
@@ -67,6 +117,12 @@ Put a `PathIcon` in `Content`: `<Button Classes="icon primary"><PathIcon Data="�
 | close icon | an icon or button in `Content` with `end-icon` | ≈ the close button's 18px and spacing; closing is the app's |
 | `Avatar` | put it in `Content` | ≈ no avatar margins applied |
 | `MudChipSet` selection rules | — | ❌ single/multi selection is the app's, through `IsChecked` bindings |
+| `Label` | `CornerRadius="4"` | ≈ `.mud-chip-label`'s default radius in place of the pill |
+| `SelectedColor` | a colour class the app sets while `IsChecked` | ≈ |
+| `IconColor` | the icon's `Foreground` | ≈ |
+| `CheckedIcon`, `MudChipSet.CheckMark` | an icon in `Content` | ≈ shown by the app while `IsChecked` |
+| `MudChipSet`'s `Variant`, `Color`, `Size`, `Label`, `CloseIcon`, `AllClosable`, `Disabled` | the classes on each chip, or one `Style` over the container | ≈ a chip set is a panel of chips; nothing cascades |
+| ripple | — | ❌ no ripple |
 
 ### MudFab → `Button.fab`
 
@@ -99,7 +155,9 @@ Put initials, a `PathIcon` or an `Image` inside: `<Border Classes="avatar primar
 | `Elevation` | the elevation classes | ✅ the avatar never clips itself, so its shadow survives |
 | a `MudImage` child | an `Image` inside, or an `ImageBrush` as `Background` | ✅ covers the avatar and is clipped to its shape (at a size of your own, an `ImageBrush` needs nothing more) |
 | a `MudIcon` child | a `PathIcon` inside | ✅ 24px, `MudIcon`'s default size |
-| `MudAvatarGroup` | — | ❌ its `Max` and its "+n" avatar count the avatars, which is code |
+| `MudAvatarGroup` `Spacing` | a `StackPanel` with a negative `Spacing` | ≈ |
+| `MudAvatarGroup` `Outlined`, `OutlineColor` | `BorderThickness="2"` and a `BorderBrush` on each avatar | ≈ the 2px ring is two ordinary properties |
+| `MudAvatarGroup` `Max`, the "+n" avatar | — | ❌ counting the avatars is code |
 
 ### MudBadge → `HeaderedContentControl.badge`
 
@@ -141,7 +199,7 @@ Put initials, a `PathIcon` or an `Image` inside: `<Border Classes="avatar primar
 | MudBlazor | Here | |
 |---|---|---|
 | `MudPaper` | `Border.surface` | ≈ surface fill and the default radius, but no shadow: MudPaper's `Elevation` defaults to 1, so it is `surface elevation1` (a `card` carries it) |
-| `Elevation="0…24"` | `elevation0` `1` `2` `4` `6` `8` `12` `16` `24` | ✅ the ladder levels apps use; three shadow layers each, from `Shadow.cs` |
+| `Elevation="0…25"` | `elevation0` … `elevation25` | ✅ every level `_elevation.scss` has; three shadow layers each, from `Shadow.cs` |
 | `Outlined` | `outlined` | ✅ 1px `lines-default` |
 | `Square` | `square` | ✅ no radius, on a paper or a card |
 | `MudCard` | `Border.card` | ✅ a paper at elevation 1 in text-primary; `outlined` drops the shadow whatever elevation class is on it, as MudPaper does |
@@ -151,6 +209,8 @@ Put initials, a `PathIcon` or an `Image` inside: `<Border Classes="avatar primar
 | `MudCardContent` | `card-content` | ✅ 16px round |
 | `MudCardActions` | `card-actions`, on a `StackPanel` | ✅ a row, 8px round, its items centred |
 | `ContentPadding="false"` | `Margin="0"` on the part | ≈ the paddings are margins here, since a panel has none |
+| `Width`, `Height`, `MinWidth`, `MaxWidth`, `MinHeight`, `MaxHeight` | the same | ≈ ordinary Avalonia properties |
+| `MudCardMedia` `Height`, `Image` | `Height`; an `Image` inside, or an `ImageBrush` as `Background` | ≈ |
 
 ### MudAppBar → `Border.appbar`
 
@@ -158,11 +218,13 @@ Put initials, a `PathIcon` or an `Image` inside: `<Border Classes="avatar primar
 |---|---|---|
 | background, text colour | `appbar` | ✅ text colour is inherited, so a control's own colour wins |
 | height | `FiliAppbarHeight` | ✅ 64px |
-| elevation | the same | ✅ 4 |
+| `Elevation` (default 4) | no class, or the elevation classes | ✅ |
 | `Dense` | `dense` | ✅ 48px |
 | `Color` | the colour classes | ✅ `.mud-theme-{color}`: the colour as ground, its contrast text inherited |
-| `Gutters` (default) | the same | ✅ 24px a side; `Padding="0"` for none |
+| `Gutters` (default true) | `no-gutters` for false | ✅ 24px a side, or none |
 | `Bottom`, `Fixed` | — | ≈ placement, which is the app's layout |
+| `WrapContent` | a `WrapPanel` inside | ≈ |
+| `Contextual` | — | ❌ swapping the bar's content on selection is code |
 
 ### MudTextField → `TextBox`
 
@@ -178,7 +240,21 @@ Put initials, a `PathIcon` or an `Image` inside: `<Border Classes="avatar primar
 | `Counter` | `counter` with `MaxLength` | ✅ `12 / 50` on the right; the length alone when `MaxLength` is 0, as `Counter="0"` |
 | `Margin.Dense` | `dense` | ✅ standard 3px shorter, filled 8px, outlined 16px, with the label resting and floating to match |
 | `Margin.Normal` | `Margin` | ≈ only an outer margin in MudBlazor; an ordinary Avalonia property |
-| `Adornment` | `InnerLeftContent` / `InnerRightContent` | ≈ ordinary Avalonia properties |
+| `Adornment`, `AdornmentIcon`, `AdornmentText`, `AdornmentColor`, `IconSize` | `InnerLeftContent` / `InnerRightContent` | ≈ ordinary Avalonia properties; an icon there takes no size or colour from the theme |
+| `Placeholder` | — | ❌ the placeholder slot is the floating label |
+| `Disabled` | `IsEnabled="False"` | ≈ text-disabled text, label and helper text; the line pales to action-disabled where MudBlazor's turns dotted, which a `Border` cannot draw |
+| `ReadOnly` | `IsReadOnly` | ✅ looks the same, as in MudBlazor |
+| `Underline="false"` | `no-underline` | ✅ neither the resting nor the focus rule; an outlined field has none anyway |
+| `Required` | `required` | ✅ `*` straight after the label, as `.mud-input-label::after` |
+| `ShrinkLabel` | `shrink-label` | ✅ the label floated with nothing typed, in text-primary |
+| the label over text | the same | ✅ text-primary once floated by its text (`.mud-shrink ~ label`), primary while focused |
+| `Lines`, `AutoGrow`, `MaxLines` | `AcceptsReturn`, `TextWrapping`, `MinLines`, `MaxLines` | ≈ ordinary Avalonia properties; a tall field's resting label stays centred rather than at the top |
+| `Clearable` | a button in `InnerRightContent` | ≈ the app clears the text |
+| `Typo` | `FontSize`, `LineHeight` from the `Fili{Style}…` tokens | ≈ |
+| `FullWidth` | `HorizontalAlignment="Stretch"` | ≈ |
+| `InputType.Password` | `PasswordChar` | ≈ |
+| `MudMask` | `MaskedTextBox` | ✅ it is a `TextBox` to the theme (its `StyleKeyOverride`), so every row above applies |
+| `MudField` | a `Label` over any content | ≈ there is no input box without an input |
 
 ### MudSelect, MudAutocomplete, MudNumericField
 
@@ -189,8 +265,21 @@ Put initials, a `PathIcon` or an `Image` inside: `<Border Classes="avatar primar
 | `Error` | `error` | ✅ |
 | `Variant` on a select | `filled` / `outlined` | ✅ the text field's own variants |
 | `HelperText`, `Margin.Dense` on a select | `AutomationProperties.HelpText`, `dense` | ✅ as on a text field; a failing binding shows its message too |
-| `MudAutocomplete` | `AutoCompleteBox` | ✅ |
-| `MudNumericField` | `NumericUpDown` | ✅ 24px spin column, as `_inputcontrol.scss` reserves |
+| `MudAutocomplete` | `AutoCompleteBox` | ✅ the popup on a surface at elevation 8 |
+| `MudNumericField` | `NumericUpDown` | ≈ a 24px spin column, as `_inputcontrol.scss` reserves, but beside the field: its underline stops short of the arrows |
+| `Variant`, `Margin.Dense`, `Error`, `Counter`, `HelperText`, `HelperTextOnFocus` on either | the text field's classes and `AutomationProperties.HelpText`, on the outer control | ✅ passed to the `TextBox` inside; a `NumericUpDown`'s validation error shows in its helper line |
+| `MaxHeight` (default 300) on a select or an autocomplete | `MaxDropDownHeight` | ✅ 300, where Avalonia's default is 200 |
+| `Disabled` on a select | `IsEnabled="False"` | ≈ as a disabled text field, its arrow in text-disabled |
+| `OpenIcon` / `CloseIcon` (defaults) | the same | ✅ `ArrowDropDown`, turned to `ArrowDropUp` while the list is open |
+| `OpenIcon` / `CloseIcon` set to other glyphs | `FiliArrowDropDownGeometry` / `FiliArrowDropUpGeometry` in the select's `Resources` | ✅ |
+| `Underline`, `Required`, `ShrinkLabel` on a select, an autocomplete or a numeric field | `no-underline`, `required`, `shrink-label` | ✅ as on a text field |
+| `Dense` on the items | `dense-items` on the select, or `dense` on one `ComboBoxItem` | ✅ 4px top and bottom, body2: 36px rows; `dense` on the select is its field's `Margin.Dense` |
+| an option's height | the same | ✅ 48px, MudListItem's 8px and `.mud-list-item-text`'s 4px round a body1 line |
+| `MultiSelection`, `SelectAll` | — | ❌ a `ComboBox` holds one value |
+| `Clearable` | a button in `InnerRightContent` | ≈ the app clears the value |
+| MudAutocomplete's drop-down arrow | an arrow in `InnerRightContent` | ≈ an `AutoCompleteBox` shows none of its own |
+| `ShowProgressIndicator`, `ProgressIndicatorColor` | a `ProgressBar.circular.small` in `InnerRightContent` | ≈ |
+| `HideSpinButtons` | `ShowButtonSpinner="False"` | ≈ |
 
 ### MudCheckBox, MudRadio, MudSwitch
 
@@ -204,6 +293,19 @@ Put initials, a `PathIcon` or an `Image` inside: `<Border Classes="avatar primar
 | `Color.Primary` … `Color.Dark` | `primary` … `dark` | ✅ every glyph and the halo; on a switch, thumb and track only when on |
 | `Size.Small` / `Large` | `small` / `large` | ✅ glyph 20 / 36px; switch 14 / 26px thumb on its own span |
 | `UncheckedColor` | `unchecked-primary` … `unchecked-dark` | ✅ on a checkbox or radio: the glyph and its halo while not checked (a checkbox's null too), in place of the colour class |
+| `MudSwitch.UncheckedColor` | `unchecked-primary` … `unchecked-dark` | ✅ the thumb and the track while off |
+| `Disabled` | `IsEnabled="False"` | ✅ the glyph and the label in text-disabled, `.mud-checkbox.mud-disabled *` |
+| `ReadOnly` | `IsHitTestVisible="False"` | ≈ looks the same, as in MudBlazor |
+| `Dense` | `dense` on a checkbox or radio | ✅ 4px round the glyph: 32px; 28 small, 44 large |
+| the hit circle | the same | ✅ 48px, `.mud-icon-button`'s 12px round the 24px glyph; 44 small, 60 large |
+| `LabelPlacement` `End` (default) | no class | ✅ |
+| `LabelPlacement` `Start`, `Top`, `Bottom` | `label-start`, `label-top`, `label-bottom` | ✅ row-reverse, column-reverse and column, the two centred when stacked; on a checkbox, radio or switch |
+| `CheckedIcon`, `UncheckedIcon`, `IndeterminateIcon` | the glyph keys in the control's `Resources` | ✅ see [the keys](#mudblazor-parity) |
+| `MudSwitch.ThumbIcon` | `FiliSwitchThumbIconGeometry` in the switch's `Resources` | ✅ MudIcon filling the thumb with 2px padding: 16px in a 20px thumb |
+| `MudSwitch.ThumbIconColor` (default `Default`) | no class, or `thumb-primary` … `thumb-dark` | ✅ text-secondary, `.mud-icon-default`, or the colour |
+| `MudSwitch.Disabled` | `IsEnabled="False"` | ✅ the thumb gray-default, the track keeping its colour at 12%, the label text-disabled |
+| ripple | — | ❌ no ripple; the halo is its static half |
+| `MudRadioGroup` | a panel of `RadioButton`s with one `GroupName` | ≈ no look of its own |
 
 ### MudSlider → `Slider`
 
@@ -220,6 +322,9 @@ Put initials, a `PathIcon` or an `Image` inside: `<Border Classes="avatar primar
 | `TickMarkLabels` | — | ❌ a `Slider` has nowhere to put the strings; see [Known gaps](known-gaps.md) |
 | `ValueLabel` | `value-label` | ✅ a 12px chip of the colour above the thumb while it is held |
 | `ValueLabelFormat`, `Culture` | — | ≈ at most two decimals, in the app's culture rather than MudBlazor's invariant default |
+| `ValueLabelContent` | — | ❌ the label shows the value |
+| `Disabled` | `IsEnabled="False"` | ≈ action-disabled thumb and rail, where MudBlazor fades the whole slider to .38 |
+| `ChildContent` | a `TextBlock` above it | ≈ |
 
 ### MudProgressLinear → `ProgressBar`
 
@@ -231,7 +336,11 @@ Put initials, a `PathIcon` or an `Image` inside: `<Border Classes="avatar primar
 | `Indeterminate` | `IsIndeterminate` | ✅ MudBlazor's two-bar animation |
 | `Color` | `primary` … `dark` | ✅ every palette colour, the track at 20% of it |
 | `Striped` | `striped` | ✅ 25% white bands at 135°, 40px apart, sliding as MudBlazor's do |
-| `Buffer` | — | ❌ it needs a second value `ProgressBar` does not have |
+| `Buffer`, `BufferValue` | — | ❌ it needs a second value `ProgressBar` does not have |
+| `Vertical` | `Orientation="Vertical"` | ✅ every size |
+| `Min`, `Max`, `Value` | `Minimum`, `Maximum`, `Value` | ✅ |
+| `ShowBackground="false"` | `Background="Transparent"` | ≈ |
+| `ChildContent` | `ShowProgressText` | ≈ the formatted value centred over the bar; not arbitrary content |
 
 ### MudProgressCircular → `ProgressBar.circular`
 
@@ -254,6 +363,7 @@ Put initials, a `PathIcon` or an `Image` inside: `<Border Classes="avatar primar
 | `DividerType.Inset` / `Middle` | `inset` / `middle` | ✅ 72px / 16px |
 | `Vertical` | `vertical` | ✅ |
 | `Light` | `light` | ✅ `divider-light` |
+| `Absolute`, `FlexItem` | a `Panel` overlay; alignment | ≈ layout |
 
 ### MudLink → `HyperlinkButton`
 
@@ -263,6 +373,10 @@ Put initials, a `PathIcon` or an `Image` inside: `<Border Classes="avatar primar
 | `Underline.Always` / `None` | `underline` / `no-underline` | ✅ |
 | `Color.Primary` (default) | no class | ✅ |
 | `Color.Secondary` / `Inherit` | `secondary` / `inherit` | ✅ `inherit` is the surrounding text colour |
+| `Color.Tertiary` … `Color.Dark` | `tertiary` … `dark` | ✅ every palette colour as the text |
+| `Disabled` | `IsEnabled="False"` | ✅ action-disabled |
+| `Typo` | a type class on a `TextBlock` inside | ≈ |
+| `StartIcon`, `EndIcon`, `IconClass` | a `PathIcon` in the content | ≈ no spacing from the theme |
 
 ### MudTabs → `TabControl`, `TabStrip`
 
@@ -278,17 +392,39 @@ Put initials, a `PathIcon` or an `Image` inside: `<Border Classes="avatar primar
 | `Rounded` / `Centered` | `rounded` / `centered` | ✅ |
 | `HideSlider` | `hide-slider` | ✅ |
 | `Position` | `TabStripPlacement` on a `TabControl` | ✅ Top, Bottom, Left, Right: the bar docks there, `border` draws its rule on the content side, and the indicator follows |
-| `Elevation` | `elevation0` … `elevation24` | ✅ on the bar, outside `rounded`'s clip |
+| `Elevation` | `elevation0` … `elevation25` | ✅ on the bar, outside `rounded`'s clip |
 | `SliderColor` | `slider-primary` … `slider-dark` | ✅ the indicator alone, over any bar colour |
 | sliding indicator, `SliderAnimation` | the indicator slides | ✅ .3s, cubic-bezier(.64,.09,.08,1), the width jumping ≈ no switch to turn it off |
+| `Disabled` on the tabs | `IsEnabled="False"` | ✅ text-disabled |
+| `MudTabPanel.Icon`, `IconColor` | an icon in the `Header` | ≈ no 8px gap from the theme |
+| `BadgeData`, `BadgeDot`, `BadgeColor`, `BadgeMax` | a `HeaderedContentControl.badge` as the `Header` | ≈ |
+| `ToolTip` | `ToolTip.Tip` on the `TabItem` | ≈ |
+| scroll buttons | the same | ✅ ChevronLeft and ChevronRight icon buttons at the bar's ends while the tabs overflow it, each disabled at its end, a bar's length per click; the selected tab scrolls into view; on a side bar, 32px high and turned |
+| `PrevIcon`, `NextIcon` | `FiliNavigateBeforeGeometry`, `FiliChevronRightGeometry` in the tabs' `Resources` | ✅ drawn at their own size in the 24px box |
+| `AlwaysShowScrollButtons`, `ScrollIconColor` | — | ❌ the buttons are action-default, and only shown on overflow |
+| `ShowCloseIcon` | a button in the `Header` | ≈ closing is the app's |
+| `Header`, `HeaderPosition`, `TabPanelHeader` | `HeaderTemplate`, or content beside the bar | ≈ |
+| `MaxHeight` | `MaxHeight` | ≈ |
+| `ApplyEffectsToContainer` | a `Border.surface` with an elevation class round the control | ≈ |
 
 ### MudList → `ListBox`
 
 | MudBlazor | Here | |
 |---|---|---|
 | selected item | the same | ✅ primary text over primary at 6%, never a filled bar |
-| `Dense` | `dense` on the item | ✅ |
+| `Dense` | `dense` on the `ListBox` or an item | ✅ 4px top and bottom, body2 |
+| the text | the same | ✅ body1, MudListItem's own; body2 when dense |
+| a row's height | the same | ✅ 48px, 36 dense: the row's 8px (4px) and `.mud-list-item-text`'s 4px round the line |
 | on a surface | `ListBox.surface` | ✅ |
+| `Disabled` | `IsEnabled="False"` | ✅ action-disabled |
+| `Color` (the selection, default `Primary`) | `primary` … `dark` on the `ListBox` | ✅ the colour as the text over its hover tint |
+| `Gutters` (default true) | `no-gutters` on the `ListBox` or an item | ✅ no 16px sides |
+| `Padding` (default true) | `Padding="0"` | ≈ |
+| `Icon`, `IconColor`, `AvatarContent`, `SecondaryText`, `Inset` | content in the item | ≈ the app lays out the row |
+| `NestedList`, `Expanded`, `ExpandMoreIcon`, `ExpandLessIcon` | `TreeView` | ≈ a `ListBox` is flat; a tree nests |
+| `SelectionMode.MultiSelection` | `multi-selection` and `SelectionMode="Multiple, Toggle"` | ✅ a 48px checkbox on each row, 8px into the gutter, checked while the row is selected; no row is marked selected. ≈ two settings for one parameter: a XAML list pins `SelectionMode` before any style can set it |
+| `CheckBoxColor` (default `Default`) | no class, or `primary` … `dark` on the list while `multi-selection` is on | ✅ both glyphs and the halo; ≈ the list's `Color` class doubles as it, the selection colour being unused while selecting many |
+| `MudListSubheader` | a `TextBlock` with `Margin` | ≈ |
 
 ### MudExpansionPanels → `Expander`
 
@@ -301,28 +437,96 @@ Put initials, a `PathIcon` or an `Image` inside: `<Border Classes="avatar primar
 | `Dense` | `dense` | ✅ the content loses its 16px top and bottom |
 | `Gutters` (default true) | `no-gutters` for false | ✅ the header and the content lose their 24px sides |
 | `Outlined` (default true), an expanded panel's 16px margin | — | ❌ rules and margins between stacked panels: an `Expander` has no group |
+| `Disabled` | `IsEnabled="False"` | ✅ text-disabled header, action-disabled chevron |
+| `HideIcon` | `hide-icon` | ✅ no chevron |
+| `Icon` | `FiliExpandMoreGeometry` in the panel's `Resources` | ✅ |
+| `MaxHeight` | `MaxHeight` on the content | ≈ |
+| opening | — | ≈ the content cross-fades in .25s, where MudBlazor grows its height over .3s |
+
+### MudCollapse
+
+| MudBlazor | Here | |
+|---|---|---|
+| the component | an `Expander`'s content, or `IsVisible` | ≈ Avalonia has no headerless collapse |
 
 ### MudToggleGroup, MudButtonGroup, MudMenu
 
 | MudBlazor | Here | |
 |---|---|---|
-| `MudToggleGroup` item | `ToggleButton` | ✅ |
-| `Outlined`, `Size.Small` / `Large` | `outlined`, `small` / `large` | ✅ |
+| `MudToggleGroup` item | `ToggleButton` | ✅ a MudButton with no border, shadow or minimum width: the colour as text, `{color}-hover` under the pointer; filled once checked, `{color}-darken` under the pointer |
+| `Color` (default `Primary`) | no class, or `primary` … `dark` | ✅ on each item |
+| `Outlined` (default true) | `outlined` | ≈ opt-in: an Avalonia toggle is one item, not a group, so the group's 1px line in the colour is a class on each |
+| `Size.Small` / `Large` | `small` / `large` | ✅ 4px / 8px at 13 / 15px; 3px / 7px when outlined |
+| `Color.Default` | — | ❌ no class names it: a toggle's default is `Primary` |
+| `Vertical` | a vertical `StackPanel` of toggles | ≈ |
+| `Delimiters` (default true) | — | ≈ each outlined item draws its own line, so two side by side meet in a 2px one; `Spacing="-1"` shares it |
+| `CheckMark`, `SelectedIcon`, `UnselectedIcon`, `FixedContent`, `CheckMarkClass` | an icon in `Content` | ≈ shown by the app while `IsChecked` |
+| `SelectedClass` | a `:checked` style | ≈ |
+| `Disabled` | `IsEnabled="False"` | ✅ action-disabled text, and the line or ground in action-disabled-background |
+| ripple | — | ❌ no ripple |
 | a two-part `MudButtonGroup` | `SplitButton` | ✅ Button's classes: `outlined` / `filled`, any colour, `small` / `large` |
 | group separator | the same | ✅ text-primary or the colour; `divider` when filled; `{color}-lighten` between filled coloured segments |
 | `DropShadow="false"` | `filled flat` | ✅ on `SplitButton` and `DropDownButton` alike |
 | `Vertical` | — | ≈ not applicable: `SplitButton` is two halves side by side; a vertical group is a `StackPanel` of buttons |
+| a `MudButtonGroup` of three or more | a `StackPanel` of buttons | ≈ no shared border or separators |
+| `MudButtonGroup` `FullWidth` | `HorizontalAlignment="Stretch"` | ≈ |
+| `MudButtonGroup` `OverrideStyles` | — | ❌ nothing cascades; put the classes on each button |
 | `MudMenu` with a button activator | `DropDownButton` | ✅ Button's classes; an unclassed one is `Color.Default`, text-primary |
-| menu items | `Menu`, `MenuItem` | ✅ strip items and dropdown rows are separate themes |
+| menu items | `MenuItem` | ✅ 48px rows, 8px 12px round a body1 label with 4px above and below; strip items and dropdown rows are separate themes |
+| `MudMenuItem.Icon` | `MenuItem.Icon` | ✅ 24px in action-default, 12px from the label; every row in a list with an icon keeps the gutter, a list without has none |
+| the list | the dropdown | ✅ 4px above and below, at least 112px wide, 4px either side of a separator |
+| `Dense` | `dense` on the `ContextMenu`, on a `MenuFlyout`'s `FlyoutPresenterClasses`, or on the item whose submenu it is | ✅ 2px 12px rows in body2 |
+| `MaxHeight` | `MaxHeight` on the `ContextMenu` or flyout | ≈ |
+| an icon-button activator (`Icon`) | a `Button.icon` with a `Flyout` | ≈ |
+| `StartIcon`, `EndIcon`, `IconColor`, `FullWidth` on the activator | the `DropDownButton`'s content and alignment | ≈ |
+| `MudMenuItem.IconColor` | the icon's `Foreground` | ≈ action-default unless set |
+| `MudMenuItem.Disabled` | `IsEnabled="False"` | ✅ action-disabled, its icon too |
+| a submenu's arrow | the same | ✅ Filled.ArrowRight at 24px in action-default, mirrored under RTL as MudBlazor swaps in ArrowLeft; action-disabled when disabled |
+| `HideSubMenuArrow` | `hide-icon` on the item whose submenu it is | ✅ |
 
 ### MudTooltip, MudSnackbar, MudDrawer, MudTreeView
 
 | MudBlazor | Here | |
 |---|---|---|
-| `MudTooltip` | `ToolTip.Tip` | ✅ solid `gray-darker` chip in every variant |
-| `ISnackbar.Add(msg, Severity.X)` | `WindowNotificationManager.Show(…)` with `NotificationType.X` | ✅ a filled alert at elevation 6 |
-| `MudDrawer` | `SplitView` | ✅ 240px open, 56px mini |
-| `MudTreeView` | `TreeView` | ✅ 32px rows, 17px per level |
+| `MudTooltip` | `ToolTip.Tip` | ✅ a solid `gray-darker` chip in light, dark and high contrast, 12px at weight 500, 4px 8px; ≈ it wraps at 320px, where MudBlazor's never wraps |
+| `Placement`, `Delay`, `Duration` | `ToolTip.Placement`, `ToolTip.ShowDelay` | ≈ |
+| `Color` (default `Default`) | a `ToolTip` as the `Tip`, with `primary` … `dark` | ✅ `.mud-theme-{color}`: the colour and its contrast text. `ToolTip.Tip` uses a `ToolTip` as it is, so its classes survive |
+| `Arrow` | `arrow` on that `ToolTip` | ✅ a 6px triangle in the chip's colour on the side facing the target, for `Placement` `Top`, `Bottom`, `Left` and `Right`; ≈ none for `Pointer`, Avalonia's default and no MudBlazor placement; the offset from the target is `ToolTip.VerticalOffset`'s |
+| `ISnackbar.Add(msg, Severity.X)` | `WindowNotificationManager.Show(…)` with `NotificationType.X` | ✅ a filled alert at elevation 6, 288 to 500px wide, 6px 16px |
+| a card's classes | `WindowNotificationManager.Show(content, type, …, classes)` | ≈ the variants below are classes on the card; `Show(INotification)` takes none |
+| `Severity.Normal` | `normal` | ✅ filled `dark` with its contrast text; text-primary on a text or outlined card |
+| `SnackbarVariant.Filled` (default) | no class | ✅ |
+| `SnackbarVariant.Text` / `Outlined` | `text` / `outlined` | ✅ the surface, the text in the colour's darken shade at 400; outlined adds a 1px line in the colour |
+| the severity icon | the same | ✅ CommonSnackbarOptions' InfoIcon, SuccessIcon, WarningIcon, ErrorIcon and NormalIcon, 24px at 0.9 opacity, 12px before the message |
+| `HideIcon` | `hide-icon` | ✅ |
+| CommonSnackbarOptions' severity icons | the icon keys on the `WindowNotificationManager` | ✅ see [the keys](#mudblazor-parity) |
+| `Icon`, `IconColor`, `IconSize` on one message | — | ❌ the icon is the severity's: `Show` has no slot for them |
+| `ShowCloseIcon` (default true) | the same; `hide-close` for false | ✅ Filled.Close in a small icon button at the card's end, the card's colour on a filled card and action-default otherwise; it closes the card |
+| `CloseIcon` | `FiliCloseGeometry` on the `WindowNotificationManager` | ✅ |
+| `Action`, `ActionColor`, `ActionVariant` | a control as the notification's content | ≈ |
+| `PositionClass` | `WindowNotificationManager.Position` | ✅ every position, 24px from its edges |
+| `NewestOnTop`, `MaxDisplayedSnackbars` | `ReverseOrder`, `MaxItems` | ≈ |
+| `MaximumOpacity`, `BackgroundBlurred`, the show and hide durations | — | ≈ fully opaque, unblurred, and Avalonia's own enter and exit animations |
+| `MudDrawer` | `SplitView` | ≈ 240px open, 56px mini, drawer-background and drawer-text; MudDrawer's elevation 1 is not drawn, because the pane is a `Panel` |
+| `Anchor` | `PanePlacement` | ≈ |
+| `Width`, `MiniWidth`, `Height` | `OpenPaneLength`, `CompactPaneLength`, `Height` | ≈ |
+| `Variant` (Temporary, Persistent, Mini, Responsive) | `DisplayMode` (`Overlay`, `Inline`, `CompactInline`, `CompactOverlay`) | ≈; `Responsive`'s breakpoints are the app's |
+| `Overlay` | the scrim behind an overlay pane | ✅ `overlay-dark` |
+| `ClipMode`, `Fixed` | — | ≈ layout |
+| `Color` | `primary` … `dark` on the `SplitView` | ✅ the pane in the colour, its content in the contrast text |
+| `OpenMiniOnHover` | — | ❌ behaviour |
+| `MudDrawerHeader` | a panel at the pane's top | ≈ no class for its app-bar height and 12px 24px padding |
+| `MudTreeView` | `TreeView` | ✅ 32px rows, 17px per level; a leaf keeps the arrow's empty 40px slot, so its text lines up with a branch's |
+| `Hover` (default false) | `hover` | ✅ action-default-hover on the row under the pointer, not on its branch; a selected row keeps its tint |
+| `Disabled` | `IsEnabled="False"` | ✅ action-disabled |
+| `Color` (the selection, default `Primary`) | `primary` … `dark` on the `TreeView` | ✅ the colour as the text over its hover tint |
+| `Dense` | `dense` | ✅ no 32px minimum, rows padded 1px 4px |
+| `SelectionMode.MultiSelection` | `multi-selection` and `SelectionMode="Multiple, Toggle"` | ✅ a 32px checkbox after the arrow (24 dense), checked while the row is selected; no row is marked. ≈ a branch's box is its own selection, never indeterminate from its children |
+| `CheckBoxColor` (default `Default`) | no class, or `primary` … `dark` on the tree while `multi-selection` is on | ✅ ≈ as on a list |
+| `Icon`, `IconExpanded`, `EndIcon`, `EndText`, `TextTypo` | the `Header`'s content | ≈ |
+| `ExpandButtonIcon` | `FiliChevronRightGeometry` in the tree's `Resources` | ✅ |
+| `ExpandButtonIconColor`, `LoadingIcon` | — | ❌ the arrow is action-default; nothing loads lazily |
+| `Width`, `Height`, `MaxHeight` | the same | ≈ |
 
 ### MudAlert → `Border.alert`
 
@@ -336,7 +540,10 @@ The message goes in the `Border`; an icon is a `PathIcon` inside it, and takes t
 | `Variant.Outlined` | `outlined` | ✅ a 1px line in the colour |
 | `Variant.Filled` | `filled` | ✅ the colour as ground, its contrast text at Medium weight |
 | `Dense` | `dense` | ✅ |
-| `ShowCloseIcon`, `ContentAlignment` | — | ≈ put a button in the content; align with ordinary layout |
+| `ShowCloseIcon`, `CloseIcon`, `ContentAlignment` | — | ≈ put a button in the content; align with ordinary layout |
+| `Icon`, `NoIcon` | a `PathIcon` in the content, or none | ≈ there is no default icon per severity |
+| `Elevation` | the elevation classes | ✅ any `Border` takes them |
+| `Square` | `square` | ✅ no radius |
 
 ### MudSkeleton → `Border.skeleton`
 
@@ -372,14 +579,110 @@ the app references it; this package does not depend on it.
 | `ShowColumnOptions`, `Filterable`, `MudDataGridPager` | — | ❌ no column menu, filter row or pager: each is a control of its own, not a look |
 | `ColumnResizeMode` | `CanUserResizeColumns` | ≈ Avalonia's resizing works and shows its cursor; MudBlazor's 2px primary line down the grid does not appear, because the grid keeps its resize state to itself |
 | `FixedHeader`, `Virtualize` | built in | ≈ Avalonia's header never scrolls and its rows always virtualize |
+| `Height`, `HorizontalScrollbar` | `Height`, `HorizontalScrollBarVisibility` | ≈ |
+| `DragDropColumnReordering`, `Hideable` | `CanUserReorderColumns`, a column's `IsVisible` | ≈ |
+| `MultiSelection` | `SelectionMode="Extended"` | ≈ no checkbox column |
+| `FixedFooter`, footers | — | ❌ Avalonia's DataGrid has no footer row |
+| `Loading`, `LoadingProgressColor` | a `ProgressBar` over the grid | ≈ |
+| `Breakpoint` (the stacked mobile layout) | — | ❌ |
+
+### MudIcon → `PathIcon`
+
+| MudBlazor | Here | |
+|---|---|---|
+| `Icon` | `Data` | ≈ the gallery carries a few Material glyphs; the theme ships no icon set |
+| `Size.Small` / `Medium` (default) / `Large` | `small` / `medium` / `large` | ✅ 20 / 24 / 36px |
+| `Color.Inherit` (default) | no class | ✅ the surrounding text colour |
+| `Color.Primary` … `Color.Dark` | `primary` … `dark` | ✅ and the icon's own class beats an alert's or a button's colour, as MudIcon's does |
+| `Color.Default` | — | ≈ no class names it: set `Foreground` to `FiliTextSecondaryBrush` |
+| `Disabled` | `IsEnabled="False"` | ≈ no look of its own |
+| `ViewBox` | the geometry's own coordinates | ≈ a `PathIcon` stretches the glyph's own bounds to its size; a `Path` at 24 with `Stretch="None"` draws the 24px viewBox, as the theme's own glyphs do |
+
+### MudImage → `Image`
+
+| MudBlazor | Here | |
+|---|---|---|
+| `Src`, `Width`, `Height` | `Source`, `Width`, `Height` | ≈ |
+| `ObjectFit`, `ObjectPosition`, `Fluid` | `Stretch`, alignment, `MaxWidth` | ≈ |
+| `Elevation` | a `Border` with an elevation class and the image inside | ≈ an `Image` has no shadow |
+| `FallbackSrc` | — | ❌ behaviour |
+
+### MudPopover → `Flyout`, `ContextMenu`
+
+| MudBlazor | Here | |
+|---|---|---|
+| the paper | `FlyoutPresenter`, `MenuFlyoutPresenter`, `ContextMenu` | ✅ surface, the default radius, elevation 8 |
+| padding | — | ≈ a `FlyoutPresenter` pads its content 16px, where MudPopover leaves it to the content |
+| `Elevation`, `Square`, `Paper="false"`, `DropShadow="false"` | — | ❌ a presenter takes no elevation or shape class |
+| `AnchorOrigin`, `TransformOrigin` | `Placement` | ≈ |
+| `MaxHeight` | `MaxHeight` | ≈ |
+| `RelativeWidth`, `Duration`, `Delay` | — | ❌ |
+
+### MudOverlay
+
+| MudBlazor | Here | |
+|---|---|---|
+| `DarkBackground` | a temporary drawer's scrim | ✅ `overlay-dark`, behind an overlay `SplitView` pane |
+| the component on its own | a `Panel` with `FiliOverlayDarkBrush` or `FiliOverlayLightBrush` | ≈ there is no overlay control |
+| a loading page: `Visible`, `DarkBackground`, `Absolute`, a `MudProgressCircular` inside | a `Panel` over the content with `FiliOverlayDarkBrush` and an indeterminate `circular` `ProgressBar` | ≈ the gallery's **Custom styles** tab has it; the app shows the `Panel` while loading |
+
+### MudNavMenu, MudNavLink, MudNavGroup → `TreeView.nav`
+
+A link is a `TreeViewItem` without children and the active link is the selected one; a group is
+one with children:
+`<TreeView Classes="nav"><TreeViewItem Header="Home" /><TreeViewItem Header="Settings"> … </TreeViewItem></TreeView>`.
+
+| MudBlazor | Here | |
+|---|---|---|
+| `MudNavLink` | a row without children | ✅ 8px 16px, body1 on a 28px line, the text 12px in; action-default-hover under the pointer and keyboard focus |
+| the active link (`.active`) | the selected row | ✅ weight 500, primary over action-default-hover |
+| `MudNavMenu.Color` | `primary` … `dark` | ✅ the active link's text over the colour's hover tint, the colour at 12% under the pointer; its icon, its line and an open group's arrow in the colour |
+| `Bordered` | `bordered` | ✅ a 2px line at the active link's end, in its colour |
+| `Rounded` | `rounded` | ✅ the default radius on every row |
+| `Dense` | `dense` | ✅ 4px 16px |
+| `Margin` | `Margin` on the rows, through a `Style` | ≈ |
+| `MudNavLink.Icon`, `IconColor` | a `PathIcon` with `start-icon` in the `Header` | ✅ 24px in drawer-icon, 12px before the text, the colour when active; ≈ `IconColor` is its `Foreground` |
+| `MudNavLink.Disabled` | `IsEnabled="False"` | ✅ text-disabled |
+| `Href`, `Match`, `Target` | `SelectedItem` | ≈ which link is active is the app's to set |
+| `MudNavGroup` | a row with children | ✅ opens on a click anywhere on its row; ExpandMore in drawer-icon at its end, turned 180 degrees and in the colour once open; a top-level title at 500, a nested one at 400 until it opens |
+| nesting | rows inside a group | ✅ 36px in, then 48, 60 and 72 |
+| `MudNavGroup.HideExpandIcon` | `hide-icon` on the group's row | ✅ |
+| `MudNavGroup.ExpandIcon` | `FiliExpandMoreGeometry` in the group's `Resources` | ✅ |
+| `MudNavGroup.MaxHeight` | — | ❌ |
+| a mini drawer's nav | a nav tree in a closed `CompactInline` or `CompactOverlay` `SplitView`, or the drawer of a closed compact `DrawerPage` | ✅ a link's text beside its icon hidden, so the 56px rail shows the icons, and every row 8px 16px whatever its depth; no sideways scrolling, a group's arrow running off the edge as in MudBlazor |
+
+### MudToolBar → `Border.toolbar`
+
+| MudBlazor | Here | |
+|---|---|---|
+| the component | `toolbar` on a `Border` | ✅ 64px, the children centred; ≈ 56px below the sm breakpoint is the app's to set |
+| `Gutters` (default true) | `no-gutters` for false | ✅ 24px a side, or none |
+| `Dense` | `dense` | ✅ 48px |
+| `WrapContent` | a `WrapPanel` inside and `Height="NaN"` | ≈ |
+
+### MudSplitPanel → `GridSplitter`
+
+| MudBlazor | Here | |
+|---|---|---|
+| the divider | `GridSplitter` | ≈ left on the forked template on purpose; see [Known gaps](known-gaps.md) |
+| `Horizontal`, `MinPanelSize` | `ResizeDirection`, the columns' or rows' `MinWidth` / `MinHeight` | ≈ |
+| `Rounded`, `Elevation`, `PanelGap`, `Padding`, `Transparent` | a `Border.surface` round each panel | ≈ |
 
 ### Not here
 
-These need a whole new control, or are not visual: MudTable (MudDataGrid's look, above, is the same `.mud-table`), MudDatePicker,
-MudTimePicker, MudColorPicker, MudChart, MudRating, MudPagination, MudStepper, MudTimeline,
-MudBreadcrumbs, MudCarousel (left on the forked template), MudFileUpload, MudDialog (no dialog
-service), MudOverlay, MudHidden, MudFocusTrap, MudHotkey, MudForm, MudGrid,
-MudStack.
+Each needs a whole new control, is behaviour rather than a look, or is layout an Avalonia panel
+already does:
+
+| MudBlazor | Why not |
+|---|---|
+| MudTable, MudSimpleTable | MudDataGrid's look, above, is the same `.mud-table`; a static table is a `Grid` |
+| MudDatePicker, MudTimePicker | out of 1.0, by decision: bespoke components, and the pickers keep the forked templates; see [Known gaps](known-gaps.md) |
+| MudColorPicker, MudChart, MudRating, MudPagination, MudStepper, MudTimeline, MudBreadcrumbs, MudFileUpload, MudDropZone, MudFabMenu, MudHighlighter, MudPageContentNavigation, MudScrollToTop | a control of its own, with behaviour beyond a look |
+| MudCarousel | left on the forked template; see [Known gaps](known-gaps.md) |
+| MudDialog, MudMessageBox | a dialog service, not a look |
+| MudLayout, MudMainContent, MudContainer, MudGrid, MudItem, MudStack, MudSpacer | layout, which Avalonia's panels do |
+| MudHidden, MudBreakpointProvider, MudFocusTrap, MudHotkey, MudForm, MudSwipeArea, MudVirtualize, MudElement, MudRender, MudExitPrompt | not visual |
+| MudThemeProvider, MudRTLProvider | the theme itself, and `FlowDirection`; see [Theme variants](#theme-variants) and [Right to left](controls.md#right-to-left) |
 
 ## Theme
 

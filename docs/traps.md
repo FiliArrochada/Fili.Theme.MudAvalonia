@@ -89,6 +89,23 @@ one.
   Button style silently stop applying, which looked like three separate bugs. When a parent must
   reach a grandchild part, set a property on the child and have the child's template bind to it —
   `Slider` lights the `Thumb`'s halo through `BorderBrush` for exactly this reason.
+- **A ControlTheme may not hold a child or descendant selector.** MudTreeView's `Hover` tints a
+  row only when the TREE has it, so the first attempt put `^.hover TreeViewItem ...` in the
+  tree's ControlTheme. It compiles, then throws `InvalidOperationException: ControlTheme style may
+  not directly contain a child or descendent selector` the first time a tree is themed. A rule
+  that reaches from a control to its items is a plain Style in `FiliTheme.axaml`, where it also
+  outranks the item's own ControlTheme, so it says `:not(:selected)` rather than relying on order.
+  `TreeViewTests` is the one that caught it.
+- **A class cannot be passed down a template by a style.** A setter cannot add a class, and the
+  options of a field inside an `AutoCompleteBox` or `NumericUpDown` are classes its own theme
+  reads two templates down. `FieldClasses` mirrors them from the outer control onto the inner
+  `TextBox`, and keeps mirroring, because an app flips `error` as validation runs.
+- **A template's style loses to the theme of the control it targets.** The snackbar's close
+  button is a `Button.icon` in the card's template, and `^ /template/ Button#PART_CloseButton`
+  setting its `Foreground` did nothing: the button's own theme sets `Foreground` in its `^.icon`
+  style, and that won. The button is `inherit` instead, and the card colours the `Panel` round it,
+  which has no theme of its own. Reach into a template for a property its control's theme leaves
+  alone, or colour the parent it inherits from. `TheCloseButtonClosesTheCard` caught it.
 - **Every `TemplatedControl` clips to its bounds.** Avalonia 12 overrides `ClipToBounds` to
   true for the whole family, so anything a template draws past the control's edge is cut off,
   and cannot be clicked either. It bit three times. The outlined label of a `TextBox` and a
@@ -163,6 +180,33 @@ one.
 
 ## Templates and controls
 
+- **A `PathIcon` stretches a glyph's own bounds to its box.** A Material glyph lives in a 24px
+  viewBox with padding round it, which MudIcon draws as is; a `PathIcon` scales the path's bounds
+  to fill its `Width` and `Height`, so the same glyph comes out larger, and by how much depends
+  on the glyph. The snackbar's close X drew at 18px where MudBlazor's is 10.5. The theme's own
+  glyphs are a `Path` at 24 with `Stretch="None"`, inside a `Viewbox` when they must be smaller.
+- **A style cannot set a XAML list's `SelectionMode`.** A `SelectingItemsControl` writes
+  `SelectionMode` as a LOCAL value the moment it creates its selection model, and one declared in
+  XAML creates it at `EndInit`, before any style applies. `ListBox.multi-selection` setting
+  `Multiple, Toggle` worked in every test, where the list was built in code, and did nothing in the
+  gallery: the second of two selected rows replaced the first. So `multi-selection` is the look
+  only and the app sets `SelectionMode`; `MultiSelectionTests` pins the local value, so the class
+  can take the setting back if Avalonia ever stops doing this.
+- **A glyph is a `DynamicResource`, or no app can change it.** A `StaticResource` resolves once,
+  at load, from the theme; a `DynamicResource` resolves from the control upward, so a key set in
+  a control's `Resources` swaps that control's glyph. That is how MudBlazor's icon parameters
+  (`CheckedIcon`, `OpenIcon`, `ExpandIcon`, `CloseIcon`) are reached without a public property.
+- **A forked template's own control can need a different variant, and a style cannot add a
+  class.** `DrawerPage`'s pane toggles are plain `ToggleButton`s with `Background="Transparent"`
+  in the template. Once a checked toggle became MudToggleItem's filled one, that local-to-the-
+  template value beat the fill and left a white icon on nothing while the pane was open. The
+  forked template stays byte-faithful, so a style in `FiliTheme.axaml` reaches the parts through
+  `/template/` and sets `Theme` to the icon toggle's, plus the values its `icon` class would have
+  added. Drawing the fill over the template's background instead would have filled the drawer
+  button and overridden every app's own `Background` too. `DrawerPageTests` pins both sides.
+  The same control taught a second lesson: its drawer's logical parent is the `DrawerPage`, not
+  the `SplitView` inside its template, so a `SplitView … TreeView.nav` selector never reaches it.
+  The mini drawer's rules name `DrawerPage[IsOpen=False][DisplayMode=CompactInline]` as well.
 - **`Button` has no `BoxShadow`.** Only `Border` does, which is why the raised button is a
   `ControlTheme` with a `Border` in its template rather than a handful of setters.
 - **`TextPresenter` has no `Foreground` AvaloniaProperty.** It reads the inherited
