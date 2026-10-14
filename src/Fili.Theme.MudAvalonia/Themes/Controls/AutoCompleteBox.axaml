@@ -5,6 +5,11 @@
   MudListItems under it. Both halves are already themed: the inner TextBox wears
   Controls/TextBox.axaml and the inner ListBox wears Controls/ListBox.axaml.
 
+  The field's options are the text field's classes - `filled`, `outlined`, `dense`, `error`,
+  `counter`, `helper-on-focus` - set on the AutoCompleteBox and mirrored onto the TextBox inside
+  by FieldClasses, which also gets the helper text; a class on the outer control would not reach
+  it otherwise.
+
   So this theme exists for the third thing, which neither of those covers: the popup SURFACE.
   MudBlazor renders it through MudPopover, which is a MudPaper - surface colour, the default 4px
   radius and elevation 8, the same drop the select and the menu use. The substrate's version is a
@@ -13,10 +18,13 @@
   PART_TextBox, PART_Popup and PART_SelectingItemsControl are all required by name.
 -->
 <ResourceDictionary xmlns="https://github.com/avaloniaui"
-                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:theme="using:Fili.Theme.MudAvalonia">
 
   <ControlTheme x:Key="FiliAutoCompleteBox" TargetType="AutoCompleteBox">
     <Setter Property="MinWidth" Value="{DynamicResource FiliInputMinWidth}" />
+    <!-- MudAutocomplete.MaxHeight defaults to 300; Avalonia's to 200. -->
+    <Setter Property="MaxDropDownHeight" Value="300" />
     <Setter Property="Background" Value="Transparent" />
     <Setter Property="Foreground" Value="{DynamicResource FiliTextPrimaryBrush}" />
     <Setter Property="BorderThickness" Value="0" />
@@ -28,6 +36,8 @@
       <ControlTemplate>
         <Panel>
           <TextBox x:Name="PART_TextBox"
+                   theme:FieldClasses.Mirrors="True"
+                   AutomationProperties.HelpText="{TemplateBinding (AutomationProperties.HelpText)}"
                    Padding="{TemplateBinding Padding}"
                    Background="Transparent"
                    BorderThickness="0"

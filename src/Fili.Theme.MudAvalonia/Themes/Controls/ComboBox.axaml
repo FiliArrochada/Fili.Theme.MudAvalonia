@@ -28,9 +28,11 @@
   <ControlTheme x:Key="FiliComboBoxItem" TargetType="ComboBoxItem">
     <Setter Property="Foreground" Value="{DynamicResource FiliTextPrimaryBrush}" />
     <Setter Property="FontFamily" Value="{DynamicResource FiliFontFamily}" />
-    <Setter Property="FontSize" Value="{DynamicResource FiliBody2FontSize}" />
+    <!-- MudSelectItem is a MudListItem, so body1. -->
+    <Setter Property="FontSize" Value="{DynamicResource FiliBody1FontSize}" />
     <Setter Property="Padding" Value="16,8" />
-    <Setter Property="MinHeight" Value="36" />
+    <!-- A MudListItem's 48px, and 36 dense: see Controls/ListBox.axaml. -->
+    <Setter Property="MinHeight" Value="48" />
     <Setter Property="HorizontalContentAlignment" Value="Left" />
     <Setter Property="VerticalContentAlignment" Value="Center" />
     <Setter Property="Cursor" Value="Hand" />
@@ -39,16 +41,27 @@
       <ControlTemplate>
         <Panel>
           <Border x:Name="PART_StateLayer" Background="Transparent" />
+          <!-- MudSelectItem is a MudListItem: `.mud-list-item-text`'s 4px above and below. -->
           <ContentPresenter x:Name="PART_ContentPresenter"
                             Content="{TemplateBinding Content}"
                             ContentTemplate="{TemplateBinding ContentTemplate}"
                             Foreground="{TemplateBinding Foreground}"
                             Padding="{TemplateBinding Padding}"
+                            Margin="0,4"
                             HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
                             VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" />
         </Panel>
       </ControlTemplate>
     </Setter>
+
+    <!-- MudSelect's Dense is MudList's, `.mud-list-item-dense`: 4px top and bottom in body2.
+         `dense` on an item, or `dense-items` on the ComboBox for every row (FiliTheme.axaml);
+         `dense` on the ComboBox is the field's Margin.Dense. -->
+    <Style Selector="^.dense">
+      <Setter Property="Padding" Value="16,4" />
+      <Setter Property="MinHeight" Value="36" />
+      <Setter Property="FontSize" Value="{DynamicResource FiliBody2FontSize}" />
+    </Style>
 
     <Style Selector="^:pointerover /template/ Border#PART_StateLayer">
       <Setter Property="Background" Value="{DynamicResource FiliOverlayHoverBrush}" />
@@ -83,6 +96,8 @@
          `.mud-select-input .mud-input-slot` hides its overflow, and the popup is a separate
          surface. -->
     <Setter Property="ClipToBounds" Value="False" />
+    <!-- MudSelect.MaxHeight defaults to 300; Avalonia's to 200. -->
+    <Setter Property="MaxDropDownHeight" Value="300" />
     <Setter Property="MinWidth" Value="{DynamicResource FiliInputMinWidth}" />
     <Setter Property="Background" Value="Transparent" />
     <Setter Property="Foreground" Value="{DynamicResource FiliTextPrimaryBrush}" />
@@ -151,7 +166,7 @@
                     Margin="8,0,0,0"
                     Width="24" Height="24"
                     Stretch="None"
-                    Data="{StaticResource FiliArrowDropDownGeometry}"
+                    Data="{DynamicResource FiliArrowDropDownGeometry}"
                     Fill="{DynamicResource FiliActionDefaultBrush}"
                     VerticalAlignment="Center" />
             </Grid>
@@ -171,7 +186,6 @@
               position, size and colour, so the handover is invisible.
             -->
             <TextBlock x:Name="PART_FloatingLabel"
-                       Text="{TemplateBinding PlaceholderText}"
                        VerticalAlignment="Center"
                        HorizontalAlignment="Left"
                        IsHitTestVisible="False"
@@ -180,6 +194,12 @@
                        Foreground="{DynamicResource FiliTextSecondaryBrush}"
                        RenderTransform="translateY(0px)"
                        IsVisible="{Binding SelectionBoxItem, RelativeSource={RelativeSource TemplatedParent}, Converter={x:Static ObjectConverters.IsNull}}">
+              <TextBlock.Text>
+                <MultiBinding StringFormat="{}{0}{1}">
+                  <Binding Path="PlaceholderText" RelativeSource="{RelativeSource TemplatedParent}" />
+                  <Binding Path="Tag" RelativeSource="{RelativeSource Self}" />
+                </MultiBinding>
+              </TextBlock.Text>
               <TextBlock.Transitions>
                 <Transitions>
                   <DoubleTransition Property="FontSize" Duration="0:0:0.15" Easing="CubicEaseOut" />
@@ -188,15 +208,22 @@
               </TextBlock.Transitions>
             </TextBlock>
 
+            <!-- Shrunk by its value, so text-primary (`.mud-shrink ~ label`). -->
             <TextBlock x:Name="PART_SelectedLabel"
-                       Text="{TemplateBinding PlaceholderText}"
                        VerticalAlignment="Center"
                        HorizontalAlignment="Left"
                        IsHitTestVisible="False"
                        FontSize="{DynamicResource FiliCaptionFontSize}"
                        LineHeight="NaN"
-                       Foreground="{DynamicResource FiliTextSecondaryBrush}"
-                       IsVisible="{Binding SelectionBoxItem, RelativeSource={RelativeSource TemplatedParent}, Converter={x:Static ObjectConverters.IsNotNull}}" />
+                       Foreground="{DynamicResource FiliTextPrimaryBrush}"
+                       IsVisible="{Binding SelectionBoxItem, RelativeSource={RelativeSource TemplatedParent}, Converter={x:Static ObjectConverters.IsNotNull}}">
+              <TextBlock.Text>
+                <MultiBinding StringFormat="{}{0}{1}">
+                  <Binding Path="PlaceholderText" RelativeSource="{RelativeSource TemplatedParent}" />
+                  <Binding Path="Tag" RelativeSource="{RelativeSource Self}" />
+                </MultiBinding>
+              </TextBlock.Text>
+            </TextBlock>
 
             <Border x:Name="PART_Underline"
                     Height="1"
@@ -272,6 +299,12 @@
       <Setter Property="RenderTransform" Value="scaleX(1)" />
     </Style>
 
+    <!-- ShrinkLabel (`shrink-label`): floated with nothing selected too, in text-primary. -->
+    <Style Selector="^.shrink-label /template/ TextBlock#PART_FloatingLabel">
+      <Setter Property="FontSize" Value="{DynamicResource FiliCaptionFontSize}" />
+      <Setter Property="RenderTransform" Value="translateY(-14px)" />
+      <Setter Property="Foreground" Value="{DynamicResource FiliTextPrimaryBrush}" />
+    </Style>
     <Style Selector="^:focus /template/ TextBlock#PART_FloatingLabel">
       <Setter Property="FontSize" Value="{DynamicResource FiliCaptionFontSize}" />
       <Setter Property="RenderTransform" Value="translateY(-14px)" />
@@ -289,20 +322,46 @@
       <Setter Property="Foreground" Value="{DynamicResource FiliPrimaryBrush}" />
     </Style>
 
+    <!-- OpenIcon: MudSelect swaps ArrowDropDown for ArrowDropUp while the list is open. -->
+    <Style Selector="^:dropdownopen /template/ Path#PART_Chevron">
+      <Setter Property="Data" Value="{DynamicResource FiliArrowDropUpGeometry}" />
+    </Style>
+
+    <!-- Required: the label's "*", as on a text field. -->
+    <Style Selector="^.required /template/ TextBlock#PART_FloatingLabel">
+      <Setter Property="Tag" Value="*" />
+    </Style>
+    <Style Selector="^.required /template/ TextBlock#PART_SelectedLabel">
+      <Setter Property="Tag" Value="*" />
+    </Style>
+
+    <!-- Underline="false": neither rule. -->
+    <Style Selector="^.no-underline /template/ Border#PART_Underline">
+      <Setter Property="IsVisible" Value="False" />
+    </Style>
+    <Style Selector="^.no-underline /template/ Border#PART_UnderlineActive">
+      <Setter Property="IsVisible" Value="False" />
+    </Style>
+
+    <!-- As a disabled text field: text-disabled for the text, label, adornment and helper text,
+         and a paler line where MudBlazor's turns dotted. -->
     <Style Selector="^:disabled">
-      <Setter Property="Foreground" Value="{DynamicResource FiliActionDisabledBrush}" />
+      <Setter Property="Foreground" Value="{DynamicResource FiliTextDisabledBrush}" />
     </Style>
     <Style Selector="^:disabled /template/ Border#PART_Underline">
       <Setter Property="Background" Value="{DynamicResource FiliActionDisabledBrush}" />
     </Style>
     <Style Selector="^:disabled /template/ Path#PART_Chevron">
-      <Setter Property="Fill" Value="{DynamicResource FiliActionDisabledBrush}" />
+      <Setter Property="Fill" Value="{DynamicResource FiliTextDisabledBrush}" />
     </Style>
     <Style Selector="^:disabled /template/ TextBlock#PART_FloatingLabel">
-      <Setter Property="Foreground" Value="{DynamicResource FiliActionDisabledBrush}" />
+      <Setter Property="Foreground" Value="{DynamicResource FiliTextDisabledBrush}" />
     </Style>
     <Style Selector="^:disabled /template/ TextBlock#PART_SelectedLabel">
-      <Setter Property="Foreground" Value="{DynamicResource FiliActionDisabledBrush}" />
+      <Setter Property="Foreground" Value="{DynamicResource FiliTextDisabledBrush}" />
+    </Style>
+    <Style Selector="^:disabled /template/ TextBlock#PART_HelperText">
+      <Setter Property="Foreground" Value="{DynamicResource FiliTextDisabledBrush}" />
     </Style>
 
     <Style Selector="^.error /template/ Border#PART_Underline">
@@ -361,7 +420,7 @@
     <Style Selector="^.dense /template/ TextBlock#PART_FloatingLabel">
       <Setter Property="RenderTransform" Value="translateY(-1.5px)" />
     </Style>
-    <Style Selector="^.dense:focus /template/ TextBlock#PART_FloatingLabel">
+    <Style Selector="^.dense:focus /template/ TextBlock#PART_FloatingLabel, ^.dense.shrink-label /template/ TextBlock#PART_FloatingLabel">
       <Setter Property="RenderTransform" Value="translateY(-12.5px)" />
     </Style>
     <Style Selector="^.dense:dropdownopen /template/ TextBlock#PART_FloatingLabel">
@@ -387,7 +446,7 @@
     <Style Selector="^ /template/ TextBlock#PART_SelectedLabel">
       <Setter Property="Margin" Value="12,0" />
     </Style>
-    <Style Selector="^:focus /template/ TextBlock#PART_FloatingLabel">
+    <Style Selector="^:focus /template/ TextBlock#PART_FloatingLabel, ^.shrink-label /template/ TextBlock#PART_FloatingLabel">
       <Setter Property="RenderTransform" Value="translateY(-10px)" />
     </Style>
     <Style Selector="^:dropdownopen /template/ TextBlock#PART_FloatingLabel">
@@ -414,7 +473,7 @@
     <Style Selector="^.dense /template/ TextBlock#PART_FloatingLabel">
       <Setter Property="RenderTransform" Value="translateY(1px)" />
     </Style>
-    <Style Selector="^.dense:focus /template/ TextBlock#PART_FloatingLabel">
+    <Style Selector="^.dense:focus /template/ TextBlock#PART_FloatingLabel, ^.dense.shrink-label /template/ TextBlock#PART_FloatingLabel">
       <Setter Property="RenderTransform" Value="translateY(-9px)" />
     </Style>
     <Style Selector="^.dense:dropdownopen /template/ TextBlock#PART_FloatingLabel">
@@ -462,7 +521,7 @@
 
     <!-- The floated label sits on the stroke behind a surface-coloured mask, with the same limit
          as the text field's: on any ground but FiliSurface the patch shows. -->
-    <Style Selector="^:focus /template/ TextBlock#PART_FloatingLabel">
+    <Style Selector="^:focus /template/ TextBlock#PART_FloatingLabel, ^.shrink-label /template/ TextBlock#PART_FloatingLabel">
       <Setter Property="Background" Value="{DynamicResource FiliSurfaceBrush}" />
       <Setter Property="Padding" Value="5,0" />
       <Setter Property="Margin" Value="10,0" />
@@ -504,7 +563,7 @@
     <Style Selector="^.dense /template/ TextBlock#PART_FloatingLabel">
       <Setter Property="RenderTransform" Value="translateY(0px)" />
     </Style>
-    <Style Selector="^.dense:focus /template/ TextBlock#PART_FloatingLabel">
+    <Style Selector="^.dense:focus /template/ TextBlock#PART_FloatingLabel, ^.dense.shrink-label /template/ TextBlock#PART_FloatingLabel">
       <Setter Property="RenderTransform" Value="translateY(-18px)" />
     </Style>
     <Style Selector="^.dense:dropdownopen /template/ TextBlock#PART_FloatingLabel">

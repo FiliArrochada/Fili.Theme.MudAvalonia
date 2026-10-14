@@ -159,9 +159,9 @@
             </DockPanel>
 
             <!-- RenderTransform is written in the CSS-like form so TransformOperationsTransition
-                 can interpolate it; a TranslateTransform object cannot be transitioned. -->
+                 can interpolate it; a TranslateTransform object cannot be transitioned. The text
+                 is PlaceholderText then the Tag, which `required` sets to MudBlazor's "*". -->
             <TextBlock x:Name="PART_FloatingLabel"
-                       Text="{TemplateBinding PlaceholderText}"
                        VerticalAlignment="Center"
                        HorizontalAlignment="Left"
                        IsHitTestVisible="False"
@@ -169,6 +169,12 @@
                        LineHeight="NaN"
                        Foreground="{DynamicResource FiliTextSecondaryBrush}"
                        RenderTransform="translateY(0px)">
+              <TextBlock.Text>
+                <MultiBinding StringFormat="{}{0}{1}">
+                  <Binding Path="PlaceholderText" RelativeSource="{RelativeSource TemplatedParent}" />
+                  <Binding Path="Tag" RelativeSource="{RelativeSource Self}" />
+                </MultiBinding>
+              </TextBlock.Text>
               <TextBlock.Transitions>
                 <Transitions>
                   <DoubleTransition Property="FontSize" Duration="0:0:0.15" Easing="CubicEaseOut" />
@@ -220,28 +226,43 @@
       <Setter Property="RenderTransform" Value="scaleX(1)" />
     </Style>
 
-    <!-- The float condition: focused OR carrying content. Avalonia's :empty pseudo-class on
-         TextBox is what makes the second half expressible in a selector at all. -->
+    <!-- The float condition: focused OR carrying content, or ShrinkLabel (`shrink-label`) - each
+         of which is `.mud-shrink` or `:focus-within` in MudBlazor. Avalonia's :empty pseudo-class
+         on TextBox is what makes the second one expressible in a selector at all. A shrunk label
+         is text-primary (`.mud-shrink ~ label`), and primary while the field has focus, so focus
+         comes second. -->
+    <Style Selector="^:not(:empty) /template/ TextBlock#PART_FloatingLabel, ^.shrink-label /template/ TextBlock#PART_FloatingLabel">
+      <Setter Property="FontSize" Value="{DynamicResource FiliCaptionFontSize}" />
+      <Setter Property="RenderTransform" Value="translateY(-14px)" />
+      <Setter Property="Foreground" Value="{DynamicResource FiliTextPrimaryBrush}" />
+    </Style>
     <Style Selector="^:focus /template/ TextBlock#PART_FloatingLabel">
       <Setter Property="FontSize" Value="{DynamicResource FiliCaptionFontSize}" />
       <Setter Property="RenderTransform" Value="translateY(-14px)" />
       <Setter Property="Foreground" Value="{DynamicResource FiliPrimaryBrush}" />
     </Style>
-    <Style Selector="^:not(:empty) /template/ TextBlock#PART_FloatingLabel">
-      <Setter Property="FontSize" Value="{DynamicResource FiliCaptionFontSize}" />
-      <Setter Property="RenderTransform" Value="translateY(-14px)" />
+
+    <!-- Required: `.mud-input-required > … > .mud-input-label::after { content: "*" }`. -->
+    <Style Selector="^.required /template/ TextBlock#PART_FloatingLabel">
+      <Setter Property="Tag" Value="*" />
     </Style>
 
     <!-- Set on the TextBox, not on PART_TextPresenter: TextPresenter has no Foreground
          AvaloniaProperty of its own and a setter targeting the part fails with AVLN3000. -->
+    <!-- `.mud-input.mud-disabled`, its label and its helper text: text-disabled. The line is
+         `border-bottom-style: dotted` in MudBlazor, which a Border cannot draw, so it pales to
+         action-disabled instead. -->
     <Style Selector="^:disabled">
-      <Setter Property="Foreground" Value="{DynamicResource FiliActionDisabledBrush}" />
+      <Setter Property="Foreground" Value="{DynamicResource FiliTextDisabledBrush}" />
     </Style>
     <Style Selector="^:disabled /template/ Border#PART_Underline">
       <Setter Property="Background" Value="{DynamicResource FiliActionDisabledBrush}" />
     </Style>
     <Style Selector="^:disabled /template/ TextBlock#PART_FloatingLabel">
-      <Setter Property="Foreground" Value="{DynamicResource FiliActionDisabledBrush}" />
+      <Setter Property="Foreground" Value="{DynamicResource FiliTextDisabledBrush}" />
+    </Style>
+    <Style Selector="^:disabled /template/ TextBlock#PART_HelperText">
+      <Setter Property="Foreground" Value="{DynamicResource FiliTextDisabledBrush}" />
     </Style>
 
     <!--
@@ -270,6 +291,14 @@
     </Style>
     <Style Selector="^.error /template/ TextBlock#PART_FloatingLabel">
       <Setter Property="Foreground" Value="{DynamicResource FiliErrorBrush}" />
+    </Style>
+
+    <!-- Underline="false": `.mud-input-underline` is left off, so neither rule is drawn. -->
+    <Style Selector="^.no-underline /template/ Border#PART_Underline">
+      <Setter Property="IsVisible" Value="False" />
+    </Style>
+    <Style Selector="^.no-underline /template/ Border#PART_UnderlineActive">
+      <Setter Property="IsVisible" Value="False" />
     </Style>
 
     <!-- The helper line's type is inline in the template, from _inputcontrol.scss's
@@ -314,7 +343,7 @@
     <Style Selector="^.dense:focus /template/ TextBlock#PART_FloatingLabel">
       <Setter Property="RenderTransform" Value="translateY(-12.5px)" />
     </Style>
-    <Style Selector="^.dense:not(:empty) /template/ TextBlock#PART_FloatingLabel">
+    <Style Selector="^.dense:not(:empty) /template/ TextBlock#PART_FloatingLabel, ^.dense.shrink-label /template/ TextBlock#PART_FloatingLabel">
       <Setter Property="RenderTransform" Value="translateY(-12.5px)" />
     </Style>
   </ControlTheme>
@@ -336,7 +365,7 @@
     <Style Selector="^:focus /template/ TextBlock#PART_FloatingLabel">
       <Setter Property="RenderTransform" Value="translateY(-10px)" />
     </Style>
-    <Style Selector="^:not(:empty) /template/ TextBlock#PART_FloatingLabel">
+    <Style Selector="^:not(:empty) /template/ TextBlock#PART_FloatingLabel, ^.shrink-label /template/ TextBlock#PART_FloatingLabel">
       <Setter Property="RenderTransform" Value="translateY(-10px)" />
     </Style>
 
@@ -361,7 +390,7 @@
     <Style Selector="^.dense:focus /template/ TextBlock#PART_FloatingLabel">
       <Setter Property="RenderTransform" Value="translateY(-9px)" />
     </Style>
-    <Style Selector="^.dense:not(:empty) /template/ TextBlock#PART_FloatingLabel">
+    <Style Selector="^.dense:not(:empty) /template/ TextBlock#PART_FloatingLabel, ^.dense.shrink-label /template/ TextBlock#PART_FloatingLabel">
       <Setter Property="RenderTransform" Value="translateY(-9px)" />
     </Style>
   </ControlTheme>
@@ -403,7 +432,7 @@
       <Setter Property="Margin" Value="10,0" />
       <Setter Property="RenderTransform" Value="translateY(-26px)" />
     </Style>
-    <Style Selector="^:not(:empty) /template/ TextBlock#PART_FloatingLabel">
+    <Style Selector="^:not(:empty) /template/ TextBlock#PART_FloatingLabel, ^.shrink-label /template/ TextBlock#PART_FloatingLabel">
       <Setter Property="Background" Value="{DynamicResource FiliSurfaceBrush}" />
       <Setter Property="Padding" Value="5,0" />
       <Setter Property="Margin" Value="10,0" />
@@ -437,7 +466,7 @@
     <Style Selector="^.dense:focus /template/ TextBlock#PART_FloatingLabel">
       <Setter Property="RenderTransform" Value="translateY(-18px)" />
     </Style>
-    <Style Selector="^.dense:not(:empty) /template/ TextBlock#PART_FloatingLabel">
+    <Style Selector="^.dense:not(:empty) /template/ TextBlock#PART_FloatingLabel, ^.dense.shrink-label /template/ TextBlock#PART_FloatingLabel">
       <Setter Property="RenderTransform" Value="translateY(-18px)" />
     </Style>
   </ControlTheme>

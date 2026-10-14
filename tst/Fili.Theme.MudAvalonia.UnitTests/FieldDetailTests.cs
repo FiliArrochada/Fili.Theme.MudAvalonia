@@ -331,4 +331,44 @@ public class FieldDetailTests
 
         Assert.Equal(["Where new files go"], HelperTexts(combo));
     });
+
+    /// <summary>
+    /// `.mud-input.mud-disabled`, its label and its helper text are text-disabled, not the paler
+    /// action-disabled; the select is the same field.
+    /// </summary>
+    [Fact]
+    public Task ADisabledFieldIsTextDisabled() => UiThread.RunAsync(() =>
+    {
+        var box = new TextBox { Width = 200, PlaceholderText = "Name", IsEnabled = false };
+        AutomationProperties.SetHelpText(box, "Your full name");
+        Matrix.Show(box);
+
+        Assert.Equal(Matrix.Token("FiliTextDisabledColor"), Matrix.Colour(box.Foreground));
+        Assert.Equal(Matrix.Token("FiliTextDisabledColor"), Matrix.Colour(Block(box, "PART_FloatingLabel").Foreground));
+        Assert.Equal(Matrix.Token("FiliTextDisabledColor"), Matrix.Colour(Block(box, "PART_HelperText").Foreground));
+
+        var combo = new ComboBox { Width = 200, PlaceholderText = "Platform", IsEnabled = false };
+        Matrix.Show(combo);
+        Assert.Equal(Matrix.Token("FiliTextDisabledColor"), Matrix.Colour(combo.Foreground));
+        Assert.Equal(Matrix.Token("FiliTextDisabledColor"), Matrix.Colour(Named<Avalonia.Controls.Shapes.Path>(combo, "PART_Chevron").Fill));
+    });
+
+    /// <summary>`.mud-tooltip`: 12px at weight 500.</summary>
+    [Fact]
+    public Task ATooltipIsMedium() => UiThread.RunAsync(() =>
+    {
+        var tip = new ToolTip { Content = "Save" };
+        Matrix.Show(new Border { Child = tip });
+
+        Assert.Equal(FontWeight.Medium, tip.FontWeight);
+        Assert.Equal(12, tip.FontSize);
+    });
+
+    /// <summary>MudSelect's and MudAutocomplete's MaxHeight: 300, where Avalonia's drop-down stops at 200.</summary>
+    [Fact]
+    public Task TheDropDownsAre300High() => UiThread.RunAsync(() =>
+    {
+        Assert.Equal(300, Matrix.Show(new ComboBox { Width = 200 }).MaxDropDownHeight);
+        Assert.Equal(300, Matrix.Show(new AutoCompleteBox { Width = 200 }).MaxDropDownHeight);
+    });
 }
