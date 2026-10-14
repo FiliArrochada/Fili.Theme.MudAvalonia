@@ -96,13 +96,31 @@
     <Setter Property="FontFamily" Value="{DynamicResource FiliFontFamily}" />
     <Setter Property="ItemContainerTheme" Value="{StaticResource FiliTabStripItem}" />
     <Setter Property="theme:SlidingIndicator.Slides" Value="True" />
+    <Setter Property="theme:TabBarScroll.Scrolls" Value="True" />
 
     <Setter Property="Template">
       <ControlTemplate>
         <Border x:Name="PART_TabBarHost">
           <Border x:Name="PART_TabBar" Background="{TemplateBinding Background}">
-            <ItemsPresenter x:Name="PART_ItemsPresenter"
-                            ItemsPanel="{TemplateBinding ItemsPanel}" />
+            <!-- MudTabs' scroll buttons, at the bar's ends while the tabs overflow it: icon buttons with
+                 ChevronLeft and ChevronRight (NavigateBefore is the same path). TabBarScroll shows them,
+                 disables each at its end and scrolls a bar's length per click. -->
+            <DockPanel>
+              <Button x:Name="PART_ScrollPrev" Classes="icon" DockPanel.Dock="Left" Focusable="False" IsVisible="False">
+                <Path x:Name="PART_PrevIcon" Width="24" Height="24" Stretch="None" RenderTransformOrigin="50%,50%" Fill="{Binding $parent[Button].Foreground}"
+                      Data="{DynamicResource FiliNavigateBeforeGeometry}" />
+              </Button>
+              <Button x:Name="PART_ScrollNext" Classes="icon" DockPanel.Dock="Right" Focusable="False" IsVisible="False">
+                <Path x:Name="PART_NextIcon" Width="24" Height="24" Stretch="None" RenderTransformOrigin="50%,50%" Fill="{Binding $parent[Button].Foreground}"
+                      Data="{DynamicResource FiliChevronRightGeometry}" />
+              </Button>
+              <ScrollViewer x:Name="PART_TabScroller"
+                            HorizontalScrollBarVisibility="Hidden"
+                            VerticalScrollBarVisibility="Disabled">
+                <ItemsPresenter x:Name="PART_ItemsPresenter"
+                                ItemsPanel="{TemplateBinding ItemsPanel}" />
+              </ScrollViewer>
+            </DockPanel>
           </Border>
         </Border>
       </ControlTemplate>
