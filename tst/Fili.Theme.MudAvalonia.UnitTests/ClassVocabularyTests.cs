@@ -65,11 +65,14 @@ public class ClassVocabularyTests
         "vertical",
 
         // Components that are a class on an existing control: MudIconButton, MudChip and MudFab
-        // on a Button, MudAlert, MudAvatar, MudCard and MudSkeleton on a Border, with
-        // MudSkeleton's SkeletonType, MudProgressCircular on a ProgressBar and MudBadge on a
-        // HeaderedContentControl.
+        // on a Button, MudAlert, MudAvatar, MudCard, MudSkeleton and MudToolBar on a Border, with
+        // MudSkeleton's SkeletonType, MudProgressCircular on a ProgressBar, MudBadge on a
+        // HeaderedContentControl and MudNavMenu on a TreeView.
         "alert", "avatar", "badge", "card", "chip", "circle", "circular", "counter", "fab",
-        "icon", "rectangle", "skeleton",
+        "icon", "nav", "rectangle", "skeleton", "toolbar",
+
+        // MudSnackbar's Severity.Normal, on a notification card.
+        "normal",
 
         // MudCard's parts, after the CSS classes that draw them.
         "card-actions", "card-content", "card-header", "card-header-actions",
@@ -80,17 +83,26 @@ public class ClassVocabularyTests
         "bottom-center", "bottom-left", "bottom-right", "center-center", "center-left",
         "center-right", "top-center", "top-left",
 
-        // Behaviour parameters named as MudBlazor names them: HelperTextOnFocus on a field,
-        // MudSkeleton's Animation.False and Animation.Wave, MudDataGrid's Hover, and
-        // MudExpansionPanels' Gutters="false".
-        "helper-on-focus", "hover", "no-animation", "no-gutters", "wave",
+        // Behaviour parameters named as MudBlazor names them: HelperTextOnFocus, Required and
+        // ShrinkLabel on a field, MudSkeleton's Animation.False and Animation.Wave, MudDataGrid's
+        // Hover, Gutters="false", HideIcon, and MudSnackbar's ShowCloseIcon="false".
+        "helper-on-focus", "hide-close", "hide-icon", "hover", "no-animation", "no-gutters",
+        "required", "shrink-label", "wave",
 
-        // MudSlider's ValueLabel.
-        "value-label",
+        // MudSlider's ValueLabel, MudTooltip's Arrow, MudSelect's Dense on its options, and
+        // SelectionMode.MultiSelection on MudList and MudTreeView.
+        "arrow", "dense-items", "multi-selection", "value-label",
+
+        // LabelPlacement on MudCheckBox, MudRadio and MudSwitch; End is the default.
+        "label-bottom", "label-start", "label-top",
 
         // MudCheckBox's and MudRadio's UncheckedColor, one per palette colour.
         "unchecked-dark", "unchecked-error", "unchecked-info", "unchecked-primary",
         "unchecked-secondary", "unchecked-success", "unchecked-tertiary", "unchecked-warning",
+
+        // MudSwitch's ThumbIconColor, one per palette colour.
+        "thumb-dark", "thumb-error", "thumb-info", "thumb-primary",
+        "thumb-secondary", "thumb-success", "thumb-tertiary", "thumb-warning",
 
         // MudTabs' SliderColor, one per palette colour.
         "slider-dark", "slider-error", "slider-info", "slider-primary",

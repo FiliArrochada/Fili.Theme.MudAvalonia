@@ -61,7 +61,7 @@
                   Margin="8,0,0,0"
                   Width="24" Height="24"
                   Stretch="None"
-                  Data="{StaticResource FiliExpandMoreGeometry}"
+                  Data="{DynamicResource FiliExpandMoreGeometry}"
                   Fill="{DynamicResource FiliActionDefaultBrush}"
                   VerticalAlignment="Center"
                   RenderTransformOrigin="50%,50%"
@@ -102,6 +102,14 @@
     </Style>
     <Style Selector="^:disabled /template/ Path#PART_Chevron">
       <Setter Property="Fill" Value="{DynamicResource FiliActionDisabledBrush}" />
+    </Style>
+  </ControlTheme>
+
+  <!-- MudExpansionPanel.HideIcon: the same header with no chevron. A theme of its own, because
+       `hide-icon` is on the Expander and the chevron is two templates down from it. -->
+  <ControlTheme x:Key="FiliExpanderToggleNoIcon" TargetType="ToggleButton" BasedOn="{StaticResource FiliExpanderToggle}">
+    <Style Selector="^ /template/ Path#PART_Chevron">
+      <Setter Property="IsVisible" Value="False" />
     </Style>
   </ControlTheme>
 
@@ -392,6 +400,10 @@
     </Style>
     <Style Selector="^.no-gutters /template/ ToggleButton#PART_toggle">
       <Setter Property="Padding" Value="0,16" />
+    </Style>
+
+    <Style Selector="^.hide-icon /template/ ToggleButton#PART_toggle">
+      <Setter Property="Theme" Value="{StaticResource FiliExpanderToggleNoIcon}" />
     </Style>
   </ControlTheme>
 

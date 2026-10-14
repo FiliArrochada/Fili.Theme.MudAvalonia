@@ -49,7 +49,7 @@
                   IsVisible="{TemplateBinding IsPreviousButtonVisible}">
             <Path Width="24" Height="24"
                   Stretch="None"
-                  Data="{StaticResource FiliNavigateBeforeGeometry}"
+                  Data="{DynamicResource FiliNavigateBeforeGeometry}"
                   Fill="{Binding $parent[PipsPager].Foreground}" />
           </Button>
 
@@ -96,7 +96,7 @@
                       <Path x:Name="Pip"
                             Width="24" Height="24"
                             Stretch="None"
-                            Data="{StaticResource FiliRadioUncheckedGeometry}"
+                            Data="{DynamicResource FiliRadioUncheckedGeometry}"
                             Fill="{DynamicResource FiliActionDefaultBrush}">
                         <Path.Transitions>
                           <Transitions>
@@ -117,7 +117,7 @@
                    RadioButtonUnchecked and RadioButtonChecked, which is a ring becoming a ring
                    with a disc in it rather than a dot changing colour. -->
               <Style Selector="ListBoxItem:selected /template/ Path#Pip">
-                <Setter Property="Data" Value="{StaticResource FiliRadioCheckedGeometry}" />
+                <Setter Property="Data" Value="{DynamicResource FiliRadioCheckedGeometry}" />
                 <Setter Property="Fill" Value="{DynamicResource FiliPrimaryBrush}" />
               </Style>
             </ListBox.Styles>
@@ -132,7 +132,7 @@
                   IsVisible="{TemplateBinding IsNextButtonVisible}">
             <Path Width="24" Height="24"
                   Stretch="None"
-                  Data="{StaticResource FiliChevronRightGeometry}"
+                  Data="{DynamicResource FiliChevronRightGeometry}"
                   Fill="{Binding $parent[PipsPager].Foreground}" />
           </Button>
         </StackPanel>

@@ -29,6 +29,11 @@ public static class ThemeColourGenerator
     public const string ProgressLabel = "progress bar colours.";
     public const string CircularLabel = "circular progress colours.";
     public const string ChipLabel = "chip variants, colours, selection and sizes.";
+    public const string ToggleLabel = "toggle item colours, selection and sizes.";
+    public const string LinkLabel = "link colours.";
+    public const string ListLabel = "list selection colours.";
+    public const string TreeLabel = "tree view selection colours.";
+    public const string NavLabel = "nav menu colours.";
     public const string FabLabel = "fab variants, colours and sizes.";
     public const string BadgeLabel = "badge origins, colours and elevation.";
     public const string AvatarLabel = "avatar colours.";
@@ -39,6 +44,13 @@ public static class ThemeColourGenerator
     public const string AlertLabel = "alert colours.";
     public const string TabsLabel = "tab bar colours.";
     public const string AppBarLabel = "app bar colours.";
+    public const string ToggleIconLabel = "toggle icon button variants, colours and sizes.";
+    public const string IconLabel = "icon sizes and colours.";
+    public const string DrawerLabel = "drawer colours.";
+    public const string SnackbarLabel = "snackbar variants and colours.";
+    public const string TooltipLabel = "tooltip colours.";
+    public const string ThumbIconLabel = "switch thumb icon colours.";
+    public const string MultiSelectionLabel = "multi-selection checkbox colours.";
 
     private static readonly string[] Colours =
         ["Primary", "Secondary", "Tertiary", "Info", "Success", "Warning", "Error", "Dark"];
@@ -67,6 +79,11 @@ public static class ThemeColourGenerator
             (Controls("ProgressBar.axaml"), ProgressLabel, ProgressRegion()),
             (Controls("ProgressCircular.axaml"), CircularLabel, CircularRegion()),
             (Controls("Chip.axaml"), ChipLabel, ChipRegion()),
+            (Controls("ToggleButton.axaml"), ToggleLabel, ToggleRegion()),
+            (Controls("HyperlinkButton.axaml"), LinkLabel, LinkRegion()),
+            (FiliThemePath, ListLabel, SelectionRegion("ListBox", "ListBoxItem", "Border#PART_StateLayer", list: true)),
+            (FiliThemePath, TreeLabel, SelectionRegion("TreeView", "TreeViewItem", "Border#SelectionBorder", list: false)),
+            (FiliThemePath, NavLabel, NavRegion()),
             (Controls("Fab.axaml"), FabLabel, FabRegion()),
             (Controls("Badge.axaml"), BadgeLabel, BadgeRegion()),
             (Path.Combine("Themes", "Optional", "DataGrid", "DataGrid.axaml"), DataGridLabel, DataGridRegion()),
@@ -78,6 +95,13 @@ public static class ThemeColourGenerator
             (FiliThemePath, AvatarLabel, AvatarRegion()),
             (FiliThemePath, TabsLabel, TabsRegion()),
             (FiliThemePath, AppBarLabel, AppBarRegion()),
+            (Controls("ToggleButton.axaml"), ToggleIconLabel, ToggleIconRegion()),
+            (FiliThemePath, IconLabel, IconRegion()),
+            (FiliThemePath, DrawerLabel, DrawerRegion()),
+            (Controls("Notifications.axaml"), SnackbarLabel, SnackbarRegion()),
+            (Controls("Overlays.axaml"), TooltipLabel, TooltipRegion()),
+            (Controls("ToggleSwitch.axaml"), ThumbIconLabel, ThumbIconRegion()),
+            (FiliThemePath, MultiSelectionLabel, MultiSelectionRegion()),
         };
 
         // A file can hold more than one region, so each file's regions are applied in turn.
@@ -260,7 +284,14 @@ public static class ThemeColourGenerator
 
 """;
 
-    private static string TextTheme()
+    /// <summary>
+    /// The selector prefixes one colour's rules hang on: `.primary` on a Button. A toggle icon
+    /// button passes its own, so the same rules give MudToggleIconButton's two colours.
+    /// </summary>
+    private static string[] Prefixes(string colour, Func<string, string[]>? prefixes) =>
+        prefixes?.Invoke(colour.ToLowerInvariant()) ?? [$".{colour.ToLowerInvariant()}"];
+
+    private static string TextTheme(string key = "FiliTextButton", string target = "Button", Func<string, string[]>? prefixes = null)
     {
         var o = new StringBuilder();
         o.Append("""
@@ -272,7 +303,7 @@ public static class ThemeColourGenerator
     <Setter Property="BorderThickness" Value="0" />
     <Setter Property="Padding" Value="8,6" />
 
-""");
+""".Replace("x:Key=\"FiliTextButton\" TargetType=\"Button\"", $"x:Key=\"{key}\" TargetType=\"{target}\""));
         o.Append(Common).Append(Template(false));
         o.Append("""
 
@@ -288,8 +319,11 @@ public static class ThemeColourGenerator
 
         foreach (var c in Colours)
         {
-            o.Append(Style($"^.{c.ToLowerInvariant()}", ("Foreground", Res($"Fili{c}Brush"))));
-            o.Append(ButtonStates($".{c.ToLowerInvariant()}", "PART_StateLayer", "Background", Res($"Fili{c}HoverBrush")));
+            foreach (var p in Prefixes(c, prefixes))
+            {
+                o.Append(Style($"^{p}", ("Foreground", Res($"Fili{c}Brush"))));
+                o.Append(ButtonStates(p, "PART_StateLayer", "Background", Res($"Fili{c}HoverBrush")));
+            }
         }
 
         o.Append("""
@@ -310,7 +344,7 @@ public static class ThemeColourGenerator
         return o.ToString();
     }
 
-    private static string OutlinedTheme()
+    private static string OutlinedTheme(string key = "FiliOutlinedButton", string target = "Button", Func<string, string[]>? prefixes = null, string basedOn = "FiliTextButton")
     {
         var o = new StringBuilder();
         o.Append("""
@@ -325,10 +359,14 @@ public static class ThemeColourGenerator
     <Setter Property="Padding" Value="15,5" />
 
 
-""");
+""".Replace("x:Key=\"FiliOutlinedButton\" TargetType=\"Button\" BasedOn=\"{StaticResource FiliTextButton}\"",
+            $"x:Key=\"{key}\" TargetType=\"{target}\" BasedOn=\"{{StaticResource {basedOn}}}\""));
         foreach (var c in Colours)
         {
-            o.Append(Style($"^.{c.ToLowerInvariant()}", ("BorderBrush", Res($"Fili{c}Brush"))));
+            foreach (var p in Prefixes(c, prefixes))
+            {
+                o.Append(Style($"^{p}", ("BorderBrush", Res($"Fili{c}Brush"))));
+            }
         }
 
         o.Append("\n    <!-- `.mud-button-outlined-inherit`: `border-color: currentColor`. -->\n");
@@ -344,7 +382,7 @@ public static class ThemeColourGenerator
         return o.ToString();
     }
 
-    private static string FilledTheme()
+    private static string FilledTheme(string key = "FiliFilledButton", string target = "Button", Func<string, string[]>? prefixes = null)
     {
         var o = new StringBuilder();
         o.Append("""
@@ -364,7 +402,7 @@ public static class ThemeColourGenerator
          off at the edge it is drawn past. -->
     <Setter Property="ClipToBounds" Value="False" />
 
-""");
+""".Replace("x:Key=\"FiliFilledButton\" TargetType=\"Button\"", $"x:Key=\"{key}\" TargetType=\"{target}\""));
         o.Append(Common).Append(Template(true)).Append('\n');
         o.Append(Style("^:pointerover /template/ Border#PART_Root", ("BoxShadow", Res("FiliElevation4"))));
         o.Append(Style("^:focus-visible /template/ Border#PART_Root", ("BoxShadow", Res("FiliElevation4"))));
@@ -376,8 +414,11 @@ public static class ThemeColourGenerator
 
         foreach (var c in Colours)
         {
-            o.Append(Style($"^.{c.ToLowerInvariant()}", ("Background", Res($"Fili{c}Brush")), ("Foreground", Res($"Fili{c}ContrastTextBrush"))));
-            o.Append(ButtonStates($".{c.ToLowerInvariant()}", "PART_Root", "Background", Res($"Fili{c}DarkenBrush")));
+            foreach (var p in Prefixes(c, prefixes))
+            {
+                o.Append(Style($"^{p}", ("Background", Res($"Fili{c}Brush")), ("Foreground", Res($"Fili{c}ContrastTextBrush"))));
+                o.Append(ButtonStates(p, "PART_Root", "Background", Res($"Fili{c}DarkenBrush")));
+            }
         }
 
         o.Append("""
@@ -634,6 +675,18 @@ public static class ThemeColourGenerator
             o.Append(string.Concat(States.Select(s => Style($"^.{cls}:checked{s} /template/ Ellipse#PART_ThumbStateLayer", ("Fill", Res($"Fili{c}HoverBrush"))))));
         }
 
+        // MudSwitch's UncheckedColor: `mud-{color}-text` on the thumb (its currentColor) and
+        // `mud-{color}` on the track, while the switch is off.
+        o.Append("\n    <!-- UncheckedColor: `unchecked-{colour}`, the thumb and the track while OFF, with the\n");
+        o.Append("         colour's hover tint. -->\n");
+        foreach (var c in Colours)
+        {
+            var cls = $"unchecked-{c.ToLowerInvariant()}";
+            o.Append(Style($"^.{cls}:not(:checked) /template/ Border#PART_Thumb", ("Background", Res($"Fili{c}Brush"))));
+            o.Append(Style($"^.{cls}:not(:checked) /template/ Border#PART_Track", ("Background", Res($"Fili{c}Brush"))));
+            o.Append(string.Concat(States.Select(s => Style($"^.{cls}:not(:checked){s} /template/ Ellipse#PART_ThumbStateLayer", ("Fill", Res($"Fili{c}HoverBrush"))))));
+        }
+
         return o.ToString();
     }
 
@@ -746,6 +799,115 @@ public static class ThemeColourGenerator
         o.Append(ChipStates(prefix, "PART_StateLayer", ("Background", "Transparent")));
         return o.ToString();
     }
+
+    /// <summary>
+    /// MudToggleItem, which in 9.11 renders a MudButton: Variant.Outlined in the group's colour,
+    /// Variant.Filled once selected, and `.mud-toggle-item` drops the button's own border, shadow
+    /// and minimum width. Avalonia applies matching styles in ORDER, not by specificity, so the
+    /// selected rules come after the unselected ones and disabled comes last.
+    /// </summary>
+    private static string ToggleRegion()
+    {
+        var o = new StringBuilder();
+        o.Append("    <!-- Unselected, Variant.Outlined: the colour as text, `{color}-hover` under the pointer. -->\n");
+        o.Append(ChipStates("", "PART_StateLayer", ("Background", Res("FiliPrimaryHoverBrush"))));
+        foreach (var c in Colours)
+        {
+            var cls = c.ToLowerInvariant();
+            o.Append(Style($"^.{cls}", ("Foreground", Res($"Fili{c}Brush"))));
+            o.Append(ChipStates($".{cls}", "PART_StateLayer", ("Background", Res($"Fili{c}HoverBrush"))));
+        }
+
+        o.Append("\n    <!-- Selected, Variant.Filled: the colour with its contrast text, `{color}-darken` under the\n");
+        o.Append("         pointer, and no shadow (`.mud-toggle-group > .mud-toggle-item { box-shadow: none }`). -->\n");
+        o.Append(Style("^:checked", ("Background", Res("FiliPrimaryBrush")), ("Foreground", Res("FiliPrimaryContrastTextBrush"))));
+        o.Append(ChipStates(":checked", "PART_Root", ("Background", Res("FiliPrimaryDarkenBrush"))));
+        foreach (var c in Colours)
+        {
+            var cls = c.ToLowerInvariant();
+            o.Append(Style($"^.{cls}:checked", ("Background", Res($"Fili{c}Brush")), ("Foreground", Res($"Fili{c}ContrastTextBrush"))));
+            o.Append(ChipStates($".{cls}:checked", "PART_Root", ("Background", Res($"Fili{c}DarkenBrush"))));
+        }
+
+        o.Append(ChipStates(":checked", "PART_StateLayer", ("Background", "Transparent")));
+
+        o.Append("\n    <!-- `.mud-toggle-group-outlined`: a 1px line in the colour (`border-opacity` is 1), absorbed\n");
+        o.Append("         into the padding, so an outlined item is 5px (3px small, 7px large). -->\n");
+        o.Append(Style("^.outlined", ("BorderBrush", Res("FiliPrimaryBrush")), ("BorderThickness", "1"), ("Padding", "5")));
+        foreach (var c in Colours)
+        {
+            o.Append(Style($"^.outlined.{c.ToLowerInvariant()}", ("BorderBrush", Res($"Fili{c}Brush"))));
+        }
+
+        o.Append("\n    <!-- `.mud-toggle-item-size-*`: 4px / 8px, at the button's 13px / 15px. -->\n");
+        o.Append(Sizes("4", "8"));
+        o.Append(Style("^.outlined.small", ("Padding", "3")));
+        o.Append(Style("^.outlined.large", ("Padding", "7")));
+
+        o.Append("\n    <!-- Disabled, as MudButton: action-disabled text, and an action-disabled-background ground\n");
+        o.Append("         or line where the variant has one. -->\n");
+        o.Append(Style("^:disabled /template/ ContentPresenter#PART_ContentPresenter", ("Foreground", Res("FiliActionDisabledBrush"))));
+        o.Append(Style("^:disabled /template/ Border#PART_StateLayer", ("Background", "Transparent")));
+        o.Append(Style("^:checked:disabled", ("Background", Res("FiliActionDisabledBackgroundBrush"))));
+        o.Append(Style("^.outlined:disabled", ("BorderBrush", Res("FiliActionDisabledBackgroundBrush"))));
+        return o.ToString();
+    }
+
+    /// <summary>MudLink's Color, `mud-{color}-text`: every palette colour as the text.</summary>
+    private static string LinkRegion() =>
+        string.Concat(Colours.Select(c => Style($"^.{c.ToLowerInvariant()}", ("Foreground", Res($"Fili{c}Brush")))));
+
+    /// <summary>
+    /// MudList's and MudTreeView's Color on the selected row: the colour as the text over its
+    /// hover tint. Styles, since they reach from the list to its rows, so they sit at the top
+    /// level of FiliTheme.axaml; Primary is the rows' own theme. A list row's text is its
+    /// Foreground and its theme deepens a selected row under the pointer, which a Style would
+    /// otherwise override; a tree row's text is its header presenter's.
+    /// </summary>
+    private static string SelectionRegion(string owner, string row, string ground, bool list)
+    {
+        var o = new StringBuilder();
+        foreach (var c in Colours.Where(c => c != "Primary"))
+        {
+            var sel = $"{owner}.{c.ToLowerInvariant()} {row}:selected";
+            o.Append(list
+                ? Style(sel, ("Foreground", Res($"Fili{c}Brush")))
+                : Style($"{sel} /template/ ContentPresenter#PART_HeaderPresenter", ("Foreground", Res($"Fili{c}Brush"))));
+            o.Append(Style($"{sel} /template/ {ground}", ("Background", Res($"Fili{c}HoverBrush"))));
+            if (list)
+            {
+                o.Append(Style($"{sel}:pointerover /template/ {ground}", ("Background", Res("FiliOverlayPressedBrush"))));
+            }
+        }
+
+        return TopLevel(o.ToString());
+    }
+
+    /// <summary>
+    /// MudNavMenu's Color beyond the tree's selection colours: the active link's line and icon,
+    /// an open group's arrow, and the colour at 12% under the pointer or keyboard focus. That 12%
+    /// replaces the 6% hover tint in MudBlazor; here it is laid over it, so the layer is 6.4%,
+    /// which with the 6% under it makes 12%.
+    /// </summary>
+    private static string NavRegion()
+    {
+        var o = new StringBuilder();
+        foreach (var c in Colours.Where(c => c != "Primary"))
+        {
+            var nav = $"TreeView.nav.{c.ToLowerInvariant()} TreeViewItem";
+            o.Append(Style($"{nav}:selected /template/ Border#SelectionBorder", ("BorderBrush", Res($"Fili{c}Brush"))));
+            o.Append(Style($"{nav}:selected :is(Control).start-icon", ("TextElement.Foreground", Res($"Fili{c}Brush"))));
+            o.Append(Style($"{nav}[IsExpanded=True] /template/ Path#PART_ExpandIcon", ("Fill", Res($"Fili{c}Brush"))));
+            o.Append(Style($"{nav}:selected /template/ Border#PART_Tint:pointerover", ("Background", Res($"Fili{c}Brush")), ("Opacity", "0.064")));
+            o.Append(Style($"{nav}:selected:focus-visible /template/ Border#PART_Tint", ("Background", Res($"Fili{c}Brush")), ("Opacity", "0.064")));
+        }
+
+        return TopLevel(o.ToString());
+    }
+
+    /// <summary>A region in FiliTheme.axaml's top-level Styles is indented two spaces less.</summary>
+    private static string TopLevel(string styles) =>
+        styles.Replace("    <Style", "  <Style").Replace("      <Setter", "    <Setter").Replace("    </Style>", "  </Style>");
 
     private static string ChipRegion()
     {
@@ -1090,6 +1252,108 @@ public static class ThemeColourGenerator
             $"Border.appbar.{c.ToLowerInvariant()}",
             ("Background", Res($"Fili{c}Brush")),
             ("TextElement.Foreground", Res($"Fili{c}ContrastTextBrush")))));
+
+    // ---------------------------------------------------------------------------------------
+    // ToggleButton.axaml region: MudToggleIconButton, which renders a MudIconButton with
+    // Toggled ? (ToggledColor ?? Color) : Color. So the icon button's three themes, retargeted at
+    // ToggleButton, with each colour's rules hung on `:checked` (ToggledColor) and on
+    // `unchecked-{color}` while unchecked (Color).
+    // ---------------------------------------------------------------------------------------
+
+    private static string ToggleIconRegion()
+    {
+        static string[] Toggled(string c) => [$".{c}:checked", $".unchecked-{c}:unchecked"];
+
+        return "\n" + TextTheme("FiliToggleIconButton", "ToggleButton", Toggled)
+            + OutlinedTheme("FiliOutlinedToggleIconButton", "ToggleButton", Toggled, "FiliToggleIconButton")
+            + FilledTheme("FiliFilledToggleIconButton", "ToggleButton", Toggled);
+    }
+
+    // ---------------------------------------------------------------------------------------
+    // FiliTheme.axaml region: MudIcon's Size and Color on a PathIcon. `.mud-icon-size-*` is
+    // 1.25 / 1.5 / 2.25rem; a colour is `.mud-{color}-text`.
+    // ---------------------------------------------------------------------------------------
+
+    private static string IconRegion() =>
+        TopStyle("PathIcon.small", ("Width", "20"), ("Height", "20"))
+        + TopStyle("PathIcon.medium", ("Width", "24"), ("Height", "24"))
+        + TopStyle("PathIcon.large", ("Width", "36"), ("Height", "36"))
+        + string.Concat(Colours.Select(c => TopStyle($"PathIcon.{c.ToLowerInvariant()}", ("Foreground", Res($"Fili{c}Brush")))));
+
+    // ---------------------------------------------------------------------------------------
+    // FiliTheme.axaml region: MudDrawer's Color, `.mud-theme-{color}`: the pane in the colour,
+    // its content in the contrast text.
+    // ---------------------------------------------------------------------------------------
+
+    // Overlays.axaml region: MudTooltip's Color, `.mud-theme-{color}` on the chip. The arrow's
+    // fill is the Background, so it follows.
+    private static string TooltipRegion() =>
+        string.Concat(Colours.Select(c => Style($"^.{c.ToLowerInvariant()}", ("Background", Res($"Fili{c}Brush")), ("Foreground", Res($"Fili{c}ContrastTextBrush")))));
+
+    // ToggleSwitch.axaml region: MudSwitch's ThumbIconColor, `thumb-{color}` on the switch.
+    private static string ThumbIconRegion() =>
+        string.Concat(Colours.Select(c => Style($"^.thumb-{c.ToLowerInvariant()} /template/ Path#PART_ThumbIcon", ("Fill", Res($"Fili{c}Brush")))));
+
+    // FiliTheme.axaml region: MudList's and MudTreeView's CheckBoxColor, the list's colour class
+    // while `multi-selection` is on. MudBlazor passes it as both Color and UncheckedColor, so both
+    // glyphs and the halo take it; `.mud-treeview-checked-{color}` does the same for a tree. Before
+    // the disabled rule, which must win.
+    private static string MultiSelectionRegion()
+    {
+        var o = new StringBuilder();
+        foreach (var c in Colours)
+        {
+            var lc = c.ToLowerInvariant();
+            string Both(string tail) =>
+                $"ListBox.multi-selection.{lc} ListBoxItem /template/ {tail}, TreeView.multi-selection.{lc} TreeViewItem /template/ {tail}";
+            o.Append(TopStyle(Both("Panel#PART_CheckBox > Path"), ("Fill", Res($"Fili{c}Brush"))));
+            o.Append(TopStyle(Both("Panel#PART_CheckBox:pointerover > Ellipse#PART_CheckHalo"), ("Fill", Res($"Fili{c}HoverBrush"))));
+        }
+
+        return o.ToString();
+    }
+
+    private static string DrawerRegion() =>
+        string.Concat(Colours.Select(c => TopStyle($"SplitView.{c.ToLowerInvariant()}", ("PaneBackground", Res($"Fili{c}Brush")))
+            + TopStyle($"SplitView.{c.ToLowerInvariant()} /template/ ContentPresenter#PART_PanePresenter", ("TextElement.Foreground", Res($"Fili{c}ContrastTextBrush")))));
+
+    // ---------------------------------------------------------------------------------------
+    // Notifications.axaml region: MudSnackbar's Severity and SnackbarVariant. A snackbar is
+    // `mud-alert-{variant}-{severity}`, plus `.mud-snackbar-surface` on a text or outlined one -
+    // whose surface ground beats the alert's tint. NotificationType has four severities; Normal
+    // is the `normal` class, filled `dark` and text-primary otherwise.
+    // ---------------------------------------------------------------------------------------
+
+    private static readonly (string Pseudo, string Colour)[] Severities =
+        [(":information", "Info"), (":success", "Success"), (":warning", "Warning"), (":error", "Error")];
+
+    private static string SnackbarRegion()
+    {
+        var o = new StringBuilder();
+        o.Append("    <!-- Filled, the default: the colour, its contrast text, weight 500. -->\n");
+        foreach (var (pseudo, c) in Severities)
+        {
+            o.Append(Style($"^{pseudo}", ("Background", Res($"Fili{c}Brush")), ("Foreground", Res($"Fili{c}ContrastTextBrush"))));
+        }
+
+        o.Append(Style("^.normal", ("Background", Res("FiliDarkBrush")), ("Foreground", Res("FiliDarkContrastTextBrush"))));
+        o.Append("\n    <!-- Text and outlined: the surface, the text in the colour's darken shade at 400, and an\n");
+        o.Append("         outlined card's 1px line in the colour. The close button is action-default. -->\n");
+        foreach (var variant in new[] { ".text", ".outlined" })
+        {
+            o.Append(Style($"^{variant}", ("Background", Res("FiliSurfaceBrush")), ("FontWeight", "Normal")));
+            foreach (var (pseudo, c) in Severities)
+            {
+                o.Append(Style($"^{variant}{pseudo}", ("Foreground", Res($"Fili{c}DarkenBrush")), ("BorderBrush", Res($"Fili{c}Brush"))));
+            }
+
+            o.Append(Style($"^{variant}.normal", ("Foreground", Res("FiliTextPrimaryBrush")), ("BorderBrush", Res("FiliTextPrimaryBrush"))));
+            o.Append(Style($"^{variant} /template/ Panel#PART_Action", ("TextElement.Foreground", Res("FiliActionDefaultBrush"))));
+        }
+
+        o.Append(Style("^.outlined", ("BorderThickness", "1")));
+        return o.ToString();
+    }
 
     // ---------------------------------------------------------------------------------------
     // FiliTheme.axaml region: MudText's Color, one class per palette colour.
