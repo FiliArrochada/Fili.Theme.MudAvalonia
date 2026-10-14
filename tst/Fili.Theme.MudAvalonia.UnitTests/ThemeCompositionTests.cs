@@ -636,8 +636,12 @@ public class ThemeCompositionTests
             .OfType<ToggleButton>()
             .First(t => t.Name == "PART_ExpandCollapseChevron");
 
-        Assert.True(Arrow(branch).IsVisible);
-        Assert.False(Arrow(leaf).IsVisible);
+        // A leaf's arrow is an empty slot, as `.mud-treeview-item-arrow` is: it keeps its 32px so
+        // the leaf's text lines up with a branch's.
+        Assert.Equal(1d, Arrow(branch).Opacity);
+        Assert.Equal(0d, Arrow(leaf).Opacity);
+        Assert.False(Arrow(leaf).IsHitTestVisible);
+        Assert.Equal(32d, Arrow(leaf).Bounds.Width);
     });
 
     /// <summary>
