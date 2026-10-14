@@ -25,34 +25,36 @@
 
     <Setter Property="Template">
       <ControlTemplate>
-        <Grid ColumnDefinitions="Auto,*">
+        <Grid ColumnDefinitions="Auto,*" RowDefinitions="Auto,Auto">
 
-          <!-- Size scales the glyph and its halo together: MudIcon is 20 / 24 / 36px. -->
-          <LayoutTransformControl x:Name="PART_Scale" Grid.Column="0">
-            <Panel Width="40" Height="40">
+          <!-- Size scales the glyph: MudIcon is 20 / 24 / 36px. The halo is the box, sized below. -->
+          <Panel x:Name="PART_Box" Grid.Column="0" Width="48" Height="48">
 
-              <Ellipse x:Name="PART_StateLayer"
-                       Width="40" Height="40"
-                       Fill="Transparent" />
+            <Ellipse x:Name="PART_StateLayer" Fill="Transparent" />
 
-              <Path x:Name="PART_Unchecked"
-                    Width="24" Height="24"
-                    Stretch="None"
-                    Data="{StaticResource FiliRadioUncheckedGeometry}"
-                    Fill="{DynamicResource FiliActionDefaultBrush}"
-                    HorizontalAlignment="Center"
-                    VerticalAlignment="Center" />
+            <LayoutTransformControl x:Name="PART_Scale"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center">
+              <Panel>
+                <Path x:Name="PART_Unchecked"
+                      Width="24" Height="24"
+                      Stretch="None"
+                      Data="{DynamicResource FiliRadioUncheckedGeometry}"
+                      Fill="{DynamicResource FiliActionDefaultBrush}"
+                      HorizontalAlignment="Center"
+                      VerticalAlignment="Center" />
 
-              <Path x:Name="PART_Checked"
-                    Width="24" Height="24"
-                    Stretch="None"
-                    Data="{StaticResource FiliRadioCheckedGeometry}"
-                    Fill="{DynamicResource FiliActionDefaultBrush}"
-                    HorizontalAlignment="Center"
-                    VerticalAlignment="Center"
-                    IsVisible="False" />
-            </Panel>
-          </LayoutTransformControl>
+                <Path x:Name="PART_Checked"
+                      Width="24" Height="24"
+                      Stretch="None"
+                      Data="{DynamicResource FiliRadioCheckedGeometry}"
+                      Fill="{DynamicResource FiliActionDefaultBrush}"
+                      HorizontalAlignment="Center"
+                      VerticalAlignment="Center"
+                      IsVisible="False" />
+              </Panel>
+            </LayoutTransformControl>
+          </Panel>
 
           <ContentPresenter x:Name="PART_ContentPresenter"
                             Grid.Column="1"
@@ -71,6 +73,58 @@
     </Style>
     <Style Selector="^:checked /template/ Path#PART_Checked">
       <Setter Property="IsVisible" Value="True" />
+    </Style>
+
+    <!-- The icon button round the glyph: `.mud-icon-button` pads it 12px at every size, so the halo is
+         44 / 48 / 60px for a 20 / 24 / 36px glyph; `.mud-radio-dense` pads it 4px, so 28 / 32 / 44. -->
+    <Style Selector="^.small /template/ Panel#PART_Box">
+      <Setter Property="Width" Value="44" />
+      <Setter Property="Height" Value="44" />
+    </Style>
+    <Style Selector="^.large /template/ Panel#PART_Box">
+      <Setter Property="Width" Value="60" />
+      <Setter Property="Height" Value="60" />
+    </Style>
+    <Style Selector="^.dense /template/ Panel#PART_Box">
+      <Setter Property="Width" Value="32" />
+      <Setter Property="Height" Value="32" />
+    </Style>
+    <Style Selector="^.dense.small /template/ Panel#PART_Box">
+      <Setter Property="Width" Value="28" />
+      <Setter Property="Height" Value="28" />
+    </Style>
+    <Style Selector="^.dense.large /template/ Panel#PART_Box">
+      <Setter Property="Width" Value="44" />
+      <Setter Property="Height" Value="44" />
+    </Style>
+
+    <!--
+      MudRadio.LabelPlacement, `.mud-input-content-placement-*`: `label-start` is row-reverse, the
+      label before the glyph; `label-top` column-reverse and `label-bottom` column, the two centred
+      on each other. End, the default, needs no class.
+    -->
+    <Style Selector="^.label-start /template/ Panel#PART_Box">
+      <Setter Property="Grid.Column" Value="1" />
+      <Setter Property="HorizontalAlignment" Value="Left" />
+    </Style>
+    <Style Selector="^.label-start /template/ ContentPresenter#PART_ContentPresenter">
+      <Setter Property="Grid.Column" Value="0" />
+      <Setter Property="Margin" Value="8,0,0,0" />
+    </Style>
+    <Style Selector="^.label-top /template/ Panel#PART_Box">
+      <Setter Property="Grid.Row" Value="1" />
+      <Setter Property="HorizontalAlignment" Value="Center" />
+    </Style>
+    <Style Selector="^.label-bottom /template/ Panel#PART_Box">
+      <Setter Property="HorizontalAlignment" Value="Center" />
+    </Style>
+    <Style Selector="^.label-top /template/ ContentPresenter#PART_ContentPresenter, ^.label-bottom /template/ ContentPresenter#PART_ContentPresenter">
+      <Setter Property="Grid.Column" Value="0" />
+      <Setter Property="Margin" Value="0" />
+      <Setter Property="HorizontalAlignment" Value="Center" />
+    </Style>
+    <Style Selector="^.label-bottom /template/ ContentPresenter#PART_ContentPresenter">
+      <Setter Property="Grid.Row" Value="1" />
     </Style>
 
     <!-- GENERATED by ThemeColourGenerator: radio colours and sizes. -->
@@ -316,13 +370,14 @@
     <!-- END GENERATED -->
 
     <Style Selector="^:disabled /template/ Path#PART_Unchecked">
-      <Setter Property="Fill" Value="{DynamicResource FiliActionDisabledBrush}" />
+      <Setter Property="Fill" Value="{DynamicResource FiliTextDisabledBrush}" />
     </Style>
     <Style Selector="^:disabled /template/ Path#PART_Checked">
-      <Setter Property="Fill" Value="{DynamicResource FiliActionDisabledBrush}" />
+      <Setter Property="Fill" Value="{DynamicResource FiliTextDisabledBrush}" />
     </Style>
+    <!-- `.mud-radio.mud-disabled *`: the glyph and the label both in text-disabled. -->
     <Style Selector="^:disabled">
-      <Setter Property="Foreground" Value="{DynamicResource FiliActionDisabledBrush}" />
+      <Setter Property="Foreground" Value="{DynamicResource FiliTextDisabledBrush}" />
     </Style>
   </ControlTheme>
 
