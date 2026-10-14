@@ -167,6 +167,89 @@ public class GalleryPageTests
                 .GetVisualDescendants().OfType<TextBlock>().FirstOrDefault(t => Equals(t.Tag, "section"));
     }
 
+    private static int SectionsInPage(ControlStatesView view) =>
+        view.GetVisualDescendants().OfType<TextBlock>().Count(t => Equals(t.Tag, "section"));
+
+    private static bool LoadingRowShown(ControlStatesView view) =>
+        view.GetVisualDescendants().OfType<StackPanel>().Any(p => p.Name == "LoadingMore");
+
+    /// <summary>
+    /// The page took two seconds to template and lay out in one go, the window frozen throughout.
+    /// It opens with its first section and a loading row, and the rest arrive one dispatcher pass
+    /// at a time; with the last, the row goes and the screenshot props are placed.
+    /// </summary>
+    [Fact]
+    public Task TheLaterSectionsArriveAfterThePageOpens() => UiThread.RunAsync(() =>
+    {
+        var view = new ControlStatesView();
+        var window = new Window { Content = view, Width = 1180, Height = 560 };
+        window.Show();
+
+        Assert.False(view.AllSectionsLoaded);
+        Assert.Equal(1, SectionsInPage(view));
+        Assert.True(LoadingRowShown(view));
+
+        for (var i = 0; i < 5; i++)
+        {
+            Dispatcher.UIThread.RunJobs();
+        }
+
+        Assert.True(view.AllSectionsLoaded);
+        Assert.Equal(17, SectionsInPage(view));
+        Assert.False(LoadingRowShown(view));
+        Assert.True(view.GetVisualDescendants().OfType<Button>().Single(b => b.Name == "FocusedSample").IsFocused);
+        window.Close();
+    });
+
+    /// <summary>A page taken off screen mid-load stops adding sections, and carries on when it is back.</summary>
+    [Fact]
+    public Task APageOffScreenWaitsForItsTurn() => UiThread.RunAsync(() =>
+    {
+        var view = new ControlStatesView();
+        var window = new Window { Content = view, Width = 1180, Height = 560 };
+        window.Show();
+        Dispatcher.UIThread.RunJobs();
+        Assert.True(view.AllSectionsLoaded);
+        window.Close();
+
+        var paused = new ControlStatesView();
+        var host = new Window { Content = paused, Width = 1180, Height = 560 };
+        host.Show();
+        host.Content = null;
+        Dispatcher.UIThread.RunJobs();
+        Assert.False(paused.AllSectionsLoaded);
+
+        host.Content = paused;
+        for (var i = 0; i < 5; i++)
+        {
+            Dispatcher.UIThread.RunJobs();
+        }
+
+        Assert.True(paused.AllSectionsLoaded);
+        host.Close();
+    });
+
+    /// <summary>Choosing an index row whose section has not arrived yet brings the rest in at once and goes there.</summary>
+    [Fact]
+    public Task AnIndexRowAheadOfTheLoadGoesThereAnyway() => UiThread.RunAsync(() =>
+    {
+        var view = new ControlStatesView();
+        var window = new Window { Content = view, Width = 1180, Height = 560 };
+        window.Show();
+        Assert.False(view.AllSectionsLoaded);
+
+        var index = view.GetVisualDescendants().OfType<ListBox>().Single(l => l.Name == "SectionIndex");
+        index.SelectedIndex = index.Items.OfType<ListBoxItem>().ToList().FindIndex(i => (i.Content as TextBlock)?.Text == "Dividers");
+
+        Assert.True(view.AllSectionsLoaded);
+        Dispatcher.UIThread.RunJobs();
+        var page = view.GetVisualDescendants().OfType<ScrollViewer>().Single(s => s.Name == "Page");
+        var heading = view.GetVisualDescendants().OfType<TextBlock>().Single(t => Equals(t.Tag, "section") && t.Text == "Dividers");
+        var top = heading.TranslatePoint(default, page)!.Value.Y;
+        Assert.True(top is >= 0 and <= 48, $"Dividers at {top}, offset {page.Offset.Y} of {page.Extent.Height}.");
+        window.Close();
+    });
+
     /// <summary>
     /// The app bar names the theme version it is showing, read from the theme's own assembly:
     /// "v0.4.0", and the commit after it whenever the SDK stamped one, as every clone does.

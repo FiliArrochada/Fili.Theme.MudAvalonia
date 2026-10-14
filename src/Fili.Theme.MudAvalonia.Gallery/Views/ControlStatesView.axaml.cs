@@ -1,6 +1,7 @@
 using System;
 using System.Linq;
 using Avalonia;
+using System.Collections.Generic;
 using Avalonia.Collections;
 using Avalonia.Controls;
 using Avalonia.Controls.Primitives;
@@ -8,6 +9,7 @@ using Avalonia.Input;
 using Avalonia.Interactivity;
 using Avalonia.LogicalTree;
 using Avalonia.Media;
+using Avalonia.Threading;
 using Avalonia.VisualTree;
 
 namespace Fili.Theme.MudAvalonia.Gallery.Views;
@@ -80,21 +82,146 @@ public partial class ControlStatesView : UserControl
         MultiList.SelectedItems.Add(MultiList.Items[2]);
         MultiTree.SelectedItems.Add(((TreeViewItem)MultiTree.Items[0]!).Items[0]);
 
+        // The page is about 5,500 visuals, and templating and laying them out took two seconds on
+        // the UI thread the first time the tab opened, with the window frozen throughout. So the
+        // introduction and the first section show at once, and the rest are added one per
+        // dispatcher pass at background priority: input and rendering run between sections, and the
+        // longest wait is one section's (the data grids', about half a second).
+        var sections = PageContent.Children.Count - 3;
+        _sectionCount = sections + 1;
+        foreach (var section in PageContent.Children.Skip(2).Take(sections).ToList())
+        {
+            PageContent.Children.Remove(section);
+            _pending.Enqueue(section);
+        }
+
+        LoadingBar.Maximum = _sectionCount;
+        LoadingBar.Value = 1;
+
         Loaded += (_, _) =>
+        {
+            if (_pending.Count > 0)
+            {
+                ScheduleNextSection();
+            }
+            else
+            {
+                PlaceScreenshotProps();
+            }
+        };
+    }
+
+    /// <summary>The sections not yet in the page, in page order, ahead of the loading row.</summary>
+    private readonly Queue<Control> _pending = new();
+
+    private readonly int _sectionCount;
+
+    private bool _scheduled;
+
+    private bool _propsPlaced;
+
+    /// <summary>True once every section is in the page and the loading row is gone.</summary>
+    public bool AllSectionsLoaded => _pending.Count == 0 && LoadingMore.Parent is null;
+
+    private void ScheduleNextSection()
+    {
+        if (_pending.Count > 0 && !_scheduled)
+        {
+            _scheduled = true;
+            Dispatcher.UIThread.Post(AddNextSection, DispatcherPriority.Background);
+        }
+    }
+
+    private void AddNextSection()
+    {
+        _scheduled = false;
+
+        // A tab switched away from mid-load stops here, and the next Loaded picks it up again:
+        // there is nothing to lay out for a page nobody is looking at.
+        if (_pending.Count == 0 || !this.IsAttachedToVisualTree())
+        {
+            return;
+        }
+
+        AddSection(_pending.Dequeue());
+
+        if (_pending.Count > 0)
+        {
+            ScheduleNextSection();
+        }
+        else
+        {
+            FinishLoading();
+        }
+    }
+
+    /// <summary>
+    /// Adds every section still pending, at once: for the screenshot frames and the tests, which
+    /// need the whole page, and for an index row whose section has not arrived yet. Called before
+    /// the page is shown, it lays out in one pass as the page used to.
+    /// </summary>
+    public void LoadAllSections()
+    {
+        if (_pending.Count == 0)
+        {
+            return;
+        }
+
+        while (_pending.Count > 0)
+        {
+            AddSection(_pending.Dequeue());
+        }
+
+        FinishLoading();
+    }
+
+    private void AddSection(Control section)
+    {
+        PageContent.Children.Insert(PageContent.Children.IndexOf(LoadingMore), section);
+        LoadingBar.Value = _sectionCount - _pending.Count;
+    }
+
+    /// <summary>
+    /// Removes the loading row, and places the screenshot props once the page is on screen: they
+    /// name controls in the later sections, and focus needs a page that is attached.
+    /// </summary>
+    private void FinishLoading()
+    {
+        PageContent.Children.Remove(LoadingMore);
+
+        if (this.IsAttachedToVisualTree())
+        {
+            PlaceScreenshotProps();
+        }
+    }
+
+    private void PlaceScreenshotProps()
+    {
+        if (_propsPlaced)
+        {
+            return;
+        }
+
+        _propsPlaced = true;
+
+        // Not over a field the reader has already clicked into while the page was filling in.
+        var focused = TopLevel.GetTopLevel(this)?.FocusManager?.GetFocusedElement() as Visual;
+        if (focused is null || !PageContent.IsVisualAncestorOf(focused))
         {
             // Without the guard, focusing it scrolled the page to it - below the fold in a browser
             // tab, so the page opened halfway down its first screen.
             _placingFocus = true;
             FocusedSample.Focus(NavigationMethod.Tab);
             _placingFocus = false;
-            SelectedNode.IsSelected = true;
+        }
 
-            // A collection view makes its first item current, and the grid selects what is current.
-            // Only the options sample is meant to show a selected row.
-            PlainGrid.SelectedIndex = -1;
-            GroupedGrid.SelectedIndex = -1;
-            ((IPseudoClasses)FocusedText.Classes).Add(":focus-visible");
-        };
+        SelectedNode.IsSelected = true;
+
+        // A collection view makes its first item current, and the grid selects what is current.
+        // Only the options sample is meant to show a selected row.
+        PlainGrid.SelectedIndex = -1;
+        GroupedGrid.SelectedIndex = -1;
+        ((IPseudoClasses)FocusedText.Classes).Add(":focus-visible");
     }
 
     /// <summary>The section headings, top to bottom: TextBlocks tagged "section".</summary>
@@ -142,6 +269,12 @@ public partial class ControlStatesView : UserControl
         if (index < 0)
         {
             return;
+        }
+
+        if (!_headings[index].IsAttachedToVisualTree())
+        {
+            LoadAllSections();
+            UpdateLayout();
         }
 
         var top = _headings[index].TranslatePoint(default, PageContent)?.Y ?? 0;

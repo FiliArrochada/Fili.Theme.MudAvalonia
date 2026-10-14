@@ -51,7 +51,14 @@ public static class GalleryFrames
 {
     private static readonly (string Name, Func<Control> Build)[] Views =
     [
-        ("controls", () => new ControlStatesView()),
+        // The whole page, before it is shown: the gallery adds its later sections one dispatcher
+        // pass at a time, and a frame must not depend on how many had arrived.
+        ("controls", () =>
+        {
+            var view = new ControlStatesView();
+            view.LoadAllSections();
+            return view;
+        }),
         ("screen", () => new SampleScreenView()),
         ("palette", () => new PaletteView()),
         ("custom", () => new CustomStylesView()),
@@ -140,6 +147,7 @@ public static class GalleryFrames
 
         window.Show();
         var shown = Stopwatch.StartNew();
+
         Dispatcher.UIThread.RunJobs();
 
         // Now that the templates exist, ask the content how tall it actually wants to be and

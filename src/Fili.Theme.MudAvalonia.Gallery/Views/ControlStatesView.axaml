@@ -1106,6 +1106,14 @@
         </StackPanel>
       </StackPanel>
 
+      <!-- Shown while the sections above are still being added, one per dispatcher pass (see the
+           code-behind), and removed with the last. Determinate on purpose: an indeterminate bar
+           animates on the UI thread, so it would stall for as long as each section takes. -->
+      <StackPanel x:Name="LoadingMore" Spacing="8" HorizontalAlignment="Left">
+        <TextBlock Classes="caption" Foreground="{DynamicResource FiliTextSecondaryBrush}" Text="Loading the rest of the samples…" />
+        <ProgressBar x:Name="LoadingBar" Classes="primary rounded" Width="240" Minimum="0" />
+      </StackPanel>
+
     </StackPanel>
   </ScrollViewer>
   </Grid>
