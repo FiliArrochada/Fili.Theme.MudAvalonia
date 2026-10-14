@@ -36,12 +36,17 @@ hits them:
   overflow: hidden` plus transition keyframes — its visible chrome is icon buttons and bullets,
   which are themed elsewhere, and the forked template is already a clipped `ScrollViewer` with no
   decoration. `CarouselPage` is one of Avalonia's shell page types, like `NavigationPage` and
-  `TabbedPage`, and was never in scope. `GroupBox` has no MudBlazor counterpart at all: the
+  `TabbedPage`, and was never in scope. The one exception is `DrawerPage`'s drawer: its pane
+  toggles, which would otherwise draw a white icon on nothing, and its compact rail, which is a
+  mini drawer as a `SplitView`'s is. Its top bar and title keep the fork's look. `GroupBox` has no MudBlazor counterpart at all: the
   nearest things are `MudCard` and `MudPaper`, which are different shapes, so theming it would be
   invention rather than transcription.
-- **The date and time pickers** (`Calendar` and its four helpers, `DatePicker`, `TimePicker`).
-  These are not restyling jobs: `MudDatePicker` is a bespoke component, so matching it means a
-  rewrite per template with no shortcut.
+- **The date and time pickers** (`Calendar` and its four helpers, `CalendarDatePicker`,
+  `DatePicker`, `TimePicker`) are out of 1.0, by decision. They wear the forked Simple templates
+  in this theme's palette, so they are legible in every variant, but not MudBlazor's shape.
+  These are not restyling jobs: `MudDatePicker` and `MudTimePicker` are bespoke components, so
+  matching them means a rewrite per template with no shortcut. Should that ever happen, it is a
+  visible change and lands with an upgrading note.
 - **`TableView`**, Avalonia's newer table. MudDataGrid's look is on the `DataGrid` package's
   control instead, the one apps use.
 - **What MudDataGrid does beyond its look.** No column options menu, no filter row, no pager:

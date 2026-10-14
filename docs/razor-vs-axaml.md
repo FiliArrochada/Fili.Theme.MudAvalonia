@@ -324,6 +324,33 @@ slider. Colour and size are classes, exactly as `Color` and `Size` are parameter
 own `TickPlacement` and `TickFrequency`; `IsSnapToTickEnabled` gives MudSlider's `Step`, which
 snaps every value.
 
+```razor
+<MudCheckBox @bind-Value="_fav" Color="Color.Error" LabelPlacement="Placement.Start"
+             CheckedIcon="@Icons.Material.Filled.Favorite"
+             UncheckedIcon="@Icons.Material.Filled.FavoriteBorder" Label="Favourite" />
+<MudSwitch @bind-Value="_wifi" ThumbIcon="@Icons.Material.Filled.Done"
+           ThumbIconColor="Color.Success" Label="Wi-Fi" />
+```
+
+```xml
+<CheckBox IsChecked="{Binding Fav}" Classes="error label-start" Content="Favourite">
+  <CheckBox.Resources>
+    <StreamGeometry x:Key="FiliCheckBoxCheckedGeometry">M12 21.35l-1.45-1.32C5.4 15.36 …</StreamGeometry>
+    <StreamGeometry x:Key="FiliCheckBoxUncheckedGeometry">M16.5 3c-1.74 0-3.41.81-4.5 2.09 …</StreamGeometry>
+  </CheckBox.Resources>
+</CheckBox>
+<ToggleSwitch IsChecked="{Binding Wifi}" Classes="thumb-success" Content="Wi-Fi">
+  <ToggleSwitch.Resources>
+    <StreamGeometry x:Key="FiliSwitchThumbIconGeometry">M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z</StreamGeometry>
+  </ToggleSwitch.Resources>
+</ToggleSwitch>
+```
+
+**Every MudBlazor icon parameter is a resource key**, set in the control's `Resources` with the
+path string from `Icons.Material` pasted in. Put it on a parent and every control inside takes
+it. [MudBlazor parity](mudblazor-parity.md) lists the keys. `LabelPlacement` is `label-start`,
+`label-top` or `label-bottom`.
+
 ## Progress, dividers, links
 
 ```razor
@@ -392,8 +419,16 @@ snaps every value.
   <ListBoxItem Classes="dense">Second</ListBoxItem>
 </ListBox>
 
+<!-- <MudList T="string" SelectionMode="SelectionMode.MultiSelection" CheckBoxColor="Color.Primary"> -->
+<ListBox Classes="multi-selection primary" SelectionMode="Multiple, Toggle">…</ListBox>
+
 <Expander Header="Details">…</Expander>
 ```
+
+**`SelectionMode.MultiSelection` takes two settings**, and both are needed: the class draws the
+checkboxes, and `SelectionMode` lets more than one row be selected. A style cannot set
+`SelectionMode` for you, because Avalonia fixes it when the list is created. The same pair works
+on a `TreeView`.
 
 ## Feedback
 
@@ -426,11 +461,29 @@ alert's colour.
 @inject ISnackbar Snackbar
 @code {
     void Done() => Snackbar.Add("Library scan finished", Severity.Success);
+    void Saved() => Snackbar.Add("Saved", Severity.Normal, o => o.SnackbarVariant = Variant.Outlined);
 }
 ```
 
 ```xml
 <Button Content="Sync" ToolTip.Tip="Saved to the cloud" />
+```
+
+A tooltip with MudTooltip's `Color` or `Arrow` needs a `ToolTip` of its own as the `Tip`, because
+that is the only place to put a class:
+
+```razor
+<MudTooltip Text="Deletes for good" Color="Color.Error" Arrow="true" Placement="Placement.Bottom">
+    <MudButton>Delete</MudButton>
+</MudTooltip>
+```
+
+```xml
+<Button Content="Delete" ToolTip.Placement="Bottom">
+  <ToolTip.Tip>
+    <ToolTip Classes="error arrow" Content="Deletes for good" />
+  </ToolTip.Tip>
+</Button>
 ```
 
 ```csharp
@@ -440,8 +493,11 @@ var notifications = new WindowNotificationManager(TopLevel.GetTopLevel(this))
     Position = NotificationPosition.BottomRight,
 };
 
-// MudSnackbar's look comes with the theme
+// MudSnackbar's look comes with the theme: the icon, the close button, the colour
 notifications.Show(new Notification(null, "Library scan finished", NotificationType.Success));
+
+// Severity and variant options are classes on the card
+notifications.Show("Saved", NotificationType.Information, classes: ["normal", "outlined"]);
 ```
 
 ## Drawer
@@ -449,7 +505,12 @@ notifications.Show(new Notification(null, "Library scan finished", NotificationT
 ```razor
 <MudLayout>
     <MudDrawer @bind-Open="_open" Variant="DrawerVariant.Persistent">
-        <MudNavMenu>…</MudNavMenu>
+        <MudNavMenu Color="Color.Primary">
+            <MudNavLink Href="/library">Library</MudNavLink>
+            <MudNavGroup Title="Downloads">
+                <MudNavLink Href="/queue">Queue</MudNavLink>
+            </MudNavGroup>
+        </MudNavMenu>
     </MudDrawer>
     <MudMainContent>…</MudMainContent>
 </MudLayout>
@@ -457,11 +518,48 @@ notifications.Show(new Notification(null, "Library scan finished", NotificationT
 
 ```xml
 <SplitView IsPaneOpen="{Binding Open}" DisplayMode="Inline">
-  <SplitView.Pane>…</SplitView.Pane>
+  <SplitView.Pane>
+    <TreeView Classes="nav primary" SelectedItem="{Binding CurrentPage}">
+      <TreeViewItem Header="Library" />
+      <TreeViewItem Header="Downloads">
+        <TreeViewItem Header="Queue" />
+      </TreeViewItem>
+    </TreeView>
+  </SplitView.Pane>
   <!-- main content -->
 </SplitView>
 ```
 
 The drawer's 240px width and its background and text colours come from the theme. `DisplayMode`
 covers MudBlazor's drawer variants: `Inline` (persistent), `Overlay` (temporary), and
-`CompactInline` / `CompactOverlay` (mini).
+`CompactInline` / `CompactOverlay` (mini). The nav menu is `nav` on a `TreeView`: the selected row
+is the active link, which the app sets where MudNavLink matches the URL.
+
+A mini drawer shows only the links' icons while it is closed, so each link needs one, as
+MudNavLink's `Icon` does. Put the icon and the text in `TreeViewItem.Header`; written straight
+inside the `TreeViewItem`, they would become a child row.
+
+```razor
+<MudDrawer @bind-Open="_open" Variant="DrawerVariant.Mini">
+    <MudNavMenu>
+        <MudNavLink Href="/inbox" Icon="@Icons.Material.Filled.Inbox">Inbox</MudNavLink>
+    </MudNavMenu>
+</MudDrawer>
+```
+
+```xml
+<SplitView IsPaneOpen="{Binding Open}" DisplayMode="CompactInline">
+  <SplitView.Pane>
+    <TreeView Classes="nav">
+      <TreeViewItem>
+        <TreeViewItem.Header>
+          <StackPanel Orientation="Horizontal">
+            <PathIcon Classes="start-icon" Data="{StaticResource InboxIcon}" />
+            <TextBlock Text="Inbox" />
+          </StackPanel>
+        </TreeViewItem.Header>
+      </TreeViewItem>
+    </TreeView>
+  </SplitView.Pane>
+</SplitView>
+```

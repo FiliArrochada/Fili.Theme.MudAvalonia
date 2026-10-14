@@ -37,6 +37,25 @@ and the port against the 14 values mudblazor.com publishes. `Button.axaml` is wr
 the matrix, at rest and on a real pointer hover. Both helpers live in the unit-test project, under
 `Generation/`.
 
+**`icon` on a `ToggleButton` is MudToggleIconButton**, in the same three variants, generated from
+the same rules retargeted at `ToggleButton`. Its two colours are two classes: a colour class is
+`ToggledColor`, painted while checked, and `unchecked-{color}` is `Color`, painted while not;
+with neither it is `action-default`, both parameters' default. For `ToggledIcon`, put two icons
+in a `Panel`, `Icon` first: the second shows only while checked.
+
+```xml
+<ToggleButton Classes="icon error"><PathIcon Data="{StaticResource Heart}" /></ToggleButton>
+<ToggleButton Classes="icon primary unchecked-secondary">
+  <Panel>
+    <PathIcon Data="{StaticResource Bell}" />   Icon
+    <PathIcon Data="{StaticResource Mail}" />   ToggledIcon
+  </Panel>
+</ToggleButton>
+```
+
+A `ToggleButton` without `icon` is MudToggleItem; see [Lists, selects and the things built out of
+them](#lists-selects-and-the-things-built-out-of-them).
+
 ## Split and drop-down buttons
 
 `SplitButton` is a two-segment `MudButtonGroup`; `DropDownButton` is a `MudMenu` whose activator
@@ -119,8 +138,20 @@ recoloured nothing and showed nothing.
 - **`dense` is `Margin.Dense`**: 3px off a standard field, 8px off a filled one, 16px off an
   outlined one, from `.mud-input-root-margin-dense`, with the label resting and floating to match.
 
-A `ComboBox` takes the same: `filled`, `outlined`, `dense`, `error`, and helper text. A select
-used to have no error host at all, so a failing binding on one showed nothing.
+Three more of MudTextField's parameters are classes:
+
+- **`required` is `Required`**: `*` straight after the label, as `.mud-input-label::after` adds it.
+  The label's text is `PlaceholderText` then its `Tag`, which the class sets.
+- **`shrink-label` is `ShrinkLabel`**: the label floated with nothing typed.
+- **`no-underline` is `Underline="false"`**: neither the resting rule nor the focus one.
+
+A floated label is text-primary once its text holds it up, and primary while the field has focus,
+as `.mud-shrink ~ label` and `:focus-within ~ label` colour it.
+
+A `ComboBox` takes the same: `filled`, `outlined`, `dense`, `error`, `required`, `shrink-label`,
+`no-underline` and helper text. A select used to have no error host at all, so a failing binding
+on one showed nothing. Its `ArrowDropDown` turns to `ArrowDropUp` while the list is open, as
+MudSelect's `OpenIcon`.
 
 **Filled and outlined fields had no side padding until 0.2.0**, though the themes declared 12px
 and 14px. The template wrote the content margin inline, which binds at Template priority, and a
@@ -164,7 +195,31 @@ transcribed from `Icons/Material/Filled.cs`, and the templates swap between them
   below, with elevation under the thumb. The track is `action-default` at 48%, lifting to 50% when
   on, and only a colour class changes its colour.
 
-All three centre a circular 40px state layer on the control rather than tinting the whole row.
+A checkbox and a radio centre a circular 48px state layer on the glyph rather than tinting the
+whole row: `.mud-icon-button`'s 12px round the 24px glyph, 44px small and 60px large, and 4px
+round it when `dense`. Disabled, the glyph and the label are text-disabled, as
+`.mud-checkbox.mud-disabled *` colours every part. A disabled switch keeps its track's colour at
+12% under a gray-default thumb.
+
+**`label-start`, `label-top` and `label-bottom` are `LabelPlacement`**, on a checkbox, radio or
+switch: the label before the glyph, above it or below it, the two centred when stacked. End, the
+default, needs no class.
+
+**An icon parameter is a resource key.** The glyphs are `DynamicResource`s, so `CheckedIcon`,
+`UncheckedIcon` and `IndeterminateIcon` are the checkbox's three keys set in its `Resources`, and
+MudSwitch's `ThumbIcon` is `FiliSwitchThumbIconGeometry`, empty until set. The thumb draws it at
+16px in text-secondary; `thumb-primary` … `thumb-dark` is `ThumbIconColor`.
+
+```xml
+<ToggleSwitch Classes="thumb-success" Content="Wi-Fi">
+  <ToggleSwitch.Resources>
+    <StreamGeometry x:Key="FiliSwitchThumbIconGeometry">M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z</StreamGeometry>
+  </ToggleSwitch.Resources>
+</ToggleSwitch>
+```
+
+Every other icon parameter works the same way: the table at the top of
+[MudBlazor parity](mudblazor-parity.md) names each key.
 
 **One trap in transcribing a Material glyph.** Each one carries an `M0 0h24v24H0z` viewbox spacer,
 which is a transparent bounding rect in SVG and a *painted square* in a filled `StreamGeometry`.
@@ -221,6 +276,13 @@ so every class above reaches it; `SlidingIndicator` starts the newly selected on
 one was drawn and lets its transition bring it home, from wherever an interrupted slide had got
 to. The tabs do not clip, or it would vanish outside its own tab. There is no switch for
 MudTabs' `SliderAnimation="false"`.
+
+**Tabs that do not fit the bar scroll**, as MudTabs' do: the tab row sits in a `ScrollViewer`
+with no scroll bars, between a ChevronLeft and a ChevronRight icon button that show only while
+the row overflows. Each is disabled at its end and scrolls a bar's length per click, and the
+selected tab is scrolled into view. On a bar at the left or right they sit above and below, the
+bar's width and 32px high, the chevrons turned a quarter. `TabBarScroll` does the comparing,
+since whether the row overflows is the scroller's extent against its viewport.
 
 **`TabStrip` is the same thing without a content area.** Avalonia splits the header row and the
 tab control into two types; MudBlazor does not, so both carry the same metrics. They are written
@@ -327,7 +389,7 @@ Four more MudBlazor components that are a look on a control Avalonia already has
 ## Data grid
 
 Avalonia's own `DataGrid`, from the `Avalonia.Controls.DataGrid` package, is MudDataGrid with
-nothing to opt into. This package does not pull it in: reference it in the app (12.1.2 or later,
+nothing to opt into. This package does not pull it in: reference it in the app (12.1.0 or later,
 the version the theme is built against) and the theme picks it up. An app without it never
 downloads it and never loads the DataGrid rules. On an older version the theme leaves the grid
 alone rather than apply templates that name parts it lacks, and Avalonia's log says why; Avalonia
@@ -392,9 +454,94 @@ One caveat found while doing this: `Accents.axaml` **cannot** override a key a f
 file declares for itself, such as `SplitViewOpenPaneThemeLength`. Accents is merged *before* the
 control dictionaries, and in a merged `ResourceDictionary` the later entry wins.
 
+**Avalonia's `DrawerPage`** builds its own `SplitView` and puts a hamburger toggle in its top bar.
+That toggle is MudLayout's drawer button, a MudIconButton: an action-default icon with a round
+hover tint, the same whether the pane is open or not. It is not a MudToggleItem, so it never
+fills when checked. Closed with `DrawerLayoutBehavior="CompactInline"` or `CompactOverlay`, its
+drawer is a mini drawer as a compact `SplitView` is, below, on a 56px rail unless the app sets
+`CompactDrawerLength`. Its top bar and title keep the fork's look; the gallery's **Custom styles**
+tab shows both states. Set `DrawerLayoutBehavior` rather than `DisplayMode`, which `DrawerPage`
+works out for itself, and `DrawerBreakpointLength` if a narrow page should not fall back to an
+overlay.
+
 Not carried over: the pane's elevation-1 shadow. The pane root is a `Panel`, and only a `Border`
 can carry a `BoxShadow` — the same limitation that made `Button` need a template in the first
 place. Adding it means owning the template.
+
+**The nav menu in the pane is `nav` on a `TreeView`**: MudNavMenu, MudNavLink and MudNavGroup.
+
+```xml
+<TreeView Classes="nav">
+  <TreeViewItem Header="Library" IsSelected="True" />
+  <TreeViewItem Header="Downloads">
+    <TreeViewItem Header="Queue" />
+  </TreeViewItem>
+</TreeView>
+```
+
+A row without children is a link and the selected one is the active link: weight 500, primary
+over action-default-hover, or with a colour class the colour over its hover tint and at 12% under
+the pointer. A row with children is a group and opens on a click anywhere on it, its ExpandMore
+arrow turning and taking the colour; a top-level group's title is 500. Rows step in to 36, 48, 60
+and 72px by depth. `dense`, `rounded` and `bordered` are MudNavMenu's; a `PathIcon` with
+`start-icon` in a header is the link icon, in drawer-icon. Which link is active is the app's to
+set, where MudBlazor matches the URL. `hide-icon` on a group's row is `HideExpandIcon`.
+
+**A colour class on the `SplitView` is MudDrawer's `Color`**, `.mud-theme-{color}`: the pane in the
+colour and its content in the contrast text.
+
+**A mini drawer is a compact `SplitView`.** `CompactInline` or `CompactOverlay` with the pane
+closed is MudBlazor's closed mini drawer: a nav link's text beside its `start-icon` is hidden, so
+the 56px rail shows the icons, and every row drops its indent. The 12px between an icon and its
+text goes with the text, and the menu does not scroll sideways: a group's arrow runs off the
+rail's edge, as it does in MudBlazor's. The icon and text go in the
+item's `Header`; a panel written straight inside a `TreeViewItem` is a child *item*, so the rail
+would show a group's arrow instead of the icon.
+
+```xml
+<SplitView DisplayMode="CompactInline" IsPaneOpen="{Binding Open}">
+  <SplitView.Pane>
+    <TreeView Classes="nav">
+      <TreeViewItem>
+        <TreeViewItem.Header>
+          <StackPanel Orientation="Horizontal">
+            <PathIcon Classes="start-icon" Data="{StaticResource InboxIcon}" />
+            <TextBlock Text="Inbox" />
+          </StackPanel>
+        </TreeViewItem.Header>
+      </TreeViewItem>
+    </TreeView>
+  </SplitView.Pane>
+</SplitView>
+```
+
+## Toolbars and icons
+
+**`toolbar` on a `Border` is MudToolBar**: 64px high with 24px gutters, its children centred.
+`dense` is 48px and `no-gutters` is `Gutters="false"`, which an app bar takes too. The row inside
+is the app's own panel.
+
+```xml
+<Border Classes="toolbar">
+  <StackPanel Orientation="Horizontal" Spacing="8">
+    <Button Classes="icon"><PathIcon Data="{StaticResource Menu}" /></Button>
+    <TextBlock Classes="subtitle1" Text="Library" />
+  </StackPanel>
+</Border>
+```
+
+**A `PathIcon` takes MudIcon's `Size` and `Color` as classes**: `small`, `medium` and `large` are
+20, 24 and 36px, and a colour class is the colour. An icon's own class beats one that colours it
+by where it sits, an alert's or a button's, as MudIcon's `Color` does. A `PathIcon` stretches a
+glyph's own bounds to its box; for MudIcon's exact drawing of a 24px viewBox, use a `Path` at 24
+with `Stretch="None"`, as the theme's own glyphs do.
+
+**The glyphs the theme draws are replaceable, one control or one region at a time.** Each is a
+`DynamicResource` key in `Themes/Icons.axaml`; set the same key in a control's `Resources` and
+that control, and everything inside it, draws your glyph instead. This is how every MudBlazor icon
+parameter maps across (`CheckedIcon`, `OpenIcon`, `ExpandIcon`, `PrevIcon`, `CloseIcon`, …);
+[MudBlazor parity](mudblazor-parity.md) has the table of keys. Paste a path from MudBlazor's
+`Icons.Material` as it is: it is drawn in a 24px box at its own size.
 
 ## Snackbars
 
@@ -410,6 +557,28 @@ at **Medium** weight — the filled alert's 500 overrides the snackbar's own 400
 its own contrast token (`FiliInfoContrastTextBrush` and so on). In light and dark all four are
 MudBlazor's white; in high contrast they are black, because that variant's status colours are
 pastels and white on them would be about 1.6:1.
+
+**The card is MudSnackbarElement's**: the severity icon (CommonSnackbarOptions' InfoIcon,
+SuccessIcon, WarningIcon, ErrorIcon) at 24px and 0.9 opacity, the message, and a small close
+button with Filled.Close that closes the card. The variants are classes on the card, passed as
+the last argument of `WindowNotificationManager.Show`:
+
+```csharp
+manager.Show("Saved", NotificationType.Success, classes: ["outlined"]);
+manager.Show("Settings saved", NotificationType.Information, classes: ["normal", "hide-close"]);
+```
+
+`text` and `outlined` are `SnackbarVariant`: the surface, the text in the colour's darken shade at
+400, and for outlined a 1px line in the colour. `normal` is `Severity.Normal`, which
+`NotificationType` lacks: filled dark, with the EventNote icon. `hide-icon` is `HideIcon` and
+`hide-close` is `ShowCloseIcon="false"`. `Show(INotification)` takes no classes, so a card made
+that way is filled with both.
+
+The icons are CommonSnackbarOptions', set once for every card: put `FiliCloseGeometry`,
+`FiliInfoOutlinedGeometry`, `FiliAlertSuccessGeometry`, `FiliReportProblemGeometry`,
+`FiliErrorOutlineGeometry` or `FiliEventNoteGeometry` in the `WindowNotificationManager`'s
+`Resources`. One message cannot have an icon of its own, as MudBlazor's `Icon` gives it: `Show`
+has nowhere to pass one.
 
 **The enter and exit animations are copied from the forked template deliberately**, and one of
 them is load-bearing: the key frame that sets `IsClosed` at 100% is what actually removes a card.
@@ -561,6 +730,15 @@ for something XAML cannot express on its own:
   12's DataGrid has no alternating row brush, and a binding cannot take a remainder.
 - **`SlidingIndicator`** slides a tab's indicator over from the one it replaces. Where to start
   is the old indicator's position, which only code can read at the moment the selection moves.
+- **`FieldClasses`** passes the text field's classes (`filled`, `outlined`, `dense`, `error`,
+  `counter`, `helper-on-focus`) from an `AutoCompleteBox` or `NumericUpDown` to the `TextBox` in
+  its template, and keeps passing them as they change. A style cannot add a class, and the
+  TextBox's own theme reads them two templates down from the outer control.
+- **`MenuIconGutter`** opens a menu row's icon column when another row in the same list has an
+  icon, MudMenu's `:has(.mud-menu-item-icon)` rule. A selector cannot ask about siblings.
+- **`TabBarScroll`** shows a tab bar's scroll buttons while its tabs overflow, disables each at
+  its end, scrolls a bar's length per click, and brings the selected tab into view. Overflow is
+  the scroller's extent against its viewport, which no binding compares.
 - **`DataGridLastColumn`** marks the cells and header of a grid's last visible column, for
   `dense`'s 16px on the right. The grid knows which column is last, but tells no one.
 - **`GroupIndentConverter`** indents a nested group's header 48px per level. A header's level is
@@ -593,19 +771,46 @@ that the XAML route does not exist.
   same form.
 - **A selected row is a tint, never a filled bar.** `MudList` marks it with
   `mud-selected-item mud-primary-text mud-primary-hover` — primary text over primary at 6% — so it
-  stays as readable as the rows around it. `ListBox`, `ComboBox` and `ToggleButton` all use that
-  one rule.
+  stays as readable as the rows around it. `ListBox` and `ComboBox` both use that one rule. A
+  colour class on the `ListBox` is MudList's `Color`, the selected row's colour; `dense` and
+  `no-gutters`, on the list or a row, are its `Dense` and `Gutters`. The text is body1, as
+  MudListItem's is, and body2 when dense. A row is 48px, 36 dense: `.mud-list-item-text` adds 4px
+  above and below whatever the row holds. A select's options are the same rows; `dense-items` on
+  the `ComboBox`, or `dense` on one option, is MudSelect's `Dense`, since `dense` on the select is
+  its field's `Margin.Dense`.
+- **`multi-selection` is `SelectionMode.MultiSelection`**, on a `ListBox` or a `TreeView`, with
+  `SelectionMode="Multiple, Toggle"` for the behaviour: each row gets a checkbox, checked while it
+  is selected, and no row is marked selected. The checkbox is grey, `CheckBoxColor`'s default, or
+  the list's colour class. The class cannot set `SelectionMode` itself: a list declared in XAML
+  pins it as a local value before any style applies ([the trap](traps.md)).
+
+  ```xml
+  <ListBox Classes="multi-selection primary" SelectionMode="Multiple, Toggle"> … </ListBox>
+  ```
+- **ToggleButton** — MudToggleItem, which in MudBlazor 9.11 is a `MudButton` in the group's colour,
+  primary by default: the colour as text while off, `Variant.Filled` once on, with the button's
+  border, shadow and minimum width taken away. A colour class recolours it; `small` and `large`
+  are the group's sizes, and `outlined` is the group's 1px line in the colour, absorbed into the
+  padding. An Avalonia toggle is one item rather than a group, so those are classes on each.
 - **NumericUpDown** — a `MudInput` with a 24px spin column, which is not a guess:
   `_inputcontrol.scss` reserves exactly `padding-right: 24px` for it, with the comment *"This must
-  be the same width of the spinners"*.
+  be the same width of the spinners"*. The column sits beside the field rather than over its
+  underline, so the line stops short of the arrows where MudBlazor's runs under them.
 - **AutoCompleteBox** — both halves were already themed (a `TextBox` and a `ListBox`), so its
-  theme exists only for the popup surface.
+  theme exists for the popup surface.
+- **Both take the text field's classes.** `filled`, `outlined`, `dense`, `error`, `counter` and
+  `helper-on-focus` on an `AutoCompleteBox` or `NumericUpDown` reach the `TextBox` inside, as do
+  its helper text and, on a `NumericUpDown`, its validation error, which shows in the field's
+  helper line with the red rule.
 - **TreeView** — rows are 32px with 4px/8px padding, indented **17px per level**, and the arrow is
   `ChevronRight` turning **90°** rather than the expansion panel's `ExpandMore` turning 180°. A
-  leaf keeps the 32px arrow column, for alignment, and hides the glyph. The indent is Avalonia's
+  leaf keeps the arrow's 40px slot, as MudBlazor's empty `.mud-treeview-item-arrow` does, so its
+  text lines up with a branch's. The indent is Avalonia's
   mechanism rather than MudBlazor's: a `TreeViewItem` multiplies its own `Level` by an indent
   resource through `TreeViewItemIndentConverter` instead of nesting margins, so the 17px is
-  declared once and every level derives from it.
+  declared once and every level derives from it. A row under the pointer is tinted only on a
+  `hover` tree, MudTreeView's `Hover`, which is off by default; a selected row keeps its own tint.
+  A colour class is its `Color`, and `dense` its `Dense`: no 32px minimum, 1px 4px.
 
 **The select's floating label needed two TextBlocks**, and the reason generalises. A select must
 float its label when it holds a *value*, not only when focused, or the resting label sits on top
@@ -637,8 +842,11 @@ position, size and colour, so the handover is invisible.
   top, because the dropdown template hides its chevron only for *leaf* items and a top-level item
   always has children. `Menu.ItemContainerTheme` is the strip item; that item's own
   `ItemContainerTheme` is the row.
-- The reserved icon column means labels line up down a menu whether or not each item has an icon —
-  the detail most hand-rolled menus miss.
+- **A dropdown row is MudMenuItem**: 8px 12px round a body1 label with 4px above and below it,
+  so 48px, and a 24px icon in action-default with 12px after it. The icon column opens for a row
+  with an icon and, so the labels line up, for every row in a list that has one; a list with no
+  icons has no column. The list has 4px above and below, and 4px either side of a separator. A row
+  with a submenu ends in Filled.ArrowRight at 24px; `hide-icon` on it is `HideSubMenuArrow`.
 
 ## Overlays
 
@@ -652,6 +860,19 @@ dark alike, so it reads as an annotation floating above the UI rather than as an
 it. Its fill is transcribed rather than chosen — `_tooltip.scss` paints
 `var(--mud-palette-gray-darker)`, which is `Palette.GrayDarker` = `Colors.Gray.Darken2` = `#616161`,
 **solid**. An earlier version used 90% alpha, which is Material's spec and not MudBlazor's.
+
+**A tooltip can carry a class after all.** `ToolTip.Tip` uses a `ToolTip` as it is rather than
+wrapping it, so one built in markup keeps its classes: a colour class is MudTooltip's `Color`, and
+`arrow` its `Arrow`, a 6px triangle in the chip's colour on the side that faces the target for
+`Placement` `Top`, `Bottom`, `Left` and `Right`.
+
+```xml
+<Button Content="Delete" ToolTip.Placement="Bottom">
+  <ToolTip.Tip>
+    <ToolTip Classes="error arrow" Content="Deletes for good" />
+  </ToolTip.Tip>
+</Button>
+```
 
 Flyout templates carry an 8px outer margin because `BoxShadow` draws *outside* the border and a
 popup window is sized to its content — with no room to spill into, the shadow is clipped and the

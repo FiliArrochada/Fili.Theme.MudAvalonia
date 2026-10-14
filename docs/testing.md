@@ -10,9 +10,9 @@ those silent failures into red builds, because looking at the app cannot be reli
 
 | Project | What it does | Speed |
 |---|---|---|
-| `tst/Fili.Theme.MudAvalonia.UnitTests` | 554 tests on a headless Avalonia session. They resolve resources, template controls, move a real pointer over them, and read back the values the theme applied. Nothing is rendered. | seconds |
+| `tst/Fili.Theme.MudAvalonia.UnitTests` | 748 tests on a headless Avalonia session. They resolve resources, template controls, move a real pointer over them, and read back the values the theme applied. Nothing is rendered. | seconds |
 | `tst/Fili.Theme.MudAvalonia.NoDataGridTests` | 3 tests. The theme in an app that does not reference `Avalonia.Controls.DataGrid`: the assembly is really absent, `FiliTheme.axaml` loads and themes a button, and no DataGrid rule was loaded. | seconds |
-| `tst/Fili.Theme.MudAvalonia.PixelTests` | 15 tests. Nine render one gallery frame each with Skia and compare it pixel by pixel with a PNG committed in `Baselines/`; six, in `GalleryPageTests`, check how the gallery behaves - that the controls page opens at the top in a window shorter than its first screen, that keyboard focus still scrolls it, that each row of the index beside it lands on its section and the index follows the scroll, that every section fits beside the index in the desktop window and in a frame, and that the app bar shows the theme's version. | ~30 seconds |
+| `tst/Fili.Theme.MudAvalonia.PixelTests` | 18 tests. Twelve render one gallery frame each with Skia and compare it pixel by pixel with a PNG committed in `Baselines/`; six, in `GalleryPageTests`, check how the gallery behaves - that the controls page opens at the top in a window shorter than its first screen, that keyboard focus still scrolls it, that each row of the index beside it lands on its section and the index follows the scroll, that every section fits beside the index in the desktop window and in a frame, and that the app bar shows the theme's version. | ~30 seconds |
 
 The no-DataGrid project is its own assembly because what it tests is an absence: the main suite
 references the package to test the grid, so it can never see a theme that only loads WITH it. A
@@ -27,7 +27,7 @@ needed a different platform.
 
 ## The unit tests
 
-554 tests in 36 classes, grouped here by the failure each one exists to catch.
+748 tests in 49 classes, grouped here by the failure each one exists to catch.
 
 ### Tokens: does every value exist, in every variant?
 
@@ -44,8 +44,8 @@ needed a different platform.
 |---|---|---|---|
 | `OptionalBoundaryTests` | 6 | The packages the theme builds against but does not depend on: only a package's own folder under `Themes/Optional/` names its types (a scan of every `.axaml` and `.cs`, reporting file and line), each `OptionalStyleInclude`'s `MinimumVersion` is the version `Directory.Packages.props` builds against, an absent package loads nothing, an older one loads nothing and logs why, and the one here is loaded. | A DataGrid selector anywhere else passes every other test - this suite has the package - and takes the whole theme down at startup in every app that does not. |
 | `StandaloneReadinessTests` | 3 | The exact set of hand-written control themes (46 of the 95 templated types, the DataGrid package's included) and that every one resolves; every other type is classified with the reason it stays on its forked template. | Avalonia has no implicit default theme. A control with no theme does not look wrong - it renders **nothing**. An Avalonia upgrade that adds a control type fails here asking to be classified. |
-| `ClassVocabularyTests` | 1 | The classes the theme's selectors use are exactly the 106 the README publishes, in both directions. | Class names are MudBlazor's ordinary words (`small`, `error`, `vertical`) and they collide with an app's own. An undeclared class is a collision nobody signed off on; a declared one nothing uses is a lie to adopters. |
-| `GeneratedThemeTests` | 1 | `Button.axaml` and the marked regions in twelve other files are exactly what `ThemeColourGenerator` writes from the one list of eight colours. | Hundreds of colour styles are generated so that no colour can differ from the others. Editing one block by hand fails the build. `FILI_REGENERATE=1` rewrites the files. |
+| `ClassVocabularyTests` | 1 | The classes the theme's selectors use are exactly the 146 the README publishes, in both directions. | Class names are MudBlazor's ordinary words (`small`, `error`, `vertical`) and they collide with an app's own. An undeclared class is a collision nobody signed off on; a declared one nothing uses is a lie to adopters. |
+| `GeneratedThemeTests` | 1 | `Button.axaml` and the marked regions in nineteen other files are exactly what `ThemeColourGenerator` writes from the one list of eight colours. | Hundreds of colour styles are generated so that no colour can differ from the others. Editing one block by hand fails the build. `FILI_REGENERATE=1` rewrites the files. |
 
 ### Controls: does each one look and behave as MudBlazor's does?
 
@@ -67,13 +67,13 @@ from MudBlazor's SCSS or the component's parameter defaults.
 | `GreyGroundTextTests` | 3 | The text on a default avatar and badge is text-primary (white on a `text` avatar) in light and dark, and black in high contrast. |
 | `TabsAndAppBarTests` | 36 | MudTabs' defaults, colours, `border` / `outlined` / `rounded` / `centered` / `hide-slider`, that a bar's colour never reaches a nested `TabControl`, and the sliding indicator - starting at the old tab, on either axis, from wherever an interrupted slide had got to, resting at its own with MudBlazor's timing, and not on first show; the app bar's gutters, `dense` and colours. |
 | `SplitButtonMatrixTests` | 29 | `SplitButton` as MudButtonGroup, including the separator rule and the hit-testing of each half. |
-| `FieldDetailTests` | 22 | Helper text, the error in its place, the counter, `helper-on-focus`, `dense`, select variants, and that filled and outlined fields pad their content. |
+| `FieldDetailTests` | 25 | Helper text, the error in its place, the counter, `helper-on-focus`, `dense`, select variants, that filled and outlined fields pad their content, a disabled field and select in text-disabled, the 300px drop-downs, and the tooltip's weight. |
 | `SliderMatrixTests` | 13 | `Slider` sizes and colours, the 30% rail, and the rings on hover and focus. |
 | `RemainingOptionsTests` | 22 | Tab position, elevation and slider colour, striped progress, and start and end icon spacing on buttons and chips. |
 | `UncheckedColourTests` | 11 | `unchecked-{colour}` on a checkbox and a radio: the glyph and halo while not checked, the colour class once checked. |
 | `SliderOptionsTests` | 5 | `filled`, tick dots - their count, size, colour and where the first and last sit - and `value-label`. |
 | `DropDownButtonMatrixTests` | 12 | `DropDownButton` as MudMenu's button activator. |
-| `SelectionGlyphMatrixTests` | 12 | Checkbox and radio glyph colours and sizes. |
+| `SelectionGlyphMatrixTests` | 13 | Checkbox and radio glyph colours and sizes, and the 48px halo round the glyph (44 small, 60 large). |
 | `SwitchMatrixTests` | 11 | Toggle switch thumb and track colours and sizes. |
 | `TextColourTests` | 9 | `TextBlock` colours, MudText's `Color`. |
 | `ControlSizingTests` | 8 | The minimum sizes a control needs to exist when nothing stretches it - a number MudBlazor never has to give, because CSS sizes by container. |
@@ -81,7 +81,20 @@ from MudBlazor's SCSS or the component's parameter defaults.
 | `ProgressCircularTests` | 17 | `circular`: sizes, stroke, colours, the sweep, `rounded`, the indeterminate key frames and the centred value. |
 | `SkeletonWaveTests` | 6 | `wave`: its timing, its two gradients, the band colour in every variant, and that it does not also pulse. |
 | `RightToLeftTests` | 2 | Avalonia mirrors a subtree with one transform, so layout flips on its own; a checkmark must opt out and does. |
-| `AppBarTests` | 2 | The app bar's text colour is inherited, so a select on the bar keeps text-primary in its popup instead of white on white. |
+| `AppBarTests` | 3 | The app bar's text colour is inherited, so a select on the bar keeps text-primary in its popup instead of white on white; elevation 4 by default, and any elevation class beats it. |
+| `ToggleItemTests` | 21 | `ToggleButton` as MudBlazor 9.11's MudToggleItem: the colour as text and filled once checked, in every colour and under a real pointer, `outlined`'s line in the colour, the sizes and their outlined padding, and disabled in either state. |
+| `WrappedFieldTests` | 9 | The text field's classes, helper text and validation error reach the `TextBox` inside an `AutoCompleteBox` and a `NumericUpDown`, including a class set after the control is shown. |
+| `MenuTests` | 5 | A menu row is MudMenuItem's 48px body1; the icon column opens on every row of a list with an icon, on none of a list without, and follows an icon set later. |
+| `NavMenuTests` | 14 | `nav` on a `TreeView` as MudNavMenu: the link's padding and text, the active link in primary or a colour, the 12% under the pointer, the indent by depth, group titles, a group opening on a click without becoming active, its arrow and `hide-icon`, `dense` / `rounded` / `bordered`, the link icon and a disabled link. |
+| `ParityOptionsTests` | 52 | The options added for 1.0: body1 list and select rows, `dense` and `no-gutters` on a list or a row, a list's and a tree's selection colour, a dense tree, every link colour, a square alert, `hide-icon`, a switch's unchecked colour, dense checkboxes and radios at every size, disabled ones in text-disabled, a dense menu, `no-underline`, `required` and `shrink-label` on a field and a select and passed through a wrapped field, a label over text in text-primary, the select's arrow turning up, `toolbar`, an icon's size and colour classes, and a drawer's colour. |
+| `ToggleIconButtonTests` | 7 | `icon` on a `ToggleButton` as MudToggleIconButton: the round icon button, the colour class while checked and `unchecked-*` while not, filled and outlined, the second icon as ToggledIcon, and a plain `ToggleButton` still a toggle item. |
+| `SnackbarTests` | 10 | The notification card as MudSnackbarElement: each severity's icon, `normal`, the close button closing the card in the card's colour, `hide-icon` and `hide-close`, and the text and outlined variants. |
+| `TooltipTests` | 14 | A `ToolTip` built as the `Tip` keeps its classes: the default chip, every colour with its contrast text, and `arrow` docked on the side facing the target for each of the four placements and absent for `Pointer`. |
+| `MultiSelectionTests` | 17 | `multi-selection` on a list and a tree: the checkbox on each row, checked with the selection, 8px into the gutter in a 48px row, no row marked selected, grey or the list's colour on both glyphs and the halo, disabled in text-disabled, the tree's 32 / 24px box. And Avalonia pinning `SelectionMode` locally once a selection model exists, the reason the class cannot set it. |
+| `CustomisationTests` | 24 | Glyph keys set on one control replace its glyph and no other's (a checkbox, a select's arrow, the tab scroll chevrons drawn at their own size, a snackbar's icons set on its manager), the submenu arrow and `hide-icon`, 48 / 36px list and select rows, `dense-items`, `label-start` / `-top` / `-bottom` on all three toggles, the switch's thumb icon and `thumb-*`, a disabled switch, and a closed mini drawer's nav. |
+| `DrawerPageTests` | 8 | A closed compact `DrawerPage` is a mini drawer - text hidden, no indent, a 56px rail that does not scroll sideways - and a `CompactDrawerLength` the app sets wins. Its three pane toggles are MudIconButtons, open or closed: the icon toggle's theme, action-default, round, no fill under its template's `Background="Transparent"`, and the round hover tint. And the fix stays there: a plain checked toggle is still filled, and a `Background` an app sets beats the checked fill. |
+| `TabScrollTests` | 5 | The tab bar's scroll buttons: none when the tabs fit, a bar's length per click and disabled at each end, the selected tab scrolled into view, a side bar scrolling down, and a `TabStrip` too. |
+| `TreeViewTests` | 3 | `hover` is opt-in, tints only the row under the pointer and not its branch, and leaves a selected row's tint alone. |
 | `LinkInheritTests` | 1 | `HyperlinkButton.inherit` really takes the surrounding text colour. |
 
 Several of these exist because the bug they pin actually shipped once: tabs and selects reached
@@ -91,7 +104,7 @@ wrong, so a failure reads as the sentence that broke.
 
 ## The pixel tests
 
-Nine frames: the gallery's **controls**, **sample screen** and **palette** views, each in
+Twelve frames: the gallery's **controls**, **sample screen**, **palette** and **custom styles** views, each in
 **light**, **dark** and **high contrast**. Each is rendered by `GalleryFrames.Render`, the same
 routine the gallery's `--capture` mode uses, and compared with `tst/.../Baselines/{view}-{variant}.png`.
 
@@ -130,7 +143,10 @@ them; a second committed set per platform is the answer if that is ever needed.
 
 When a frame fails, the test prints how many pixels differ, by how much, and where, and writes
 the rendered frame and a diff image (the baseline in grey, changed pixels in red, masked regions
-in orange) to `FILI_PIXEL_DIFF_DIR`, or the system temp directory by default.
+in orange) to `FILI_PIXEL_DIFF_DIR`, or the system temp directory by default. A frame whose
+*size* changed fails on that alone, before any pixel is compared: it writes the rendered frame
+and no diff, deleting any diff an earlier run left there, so nothing in the folder can be
+mistaken for this run's.
 
 ## In CI
 
@@ -171,7 +187,7 @@ include that trimming strips, shows up there and nowhere else.
 ```bash
 dotnet test tst/Fili.Theme.MudAvalonia.UnitTests                     # everything, seconds
 dotnet test tst/Fili.Theme.MudAvalonia.UnitTests --filter-class "*FieldDetailTests"
-dotnet test tst/Fili.Theme.MudAvalonia.PixelTests                    # the nine frames
+dotnet test tst/Fili.Theme.MudAvalonia.PixelTests                    # the twelve frames
 dotnet test tst/Fili.Theme.MudAvalonia.NoDataGridTests               # the theme without a DataGrid
 ```
 

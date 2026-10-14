@@ -25,7 +25,10 @@ classes, `ControlTheme`s where a Material look cannot be faked without one, and 
   construct them, so nothing leaks): `FactorConverter`, `ErrorMessageConverter`,
   `TickPositionsConverter`, `BadgeContentConverter` and `StripedRowConverter` in `Converters/`;
   `OptionalStyleInclude`, a `StyleInclude` that loads only when the app has the package;
-  `SlidingIndicator`, the tabs' slide; and `DataGridLastColumn` and `GroupIndentConverter`,
+  `SlidingIndicator`, the tabs' slide; `FieldClasses`, the text field's classes passed to the
+  TextBox inside an AutoCompleteBox or NumericUpDown; `MenuIconGutter`, a menu's shared icon
+  column; `TabBarScroll`, the tab bar's scroll buttons; and `DataGridLastColumn` and
+  `GroupIndentConverter`,
   which name DataGrid types and so live in `Themes/Optional/DataGrid/`.
 - **Retemplating an Avalonia control is in scope; inventing one is not.** A MudBlazor component
   that is a *look* on an existing control is a class (`Button.icon`, `Button.chip`, `Button.fab`,
@@ -87,8 +90,13 @@ One line each; [`docs/traps.md`](docs/traps.md) has the full account and the tes
 - **A Style always outranks a ControlTheme setter** - the most likely way to break this package.
 - A Style overrides a value set inline in a template ONLY IF its selector has an activator; a
   `{Binding}` in a template binds at LocalValue and beats every style.
+- A `/template/` style from a parent's theme loses to the targeted control's own theme for any
+  property that theme sets (the snackbar's close button): colour the parent it inherits from.
 - A selector may cross only ONE `/template/` boundary; two throw at load and take other themes
   down with them.
+- A ControlTheme may not hold a child or descendant selector (`^.hover TreeViewItem`): it throws
+  when the theme is applied. A rule that reaches from a control to its items is a Style in
+  FiliTheme.axaml.
 - Every `TemplatedControl` clips to its bounds: a template that draws past its edge (a shadow, a
   floated label, a badge) sets `ClipToBounds="False"`. And never clip a `Border` that has a shadow.
 - An optional package's types live only in its `Themes/Optional/` folder; one anywhere else breaks
@@ -116,6 +124,15 @@ One line each; [`docs/traps.md`](docs/traps.md) has the full account and the tes
 **Templates and controls**
 
 - `Button` has no `BoxShadow`; only `Border` does.
+- A `PathIcon` stretches a glyph's own bounds to its box; a theme glyph is a `Path` at 24 with
+  `Stretch="None"`.
+- A style cannot set a XAML-declared list's `SelectionMode`: it is pinned as a local value at
+  `EndInit`. `multi-selection` is the look; the app sets the mode.
+- Every glyph is a `DynamicResource`, so a key in a control's `Resources` swaps its icon; a
+  `StaticResource` glyph takes that away.
+- A forked template's part that needs another variant gets it from a `/template/` style setting
+  `Theme` and that variant's class values (a style cannot add a class), never by editing the
+  fork: `DrawerPage`'s pane toggles.
 - `TextPresenter` has no `Foreground` property; set it on the `TextBox`.
 - Avalonia's transform parser has no `%` unit, and fails at runtime; use `FactorConverter`.
 - `:empty` on an `ItemsControl` means no items, not no selection.
@@ -191,6 +208,8 @@ reruns both suites, refuses a tag that differs from `<Version>` in `Directory.Bu
 publishes to nuget.org via trusted publishing and creates the GitHub release. A nuget.org version
 can never be replaced: bump `<Version>` in a reviewed commit, add its row to `docs/versions.md`
 (plus an "Upgrading" section when existing markup changes look), and leave the tag to the human.
+Work since the last release is kept in an *(unreleased)* row and its Upgrading section as it
+lands; at the bump only the marker goes.
 
 **`docs/testing.md` describes every test class and workflow.** It and the comment in `build.yml`
 carry the unit-test total, so a change that adds tests updates both.
