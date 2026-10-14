@@ -8,7 +8,8 @@
     .mud-treeview-item         min-height: 2rem           (32px)
     .mud-treeview-item-content padding: 4px 8px;
                                transition: background-color 150ms cubic-bezier(.4,0,.2,1)
-    :hover                     background: action-default-hover
+    .mud-treeview-hover        ... .mud-treeview-item-content:hover
+                               background: action-default-hover (Hover, off by default)
     selected                   colour <palette colour>, background <that colour>-hover
     .mud-treeview-item-arrow   width: 2rem; margin: 0 4px; min-height: 32px
     arrow .mud-icon-button     padding: 4px
@@ -56,7 +57,7 @@
           <Path x:Name="PART_Chevron"
                 Width="24" Height="24"
                 Stretch="None"
-                Data="{StaticResource FiliChevronRightGeometry}"
+                Data="{DynamicResource FiliChevronRightGeometry}"
                 Fill="{DynamicResource FiliActionDefaultBrush}"
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center"
@@ -109,7 +110,7 @@
 
             <!-- Level x 17px of left margin. Avalonia computes it; the converter is the framework's
                  own, and without it every level would sit at the same indent. -->
-            <Grid x:Name="PART_Header" ColumnDefinitions="Auto,*">
+            <Grid x:Name="PART_Header" ColumnDefinitions="Auto,Auto,*">
               <Grid.Margin>
                 <MultiBinding Converter="{x:Static converters:TreeViewItemIndentConverter.Instance}">
                   <Binding Path="Level" RelativeSource="{RelativeSource TemplatedParent}" />
@@ -123,8 +124,38 @@
                             Theme="{StaticResource FiliTreeViewChevron}"
                             IsChecked="{TemplateBinding IsExpanded, Mode=TwoWay}" />
 
+              <!--
+                MudTreeView's MultiSelection checkbox, shown by `multi-selection` on the TreeView
+                (FiliTheme.axaml): `.mud-treeview-item-checkbox` pads its icon button 4px, so 32px
+                (24 dense). A click on it is a click on the row.
+              -->
+              <Panel x:Name="PART_CheckBox"
+                     Grid.Column="1"
+                     IsVisible="False"
+                     Width="32" Height="32"
+                     VerticalAlignment="Center">
+                <Ellipse x:Name="PART_CheckHalo" Fill="Transparent" />
+                <Path x:Name="PART_CheckUnchecked"
+                      Width="24" Height="24"
+                      Stretch="None"
+                      Data="{DynamicResource FiliCheckBoxUncheckedGeometry}"
+                      Fill="{DynamicResource FiliActionDefaultBrush}"
+                      FlowDirection="LeftToRight"
+                      HorizontalAlignment="Center"
+                      VerticalAlignment="Center" />
+                <Path x:Name="PART_CheckChecked"
+                      Width="24" Height="24"
+                      Stretch="None"
+                      Data="{DynamicResource FiliCheckBoxCheckedGeometry}"
+                      Fill="{DynamicResource FiliActionDefaultBrush}"
+                      FlowDirection="LeftToRight"
+                      HorizontalAlignment="Center"
+                      VerticalAlignment="Center"
+                      IsVisible="False" />
+              </Panel>
+
               <ContentPresenter x:Name="PART_HeaderPresenter"
-                                Grid.Column="1"
+                                Grid.Column="2"
                                 Background="Transparent"
                                 Padding="{TemplateBinding Padding}"
                                 Content="{TemplateBinding Header}"
@@ -142,15 +173,14 @@
       </ControlTemplate>
     </Setter>
 
-    <!-- A leaf has nothing to disclose, so it keeps the 32px column for alignment and hides the
-         glyph. MudBlazor does the same; the forked template shows an arrow on every row. -->
+    <!-- A leaf has nothing to disclose, so it keeps the arrow's 40px slot for alignment and hides
+         the glyph: MudBlazor renders an empty `.mud-treeview-item-arrow` there, 2rem with 4px
+         either side. Transparent, not collapsed, or a leaf's text would sit left of its siblings'. -->
     <Style Selector="^[ItemCount=0] /template/ ToggleButton#PART_ExpandCollapseChevron">
-      <Setter Property="IsVisible" Value="False" />
+      <Setter Property="Opacity" Value="0" />
+      <Setter Property="IsHitTestVisible" Value="False" />
     </Style>
 
-    <Style Selector="^:pointerover /template/ Border#SelectionBorder">
-      <Setter Property="Background" Value="{DynamicResource FiliOverlayHoverBrush}" />
-    </Style>
     <Style Selector="^:focus-visible /template/ Border#SelectionBorder">
       <Setter Property="Background" Value="{DynamicResource FiliOverlayHoverBrush}" />
     </Style>
@@ -194,12 +224,203 @@
       </ControlTemplate>
     </Setter>
 
+    <!-- The `hover` class's row tint is a Style in FiliTheme.axaml: it reaches from the tree to
+         its items, and a ControlTheme may not hold a descendant selector. -->
+
     <!-- Same opt-in as the list: a tree inside a drawer already has a ground. -->
     <Style Selector="^.surface">
       <Setter Property="Background" Value="{DynamicResource FiliSurfaceBrush}" />
       <Setter Property="CornerRadius" Value="{DynamicResource FiliCornerRadius}" />
     </Style>
   </ControlTheme>
+
+  <!--
+    `nav` on a TreeView: MudNavMenu. A link is a row without children and the active link is the
+    selected row; a group (MudNavGroup) is a row with children, expanded by a click anywhere on
+    it. From _navmenu.scss:
+
+      .mud-nav-link            padding: 8px 16px; line-height: 1.75; font-weight: 400
+      .mud-nav-link-text       margin-inline-start: 12px; letter-spacing: 0
+      :hover, :focus-visible   action-default-hover
+      .active                  font-weight: 500; the navmenu's colour as the text over its
+                               hover tint, primary over action-default-hover by default, and the
+                               colour at 12% under the pointer
+      .mud-nav-link-icon       drawer-icon, the navmenu's colour when active
+      .mud-nav-link-expand-icon  ExpandMore in drawer-icon, turned 180 degrees and in the
+                               colour once open
+      .mud-nav-group > link    font-weight 500; a nested group's title 400 until it opens
+      nested                   links in a group start at 36px, then 48, 60 and 72
+
+    The indent is the row's Level: 16px plus 20, 32, 44 or 56. `dense`, `rounded`, `bordered`
+    and the colours are Styles in FiliTheme.axaml, where they reach from the tree to its rows.
+  -->
+  <ControlTheme x:Key="FiliNavGroupToggle" TargetType="ToggleButton">
+    <Setter Property="Background" Value="Transparent" />
+    <Setter Property="Focusable" Value="False" />
+    <Setter Property="Cursor" Value="Hand" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Border x:Name="PART_StateLayer"
+                Background="{TemplateBinding Background}"
+                CornerRadius="{TemplateBinding CornerRadius}" />
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^:pointerover /template/ Border#PART_StateLayer">
+      <Setter Property="Background" Value="{DynamicResource FiliActionDefaultHoverBrush}" />
+    </Style>
+  </ControlTheme>
+
+  <ControlTheme x:Key="FiliNavItem" TargetType="TreeViewItem">
+    <Setter Property="Foreground" Value="{DynamicResource FiliTextPrimaryBrush}" />
+    <Setter Property="FontFamily" Value="{DynamicResource FiliFontFamily}" />
+    <Setter Property="FontSize" Value="{DynamicResource FiliBody1FontSize}" />
+    <Setter Property="Background" Value="Transparent" />
+    <Setter Property="Padding" Value="16,8" />
+    <Setter Property="Cursor" Value="Hand" />
+
+    <Setter Property="Template">
+      <ControlTemplate>
+        <StackPanel>
+          <Panel>
+            <!-- The row's ground; its child takes the pointer, so the whole row tints. -->
+            <Border x:Name="SelectionBorder"
+                    Background="{TemplateBinding Background}"
+                    CornerRadius="{TemplateBinding CornerRadius}"
+                    Focusable="True"
+                    TemplatedControl.IsTemplateFocusTarget="True">
+              <Border.Transitions>
+                <Transitions>
+                  <!-- background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) -->
+                  <BrushTransition Property="Background" Duration="0:0:0.25" />
+                </Transitions>
+              </Border.Transitions>
+              <Border x:Name="PART_Tint"
+                      Background="Transparent"
+                      CornerRadius="{TemplateBinding CornerRadius}" />
+            </Border>
+
+            <Grid x:Name="PART_Header"
+                  ColumnDefinitions="Auto,*,Auto"
+                  Margin="{TemplateBinding Padding}"
+                  IsHitTestVisible="False">
+              <Border x:Name="PART_Indent" Grid.Column="0" Width="0" />
+              <ContentPresenter x:Name="PART_HeaderPresenter"
+                                Grid.Column="1"
+                                Margin="12,0,0,0"
+                                Content="{TemplateBinding Header}"
+                                ContentTemplate="{TemplateBinding HeaderTemplate}"
+                                Foreground="{TemplateBinding Foreground}"
+                                FontWeight="Normal"
+                                LetterSpacing="0"
+                                VerticalAlignment="Center">
+                <ContentPresenter.Styles>
+                  <Style Selector="TextBlock">
+                    <Setter Property="LineHeight" Value="28" />
+                  </Style>
+                </ContentPresenter.Styles>
+              </ContentPresenter>
+              <Path x:Name="PART_ExpandIcon"
+                    Grid.Column="2"
+                    Width="24" Height="24"
+                    Stretch="None"
+                    Data="{DynamicResource FiliExpandMoreGeometry}"
+                    Fill="{DynamicResource FiliDrawerIconBrush}"
+                    VerticalAlignment="Center"
+                    RenderTransformOrigin="50%,50%"
+                    RenderTransform="rotate(0deg)">
+                <Path.Transitions>
+                  <Transitions>
+                    <TransformOperationsTransition Property="RenderTransform" Duration="0:0:0.3">
+                      <TransformOperationsTransition.Easing>
+                        <SplineEasing X1="0.25" Y1="0.8" X2="0.5" Y2="1" />
+                      </TransformOperationsTransition.Easing>
+                    </TransformOperationsTransition>
+                  </Transitions>
+                </Path.Transitions>
+              </Path>
+            </Grid>
+
+            <!-- A group opens on a click anywhere on its row, as MudNavGroup does. -->
+            <ToggleButton x:Name="PART_ExpandCollapseChevron"
+                          Theme="{StaticResource FiliNavGroupToggle}"
+                          CornerRadius="{TemplateBinding CornerRadius}"
+                          IsChecked="{TemplateBinding IsExpanded, Mode=TwoWay}" />
+          </Panel>
+
+          <ItemsPresenter x:Name="PART_ItemsPresenter"
+                          IsVisible="{TemplateBinding IsExpanded}"
+                          ItemsPanel="{TemplateBinding ItemsPanel}" />
+        </StackPanel>
+      </ControlTemplate>
+    </Setter>
+
+    <!-- A link has nothing to open: no arrow, and the row is the link's own. -->
+    <Style Selector="^[ItemCount=0] /template/ ToggleButton#PART_ExpandCollapseChevron">
+      <Setter Property="IsVisible" Value="False" />
+    </Style>
+    <Style Selector="^[ItemCount=0] /template/ Path#PART_ExpandIcon">
+      <Setter Property="IsVisible" Value="False" />
+    </Style>
+    <!-- MudNavGroup.HideExpandIcon: `hide-icon` on the group's row. -->
+    <Style Selector="^.hide-icon /template/ Path#PART_ExpandIcon">
+      <Setter Property="IsVisible" Value="False" />
+    </Style>
+    <Style Selector="^[IsExpanded=True] /template/ Path#PART_ExpandIcon">
+      <Setter Property="RenderTransform" Value="rotate(180deg)" />
+      <Setter Property="Fill" Value="{DynamicResource FiliPrimaryBrush}" />
+    </Style>
+
+    <!-- The indent beyond the 16px padding, by depth: 36, 48, 60 and 72px in all. -->
+    <Style Selector="^[Level=1] /template/ Border#PART_Indent">
+      <Setter Property="Width" Value="20" />
+    </Style>
+    <Style Selector="^[Level=2] /template/ Border#PART_Indent">
+      <Setter Property="Width" Value="32" />
+    </Style>
+    <Style Selector="^[Level=3] /template/ Border#PART_Indent">
+      <Setter Property="Width" Value="44" />
+    </Style>
+    <Style Selector="^[Level=4] /template/ Border#PART_Indent">
+      <Setter Property="Width" Value="56" />
+    </Style>
+
+    <!-- A top-level group's title is 500; a nested group's is 400 until it opens. -->
+    <Style Selector="^[Level=0]:not(:empty) /template/ ContentPresenter#PART_HeaderPresenter">
+      <Setter Property="FontWeight" Value="Medium" />
+    </Style>
+    <Style Selector="^[IsExpanded=True]:not(:empty) /template/ ContentPresenter#PART_HeaderPresenter">
+      <Setter Property="FontWeight" Value="Medium" />
+    </Style>
+
+    <Style Selector="^ /template/ Border#PART_Tint:pointerover">
+      <Setter Property="Background" Value="{DynamicResource FiliActionDefaultHoverBrush}" />
+    </Style>
+    <Style Selector="^:focus-visible /template/ Border#SelectionBorder">
+      <Setter Property="Background" Value="{DynamicResource FiliActionDefaultHoverBrush}" />
+    </Style>
+
+    <!-- The active link: 500, primary over action-default-hover, which hovering keeps. -->
+    <Style Selector="^:selected /template/ Border#SelectionBorder">
+      <Setter Property="Background" Value="{DynamicResource FiliActionDefaultHoverBrush}" />
+      <Setter Property="BorderBrush" Value="{DynamicResource FiliPrimaryBrush}" />
+    </Style>
+    <Style Selector="^:selected /template/ Border#PART_Tint:pointerover">
+      <Setter Property="Background" Value="Transparent" />
+    </Style>
+    <Style Selector="^:selected /template/ ContentPresenter#PART_HeaderPresenter">
+      <Setter Property="Foreground" Value="{DynamicResource FiliPrimaryBrush}" />
+      <Setter Property="FontWeight" Value="Medium" />
+    </Style>
+
+    <Style Selector="^:disabled /template/ ContentPresenter#PART_HeaderPresenter">
+      <Setter Property="Foreground" Value="{DynamicResource FiliTextDisabledBrush}" />
+    </Style>
+    <Style Selector="^:disabled /template/ Path#PART_ExpandIcon">
+      <Setter Property="Fill" Value="{DynamicResource FiliTextDisabledBrush}" />
+    </Style>
+  </ControlTheme>
+
+  <ControlTheme x:Key="FiliNavMenu" TargetType="TreeView" BasedOn="{StaticResource FiliTreeView}" />
 
   <ControlTheme x:Key="{x:Type TreeView}" TargetType="TreeView" BasedOn="{StaticResource FiliTreeView}" />
   <ControlTheme x:Key="{x:Type TreeViewItem}" TargetType="TreeViewItem" BasedOn="{StaticResource FiliTreeViewItem}" />

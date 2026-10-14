@@ -10,19 +10,31 @@
   therefore gets its elevation from the Border INSIDE that popup rather than from the popup
   itself, which is a plain host with no visual of its own.
 
-  The icon column is reserved whether or not an item has an icon, so labels line up down the menu
-  instead of shifting by item. That is a Material rule and the thing most hand-rolled menus miss.
+  A dropdown row is MudMenuItem, from _menu.scss and MudMenuItem.razor:
+
+    .mud-menu-list              padding: 4px 0; min-width: 112px
+    .mud-menu-list > .mud-divider   margin: 4px 0
+    .mud-menu-item              padding: 8px 12px
+    .mud-menu-item-text         margin: 4px 0; body1 (body2 when dense)
+    .mud-menu-item-icon         a 24px MudIcon in action-default; margin-inline-end: 12px
+
+  So a row is 48px. The icon column opens for an item with an icon (Avalonia's :icon) and, so
+  the labels line up, for every other row in a list that has one - MudMenu's
+  `.mud-menu-list:has(.mud-menu-item-icon)` rule, which MenuIconGutter keeps as :icon-gutter. A
+  list with no icons has no column at all.
 -->
 <ResourceDictionary xmlns="https://github.com/avaloniaui"
-                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:theme="using:Fili.Theme.MudAvalonia">
 
   <ControlTheme x:Key="FiliMenuItem" TargetType="MenuItem">
     <Setter Property="Foreground" Value="{DynamicResource FiliTextPrimaryBrush}" />
     <Setter Property="FontFamily" Value="{DynamicResource FiliFontFamily}" />
-    <Setter Property="FontSize" Value="{DynamicResource FiliBody2FontSize}" />
-    <Setter Property="Padding" Value="16,8" />
-    <Setter Property="MinHeight" Value="36" />
+    <Setter Property="FontSize" Value="{DynamicResource FiliBody1FontSize}" />
+    <Setter Property="Padding" Value="12,8" />
+    <Setter Property="MinHeight" Value="48" />
     <Setter Property="Cursor" Value="Hand" />
+    <Setter Property="theme:MenuIconGutter.Aligns" Value="True" />
 
     <Setter Property="Template">
       <ControlTemplate>
@@ -33,11 +45,13 @@
                     CornerRadius="{DynamicResource FiliCornerRadius}" />
 
             <Grid ColumnDefinitions="Auto,*,Auto,Auto" Margin="{TemplateBinding Padding}">
-              <!-- Reserved icon column: keeps labels aligned whether or not icons exist. -->
+              <!-- The icon column: 24px and 12px after it, open for :icon and :icon-gutter. -->
               <ContentPresenter x:Name="PART_IconPresenter"
                                 Grid.Column="0"
-                                Width="20"
+                                Width="24"
                                 Margin="0,0,12,0"
+                                IsVisible="False"
+                                Foreground="{DynamicResource FiliActionDefaultBrush}"
                                 Content="{TemplateBinding Icon}"
                                 VerticalAlignment="Center" />
 
@@ -46,6 +60,7 @@
                                 Content="{TemplateBinding Header}"
                                 ContentTemplate="{TemplateBinding HeaderTemplate}"
                                 Foreground="{TemplateBinding Foreground}"
+                                Margin="0,4"
                                 VerticalAlignment="Center" />
 
               <!-- No converter on InputGesture: Avalonia 12 exposes no public KeyGesture
@@ -57,17 +72,17 @@
                          Text="{TemplateBinding InputGesture}"
                          VerticalAlignment="Center" />
 
-              <!-- Submenu chevron, hidden when the item has no children. -->
+              <!--
+                `.mud-menu-submenu-icon`: Filled.ArrowRight at 24px in action-default, as
+                `.mud-menu-item > .mud-icon-root` colours it; mirrored under RTL, where MudBlazor
+                swaps in ArrowLeft. Hidden when the item has no children, or with `hide-icon`.
+              -->
               <Path x:Name="PART_Chevron"
                     Grid.Column="3"
-                    Margin="12,0,0,0"
-                    Width="6" Height="10"
-                    Stretch="Uniform"
-                    Data="M 0,0 L 6,5 L 0,10"
-                    Stroke="{DynamicResource FiliActionDefaultBrush}"
-                    StrokeThickness="1.5"
-                    StrokeLineCap="Round"
-                    StrokeJoin="Round"
+                    Width="24" Height="24"
+                    Stretch="None"
+                    Data="{DynamicResource FiliArrowRightGeometry}"
+                    Fill="{DynamicResource FiliActionDefaultBrush}"
                     VerticalAlignment="Center" />
             </Grid>
 
@@ -80,8 +95,8 @@
               <Border Background="{DynamicResource FiliSurfaceBrush}"
                       CornerRadius="{DynamicResource FiliCornerRadius}"
                       BoxShadow="{DynamicResource FiliElevation8}"
-                      Padding="0,8"
-                      MinWidth="160"
+                      Padding="0,4"
+                      MinWidth="112"
                       Margin="8">
                 <ItemsPresenter x:Name="PART_ItemsPresenter"
                                 ItemsPanel="{TemplateBinding ItemsPanel}" />
@@ -92,9 +107,19 @@
       </ControlTemplate>
     </Setter>
 
-    <!-- A leaf item carries no chevron. -->
-    <Style Selector="^:empty /template/ Path#PART_Chevron">
+    <Style Selector="^:icon /template/ ContentPresenter#PART_IconPresenter">
+      <Setter Property="IsVisible" Value="True" />
+    </Style>
+    <Style Selector="^:icon-gutter /template/ ContentPresenter#PART_IconPresenter">
+      <Setter Property="IsVisible" Value="True" />
+    </Style>
+
+    <!-- A leaf item carries no chevron, and MudMenu's HideSubMenuArrow is `hide-icon`. -->
+    <Style Selector="^:empty /template/ Path#PART_Chevron, ^.hide-icon /template/ Path#PART_Chevron">
       <Setter Property="IsVisible" Value="False" />
+    </Style>
+    <Style Selector="^:disabled /template/ Path#PART_Chevron">
+      <Setter Property="Fill" Value="{DynamicResource FiliActionDisabledBrush}" />
     </Style>
 
     <Style Selector="^:selected /template/ Border#PART_StateLayer">
@@ -115,11 +140,14 @@
     <Style Selector="^:disabled">
       <Setter Property="Foreground" Value="{DynamicResource FiliActionDisabledBrush}" />
     </Style>
+    <Style Selector="^:disabled /template/ ContentPresenter#PART_IconPresenter">
+      <Setter Property="Foreground" Value="{DynamicResource FiliActionDisabledBrush}" />
+    </Style>
 
-    <!-- Separator: one hairline, the whole row. -->
+    <!-- Separator: one hairline, the whole row, 4px either side. -->
     <Style Selector="^:separator">
       <Setter Property="MinHeight" Value="1" />
-      <Setter Property="Margin" Value="0,8" />
+      <Setter Property="Margin" Value="0,4" />
       <Setter Property="Template">
         <ControlTemplate>
           <Border Height="1" Background="{DynamicResource FiliDividerBrush}" />
@@ -172,8 +200,8 @@
               <Border Background="{DynamicResource FiliSurfaceBrush}"
                       CornerRadius="{DynamicResource FiliCornerRadius}"
                       BoxShadow="{DynamicResource FiliElevation8}"
-                      Padding="0,8"
-                      MinWidth="180"
+                      Padding="0,4"
+                      MinWidth="112"
                       Margin="8">
                 <ItemsPresenter x:Name="PART_ItemsPresenter"
                                 ItemsPanel="{TemplateBinding ItemsPanel}" />
@@ -232,8 +260,8 @@
         <Border Background="{TemplateBinding Background}"
                 CornerRadius="{DynamicResource FiliCornerRadius}"
                 BoxShadow="{DynamicResource FiliElevation8}"
-                Padding="0,8"
-                MinWidth="160">
+                Padding="0,4"
+                MinWidth="112">
           <ItemsPresenter x:Name="PART_ItemsPresenter"
                           ItemsPanel="{TemplateBinding ItemsPanel}" />
         </Border>
