@@ -584,7 +584,7 @@ the app references it; this package does not depend on it.
 | `MultiSelection` | `SelectionMode="Extended"` | ≈ no checkbox column |
 | `FixedFooter`, footers | — | ❌ Avalonia's DataGrid has no footer row |
 | `Loading`, `LoadingProgressColor` | a `ProgressBar` over the grid | ≈ |
-| `Breakpoint` (the stacked mobile layout) | — | ❌ |
+| `Breakpoint` (the stacked mobile layout) | — | ❌ re-laying rows as cards is a layout the DataGrid does not have, not a look |
 
 ### MudIcon → `PathIcon`
 
@@ -616,7 +616,7 @@ the app references it; this package does not depend on it.
 | `Elevation`, `Square`, `Paper="false"`, `DropShadow="false"` | — | ❌ a presenter takes no elevation or shape class |
 | `AnchorOrigin`, `TransformOrigin` | `Placement` | ≈ |
 | `MaxHeight` | `MaxHeight` | ≈ |
-| `RelativeWidth`, `Duration`, `Delay` | — | ❌ |
+| `RelativeWidth`, `Duration`, `Delay` | — | ❌ a popup opens without a transition, and its width relative to the anchor is the app's to bind |
 
 ### MudOverlay
 
@@ -648,7 +648,7 @@ one with children:
 | nesting | rows inside a group | ✅ 36px in, then 48, 60 and 72 |
 | `MudNavGroup.HideExpandIcon` | `hide-icon` on the group's row | ✅ |
 | `MudNavGroup.ExpandIcon` | `FiliExpandMoreGeometry` in the group's `Resources` | ✅ |
-| `MudNavGroup.MaxHeight` | — | ❌ |
+| `MudNavGroup.MaxHeight` | — | ❌ a tree item's children have no scroller of their own, so a cap would clip them rather than scroll |
 | a mini drawer's nav | a nav tree in a closed `CompactInline` or `CompactOverlay` `SplitView`, or the drawer of a closed compact `DrawerPage` | ✅ a link's text beside its icon hidden, so the 56px rail shows the icons, and every row 8px 16px whatever its depth; no sideways scrolling, a group's arrow running off the edge as in MudBlazor |
 
 ### MudToolBar → `Border.toolbar`
