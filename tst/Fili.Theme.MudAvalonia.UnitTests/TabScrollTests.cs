@@ -1,7 +1,10 @@
+using Avalonia;
 using Avalonia.Controls;
+using Avalonia.Controls.Presenters;
 using Avalonia.Controls.Primitives;
 using Avalonia.Interactivity;
 using Avalonia.Threading;
+using Avalonia.VisualTree;
 using Xunit;
 
 namespace Fili.Theme.MudAvalonia.UnitTests;
@@ -95,6 +98,49 @@ public class TabScrollTests
 
         Click(Next(tabs));
         Assert.True(scroller.Offset.Y > 0);
+    });
+
+    /// <summary>
+    /// <c>centered</c> centres the tab row inside the scroller: a row that fits sits in the middle,
+    /// and one that overflows starts at the bar's start, so the first tab is not centred out of
+    /// reach and every tab can be scrolled to.
+    /// </summary>
+    [Fact]
+    public Task CenteredTabsThatFitSitInTheMiddle() => UiThread.RunAsync(() =>
+    {
+        var tabs = Tabs(2, 500);
+        tabs.Classes.Add("centered");
+        Dispatcher.UIThread.RunJobs();
+
+        var presenter = Matrix.Part<ItemsPresenter>(tabs, "PART_ItemsPresenter");
+        var scroller = Scroller(tabs);
+        var left = presenter.TranslatePoint(default, scroller)!.Value.X;
+        var right = scroller.Viewport.Width - left - presenter.Bounds.Width;
+
+        Assert.True(left > 0);
+        Assert.Equal(left, right, 1);
+    });
+
+    [Fact]
+    public Task CenteredTabsThatOverflowStillReachBothEnds() => UiThread.RunAsync(() =>
+    {
+        var tabs = Tabs(8, 500);
+        tabs.Classes.Add("centered");
+        Dispatcher.UIThread.RunJobs();
+
+        var presenter = Matrix.Part<ItemsPresenter>(tabs, "PART_ItemsPresenter");
+        var scroller = Scroller(tabs);
+
+        Assert.Equal(0, presenter.TranslatePoint(default, scroller)!.Value.X, 1);
+        Assert.Equal(presenter.Bounds.Width, scroller.Extent.Width, 1);
+
+        while (Next(tabs).IsEnabled)
+        {
+            Click(Next(tabs));
+        }
+
+        var end = presenter.TranslatePoint(new Point(presenter.Bounds.Width, 0), scroller)!.Value.X;
+        Assert.Equal(scroller.Viewport.Width, end, 1);
     });
 
     [Fact]

@@ -10,7 +10,7 @@ those silent failures into red builds, because looking at the app cannot be reli
 
 | Project | What it does | Speed |
 |---|---|---|
-| `tst/Fili.Theme.MudAvalonia.UnitTests` | 749 tests on a headless Avalonia session. They resolve resources, template controls, move a real pointer over them, and read back the values the theme applied. Nothing is rendered. | seconds |
+| `tst/Fili.Theme.MudAvalonia.UnitTests` | 753 tests on a headless Avalonia session. They resolve resources, template controls, move a real pointer over them, and read back the values the theme applied. Nothing is rendered. | seconds |
 | `tst/Fili.Theme.MudAvalonia.NoDataGridTests` | 3 tests. The theme in an app that does not reference `Avalonia.Controls.DataGrid`: the assembly is really absent, `FiliTheme.axaml` loads and themes a button, and no DataGrid rule was loaded. | seconds |
 | `tst/Fili.Theme.MudAvalonia.PixelTests` | 21 tests. Twelve render one gallery frame each with Skia and compare it pixel by pixel with a PNG committed in `Baselines/`; nine, in `GalleryPageTests`, check how the gallery behaves - that the controls page shows its first section at once and adds the rest one dispatcher pass at a time (pausing while off screen, and loading the rest at once for an index row ahead of the load), that it opens at the top in a window shorter than its first screen, that keyboard focus still scrolls it, that each row of the index beside it lands on its section and the index follows the scroll, that every section fits beside the index in the desktop window and in a frame, and that the app bar shows the theme's version. | ~30 seconds |
 
@@ -27,7 +27,7 @@ needed a different platform.
 
 ## The unit tests
 
-749 tests in 49 classes, grouped here by the failure each one exists to catch.
+753 tests in 50 classes, grouped here by the failure each one exists to catch.
 
 ### Tokens: does every value exist, in every variant?
 
@@ -93,7 +93,8 @@ from MudBlazor's SCSS or the component's parameter defaults.
 | `MultiSelectionTests` | 17 | `multi-selection` on a list and a tree: the checkbox on each row, checked with the selection, 8px into the gutter in a 48px row, no row marked selected, grey or the list's colour on both glyphs and the halo, disabled in text-disabled, the tree's 32 / 24px box. And Avalonia pinning `SelectionMode` locally once a selection model exists, the reason the class cannot set it. |
 | `CustomisationTests` | 24 | Glyph keys set on one control replace its glyph and no other's (a checkbox, a select's arrow, the tab scroll chevrons drawn at their own size, a snackbar's icons set on its manager), the submenu arrow and `hide-icon`, 48 / 36px list and select rows, `dense-items`, `label-start` / `-top` / `-bottom` on all three toggles, the switch's thumb icon and `thumb-*`, a disabled switch, and a closed mini drawer's nav. |
 | `DrawerPageTests` | 8 | A closed compact `DrawerPage` is a mini drawer - text hidden, no indent, a 56px rail that does not scroll sideways - and a `CompactDrawerLength` the app sets wins. Its three pane toggles are MudIconButtons, open or closed: the icon toggle's theme, action-default, round, no fill under its template's `Background="Transparent"`, and the round hover tint. And the fix stays there: a plain checked toggle is still filled, and a `Background` an app sets beats the checked fill. |
-| `TabScrollTests` | 5 | The tab bar's scroll buttons: none when the tabs fit, a bar's length per click and disabled at each end, the selected tab scrolled into view, a side bar scrolling down, and a `TabStrip` too. |
+| `TabScrollTests` | 7 | The tab bar's scroll buttons: none when the tabs fit, a bar's length per click and disabled at each end, the selected tab scrolled into view, a side bar scrolling down, a `TabStrip` too, and `centered` inside the scroller - a row that fits in the middle, one that overflows starting at the bar's start and reaching both ends. |
+| `PickerItemTests` | 2 | The date and time pickers' spinning items fit their 40px slots: their forked theme is based on Simple's list item, not the 48px themed one. |
 | `TreeViewTests` | 3 | `hover` is opt-in, tints only the row under the pointer and not its branch, and leaves a selected row's tint alone. |
 | `LinkInheritTests` | 1 | `HyperlinkButton.inherit` really takes the surrounding text colour. |
 
