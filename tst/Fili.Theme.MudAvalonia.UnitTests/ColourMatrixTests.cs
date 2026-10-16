@@ -223,6 +223,27 @@ public class SwitchMatrixTests
         Assert.Equal(trackHeight, Matrix.Part<Border>(toggle, "PART_Track").Height);
         Assert.Equal(thumb, Matrix.Part<Border>(toggle, "PART_Thumb").Width);
     });
+
+    /// <summary>
+    /// A switch stretched to its row centres its content, as MudSwitch's inline-flex does: beside
+    /// a 48px checkbox, its 40px had been drawn at the top and its label sat 4px higher.
+    /// </summary>
+    [Fact]
+    public Task AStretchedSwitchCentresItsLabelWithACheckBoxs() => UiThread.RunAsync(() =>
+    {
+        var check = new CheckBox { Content = "Remember me" };
+        var toggle = new ToggleSwitch { Content = "Notifications" };
+        var row = Matrix.Show(new StackPanel { Orientation = Avalonia.Layout.Orientation.Horizontal, Children = { check, toggle } });
+
+        double Centre(Control control)
+        {
+            var text = control.GetVisualDescendants().OfType<TextBlock>().First(t => t.Text == (string)((ContentControl)control).Content!);
+            return text.TranslatePoint(new Point(0, text.Bounds.Height / 2), row)!.Value.Y;
+        }
+
+        Assert.Equal(48, toggle.Bounds.Height);
+        Assert.Equal(Centre(check), Centre(toggle), 0.5);
+    });
 }
 
 /// <summary>

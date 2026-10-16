@@ -30,7 +30,10 @@
 
     <Setter Property="Template">
       <ControlTemplate>
-        <Grid ColumnDefinitions="Auto,*" RowDefinitions="Auto,Auto">
+        <!-- Centred in the control, as MudSwitch's inline-flex is: a switch stretched to a 48px
+             row - beside a checkbox - had its 40px drawn at the top and its label 4px high. -->
+        <Grid ColumnDefinitions="Auto,*" RowDefinitions="Auto,Auto"
+              VerticalAlignment="{TemplateBinding VerticalContentAlignment}">
 
           <Panel x:Name="PART_SwitchArea" Grid.Column="0" Width="52" Height="40">
 
