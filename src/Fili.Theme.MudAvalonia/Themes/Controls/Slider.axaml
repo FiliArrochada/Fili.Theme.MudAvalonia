@@ -36,8 +36,13 @@
 
   <fili:TickPositionsConverter x:Key="FiliTickPositions" />
 
-  <!-- A rail half. Height/width is set by the orientation selectors on the Slider itself. -->
+  <!--
+    A rail half. Height/width is set by the orientation selectors on the Slider itself. Not
+    focusable, as the base's SliderRepeatTrackTheme is not: the slider is the one Tab stop, as an
+    <input type=range> is, and a focusable half drew its ring round a 2px rail.
+  -->
   <ControlTheme x:Key="FiliSliderTrackPiece" TargetType="RepeatButton">
+    <Setter Property="Focusable" Value="False" />
     <Setter Property="Template">
       <ControlTemplate>
         <Border Background="{TemplateBinding Background}"
