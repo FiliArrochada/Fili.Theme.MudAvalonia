@@ -285,35 +285,50 @@ public class FieldDetailTests
     /// A tall field's label stays at the top, floated or not, as a textarea's does in MudBlazor.
     /// The label was centred on the whole field and floated a fixed distance up from there, so in
     /// a four-line field it landed on the text - on an outlined one, its mask hid the first line.
-    /// It now centres in a band of the single-line field's height, at the top.
+    /// It now centres in a band of the single-line field's height, at the top, and the first line
+    /// starts where a single-line field's text does, so the label and the text are as far apart as
+    /// in a single-line field: flush with the top, a filled field's first line met its label.
     /// </summary>
     [Theory]
-    [InlineData(null, 48)]
-    [InlineData("filled", 56)]
-    [InlineData("outlined", 54)]
-    [InlineData("outlined dense", 38)]
-    public Task ATallFieldsLabelStaysAtTheTop(string? classes, double band) => UiThread.RunAsync(() =>
+    [InlineData(null, 48, false)]
+    [InlineData("dense", 45, false)]
+    [InlineData("filled", 56, false)]
+    [InlineData("filled", 56, true)]
+    [InlineData("filled dense", 48, false)]
+    [InlineData("outlined", 54, false)]
+    [InlineData("outlined dense", 38, false)]
+    public Task ATallFieldsLabelStaysAtTheTop(string? classes, double band, bool sizedByTheApp) => UiThread.RunAsync(() =>
     {
-        var box = new TextBox
+        TextBox Field(bool multiLine)
         {
-            Width = 200,
-            AcceptsReturn = true,
-            PlaceholderText = "Notes",
-            Text = "line 1\nline 2\nline 3\nline 4",
-        };
-        if (classes is not null) box.Classes.AddRange(classes.Split(' '));
-        Matrix.Show(box);
+            var box = new TextBox { Width = 200, PlaceholderText = "Notes", Text = "line 1" };
+            if (multiLine)
+            {
+                box.AcceptsReturn = true;
+                if (sizedByTheApp) box.Height = 120; else box.Text = "line 1\nline 2\nline 3\nline 4";
+            }
+            if (classes is not null) box.Classes.AddRange(classes.Split(' '));
+            return box;
+        }
 
-        var area = Named<Panel>(box, "PART_LabelArea");
+        static double Gap(TextBox box)
+        {
+            var label = Block(box, "PART_FloatingLabel");
+            var labelBottom = label.TranslatePoint(new Point(0, label.Bounds.Height), box)!.Value.Y;
+            var textTop = Named<TextPresenter>(box, "PART_TextPresenter").TranslatePoint(default, box)!.Value.Y;
+            return textTop - labelBottom;
+        }
+
+        var single = Field(multiLine: false);
+        var tall = Field(multiLine: true);
+        Matrix.Show(new StackPanel { Children = { single, tall } });
+
+        var area = Named<Panel>(tall, "PART_LabelArea");
         Assert.Equal(band, area.Bounds.Height);
         Assert.Equal(0, area.Bounds.Y);
-        Assert.True(box.Bounds.Height > band + 40, $"The field is {box.Bounds.Height} high, not multi-line.");
-
-        var label = Block(box, "PART_FloatingLabel");
-        var labelBottom = label.TranslatePoint(new Point(0, label.Bounds.Height), box)!.Value.Y;
-        var text = Named<TextPresenter>(box, "PART_TextPresenter");
-        var textTop = text.TranslatePoint(default, box)!.Value.Y;
-        Assert.True(labelBottom <= textTop + 6, $"The floated label ends at {labelBottom}, the text starts at {textTop}.");
+        Assert.True(tall.Bounds.Height > band + 40, $"The field is {tall.Bounds.Height} high, not multi-line.");
+        Assert.True(Math.Abs(Gap(tall) - Gap(single)) <= 1,
+            $"The label and the first line are {Gap(tall)} apart; in a single-line field, {Gap(single)}.");
     });
 
     /// <summary>
