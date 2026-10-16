@@ -45,7 +45,8 @@
   is that these variants have no separate placeholder.
 -->
 <ResourceDictionary xmlns="https://github.com/avaloniaui"
-                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:fili="using:Fili.Theme.MudAvalonia.Converters">
 
   <!-- Standard / Variant.Text: no fill, no box, just the rule. MudTextField's default. -->
   <ControlTheme x:Key="FiliStandardTextBox" TargetType="TextBox">
@@ -106,7 +107,7 @@
                          Text="{TemplateBinding (AutomationProperties.HelpText)}" />
             </Panel>
             <StackPanel x:Name="PART_Counter" Grid.Column="1" Orientation="Horizontal" Margin="0,3,0,0" IsVisible="False">
-              <TextBlock Text="{Binding $parent[TextBox].Text.Length, FallbackValue=0, TargetNullValue=0}"
+              <TextBlock Text="{Binding $parent[TextBox].Text, Converter={x:Static fili:TextLengthConverter.Instance}}"
                          FontFamily="{DynamicResource FiliFontFamily}"
                          FontSize="{DynamicResource FiliCaptionFontSize}"
                          FontWeight="Normal"
