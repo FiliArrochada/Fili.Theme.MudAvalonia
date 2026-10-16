@@ -29,7 +29,8 @@ classes, `ControlTheme`s where a Material look cannot be faked without one, and 
   public is a design change, and belongs in a separate package.
 - **`internal` helpers only where XAML genuinely cannot express something** (compiled XAML can
   construct them, so nothing leaks): `FactorConverter`, `ErrorMessageConverter`,
-  `TickPositionsConverter`, `BadgeContentConverter` and `StripedRowConverter` in `Converters/`;
+  `TickPositionsConverter`, `BadgeContentConverter`, `StripedRowConverter` and `TextLengthConverter`
+  in `Converters/`;
   `OptionalStyleInclude`, a `StyleInclude` that loads only when the app has the package;
   `SlidingIndicator`, the tabs' slide; `FieldClasses`, the text field's classes passed to the
   TextBox inside an AutoCompleteBox or NumericUpDown; `MenuIconGutter`, a menu's shared icon
@@ -146,6 +147,8 @@ One line each; [`docs/traps.md`](docs/traps.md) has the full account and the tes
   `InvalidCastException` when it starts.
 - A `DataValidationErrors.Errors` entry is usually an `Exception`; show it through
   `ErrorMessageConverter`.
+- A template binding through a value that can be null (`Text.Length`) logs an error in every app
+  that leaves it null, hidden or not; bind the value and convert. `BindingErrorTests` sweeps for it.
 - A template part works only under the exact `[TemplatePart]` name its control looks for; any
   other name is silently ignored (the DataGrid's group row and `PART_RowHeader`).
 
