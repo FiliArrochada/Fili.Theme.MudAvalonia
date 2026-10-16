@@ -82,6 +82,12 @@ public static class GalleryFrames
     ];
 
     /// <summary>
+    /// A frame's view, built as its frame shows it - every section of the controls page loaded -
+    /// for a check that walks the page rather than its pixels.
+    /// </summary>
+    public static Control Build(string view) => Views.Single(v => v.Name == view).Build();
+
+    /// <summary>
     /// The app builder both callers use.
     ///
     /// <para>
@@ -127,7 +133,7 @@ public static class GalleryFrames
     {
         Application.Current!.RequestedThemeVariant = frame.Variant;
 
-        var view = Views.Single(v => v.Name == frame.View).Build();
+        var view = Build(frame.View);
 
         // The window is sized to the CONTENT rather than to a constant.
         //
