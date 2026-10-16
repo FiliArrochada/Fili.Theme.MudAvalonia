@@ -251,6 +251,95 @@ public class FieldDetailTests
         Assert.True(top < 0, $"The floated label's top is at {top}, inside the field.");
     });
 
+    /// <summary>
+    /// A start adornment floats the label, as a value does: <c>MudInput.razor.cs</c> shrinks it
+    /// on <c>Adornment == Adornment.Start</c>. A resting label lay over the adornment instead -
+    /// "Search games" written across the magnifier. Foreground, not FontSize, because the size is
+    /// transitioned and the colour is not: a floated label is text-primary, a resting one
+    /// text-secondary.
+    /// </summary>
+    [Theory]
+    [InlineData(null)]
+    [InlineData("filled")]
+    [InlineData("outlined")]
+    [InlineData("dense")]
+    public Task AStartAdornmentFloatsTheLabel(string? variant) => UiThread.RunAsync(() =>
+    {
+        var box = new TextBox { Width = 200, PlaceholderText = "Search", InnerLeftContent = new TextBlock { Text = "$" } };
+        if (variant is not null) box.Classes.Add(variant);
+        Matrix.Show(box);
+        var label = Block(box, "PART_FloatingLabel");
+
+        Assert.Equal(Matrix.Token("FiliTextPrimaryColor"), Matrix.Colour(label.Foreground));
+
+        box.InnerLeftContent = null;
+        Dispatcher.UIThread.RunJobs();
+        Assert.Equal(Matrix.Token("FiliTextSecondaryColor"), Matrix.Colour(label.Foreground));
+
+        box.InnerRightContent = new TextBlock { Text = "kg" };
+        Dispatcher.UIThread.RunJobs();
+        Assert.Equal(Matrix.Token("FiliTextSecondaryColor"), Matrix.Colour(label.Foreground));
+    });
+
+    /// <summary>
+    /// A tall field's label stays at the top, floated or not, as a textarea's does in MudBlazor.
+    /// The label was centred on the whole field and floated a fixed distance up from there, so in
+    /// a four-line field it landed on the text - on an outlined one, its mask hid the first line.
+    /// It now centres in a band of the single-line field's height, at the top.
+    /// </summary>
+    [Theory]
+    [InlineData(null, 48)]
+    [InlineData("filled", 56)]
+    [InlineData("outlined", 54)]
+    [InlineData("outlined dense", 38)]
+    public Task ATallFieldsLabelStaysAtTheTop(string? classes, double band) => UiThread.RunAsync(() =>
+    {
+        var box = new TextBox
+        {
+            Width = 200,
+            AcceptsReturn = true,
+            PlaceholderText = "Notes",
+            Text = "line 1\nline 2\nline 3\nline 4",
+        };
+        if (classes is not null) box.Classes.AddRange(classes.Split(' '));
+        Matrix.Show(box);
+
+        var area = Named<Panel>(box, "PART_LabelArea");
+        Assert.Equal(band, area.Bounds.Height);
+        Assert.Equal(0, area.Bounds.Y);
+        Assert.True(box.Bounds.Height > band + 40, $"The field is {box.Bounds.Height} high, not multi-line.");
+
+        var label = Block(box, "PART_FloatingLabel");
+        var labelBottom = label.TranslatePoint(new Point(0, label.Bounds.Height), box)!.Value.Y;
+        var text = Named<TextPresenter>(box, "PART_TextPresenter");
+        var textTop = text.TranslatePoint(default, box)!.Value.Y;
+        Assert.True(labelBottom <= textTop + 6, $"The floated label ends at {labelBottom}, the text starts at {textTop}.");
+    });
+
+    /// <summary>
+    /// The label's band never makes a single-line field taller, focused or not. Sized to the
+    /// field's height, it made an outlined field 2px taller: the band sits inside the stroke.
+    /// </summary>
+    [Theory]
+    [InlineData(null, 48)]
+    [InlineData("dense", 45)]
+    [InlineData("filled", 56)]
+    [InlineData("filled dense", 48)]
+    [InlineData("outlined", 56)]
+    [InlineData("outlined dense", 40)]
+    public Task TheLabelsBandLeavesTheFieldsHeight(string? classes, double height) => UiThread.RunAsync(() =>
+    {
+        var box = new TextBox { Width = 200, PlaceholderText = "Title" };
+        if (classes is not null) box.Classes.AddRange(classes.Split(' '));
+        var other = new TextBox();
+        Matrix.Show(new StackPanel { Children = { box, other } });
+
+        Assert.Equal(height, Named<Border>(box, "PART_Root").Bounds.Height);
+        box.Focus();
+        Dispatcher.UIThread.RunJobs();
+        Assert.Equal(height, Named<Border>(box, "PART_Root").Bounds.Height);
+    });
+
     // --------------------------------------------------------------------------------------
     // Variant on a select
     // --------------------------------------------------------------------------------------
