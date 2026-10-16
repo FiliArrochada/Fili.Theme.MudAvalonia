@@ -10,9 +10,9 @@ namespace Fili.Theme.MudAvalonia.UnitTests;
 
 /// <summary>
 /// No template binding logs an error. Avalonia logs a failed binding as a warning and carries on,
-/// so nothing here fails on its own; but an app that treats a binding error as a bug - Fili.Damselfly
-/// fails its view tests on one - inherits every one this theme makes, on every page. The first
-/// found that way: the text field's counter bound <c>Text.Length</c>, which warned on every
+/// so nothing here fails on its own; but an app that treats a binding error as a bug, failing its
+/// view tests on one, inherits every one this theme makes, on every page. The first found that
+/// way: the text field's counter bound <c>Text.Length</c>, which warned on every
 /// <c>TextBox</c> whose <c>Text</c> was still null, counter or not.
 /// </summary>
 public class BindingErrorTests
@@ -30,7 +30,7 @@ public class BindingErrorTests
         "TabControl", "Menu", "HeaderedContentControl.badge", "PipsPager", "DataGrid",
     ];
 
-    private static Control Create(string spec)
+    internal static Control Create(string spec)
     {
         var parts = spec.Split('.');
         Control control = parts[0] switch
