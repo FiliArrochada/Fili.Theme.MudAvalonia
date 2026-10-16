@@ -25,7 +25,8 @@
 -->
 <ResourceDictionary xmlns="https://github.com/avaloniaui"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:theme="using:Fili.Theme.MudAvalonia">
+                    xmlns:theme="using:Fili.Theme.MudAvalonia"
+                    xmlns:sys="using:System">
 
   <ControlTheme x:Key="FiliMenuItem" TargetType="MenuItem">
     <Setter Property="Foreground" Value="{DynamicResource FiliTextPrimaryBrush}" />
@@ -55,13 +56,20 @@
                                 Content="{TemplateBinding Icon}"
                                 VerticalAlignment="Center" />
 
+              <!-- A string header is an AccessText, as the base's is: "_Open" is Open, Alt+O. -->
               <ContentPresenter x:Name="PART_HeaderPresenter"
                                 Grid.Column="1"
                                 Content="{TemplateBinding Header}"
                                 ContentTemplate="{TemplateBinding HeaderTemplate}"
                                 Foreground="{TemplateBinding Foreground}"
                                 Margin="0,4"
-                                VerticalAlignment="Center" />
+                                VerticalAlignment="Center">
+                <ContentPresenter.DataTemplates>
+                  <DataTemplate DataType="sys:String">
+                    <AccessText Text="{Binding}" />
+                  </DataTemplate>
+                </ContentPresenter.DataTemplates>
+              </ContentPresenter>
 
               <!-- No converter on InputGesture: Avalonia 12 exposes no public KeyGesture
                    converter, and the binding stringifies the gesture on its own. -->
@@ -190,7 +198,13 @@
                               ContentTemplate="{TemplateBinding HeaderTemplate}"
                               Foreground="{TemplateBinding Foreground}"
                               Margin="{TemplateBinding Padding}"
-                              VerticalAlignment="Center" />
+                              VerticalAlignment="Center">
+              <ContentPresenter.DataTemplates>
+                <DataTemplate DataType="sys:String">
+                  <AccessText Text="{Binding}" />
+                </DataTemplate>
+              </ContentPresenter.DataTemplates>
+            </ContentPresenter>
 
             <Popup x:Name="PART_Popup"
                    WindowManagerAddShadowHint="False"
@@ -268,6 +282,14 @@
       </ControlTemplate>
     </Setter>
   </ControlTheme>
+
+  <!--
+    The dropdown row is MenuItem's theme by type; only a Menu's strip names another. A row that no
+    menu of this theme placed - a MenuFlyout's, which binds its own null ItemContainerTheme over
+    its presenter's, a submenu's own rows, or an app's ItemContainerTheme BasedOn {x:Type MenuItem}
+    - had fallen through to the base's Simple row: 24px, no state layer, a dashed outline.
+  -->
+  <ControlTheme x:Key="{x:Type MenuItem}" TargetType="MenuItem" BasedOn="{StaticResource FiliMenuItem}" />
 
   <ControlTheme x:Key="{x:Type Menu}" TargetType="Menu" BasedOn="{StaticResource FiliMenu}" />
 

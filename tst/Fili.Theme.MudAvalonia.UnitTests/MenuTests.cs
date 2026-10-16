@@ -93,4 +93,45 @@ public class MenuTests
 
         Assert.Equal(Matrix.Token("FiliActionDefaultColor"), Matrix.Colour(IconColumn(row).Foreground));
     });
+
+    /// <summary>
+    /// Every row is MudMenuItem, however the menu was opened: a <c>MenuFlyout</c>'s rows and a
+    /// submenu's submenu too. Neither has a container theme set by a menu of the theme's: a
+    /// <c>MenuFlyout</c> binds its own, null, onto its presenter, which beats the presenter's
+    /// theme, and a dropdown row named none for its own rows. Both fell through to the base's
+    /// Simple row, 24px high with no state layer, until <c>MenuItem</c> was themed by type.
+    /// </summary>
+    [Fact]
+    public Task AFlyoutsRowsAndANestedSubmenusAreMudMenuItems() => UiThread.RunAsync(() =>
+    {
+        var flyoutRow = Row("Journey");
+        var button = Matrix.Show(new Button { Content = "Menu", Flyout = new MenuFlyout { Items = { flyoutRow } } });
+        button.Flyout!.ShowAt(button);
+        Dispatcher.UIThread.RunJobs();
+
+        var nested = Row("Recent");
+        var deepest = Row("Report.pdf");
+        nested.Items.Add(deepest);
+        Open(nested);
+        nested.IsSubMenuOpen = true;
+        Dispatcher.UIThread.RunJobs();
+
+        foreach (var row in new[] { flyoutRow, deepest })
+        {
+            Assert.Equal(new Thickness(12, 8), row.Padding);
+            Assert.Equal(48, row.MinHeight);
+            Assert.NotNull(Matrix.Part<Avalonia.Controls.Border>(row, "PART_StateLayer"));
+        }
+
+        // MudMenu.Dense through FlyoutPresenterClasses: the same row, 2px 12px.
+        var denseRow = Row("Near me");
+        var dense = new MenuFlyout { Items = { denseRow } };
+        dense.FlyoutPresenterClasses.Add("dense");
+        var denseButton = Matrix.Show(new Button { Content = "Menu", Flyout = dense });
+        dense.ShowAt(denseButton);
+        Dispatcher.UIThread.RunJobs();
+
+        Assert.Equal(new Thickness(12, 2), denseRow.Padding);
+        Assert.NotNull(Matrix.Part<Avalonia.Controls.Border>(denseRow, "PART_StateLayer"));
+    });
 }

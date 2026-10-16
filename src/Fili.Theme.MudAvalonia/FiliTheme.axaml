@@ -63,6 +63,37 @@
   </Style>
 
   <!--
+    A popup's host is the root of its own tree, so it inherits nothing from the window. The base
+    gives it ContentControlThemeFontFamily, an alias Accents.axaml resolves once inside this theme,
+    so it is Roboto whatever the app's FiliFontFamily says. Only the font: the base's size and
+    foreground for these hosts are already the Fili ones.
+  -->
+  <Style Selector="PopupRoot, OverlayPopupHost, EmbeddableControlRoot">
+    <Setter Property="FontFamily" Value="{DynamicResource FiliFontFamily}" />
+  </Style>
+
+  <!--
+    No focus rectangle. MudBlazor's _reset.scss removes the browser's outline, and every control
+    here marks keyboard focus with its state layer instead (docs/controls.md, Keyboard focus). The
+    forked AdornerLayer still drew Simple's dashed box round every focused control, on top of the
+    tint. A control's own FocusAdorner, set by an app, still draws.
+  -->
+  <Style Selector="AdornerLayer">
+    <Setter Property="DefaultFocusAdorner" Value="{x:Null}" />
+  </Style>
+
+  <!--
+    Access keys: "_Save" is Save, Alt+S, on every control the base recognises them on - the base's
+    own templates set RecognizesAccessKey on these presenters, and the hand-written ones had not,
+    so the underscore showed. MudBlazor has none; Avalonia apps write them anyway. One rule here
+    rather than one per theme: Button.axaml is generated, and an Expander's header is a toggle's.
+    A menu row's header is an AccessText in its template (Menu.axaml), as the base's is.
+  -->
+  <Style Selector="Button /template/ ContentPresenter#PART_ContentPresenter, ToggleButton /template/ ContentPresenter#PART_ContentPresenter, CheckBox /template/ ContentPresenter#PART_ContentPresenter, RadioButton /template/ ContentPresenter#PART_ContentPresenter, ToggleSwitch /template/ ContentPresenter#PART_ContentPresenter, SplitButton /template/ ContentPresenter#PART_ContentPresenter, DropDownButton /template/ ContentPresenter#PART_ContentPresenter, HyperlinkButton /template/ ContentPresenter#PART_ContentPresenter, TabItem /template/ ContentPresenter#PART_ContentPresenter">
+    <Setter Property="RecognizesAccessKey" Value="True" />
+  </Style>
+
+  <!--
     LineHeight and LetterSpacing do NOT go on a blanket TextBlock selector, and this is the
     third costume of the same trap.
 
