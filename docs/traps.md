@@ -224,6 +224,18 @@ one.
 - **A `DataValidationErrors.Errors` entry is usually an `Exception`**, so binding straight to it
   renders `"System.InvalidOperationException: the message"`. `ErrorMessageConverter` exists for
   exactly that.
+- **A binding through a null logs an error in the app, not here.** The counter bound
+  `$parent[TextBox].Text.Length`: a `FallbackValue` showed 0 for a null `Text`, but Avalonia logged
+  a binding error first, for every `TextBox` an app had not filled yet - the counter is hidden, not
+  unbound. Nothing in this repository failed; Fili.Damselfly, which fails its view tests on a
+  binding error, carried an exception for it from 0.6 to 0.9.2. The counter now binds `Text`
+  through `TextLengthConverter`, and `BindingErrorTests` shows the common controls with a sink
+  that fails on any binding error.
+- **A checkbox in a table cell is the compact one.** `_table.scss` gives `.mud-table-cell
+  .mud-checkbox` a -4px margin and its icon button 4px of padding, so a selection column does not
+  stretch the row; without it, the 48px circle made a 57px row 81. The circle's 48 is set inline
+  in the template, so the cell's rule for the medium size needs an activator
+  (`:not(.small):not(.large)`) to win, as every inline-template override does.
 - **A template part works only under the exact name the control looks for.** The DataGrid's
   group row finds its row header as `PART_RowHeader`, to hide it with the grid's other row
   headers; the template named it `RowHeader`, as Avalonia's own DataGrid theme does, so it was
