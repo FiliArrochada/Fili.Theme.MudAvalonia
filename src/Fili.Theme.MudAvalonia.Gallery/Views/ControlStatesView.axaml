@@ -112,6 +112,19 @@
                    MaxWidth="760"
                    HorizontalAlignment="Left"
                    Text="The first and third carry keyboard focus, set from code-behind so it survives into a screenshot. MudBlazor has no focus ring to borrow — _reset.scss sets outline: none and _button.scss maps :focus-visible to the hover value — so the state is the whole affordance. It is :focus-visible rather than :focus on purpose: clicking a button should not leave it tinted after the pointer has gone." />
+
+        <TextBlock Classes="overline" Text="Access keys" Margin="0,8,0,0" />
+        <StackPanel Orientation="Horizontal" Spacing="12">
+          <Button Classes="filled primary" Content="_Save" />
+          <Button Classes="primary" Content="_Cancel" />
+          <CheckBox Content="_Remember me" IsChecked="True" />
+          <ToggleSwitch Content="_Notifications" IsChecked="True" />
+        </StackPanel>
+        <TextBlock Classes="caption"
+                   TextWrapping="Wrap"
+                   MaxWidth="760"
+                   HorizontalAlignment="Left"
+                   Text="&quot;_Save&quot; is Save with S as its access key, as in Avalonia's own themes: Alt underlines the letters and presses the control. MudBlazor has none; Avalonia apps write them anyway. To show an underscore, double it." />
       </StackPanel>
 
       <!-- Split and drop-down buttons -->
@@ -374,6 +387,21 @@
                    MaxWidth="760"
                    HorizontalAlignment="Left"
                    Text="Avalonia's own DataGrid needs nothing to look like MudDataGrid: surface at elevation 1, subtitle2 headers in a 59px row, body2 cells 16px round with a table-lines rule under every row but the last, and MudIconButton's ArrowUpward at the end of a sorted header. dense, striped, bordered and hover are MudDataGrid's Dense, Striped, Bordered and Hover; outlined and square are the paper's. A nested group's header steps in 48px; its rows do not. MudDataGrid does not draw a selected row, so selection borrows a selected list row's primary-hover." />
+
+        <TextBlock Classes="overline" Text="A selection column and long text" Margin="0,8,0,0" />
+        <DataGrid x:Name="TaskGrid" Width="640" HorizontalAlignment="Left">
+          <DataGrid.Columns>
+            <DataGridCheckBoxColumn Header="Done" Binding="{Binding Done}" x:DataType="v:GalleryTask" />
+            <DataGridTextColumn Header="Task" Binding="{Binding Title}" x:DataType="v:GalleryTask" Width="*" />
+            <DataGridTextColumn Header="Area" Binding="{Binding Owner}" x:DataType="v:GalleryTask" Width="120" />
+            <DataGridTextColumn Header="Due" Binding="{Binding Due}" x:DataType="v:GalleryTask" Width="104" />
+          </DataGrid.Columns>
+        </DataGrid>
+        <TextBlock Classes="caption"
+                   TextWrapping="Wrap"
+                   MaxWidth="760"
+                   HorizontalAlignment="Left"
+                   Text="A checkbox in a cell is MudBlazor's table checkbox, a 32px circle pulled in 4px, so a selection column keeps the rows at 53px. Text longer than its column is cut off where the column ends, as Avalonia draws it; an app that wants an ellipsis sets TextTrimming on DataGridCell TextBlock." />
       </StackPanel>
 
       <!-- Selection -->
@@ -562,6 +590,38 @@
                    MaxWidth="760"
                    HorizontalAlignment="Left"
                    Text="Helper text is AutomationProperties.HelpText, which a screen reader announces too; an error takes its place. counter is MudTextField's Counter over MaxLength, the length alone when there is none, and helper-on-focus is HelperTextOnFocus: the third field's help appears when it has focus. dense is Margin.Dense, and a select takes filled and outlined exactly as a text field does. required is Required, the label's asterisk; shrink-label is ShrinkLabel, the label up with nothing typed; no-underline is Underline=&quot;false&quot;. Open a select and its arrow turns up, as MudSelect's OpenIcon." />
+
+        <TextBlock Classes="overline" Text="Adornments and several lines" Margin="0,8,0,0" />
+        <StackPanel Orientation="Horizontal" Spacing="16">
+          <TextBox Width="220" PlaceholderText="Search games">
+            <TextBox.InnerLeftContent>
+              <PathIcon Data="{StaticResource GallerySearchIcon}" Width="20" Height="20" Margin="0,0,8,0" />
+            </TextBox.InnerLeftContent>
+          </TextBox>
+          <TextBox Classes="outlined" Width="220" PlaceholderText="Amount">
+            <TextBox.InnerLeftContent>
+              <TextBlock Text="€" Margin="0,0,6,0" VerticalAlignment="Center" />
+            </TextBox.InnerLeftContent>
+          </TextBox>
+          <TextBox Classes="filled" Width="220" PlaceholderText="Weight" Text="72">
+            <TextBox.InnerRightContent>
+              <TextBlock Text="kg" Margin="6,0,0,0" VerticalAlignment="Center" />
+            </TextBox.InnerRightContent>
+          </TextBox>
+        </StackPanel>
+        <StackPanel Orientation="Horizontal" Spacing="16">
+          <TextBox Width="220" AcceptsReturn="True" TextWrapping="Wrap" PlaceholderText="Notes"
+                   Text="Bring the receipts.&#10;Ask about the second invoice.&#10;File both by Friday." />
+          <TextBox Classes="outlined" Width="220" AcceptsReturn="True" TextWrapping="Wrap" PlaceholderText="Description"
+                   Text="Line one&#10;Line two&#10;Line three" />
+          <TextBox Classes="filled" Width="220" Height="120" AcceptsReturn="True" TextWrapping="Wrap" PlaceholderText="Message"
+                   Text="A short message in a tall field." />
+        </StackPanel>
+        <TextBlock Classes="caption"
+                   TextWrapping="Wrap"
+                   MaxWidth="760"
+                   HorizontalAlignment="Left"
+                   Text="A start adornment floats the label, as MudInput's Adornment.Start does, so the label never lies over the icon; an end adornment does not. With AcceptsReturn the text starts at the top and the label sits above it, as a textarea's do, in a field that grows with its lines or one given a height." />
       </StackPanel>
 
       <!-- Range and progress -->
@@ -631,6 +691,18 @@
           <ProgressBar Classes="circular primary" IsIndeterminate="True" />
           <ProgressBar Classes="circular secondary large rounded" IsIndeterminate="True" />
         </StackPanel>
+
+        <TextBlock Classes="overline" Text="A value over a thin bar" Margin="0,8,0,0" />
+        <StackPanel Orientation="Horizontal" Spacing="24">
+          <ProgressBar Width="240" Value="40" ShowProgressText="True" VerticalAlignment="Center" />
+          <ProgressBar Classes="primary large rounded" Width="240" Value="75" ShowProgressText="True" VerticalAlignment="Center" />
+          <ProgressBar Classes="secondary" Orientation="Vertical" Height="72" Value="60" ShowProgressText="True" />
+        </StackPanel>
+        <TextBlock Classes="caption"
+                   TextWrapping="Wrap"
+                   MaxWidth="760"
+                   HorizontalAlignment="Left"
+                   Text="ShowProgressText draws the whole value over the bar, centred, however thin the bar is and either way up, as MudProgressLinear's content does." />
       </StackPanel>
 
       <!-- Dividers -->
@@ -776,6 +848,49 @@
             </StackPanel>
           </ScrollViewer>
         </StackPanel>
+
+        <TextBlock Classes="overline" Text="Menus opened from a button" Margin="0,8,0,0" />
+        <StackPanel Orientation="Horizontal" Spacing="16">
+          <StackPanel Spacing="8" VerticalAlignment="Top">
+            <Button Classes="outlined" Content="_Menu">
+              <Button.Flyout>
+                <MenuFlyout>
+                  <MenuItem Header="_Journey" />
+                  <MenuItem Header="_Near me" />
+                  <Separator />
+                  <MenuItem Header="_Recent">
+                    <MenuItem Header="Report.pdf" />
+                    <MenuItem Header="Notes.txt" />
+                  </MenuItem>
+                </MenuFlyout>
+              </Button.Flyout>
+            </Button>
+            <Button Classes="outlined" Content="_Dense menu">
+              <Button.Flyout>
+                <MenuFlyout FlyoutPresenterClasses="dense">
+                  <MenuItem Header="Sort by name" />
+                  <MenuItem Header="Sort by date" />
+                  <MenuItem Header="Sort by size" />
+                </MenuFlyout>
+              </Button.Flyout>
+            </Button>
+          </StackPanel>
+
+          <!-- The surface a MenuFlyout opens, placed inline so it shows without a click. -->
+          <MenuFlyoutPresenter VerticalAlignment="Top">
+            <MenuItem Header="_Open" InputGesture="Ctrl+O" />
+            <MenuItem Header="_Save" InputGesture="Ctrl+S" />
+            <Separator />
+            <MenuItem Header="E_xport">
+              <MenuItem Header="PDF" />
+            </MenuItem>
+          </MenuFlyoutPresenter>
+        </StackPanel>
+        <TextBlock Classes="caption"
+                   TextWrapping="Wrap"
+                   MaxWidth="760"
+                   HorizontalAlignment="Left"
+                   Text="A MenuFlyout's rows, and the rows of a submenu inside it, are MudMenuItem's 48px rows, as a menu bar's are; FlyoutPresenterClasses=&quot;dense&quot; is MudMenu's Dense. The surface on the right is the one the buttons open, shown in place." />
       </StackPanel>
 
       <!-- Lists, toggles, links and panels -->

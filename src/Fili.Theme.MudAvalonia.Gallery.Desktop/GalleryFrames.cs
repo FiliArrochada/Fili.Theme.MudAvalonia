@@ -64,6 +64,9 @@ public static class GalleryFrames
         ("custom", () => new CustomStylesView()),
     ];
 
+    /// <summary>The tallest frame: a guard against a runaway measurement, which fails past it.</summary>
+    private const double MaxFrameHeight = 20000;
+
     private static readonly ThemeVariant[] Variants =
         [ThemeVariant.Light, ThemeVariant.Dark, FiliThemeVariants.HighContrast];
 
@@ -152,9 +155,19 @@ public static class GalleryFrames
 
         // Now that the templates exist, ask the content how tall it actually wants to be and
         // grow the window to fit. The cap is a guard against a runaway measurement producing a
-        // gigabyte of PNG, not a layout decision.
+        // gigabyte of PNG, not a layout decision - and a page past it fails rather than being cut
+        // off at the cap, which is the quiet truncation above in another form: the controls page
+        // outgrew 12,000px and its last section went missing from every frame without a failure.
         view.Measure(new Size(window.Width, double.PositiveInfinity));
-        window.Height = Math.Clamp(Math.Ceiling(view.DesiredSize.Height), 800, 12000);
+        var wanted = Math.Ceiling(view.DesiredSize.Height);
+        if (wanted > MaxFrameHeight)
+        {
+            window.Close();
+            throw new InvalidOperationException(
+                $"The {frame.View} view wants {wanted}px, past the {MaxFrameHeight}px frame cap. Split the view or raise the cap.");
+        }
+
+        window.Height = Math.Max(wanted, 800);
 
         // Two passes: the first builds templates, the second lets the styles that those templates
         // triggered settle before the frame is taken.
