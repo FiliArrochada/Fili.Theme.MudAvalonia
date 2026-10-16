@@ -423,4 +423,37 @@ public class DataGridTests
         var loose = Matrix.Show(new CheckBox());
         Assert.Equal(48, Matrix.Part<Panel>(loose, "PART_Box").Bounds.Width);
     });
+
+    public sealed record Chore(bool Done, string Title);
+
+    /// <summary>
+    /// A checkbox column's boxes keep their colour in every row. Avalonia's column shows a
+    /// disabled checkbox in every row but the current one, which it enables to toggle on a click,
+    /// and a read-only grid disables them all; drawn in text-disabled, a grid's checks looked
+    /// disabled in every row but one. MudDataGrid's read-only checkbox keeps action-default.
+    /// </summary>
+    [Fact]
+    public Task ACheckBoxColumnKeepsItsColourInEveryRow() => UiThread.RunAsync(() =>
+    {
+        var grid = new DataGrid
+        {
+            Width = 400,
+            ItemsSource = new Avalonia.Collections.AvaloniaList<Chore> { new(true, "First"), new(false, "Second"), new(true, "Third") },
+            Columns =
+            {
+                new DataGridCheckBoxColumn { Header = "Done", Binding = new Binding(nameof(Chore.Done)) },
+                new DataGridTextColumn { Header = "Title", Binding = new Binding(nameof(Chore.Title)) },
+            },
+        };
+        Matrix.Show(grid);
+        Dispatcher.UIThread.RunJobs();
+
+        var boxes = grid.GetVisualDescendants().OfType<CheckBox>().ToList();
+        Assert.Contains(boxes, b => !b.IsEffectivelyEnabled);
+        foreach (var box in boxes)
+        {
+            var glyph = Matrix.Part<Avalonia.Controls.Shapes.Path>(box, box.IsChecked == true ? "PART_Checked" : "PART_Unchecked");
+            Assert.Equal(Matrix.Token("FiliActionDefaultColor"), Matrix.Colour(glyph.Fill));
+        }
+    });
 }
