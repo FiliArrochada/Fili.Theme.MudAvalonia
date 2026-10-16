@@ -603,6 +603,59 @@ public class ThemeCompositionTests
     });
 
     /// <summary>
+    /// Keyboard focus is the state layer and nothing else: the base's dotted focus rectangle is
+    /// gone. MudBlazor's <c>_reset.scss</c> removes the browser's ring (<c>outline: none</c>),
+    /// and the theme's docs had said so since 0.2 while the forked AdornerLayer kept drawing
+    /// Simple's 1px dashed box round every focused control, on top of the tint.
+    /// </summary>
+    [Theory]
+    [InlineData(typeof(Button))]
+    [InlineData(typeof(CheckBox))]
+    [InlineData(typeof(TextBox))]
+    [InlineData(typeof(Slider))]
+    public Task KeyboardFocusDrawsNoFocusRectangle(Type controlType) => UiThread.RunAsync(() =>
+    {
+        var control = (InputElement)Activator.CreateInstance(controlType)!;
+        Templated(new StackPanel { Children = { new Button { Content = "Before" }, (Control)control } });
+
+        control.Focus(NavigationMethod.Tab);
+        Dispatcher.UIThread.RunJobs();
+
+        Assert.True(control.IsKeyboardFocusWithin);
+        Assert.Empty(AdornerLayer.GetAdornerLayer(control)!.Children);
+    });
+
+    /// <summary>
+    /// An app that sets its own <c>FiliFontFamily</c> gets it in popups too. The theme set the
+    /// font on <c>Window</c> and <c>UserControl</c>; a popup's host is neither, and took the
+    /// base's <c>ContentControlThemeFontFamily</c>, an alias resolved once inside the theme and so
+    /// always Roboto. A menu row or a calendar in a drop-down showed Roboto in a Courier app.
+    /// </summary>
+    [Fact]
+    public Task AnAppsFontReachesPopups() => UiThread.RunAsync(() =>
+    {
+        var resources = Application.Current!.Resources;
+        resources["FiliFontFamily"] = new FontFamily("Courier New");
+        try
+        {
+            var text = new TextBlock { Text = "In a popup" };
+            var target = new Button { Content = "Anchor" };
+            var popup = new Popup { Child = text, PlacementTarget = target };
+            Templated(new StackPanel { Children = { target, popup } });
+
+            popup.IsOpen = true;
+            Dispatcher.UIThread.RunJobs();
+
+            Assert.Equal("Courier New", text.FontFamily.Name);
+            popup.IsOpen = false;
+        }
+        finally
+        {
+            resources.Remove("FiliFontFamily");
+        }
+    });
+
+    /// <summary>
     /// Depth is 17px per level, and a leaf shows no arrow.
     /// <para>
     /// Both are runtime mechanisms that fail silently. The indent is a MultiBinding through
