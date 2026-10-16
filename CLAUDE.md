@@ -18,6 +18,12 @@ classes, `ControlTheme`s where a Material look cannot be faked without one, and 
 
 - **The docs are part of the change, not a follow-up.** Adding, renaming or dropping a class or
   token updates its row in `docs/mudblazor-parity.md` in the same commit.
+- **Classes, resource keys and `FiliThemeVariants` are the published interface**
+  (`docs/compatibility.md`). A new token or glyph key goes into `docs/published-keys.md` in the
+  same change (`PublishedInterfaceTests`); one is never renamed or removed before 2.0, only aliased.
+- **The README is the nuget.org page too.** Keep its links relative: the pack rewrites them to the
+  commit it builds (`PackReadmeWithAbsoluteLinks` in the csproj) and fails on one that leads
+  nowhere, as `PackageReadmeTests` does on every build.
 - **The public API is ONE TYPE:** `FiliThemeVariants`, the high-contrast `ThemeVariant`, public
   only because a custom variant is unreachable from XAML except through `x:Static`. Anything else
   public is a design change, and belongs in a separate package.
