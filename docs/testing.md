@@ -10,7 +10,7 @@ those silent failures into red builds, because looking at the app cannot be reli
 
 | Project | What it does | Speed |
 |---|---|---|
-| `tst/Fili.Theme.MudAvalonia.UnitTests` | 753 tests on a headless Avalonia session. They resolve resources, template controls, move a real pointer over them, and read back the values the theme applied. Nothing is rendered. | seconds |
+| `tst/Fili.Theme.MudAvalonia.UnitTests` | 758 tests on a headless Avalonia session. They resolve resources, template controls, move a real pointer over them, and read back the values the theme applied. Nothing is rendered. | seconds |
 | `tst/Fili.Theme.MudAvalonia.NoDataGridTests` | 3 tests. The theme in an app that does not reference `Avalonia.Controls.DataGrid`: the assembly is really absent, `FiliTheme.axaml` loads and themes a button, and no DataGrid rule was loaded. | seconds |
 | `tst/Fili.Theme.MudAvalonia.PixelTests` | 21 tests. Twelve render one gallery frame each with Skia and compare it pixel by pixel with a PNG committed in `Baselines/`; nine, in `GalleryPageTests`, check how the gallery behaves - that the controls page shows its first section at once and adds the rest one dispatcher pass at a time (pausing while off screen, and loading the rest at once for an index row ahead of the load), that it opens at the top in a window shorter than its first screen, that keyboard focus still scrolls it, that each row of the index beside it lands on its section and the index follows the scroll, that every section fits beside the index in the desktop window and in a frame, and that the app bar shows the theme's version. | ~30 seconds |
 
@@ -27,7 +27,7 @@ needed a different platform.
 
 ## The unit tests
 
-753 tests in 50 classes, grouped here by the failure each one exists to catch.
+758 tests in 52 classes, grouped here by the failure each one exists to catch.
 
 ### Tokens: does every value exist, in every variant?
 
@@ -44,6 +44,8 @@ needed a different platform.
 |---|---|---|---|
 | `OptionalBoundaryTests` | 7 | The packages the theme builds against but does not depend on: only a package's own folder under `Themes/Optional/` names its types (a scan of every `.axaml` and `.cs`, reporting file and line), each `OptionalStyleInclude`'s `MinimumVersion` is the version `Directory.Packages.props` builds against, an absent package loads nothing, an older one loads nothing and logs why, the one here is loaded, and the include keeps its compiled XAML through trimming. | A DataGrid selector anywhere else passes every other test - this suite has the package - and takes the whole theme down at startup in every app that does not. |
 | `StandaloneReadinessTests` | 3 | The exact set of hand-written control themes (46 of the 95 templated types, the DataGrid package's included) and that every one resolves; every other type is classified with the reason it stays on its forked template. | Avalonia has no implicit default theme. A control with no theme does not look wrong - it renders **nothing**. An Avalonia upgrade that adds a control type fails here asking to be classified. |
+| `PublishedInterfaceTests` | 4 | The resource keys in `docs/published-keys.md` are exactly the `Fili*` keys the token dictionaries declare plus every glyph key, each resolves in light, dark and high contrast, and the public C# API is `FiliThemeVariants` alone. | Renaming a key breaks every app that names it, silently - a missing key resolves to nothing - while every test here passes, because the theme's own references move with it. See [Compatibility](compatibility.md). |
+| `PackageReadmeTests` | 1 | Every relative link in the README names a file that exists. | The README is the package's page on nuget.org too. The pack rewrites its links to the commit and fails on a broken one; this catches a renamed doc on every build rather than at release. |
 | `ClassVocabularyTests` | 1 | The classes the theme's selectors use are exactly the 146 the README publishes, in both directions. | Class names are MudBlazor's ordinary words (`small`, `error`, `vertical`) and they collide with an app's own. An undeclared class is a collision nobody signed off on; a declared one nothing uses is a lie to adopters. |
 | `GeneratedThemeTests` | 1 | `Button.axaml` and the marked regions in nineteen other files are exactly what `ThemeColourGenerator` writes from the one list of eight colours. | Hundreds of colour styles are generated so that no colour can differ from the others. Editing one block by hand fails the build. `FILI_REGENERATE=1` rewrites the files. |
 

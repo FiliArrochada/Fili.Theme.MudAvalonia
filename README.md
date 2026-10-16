@@ -5,7 +5,7 @@
 [![Build](https://github.com/FiliArrochada/Fili.Theme.MudAvalonia/actions/workflows/build.yml/badge.svg?branch=master)](https://github.com/FiliArrochada/Fili.Theme.MudAvalonia/actions/workflows/build.yml)
 [![Gallery](https://github.com/FiliArrochada/Fili.Theme.MudAvalonia/actions/workflows/pages.yml/badge.svg?branch=master)](https://filiarrochada.github.io/Fili.Theme.MudAvalonia/)
 [![Avalonia](https://img.shields.io/badge/Avalonia-12.1-8B44AC)](https://avaloniaui.net/)
-[![License: MIT](https://img.shields.io/badge/license-MIT-blue)](https://github.com/FiliArrochada/Fili.Theme.MudAvalonia/blob/master/LICENSE)
+[![License: MIT](https://img.shields.io/badge/license-MIT-blue)](LICENSE)
 
 A design-token theme for Avalonia 12: palette, elevation, typography and geometry, in light, dark
 and high contrast, with a gallery app to look at it in.
@@ -22,7 +22,7 @@ compiled to WebAssembly and served by GitHub Pages.
 | find the class or key for one parameter | [MudBlazor parity](docs/mudblazor-parity.md): every parameter, with ✅, ≈ or ❌ |
 | know how a control behaves, and why | [Controls](docs/controls.md) |
 | know what is not there | [Known gaps](docs/known-gaps.md) |
-| upgrade | [Versions](docs/versions.md): what changed, and what to change |
+| upgrade | [Versions](docs/versions.md): what changed, and what to change; [Compatibility](docs/compatibility.md): what a version promises not to change |
 | work on the theme itself | [Traps](docs/traps.md), [The base](docs/the-base.md), [Testing](docs/testing.md), [Releasing](docs/releasing.md) |
 
 The token values are MudBlazor's defaults, transcribed from its source rather than eyeballed. The
@@ -55,11 +55,11 @@ dotnet add package Fili.MudAvalonia.Theme
 or, in a project file:
 
 ```xml
-<PackageReference Include="Fili.MudAvalonia.Theme" Version="0.9.1" />
+<PackageReference Include="Fili.MudAvalonia.Theme" Version="0.9.2" />
 ```
 
 Under Central Package Management the version goes in `Directory.Packages.props` instead, as
-`<PackageVersion Include="Fili.MudAvalonia.Theme" Version="0.9.1" />`, and the reference stays
+`<PackageVersion Include="Fili.MudAvalonia.Theme" Version="0.9.2" />`, and the reference stays
 version-less.
 
 | | |
@@ -71,7 +71,7 @@ version-less.
 | Licence | MIT |
 
 What changed in each version, and what to change when upgrading, is in
-[Versions](https://github.com/FiliArrochada/Fili.Theme.MudAvalonia/blob/master/docs/versions.md).
+[Versions](docs/versions.md).
 
 Then add the two includes under [Using it](#using-it).
 
