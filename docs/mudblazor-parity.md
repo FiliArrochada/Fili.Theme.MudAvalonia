@@ -582,7 +582,7 @@ the app references it; this package does not depend on it.
 | `Height`, `HorizontalScrollbar` | `Height`, `HorizontalScrollBarVisibility` | ≈ |
 | `DragDropColumnReordering`, `Hideable` | `CanUserReorderColumns`, a column's `IsVisible` | ≈ |
 | `MultiSelection` | `SelectionMode="Extended"` | ≈ no checkbox column |
-| a checkbox in a cell (`SelectColumn`, a template column's `MudCheckBox`) | a `CheckBox` in a cell template | ✅ `.mud-table-cell .mud-checkbox`: the 32 / 28 / 44px circle of a dense checkbox, pulled in 4px, so a row with one is 57px rather than 81 |
+| a checkbox in a cell (`SelectColumn`, a template column's `MudCheckBox`) | a `CheckBox` in a cell template | ✅ `.mud-table-cell .mud-checkbox`: the 32 / 28 / 44px circle of a dense checkbox, pulled in 4px, so a row with one is 57px rather than 81; a `DataGridCheckBoxColumn`'s box in action-default in every row, as a read-only `MudCheckBox` is, though the column disables all but the current row's |
 | `FixedFooter`, footers | — | ❌ Avalonia's DataGrid has no footer row |
 | `Loading`, `LoadingProgressColor` | a `ProgressBar` over the grid | ≈ |
 | `Breakpoint` (the stacked mobile layout) | — | ❌ re-laying rows as cards is a layout the DataGrid does not have, not a look |

@@ -85,4 +85,12 @@
     <Setter Property="Height" Value="44" />
   </Style>
 
+  <!-- A checkbox column's boxes keep their colour. DataGridCheckBoxColumn disables the box in
+       every row but the current one, which it enables to toggle on a click, and a read-only grid
+       disables them all; in text-disabled they looked disabled in all those rows. MudDataGrid's
+       read-only checkbox is action-default, as an enabled one is. -->
+  <Style Selector="DataGridCell CheckBox:disabled /template/ Path#PART_Unchecked, DataGridCell CheckBox:disabled /template/ Path#PART_Checked, DataGridCell CheckBox:disabled /template/ Path#PART_Indeterminate">
+    <Setter Property="Fill" Value="{DynamicResource FiliActionDefaultBrush}" />
+  </Style>
+
 </Styles>
