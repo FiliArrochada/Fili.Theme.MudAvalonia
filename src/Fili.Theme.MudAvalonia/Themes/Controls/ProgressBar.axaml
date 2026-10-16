@@ -42,6 +42,9 @@
     <Setter Property="CornerRadius" Value="0" />
     <Setter Property="MinWidth" Value="0" />
     <Setter Property="MinHeight" Value="0" />
+    <!-- The text reaches past a 4px bar, as .mud-progress-linear-content does past MudBlazor's;
+         PART_Bars clips the bars themselves. -->
+    <Setter Property="ClipToBounds" Value="False" />
 
     <Setter Property="Template">
       <ControlTemplate TargetType="ProgressBar">
@@ -89,26 +92,30 @@
             </Panel>
           </Border>
 
-          <!-- .mud-progress-linear-content: centred over the bar, not beside it. -->
-          <LayoutTransformControl x:Name="PART_LayoutTransformControl"
-                                  HorizontalAlignment="Center"
-                                  VerticalAlignment="Center"
-                                  IsVisible="{Binding ShowProgressText, RelativeSource={RelativeSource TemplatedParent}}">
-            <TextBlock Foreground="{DynamicResource FiliTextPrimaryBrush}"
-                       FontFamily="{TemplateBinding FontFamily}"
-                       FontSize="{TemplateBinding FontSize}"
-                       LineHeight="NaN">
-              <TextBlock.Text>
-                <MultiBinding Converter="{StaticResource FiliStringFormatConverter}">
-                  <TemplateBinding Property="ProgressTextFormat" />
-                  <Binding Path="Value" RelativeSource="{RelativeSource TemplatedParent}" />
-                  <TemplateBinding Property="Percentage" />
-                  <TemplateBinding Property="Minimum" />
-                  <TemplateBinding Property="Maximum" />
-                </MultiBinding>
-              </TextBlock.Text>
-            </TextBlock>
-          </LayoutTransformControl>
+          <!-- .mud-progress-linear-content: centred over the bar, not beside it, and whole
+               whatever the bar's thickness, either way up. The panel's negative margin is the
+               room: the text arranged in the bar's own 4px was cut to a 4px slice of "40%". -->
+          <Panel Margin="-24">
+            <LayoutTransformControl x:Name="PART_LayoutTransformControl"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    IsVisible="{Binding ShowProgressText, RelativeSource={RelativeSource TemplatedParent}}">
+              <TextBlock Foreground="{DynamicResource FiliTextPrimaryBrush}"
+                         FontFamily="{TemplateBinding FontFamily}"
+                         FontSize="{TemplateBinding FontSize}"
+                         LineHeight="NaN">
+                <TextBlock.Text>
+                  <MultiBinding Converter="{StaticResource FiliStringFormatConverter}">
+                    <TemplateBinding Property="ProgressTextFormat" />
+                    <Binding Path="Value" RelativeSource="{RelativeSource TemplatedParent}" />
+                    <TemplateBinding Property="Percentage" />
+                    <TemplateBinding Property="Minimum" />
+                    <TemplateBinding Property="Maximum" />
+                  </MultiBinding>
+                </TextBlock.Text>
+              </TextBlock>
+            </LayoutTransformControl>
+          </Panel>
         </Grid>
       </ControlTemplate>
     </Setter>

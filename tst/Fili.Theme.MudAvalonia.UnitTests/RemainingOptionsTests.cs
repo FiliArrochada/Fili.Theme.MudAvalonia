@@ -134,6 +134,36 @@ public class RemainingOptionsTests
         Assert.IsType<DrawingBrush>(stripes.Background);
     });
 
+    /// <summary>
+    /// ShowProgressText draws the whole value over the bar, whatever its thickness, as
+    /// .mud-progress-linear-content does. Arranged in the bar's own 4px, and clipped there by the
+    /// bar, the text was a 4px slice of "40%".
+    /// </summary>
+    [Theory]
+    [InlineData(null, Orientation.Horizontal)]
+    [InlineData("large", Orientation.Horizontal)]
+    [InlineData(null, Orientation.Vertical)]
+    public Task TheProgressTextIsWholeOverAThinBar(string? size, Orientation orientation) => UiThread.RunAsync(() =>
+    {
+        var bar = new ProgressBar { Value = 40, ShowProgressText = true, Orientation = orientation };
+        if (orientation == Orientation.Horizontal) bar.Width = 300; else bar.Height = 200;
+        if (size is not null) bar.Classes.Add(size);
+        Matrix.Show(bar);
+
+        var text = bar.GetVisualDescendants().OfType<TextBlock>().Single();
+        var host = Named<LayoutTransformControl>(bar, "PART_LayoutTransformControl");
+
+        Assert.False(bar.ClipToBounds);
+        Assert.Equal(text.DesiredSize.Width, text.Bounds.Width, 1);
+        Assert.Equal(text.DesiredSize.Height, text.Bounds.Height, 1);
+        Assert.True(host.Bounds.Height >= text.Bounds.Height || host.Bounds.Width >= text.Bounds.Height,
+            $"The text's host is {host.Bounds.Size}, the text {text.Bounds.Size}.");
+
+        var centre = host.TranslatePoint(new Point(host.Bounds.Width / 2, host.Bounds.Height / 2), bar)!.Value;
+        Assert.Equal(bar.Bounds.Width / 2, centre.X, 0.5); // layout rounding to whole pixels
+        Assert.Equal(bar.Bounds.Height / 2, centre.Y, 0.5);
+    });
+
     // --------------------------------------------------------------------------------------
     // StartIcon / EndIcon
     // --------------------------------------------------------------------------------------
