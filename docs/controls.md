@@ -707,7 +707,12 @@ Three details worth keeping:
 
 The affordance is a 4% tint, which is what MudBlazor ships and is on the subtle side. An app with
 a stricter accessibility bar should add a ring of its own; the theme deliberately does not invent
-one.
+one. Nor does it keep the base's: Avalonia Simple's dashed focus rectangle, which the forked
+`AdornerLayer` still drew over the tint until 0.9.4, is off. A ring an app sets through a
+control's `FocusAdorner` still draws.
+
+Each control is one Tab stop: the slider is one, not its rail halves, and a text field inside an
+`AutoCompleteBox` or `NumericUpDown` stands for its control.
 
 ## The converters
 
@@ -736,6 +741,9 @@ for something XAML cannot express on its own:
   TextBox's own theme reads them two templates down from the outer control.
 - **`MenuIconGutter`** opens a menu row's icon column when another row in the same list has an
   icon, MudMenu's `:has(.mud-menu-item-icon)` rule. A selector cannot ask about siblings.
+- **`StartAdornment`** marks a text field that has `InnerLeftContent` with `:start-adornment`,
+  which floats its label, as MudInput's start adornment does. A selector cannot ask whether a
+  property is null.
 - **`TabBarScroll`** shows a tab bar's scroll buttons while its tabs overflow, disables each at
   its end, scrolls a bar's length per click, and brings the selected tab into view. Overflow is
   the scroller's extent against its viewport, which no binding compares.

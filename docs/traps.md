@@ -227,8 +227,8 @@ one.
 - **A binding through a null logs an error in the app, not here.** The counter bound
   `$parent[TextBox].Text.Length`: a `FallbackValue` showed 0 for a null `Text`, but Avalonia logged
   a binding error first, for every `TextBox` an app had not filled yet - the counter is hidden, not
-  unbound. Nothing in this repository failed; Fili.Damselfly, which fails its view tests on a
-  binding error, carried an exception for it from 0.6 to 0.9.2. The counter now binds `Text`
+  unbound. Nothing in this repository failed; an adopting app that fails its view tests on a
+  binding error carried an exception for it from 0.6 to 0.9.2. The counter now binds `Text`
   through `TextLengthConverter`, and `BindingErrorTests` shows the common controls with a sink
   that fails on any binding error.
 - **A checkbox in a table cell is the compact one.** `_table.scss` gives `.mud-table-cell
@@ -236,6 +236,43 @@ one.
   stretch the row; without it, the 48px circle made a 57px row 81. The circle's 48 is set inline
   in the template, so the cell's rule for the medium size needs an activator
   (`:not(.small):not(.large)`) to win, as every inline-template override does.
+- **A control inside a template is a Tab stop unless it says otherwise.** The slider's two rail
+  halves are `RepeatButton`s, focusable by default; the base's theme for them sets
+  `Focusable="False"`, the hand-written one did not, and every slider was three Tab stops, two of
+  them a 2px rail. Nothing looks wrong until someone uses the keyboard. `TabStopTests` counts the
+  stops in the common controls: one at most, the control or the one part that stands for it.
+- **The base draws a focus rectangle; this theme does not.** The forked `AdornerLayer` gives every
+  focused control Simple's dashed box, and nothing had turned it off, so the state layer - the
+  only affordance MudBlazor has, `docs/controls.md` says - had a dotted outline over it. A Style
+  in FiliTheme.axaml sets `DefaultFocusAdorner` to null; an app's own `FocusAdorner` still draws.
+- **A popup is the root of its own tree.** The theme set the font on `Window` and `UserControl`,
+  and a popup's host is neither: it took the base's `ContentControlThemeFontFamily`, an alias
+  `Accents.axaml` resolves once inside the theme, so always Roboto. An app that set its own
+  `FiliFontFamily` got it everywhere but its menus, drop-downs and calendars. The hosts
+  (`PopupRoot`, `OverlayPopupHost`, `EmbeddableControlRoot`) are styled beside the window.
+- **A `MenuFlyout` binds its own `ItemContainerTheme` over its presenter's.** Its presenter's
+  theme set the dropdown row as the container theme, and the flyout's binding, null unless the
+  app sets one, beat it, so every flyout row was the base's: 24px, no state layer. A submenu's own
+  rows had no container theme either. `MenuItem` is therefore themed by TYPE as the dropdown row;
+  only a `Menu` names the strip item for its own items.
+- **Access keys are the presenter's, not the control's.** The base sets `RecognizesAccessKey` on
+  each content presenter and gives a menu header an `AccessText`; a hand-written template that
+  does neither shows "_Save" with its underscore and has no Alt shortcut. One Style in
+  FiliTheme.axaml sets it on every presenter the base sets it on - `Button.axaml` is generated -
+  and the menu templates carry the `AccessText`. `AccessKeyTests` covers each.
+- **A text field's label is placed relative to the field's own height.** Centred in the field and
+  floated a fixed distance from there, it landed on the text of a multi-line field. A multi-line
+  field's text starts at the top and its label centres in a band of the single-line height above
+  it, the inside of the stroke for `outlined`; a single-line field is untouched, because a
+  numeric field's spinner makes it 56px and its label is centred with its text.
+- **A start adornment floats the label, which a selector cannot see.** MudInput shrinks the label
+  for `Adornment.Start`; `InnerLeftContent` is a property a selector cannot test for null, so
+  `StartAdornment` keeps it as `:start-adornment`. A resting label had been drawn over the
+  adornment.
+- **A thin bar's text is clipped by the bar.** `ShowProgressText` on a 4px `ProgressBar` showed a
+  4px slice of "40%", arranged in the bar and clipped with it (the `TemplatedControl` trap above).
+  The bar no longer clips, its bars clip themselves, and the text sits in a panel with a negative
+  margin, so it is whole and centred whatever the bar's thickness.
 - **A template part works only under the exact name the control looks for.** The DataGrid's
   group row finds its row header as `PART_RowHeader`, to hide it with the grid's other row
   headers; the template named it `RowHeader`, as Avalonia's own DataGrid theme does, so it was

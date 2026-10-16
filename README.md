@@ -55,11 +55,11 @@ dotnet add package Fili.MudAvalonia.Theme
 or, in a project file:
 
 ```xml
-<PackageReference Include="Fili.MudAvalonia.Theme" Version="0.9.3" />
+<PackageReference Include="Fili.MudAvalonia.Theme" Version="0.9.4" />
 ```
 
 Under Central Package Management the version goes in `Directory.Packages.props` instead, as
-`<PackageVersion Include="Fili.MudAvalonia.Theme" Version="0.9.3" />`, and the reference stays
+`<PackageVersion Include="Fili.MudAvalonia.Theme" Version="0.9.4" />`, and the reference stays
 version-less.
 
 | | |

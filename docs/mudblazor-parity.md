@@ -240,7 +240,7 @@ Put initials, a `PathIcon` or an `Image` inside: `<Border Classes="avatar primar
 | `Counter` | `counter` with `MaxLength` | ✅ `12 / 50` on the right; the length alone when `MaxLength` is 0, as `Counter="0"` |
 | `Margin.Dense` | `dense` | ✅ standard 3px shorter, filled 8px, outlined 16px, with the label resting and floating to match |
 | `Margin.Normal` | `Margin` | ≈ only an outer margin in MudBlazor; an ordinary Avalonia property |
-| `Adornment`, `AdornmentIcon`, `AdornmentText`, `AdornmentColor`, `IconSize` | `InnerLeftContent` / `InnerRightContent` | ≈ ordinary Avalonia properties; an icon there takes no size or colour from the theme |
+| `Adornment`, `AdornmentIcon`, `AdornmentText`, `AdornmentColor`, `IconSize` | `InnerLeftContent` / `InnerRightContent` | ≈ ordinary Avalonia properties; an icon there takes no size or colour from the theme. A start adornment floats the label, as `Adornment.Start` does |
 | `Placeholder` | — | ❌ the placeholder slot is the floating label |
 | `Disabled` | `IsEnabled="False"` | ≈ text-disabled text, label and helper text; the line pales to action-disabled where MudBlazor's turns dotted, which a `Border` cannot draw |
 | `ReadOnly` | `IsReadOnly` | ✅ looks the same, as in MudBlazor |
@@ -248,7 +248,7 @@ Put initials, a `PathIcon` or an `Image` inside: `<Border Classes="avatar primar
 | `Required` | `required` | ✅ `*` straight after the label, as `.mud-input-label::after` |
 | `ShrinkLabel` | `shrink-label` | ✅ the label floated with nothing typed, in text-primary |
 | the label over text | the same | ✅ text-primary once floated by its text (`.mud-shrink ~ label`), primary while focused |
-| `Lines`, `AutoGrow`, `MaxLines` | `AcceptsReturn`, `TextWrapping`, `MinLines`, `MaxLines` | ≈ ordinary Avalonia properties; a tall field's resting label stays centred rather than at the top |
+| `Lines`, `AutoGrow`, `MaxLines` | `AcceptsReturn`, `TextWrapping`, `MinLines`, `MaxLines` | ≈ ordinary Avalonia properties; with `AcceptsReturn` the text starts at the top and the label sits above it, as a textarea's do |
 | `Clearable` | a button in `InnerRightContent` | ≈ the app clears the text |
 | `Typo` | `FontSize`, `LineHeight` from the `Fili{Style}…` tokens | ≈ |
 | `FullWidth` | `HorizontalAlignment="Stretch"` | ≈ |
@@ -340,7 +340,7 @@ Put initials, a `PathIcon` or an `Image` inside: `<Border Classes="avatar primar
 | `Vertical` | `Orientation="Vertical"` | ✅ every size |
 | `Min`, `Max`, `Value` | `Minimum`, `Maximum`, `Value` | ✅ |
 | `ShowBackground="false"` | `Background="Transparent"` | ≈ |
-| `ChildContent` | `ShowProgressText` | ≈ the formatted value centred over the bar; not arbitrary content |
+| `ChildContent` | `ShowProgressText` | ≈ the formatted value centred over the bar, whole however thin the bar; not arbitrary content |
 
 ### MudProgressCircular → `ProgressBar.circular`
 
