@@ -373,4 +373,54 @@ public class DataGridTests
         Dispatcher.UIThread.RunJobs();
         Assert.Same(right, glyph.Data);
     });
+
+    /// <summary>
+    /// `.mud-table-cell .mud-checkbox`: margin -4px, and the icon button padded 4px rather than 12,
+    /// so a selection column's 32px circle takes 24px of the row: 16 + 24 + 16 and the rule, 57px,
+    /// where the 48px circle a checkbox has elsewhere made it 81.
+    /// </summary>
+    [Theory]
+    [InlineData(null, 32)]
+    [InlineData("small", 28)]
+    [InlineData("large", 44)]
+    public Task ACheckBoxInACellIsTheTablesCompactOne(string? size, double circle) => UiThread.RunAsync(() =>
+    {
+        var grid = new DataGrid
+        {
+            ItemsSource = Elements,
+            Width = 400,
+            Columns =
+            {
+                new DataGridTemplateColumn
+                {
+                    Header = "Pick",
+                    CellTemplate = new Avalonia.Controls.Templates.FuncDataTemplate<Element>((_, _) =>
+                    {
+                        var box = new CheckBox();
+                        if (size is not null)
+                        {
+                            box.Classes.Add(size);
+                        }
+
+                        return box;
+                    }),
+                },
+                new DataGridTextColumn { Header = "Name", Binding = new Binding(nameof(Element.Name)) },
+            },
+        };
+        Matrix.Show(grid);
+        Dispatcher.UIThread.RunJobs();
+
+        var box = grid.GetVisualDescendants().OfType<CheckBox>().First();
+        var part = Matrix.Part<Panel>(box, "PART_Box");
+
+        Assert.Equal(circle, part.Bounds.Width);
+        Assert.Equal(circle, part.Bounds.Height);
+        Assert.Equal(new Thickness(-4), box.Margin);
+        Assert.Equal(16 + circle - 8 + 16 + 1, Rows(grid)[0].Bounds.Height);
+
+        // Outside a cell, the same checkbox keeps its 48px circle.
+        var loose = Matrix.Show(new CheckBox());
+        Assert.Equal(48, Matrix.Part<Panel>(loose, "PART_Box").Bounds.Width);
+    });
 }

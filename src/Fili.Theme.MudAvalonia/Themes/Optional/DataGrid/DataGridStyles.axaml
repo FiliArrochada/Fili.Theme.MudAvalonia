@@ -65,4 +65,24 @@
     <Setter Property="Padding" Value="4" />
   </Style>
 
+  <!-- `.mud-table-cell .mud-checkbox`: margin -4px, and its icon button padded 4px rather than 12,
+       so a checkbox in a cell is the dense one's 32 / 28 / 44px circle and takes 8px less of the
+       row than that. Every size is named: the 48px is set inline in the template, which only a
+       selector with an activator overrides. -->
+  <Style Selector="DataGridCell CheckBox">
+    <Setter Property="Margin" Value="-4" />
+  </Style>
+  <Style Selector="DataGridCell CheckBox:not(.small):not(.large) /template/ Panel#PART_Box">
+    <Setter Property="Width" Value="32" />
+    <Setter Property="Height" Value="32" />
+  </Style>
+  <Style Selector="DataGridCell CheckBox.small /template/ Panel#PART_Box">
+    <Setter Property="Width" Value="28" />
+    <Setter Property="Height" Value="28" />
+  </Style>
+  <Style Selector="DataGridCell CheckBox.large /template/ Panel#PART_Box">
+    <Setter Property="Width" Value="44" />
+    <Setter Property="Height" Value="44" />
+  </Style>
+
 </Styles>
