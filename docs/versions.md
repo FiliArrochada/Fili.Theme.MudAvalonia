@@ -6,7 +6,7 @@ What changed in each release of `Fili.Theme.MudAvalonia`, newest first. The pack
 
 | Version | |
 |---|---|
-| **0.9.4** | Eight fixes found by moving four more apps onto 0.9.3. A `MenuFlyout`'s rows and a submenu's own rows are MudMenuItem's 48px rows, not the base's 24px ones. Keyboard focus draws no dashed rectangle over the state layer, and a slider is one Tab stop rather than three. "_Save" is Save with Alt+S on buttons, toggles, checkboxes, radios, switches, tabs, expanders and menus. An app's own `FiliFontFamily` reaches popups. A start adornment floats a text field's label; a multi-line field's label sits above its text, which starts at the top. `ShowProgressText` on a thin bar shows the whole value. See [Upgrading from 0.9.3 to 0.9.4](#upgrading-from-093-to-094). |
+| **0.9.4** | Eleven fixes: eight found by moving four more apps onto 0.9.3, three by the gallery's new samples of each control as an app uses it. A `MenuFlyout`'s rows and a submenu's own rows are MudMenuItem's 48px rows, not the base's 24px ones. Keyboard focus draws no dashed rectangle over the state layer, and a slider is one Tab stop rather than three. "_Save" is Save with Alt+S on buttons, toggles, checkboxes, radios, switches, tabs, expanders and menus. An app's own `FiliFontFamily` reaches popups. A start adornment floats a text field's label; a multi-line field's label sits above its text, which starts at the top. `ShowProgressText` on a thin bar shows the whole value. A data grid's checkbox column keeps its colour in every row, and a switch stretched to its row centres its label. See [Upgrading from 0.9.3 to 0.9.4](#upgrading-from-093-to-094). |
 | 0.9.3 | Two fixes found by moving an app onto 0.9.2. A `TextBox` whose `Text` is null no longer logs a binding error from its hidden counter, which every such field did. A checkbox in a `DataGrid` cell is MudBlazor's table checkbox, a 32px circle pulled in 4px, so a selection column no longer makes its rows 81px tall; they are 57. |
 | 0.9.2 | Nothing changes on screen: this release fixes the interface 1.0 will promise. [Compatibility](compatibility.md) says what a version may and may not change, and the resource keys an app may name are listed in [Published resource keys](published-keys.md) and pinned by a test, beside the classes. The README's links work on nuget.org, each pointing at the release's own commit, and the package has an icon and a description that says what it is. |
 | 0.9.1 | Trimmed and AOT apps that reference `Avalonia.Controls.DataGrid` start again: the theme's optional DataGrid styles are kept through trimming. From 0.7.0 to 0.9.0 such an app threw "No precompiled XAML found" for `DataGridStyles.axaml` at startup, and so did the browser gallery. Untrimmed apps were never affected. Nothing to change in markup. |
@@ -28,7 +28,7 @@ nuget.org can be unlisted but never replaced.
 
 ## Upgrading from 0.9.3 to 0.9.4
 
-Nothing needs a markup change; five things look or behave differently.
+Nothing needs a markup change; seven things look or behave differently.
 
 - **An underscore in a button's, toggle's, checkbox's, radio's, switch's, tab's, expander's or
   menu item's text is an access key**, as in Avalonia's own themes: "_Save" shows Save and answers
@@ -42,6 +42,10 @@ Nothing needs a markup change; five things look or behave differently.
 - **A multi-line text field (`AcceptsReturn`) starts its text at the top**, with its label above
   it, where both were centred. A single-line field is unchanged.
 - **A text field with `InnerLeftContent` floats its label** even while empty.
+- **A data grid's checkbox column is action-default in every row**, where every row but the
+  current one, and every row of a read-only grid, was drawn disabled.
+- **A switch stretched to its row centres its content**, where its 40px sat at the top: beside a
+  checkbox, its label moves 4px down to line up.
 
 ## Upgrading from 0.8 to 0.9
 

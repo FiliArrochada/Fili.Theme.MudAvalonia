@@ -264,11 +264,21 @@ one.
   floated a fixed distance from there, it landed on the text of a multi-line field. A multi-line
   field's text starts at the top and its label centres in a band of the single-line height above
   it, the inside of the stroke for `outlined`; a single-line field is untouched, because a
-  numeric field's spinner makes it 56px and its label is centred with its text.
+  numeric field's spinner makes it 56px and its label is centred with its text. The first line
+  starts where a single-line field's text sits (1px down, 4.5 filled, 3.5 outlined): flush with
+  the top, a filled field's first line met its label, which a 6px tolerance in the test hid until
+  the gallery showed it. The test now compares the gap with a single-line field's.
 - **A start adornment floats the label, which a selector cannot see.** MudInput shrinks the label
   for `Adornment.Start`; `InnerLeftContent` is a property a selector cannot test for null, so
   `StartAdornment` keeps it as `:start-adornment`. A resting label had been drawn over the
   adornment.
+- **A checkbox column's boxes are disabled in most rows.** `DataGridCheckBoxColumn` disables the
+  box in every row but the current one, and in every row of a read-only grid; the theme drew a
+  disabled box in text-disabled, so the column looked disabled. The grid's styles keep a cell's
+  box action-default, as MudDataGrid's read-only checkbox is.
+- **A control stretched to its row lays out its template in the extra height.** The switch is
+  40px; beside a 48px checkbox its row stretched it, and its template's Auto rows sat at the top.
+  Its grid now takes `VerticalContentAlignment`, Center, as MudSwitch's inline-flex centres.
 - **A thin bar's text is clipped by the bar.** `ShowProgressText` on a 4px `ProgressBar` showed a
   4px slice of "40%", arranged in the bar and clipped with it (the `TemplatedControl` trap above).
   The bar no longer clips, its bars clip themselves, and the text sits in a panel with a negative
@@ -377,6 +387,10 @@ its own, so tune against the gallery rather than against an app.
   one machine and passes on another. `GalleryFrames.Render` therefore waits out `SettleTime`
   before capturing. Raise that constant if a longer animation starts on load; do not mask a
   region whose colours the suite is meant to be watching.
+- **A frame taller than the cap was cut off at the cap, silently.** The frame grows to the page,
+  up to a guard against a runaway measurement; the controls page outgrew the 12,000px guard and
+  its new last section was missing from every frame, with nothing failing. The guard is 20,000px
+  and a page past it now fails, naming the view.
 - **A frame must not depend on the machine's locale.** The palette tab formats contrast ratios
   with the current culture, so baselines recorded on a pt-PT machine said `6,00:1` and the en-US
   CI runner rendered `6.00:1` - three palette frames failed in CI while every other frame passed,

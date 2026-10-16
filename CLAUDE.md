@@ -164,6 +164,10 @@ One line each; [`docs/traps.md`](docs/traps.md) has the full account and the tes
   (`AccessKeyTests`).
 - A multi-line field's text starts at the top and its label sits in a single-line band above it;
   a single-line field centres both.
+- A data grid cell's checkbox keeps action-default when disabled: the checkbox column disables
+  every row but the current one.
+- A template whose rows are Auto sits at the top of a control stretched taller; centre it on
+  `VerticalContentAlignment` (the switch).
 - A template part works only under the exact `[TemplatePart]` name its control looks for; any
   other name is silently ignored (the DataGrid's group row and `PART_RowHeader`).
 
@@ -187,6 +191,7 @@ One line each; [`docs/traps.md`](docs/traps.md) has the full account and the tes
 - Indeterminate, striped and pulsing-skeleton regions are masked, located from the live tree.
 - A one-shot animation is waited out (`SettleTime`), never masked.
 - A frame must not depend on the locale; `GalleryFrames.Render` pins the invariant culture.
+- A frame taller than `MaxFrameHeight` fails rather than being cut off; split the view or raise it.
 - Anything loaded by URI at runtime is invisible to trimming: `OptionalStyleInclude` keeps the
   compiled XAML with a `DynamicDependency`, or the browser gallery and trimmed apps fail at startup.
 - Capture with `RenderTargetBitmap`, never `CaptureRenderedFrame`.

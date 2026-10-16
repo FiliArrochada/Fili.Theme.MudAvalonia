@@ -10,7 +10,7 @@ those silent failures into red builds, because looking at the app cannot be reli
 
 | Project | What it does | Speed |
 |---|---|---|
-| `tst/Fili.Theme.MudAvalonia.UnitTests` | 860 tests on a headless Avalonia session. They resolve resources, template controls, move a real pointer over them, and read back the values the theme applied. Nothing is rendered. | seconds |
+| `tst/Fili.Theme.MudAvalonia.UnitTests` | 865 tests on a headless Avalonia session. They resolve resources, template controls, move a real pointer over them, and read back the values the theme applied. Nothing is rendered. | seconds |
 | `tst/Fili.Theme.MudAvalonia.NoDataGridTests` | 3 tests. The theme in an app that does not reference `Avalonia.Controls.DataGrid`: the assembly is really absent, `FiliTheme.axaml` loads and themes a button, and no DataGrid rule was loaded. | seconds |
 | `tst/Fili.Theme.MudAvalonia.PixelTests` | 21 tests. Twelve render one gallery frame each with Skia and compare it pixel by pixel with a PNG committed in `Baselines/`; nine, in `GalleryPageTests`, check how the gallery behaves - that the controls page shows its first section at once and adds the rest one dispatcher pass at a time (pausing while off screen, and loading the rest at once for an index row ahead of the load), that it opens at the top in a window shorter than its first screen, that keyboard focus still scrolls it, that each row of the index beside it lands on its section and the index follows the scroll, that every section fits beside the index in the desktop window and in a frame, and that the app bar shows the theme's version. | ~30 seconds |
 
@@ -27,7 +27,7 @@ needed a different platform.
 
 ## The unit tests
 
-860 tests in 55 classes, grouped here by the failure each one exists to catch.
+865 tests in 55 classes, grouped here by the failure each one exists to catch.
 
 ### Tokens: does every value exist, in every variant?
 
@@ -67,19 +67,19 @@ from MudBlazor's SCSS or the component's parameter defaults.
 | `FabTests` | 31 | `fab`: 56px grey at elevation 6, lifting to 8 and 12 under a real pointer, sizes, colours, `outlined` and `text`, `extended`, the 24px icon and its gap, `flat` and disabled. |
 | `AvatarTests` | 22 | `avatar`: sizes, the three variants and every colour, `rounded` and `square`, an elevation that is not clipped, and an `Image` covering the shape and clipped to it. |
 | `ExpansionPanelTests` | 9 | MudExpansionPanels' options on an `Expander` - elevation 1 by default, `elevation0` keeping the surface, `square`, `dense`, `no-gutters`, each ExpandDirection keeping its own sides, and `flat` gone - plus every elevation level 0 to 25 as a class on a `Border`, an `Expander` and a `TabControl`, MudBlazor's soft level 25, and the `button` type class. |
-| `DataGridTests` | 25 | `DataGrid`: elevation 1, the 59px subtitle2 header row and 53px body2 rows, a checkbox in a cell at the table's compact size in each of the three sizes, no rule under the last row, `dense` and its 16px on the right of the last visible column as columns move and hide, `striped`, `hover` replacing the stripe, the selection tint, `bordered` without header rules, `outlined`, `square`, the sort arrow, group rows, their glyph and a nested group's 48px-per-level indent with the rows left alone, and the edit box - which must still be based on the standard field, the one static link out of `Themes/Optional/DataGrid`. |
+| `DataGridTests` | 26 | `DataGrid`: elevation 1, the 59px subtitle2 header row and 53px body2 rows, a checkbox in a cell at the table's compact size in each of the three sizes and in its colour in every row of a checkbox column, no rule under the last row, `dense` and its 16px on the right of the last visible column as columns move and hide, `striped`, `hover` replacing the stripe, the selection tint, `bordered` without header rules, `outlined`, `square`, the sort arrow, group rows, their glyph and a nested group's 48px-per-level indent with the rows left alone, and the edit box - which must still be based on the standard field, the one static link out of `Themes/Optional/DataGrid`. |
 | `CardTests` | 8 | `card` at elevation 1, `outlined` and `square`, and the header, media, content and actions laid out to MudCard's metrics. |
 | `GreyGroundTextTests` | 3 | The text on a default avatar and badge is text-primary (white on a `text` avatar) in light and dark, and black in high contrast. |
 | `TabsAndAppBarTests` | 36 | MudTabs' defaults, colours, `border` / `outlined` / `rounded` / `centered` / `hide-slider`, that a bar's colour never reaches a nested `TabControl`, and the sliding indicator - starting at the old tab, on either axis, from wherever an interrupted slide had got to, resting at its own with MudBlazor's timing, and not on first show; the app bar's gutters, `dense` and colours. |
 | `SplitButtonMatrixTests` | 29 | `SplitButton` as MudButtonGroup, including the separator rule and the hit-testing of each half. |
-| `FieldDetailTests` | 39 | Helper text, the error in its place, the counter, `helper-on-focus`, `dense`, select variants, that filled and outlined fields pad their content, a start adornment floating the label, a multi-line field's label above its text and a single-line field's height left alone, a disabled field and select in text-disabled, the 300px drop-downs, and the tooltip's weight. |
+| `FieldDetailTests` | 42 | Helper text, the error in its place, the counter, `helper-on-focus`, `dense`, select variants, that filled and outlined fields pad their content, a start adornment floating the label, a multi-line field's label as far above its first line as a single-line field's is above its text, grown or sized by the app, and a single-line field's height left alone, a disabled field and select in text-disabled, the 300px drop-downs, and the tooltip's weight. |
 | `SliderMatrixTests` | 13 | `Slider` sizes and colours, the 30% rail, and the rings on hover and focus. |
 | `RemainingOptionsTests` | 25 | Tab position, elevation and slider colour, striped progress, the progress text whole and centred over a thin bar, and start and end icon spacing on buttons and chips. |
 | `UncheckedColourTests` | 11 | `unchecked-{colour}` on a checkbox and a radio: the glyph and halo while not checked, the colour class once checked. |
 | `SliderOptionsTests` | 5 | `filled`, tick dots - their count, size, colour and where the first and last sit - and `value-label`. |
 | `DropDownButtonMatrixTests` | 12 | `DropDownButton` as MudMenu's button activator. |
 | `SelectionGlyphMatrixTests` | 13 | Checkbox and radio glyph colours and sizes, and the 48px halo round the glyph (44 small, 60 large). |
-| `SwitchMatrixTests` | 11 | Toggle switch thumb and track colours and sizes. |
+| `SwitchMatrixTests` | 12 | Toggle switch thumb and track colours and sizes, and a switch stretched to its row centring its label with a checkbox's beside it. |
 | `TextColourTests` | 9 | `TextBlock` colours, MudText's `Color`. |
 | `ControlSizingTests` | 8 | The minimum sizes a control needs to exist when nothing stretches it - a number MudBlazor never has to give, because CSS sizes by container. |
 | `ProgressColourTests` | 8 | `ProgressBar` colours. |
