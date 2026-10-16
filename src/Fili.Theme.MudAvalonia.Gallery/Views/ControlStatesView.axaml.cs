@@ -71,6 +71,9 @@ public partial class ControlStatesView : UserControl
         grouped.GroupDescriptions.Add(new DataGridPathGroupDescription(nameof(GalleryElement.Position)));
         GroupedGrid.ItemsSource = grouped;
 
+        // The data grid's last sample: a selection column, and tasks longer than their column.
+        TaskGrid.ItemsSource = GalleryTask.Some;
+
         // Keyboard focus, pinned so it shows up in a capture. NavigationMethod.Tab is what sets
         // :focus-visible; focusing with Pointer deliberately does not, which is the whole reason
         // the theme keys off :focus-visible rather than :focus.
@@ -221,6 +224,7 @@ public partial class ControlStatesView : UserControl
         // Only the options sample is meant to show a selected row.
         PlainGrid.SelectedIndex = -1;
         GroupedGrid.SelectedIndex = -1;
+        TaskGrid.SelectedIndex = -1;
         ((IPseudoClasses)FocusedText.Classes).Add(":focus-visible");
     }
 
