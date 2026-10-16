@@ -6,7 +6,8 @@ What changed in each release of `Fili.Theme.MudAvalonia`, newest first. The pack
 
 | Version | |
 |---|---|
-| **0.9.3** | Two fixes found by moving Fili.Damselfly onto 0.9.2. A `TextBox` whose `Text` is null no longer logs a binding error from its hidden counter, which every such field did. A checkbox in a `DataGrid` cell is MudBlazor's table checkbox, a 32px circle pulled in 4px, so a selection column no longer makes its rows 81px tall; they are 57. |
+| **0.9.4** | Eight fixes found by moving four more apps onto 0.9.3. A `MenuFlyout`'s rows and a submenu's own rows are MudMenuItem's 48px rows, not the base's 24px ones. Keyboard focus draws no dashed rectangle over the state layer, and a slider is one Tab stop rather than three. "_Save" is Save with Alt+S on buttons, toggles, checkboxes, radios, switches, tabs, expanders and menus. An app's own `FiliFontFamily` reaches popups. A start adornment floats a text field's label; a multi-line field's label sits above its text, which starts at the top. `ShowProgressText` on a thin bar shows the whole value. See [Upgrading from 0.9.3 to 0.9.4](#upgrading-from-093-to-094). |
+| 0.9.3 | Two fixes found by moving an app onto 0.9.2. A `TextBox` whose `Text` is null no longer logs a binding error from its hidden counter, which every such field did. A checkbox in a `DataGrid` cell is MudBlazor's table checkbox, a 32px circle pulled in 4px, so a selection column no longer makes its rows 81px tall; they are 57. |
 | 0.9.2 | Nothing changes on screen: this release fixes the interface 1.0 will promise. [Compatibility](compatibility.md) says what a version may and may not change, and the resource keys an app may name are listed in [Published resource keys](published-keys.md) and pinned by a test, beside the classes. The README's links work on nuget.org, each pointing at the release's own commit, and the package has an icon and a description that says what it is. |
 | 0.9.1 | Trimmed and AOT apps that reference `Avalonia.Controls.DataGrid` start again: the theme's optional DataGrid styles are kept through trimming. From 0.7.0 to 0.9.0 such an app threw "No precompiled XAML found" for `DataGridStyles.axaml` at startup, and so did the browser gallery. Untrimmed apps were never affected. Nothing to change in markup. |
 | 0.9.0 | Every MudBlazor icon parameter as a resource key: the theme's glyphs are `DynamicResource`s, so a key such as `FiliCheckBoxCheckedGeometry` set in a control's `Resources` swaps that control's glyph. MudToggleItem as MudBlazor 9.11 draws it, filled once checked, and MudToggleIconButton as `icon` on a `ToggleButton`. MudNavMenu as `nav` on a `TreeView`, with the mini drawer and drawer colours; MudToolBar as `toolbar`; MudIcon's sizes and colours on a `PathIcon`. MudSnackbar's severity icon, close button and `text`, `outlined` and `normal` variants; MudTooltip's colours and `arrow`. Tab bars that scroll. `DrawerPage`'s pane toggles as icon buttons and its closed compact rail as a mini drawer. `multi-selection` on lists and trees, 48px list, select and menu rows, `dense-items`. `required`, `shrink-label` and `no-underline` on fields, and a field's classes reaching the field inside an `AutoCompleteBox` or `NumericUpDown`. `LabelPlacement`, the 48px hit circle and `dense` on checkboxes and radios; `ThumbIcon` on switches. Expansion panel options and every elevation level from 0 to 25. The DataGrid is themed from 12.1.0. The published class list grows to 146. See [Upgrading from 0.8 to 0.9](#upgrading-from-08-to-09). |
@@ -24,6 +25,23 @@ What changed in each release of `Fili.Theme.MudAvalonia`, newest first. The pack
 Every version and its release notes are on the
 [releases page](https://github.com/FiliArrochada/Fili.Theme.MudAvalonia/releases); a version on
 nuget.org can be unlisted but never replaced.
+
+## Upgrading from 0.9.3 to 0.9.4
+
+Nothing needs a markup change; five things look or behave differently.
+
+- **An underscore in a button's, toggle's, checkbox's, radio's, switch's, tab's, expander's or
+  menu item's text is an access key**, as in Avalonia's own themes: "_Save" shows Save and answers
+  Alt+S. Text meant to show an underscore, "file_name", now shows "filename"; double it,
+  "file__name".
+- **No dashed focus rectangle.** Keyboard focus is the state layer's tint alone, as the docs had
+  said. An app that relied on the rectangle sets a control's `FocusAdorner`.
+- **A `MenuFlyout`'s rows, a submenu's rows and an app's `ItemContainerTheme` based on
+  `{x:Type MenuItem}` are 48px MudMenuItem rows**, where they were 24px. Menus opened from a
+  button get taller.
+- **A multi-line text field (`AcceptsReturn`) starts its text at the top**, with its label above
+  it, where both were centred. A single-line field is unchanged.
+- **A text field with `InnerLeftContent` floats its label** even while empty.
 
 ## Upgrading from 0.8 to 0.9
 

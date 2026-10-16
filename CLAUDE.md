@@ -16,6 +16,8 @@ classes, `ControlTheme`s where a Material look cannot be faked without one, and 
 `README.md` first: install, the published class list, the tokens and fonts. Per-control usage is
 `docs/controls.md`, the fork's rationale `docs/the-base.md`, and the gaps `docs/known-gaps.md`.
 
+- **Never name another app in this repository** - not in code, comments, docs, tests or commit
+  messages. A bug an app found is "found by an adopting app"; the package stands on its own.
 - **The docs are part of the change, not a follow-up.** Adding, renaming or dropping a class or
   token updates its row in `docs/mudblazor-parity.md` in the same commit.
 - **Classes, resource keys and `FiliThemeVariants` are the published interface**
@@ -34,7 +36,8 @@ classes, `ControlTheme`s where a Material look cannot be faked without one, and 
   `OptionalStyleInclude`, a `StyleInclude` that loads only when the app has the package;
   `SlidingIndicator`, the tabs' slide; `FieldClasses`, the text field's classes passed to the
   TextBox inside an AutoCompleteBox or NumericUpDown; `MenuIconGutter`, a menu's shared icon
-  column; `TabBarScroll`, the tab bar's scroll buttons; and `DataGridLastColumn` and
+  column; `StartAdornment`, a text field's `:start-adornment`; `TabBarScroll`, the tab bar's
+  scroll buttons; and `DataGridLastColumn` and
   `GroupIndentConverter`,
   which name DataGrid types and so live in `Themes/Optional/DataGrid/`.
 - **Retemplating an Avalonia control is in scope; inventing one is not.** A MudBlazor component
@@ -149,6 +152,18 @@ One line each; [`docs/traps.md`](docs/traps.md) has the full account and the tes
   `ErrorMessageConverter`.
 - A template binding through a value that can be null (`Text.Length`) logs an error in every app
   that leaves it null, hidden or not; bind the value and convert. `BindingErrorTests` sweeps for it.
+- A control inside a template is a Tab stop unless it sets `Focusable="False"`; a control is
+  one stop at most (`TabStopTests`).
+- No focus rectangle: FiliTheme.axaml nulls the base's `DefaultFocusAdorner`; the state layer is
+  the affordance.
+- A popup's host roots its own tree and inherits nothing from the window; a font set on the
+  window is set on the popup hosts too.
+- A `MenuFlyout` binds its null `ItemContainerTheme` over its presenter's, so `MenuItem` is
+  themed by type as the dropdown row.
+- Access keys are the presenter's: `RecognizesAccessKey`, or an `AccessText` for a menu header
+  (`AccessKeyTests`).
+- A multi-line field's text starts at the top and its label sits in a single-line band above it;
+  a single-line field centres both.
 - A template part works only under the exact `[TemplatePart]` name its control looks for; any
   other name is silently ignored (the DataGrid's group row and `PART_RowHeader`).
 
