@@ -1,0 +1,302 @@
+# Published resource keys
+
+Every resource key an app may name: in a `{DynamicResource}`, or set in a control's `Resources` to
+override the theme for that control. Within a major version none is removed or renamed; see
+[Compatibility](compatibility.md).
+
+Always reach a key through `DynamicResource`. A `StaticResource` freezes the value of the variant
+that was active when it loaded, and a misspelt key resolves to nothing, silently.
+
+`PublishedInterfaceTests` compares this page with the theme's source in both directions and
+resolves every key in each variant: a new key is listed here in the change that adds it.
+
+## Palette
+
+Every colour as a `*Color` and its `*Brush`, in light, dark and high contrast. Values and provenance: [Tokens](../README.md#tokens).
+
+- `FiliActionDefaultBrush`
+- `FiliActionDefaultColor`
+- `FiliActionDefaultHoverBrush`
+- `FiliActionDefaultHoverColor`
+- `FiliActionDisabledBackgroundBrush`
+- `FiliActionDisabledBackgroundColor`
+- `FiliActionDisabledBrush`
+- `FiliActionDisabledColor`
+- `FiliAppbarBackgroundBrush`
+- `FiliAppbarBackgroundColor`
+- `FiliAppbarTextBrush`
+- `FiliAppbarTextColor`
+- `FiliAvatarBareTextBrush`
+- `FiliAvatarBareTextColor`
+- `FiliAvatarTextBrush`
+- `FiliAvatarTextColor`
+- `FiliBackgroundBrush`
+- `FiliBackgroundColor`
+- `FiliBackgroundGrayBrush`
+- `FiliBackgroundGrayColor`
+- `FiliBadgeTextBrush`
+- `FiliBadgeTextColor`
+- `FiliBlackColor`
+- `FiliDarkBrush`
+- `FiliDarkColor`
+- `FiliDarkContrastTextBrush`
+- `FiliDarkContrastTextColor`
+- `FiliDarkDarkenBrush`
+- `FiliDarkDarkenColor`
+- `FiliDarkHoverBrush`
+- `FiliDarkHoverColor`
+- `FiliDarkLightenBrush`
+- `FiliDarkLightenColor`
+- `FiliDividerBrush`
+- `FiliDividerColor`
+- `FiliDividerLightBrush`
+- `FiliDividerLightColor`
+- `FiliDrawerBackgroundBrush`
+- `FiliDrawerBackgroundColor`
+- `FiliDrawerBorderBrush`
+- `FiliDrawerBorderColor`
+- `FiliDrawerIconBrush`
+- `FiliDrawerIconColor`
+- `FiliDrawerTextBrush`
+- `FiliDrawerTextColor`
+- `FiliErrorBrush`
+- `FiliErrorColor`
+- `FiliErrorContrastTextBrush`
+- `FiliErrorContrastTextColor`
+- `FiliErrorDarkenBrush`
+- `FiliErrorDarkenColor`
+- `FiliErrorHoverBrush`
+- `FiliErrorHoverColor`
+- `FiliErrorLightenBrush`
+- `FiliErrorLightenColor`
+- `FiliGrayDarkBrush`
+- `FiliGrayDarkColor`
+- `FiliGrayDarkerBrush`
+- `FiliGrayDarkerColor`
+- `FiliGrayDefaultBrush`
+- `FiliGrayDefaultColor`
+- `FiliGrayLightBrush`
+- `FiliGrayLightColor`
+- `FiliGrayLighterBrush`
+- `FiliGrayLighterColor`
+- `FiliInfoBrush`
+- `FiliInfoColor`
+- `FiliInfoContrastTextBrush`
+- `FiliInfoContrastTextColor`
+- `FiliInfoDarkenBrush`
+- `FiliInfoDarkenColor`
+- `FiliInfoHoverBrush`
+- `FiliInfoHoverColor`
+- `FiliInfoLightenBrush`
+- `FiliInfoLightenColor`
+- `FiliInputFilledBrush`
+- `FiliInputFilledColor`
+- `FiliLinesDefaultBrush`
+- `FiliLinesDefaultColor`
+- `FiliLinesInputsBrush`
+- `FiliLinesInputsColor`
+- `FiliOverlayDarkBrush`
+- `FiliOverlayDarkColor`
+- `FiliOverlayHoverBrush`
+- `FiliOverlayHoverColor`
+- `FiliOverlayLightBrush`
+- `FiliOverlayLightColor`
+- `FiliOverlayPressedBrush`
+- `FiliOverlayPressedColor`
+- `FiliPrimaryBrush`
+- `FiliPrimaryColor`
+- `FiliPrimaryContrastTextBrush`
+- `FiliPrimaryContrastTextColor`
+- `FiliPrimaryDarkenBrush`
+- `FiliPrimaryDarkenColor`
+- `FiliPrimaryHoverBrush`
+- `FiliPrimaryHoverColor`
+- `FiliPrimaryLightenBrush`
+- `FiliPrimaryLightenColor`
+- `FiliSecondaryBrush`
+- `FiliSecondaryColor`
+- `FiliSecondaryContrastTextBrush`
+- `FiliSecondaryContrastTextColor`
+- `FiliSecondaryDarkenBrush`
+- `FiliSecondaryDarkenColor`
+- `FiliSecondaryHoverBrush`
+- `FiliSecondaryHoverColor`
+- `FiliSecondaryLightenBrush`
+- `FiliSecondaryLightenColor`
+- `FiliSkeletonBrush`
+- `FiliSkeletonColor`
+- `FiliSkeletonWaveColor`
+- `FiliSkeletonWaveEndBrush`
+- `FiliSkeletonWaveStartBrush`
+- `FiliSuccessBrush`
+- `FiliSuccessColor`
+- `FiliSuccessContrastTextBrush`
+- `FiliSuccessContrastTextColor`
+- `FiliSuccessDarkenBrush`
+- `FiliSuccessDarkenColor`
+- `FiliSuccessHoverBrush`
+- `FiliSuccessHoverColor`
+- `FiliSuccessLightenBrush`
+- `FiliSuccessLightenColor`
+- `FiliSurfaceBrush`
+- `FiliSurfaceColor`
+- `FiliSwitchThumbBrush`
+- `FiliSwitchThumbColor`
+- `FiliTableHoverBrush`
+- `FiliTableHoverColor`
+- `FiliTableLinesBrush`
+- `FiliTableLinesColor`
+- `FiliTableStripedBrush`
+- `FiliTableStripedColor`
+- `FiliTertiaryBrush`
+- `FiliTertiaryColor`
+- `FiliTertiaryContrastTextBrush`
+- `FiliTertiaryContrastTextColor`
+- `FiliTertiaryDarkenBrush`
+- `FiliTertiaryDarkenColor`
+- `FiliTertiaryHoverBrush`
+- `FiliTertiaryHoverColor`
+- `FiliTertiaryLightenBrush`
+- `FiliTertiaryLightenColor`
+- `FiliTextDisabledBrush`
+- `FiliTextDisabledColor`
+- `FiliTextPrimaryBrush`
+- `FiliTextPrimaryColor`
+- `FiliTextSecondaryBrush`
+- `FiliTextSecondaryColor`
+- `FiliTooltipBackgroundBrush`
+- `FiliTooltipBackgroundColor`
+- `FiliWarningBrush`
+- `FiliWarningColor`
+- `FiliWarningContrastTextBrush`
+- `FiliWarningContrastTextColor`
+- `FiliWarningDarkenBrush`
+- `FiliWarningDarkenColor`
+- `FiliWarningHoverBrush`
+- `FiliWarningHoverColor`
+- `FiliWarningLightenBrush`
+- `FiliWarningLightenColor`
+- `FiliWhiteBrush`
+- `FiliWhiteColor`
+
+## Elevation
+
+MudBlazor's 26 shadow levels as `BoxShadows`, 0 to 25. In high contrast each is a 1px ring instead.
+
+- `FiliElevation0`
+- `FiliElevation1`
+- `FiliElevation2`
+- `FiliElevation3`
+- `FiliElevation4`
+- `FiliElevation5`
+- `FiliElevation6`
+- `FiliElevation7`
+- `FiliElevation8`
+- `FiliElevation9`
+- `FiliElevation10`
+- `FiliElevation11`
+- `FiliElevation12`
+- `FiliElevation13`
+- `FiliElevation14`
+- `FiliElevation15`
+- `FiliElevation16`
+- `FiliElevation17`
+- `FiliElevation18`
+- `FiliElevation19`
+- `FiliElevation20`
+- `FiliElevation21`
+- `FiliElevation22`
+- `FiliElevation23`
+- `FiliElevation24`
+- `FiliElevation25`
+
+## Geometry
+
+Corner radii, border thickness, the 4px spacing scale and the layout sizes.
+
+- `FiliAppbarHeight`
+- `FiliBorderThickness`
+- `FiliCornerRadiusNone`
+- `FiliCornerRadiusPill`
+- `FiliCornerRadius`
+- `FiliDrawerMiniWidth`
+- `FiliDrawerWidth`
+- `FiliInputMinWidth`
+- `FiliSpacing1`
+- `FiliSpacing2`
+- `FiliSpacing3`
+- `FiliSpacing4`
+- `FiliSpacing6`
+- `FiliSpacing8`
+
+## Typography
+
+The font family and MudBlazor's type ramp: a size, line height and letter spacing per style.
+
+- `FiliBody1FontSize`
+- `FiliBody1LetterSpacing`
+- `FiliBody1LineHeight`
+- `FiliBody2FontSize`
+- `FiliBody2LetterSpacing`
+- `FiliBody2LineHeight`
+- `FiliButtonFontSize`
+- `FiliButtonLetterSpacing`
+- `FiliButtonLineHeight`
+- `FiliCaptionFontSize`
+- `FiliCaptionLetterSpacing`
+- `FiliCaptionLineHeight`
+- `FiliFontFamily`
+- `FiliFontSize`
+- `FiliH1FontSize`
+- `FiliH1LetterSpacing`
+- `FiliH1LineHeight`
+- `FiliH2FontSize`
+- `FiliH2LetterSpacing`
+- `FiliH2LineHeight`
+- `FiliH3FontSize`
+- `FiliH3LetterSpacing`
+- `FiliH3LineHeight`
+- `FiliH4FontSize`
+- `FiliH4LetterSpacing`
+- `FiliH4LineHeight`
+- `FiliH5FontSize`
+- `FiliH5LetterSpacing`
+- `FiliH5LineHeight`
+- `FiliH6FontSize`
+- `FiliH6LetterSpacing`
+- `FiliH6LineHeight`
+- `FiliLetterSpacing`
+- `FiliLineHeight`
+- `FiliOverlineFontSize`
+- `FiliOverlineLetterSpacing`
+- `FiliOverlineLineHeight`
+- `FiliSubtitle1FontSize`
+- `FiliSubtitle1LetterSpacing`
+- `FiliSubtitle1LineHeight`
+- `FiliSubtitle2FontSize`
+- `FiliSubtitle2LetterSpacing`
+- `FiliSubtitle2LineHeight`
+
+## Glyphs
+
+Every icon the theme draws. Set one in a control's `Resources`, or a parent's, to swap that control's glyph; see [MudBlazor parity](mudblazor-parity.md).
+
+- `FiliAlertSuccessGeometry`
+- `FiliArrowDropDownGeometry`
+- `FiliArrowDropUpGeometry`
+- `FiliArrowRightGeometry`
+- `FiliArrowUpwardGeometry`
+- `FiliCheckBoxCheckedGeometry`
+- `FiliCheckBoxIndeterminateGeometry`
+- `FiliCheckBoxUncheckedGeometry`
+- `FiliChevronRightGeometry`
+- `FiliCloseGeometry`
+- `FiliErrorOutlineGeometry`
+- `FiliEventNoteGeometry`
+- `FiliExpandMoreGeometry`
+- `FiliInfoOutlinedGeometry`
+- `FiliNavigateBeforeGeometry`
+- `FiliRadioCheckedGeometry`
+- `FiliRadioUncheckedGeometry`
+- `FiliReportProblemGeometry`
+- `FiliSwitchThumbIconGeometry`
