@@ -386,6 +386,17 @@ Four more MudBlazor components that are a look on a control Avalonia already has
   MudPaper only adds one when it is not outlined. `card-header` belongs on a `DockPanel`: the avatar
   and actions dock to the sides and the content goes LAST so it fills. A `card-media` that comes
   first takes the card's top corners.
+- **`material-elevation-overlay` makes elevation read in dark.** A black shadow barely shows on a
+  dark ground, in MudBlazor as here. On a window or any container, this class opts into Material's
+  dark-theme overlay, which MudBlazor does not offer: each raised surface inside is lightened by
+  white at its level's opacity, 5% at 1, 9% at 4, 12% at 8 and 16% at 24. Light and high contrast
+  are unchanged. It is an inset shadow over the surface's own background, so it follows a custom
+  surface colour and the corner radius. Papers, cards, panels, grids and the menus, selects and
+  flyouts take it; coloured app bars, buttons and badges keep their colour.
+
+```xml
+<Window Classes="material-elevation-overlay">…</Window>
+```
 
 ## Data grid
 

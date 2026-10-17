@@ -755,6 +755,53 @@
             </StackPanel>
           </Border>
         </StackPanel>
+        <TextBlock Classes="overline" Text="MudBlazor" Margin="0,8,0,0" />
+        <StackPanel Orientation="Horizontal" Spacing="16">
+            <Border Classes="surface elevation0" Width="88" Height="56" Padding="12,8">
+              <TextBlock Classes="caption" Text="0" />
+            </Border>
+            <Border Classes="surface elevation1" Width="88" Height="56" Padding="12,8">
+              <TextBlock Classes="caption" Text="1" />
+            </Border>
+            <Border Classes="surface elevation4" Width="88" Height="56" Padding="12,8">
+              <TextBlock Classes="caption" Text="4" />
+            </Border>
+            <Border Classes="surface elevation8" Width="88" Height="56" Padding="12,8">
+              <TextBlock Classes="caption" Text="8" />
+            </Border>
+            <Border Classes="surface elevation16" Width="88" Height="56" Padding="12,8">
+              <TextBlock Classes="caption" Text="16" />
+            </Border>
+            <Border Classes="surface elevation24" Width="88" Height="56" Padding="12,8">
+              <TextBlock Classes="caption" Text="24" />
+            </Border>
+        </StackPanel>
+        <TextBlock Classes="overline" Text="material-elevation-overlay" Margin="0,8,0,0" />
+        <StackPanel Orientation="Horizontal" Spacing="16" Classes="material-elevation-overlay">
+            <Border Classes="surface elevation0" Width="88" Height="56" Padding="12,8">
+              <TextBlock Classes="caption" Text="0" />
+            </Border>
+            <Border Classes="surface elevation1" Width="88" Height="56" Padding="12,8">
+              <TextBlock Classes="caption" Text="1" />
+            </Border>
+            <Border Classes="surface elevation4" Width="88" Height="56" Padding="12,8">
+              <TextBlock Classes="caption" Text="4" />
+            </Border>
+            <Border Classes="surface elevation8" Width="88" Height="56" Padding="12,8">
+              <TextBlock Classes="caption" Text="8" />
+            </Border>
+            <Border Classes="surface elevation16" Width="88" Height="56" Padding="12,8">
+              <TextBlock Classes="caption" Text="16" />
+            </Border>
+            <Border Classes="surface elevation24" Width="88" Height="56" Padding="12,8">
+              <TextBlock Classes="caption" Text="24" />
+            </Border>
+        </StackPanel>
+        <TextBlock Classes="caption"
+                   TextWrapping="Wrap"
+                   MaxWidth="760"
+                   HorizontalAlignment="Left"
+                   Text="Elevation 0 to 24, as MudBlazor draws it and with material-elevation-overlay, Material's dark-theme overlay, which MudBlazor does not offer. In dark a black shadow barely shows, so the overlay lightens each raised surface by white at its level's opacity - 5% at 1, 9% at 4, 12% at 8, 16% at 24. Light and high contrast are unchanged. Set the class on a window or any container; papers, cards, panels, grids, menus and flyouts inside take it." />
       </StackPanel>
 
       <!-- Lists and tabs -->

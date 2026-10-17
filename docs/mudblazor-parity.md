@@ -6,8 +6,9 @@ where the two differ. For side-by-side markup, see [Razor and AXAML](razor-vs-ax
 The rule behind every row: **a class only ever names a MudBlazor variant.** Every control the
 theme templates is keyed to its type, so an unclassed control is already the MudBlazor default.
 Class names are MudBlazor's own words (`primary`, `outlined`, `small`), deliberately not
-namespaced. `ClassVocabularyTests` pins the full list of 147. One is not MudBlazor's, and its name
-says so: `material-fixed-tabs`, Material's fixed tabs, which MudTabs does not offer.
+namespaced. `ClassVocabularyTests` pins the full list of 148. Two are not MudBlazor's, and their
+names say so: `material-fixed-tabs`, Material's fixed tabs, and `material-elevation-overlay`,
+Material's dark-theme elevation overlay. MudBlazor offers neither.
 
 | Mark | Meaning |
 |---|---|
@@ -202,6 +203,7 @@ Put initials, a `PathIcon` or an `Image` inside: `<Border Classes="avatar primar
 |---|---|---|
 | `MudPaper` | `Border.surface` | ≈ surface fill and the default radius, but no shadow: MudPaper's `Elevation` defaults to 1, so it is `surface elevation1` (a `card` carries it) |
 | `Elevation="0…25"` | `elevation0` … `elevation25` | ✅ every level `_elevation.scss` has; three shadow layers each, from `Shadow.cs` |
+| (none: Material's dark-theme overlay) | `material-elevation-overlay` on a window or container | ➕ in dark, each raised surface inside lightened by white at its level's opacity, 5% at 1 to 16% at 24: papers, cards, panels, grids, menus, selects and flyouts. Light and high contrast unchanged |
 | `Outlined` | `outlined` | ✅ 1px `lines-default` |
 | `Square` | `square` | ✅ no radius, on a paper or a card |
 | `MudCard` | `Border.card` | ✅ a paper at elevation 1 in text-primary; `outlined` drops the shadow whatever elevation class is on it, as MudPaper does |

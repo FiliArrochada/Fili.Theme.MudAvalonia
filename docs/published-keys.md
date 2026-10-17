@@ -210,6 +210,35 @@ MudBlazor's 26 shadow levels as `BoxShadows`, 0 to 25. In high contrast each is 
 - `FiliElevation24`
 - `FiliElevation25`
 
+`material-elevation-overlay` draws its levels from a second ladder: each level's shadow, plus in Dark Material's white overlay as an inset layer. Outside Dark they equal the shadows above, and an app that repaints a shadow repaints its overlay level too.
+
+- `FiliElevationOverlay0`
+- `FiliElevationOverlay1`
+- `FiliElevationOverlay2`
+- `FiliElevationOverlay3`
+- `FiliElevationOverlay4`
+- `FiliElevationOverlay5`
+- `FiliElevationOverlay6`
+- `FiliElevationOverlay7`
+- `FiliElevationOverlay8`
+- `FiliElevationOverlay9`
+- `FiliElevationOverlay10`
+- `FiliElevationOverlay11`
+- `FiliElevationOverlay12`
+- `FiliElevationOverlay13`
+- `FiliElevationOverlay14`
+- `FiliElevationOverlay15`
+- `FiliElevationOverlay16`
+- `FiliElevationOverlay17`
+- `FiliElevationOverlay18`
+- `FiliElevationOverlay19`
+- `FiliElevationOverlay20`
+- `FiliElevationOverlay21`
+- `FiliElevationOverlay22`
+- `FiliElevationOverlay23`
+- `FiliElevationOverlay24`
+- `FiliElevationOverlay25`
+
 ## Geometry
 
 Corner radii, border thickness, the 4px spacing scale and the layout sizes.

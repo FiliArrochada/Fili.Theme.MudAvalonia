@@ -68,6 +68,9 @@ public class ClassVocabularyTests
         // that no one takes the class for MudBlazor's.
         "material-fixed-tabs",
 
+        // Material's dark-theme elevation overlay, which MudBlazor does not offer.
+        "material-elevation-overlay",
+
         // Components that are a class on an existing control: MudIconButton, MudChip and MudFab
         // on a Button, MudAlert, MudAvatar, MudCard, MudSkeleton and MudToolBar on a Border, with
         // MudSkeleton's SkeletonType, MudProgressCircular on a ProgressBar, MudBadge on a

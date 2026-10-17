@@ -10,7 +10,7 @@ those silent failures into red builds, because looking at the app cannot be reli
 
 | Project | What it does | Speed |
 |---|---|---|
-| `tst/Fili.Theme.MudAvalonia.UnitTests` | 869 tests on a headless Avalonia session. They resolve resources, template controls, move a real pointer over them, and read back the values the theme applied. Nothing is rendered. | seconds |
+| `tst/Fili.Theme.MudAvalonia.UnitTests` | 887 tests on a headless Avalonia session. They resolve resources, template controls, move a real pointer over them, and read back the values the theme applied. Nothing is rendered. | seconds |
 | `tst/Fili.Theme.MudAvalonia.NoDataGridTests` | 3 tests. The theme in an app that does not reference `Avalonia.Controls.DataGrid`: the assembly is really absent, `FiliTheme.axaml` loads and themes a button, and no DataGrid rule was loaded. | seconds |
 | `tst/Fili.Theme.MudAvalonia.PixelTests` | 57 tests. Twelve render one gallery frame each with Skia and compare it pixel by pixel with a PNG committed in `Baselines/`. Thirty-six, in `GalleryAuditTests`, run three of the unit suite's checks over each of those twelve pages instead of a list of bare controls - no binding error, every control one Tab stop at most, no presented text showing an access key's underscore - so every class, state and variant a sample shows is covered. Nine, in `GalleryPageTests`, check how the gallery behaves - that the controls page shows its first section at once and adds the rest one dispatcher pass at a time (pausing while off screen, and loading the rest at once for an index row ahead of the load), that it opens at the top in a window shorter than its first screen, that keyboard focus still scrolls it, that each row of the index beside it lands on its section and the index follows the scroll, that every section fits beside the index in the desktop window and in a frame, and that the app bar shows the theme's version. | ~45 seconds |
 
@@ -27,13 +27,14 @@ needed a different platform.
 
 ## The unit tests
 
-869 tests in 55 classes, grouped here by the failure each one exists to catch.
+887 tests in 56 classes, grouped here by the failure each one exists to catch.
 
 ### Tokens: does every value exist, in every variant?
 
 | Class | Tests | What it checks | Why it matters |
 |---|---|---|---|
 | `ResourceResolutionTests` | 5 | Every colour, brush and elevation token resolves in light and dark, every brush really is an `IBrush`, primary differs between the variants, and the dark surface sits above the dark background. | A missing or misspelt key is silent in Avalonia: the control keeps whatever it had and the colour quietly never changes. A `*Color` bound where a `*Brush` belonged compiles and paints nothing. |
+| `ElevationOverlayTests` | 18 | `material-elevation-overlay`: each overlay level is its shadow plus, in Dark only, Material's white at 4.5 ln(level + 1) + 2 percent; papers, cards, panels and grids take their level's, and every popup sheet - a select's, an autocomplete's, a submenu, a context menu, a flyout and a menu flyout - takes level 8; nothing changes without the class, in Light or in high contrast; and an unraised paper, an outlined card or grid, a coloured box, an app bar and a filled button are left alone. | An overlay on a coloured surface would wash out the colour, and one that missed a popup would leave the most raised sheet on the page the darkest. |
 | `HighContrastTests` | 15 | Every token resolves in high contrast **and differs from dark**, and the variant's own rules (hard rings for elevation, the drawer edge) apply only there. | High contrast inherits from Dark, so a forgotten token comes back with the dark value - usually a translucent line over black, which is to say no line. Only "differs from dark" proves the key was written. |
 | `PaletteDerivationTests` | 23 | Every `*DarkenColor` and `*LightenColor` equals MudBlazor's own derivation (`MudColorPort`, HSL lightness ∓ 0.075 with .NET rounding), and the port matches the 14 values mudblazor.com publishes. | Hover and filled-button shades are derived, not chosen. Changing a colour without its shades, or rounding the port differently, shows up here rather than as a slightly wrong hover. |
 | `SimpleBridgeTests` | 6 | The ~96 keys the forked Avalonia Simple templates paint from still resolve in both variants. | The first standalone render had switches with no switch: eighteen `*Color` keys were missing while their brushes were mapped. A new Avalonia version that adds a key fails here instead of on screen. |
@@ -49,7 +50,7 @@ needed a different platform.
 | `TabStopTests` | 31 | The same thirty-one controls are one Tab stop at most: the control, or the one part that stands for it. | A focusable part adds a stop nobody sees until they use the keyboard. An adopting app found one: a slider's two 2px rail halves, three stops per slider. |
 | `AccessKeyTests` | 14 | "_Save" is Save with an access key on every control the base recognises one on - buttons, toggles, checkboxes, radios, switches, split and drop-down buttons, links, tabs, expanders - and on a menu bar's items and rows. | The hand-written templates had dropped what the forked base does, so the underscore showed and Alt did nothing. It renders fine either way to anyone who never types an underscore. |
 | `PackageReadmeTests` | 1 | Every relative link in the README names a file that exists. | The README is the package's page on nuget.org too. The pack rewrites its links to the commit and fails on a broken one; this catches a renamed doc on every build rather than at release. |
-| `ClassVocabularyTests` | 1 | The classes the theme's selectors use are exactly the 147 the README publishes, in both directions. | Class names are MudBlazor's ordinary words (`small`, `error`, `vertical`) and they collide with an app's own. An undeclared class is a collision nobody signed off on; a declared one nothing uses is a lie to adopters. |
+| `ClassVocabularyTests` | 1 | The classes the theme's selectors use are exactly the 148 the README publishes, in both directions. | Class names are MudBlazor's ordinary words (`small`, `error`, `vertical`) and they collide with an app's own. An undeclared class is a collision nobody signed off on; a declared one nothing uses is a lie to adopters. |
 | `GeneratedThemeTests` | 1 | `Button.axaml` and the marked regions in nineteen other files are exactly what `ThemeColourGenerator` writes from the one list of eight colours. | Hundreds of colour styles are generated so that no colour can differ from the others. Editing one block by hand fails the build. `FILI_REGENERATE=1` rewrites the files. |
 
 ### Controls: does each one look and behave as MudBlazor's does?

@@ -249,7 +249,7 @@
                    Placement="BottomEdgeAlignedLeft"
                    IsLightDismissEnabled="True"
                    IsOpen="{TemplateBinding IsDropDownOpen, Mode=TwoWay}">
-              <Border Background="{DynamicResource FiliSurfaceBrush}"
+              <Border x:Name="PART_PopupBorder" Background="{DynamicResource FiliSurfaceBrush}"
                       CornerRadius="{DynamicResource FiliCornerRadius}"
                       BoxShadow="{DynamicResource FiliElevation8}"
                       Padding="0,8"

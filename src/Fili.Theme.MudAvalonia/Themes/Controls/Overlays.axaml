@@ -123,7 +123,7 @@
           popup window is sized to its content. Without room to spill into, the shadow is
           clipped away and the flyout reads as a flat rectangle.
         -->
-        <Border Margin="8"
+        <Border x:Name="PART_Border" Margin="8"
                 Background="{TemplateBinding Background}"
                 CornerRadius="{TemplateBinding CornerRadius}"
                 BoxShadow="{DynamicResource FiliElevation8}"
@@ -143,7 +143,7 @@
 
     <Setter Property="Template">
       <ControlTemplate>
-        <Border Margin="8"
+        <Border x:Name="PART_Border" Margin="8"
                 Background="{TemplateBinding Background}"
                 CornerRadius="{TemplateBinding CornerRadius}"
                 BoxShadow="{DynamicResource FiliElevation8}"

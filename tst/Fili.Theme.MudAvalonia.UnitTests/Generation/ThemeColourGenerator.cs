@@ -41,6 +41,7 @@ public static class ThemeColourGenerator
     public const string PaperLabel = "paper elevation.";
     public const string TabBarLabel = "tab bar elevation.";
     public const string ExpanderLabel = "expander elevation.";
+    public const string OverlayLabel = "material elevation overlay.";
     public const string AlertLabel = "alert colours.";
     public const string TabsLabel = "tab bar colours.";
     public const string AppBarLabel = "app bar colours.";
@@ -91,6 +92,8 @@ public static class ThemeColourGenerator
             (Controls("TabControl.axaml"), TabBarLabel, ElevationRegion("PART_TabBarHost")),
             (Controls("TabStrip.axaml"), TabBarLabel, ElevationRegion("PART_TabBarHost")),
             (Controls("Expander.axaml"), ExpanderLabel, ElevationRegion("PART_Root")),
+            (FiliThemePath, OverlayLabel, OverlayRegion()),
+            (Path.Combine("Themes", "Optional", "DataGrid", "DataGridStyles.axaml"), OverlayLabel, DataGridOverlayRegion()),
             (FiliThemePath, AlertLabel, AlertRegion()),
             (FiliThemePath, AvatarLabel, AvatarRegion()),
             (FiliThemePath, TabsLabel, TabsRegion()),
@@ -1138,6 +1141,48 @@ public static class ThemeColourGenerator
     // FiliTheme.axaml: `.mud-elevation-{n}` on a Border - a paper, a card, an app bar.
     private static string PaperRegion() =>
         string.Concat(Elevations.Select(level => TopStyle($"Border.elevation{level}", ("BoxShadow", Res($"FiliElevation{level}")))));
+
+    private const string Overlay = ".material-elevation-overlay";
+
+    // FiliTheme.axaml: `material-elevation-overlay`, Material's dark-theme overlay, on the surfaces
+    // that paint their own surface colour - a paper or card, an expansion panel, and the popups'
+    // elevation-8 sheets. A default level comes before the classes, so an elevation class wins.
+    private static string OverlayRegion()
+    {
+        var o = new StringBuilder();
+        o.Append(TopStyle($"{Overlay} Border.card", ("BoxShadow", Res("FiliElevationOverlay1"))));
+        foreach (var level in Elevations)
+        {
+            o.Append(TopStyle($"{Overlay} Border.surface.elevation{level}, {Overlay} Border.card.elevation{level}", ("BoxShadow", Res($"FiliElevationOverlay{level}"))));
+        }
+
+        o.Append(TopStyle($"{Overlay} Expander /template/ Border#PART_Root", ("BoxShadow", Res("FiliElevationOverlay1"))));
+        foreach (var level in Elevations)
+        {
+            o.Append(TopStyle($"{Overlay} Expander.elevation{level} /template/ Border#PART_Root", ("BoxShadow", Res($"FiliElevationOverlay{level}"))));
+        }
+
+        o.Append(TopStyle(
+            $"{Overlay} MenuItem /template/ Border#PART_PopupBorder, {Overlay} ComboBox /template/ Border#PART_PopupBorder, "
+            + $"{Overlay} AutoCompleteBox /template/ Border#PART_PopupBorder, {Overlay} ContextMenu /template/ Border#PART_Border, "
+            + $"{Overlay} FlyoutPresenter /template/ Border#PART_Border, {Overlay} MenuFlyoutPresenter /template/ Border#PART_Border",
+            ("BoxShadow", Res("FiliElevationOverlay8"))));
+        return o.ToString();
+    }
+
+    // Optional/DataGrid/DataGridStyles.axaml: the overlay on a grid, which is a surface at
+    // elevation 1 unless outlined - an outlined grid has no shadow and gets no overlay.
+    private static string DataGridOverlayRegion()
+    {
+        var o = new StringBuilder();
+        o.Append(TopStyle($"{Overlay} DataGrid:not(.outlined) /template/ Border#DataGridBorder", ("BoxShadow", Res("FiliElevationOverlay1"))));
+        foreach (var level in Elevations)
+        {
+            o.Append(TopStyle($"{Overlay} DataGrid.elevation{level}:not(.outlined) /template/ Border#DataGridBorder", ("BoxShadow", Res($"FiliElevationOverlay{level}"))));
+        }
+
+        return o.ToString();
+    }
 
     /// <summary>
     /// The elevation classes the theme publishes: every level _elevation.scss has, `mud-elevation-0`

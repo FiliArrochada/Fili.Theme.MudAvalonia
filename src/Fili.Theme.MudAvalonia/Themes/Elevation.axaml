@@ -18,10 +18,10 @@
   from the page there is the surface colour itself (#373740 against #32333D), not the shadow -
   so elevation carries the hierarchy in light mode and contributes almost nothing in dark.
 
-  Fixing it would mean departing from MudBlazor: either lighter-than-black shadows in dark, or a
-  per-variant elevation overlay on the surface colour the way Material 3 does. Both are defensible
-  and neither is what MudBlazor does, so the fidelity choice stands - but it is a choice, not an
-  oversight, and "add a shadow" is not the fix for weak dark-mode hierarchy here.
+  Fixing it means departing from MudBlazor, so the default stands - a choice, not an oversight, and
+  "add a shadow" is not the fix for weak dark-mode hierarchy here. Material's own answer is
+  opt-in instead: `material-elevation-overlay` on a container swaps the surfaces inside onto the
+  FiliElevationOverlay{n} ladder below, which in Dark adds Material's white overlay to each level.
 
   Light and Dark hold the SAME ladder, character for character, and the duplication is the
   price of High Contrast: a dictionary's own entries are found before its ThemeDictionaries,
@@ -74,6 +74,35 @@
       <BoxShadows x:Key="FiliElevation23">0 11 14 -7 #33000000, 0 23 36 3 #24000000, 0 9 44 8 #1F000000</BoxShadows>
       <BoxShadows x:Key="FiliElevation24">0 11 15 -7 #33000000, 0 24 38 3 #24000000, 0 9 46 8 #1F000000</BoxShadows>
       <BoxShadows x:Key="FiliElevation25">0 5 5 -3 #0F000000, 0 8 10 1 #0B000000, 0 3 14 2 #09000000</BoxShadows>
+
+      <!-- material-elevation-overlay: Material overlays dark surfaces only, and high contrast rings rather
+           than shades, so outside Dark these are the ladder above. -->
+      <BoxShadows x:Key="FiliElevationOverlay0">none</BoxShadows>
+      <BoxShadows x:Key="FiliElevationOverlay1">0 2 1 -1 #33000000, 0 1 1 0 #24000000, 0 1 3 0 #1F000000</BoxShadows>
+      <BoxShadows x:Key="FiliElevationOverlay2">0 3 1 -2 #33000000, 0 2 2 0 #24000000, 0 1 5 0 #1F000000</BoxShadows>
+      <BoxShadows x:Key="FiliElevationOverlay3">0 3 3 -2 #33000000, 0 3 4 0 #24000000, 0 1 8 0 #1F000000</BoxShadows>
+      <BoxShadows x:Key="FiliElevationOverlay4">0 2 4 -1 #33000000, 0 4 5 0 #24000000, 0 1 10 0 #1F000000</BoxShadows>
+      <BoxShadows x:Key="FiliElevationOverlay5">0 3 5 -1 #33000000, 0 5 8 0 #24000000, 0 1 14 0 #1F000000</BoxShadows>
+      <BoxShadows x:Key="FiliElevationOverlay6">0 3 5 -1 #33000000, 0 6 10 0 #24000000, 0 1 18 0 #1F000000</BoxShadows>
+      <BoxShadows x:Key="FiliElevationOverlay7">0 4 5 -2 #33000000, 0 7 10 1 #24000000, 0 2 16 1 #1F000000</BoxShadows>
+      <BoxShadows x:Key="FiliElevationOverlay8">0 5 5 -3 #33000000, 0 8 10 1 #24000000, 0 3 14 2 #1F000000</BoxShadows>
+      <BoxShadows x:Key="FiliElevationOverlay9">0 5 6 -3 #33000000, 0 9 12 1 #24000000, 0 3 16 2 #1F000000</BoxShadows>
+      <BoxShadows x:Key="FiliElevationOverlay10">0 6 6 -3 #33000000, 0 10 14 1 #24000000, 0 4 18 3 #1F000000</BoxShadows>
+      <BoxShadows x:Key="FiliElevationOverlay11">0 6 7 -4 #33000000, 0 11 15 1 #24000000, 0 4 20 3 #1F000000</BoxShadows>
+      <BoxShadows x:Key="FiliElevationOverlay12">0 7 8 -4 #33000000, 0 12 17 2 #24000000, 0 5 22 4 #1F000000</BoxShadows>
+      <BoxShadows x:Key="FiliElevationOverlay13">0 7 8 -4 #33000000, 0 13 19 2 #24000000, 0 5 24 4 #1F000000</BoxShadows>
+      <BoxShadows x:Key="FiliElevationOverlay14">0 7 9 -4 #33000000, 0 14 21 2 #24000000, 0 5 26 4 #1F000000</BoxShadows>
+      <BoxShadows x:Key="FiliElevationOverlay15">0 8 9 -5 #33000000, 0 15 22 2 #24000000, 0 6 28 5 #1F000000</BoxShadows>
+      <BoxShadows x:Key="FiliElevationOverlay16">0 8 10 -5 #33000000, 0 16 24 2 #24000000, 0 6 30 5 #1F000000</BoxShadows>
+      <BoxShadows x:Key="FiliElevationOverlay17">0 8 11 -5 #33000000, 0 17 26 2 #24000000, 0 6 32 5 #1F000000</BoxShadows>
+      <BoxShadows x:Key="FiliElevationOverlay18">0 9 11 -5 #33000000, 0 18 28 2 #24000000, 0 7 34 6 #1F000000</BoxShadows>
+      <BoxShadows x:Key="FiliElevationOverlay19">0 9 12 -6 #33000000, 0 19 29 2 #24000000, 0 7 36 6 #1F000000</BoxShadows>
+      <BoxShadows x:Key="FiliElevationOverlay20">0 10 13 -6 #33000000, 0 20 31 3 #24000000, 0 8 38 7 #1F000000</BoxShadows>
+      <BoxShadows x:Key="FiliElevationOverlay21">0 10 13 -6 #33000000, 0 21 33 3 #24000000, 0 8 40 7 #1F000000</BoxShadows>
+      <BoxShadows x:Key="FiliElevationOverlay22">0 10 14 -6 #33000000, 0 22 35 3 #24000000, 0 8 42 7 #1F000000</BoxShadows>
+      <BoxShadows x:Key="FiliElevationOverlay23">0 11 14 -7 #33000000, 0 23 36 3 #24000000, 0 9 44 8 #1F000000</BoxShadows>
+      <BoxShadows x:Key="FiliElevationOverlay24">0 11 15 -7 #33000000, 0 24 38 3 #24000000, 0 9 46 8 #1F000000</BoxShadows>
+      <BoxShadows x:Key="FiliElevationOverlay25">0 5 5 -3 #0F000000, 0 8 10 1 #0B000000, 0 3 14 2 #09000000</BoxShadows>
     </ResourceDictionary>
 
     <ResourceDictionary x:Key="Dark">
@@ -103,6 +132,36 @@
       <BoxShadows x:Key="FiliElevation23">0 11 14 -7 #33000000, 0 23 36 3 #24000000, 0 9 44 8 #1F000000</BoxShadows>
       <BoxShadows x:Key="FiliElevation24">0 11 15 -7 #33000000, 0 24 38 3 #24000000, 0 9 46 8 #1F000000</BoxShadows>
       <BoxShadows x:Key="FiliElevation25">0 5 5 -3 #0F000000, 0 8 10 1 #0B000000, 0 3 14 2 #09000000</BoxShadows>
+
+      <!-- material-elevation-overlay: each level's shadow and Material's dark-theme overlay, white at
+           4.5 ln(level + 1) + 2 percent, as an inset shadow that fills the surface under its content.
+           None at 0, and none at MudBlazor's 25, a softer shadow rather than a higher surface. -->
+      <BoxShadows x:Key="FiliElevationOverlay0">none</BoxShadows>
+      <BoxShadows x:Key="FiliElevationOverlay1">0 2 1 -1 #33000000, 0 1 1 0 #24000000, 0 1 3 0 #1F000000, inset 0 0 0 10000 #0DFFFFFF</BoxShadows>
+      <BoxShadows x:Key="FiliElevationOverlay2">0 3 1 -2 #33000000, 0 2 2 0 #24000000, 0 1 5 0 #1F000000, inset 0 0 0 10000 #12FFFFFF</BoxShadows>
+      <BoxShadows x:Key="FiliElevationOverlay3">0 3 3 -2 #33000000, 0 3 4 0 #24000000, 0 1 8 0 #1F000000, inset 0 0 0 10000 #15FFFFFF</BoxShadows>
+      <BoxShadows x:Key="FiliElevationOverlay4">0 2 4 -1 #33000000, 0 4 5 0 #24000000, 0 1 10 0 #1F000000, inset 0 0 0 10000 #18FFFFFF</BoxShadows>
+      <BoxShadows x:Key="FiliElevationOverlay5">0 3 5 -1 #33000000, 0 5 8 0 #24000000, 0 1 14 0 #1F000000, inset 0 0 0 10000 #1AFFFFFF</BoxShadows>
+      <BoxShadows x:Key="FiliElevationOverlay6">0 3 5 -1 #33000000, 0 6 10 0 #24000000, 0 1 18 0 #1F000000, inset 0 0 0 10000 #1BFFFFFF</BoxShadows>
+      <BoxShadows x:Key="FiliElevationOverlay7">0 4 5 -2 #33000000, 0 7 10 1 #24000000, 0 2 16 1 #1F000000, inset 0 0 0 10000 #1DFFFFFF</BoxShadows>
+      <BoxShadows x:Key="FiliElevationOverlay8">0 5 5 -3 #33000000, 0 8 10 1 #24000000, 0 3 14 2 #1F000000, inset 0 0 0 10000 #1EFFFFFF</BoxShadows>
+      <BoxShadows x:Key="FiliElevationOverlay9">0 5 6 -3 #33000000, 0 9 12 1 #24000000, 0 3 16 2 #1F000000, inset 0 0 0 10000 #20FFFFFF</BoxShadows>
+      <BoxShadows x:Key="FiliElevationOverlay10">0 6 6 -3 #33000000, 0 10 14 1 #24000000, 0 4 18 3 #1F000000, inset 0 0 0 10000 #21FFFFFF</BoxShadows>
+      <BoxShadows x:Key="FiliElevationOverlay11">0 6 7 -4 #33000000, 0 11 15 1 #24000000, 0 4 20 3 #1F000000, inset 0 0 0 10000 #22FFFFFF</BoxShadows>
+      <BoxShadows x:Key="FiliElevationOverlay12">0 7 8 -4 #33000000, 0 12 17 2 #24000000, 0 5 22 4 #1F000000, inset 0 0 0 10000 #23FFFFFF</BoxShadows>
+      <BoxShadows x:Key="FiliElevationOverlay13">0 7 8 -4 #33000000, 0 13 19 2 #24000000, 0 5 24 4 #1F000000, inset 0 0 0 10000 #23FFFFFF</BoxShadows>
+      <BoxShadows x:Key="FiliElevationOverlay14">0 7 9 -4 #33000000, 0 14 21 2 #24000000, 0 5 26 4 #1F000000, inset 0 0 0 10000 #24FFFFFF</BoxShadows>
+      <BoxShadows x:Key="FiliElevationOverlay15">0 8 9 -5 #33000000, 0 15 22 2 #24000000, 0 6 28 5 #1F000000, inset 0 0 0 10000 #25FFFFFF</BoxShadows>
+      <BoxShadows x:Key="FiliElevationOverlay16">0 8 10 -5 #33000000, 0 16 24 2 #24000000, 0 6 30 5 #1F000000, inset 0 0 0 10000 #26FFFFFF</BoxShadows>
+      <BoxShadows x:Key="FiliElevationOverlay17">0 8 11 -5 #33000000, 0 17 26 2 #24000000, 0 6 32 5 #1F000000, inset 0 0 0 10000 #26FFFFFF</BoxShadows>
+      <BoxShadows x:Key="FiliElevationOverlay18">0 9 11 -5 #33000000, 0 18 28 2 #24000000, 0 7 34 6 #1F000000, inset 0 0 0 10000 #27FFFFFF</BoxShadows>
+      <BoxShadows x:Key="FiliElevationOverlay19">0 9 12 -6 #33000000, 0 19 29 2 #24000000, 0 7 36 6 #1F000000, inset 0 0 0 10000 #27FFFFFF</BoxShadows>
+      <BoxShadows x:Key="FiliElevationOverlay20">0 10 13 -6 #33000000, 0 20 31 3 #24000000, 0 8 38 7 #1F000000, inset 0 0 0 10000 #28FFFFFF</BoxShadows>
+      <BoxShadows x:Key="FiliElevationOverlay21">0 10 13 -6 #33000000, 0 21 33 3 #24000000, 0 8 40 7 #1F000000, inset 0 0 0 10000 #29FFFFFF</BoxShadows>
+      <BoxShadows x:Key="FiliElevationOverlay22">0 10 14 -6 #33000000, 0 22 35 3 #24000000, 0 8 42 7 #1F000000, inset 0 0 0 10000 #29FFFFFF</BoxShadows>
+      <BoxShadows x:Key="FiliElevationOverlay23">0 11 14 -7 #33000000, 0 23 36 3 #24000000, 0 9 44 8 #1F000000, inset 0 0 0 10000 #2AFFFFFF</BoxShadows>
+      <BoxShadows x:Key="FiliElevationOverlay24">0 11 15 -7 #33000000, 0 24 38 3 #24000000, 0 9 46 8 #1F000000, inset 0 0 0 10000 #2AFFFFFF</BoxShadows>
+      <BoxShadows x:Key="FiliElevationOverlay25">0 5 5 -3 #0F000000, 0 8 10 1 #0B000000, 0 3 14 2 #09000000</BoxShadows>
     </ResourceDictionary>
 
     <ResourceDictionary x:Key="{x:Static theme:FiliThemeVariants.HighContrast}">
@@ -132,6 +191,35 @@
       <BoxShadows x:Key="FiliElevation23">0 0 0 1 #E8E8EE</BoxShadows>
       <BoxShadows x:Key="FiliElevation24">0 0 0 1 #E8E8EE</BoxShadows>
       <BoxShadows x:Key="FiliElevation25">0 0 0 1 #E8E8EE</BoxShadows>
+
+      <!-- material-elevation-overlay: Material overlays dark surfaces only, and high contrast rings rather
+           than shades, so outside Dark these are the ladder above. -->
+      <BoxShadows x:Key="FiliElevationOverlay0">none</BoxShadows>
+      <BoxShadows x:Key="FiliElevationOverlay1">0 0 0 1 #E8E8EE</BoxShadows>
+      <BoxShadows x:Key="FiliElevationOverlay2">0 0 0 1 #E8E8EE</BoxShadows>
+      <BoxShadows x:Key="FiliElevationOverlay3">0 0 0 1 #E8E8EE</BoxShadows>
+      <BoxShadows x:Key="FiliElevationOverlay4">0 0 0 1 #E8E8EE</BoxShadows>
+      <BoxShadows x:Key="FiliElevationOverlay5">0 0 0 1 #E8E8EE</BoxShadows>
+      <BoxShadows x:Key="FiliElevationOverlay6">0 0 0 1 #E8E8EE</BoxShadows>
+      <BoxShadows x:Key="FiliElevationOverlay7">0 0 0 1 #E8E8EE</BoxShadows>
+      <BoxShadows x:Key="FiliElevationOverlay8">0 0 0 1 #E8E8EE</BoxShadows>
+      <BoxShadows x:Key="FiliElevationOverlay9">0 0 0 1 #E8E8EE</BoxShadows>
+      <BoxShadows x:Key="FiliElevationOverlay10">0 0 0 1 #E8E8EE</BoxShadows>
+      <BoxShadows x:Key="FiliElevationOverlay11">0 0 0 1 #E8E8EE</BoxShadows>
+      <BoxShadows x:Key="FiliElevationOverlay12">0 0 0 1 #E8E8EE</BoxShadows>
+      <BoxShadows x:Key="FiliElevationOverlay13">0 0 0 1 #E8E8EE</BoxShadows>
+      <BoxShadows x:Key="FiliElevationOverlay14">0 0 0 1 #E8E8EE</BoxShadows>
+      <BoxShadows x:Key="FiliElevationOverlay15">0 0 0 1 #E8E8EE</BoxShadows>
+      <BoxShadows x:Key="FiliElevationOverlay16">0 0 0 1 #E8E8EE</BoxShadows>
+      <BoxShadows x:Key="FiliElevationOverlay17">0 0 0 1 #E8E8EE</BoxShadows>
+      <BoxShadows x:Key="FiliElevationOverlay18">0 0 0 1 #E8E8EE</BoxShadows>
+      <BoxShadows x:Key="FiliElevationOverlay19">0 0 0 1 #E8E8EE</BoxShadows>
+      <BoxShadows x:Key="FiliElevationOverlay20">0 0 0 1 #E8E8EE</BoxShadows>
+      <BoxShadows x:Key="FiliElevationOverlay21">0 0 0 1 #E8E8EE</BoxShadows>
+      <BoxShadows x:Key="FiliElevationOverlay22">0 0 0 1 #E8E8EE</BoxShadows>
+      <BoxShadows x:Key="FiliElevationOverlay23">0 0 0 1 #E8E8EE</BoxShadows>
+      <BoxShadows x:Key="FiliElevationOverlay24">0 0 0 1 #E8E8EE</BoxShadows>
+      <BoxShadows x:Key="FiliElevationOverlay25">0 0 0 1 #E8E8EE</BoxShadows>
     </ResourceDictionary>
 
   </ResourceDictionary.ThemeDictionaries>

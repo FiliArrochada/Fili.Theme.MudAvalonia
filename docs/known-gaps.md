@@ -91,5 +91,9 @@ And the things that are not controls:
   line colour gets that colour on its borders and this one on its rings.
 - **Elevation reads faintly in dark mode.** Material's shadows are black at low alpha, which is
   nearly invisible on a dark ground; MudBlazor has the same problem and this theme reproduces it
-  rather than inventing a lighter shadow. Use `FiliSurfaceBrush` against `FiliBackgroundGrayBrush`
-  to separate surfaces in dark, not elevation alone.
+  by default. `material-elevation-overlay` on a window or container opts into Material's own
+  answer, which MudBlazor does not offer: each raised surface is lightened by its level, so height
+  reads as lightness. It reaches surfaces in the surface colour - papers, cards, panels, grids,
+  menus, selects and flyouts - not tab bars, whose shadow sits outside the bar, nor app bars,
+  buttons or badges, which are coloured. A shadow an app repaints needs its `FiliElevationOverlay`
+  level repainted too.
