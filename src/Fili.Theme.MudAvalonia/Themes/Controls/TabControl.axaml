@@ -66,12 +66,19 @@
             <Border x:Name="PART_StateLayer" Background="Transparent" />
 
             <ContentPresenter x:Name="PART_ContentPresenter"
-                              Content="{TemplateBinding Header}"
+                              theme:TextTransform.Case="{DynamicResource FiliButtonTextTransform}"
                               ContentTemplate="{TemplateBinding HeaderTemplate}"
                               Foreground="{TemplateBinding Foreground}"
                               Padding="{TemplateBinding Padding}"
                               HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
-                              VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" />
+                              VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}">
+              <ContentPresenter.Content>
+                <MultiBinding Converter="{x:Static theme:TextTransform.Converter}">
+                  <TemplateBinding Property="Header" />
+                  <Binding Path="(theme:TextTransform.Case)" RelativeSource="{RelativeSource Self}" />
+                </MultiBinding>
+              </ContentPresenter.Content>
+            </ContentPresenter>
 
             <!-- Indicator. Present always, revealed on selection, so the header does not resize. -->
             <Border x:Name="PART_Indicator"

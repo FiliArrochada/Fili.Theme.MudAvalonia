@@ -132,7 +132,7 @@ base became a fork of Simple that this repo owns, the hazard went with it: a `Te
 `Variant.Outlined`, `Variant.Text` and `Variant.Filled` — API familiarity is the point of this
 package, so they are not namespaced to `mud-primary` or hidden behind an attached property.
 
-**All 148 of them, which is the list to grep an app against before adopting:**
+**All 149 of them, which is the list to grep an app against before adopting:**
 
 | | |
 |---|---|
@@ -142,7 +142,7 @@ package, so they are not namespaced to `mud-primary` or hidden behind an attache
 | Shape (`Variant`) | `text`, `filled`, `outlined`, `rounded`, `flat` |
 | Size (`Size`) | `small`, `medium`, `large`, `dense` |
 | Placement | `inset`, `middle`, `vertical`, `light`, `underline`, `no-underline`, `border`, `centered`, `hide-slider` |
-| Component | `icon`, `chip`, `fab`, `extended`, `alert`, `avatar`, `badge`, `card`, `skeleton`, `circle`, `rectangle`, `counter`, `circular`, `nav`, `toolbar`, `normal` |
+| Component | `icon`, `chip`, `fab`, `extended`, `alert`, `avatar`, `badge`, `card`, `skeleton`, `circle`, `rectangle`, `counter`, `circular`, `nav`, `toolbar`, `normal`, `expansion-panels` |
 | Card parts | `card-header`, `card-header-avatar`, `card-header-content`, `card-header-actions`, `card-media`, `card-content`, `card-actions` |
 | Badge (`Origin`, `Dot`, `Bordered`, `Overlap`) | `top-left`, `top-center`, `center-left`, `center-center`, `center-right`, `bottom-left`, `bottom-center`, `bottom-right`, `dot`, `bordered`, `overlap` |
 | Behaviour | `arrow`, `dense-items`, `helper-on-focus`, `hide-close`, `hide-icon`, `hover`, `multi-selection`, `no-animation`, `no-gutters`, `required`, `shrink-label`, `value-label`, `striped`, `wave` |
@@ -171,6 +171,17 @@ colour, which is two setters and a deletion. Grep for `Classes="` before adoptin
 
 **An unclassed `<Button>` is the text button**, because `MudButton.Variant` defaults to
 `Variant.Text`. The classes opt *up* from flat rather than opting in to being themed.
+
+**A button's label is uppercase**, as MudBlazor's `Typography.Button.TextTransform` makes every
+MudButton, MudFab label and tab: `Content="Save"` reads SAVE, on a button, a split or drop-down
+button, a toggle item, an extended FAB and a tab. A chip, a link and a checkbox keep their case,
+as in MudBlazor. Only a string is transformed; content that is already a control is yours. To keep
+labels as written, everywhere or in one region, set the switch MudBlazor's `TextTransform = "none"`
+is:
+
+```xml
+<x:String x:Key="FiliButtonTextTransform">none</x:String>
+```
 
 The raised variants step elevation 2 → 4 → 8 across rest, hover and press, and drop to 0 when
 disabled. That step is the thing Fluent cannot express at all, because `Button` has no `BoxShadow`
@@ -370,8 +381,8 @@ publish to nuget.org and its one-time setup. [Versions](docs/versions.md) is the
 ## Known gaps
 
 46 of the 95 templated control types are hand-written; the other 49 wear forked Simple
-templates repaletted onto these tokens, each classified with a reason. There is no ripple, no
-uppercase button text and no date or time picker restyle. [Known gaps](docs/known-gaps.md)
+templates repaletted onto these tokens, each classified with a reason. There is no ripple and no
+date or time picker restyle. [Known gaps](docs/known-gaps.md)
 has the full list and the reason for each.
 
 ## Where the light palette's colours come from

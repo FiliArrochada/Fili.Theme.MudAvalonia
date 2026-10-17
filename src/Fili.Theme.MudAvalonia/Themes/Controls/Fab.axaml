@@ -33,7 +33,8 @@
   primitive, as on every button.
 -->
 <ResourceDictionary xmlns="https://github.com/avaloniaui"
-                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:theme="using:Fili.Theme.MudAvalonia">
 
   <ControlTheme x:Key="FiliFab" TargetType="Button">
     <Setter Property="Background" Value="{DynamicResource FiliActionDefaultHoverBrush}" />
@@ -67,12 +68,19 @@
                 CornerRadius="{TemplateBinding CornerRadius}"
                 BoxShadow="{DynamicResource FiliElevation6}">
           <ContentPresenter x:Name="PART_ContentPresenter"
-                            Content="{TemplateBinding Content}"
+                            theme:TextTransform.Case="{DynamicResource FiliButtonTextTransform}"
                             ContentTemplate="{TemplateBinding ContentTemplate}"
                             Foreground="{TemplateBinding Foreground}"
                             Padding="{TemplateBinding Padding}"
                             HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
-                            VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" />
+                            VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}">
+            <ContentPresenter.Content>
+              <MultiBinding Converter="{x:Static theme:TextTransform.Converter}">
+                <TemplateBinding Property="Content" />
+                <Binding Path="(theme:TextTransform.Case)" RelativeSource="{RelativeSource Self}" />
+              </MultiBinding>
+            </ContentPresenter.Content>
+          </ContentPresenter>
         </Border>
       </ControlTemplate>
     </Setter>

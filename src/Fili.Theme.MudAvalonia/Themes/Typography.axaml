@@ -69,6 +69,10 @@
   <sys:Double x:Key="FiliButtonFontSize">14</sys:Double>
   <sys:Double x:Key="FiliButtonLineHeight">24</sys:Double>
   <sys:Double x:Key="FiliButtonLetterSpacing">0.4</sys:Double>
+  <!-- ButtonTypography.TextTransform, which .mud-button, .mud-fab and .mud-tab apply. CSS's words:
+       none, uppercase, lowercase or capitalize. An app that sets it to none keeps its labels as
+       written, as MudBlazor's TextTransform = "none" does. TextTransform.cs applies it. -->
+  <sys:String x:Key="FiliButtonTextTransform">uppercase</sys:String>
 
   <sys:Double x:Key="FiliCaptionFontSize">12</sys:Double>
   <sys:Double x:Key="FiliCaptionLineHeight">20</sys:Double>

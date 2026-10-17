@@ -260,7 +260,9 @@ Corner radii, border thickness, the 4px spacing scale and the layout sizes.
 
 ## Typography
 
-The font family and MudBlazor's type ramp: a size, line height and letter spacing per style.
+The font family and MudBlazor's type ramp: a size, line height and letter spacing per style, and
+the button label's case, a string in CSS's words (`uppercase` by default, `none` to keep labels as
+written).
 
 - `FiliBody1FontSize`
 - `FiliBody1LetterSpacing`
@@ -271,6 +273,7 @@ The font family and MudBlazor's type ramp: a size, line height and letter spacin
 - `FiliButtonFontSize`
 - `FiliButtonLetterSpacing`
 - `FiliButtonLineHeight`
+- `FiliButtonTextTransform`
 - `FiliCaptionFontSize`
 - `FiliCaptionLetterSpacing`
 - `FiliCaptionLineHeight`

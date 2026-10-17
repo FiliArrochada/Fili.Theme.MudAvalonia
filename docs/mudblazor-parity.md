@@ -6,7 +6,7 @@ where the two differ. For side-by-side markup, see [Razor and AXAML](razor-vs-ax
 The rule behind every row: **a class only ever names a MudBlazor variant.** Every control the
 theme templates is keyed to its type, so an unclassed control is already the MudBlazor default.
 Class names are MudBlazor's own words (`primary`, `outlined`, `small`), deliberately not
-namespaced. `ClassVocabularyTests` pins the full list of 148. Two are not MudBlazor's, and their
+namespaced. `ClassVocabularyTests` pins the full list of 149. Two are not MudBlazor's, and their
 names say so: `material-fixed-tabs`, Material's fixed tabs, and `material-elevation-overlay`,
 Material's dark-theme elevation overlay. MudBlazor offers neither.
 
@@ -71,7 +71,7 @@ Variant, colour and size are one class each and combine freely:
 | `FullWidth` | `HorizontalAlignment="Stretch"` | ≈ |
 | `StartIcon` / `EndIcon` | an icon in `Content` with `start-icon` / `end-icon` | ✅ 20px (18 small, 22 large), 4px out and 8px from the label (2px out when small) |
 | ripple | — | ❌ no Avalonia primitive; the state tint is its static half |
-| uppercase label | — | ❌ Avalonia has no text-transform |
+| uppercase label (`Typography.Button.TextTransform`) | the same; `FiliButtonTextTransform` is the switch | ✅ a string label is drawn uppercase, and `none`, `lowercase` or `capitalize` in the key change it as CSS would. ≈ content that is already a control keeps its own case, where CSS reaches every piece of text inside the button |
 | `IconColor`, `IconSize`, `IconClass` | the icon's own `Foreground`, `Width` / `Height`, `Classes` | ≈ ordinary Avalonia properties |
 | `Href`, `Target` | — | ≈ no look of their own; a link is `HyperlinkButton` |
 
@@ -142,7 +142,8 @@ Put a `PathIcon` in `Content`: `<Button Classes="icon primary"><PathIcon Data="�
 | `IconSize`, `IconColor` | the icon's own `Width`, `Height`, `Foreground` | ≈ ordinary Avalonia properties |
 | `DropShadow="false"` | `flat` | ✅ |
 | `Disabled` | `IsEnabled="False"` | ✅ action-disabled on action-disabled-background, flat; outlined and text keep no ground |
-| ripple, uppercase label | — | ❌ as on every button |
+| uppercase label | the same | ✅ as on every button: a string `Content` |
+| ripple | — | ❌ as on every button |
 
 ### MudAvatar → `Border.avatar`
 
@@ -192,7 +193,7 @@ Put initials, a `PathIcon` or an `Image` inside: `<Border Classes="avatar primar
 | `Typo.subtitle1` / `subtitle2` | `subtitle1` / `subtitle2` | ✅ |
 | `Typo.body1` / `body2` | `body1` / `body2` | ✅ body1 is also the default text |
 | `Typo.caption` / `overline` | `caption` / `overline` | ✅ |
-| `Typo.button` | `button` | ✅ 14px, 500, a 24px line, 0.4px tracking ≈ not uppercase: Avalonia has no text-transform |
+| `Typo.button` | `button` | ✅ 14px, 500, a 24px line, 0.4px tracking ≈ not uppercase: a `TextBlock`'s own `Text` cannot be transformed by a style, so write it in capitals |
 | `Color.Primary` … `Color.Dark` | `primary` `secondary` `tertiary` `info` `success` `warning` `error` `dark` | ✅ the palette colour; beats a type style's own colour |
 | `mud-text-secondary` (grey) | `Foreground="{DynamicResource FiliTextSecondaryBrush}"` | ≈ a utility class in MudBlazor, not a `Color` |
 | `Align`, `GutterBottom`, `Inline` | `TextAlignment`, `Margin` | ≈ ordinary Avalonia properties |
@@ -400,6 +401,7 @@ Put initials, a `PathIcon` or an `Image` inside: `<Border Classes="avatar primar
 | `Elevation` | `elevation0` … `elevation25` | ✅ on the bar, outside `rounded`'s clip |
 | `SliderColor` | `slider-primary` … `slider-dark` | ✅ the indicator alone, over any bar colour |
 | sliding indicator, `SliderAnimation` | the indicator slides | ✅ .3s, cubic-bezier(.64,.09,.08,1), the width jumping ≈ no switch to turn it off |
+| uppercase tab text (`.mud-tab`) | the same | ✅ a string `Header` is uppercase; `FiliButtonTextTransform` is the switch, as for buttons |
 | `Disabled` on the tabs | `IsEnabled="False"` | ✅ text-disabled |
 | `MudTabPanel.Icon`, `IconColor` | an icon in the `Header` | ≈ no 8px gap from the theme |
 | `BadgeData`, `BadgeDot`, `BadgeColor`, `BadgeMax` | a `HeaderedContentControl.badge` as the `Header` | ≈ |
@@ -435,13 +437,17 @@ Put initials, a `PathIcon` or an `Image` inside: `<Border Classes="avatar primar
 
 | MudBlazor | Here | |
 |---|---|---|
+| `MudExpansionPanels`, the group | `expansion-panels` on the `StackPanel` that holds the Expanders | ✅ one shape: the group's radius on the first panel's top and the last one's bottom, square between |
 | panel on a surface at elevation 1 | the same | ✅ |
 | 15px header | the same | ✅ `.9375rem`, sized on its own |
 | `Elevation` (default 1) | no class, or `elevation0` … `elevation25` | ✅ on the panel; `elevation0` keeps the surface |
 | `Square` | `square` | ✅ no radius |
 | `Dense` | `dense` | ✅ the content loses its 16px top and bottom |
 | `Gutters` (default true) | `no-gutters` for false | ✅ the header and the content lose their 24px sides |
-| `Outlined` (default true), an expanded panel's 16px margin | — | ❌ rules and margins between stacked panels: an `Expander` has no group |
+| `Outlined` (default true) | in a group, on | ✅ a 1px lines-default rule under each panel but the last, and under none that is expanded or comes before one. ❌ `Outlined="false"` has no class: a group always rules its panels |
+| an expanded panel | in a group | ✅ 16px from its neighbours (none above the first or below the last) over .3s, every corner rounded; the panel before it takes the bottom corners and the one after it the top |
+| `Square` on the group | `square` on the group | ✅ no radius on any panel |
+| `MultiExpansion` | — | ≈ panels open independently, as `MultiExpansion="true"` does; closing the others is the app's |
 | `Disabled` | `IsEnabled="False"` | ✅ text-disabled header, action-disabled chevron |
 | `HideIcon` | `hide-icon` | ✅ no chevron |
 | `Icon` | `FiliExpandMoreGeometry` in the panel's `Resources` | ✅ |
@@ -494,7 +500,8 @@ Put initials, a `PathIcon` or an `Image` inside: `<Border Classes="avatar primar
 | MudBlazor | Here | |
 |---|---|---|
 | `MudTooltip` | `ToolTip.Tip` | ✅ a solid `gray-darker` chip in light, dark and high contrast, 12px at weight 500, 4px 8px; ≈ it wraps at 320px, where MudBlazor's never wraps |
-| `Placement`, `Delay`, `Duration` | `ToolTip.Placement`, `ToolTip.ShowDelay` | ≈ |
+| `Placement`, `Delay` | `ToolTip.Placement`, `ToolTip.ShowDelay` | ≈ |
+| `Duration` (251ms) | the same | ✅ the tooltip fades in as every popup does (see MudPopover) |
 | `Color` (default `Default`) | a `ToolTip` as the `Tip`, with `primary` … `dark` | ✅ `.mud-theme-{color}`: the colour and its contrast text. `ToolTip.Tip` uses a `ToolTip` as it is, so its classes survive |
 | `Arrow` | `arrow` on that `ToolTip` | ✅ a 6px triangle in the chip's colour on the side facing the target, for `Placement` `Top`, `Bottom`, `Left` and `Right`; ≈ none for `Pointer`, Avalonia's default and no MudBlazor placement; the offset from the target is `ToolTip.VerticalOffset`'s |
 | `ISnackbar.Add(msg, Severity.X)` | `WindowNotificationManager.Show(…)` with `NotificationType.X` | ✅ a filled alert at elevation 6, 288 to 500px wide, 6px 16px |
@@ -622,7 +629,8 @@ the app references it; this package does not depend on it.
 | `Elevation`, `Square`, `Paper="false"`, `DropShadow="false"` | — | ❌ a presenter takes no elevation or shape class |
 | `AnchorOrigin`, `TransformOrigin` | `Placement` | ≈ |
 | `MaxHeight` | `MaxHeight` | ≈ |
-| `RelativeWidth`, `Duration`, `Delay` | — | ❌ a popup opens without a transition, and its width relative to the anchor is the app's to bind |
+| the opening fade, `Duration` (251ms), `Delay` (0) | the same, on every popup | ✅ opacity 0 to 1 over 251ms at CSS's `ease`, closing at once; a select's list, a menu, an autocomplete's list, a flyout and a tooltip alike. ≈ a dense MudMenu opens without it, and here fades too; ❌ the two are not settable per popup |
+| `RelativeWidth` | — | ❌ its width relative to the anchor is the app's to bind |
 
 ### MudOverlay
 
@@ -725,6 +733,7 @@ Light and dark are MudBlazor's `Palette.cs` and `PaletteDark.cs`; high contrast 
 | MudBlazor | Here | |
 |---|---|---|
 | `Typography.cs` | `Fili{Style}FontSize`, `…LineHeight`, `…LetterSpacing` per style | ✅ line height and letter spacing converted to absolute pixels |
+| `Typography.Button.TextTransform` (`uppercase`) | `FiliButtonTextTransform` | ✅ CSS's words: `none`, `uppercase`, `lowercase`, `capitalize`, on a string label |
 | `Shadow.cs` | `FiliElevation0` … `FiliElevation25` | ✅ three layers each; a 1px ring in high contrast |
 | `DefaultBorderRadius` | `FiliCornerRadius` | ✅ 4px |
 | `AppbarHeight`, `DrawerWidthLeft`, `DrawerMiniWidthLeft` | `FiliAppbarHeight`, `FiliDrawerWidth`, `FiliDrawerMiniWidth` | ✅ |
@@ -743,4 +752,4 @@ Light and dark are MudBlazor's `Palette.cs` and `PaletteDark.cs`; high contrast 
 - **The `dark` colour barely shows in dark mode, and not at all in high contrast** when used as text
   or a line: `#27272F` on a `#32333D` page, and black on black. MudBlazor's dark theme has the same
   property; a filled dark button is still visible.
-- **No ripple and no uppercase button text.** Neither has an Avalonia primitive.
+- **No ripple.** Avalonia has no primitive for it.

@@ -28,7 +28,8 @@
   second is what opens the flyout - and reads Tag for its flyout-open and checked states.
 -->
 <ResourceDictionary xmlns="https://github.com/avaloniaui"
-                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:theme="using:Fili.Theme.MudAvalonia">
 
   <!--
     One half of the pair. Bare, because the SplitButton owns the geometry and every colour: the
@@ -54,12 +55,19 @@
                   CornerRadius="{TemplateBinding CornerRadius}"
                   Background="{TemplateBinding BorderBrush}" />
           <ContentPresenter x:Name="PART_ContentPresenter"
-                            Content="{TemplateBinding Content}"
+                            theme:TextTransform.Case="{DynamicResource FiliButtonTextTransform}"
                             ContentTemplate="{TemplateBinding ContentTemplate}"
                             Foreground="{TemplateBinding Foreground}"
                             Padding="{TemplateBinding Padding}"
                             HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
-                            VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" />
+                            VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}">
+            <ContentPresenter.Content>
+              <MultiBinding Converter="{x:Static theme:TextTransform.Converter}">
+                <TemplateBinding Property="Content" />
+                <Binding Path="(theme:TextTransform.Case)" RelativeSource="{RelativeSource Self}" />
+              </MultiBinding>
+            </ContentPresenter.Content>
+          </ContentPresenter>
         </Panel>
       </ControlTemplate>
     </Setter>
@@ -581,12 +589,19 @@
                     Background="Transparent" />
             <Grid x:Name="InnerGrid" ColumnDefinitions="*,Auto" Margin="{TemplateBinding Padding}">
               <ContentPresenter x:Name="PART_ContentPresenter"
+                                theme:TextTransform.Case="{DynamicResource FiliButtonTextTransform}"
                                 Grid.Column="0"
-                                Content="{TemplateBinding Content}"
                                 ContentTemplate="{TemplateBinding ContentTemplate}"
                                 Foreground="{TemplateBinding Foreground}"
                                 HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
-                                VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" />
+                                VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}">
+                <ContentPresenter.Content>
+                  <MultiBinding Converter="{x:Static theme:TextTransform.Converter}">
+                    <TemplateBinding Property="Content" />
+                    <Binding Path="(theme:TextTransform.Case)" RelativeSource="{RelativeSource Self}" />
+                  </MultiBinding>
+                </ContentPresenter.Content>
+              </ContentPresenter>
               <Path x:Name="DropDownGlyph"
                     Grid.Column="1"
                     Margin="4,0,0,0"

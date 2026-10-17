@@ -1009,6 +1009,25 @@
                        Text="Gutters off: neither the header nor the content keeps its 24px sides." />
           </Expander>
         </StackPanel>
+        <StackPanel Orientation="Horizontal" Spacing="24">
+          <StackPanel Classes="expansion-panels" Width="330">
+            <Expander Header="First panel">
+              <TextBlock Classes="body2" Text="Body" />
+            </Expander>
+            <Expander Header="Expanded in a group" IsExpanded="True">
+              <TextBlock Classes="body2" TextWrapping="Wrap"
+                         Text="16px from its neighbours and rounded all round; the panel above loses its rule." />
+            </Expander>
+            <Expander Header="Third panel">
+              <TextBlock Classes="body2" Text="Body" />
+            </Expander>
+            <Expander Header="Last panel">
+              <TextBlock Classes="body2" Text="Body" />
+            </Expander>
+          </StackPanel>
+          <TextBlock Classes="caption" TextWrapping="Wrap" Width="330" VerticalAlignment="Top"
+                     Text="expansion-panels on the StackPanel is MudExpansionPanels: one shape, a rule under each panel but the last, and the group's corners on its first and last." />
+        </StackPanel>
 
         <TextBlock Classes="overline" Text="Numeric field, autocomplete, validation" Margin="0,8,0,0" />
         <StackPanel Orientation="Horizontal" Spacing="24" VerticalAlignment="Top">

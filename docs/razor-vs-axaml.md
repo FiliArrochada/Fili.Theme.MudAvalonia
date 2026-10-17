@@ -422,7 +422,9 @@ it. [MudBlazor parity](mudblazor-parity.md) lists the keys. `LabelPlacement` is 
 <!-- <MudList T="string" SelectionMode="SelectionMode.MultiSelection" CheckBoxColor="Color.Primary"> -->
 <ListBox Classes="multi-selection primary" SelectionMode="Multiple, Toggle">…</ListBox>
 
-<Expander Header="Details">…</Expander>
+<StackPanel Classes="expansion-panels">
+  <Expander Header="Details">…</Expander>
+</StackPanel>
 ```
 
 **`SelectionMode.MultiSelection` takes two settings**, and both are needed: the class draws the

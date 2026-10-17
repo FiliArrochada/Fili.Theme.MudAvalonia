@@ -42,12 +42,19 @@
           <Border x:Name="PART_StateLayer" Background="Transparent" />
 
           <ContentPresenter x:Name="PART_ContentPresenter"
-                            Content="{TemplateBinding Content}"
+                            theme:TextTransform.Case="{DynamicResource FiliButtonTextTransform}"
                             ContentTemplate="{TemplateBinding ContentTemplate}"
                             Foreground="{TemplateBinding Foreground}"
                             Padding="{TemplateBinding Padding}"
                             HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
-                            VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" />
+                            VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}">
+            <ContentPresenter.Content>
+              <MultiBinding Converter="{x:Static theme:TextTransform.Converter}">
+                <TemplateBinding Property="Content" />
+                <Binding Path="(theme:TextTransform.Case)" RelativeSource="{RelativeSource Self}" />
+              </MultiBinding>
+            </ContentPresenter.Content>
+          </ContentPresenter>
 
           <Border x:Name="PART_Indicator"
                   Height="2"

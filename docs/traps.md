@@ -317,6 +317,13 @@ one.
   real time from there, a few pixels per run, and no headless call advances it on demand
   (`ForceRenderTimerTick` does not). Read where it will end with `GetBaseValue`, and the timing
   from its `Transitions`.
+- **A key-frame animation cannot be followed to its end frame by frame, either.** Sampled with a
+  tick every few milliseconds, a fade stalls part way - at 0.2 on a plain `Border` in a plain
+  `Window`, so the stall is the headless platform's, not this theme's - and a single tick after a
+  long sleep can be the first the animation sees, which it takes as its start. Each looks exactly
+  like a popup stuck part transparent, or invisible. Show that an animation runs by catching a
+  value part way, and pin where it ends and how long it takes by reading the `Animation` from the
+  styles, as `PopupFadeTests` does.
 - **Roboto's static instances use legacy name tables.** `Roboto-Light` reports family
   `Roboto Light`, not weight 300 of `Roboto`. Avalonia groups them correctly; assert family names
   with `StartsWith`, not `Equal`. And do not swap in the variable `Roboto[wdth,wght].ttf` —

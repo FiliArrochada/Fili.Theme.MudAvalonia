@@ -74,9 +74,9 @@ public class ClassVocabularyTests
         // Components that are a class on an existing control: MudIconButton, MudChip and MudFab
         // on a Button, MudAlert, MudAvatar, MudCard, MudSkeleton and MudToolBar on a Border, with
         // MudSkeleton's SkeletonType, MudProgressCircular on a ProgressBar, MudBadge on a
-        // HeaderedContentControl and MudNavMenu on a TreeView.
-        "alert", "avatar", "badge", "card", "chip", "circle", "circular", "counter", "fab",
-        "icon", "nav", "rectangle", "skeleton", "toolbar",
+        // HeaderedContentControl, MudNavMenu on a TreeView and MudExpansionPanels on a StackPanel.
+        "alert", "avatar", "badge", "card", "chip", "circle", "circular", "counter",
+        "expansion-panels", "fab", "icon", "nav", "rectangle", "skeleton", "toolbar",
 
         // MudSnackbar's Severity.Normal, on a notification card.
         "normal",

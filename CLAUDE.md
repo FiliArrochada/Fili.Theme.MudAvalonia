@@ -34,6 +34,8 @@ classes, `ControlTheme`s where a Material look cannot be faked without one, and 
   `TickPositionsConverter`, `BadgeContentConverter`, `StripedRowConverter` and `TextLengthConverter`
   in `Converters/`;
   `OptionalStyleInclude`, a `StyleInclude` that loads only when the app has the package;
+  `TextTransform`, a button label's case from `FiliButtonTextTransform`; `ExpansionPanels`, the
+  `:next-expanded` / `:previous-expanded` neighbours of an `expansion-panels` group;
   `SlidingIndicator`, the tabs' slide; `FieldClasses`, the text field's classes passed to the
   TextBox inside an AutoCompleteBox or NumericUpDown; `MenuIconGutter`, a menu's shared icon
   column; `StartAdornment`, a text field's `:start-adornment`; `TabBarScroll`, the tab bar's
@@ -177,6 +179,8 @@ One line each; [`docs/traps.md`](docs/traps.md) has the full account and the tes
 
 - Every test body runs inside `UiThread.RunAsync`; one that does not poisons the headless session.
 - Re-focusing a focused control does not revisit `:focus-visible`; use two controls.
+- A key-frame animation stalls when ticked frame by frame headless: catch a value part way to show
+  it runs, and read its end and timing from the `Animation` in the styles (`PopupFadeTests`).
 - Transitioned properties cannot be asserted synchronously; assert a non-transitioned property of
   the same state, or read an animation's start before the dispatcher runs and its end with
   `GetBaseValue`.

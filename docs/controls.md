@@ -22,6 +22,24 @@ MudButton's whole Variant × Color × Size matrix, one class for each parameter:
   `inherit`, or none for `Color.Default`.
 - **Size:** `small`, `large`, or none for `Size.Medium`.
 
+**The label is uppercase.** MudBlazor's `ButtonTypography.TextTransform` is `uppercase`, and
+`.mud-button`, `.mud-fab` and `.mud-tab` apply it, so `Content="Save"` reads SAVE on a button, a
+split or drop-down button, a toggle item, an extended FAB and a tab header. A chip, a link, a
+checkbox, a menu row and an expansion panel's header keep their case, as they do in MudBlazor.
+Avalonia has no text-transform, so the string itself is transformed on its way into the template's
+presenter; content that is already a control, a `TextBlock` or a panel, is left as you wrote it.
+An access key survives: `_Save` is SAVE with Alt+S. `FiliButtonTextTransform` is the switch, in
+CSS's words, as MudBlazor's typography setting is:
+
+```xml
+<Application.Resources>
+  <x:String x:Key="FiliButtonTextTransform">none</x:String>     labels as written, everywhere
+</Application.Resources>
+```
+
+`lowercase` and `capitalize` work too, and the key can go in any control's `Resources` to change
+one region.
+
 **A colour class is only a colour**, as `Color` is in MudBlazor: `primary` on its own is a primary
 *text* button, and the fill comes from `filled`. With no colour, a button is `text-primary` with a
 grey hover, which is MudBlazor's default and not Material's primary one.
@@ -332,8 +350,24 @@ Five places where the MudBlazor default is not the one you would guess:
   because `MudExpansionPanels` is a `MudPaper`. MudExpansionPanels' options are classes on the
   panel: the elevation classes (`elevation0` when it already sits on a card), `square`, `dense`
   (no padding above and below the content) and `no-gutters` (`Gutters="false"`: no 24px sides on
-  the header or the content). `Outlined`, a rule between stacked panels, is not here: it is a
-  relationship between panels in a group, and an Avalonia `Expander` stands alone.
+  the header or the content).
+- **`expansion-panels` on a `StackPanel` is MudExpansionPanels**, the group:
+
+  ```xml
+  <StackPanel Classes="expansion-panels">
+    <Expander Header="Details">…</Expander>
+    <Expander Header="Shipping" IsExpanded="True">…</Expander>
+    <Expander Header="Payment">…</Expander>
+  </StackPanel>
+  ```
+
+  The panels become one shape: the group's radius on the first panel's top corners and the last
+  one's bottom, a lines-default rule under each panel but the last (`Outlined`, on by default),
+  and an expanded panel moved 16px from its neighbours over .3s with every corner rounded. The
+  panel before it drops its rule and takes the bottom corners, the one after it the top ones.
+  `square` on the group squares every panel. Write the Expanders straight into a panel: the group
+  reads its children, and an `ItemsControl` wraps each item in a presenter of its own. Panels open
+  independently; closing the others when one opens, MudBlazor's default, is the app's.
 - **A `HyperlinkButton` is not underlined at rest.** `MudLink.Underline` defaults to
   `Underline.Hover`. `Classes="underline"` is always-on, `no-underline` is never.
 
@@ -753,6 +787,11 @@ for something XAML cannot express on its own:
   TextBox's own theme reads them two templates down from the outer control.
 - **`MenuIconGutter`** opens a menu row's icon column when another row in the same list has an
   icon, MudMenu's `:has(.mud-menu-item-icon)` rule. A selector cannot ask about siblings.
+- **`ExpansionPanels`** keeps `:next-expanded` and `:previous-expanded` on the panels of an
+  `expansion-panels` group, for the rule and corners MudBlazor gives the panels either side of an
+  expanded one. A selector cannot ask about siblings.
+- **`TextTransform`** draws a button's string label in `FiliButtonTextTransform`'s case. Avalonia
+  has no text-transform, and a binding cannot read a resource as a converter parameter.
 - **`StartAdornment`** marks a text field that has `InnerLeftContent` with `:start-adornment`,
   which floats its label, as MudInput's start adornment does. A selector cannot ask whether a
   property is null.
@@ -893,6 +932,12 @@ wrapping it, so one built in markup keeps its classes: a colour class is MudTool
   </ToolTip.Tip>
 </Button>
 ```
+
+**Every popup fades in**, as a MudPopover does: a select's list, a menu, an autocomplete's list,
+a flyout, a context menu and a tooltip go from opacity 0 to 1 over 251ms, `PopoverOptions.Duration`
+and MudTooltip's `Duration`, at CSS's default `ease`, and close at once. The fade is on the popup's
+host, which Avalonia builds every time a popup opens, so it runs on every open. A dense MudMenu
+opens without it; here a dense menu fades too, because the host cannot see the menu's class.
 
 Flyout templates carry an 8px outer margin because `BoxShadow` draws *outside* the border and a
 popup window is sized to its content — with no room to spill into, the shadow is clipped and the

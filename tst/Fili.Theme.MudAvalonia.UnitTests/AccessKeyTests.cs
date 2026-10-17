@@ -44,7 +44,9 @@ public class AccessKeyTests
 
     private static void AssertRecognised(Control control, string what)
     {
-        var text = control.GetVisualDescendants().OfType<AccessText>().FirstOrDefault(t => t.Text == "_Save" || t.Text == "_File" || t.Text == "_Open");
+        // A button's label is uppercase (TextTransformTests); the key is the same letter.
+        var text = control.GetVisualDescendants().OfType<AccessText>()
+            .FirstOrDefault(t => t.Text?.ToLowerInvariant() is "_save" or "_file" or "_open");
         Assert.True(text is not null, $"{what} draws its text without an AccessText, underscore and all.");
         Assert.False(string.IsNullOrEmpty(text!.AccessKey), $"{what} has no access key.");
     }

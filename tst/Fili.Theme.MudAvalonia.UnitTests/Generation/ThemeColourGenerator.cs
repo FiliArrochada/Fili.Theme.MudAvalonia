@@ -202,12 +202,19 @@ public static class ThemeColourGenerator
                     CornerRadius="{TemplateBinding CornerRadius}"
                     Background="Transparent" />
             <ContentPresenter x:Name="PART_ContentPresenter"
-                              Content="{TemplateBinding Content}"
+                              theme:TextTransform.Case="{DynamicResource FiliButtonTextTransform}"
                               ContentTemplate="{TemplateBinding ContentTemplate}"
                               Foreground="{TemplateBinding Foreground}"
                               Padding="{TemplateBinding Padding}"
                               HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
-                              VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" />
+                              VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}">
+              <ContentPresenter.Content>
+                <MultiBinding Converter="{x:Static theme:TextTransform.Converter}">
+                  <TemplateBinding Property="Content" />
+                  <Binding Path="(theme:TextTransform.Case)" RelativeSource="{RelativeSource Self}" />
+                </MultiBinding>
+              </ContentPresenter.Content>
+            </ContentPresenter>
           </Panel>
         </Border>
       </ControlTemplate>
@@ -275,7 +282,8 @@ public static class ThemeColourGenerator
   tint, and disabled beats everything.
 -->
 <ResourceDictionary xmlns="https://github.com/avaloniaui"
-                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:theme="using:Fili.Theme.MudAvalonia">
 
 
 """;

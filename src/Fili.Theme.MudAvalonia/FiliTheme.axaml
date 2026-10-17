@@ -73,6 +73,29 @@
   </Style>
 
   <!--
+    A popup fades in, as every MudPopover does - a select's list, a menu, an autocomplete's list, a
+    tooltip, a picker: _popover.scss takes `.mud-popover-open` from opacity 0 to 1 over
+    PopoverOptions.Duration, 251ms after a Delay of 0, at CSS's default `ease`. MudTooltip's
+    defaults are the same 251ms and 0. Closing is instant there too (`transition-duration: 0ms`).
+    On the host's presenter rather than the sheet: Avalonia builds a new host every time a popup
+    opens, so this one-shot animation runs on every open, while the sheet inside is made once and
+    kept. A dense MudMenu opens with no transition; a host cannot see the menu's class, so it fades.
+    The last frame is 1, the presenter's own opacity, so the fade ends where the popup rests.
+  -->
+  <Style Selector="PopupRoot /template/ ContentPresenter#PART_ContentPresenter, OverlayPopupHost /template/ ContentPresenter#PART_ContentPresenter">
+    <Style.Animations>
+      <Animation Duration="0:0:0.251" Easing="0.25,0.1,0.25,1">
+        <KeyFrame Cue="0%">
+          <Setter Property="Opacity" Value="0" />
+        </KeyFrame>
+        <KeyFrame Cue="100%">
+          <Setter Property="Opacity" Value="1" />
+        </KeyFrame>
+      </Animation>
+    </Style.Animations>
+  </Style>
+
+  <!--
     No focus rectangle. MudBlazor's _reset.scss removes the browser's outline, and every control
     here marks keyboard focus with its state layer instead (docs/controls.md, Keyboard focus). The
     forked AdornerLayer still drew Simple's dashed box round every focused control, on top of the
@@ -1143,6 +1166,69 @@
     <Setter Property="TextElement.Foreground" Value="{DynamicResource FiliDarkContrastTextBrush}" />
   </Style>
   <!-- END GENERATED -->
+
+  <!--
+    MudExpansionPanels: `expansion-panels` on the StackPanel that holds the Expanders. What the
+    group does between its panels, from _expansionpanel.scss, with Outlined on as it is by default:
+
+      .mud-expand-panel-border       a 1px lines-default rule under each panel
+      :first-child / :last-child     the group's radius on the top / bottom corners only; the
+                                     last loses its rule
+      .mud-panel-expanded            margin 16px 0 (none above the first, none below the last),
+                                     every corner rounded, no rule; margin over .3s
+                                     cubic-bezier(.25,.8,.5,1), after 100ms when it closes
+      .mud-panel-next-expanded       the panel before an expanded one: no rule, bottom corners
+      expanded + panel               the panel after one: top corners
+      .mud-expansion-panels-square   `square` on the group: no radius anywhere
+
+    Neighbours are ExpansionPanels.cs's pseudo-classes; first and last are :nth-child. The radius
+    is written as 4 where only two corners take it, as SplitButton.axaml writes its halves: this
+    theme has ONE radius. Elevation, Dense and Gutters stay on each Expander, as classes.
+    Order is load-bearing: of these, the later style wins, and `square` comes last.
+  -->
+  <Style Selector=".expansion-panels > Expander">
+    <Setter Property="theme:ExpansionPanels.Joins" Value="True" />
+    <Setter Property="CornerRadius" Value="0" />
+    <Setter Property="BorderThickness" Value="0,0,0,1" />
+    <Setter Property="BorderBrush" Value="{DynamicResource FiliLinesDefaultBrush}" />
+    <Setter Property="Transitions">
+      <Transitions>
+        <ThicknessTransition Property="Margin" Duration="0:0:0.3" Delay="0:0:0.1" Easing="0.25,0.8,0.5,1" />
+      </Transitions>
+    </Setter>
+  </Style>
+  <Style Selector=".expansion-panels > Expander:nth-child(1), .expansion-panels > Expander:previous-expanded">
+    <Setter Property="CornerRadius" Value="4,4,0,0" />
+  </Style>
+  <Style Selector=".expansion-panels > Expander:nth-last-child(1), .expansion-panels > Expander:next-expanded">
+    <Setter Property="CornerRadius" Value="0,0,4,4" />
+    <Setter Property="BorderThickness" Value="0" />
+  </Style>
+  <Style Selector=".expansion-panels > Expander:nth-child(1):nth-last-child(1), .expansion-panels > Expander:nth-child(1):next-expanded, .expansion-panels > Expander:previous-expanded:nth-last-child(1), .expansion-panels > Expander:previous-expanded:next-expanded">
+    <Setter Property="CornerRadius" Value="{DynamicResource FiliCornerRadius}" />
+  </Style>
+  <Style Selector=".expansion-panels > Expander:expanded">
+    <Setter Property="Transitions">
+      <Transitions>
+        <ThicknessTransition Property="Margin" Duration="0:0:0.3" Easing="0.25,0.8,0.5,1" />
+      </Transitions>
+    </Setter>
+    <Setter Property="Margin" Value="0,16" />
+    <Setter Property="CornerRadius" Value="{DynamicResource FiliCornerRadius}" />
+    <Setter Property="BorderThickness" Value="0" />
+  </Style>
+  <Style Selector=".expansion-panels > Expander:expanded:nth-child(1)">
+    <Setter Property="Margin" Value="0,0,0,16" />
+  </Style>
+  <Style Selector=".expansion-panels > Expander:expanded:nth-last-child(1)">
+    <Setter Property="Margin" Value="0,16,0,0" />
+  </Style>
+  <Style Selector=".expansion-panels > Expander:expanded:nth-child(1):nth-last-child(1)">
+    <Setter Property="Margin" Value="0" />
+  </Style>
+  <Style Selector=".expansion-panels.square > Expander">
+    <Setter Property="CornerRadius" Value="0" />
+  </Style>
 
   <!--
     MudTabs' Color, on a TabControl or TabStrip: the bar in the colour, the tabs and indicator in

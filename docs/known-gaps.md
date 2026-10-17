@@ -55,11 +55,12 @@ hits them:
   line down the grid: the DataGrid keeps its resize state internal, and showing the line would
   mean re-implementing its pointer handling. A selected row is tinted although MudDataGrid draws
   none - see [Data grid](controls.md#data-grid).
-- **MudExpansionPanels as a group.** Each `Expander` is one panel, with Elevation, Square, Dense
-  and Gutters as classes. What MudBlazor does between the panels of a group - the `Outlined` rule
-  under each (on by default), and the 16px an expanded one moves away from its neighbours - has
-  nothing to hang on: Avalonia has no expansion-panel group, and its selectors cannot see the
-  panel before an expanded one.
+- **What MudExpansionPanels does beyond its look.** `expansion-panels` on a `StackPanel` is the
+  group's shape - the rules, the corners, the 16px round an expanded panel - but not its
+  behaviour: `MultiExpansion="false"`, MudBlazor's default, closes the other panels when one
+  opens, and here they open independently. `Outlined="false"` has no class, so a group always
+  rules its panels. The panels must be the panel's own children: an `ItemsControl` wraps each in a
+  presenter, and the group cannot see them as neighbours.
 - **MudSlider's `TickMarkLabels` and MudProgressLinear's `Buffer`.** Both are data the Avalonia
   control has no property for - an array of strings, a second value - and the only way to pass
   it would be a public attached property, which this package does not add: its public API is
@@ -70,8 +71,11 @@ And the things that are not controls:
 - **No ripple.** Avalonia has no primitive for it; faking it means an animated, clipped ellipse
   driven from pointer position. Everything interactive carries the static half — a tinted state
   layer on hover, press and keyboard focus.
-- **No uppercase button text.** Avalonia has no text-transform; the tracking and weight are
-  applied, the casing is not.
+- **Uppercase reaches a string label only.** Avalonia has no text-transform, so a button's or
+  tab's string is drawn in `FiliButtonTextTransform`'s case on its way into the template. Content
+  that is already a control - a `TextBlock`, a panel with an icon and a label - keeps the case it
+  was written in, where CSS would reach every piece of text inside, and so does the `button` type
+  class on a `TextBlock`.
 - **No separate placeholder on a text field** — `PlaceholderText` is the floating label; see
   [Text fields](controls.md#text-fields).
 - **The `dark` colour barely shows as text or a line in dark mode, and not at all in high
