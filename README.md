@@ -116,6 +116,8 @@ Always `DynamicResource`, never `StaticResource` — see **The one rule** below.
 Every control this theme templates is keyed to its **type**, so it arrives themed with no markup
 change at all. A class only ever names a MudBlazor **variant** — `Button.primary`,
 `TextBox.filled`, `ProgressBar.large` — exactly as `Color.Primary` and `Variant.Filled` do there.
+The one exception is named for where it comes from, so it cannot be taken for MudBlazor's:
+`material-fixed-tabs` on a tab bar, Material's fixed tabs, which MudTabs does not offer.
 
 This was not always true. The package used to key every `ControlTheme` to a class, including a
 literal `fili` marker meaning "please theme this one", because it layered over `FluentTheme` and
@@ -129,7 +131,7 @@ base became a fork of Simple that this repo owns, the hazard went with it: a `Te
 `Variant.Outlined`, `Variant.Text` and `Variant.Filled` — API familiarity is the point of this
 package, so they are not namespaced to `mud-primary` or hidden behind an attached property.
 
-**All 146 of them, which is the list to grep an app against before adopting:**
+**All 147 of them, which is the list to grep an app against before adopting:**
 
 | | |
 |---|---|
@@ -145,6 +147,7 @@ package, so they are not namespaced to `mud-primary` or hidden behind an attache
 | Behaviour | `arrow`, `dense-items`, `helper-on-focus`, `hide-close`, `hide-icon`, `hover`, `multi-selection`, `no-animation`, `no-gutters`, `required`, `shrink-label`, `value-label`, `striped`, `wave` |
 | Label placement (`LabelPlacement`) | `label-start`, `label-top`, `label-bottom` |
 | Icons in content | `start-icon`, `end-icon` |
+| Material, not MudBlazor | `material-fixed-tabs` |
 | Tab indicator colour (`SliderColor`) | `slider-primary`, `slider-secondary`, `slider-tertiary`, `slider-info`, `slider-success`, `slider-warning`, `slider-error`, `slider-dark` |
 | Unchecked colour (`UncheckedColor`) | `unchecked-primary`, `unchecked-secondary`, `unchecked-tertiary`, `unchecked-info`, `unchecked-success`, `unchecked-warning`, `unchecked-error`, `unchecked-dark` |
 | Switch thumb icon colour (`ThumbIconColor`) | `thumb-primary`, `thumb-secondary`, `thumb-tertiary`, `thumb-info`, `thumb-success`, `thumb-warning`, `thumb-error`, `thumb-dark` |

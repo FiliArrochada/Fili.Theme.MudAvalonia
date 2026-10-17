@@ -64,6 +64,10 @@ public class ClassVocabularyTests
         "border", "centered", "hide-slider", "inset", "light", "middle", "no-underline", "underline",
         "vertical",
 
+        // Material's fixed tabs, which MudTabs does not offer, named for where they come from so
+        // that no one takes the class for MudBlazor's.
+        "material-fixed-tabs",
+
         // Components that are a class on an existing control: MudIconButton, MudChip and MudFab
         // on a Button, MudAlert, MudAvatar, MudCard, MudSkeleton and MudToolBar on a Border, with
         // MudSkeleton's SkeletonType, MudProgressCircular on a ProgressBar, MudBadge on a

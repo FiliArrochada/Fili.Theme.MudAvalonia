@@ -6,13 +6,15 @@ where the two differ. For side-by-side markup, see [Razor and AXAML](razor-vs-ax
 The rule behind every row: **a class only ever names a MudBlazor variant.** Every control the
 theme templates is keyed to its type, so an unclassed control is already the MudBlazor default.
 Class names are MudBlazor's own words (`primary`, `outlined`, `small`), deliberately not
-namespaced. `ClassVocabularyTests` pins the full list of 146.
+namespaced. `ClassVocabularyTests` pins the full list of 147. One is not MudBlazor's, and its name
+says so: `material-fixed-tabs`, Material's fixed tabs, which MudTabs does not offer.
 
 | Mark | Meaning |
 |---|---|
 | ✅ | Same values, transcribed from MudBlazor's source |
 | ≈ | Same look, reached differently, or close with a stated difference |
 | ❌ | Not available, with the reason |
+| ➕ | Material's own, beyond MudBlazor, under a `material-` name: no MudBlazor parameter to transcribe |
 
 **A MudBlazor icon parameter is a resource key.** Every glyph the theme draws is a
 `DynamicResource`, so the app sets the key in the control's `Resources` (or a parent's, for a
@@ -390,6 +392,7 @@ Put initials, a `PathIcon` or an `Image` inside: `<Border Classes="avatar primar
 | `Color` | a colour class on the `TabControl` or `TabStrip` | ✅ the bar in the colour; tabs and indicator in its contrast text; `{color}-lighten` on the active tab's hover |
 | `Border` / `Outlined` | `border` / `outlined` | ✅ a `lines-default` rule under the bar, or round it |
 | `Rounded` / `Centered` | `rounded` / `centered` | ✅ |
+| (none: Material's fixed tabs) | `material-fixed-tabs` | ➕ the tabs share the bar in equal parts, under `MinimumTabWidth`, and never scroll |
 | `HideSlider` | `hide-slider` | ✅ |
 | `Position` | `TabStripPlacement` on a `TabControl` | ✅ Top, Bottom, Left, Right: the bar docks there, `border` draws its rule on the content side, and the indicator follows |
 | `Elevation` | `elevation0` … `elevation25` | ✅ on the bar, outside `rounded`'s clip |

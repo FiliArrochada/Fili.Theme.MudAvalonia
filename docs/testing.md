@@ -10,7 +10,7 @@ those silent failures into red builds, because looking at the app cannot be reli
 
 | Project | What it does | Speed |
 |---|---|---|
-| `tst/Fili.Theme.MudAvalonia.UnitTests` | 865 tests on a headless Avalonia session. They resolve resources, template controls, move a real pointer over them, and read back the values the theme applied. Nothing is rendered. | seconds |
+| `tst/Fili.Theme.MudAvalonia.UnitTests` | 869 tests on a headless Avalonia session. They resolve resources, template controls, move a real pointer over them, and read back the values the theme applied. Nothing is rendered. | seconds |
 | `tst/Fili.Theme.MudAvalonia.NoDataGridTests` | 3 tests. The theme in an app that does not reference `Avalonia.Controls.DataGrid`: the assembly is really absent, `FiliTheme.axaml` loads and themes a button, and no DataGrid rule was loaded. | seconds |
 | `tst/Fili.Theme.MudAvalonia.PixelTests` | 57 tests. Twelve render one gallery frame each with Skia and compare it pixel by pixel with a PNG committed in `Baselines/`. Thirty-six, in `GalleryAuditTests`, run three of the unit suite's checks over each of those twelve pages instead of a list of bare controls - no binding error, every control one Tab stop at most, no presented text showing an access key's underscore - so every class, state and variant a sample shows is covered. Nine, in `GalleryPageTests`, check how the gallery behaves - that the controls page shows its first section at once and adds the rest one dispatcher pass at a time (pausing while off screen, and loading the rest at once for an index row ahead of the load), that it opens at the top in a window shorter than its first screen, that keyboard focus still scrolls it, that each row of the index beside it lands on its section and the index follows the scroll, that every section fits beside the index in the desktop window and in a frame, and that the app bar shows the theme's version. | ~45 seconds |
 
@@ -27,7 +27,7 @@ needed a different platform.
 
 ## The unit tests
 
-865 tests in 55 classes, grouped here by the failure each one exists to catch.
+869 tests in 55 classes, grouped here by the failure each one exists to catch.
 
 ### Tokens: does every value exist, in every variant?
 
@@ -49,7 +49,7 @@ needed a different platform.
 | `TabStopTests` | 31 | The same thirty-one controls are one Tab stop at most: the control, or the one part that stands for it. | A focusable part adds a stop nobody sees until they use the keyboard. An adopting app found one: a slider's two 2px rail halves, three stops per slider. |
 | `AccessKeyTests` | 14 | "_Save" is Save with an access key on every control the base recognises one on - buttons, toggles, checkboxes, radios, switches, split and drop-down buttons, links, tabs, expanders - and on a menu bar's items and rows. | The hand-written templates had dropped what the forked base does, so the underscore showed and Alt did nothing. It renders fine either way to anyone who never types an underscore. |
 | `PackageReadmeTests` | 1 | Every relative link in the README names a file that exists. | The README is the package's page on nuget.org too. The pack rewrites its links to the commit and fails on a broken one; this catches a renamed doc on every build rather than at release. |
-| `ClassVocabularyTests` | 1 | The classes the theme's selectors use are exactly the 146 the README publishes, in both directions. | Class names are MudBlazor's ordinary words (`small`, `error`, `vertical`) and they collide with an app's own. An undeclared class is a collision nobody signed off on; a declared one nothing uses is a lie to adopters. |
+| `ClassVocabularyTests` | 1 | The classes the theme's selectors use are exactly the 147 the README publishes, in both directions. | Class names are MudBlazor's ordinary words (`small`, `error`, `vertical`) and they collide with an app's own. An undeclared class is a collision nobody signed off on; a declared one nothing uses is a lie to adopters. |
 | `GeneratedThemeTests` | 1 | `Button.axaml` and the marked regions in nineteen other files are exactly what `ThemeColourGenerator` writes from the one list of eight colours. | Hundreds of colour styles are generated so that no colour can differ from the others. Editing one block by hand fails the build. `FILI_REGENERATE=1` rewrites the files. |
 
 ### Controls: does each one look and behave as MudBlazor's does?
@@ -98,7 +98,7 @@ from MudBlazor's SCSS or the component's parameter defaults.
 | `MultiSelectionTests` | 17 | `multi-selection` on a list and a tree: the checkbox on each row, checked with the selection, 8px into the gutter in a 48px row, no row marked selected, grey or the list's colour on both glyphs and the halo, disabled in text-disabled, the tree's 32 / 24px box. And Avalonia pinning `SelectionMode` locally once a selection model exists, the reason the class cannot set it. |
 | `CustomisationTests` | 24 | Glyph keys set on one control replace its glyph and no other's (a checkbox, a select's arrow, the tab scroll chevrons drawn at their own size, a snackbar's icons set on its manager), the submenu arrow and `hide-icon`, 48 / 36px list and select rows, `dense-items`, `label-start` / `-top` / `-bottom` on all three toggles, the switch's thumb icon and `thumb-*`, a disabled switch, and a closed mini drawer's nav. |
 | `DrawerPageTests` | 8 | A closed compact `DrawerPage` is a mini drawer - text hidden, no indent, a 56px rail that does not scroll sideways - and a `CompactDrawerLength` the app sets wins. Its three pane toggles are MudIconButtons, open or closed: the icon toggle's theme, action-default, round, no fill under its template's `Background="Transparent"`, and the round hover tint. And the fix stays there: a plain checked toggle is still filled, and a `Background` an app sets beats the checked fill. |
-| `TabScrollTests` | 7 | The tab bar's scroll buttons: none when the tabs fit, a bar's length per click and disabled at each end, the selected tab scrolled into view, a side bar scrolling down, a `TabStrip` too, and `centered` inside the scroller - a row that fits in the middle, one that overflows starting at the bar's start and reaching both ends. |
+| `TabScrollTests` | 11 | The tab bar's scroll buttons: none when the tabs fit, a bar's length per click and disabled at each end, the selected tab scrolled into view, a side bar scrolling down, a `TabStrip` too, and `centered` inside the scroller - a row that fits in the middle, one that overflows starting at the bar's start and reaching both ends. And `material-fixed-tabs`: fifteen tabs sharing a 600px bar in equal parts under the 160px minimum, with nothing to scroll; two filling it, `centered` or not; a side bar sharing its height; a `TabStrip` too. |
 | `PickerItemTests` | 2 | The date and time pickers' spinning items fit their 40px slots: their forked theme is based on Simple's list item, not the 48px themed one. |
 | `TreeViewTests` | 3 | `hover` is opt-in, tints only the row under the pointer and not its branch, and leaves a selected row's tint alone. |
 | `LinkInheritTests` | 1 | `HyperlinkButton.inherit` really takes the surrounding text colour. |

@@ -263,6 +263,7 @@ the data is already in 0–24 space.
 <TabControl Classes="primary">…</TabControl>              MudTabs Color: the bar in the colour
 <TabStrip Classes="border centered">…</TabStrip>          Border, Centered
 <TabControl Classes="outlined rounded">…</TabControl>     Outlined, Rounded
+<TabControl Classes="material-fixed-tabs">…</TabControl>  Material's fixed tabs: equal shares, no scrolling
 ```
 
 A colour class is MudTabs' `Color`, the colour of the **bar** - the tabs and the indicator take

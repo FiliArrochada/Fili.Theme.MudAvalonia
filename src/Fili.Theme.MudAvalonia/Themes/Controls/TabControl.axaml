@@ -22,6 +22,9 @@
     Outlined       outlined    a lines-default ring round the bar
     Rounded        rounded     default-borderradius on the bar
     Centered       centered    the tab row centred in the bar
+    (none)         material-fixed-tabs, Material's fixed tabs, which MudTabs does not offer:
+                   the tabs share the bar in equal parts and never scroll. Not MudBlazor's, so
+                   not one of its words: the name says where it comes from.
     Elevation      elevation0 ... elevation25, the shadow under the bar
     SliderColor    slider-{colour}: the indicator in that colour, whatever the bar's
     Position       TabStripPlacement - Top, Bottom, Left or Right. The bar docks to that edge,
@@ -371,6 +374,38 @@
     <Style Selector="^.centered[TabStripPlacement=Right] /template/ ItemsPresenter#PART_ItemsPresenter">
       <Setter Property="HorizontalAlignment" Value="Stretch" />
       <Setter Property="VerticalAlignment" Value="Center" />
+    </Style>
+
+    <!--
+      material-fixed-tabs: the tabs share the bar in equal parts and never scroll - Material's
+      fixed tabs, which MudTabs does not offer. The scroller's axis is disabled, so the row is
+      measured at the bar's length rather than at infinity, and an equal-share grid divides it;
+      FiliTheme.axaml drops the tabs' 160px minimum, which would otherwise overflow a bar too
+      short for them all. Last in the theme, so it outranks the placement styles above, and
+      `centered` with it: a row that fills the bar has no middle to sit in. The axis needs a style
+      with an activator, as a value inline in the template outranks a plain one.
+    -->
+    <Style Selector="^.material-fixed-tabs">
+      <Setter Property="ItemsPanel">
+        <ItemsPanelTemplate>
+          <UniformGrid Rows="1" />
+        </ItemsPanelTemplate>
+      </Setter>
+    </Style>
+    <Style Selector="^.material-fixed-tabs /template/ ScrollViewer#PART_TabScroller">
+      <Setter Property="HorizontalScrollBarVisibility" Value="Disabled" />
+      <Setter Property="VerticalScrollBarVisibility" Value="Disabled" />
+    </Style>
+    <Style Selector="^.material-fixed-tabs /template/ ItemsPresenter#PART_ItemsPresenter">
+      <Setter Property="HorizontalAlignment" Value="Stretch" />
+      <Setter Property="VerticalAlignment" Value="Stretch" />
+    </Style>
+    <Style Selector="^.material-fixed-tabs[TabStripPlacement=Left], ^.material-fixed-tabs[TabStripPlacement=Right]">
+      <Setter Property="ItemsPanel">
+        <ItemsPanelTemplate>
+          <UniformGrid Columns="1" />
+        </ItemsPanelTemplate>
+      </Setter>
     </Style>
   </ControlTheme>
 

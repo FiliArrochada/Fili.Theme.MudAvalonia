@@ -12,7 +12,7 @@
     label text-primary, going to primary when selected
     a 2px indicator in primary under the selected item, on a surface bar, sliding between items
     (SlidingIndicator, as in TabControl.axaml)
-    the same classes: a colour, border, outlined, rounded, centered, elevation*, slider-{colour}
+    the same classes: a colour, border, outlined, rounded, centered, material-fixed-tabs, elevation*, slider-{colour}
     (a strip has no TabStripPlacement; place it with ordinary layout)
 
   If either file changes, change both. The gallery shows them side by side for that reason.
@@ -150,6 +150,21 @@
     <!-- Centered: .mud-tabs-centered, `margin: auto` on the tab row. -->
     <Style Selector="^.centered /template/ ItemsPresenter#PART_ItemsPresenter">
       <Setter Property="HorizontalAlignment" Value="Center" />
+    </Style>
+
+    <!-- material-fixed-tabs: the tabs share the bar equally and never scroll, as on a TabControl. -->
+    <Style Selector="^.material-fixed-tabs">
+      <Setter Property="ItemsPanel">
+        <ItemsPanelTemplate>
+          <UniformGrid Rows="1" />
+        </ItemsPanelTemplate>
+      </Setter>
+    </Style>
+    <Style Selector="^.material-fixed-tabs /template/ ScrollViewer#PART_TabScroller">
+      <Setter Property="HorizontalScrollBarVisibility" Value="Disabled" />
+    </Style>
+    <Style Selector="^.material-fixed-tabs /template/ ItemsPresenter#PART_ItemsPresenter">
+      <Setter Property="HorizontalAlignment" Value="Stretch" />
     </Style>
 
     <!-- Elevation: `.mud-elevation-{n}` on the bar. The shadow is on the host, outside the bar,

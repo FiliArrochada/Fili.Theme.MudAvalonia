@@ -159,4 +159,79 @@ public class TabScrollTests
         Click(Next(strip));
         Assert.True(Scroller(strip).Offset.X > 0);
     });
+    private static TabControl FixedTabs(int count, double width, Dock placement = Dock.Top)
+    {
+        var tabs = new TabControl { Width = width, Height = 300, TabStripPlacement = placement, Classes = { "material-fixed-tabs" } };
+        for (var i = 0; i < count; i++)
+        {
+            tabs.Items.Add(new TabItem { Header = $"Tab {i}" });
+        }
+
+        Matrix.Show(tabs);
+        Dispatcher.UIThread.RunJobs();
+        return tabs;
+    }
+
+    private static List<Rect> Headers(ItemsControl tabs) =>
+        [.. tabs.GetRealizedContainers().Select(c => new Rect(c.TranslatePoint(default, tabs)!.Value, c.Bounds.Size))];
+
+    /// <summary>
+    /// <c>material-fixed-tabs</c>: fifteen tabs share a 600px bar in equal 40px parts - under
+    /// MudTabs' 160px minimum, which would overflow it - edge to edge, with no scroll buttons and
+    /// nothing to scroll.
+    /// </summary>
+    [Fact]
+    public Task FixedTabsShareTheBarAndNeverScroll() => UiThread.RunAsync(() =>
+    {
+        var tabs = FixedTabs(15, 600);
+        var headers = Headers(tabs);
+        var scroller = Scroller(tabs);
+
+        Assert.False(Prev(tabs).IsVisible);
+        Assert.False(Next(tabs).IsVisible);
+        Assert.Equal(scroller.Viewport.Width, scroller.Extent.Width, 0.5);
+        Assert.All(headers, h => Assert.Equal(40, h.Width, 0.5));
+        Assert.Equal(0, headers[0].Left, 0.5);
+        Assert.Equal(600, headers[^1].Right, 0.5);
+    });
+
+    /// <summary>Two fixed tabs fill the bar too, centred or not: each takes half, rather than its own width.</summary>
+    [Fact]
+    public Task FewFixedTabsFillTheBar() => UiThread.RunAsync(() =>
+    {
+        var tabs = FixedTabs(2, 600);
+        tabs.Classes.Add("centered");
+        Dispatcher.UIThread.RunJobs();
+
+        Assert.All(Headers(tabs), h => Assert.Equal(300, h.Width, 0.5));
+    });
+
+    /// <summary>A fixed bar on the side shares its height, and keeps the bar's width.</summary>
+    [Fact]
+    public Task AFixedSideBarSharesItsHeight() => UiThread.RunAsync(() =>
+    {
+        var tabs = FixedTabs(3, 600, Dock.Left);
+        var headers = Headers(tabs);
+
+        Assert.False(Next(tabs).IsVisible);
+        Assert.All(headers, h => Assert.Equal(100, h.Height, 0.5));
+        Assert.All(headers, h => Assert.Equal(headers[0].Width, h.Width, 0.5));
+        Assert.Equal(0, headers[0].Top, 0.5);
+    });
+
+    [Fact]
+    public Task AFixedTabStripSharesItsBar() => UiThread.RunAsync(() =>
+    {
+        var strip = new TabStrip { Width = 400, Classes = { "material-fixed-tabs" } };
+        for (var i = 0; i < 10; i++)
+        {
+            strip.Items.Add(new TabStripItem { Content = $"Tab {i}" });
+        }
+
+        Matrix.Show(strip);
+        Dispatcher.UIThread.RunJobs();
+
+        Assert.False(Next(strip).IsVisible);
+        Assert.All(Headers(strip), h => Assert.Equal(40, h.Width, 0.5));
+    });
 }

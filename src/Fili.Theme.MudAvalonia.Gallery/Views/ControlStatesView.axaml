@@ -1133,6 +1133,14 @@
             <TabStripItem>Primary bar</TabStripItem>
             <TabStripItem>Warning slider</TabStripItem>
           </TabStrip>
+          <TabStrip Classes="material-fixed-tabs border" Width="480" SelectedIndex="0">
+            <TabStripItem>Fixed</TabStripItem>
+            <TabStripItem>Six</TabStripItem>
+            <TabStripItem>Tabs</TabStripItem>
+            <TabStripItem>In</TabStripItem>
+            <TabStripItem>Equal</TabStripItem>
+            <TabStripItem>Parts</TabStripItem>
+          </TabStrip>
           <TabControl Classes="border" TabStripPlacement="Bottom" Width="480" Height="150">
             <TabItem Header="Bottom">
               <TextBlock Classes="body2" Margin="12" TextWrapping="Wrap" Text="TabStripPlacement Bottom: the bar under the content, its rule and indicator on top." />
@@ -1163,7 +1171,7 @@
                    TextWrapping="Wrap"
                    MaxWidth="760"
                    HorizontalAlignment="Left"
-                   Text="MudTabs' defaults: a surface bar with no rule under it, tabs in text-primary and at least 160px wide. A colour class is MudTabs' Color, the bar in the colour and the tabs in its contrast text; border, outlined, rounded, centered and hide-slider are its parameters of the same names, on a TabControl or a TabStrip; elevation4 and the like are Elevation, and slider-warning and the like are SliderColor. Position is TabStripPlacement on a TabControl. An app bar is 64px with 24px gutters, dense is 48px, and a colour class is MudAppBar's Color. toolbar on a Border is MudToolBar's box, the same 64px and 24px without the colour; the heart in it is a PathIcon with small and primary, MudIcon's Size and Color." />
+                   Text="MudTabs' defaults: a surface bar with no rule under it, tabs in text-primary and at least 160px wide. A colour class is MudTabs' Color, the bar in the colour and the tabs in its contrast text; border, outlined, rounded, centered and hide-slider are its parameters of the same names, on a TabControl or a TabStrip; elevation4 and the like are Elevation, and slider-warning and the like are SliderColor. Position is TabStripPlacement on a TabControl. material-fixed-tabs is Material's fixed tabs, which MudTabs does not offer: the tabs share the bar in equal parts, under the 160px minimum, and never scroll. An app bar is 64px with 24px gutters, dense is 48px, and a colour class is MudAppBar's Color. toolbar on a Border is MudToolBar's box, the same 64px and 24px without the colour; the heart in it is a PathIcon with small and primary, MudIcon's Size and Color." />
       </StackPanel>
 
       <!-- Right to left -->
