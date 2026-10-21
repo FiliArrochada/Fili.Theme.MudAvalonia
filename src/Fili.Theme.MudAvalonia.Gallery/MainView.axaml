@@ -64,7 +64,7 @@
       </Grid>
     </Border>
 
-    <TabControl Margin="16">
+    <TabControl Margin="16" SelectionChanged="OnTabChanged">
       <TabItem Header="Palette">
         <views:PaletteView />
       </TabItem>
@@ -74,9 +74,9 @@
       <TabItem Header="Typography">
         <views:TypographyView />
       </TabItem>
-      <TabItem Header="Control states">
-        <views:ControlStatesView />
-      </TabItem>
+      <!-- Built the first time the tab is chosen, in MainView.axaml.cs: it is the largest page by
+           far, and every other tab would wait for it at startup. -->
+      <TabItem x:Name="ControlStatesTab" Header="Control states" />
       <TabItem Header="Sample screen">
         <views:SampleScreenView />
       </TabItem>

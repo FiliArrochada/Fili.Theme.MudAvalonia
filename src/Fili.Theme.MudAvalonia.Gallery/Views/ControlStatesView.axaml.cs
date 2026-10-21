@@ -85,21 +85,28 @@ public partial class ControlStatesView : UserControl
         MultiList.SelectedItems.Add(MultiList.Items[2]);
         MultiTree.SelectedItems.Add(((TreeViewItem)MultiTree.Items[0]!).Items[0]);
 
-        // The page is about 5,500 visuals, and templating and laying them out took two seconds on
-        // the UI thread the first time the tab opened, with the window frozen throughout. So the
-        // introduction and the first section show at once, and the rest are added one per
-        // dispatcher pass at background priority: input and rendering run between sections, and the
-        // longest wait is one section's (the data grids', about half a second).
-        var sections = PageContent.Children.Count - 3;
-        _sectionCount = sections + 1;
-        foreach (var section in PageContent.Children.Skip(2).Take(sections).ToList())
+        // The page is about 6,900 visuals, and templating and laying them out took two seconds on
+        // the UI thread the first time the tab opened, with the window frozen throughout. Adding a
+        // section per dispatcher pass still froze it for as long as the largest section took - the
+        // data grids', near a second - and the tab showed nothing until its first section was in.
+        // So the tab opens on the introduction and the pinned loading card alone, and the page
+        // fills in a row at a time: each pass at background priority adds rows until its layout has
+        // taken a frame or two, and input and rendering run in between.
+        foreach (var section in PageContent.Children.Skip(1).OfType<Panel>().ToList())
         {
+            var rows = section.Children.ToList();
+            section.Children.Clear();
             PageContent.Children.Remove(section);
-            _pending.Enqueue(section);
+            _pending.Enqueue((PageContent, section));
+            foreach (var row in rows)
+            {
+                _pending.Enqueue((section, row));
+            }
         }
 
-        LoadingBar.Maximum = _sectionCount;
-        LoadingBar.Value = 1;
+        _total = _pending.Count;
+        LoadingBar.Maximum = _total;
+        LoadingBar.Value = 0;
 
         Loaded += (_, _) =>
         {
@@ -114,17 +121,23 @@ public partial class ControlStatesView : UserControl
         };
     }
 
-    /// <summary>The sections not yet in the page, in page order, ahead of the loading row.</summary>
-    private readonly Queue<Control> _pending = new();
+    /// <summary>
+    /// What is not in the page yet, in page order: each section, emptied, then its rows. A section
+    /// goes into the page and its rows into the section.
+    /// </summary>
+    private readonly Queue<(Panel Into, Control Item)> _pending = new();
 
-    private readonly int _sectionCount;
+    private readonly int _total;
+
+    /// <summary>How long one pass may spend adding rows and laying them out: two frames at 60Hz.</summary>
+    private static readonly TimeSpan PassBudget = TimeSpan.FromMilliseconds(30);
 
     private bool _scheduled;
 
     private bool _propsPlaced;
 
-    /// <summary>True once every section is in the page and the loading row is gone.</summary>
-    public bool AllSectionsLoaded => _pending.Count == 0 && LoadingMore.Parent is null;
+    /// <summary>True once every row is in the page and the loading card is gone.</summary>
+    public bool AllSectionsLoaded => _pending.Count == 0 && !LoadingMore.IsVisible;
 
     private void ScheduleNextSection()
     {
@@ -146,7 +159,15 @@ public partial class ControlStatesView : UserControl
             return;
         }
 
-        AddSection(_pending.Dequeue());
+        // Rows until the pass has used its budget, laying each out as it goes, so one heavy row (a
+        // data grid) ends the pass early and a run of light ones shares it.
+        var clock = System.Diagnostics.Stopwatch.StartNew();
+        do
+        {
+            Add(_pending.Dequeue());
+            UpdateLayout();
+        }
+        while (_pending.Count > 0 && clock.Elapsed < PassBudget);
 
         if (_pending.Count > 0)
         {
@@ -172,25 +193,25 @@ public partial class ControlStatesView : UserControl
 
         while (_pending.Count > 0)
         {
-            AddSection(_pending.Dequeue());
+            Add(_pending.Dequeue());
         }
 
         FinishLoading();
     }
 
-    private void AddSection(Control section)
+    private void Add((Panel Into, Control Item) next)
     {
-        PageContent.Children.Insert(PageContent.Children.IndexOf(LoadingMore), section);
-        LoadingBar.Value = _sectionCount - _pending.Count;
+        next.Into.Children.Add(next.Item);
+        LoadingBar.Value = _total - _pending.Count;
     }
 
     /// <summary>
-    /// Removes the loading row, and places the screenshot props once the page is on screen: they
+    /// Hides the loading card, and places the screenshot props once the page is on screen: they
     /// name controls in the later sections, and focus needs a page that is attached.
     /// </summary>
     private void FinishLoading()
     {
-        PageContent.Children.Remove(LoadingMore);
+        LoadingMore.IsVisible = false;
 
         if (this.IsAttachedToVisualTree())
         {

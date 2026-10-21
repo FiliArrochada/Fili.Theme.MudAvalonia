@@ -170,13 +170,14 @@ public class GalleryPageTests
     private static int SectionsInPage(ControlStatesView view) =>
         view.GetVisualDescendants().OfType<TextBlock>().Count(t => Equals(t.Tag, "section"));
 
-    private static bool LoadingRowShown(ControlStatesView view) =>
-        view.GetVisualDescendants().OfType<StackPanel>().Any(p => p.Name == "LoadingMore");
+    private static Border LoadingCard(ControlStatesView view) =>
+        view.GetVisualDescendants().OfType<Border>().Single(b => b.Name == "LoadingMore");
 
     /// <summary>
-    /// The page took two seconds to template and lay out in one go, the window frozen throughout.
-    /// It opens with its first section and a loading row, and the rest arrive one dispatcher pass
-    /// at a time; with the last, the row goes and the screenshot props are placed.
+    /// The page took two seconds to template and lay out in one go, the window frozen throughout,
+    /// and a section per pass still froze it for the largest one. It opens on its introduction and
+    /// a loading card pinned over the top of the page, and fills in a few rows per dispatcher
+    /// pass; with the last, the card goes and the screenshot props are placed.
     /// </summary>
     [Fact]
     public Task TheLaterSectionsArriveAfterThePageOpens() => UiThread.RunAsync(() =>
@@ -186,18 +187,45 @@ public class GalleryPageTests
         window.Show();
 
         Assert.False(view.AllSectionsLoaded);
-        Assert.Equal(1, SectionsInPage(view));
-        Assert.True(LoadingRowShown(view));
+        Assert.Equal(0, SectionsInPage(view));
+        Assert.True(LoadingCard(view).IsEffectivelyVisible);
 
-        for (var i = 0; i < 5; i++)
+        for (var i = 0; i < 50 && !view.AllSectionsLoaded; i++)
         {
             Dispatcher.UIThread.RunJobs();
         }
 
         Assert.True(view.AllSectionsLoaded);
         Assert.Equal(17, SectionsInPage(view));
-        Assert.False(LoadingRowShown(view));
+        Assert.False(LoadingCard(view).IsEffectivelyVisible);
         Assert.True(view.GetVisualDescendants().OfType<Button>().Single(b => b.Name == "FocusedSample").IsFocused);
+        window.Close();
+    });
+
+    /// <summary>
+    /// The loading card is pinned: it stays at the top of the page however far the rows already in
+    /// have been scrolled, so it is in view while the page fills in.
+    /// </summary>
+    [Fact]
+    public Task TheLoadingCardStaysInViewWhileThePageScrolls() => UiThread.RunAsync(() =>
+    {
+        var view = new ControlStatesView();
+        var window = new Window { Content = view, Width = 1180, Height = 560 };
+        window.Show();
+        var card = LoadingCard(view);
+        var page = view.GetVisualDescendants().OfType<ScrollViewer>().Single(s => s.Name == "Page");
+        var at = card.TranslatePoint(default, view)!.Value.Y;
+
+        while (page.Extent.Height < page.Viewport.Height * 2 && !view.AllSectionsLoaded)
+        {
+            Dispatcher.UIThread.RunJobs();
+        }
+
+        page.Offset = new Vector(0, page.Viewport.Height);
+        window.UpdateLayout();
+
+        Assert.Equal(at, card.TranslatePoint(default, view)!.Value.Y);
+        Assert.InRange(at, 0, 32);
         window.Close();
     });
 
@@ -220,7 +248,7 @@ public class GalleryPageTests
         Assert.False(paused.AllSectionsLoaded);
 
         host.Content = paused;
-        for (var i = 0; i < 5; i++)
+        for (var i = 0; i < 50 && !paused.AllSectionsLoaded; i++)
         {
             Dispatcher.UIThread.RunJobs();
         }

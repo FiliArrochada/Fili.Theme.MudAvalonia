@@ -1351,16 +1351,22 @@
         </StackPanel>
       </StackPanel>
 
-      <!-- Shown while the sections above are still being added, one per dispatcher pass (see the
-           code-behind), and removed with the last. Determinate on purpose: an indeterminate bar
-           animates on the UI thread, so it would stall for as long as each section takes. -->
-      <StackPanel x:Name="LoadingMore" Spacing="8" HorizontalAlignment="Left">
-        <TextBlock Classes="caption" Foreground="{DynamicResource FiliTextSecondaryBrush}" Text="Loading the rest of the samples…" />
-        <ProgressBar x:Name="LoadingBar" Classes="primary rounded" Width="240" Minimum="0" />
-      </StackPanel>
-
     </StackPanel>
   </ScrollViewer>
+
+  <!-- Pinned over the top of the page while the samples are still arriving, a few rows per
+       dispatcher pass (see the code-behind), so it is in view wherever the page is scrolled; it
+       goes with the last row. Determinate on purpose: an indeterminate bar animates on the UI
+       thread, so it would stall for as long as each pass takes. -->
+  <Border x:Name="LoadingMore" Grid.Column="1"
+          Classes="surface elevation4"
+          HorizontalAlignment="Center" VerticalAlignment="Top"
+          Margin="0,16,0,0" Padding="16,12">
+    <StackPanel Spacing="8">
+      <TextBlock Classes="body2" Text="Loading the samples…" />
+      <ProgressBar x:Name="LoadingBar" Classes="primary rounded" Width="240" Minimum="0" />
+    </StackPanel>
+  </Border>
   </Grid>
 
 </UserControl>

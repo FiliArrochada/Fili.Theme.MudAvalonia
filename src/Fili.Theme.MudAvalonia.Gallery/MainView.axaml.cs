@@ -4,6 +4,7 @@ using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
 using Avalonia.Styling;
 using Fili.Theme.MudAvalonia;
+using Fili.Theme.MudAvalonia.Gallery.Views;
 
 namespace Fili.Theme.MudAvalonia.Gallery;
 
@@ -43,6 +44,24 @@ public partial class MainView : UserControl
 
         var commit = informational[(plus + 1)..];
         return $"v{informational[..plus]} · {commit[..System.Math.Min(7, commit.Length)]}";
+    }
+
+    /// <summary>
+    /// Builds the controls page the first time its tab is chosen. Built with the window, its
+    /// thousands of controls were created before the first tab could show, though most readers
+    /// never open it; and once opened it fills itself in a few rows at a time.
+    /// </summary>
+    /// <remarks>
+    /// Read from the event rather than by name: the first tab is selected while the XAML is still
+    /// loading, before there is a name scope, and a list or select inside a page raises the same
+    /// event on its way up.
+    /// </remarks>
+    private void OnTabChanged(object? sender, SelectionChangedEventArgs e)
+    {
+        if (e.Source == sender && sender is TabControl { SelectedItem: TabItem { Name: "ControlStatesTab", Content: null } tab })
+        {
+            tab.Content = new ControlStatesView();
+        }
     }
 
     /// <summary>
