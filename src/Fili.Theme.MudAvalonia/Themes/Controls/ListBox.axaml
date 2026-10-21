@@ -40,15 +40,15 @@
     <Setter Property="Template">
       <ControlTemplate>
         <Panel>
-          <Border x:Name="PART_StateLayer" Background="Transparent">
-            <Border.Transitions>
+          <theme:PartBorder x:Name="PART_StateLayer" Background="Transparent">
+            <theme:PartBorder.Transitions>
               <Transitions>
                 <!-- transition: background-color 150ms cubic-bezier(0.4, 0, 0.2, 1) -->
                 <BrushTransition Property="Background" Duration="0:0:0.15" />
               </Transitions>
-            </Border.Transitions>
-          </Border>
-          <Border x:Name="PART_Ripple"
+            </theme:PartBorder.Transitions>
+          </theme:PartBorder>
+          <theme:PartBorder x:Name="PART_Ripple"
                   theme:Ripple.IsLayer="True" />
           <DockPanel Margin="{TemplateBinding Padding}">
             <!--
@@ -110,25 +110,25 @@
       <Setter Property="Padding" Value="0,4" />
     </Style>
 
-    <Style Selector="^:pointerover /template/ Border#PART_StateLayer">
+    <Style Selector="^:pointerover /template/ theme|PartBorder#PART_StateLayer">
       <Setter Property="Background" Value="{DynamicResource FiliOverlayHoverBrush}" />
     </Style>
 
     <!-- MudBlazor excludes the selected row from the focus tint - _list.scss is
          `&:focus:not(.mud-selected-item)` - because arrow keys move focus and selection
          together, so tinting both would just be the selection tint twice. -->
-    <Style Selector="^:focus-visible:not(:selected) /template/ Border#PART_StateLayer">
+    <Style Selector="^:focus-visible:not(:selected) /template/ theme|PartBorder#PART_StateLayer">
       <Setter Property="Background" Value="{DynamicResource FiliOverlayHoverBrush}" />
     </Style>
 
     <Style Selector="^:selected">
       <Setter Property="Foreground" Value="{DynamicResource FiliPrimaryBrush}" />
     </Style>
-    <Style Selector="^:selected /template/ Border#PART_StateLayer">
+    <Style Selector="^:selected /template/ theme|PartBorder#PART_StateLayer">
       <Setter Property="Background" Value="{DynamicResource FiliPrimaryHoverBrush}" />
     </Style>
     <!-- Hovering an already-selected row deepens the same tint rather than swapping to grey. -->
-    <Style Selector="^:selected:pointerover /template/ Border#PART_StateLayer">
+    <Style Selector="^:selected:pointerover /template/ theme|PartBorder#PART_StateLayer">
       <Setter Property="Background" Value="{DynamicResource FiliOverlayPressedBrush}" />
     </Style>
 
@@ -151,7 +151,7 @@
 
     <Setter Property="Template">
       <ControlTemplate>
-        <Border Background="{TemplateBinding Background}"
+        <theme:PartBorder Background="{TemplateBinding Background}"
                 BorderBrush="{TemplateBinding BorderBrush}"
                 BorderThickness="{TemplateBinding BorderThickness}"
                 CornerRadius="{TemplateBinding CornerRadius}">
@@ -161,7 +161,7 @@
                             ItemsPanel="{TemplateBinding ItemsPanel}"
                             Margin="{TemplateBinding Padding}" />
           </ScrollViewer>
-        </Border>
+        </theme:PartBorder>
       </ControlTemplate>
     </Setter>
 

@@ -45,7 +45,8 @@
   renders beautifully and leaves notifications on screen forever.
 -->
 <ResourceDictionary xmlns="https://github.com/avaloniaui"
-                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:theme="using:Fili.Theme.MudAvalonia">
 
   <ControlTheme x:Key="FiliNotificationCard" TargetType="NotificationCard">
     <Setter Property="UseLayoutRounding" Value="True" />
@@ -69,7 +70,7 @@
     <Setter Property="Template">
       <ControlTemplate>
         <LayoutTransformControl x:Name="PART_LayoutTransformControl" UseRenderTransform="True">
-          <Border x:Name="PART_Card"
+          <theme:PartBorder x:Name="PART_Card"
                   Background="{TemplateBinding Background}"
                   BorderBrush="{TemplateBinding BorderBrush}"
                   BorderThickness="{TemplateBinding BorderThickness}"
@@ -113,7 +114,7 @@
                                 Foreground="{TemplateBinding Foreground}"
                                 VerticalContentAlignment="Center" />
             </DockPanel>
-          </Border>
+          </theme:PartBorder>
         </LayoutTransformControl>
       </ControlTemplate>
     </Setter>

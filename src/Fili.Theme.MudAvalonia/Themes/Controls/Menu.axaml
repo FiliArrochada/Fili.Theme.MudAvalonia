@@ -41,12 +41,12 @@
 
     <Setter Property="Template">
       <ControlTemplate>
-        <Border x:Name="PART_Root" Background="Transparent" CornerRadius="{DynamicResource FiliCornerRadius}">
+        <theme:PartBorder x:Name="PART_Root" Background="Transparent" CornerRadius="{DynamicResource FiliCornerRadius}">
           <Panel>
-            <Border x:Name="PART_StateLayer"
+            <theme:PartBorder x:Name="PART_StateLayer"
                     Background="Transparent"
                     CornerRadius="{DynamicResource FiliCornerRadius}" />
-            <Border x:Name="PART_Ripple"
+            <theme:PartBorder x:Name="PART_Ripple"
                     theme:Ripple.IsLayer="True"
                     CornerRadius="{DynamicResource FiliCornerRadius}" />
 
@@ -105,7 +105,7 @@
                    HorizontalOffset="-4"
                    IsLightDismissEnabled="False"
                    IsOpen="{TemplateBinding IsSubMenuOpen, Mode=TwoWay}">
-              <Border x:Name="PART_PopupBorder" Background="{DynamicResource FiliSurfaceBrush}"
+              <theme:PartBorder x:Name="PART_PopupBorder" Background="{DynamicResource FiliSurfaceBrush}"
                       CornerRadius="{DynamicResource FiliCornerRadius}"
                       BoxShadow="{DynamicResource FiliElevation8}"
                       Padding="0,4"
@@ -113,10 +113,10 @@
                       Margin="8">
                 <ItemsPresenter x:Name="PART_ItemsPresenter"
                                 ItemsPanel="{TemplateBinding ItemsPanel}" />
-              </Border>
+              </theme:PartBorder>
             </Popup>
           </Panel>
-        </Border>
+        </theme:PartBorder>
       </ControlTemplate>
     </Setter>
 
@@ -135,18 +135,18 @@
       <Setter Property="Fill" Value="{DynamicResource FiliActionDisabledBrush}" />
     </Style>
 
-    <Style Selector="^:selected /template/ Border#PART_StateLayer">
+    <Style Selector="^:selected /template/ theme|PartBorder#PART_StateLayer">
       <Setter Property="Background" Value="{DynamicResource FiliOverlayHoverBrush}" />
     </Style>
-    <Style Selector="^:pointerover /template/ Border#PART_StateLayer">
+    <Style Selector="^:pointerover /template/ theme|PartBorder#PART_StateLayer">
       <Setter Property="Background" Value="{DynamicResource FiliOverlayHoverBrush}" />
     </Style>
     <!-- Keyboard focus paints the hover layer. That IS the affordance in MudBlazor: _reset.scss
          drops the browser ring, and every component sets `:focus-visible` to the hover tint. -->
-    <Style Selector="^:focus-visible /template/ Border#PART_StateLayer">
+    <Style Selector="^:focus-visible /template/ theme|PartBorder#PART_StateLayer">
       <Setter Property="Background" Value="{DynamicResource FiliOverlayHoverBrush}" />
     </Style>
-    <Style Selector="^:open /template/ Border#PART_StateLayer">
+    <Style Selector="^:open /template/ theme|PartBorder#PART_StateLayer">
       <Setter Property="Background" Value="{DynamicResource FiliOverlayPressedBrush}" />
     </Style>
 
@@ -163,7 +163,7 @@
       <Setter Property="Margin" Value="0,4" />
       <Setter Property="Template">
         <ControlTemplate>
-          <Border Height="1" Background="{DynamicResource FiliDividerBrush}" />
+          <theme:PartBorder Height="1" Background="{DynamicResource FiliDividerBrush}" />
         </ControlTemplate>
       </Setter>
     </Style>
@@ -194,12 +194,12 @@
 
     <Setter Property="Template">
       <ControlTemplate>
-        <Border x:Name="PART_Root" Background="Transparent" CornerRadius="{DynamicResource FiliCornerRadius}">
+        <theme:PartBorder x:Name="PART_Root" Background="Transparent" CornerRadius="{DynamicResource FiliCornerRadius}">
           <Panel>
-            <Border x:Name="PART_StateLayer"
+            <theme:PartBorder x:Name="PART_StateLayer"
                     Background="Transparent"
                     CornerRadius="{DynamicResource FiliCornerRadius}" />
-            <Border x:Name="PART_Ripple"
+            <theme:PartBorder x:Name="PART_Ripple"
                     theme:Ripple.IsLayer="True"
                     CornerRadius="{DynamicResource FiliCornerRadius}" />
 
@@ -221,7 +221,7 @@
                    Placement="BottomEdgeAlignedLeft"
                    IsLightDismissEnabled="True"
                    IsOpen="{TemplateBinding IsSubMenuOpen, Mode=TwoWay}">
-              <Border x:Name="PART_PopupBorder" Background="{DynamicResource FiliSurfaceBrush}"
+              <theme:PartBorder x:Name="PART_PopupBorder" Background="{DynamicResource FiliSurfaceBrush}"
                       CornerRadius="{DynamicResource FiliCornerRadius}"
                       BoxShadow="{DynamicResource FiliElevation8}"
                       Padding="0,4"
@@ -229,25 +229,25 @@
                       Margin="8">
                 <ItemsPresenter x:Name="PART_ItemsPresenter"
                                 ItemsPanel="{TemplateBinding ItemsPanel}" />
-              </Border>
+              </theme:PartBorder>
             </Popup>
           </Panel>
-        </Border>
+        </theme:PartBorder>
       </ControlTemplate>
     </Setter>
 
-    <Style Selector="^:selected /template/ Border#PART_StateLayer">
+    <Style Selector="^:selected /template/ theme|PartBorder#PART_StateLayer">
       <Setter Property="Background" Value="{DynamicResource FiliOverlayHoverBrush}" />
     </Style>
-    <Style Selector="^:pointerover /template/ Border#PART_StateLayer">
+    <Style Selector="^:pointerover /template/ theme|PartBorder#PART_StateLayer">
       <Setter Property="Background" Value="{DynamicResource FiliOverlayHoverBrush}" />
     </Style>
     <!-- Keyboard focus paints the hover layer. That IS the affordance in MudBlazor: _reset.scss
          drops the browser ring, and every component sets `:focus-visible` to the hover tint. -->
-    <Style Selector="^:focus-visible /template/ Border#PART_StateLayer">
+    <Style Selector="^:focus-visible /template/ theme|PartBorder#PART_StateLayer">
       <Setter Property="Background" Value="{DynamicResource FiliOverlayHoverBrush}" />
     </Style>
-    <Style Selector="^:open /template/ Border#PART_StateLayer">
+    <Style Selector="^:open /template/ theme|PartBorder#PART_StateLayer">
       <Setter Property="Background" Value="{DynamicResource FiliOverlayPressedBrush}" />
     </Style>
     <Style Selector="^:open">
@@ -264,13 +264,13 @@
 
     <Setter Property="Template">
       <ControlTemplate>
-        <Border Background="{TemplateBinding Background}"
+        <theme:PartBorder Background="{TemplateBinding Background}"
                 BorderBrush="{TemplateBinding BorderBrush}"
                 BorderThickness="{TemplateBinding BorderThickness}">
           <ItemsPresenter x:Name="PART_ItemsPresenter"
                           ItemsPanel="{TemplateBinding ItemsPanel}"
                           KeyboardNavigation.TabNavigation="Continue" />
-        </Border>
+        </theme:PartBorder>
       </ControlTemplate>
     </Setter>
   </ControlTheme>
@@ -281,14 +281,14 @@
 
     <Setter Property="Template">
       <ControlTemplate>
-        <Border x:Name="PART_Border" Background="{TemplateBinding Background}"
+        <theme:PartBorder x:Name="PART_Border" Background="{TemplateBinding Background}"
                 CornerRadius="{DynamicResource FiliCornerRadius}"
                 BoxShadow="{DynamicResource FiliElevation8}"
                 Padding="0,4"
                 MinWidth="112">
           <ItemsPresenter x:Name="PART_ItemsPresenter"
                           ItemsPanel="{TemplateBinding ItemsPanel}" />
-        </Border>
+        </theme:PartBorder>
       </ControlTemplate>
     </Setter>
   </ControlTheme>

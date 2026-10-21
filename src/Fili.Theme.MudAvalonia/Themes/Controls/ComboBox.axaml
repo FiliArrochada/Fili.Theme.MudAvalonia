@@ -43,8 +43,8 @@
     <Setter Property="Template">
       <ControlTemplate>
         <Panel>
-          <Border x:Name="PART_StateLayer" Background="Transparent" />
-          <Border x:Name="PART_Ripple"
+          <theme:PartBorder x:Name="PART_StateLayer" Background="Transparent" />
+          <theme:PartBorder x:Name="PART_Ripple"
                   theme:Ripple.IsLayer="True" />
           <!-- MudSelectItem is a MudListItem: `.mud-list-item-text`'s 4px above and below. -->
           <ContentPresenter x:Name="PART_ContentPresenter"
@@ -68,22 +68,22 @@
       <Setter Property="FontSize" Value="{DynamicResource FiliBody2FontSize}" />
     </Style>
 
-    <Style Selector="^:pointerover /template/ Border#PART_StateLayer">
+    <Style Selector="^:pointerover /template/ theme|PartBorder#PART_StateLayer">
       <Setter Property="Background" Value="{DynamicResource FiliOverlayHoverBrush}" />
     </Style>
     <!-- MudBlazor excludes the selected row from the focus tint - _list.scss is
          `&:focus:not(.mud-selected-item)` - because arrow keys move focus and selection
          together, so tinting both would just be the selection tint twice. -->
-    <Style Selector="^:focus-visible:not(:selected) /template/ Border#PART_StateLayer">
+    <Style Selector="^:focus-visible:not(:selected) /template/ theme|PartBorder#PART_StateLayer">
       <Setter Property="Background" Value="{DynamicResource FiliOverlayHoverBrush}" />
     </Style>
     <!-- Selection is a tint plus a colour change, never a filled bar: MudList marks the chosen
          row with `mud-selected-item mud-primary-text mud-primary-hover`. Same rule as
          Controls/ListBox.axaml, because a select's options ARE list items. -->
-    <Style Selector="^:selected /template/ Border#PART_StateLayer">
+    <Style Selector="^:selected /template/ theme|PartBorder#PART_StateLayer">
       <Setter Property="Background" Value="{DynamicResource FiliPrimaryHoverBrush}" />
     </Style>
-    <Style Selector="^:selected:pointerover /template/ Border#PART_StateLayer">
+    <Style Selector="^:selected:pointerover /template/ theme|PartBorder#PART_StateLayer">
       <Setter Property="Background" Value="{DynamicResource FiliOverlayPressedBrush}" />
     </Style>
     <Style Selector="^:selected">
@@ -145,7 +145,7 @@
                          Text="{TemplateBinding (AutomationProperties.HelpText)}" />
             </Panel>
           </Grid>
-        <Border x:Name="PART_Root"
+        <theme:PartBorder x:Name="PART_Root"
                 Background="{TemplateBinding Background}"
                 BorderBrush="{TemplateBinding BorderBrush}"
                 BorderThickness="{TemplateBinding BorderThickness}"
@@ -230,23 +230,23 @@
               </TextBlock.Text>
             </TextBlock>
 
-            <Border x:Name="PART_Underline"
+            <theme:PartBorder x:Name="PART_Underline"
                     Height="1"
                     VerticalAlignment="Bottom"
                     Background="{DynamicResource FiliLinesInputsBrush}" />
 
-            <Border x:Name="PART_UnderlineActive"
+            <theme:PartBorder x:Name="PART_UnderlineActive"
                     Height="2"
                     VerticalAlignment="Bottom"
                     Background="{DynamicResource FiliPrimaryBrush}"
                     RenderTransformOrigin="50%,50%"
                     RenderTransform="scaleX(0)">
-              <Border.Transitions>
+              <theme:PartBorder.Transitions>
                 <Transitions>
                   <TransformOperationsTransition Property="RenderTransform" Duration="0:0:0.15" Easing="CubicEaseOut" />
                 </Transitions>
-              </Border.Transitions>
-            </Border>
+              </theme:PartBorder.Transitions>
+            </theme:PartBorder>
 
             <Popup x:Name="PART_Popup"
                    WindowManagerAddShadowHint="False"
@@ -254,7 +254,7 @@
                    Placement="BottomEdgeAlignedLeft"
                    IsLightDismissEnabled="True"
                    IsOpen="{TemplateBinding IsDropDownOpen, Mode=TwoWay}">
-              <Border x:Name="PART_PopupBorder" Background="{DynamicResource FiliSurfaceBrush}"
+              <theme:PartBorder x:Name="PART_PopupBorder" Background="{DynamicResource FiliSurfaceBrush}"
                       CornerRadius="{DynamicResource FiliCornerRadius}"
                       BoxShadow="{DynamicResource FiliElevation8}"
                       Padding="0,8"
@@ -265,11 +265,11 @@
                   <ItemsPresenter x:Name="PART_ItemsPresenter"
                                   ItemsPanel="{TemplateBinding ItemsPanel}" />
                 </ScrollViewer>
-              </Border>
+              </theme:PartBorder>
             </Popup>
 
           </Panel>
-        </Border>
+        </theme:PartBorder>
         </DockPanel>
       </ControlTemplate>
     </Setter>
@@ -292,15 +292,15 @@
       <Setter Property="RenderTransform" Value="translateY(-14px)" />
     </Style>
 
-    <Style Selector="^:pointerover /template/ Border#PART_Underline">
+    <Style Selector="^:pointerover /template/ theme|PartBorder#PART_Underline">
       <Setter Property="Background" Value="{DynamicResource FiliActionDefaultBrush}" />
     </Style>
 
     <!-- A select signals focus when its drop-down is open, not only on keyboard focus. -->
-    <Style Selector="^:focus /template/ Border#PART_UnderlineActive">
+    <Style Selector="^:focus /template/ theme|PartBorder#PART_UnderlineActive">
       <Setter Property="RenderTransform" Value="scaleX(1)" />
     </Style>
-    <Style Selector="^:dropdownopen /template/ Border#PART_UnderlineActive">
+    <Style Selector="^:dropdownopen /template/ theme|PartBorder#PART_UnderlineActive">
       <Setter Property="RenderTransform" Value="scaleX(1)" />
     </Style>
 
@@ -341,10 +341,10 @@
     </Style>
 
     <!-- Underline="false": neither rule. -->
-    <Style Selector="^.no-underline /template/ Border#PART_Underline">
+    <Style Selector="^.no-underline /template/ theme|PartBorder#PART_Underline">
       <Setter Property="IsVisible" Value="False" />
     </Style>
-    <Style Selector="^.no-underline /template/ Border#PART_UnderlineActive">
+    <Style Selector="^.no-underline /template/ theme|PartBorder#PART_UnderlineActive">
       <Setter Property="IsVisible" Value="False" />
     </Style>
 
@@ -353,7 +353,7 @@
     <Style Selector="^:disabled">
       <Setter Property="Foreground" Value="{DynamicResource FiliTextDisabledBrush}" />
     </Style>
-    <Style Selector="^:disabled /template/ Border#PART_Underline">
+    <Style Selector="^:disabled /template/ theme|PartBorder#PART_Underline">
       <Setter Property="OpacityMask">
         <!-- 1px on, 1px off: a 1px CSS dotted border. A mask, so the line keeps its colour and
              its other states: the brush holds no resource. -->
@@ -380,10 +380,10 @@
       <Setter Property="Foreground" Value="{DynamicResource FiliTextDisabledBrush}" />
     </Style>
 
-    <Style Selector="^.error /template/ Border#PART_Underline">
+    <Style Selector="^.error /template/ theme|PartBorder#PART_Underline">
       <Setter Property="Background" Value="{DynamicResource FiliErrorBrush}" />
     </Style>
-    <Style Selector="^.error /template/ Border#PART_UnderlineActive">
+    <Style Selector="^.error /template/ theme|PartBorder#PART_UnderlineActive">
       <Setter Property="Background" Value="{DynamicResource FiliErrorBrush}" />
     </Style>
     <Style Selector="^.error /template/ TextBlock#PART_FloatingLabel">
@@ -392,10 +392,10 @@
     <Style Selector="^.error /template/ TextBlock#PART_SelectedLabel">
       <Setter Property="Foreground" Value="{DynamicResource FiliErrorBrush}" />
     </Style>
-    <Style Selector="^[(DataValidationErrors.HasErrors)=True] /template/ Border#PART_Underline">
+    <Style Selector="^[(DataValidationErrors.HasErrors)=True] /template/ theme|PartBorder#PART_Underline">
       <Setter Property="Background" Value="{DynamicResource FiliErrorBrush}" />
     </Style>
-    <Style Selector="^[(DataValidationErrors.HasErrors)=True] /template/ Border#PART_UnderlineActive">
+    <Style Selector="^[(DataValidationErrors.HasErrors)=True] /template/ theme|PartBorder#PART_UnderlineActive">
       <Setter Property="Background" Value="{DynamicResource FiliErrorBrush}" />
     </Style>
     <Style Selector="^[(DataValidationErrors.HasErrors)=True] /template/ TextBlock#PART_FloatingLabel">
@@ -472,7 +472,7 @@
       <Setter Property="RenderTransform" Value="translateY(-10px)" />
     </Style>
 
-    <Style Selector="^:disabled /template/ Border#PART_Root">
+    <Style Selector="^:disabled /template/ theme|PartBorder#PART_Root">
       <Setter Property="Background" Value="{DynamicResource FiliActionDisabledBackgroundBrush}" />
     </Style>
     <Style Selector="^ /template/ Grid#PART_HelperLine">
@@ -516,21 +516,21 @@
     <Style Selector="^ /template/ TextBlock#PART_SelectedLabel">
       <Setter Property="Margin" Value="14,0" />
     </Style>
-    <Style Selector="^ /template/ Border#PART_Underline">
+    <Style Selector="^ /template/ theme|PartBorder#PART_Underline">
       <Setter Property="IsVisible" Value="False" />
     </Style>
-    <Style Selector="^ /template/ Border#PART_UnderlineActive">
+    <Style Selector="^ /template/ theme|PartBorder#PART_UnderlineActive">
       <Setter Property="IsVisible" Value="False" />
     </Style>
 
-    <Style Selector="^:pointerover /template/ Border#PART_Root">
+    <Style Selector="^:pointerover /template/ theme|PartBorder#PART_Root">
       <Setter Property="BorderBrush" Value="{DynamicResource FiliTextPrimaryBrush}" />
     </Style>
-    <Style Selector="^:focus /template/ Border#PART_Root">
+    <Style Selector="^:focus /template/ theme|PartBorder#PART_Root">
       <Setter Property="BorderBrush" Value="{DynamicResource FiliPrimaryBrush}" />
       <Setter Property="BorderThickness" Value="2" />
     </Style>
-    <Style Selector="^:dropdownopen /template/ Border#PART_Root">
+    <Style Selector="^:dropdownopen /template/ theme|PartBorder#PART_Root">
       <Setter Property="BorderBrush" Value="{DynamicResource FiliPrimaryBrush}" />
       <Setter Property="BorderThickness" Value="2" />
     </Style>
@@ -556,13 +556,13 @@
       <Setter Property="RenderTransform" Value="translateY(-26px)" />
     </Style>
 
-    <Style Selector="^:disabled /template/ Border#PART_Root">
+    <Style Selector="^:disabled /template/ theme|PartBorder#PART_Root">
       <Setter Property="BorderBrush" Value="{DynamicResource FiliActionDisabledBackgroundBrush}" />
     </Style>
-    <Style Selector="^.error /template/ Border#PART_Root">
+    <Style Selector="^.error /template/ theme|PartBorder#PART_Root">
       <Setter Property="BorderBrush" Value="{DynamicResource FiliErrorBrush}" />
     </Style>
-    <Style Selector="^[(DataValidationErrors.HasErrors)=True] /template/ Border#PART_Root">
+    <Style Selector="^[(DataValidationErrors.HasErrors)=True] /template/ theme|PartBorder#PART_Root">
       <Setter Property="BorderBrush" Value="{DynamicResource FiliErrorBrush}" />
     </Style>
     <Style Selector="^ /template/ Grid#PART_HelperLine">

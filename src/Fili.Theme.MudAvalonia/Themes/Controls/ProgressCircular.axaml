@@ -29,6 +29,7 @@
 -->
 <ResourceDictionary xmlns="https://github.com/avaloniaui"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:theme="using:Fili.Theme.MudAvalonia"
                     xmlns:converters="using:Avalonia.Controls.Converters"
                     xmlns:fili="using:Fili.Theme.MudAvalonia.Converters">
 
@@ -51,7 +52,7 @@
     <Setter Property="Template">
       <ControlTemplate TargetType="ProgressBar">
         <Panel>
-          <Border x:Name="PART_Indicator" IsVisible="False" />
+          <theme:PartBorder x:Name="PART_Indicator" IsVisible="False" />
 
           <Panel x:Name="PART_Spinner">
             <!-- Determinate: `.mud-progress-static`, the dash offset eased over 300ms. -->

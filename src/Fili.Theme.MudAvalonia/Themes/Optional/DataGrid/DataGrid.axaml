@@ -49,6 +49,7 @@
 -->
 <ResourceDictionary xmlns="https://github.com/avaloniaui"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:theme="using:Fili.Theme.MudAvalonia"
                     xmlns:collections="using:Avalonia.Collections"
                     xmlns:fili="using:Fili.Theme.MudAvalonia.Converters"
                     xmlns:optional="using:Fili.Theme.MudAvalonia.Optional">
@@ -75,7 +76,7 @@
     <Setter Property="MinWidth" Value="0" />
     <Setter Property="FontSize" Value="{DynamicResource FiliBody2FontSize}" />
     <Setter Property="VerticalAlignment" Value="Center" />
-    <Style Selector="^ /template/ Border#PART_Underline">
+    <Style Selector="^ /template/ theme|PartBorder#PART_Underline">
       <Setter Property="IsVisible" Value="False" />
     </Style>
   </ControlTheme>
@@ -95,7 +96,7 @@
     <Setter Property="VerticalContentAlignment" Value="Center" />
     <Setter Property="Template">
       <ControlTemplate>
-        <Border x:Name="CellBorder"
+        <theme:PartBorder x:Name="CellBorder"
                 Background="{TemplateBinding Background}"
                 BorderBrush="{TemplateBinding BorderBrush}"
                 BorderThickness="{TemplateBinding BorderThickness}"
@@ -118,7 +119,7 @@
                        Width="1"
                        VerticalAlignment="Stretch" />
           </Grid>
-        </Border>
+        </theme:PartBorder>
       </ControlTemplate>
     </Setter>
     <Style Selector="^:invalid /template/ Rectangle#InvalidVisualElement">
@@ -147,7 +148,7 @@
     <Setter Property="MinHeight" Value="59" />
     <Setter Property="Template">
       <ControlTemplate>
-        <Border x:Name="HeaderBorder"
+        <theme:PartBorder x:Name="HeaderBorder"
                 Background="{TemplateBinding Background}"
                 BorderBrush="{TemplateBinding BorderBrush}"
                 BorderThickness="{TemplateBinding BorderThickness}"
@@ -167,17 +168,17 @@
 
               <!-- `.sort-direction-icon` on a small MudIconButton: 5px round an 18px icon, 4px
                    from the title, action-default. Opacity and turn are transitioned. -->
-              <Border x:Name="PART_SortButton"
+              <theme:PartBorder x:Name="PART_SortButton"
                       Grid.Column="1"
                       Margin="4,0,0,0"
                       Padding="5"
                       VerticalAlignment="Center"
                       Opacity="0">
-                <Border.Transitions>
+                <theme:PartBorder.Transitions>
                   <Transitions>
                     <DoubleTransition Property="Opacity" Duration="0:0:0.3" Easing="0.4,0,0.2,1" />
                   </Transitions>
-                </Border.Transitions>
+                </theme:PartBorder.Transitions>
                 <Viewbox x:Name="PART_SortIcon"
                          Width="18" Height="18"
                          RenderTransformOrigin="50%,50%"
@@ -193,7 +194,7 @@
                           Stretch="None" />
                   </Panel>
                 </Viewbox>
-              </Border>
+              </theme:PartBorder>
             </Grid>
 
             <!-- Never shown: MudDataGrid draws no line between its headers. -->
@@ -204,14 +205,14 @@
                        Fill="{TemplateBinding SeparatorBrush}"
                        IsVisible="False" />
           </Grid>
-        </Border>
+        </theme:PartBorder>
       </ControlTemplate>
     </Setter>
 
-    <Style Selector="^:sortascending /template/ Border#PART_SortButton">
+    <Style Selector="^:sortascending /template/ theme|PartBorder#PART_SortButton">
       <Setter Property="Opacity" Value="1" />
     </Style>
-    <Style Selector="^:sortdescending /template/ Border#PART_SortButton">
+    <Style Selector="^:sortdescending /template/ theme|PartBorder#PART_SortButton">
       <Setter Property="Opacity" Value="1" />
     </Style>
     <Style Selector="^:sortdescending /template/ Viewbox#PART_SortIcon">
@@ -219,7 +220,7 @@
     </Style>
     <!-- `.column-header:hover .sort-direction-icon { opacity: 0.8 }`, sorted or not: the hover rule
          is the more specific one. -->
-    <Style Selector="^:pointerover /template/ Border#PART_SortButton">
+    <Style Selector="^:pointerover /template/ theme|PartBorder#PART_SortButton">
       <Setter Property="Opacity" Value="0.8" />
     </Style>
     <Style Selector="^:dragIndicator">
@@ -237,7 +238,7 @@
         <Grid x:Name="PART_Root"
               ColumnDefinitions="Auto,*"
               RowDefinitions="*,*,Auto">
-          <Border Grid.RowSpan="3"
+          <theme:PartBorder Grid.RowSpan="3"
                   Grid.ColumnSpan="2"
                   BorderBrush="{TemplateBinding SeparatorBrush}"
                   BorderThickness="0,0,1,0">
@@ -245,7 +246,7 @@
               <Rectangle x:Name="RowInvalidVisualElement" Stretch="Fill" />
               <Rectangle x:Name="BackgroundRectangle" Stretch="Fill" />
             </Grid>
-          </Border>
+          </theme:PartBorder>
           <Rectangle x:Name="HorizontalSeparator"
                      Grid.Row="2"
                      Grid.ColumnSpan="2"
@@ -267,7 +268,7 @@
     <Setter Property="Background" Value="{Binding $parent[DataGrid].RowBackground}" />
     <Setter Property="Template">
       <ControlTemplate>
-        <Border x:Name="RowBorder"
+        <theme:PartBorder x:Name="RowBorder"
                 Background="{TemplateBinding Background}"
                 BorderBrush="{TemplateBinding BorderBrush}"
                 BorderThickness="{TemplateBinding BorderThickness}"
@@ -277,7 +278,7 @@
                               RowDefinitions="*,Auto,Auto">
 
             <!-- `striped`: shown on the 1st, 3rd, 5th… row; FiliTheme.axaml paints it. -->
-            <Border x:Name="PART_Stripe"
+            <theme:PartBorder x:Name="PART_Stripe"
                     Grid.RowSpan="2"
                     Grid.ColumnSpan="2"
                     Background="Transparent"
@@ -309,7 +310,7 @@
                        Height="1"
                        HorizontalAlignment="Stretch" />
           </DataGridFrozenGrid>
-        </Border>
+        </theme:PartBorder>
       </ControlTemplate>
     </Setter>
     <Style Selector="^:invalid /template/ Rectangle#InvalidVisualElement">
@@ -326,7 +327,7 @@
     <Setter Property="Cursor" Value="Hand" />
     <Setter Property="Template">
       <ControlTemplate>
-        <Border x:Name="PART_Root"
+        <theme:PartBorder x:Name="PART_Root"
                 Background="{TemplateBinding Background}"
                 CornerRadius="{TemplateBinding CornerRadius}"
                 Padding="{TemplateBinding Padding}">
@@ -336,13 +337,13 @@
                   Fill="{TemplateBinding Foreground}"
                   Stretch="None" />
           </Panel>
-        </Border>
+        </theme:PartBorder>
       </ControlTemplate>
     </Setter>
-    <Style Selector="^:pointerover /template/ Border#PART_Root">
+    <Style Selector="^:pointerover /template/ theme|PartBorder#PART_Root">
       <Setter Property="Background" Value="{DynamicResource FiliActionDefaultHoverBrush}" />
     </Style>
-    <Style Selector="^:focus-visible /template/ Border#PART_Root">
+    <Style Selector="^:focus-visible /template/ theme|PartBorder#PART_Root">
       <Setter Property="Background" Value="{DynamicResource FiliActionDefaultHoverBrush}" />
     </Style>
     <Style Selector="^:checked /template/ Path#PART_Glyph">
@@ -455,7 +456,7 @@
     </Setter>
     <Setter Property="Template">
       <ControlTemplate>
-        <Border x:Name="DataGridBorder"
+        <theme:PartBorder x:Name="DataGridBorder"
                 Background="{TemplateBinding Background}"
                 BorderBrush="{TemplateBinding BorderBrush}"
                 BorderThickness="{TemplateBinding BorderThickness}"
@@ -509,7 +510,7 @@
                          Orientation="Horizontal" />
             </Grid>
           </Grid>
-        </Border>
+        </theme:PartBorder>
       </ControlTemplate>
     </Setter>
 
@@ -518,82 +519,82 @@
     <!-- Bordered is `GridLinesVisibility="All"` and Square `CornerRadius="0"`: one property each,
          so no class. -->
     <!-- GENERATED by ThemeColourGenerator: data grid elevation. -->
-    <Style Selector="^.elevation0 /template/ Border#DataGridBorder">
+    <Style Selector="^.elevation0 /template/ theme|PartBorder#DataGridBorder">
       <Setter Property="BoxShadow" Value="{DynamicResource FiliElevation0}" />
     </Style>
-    <Style Selector="^.elevation1 /template/ Border#DataGridBorder">
+    <Style Selector="^.elevation1 /template/ theme|PartBorder#DataGridBorder">
       <Setter Property="BoxShadow" Value="{DynamicResource FiliElevation1}" />
     </Style>
-    <Style Selector="^.elevation2 /template/ Border#DataGridBorder">
+    <Style Selector="^.elevation2 /template/ theme|PartBorder#DataGridBorder">
       <Setter Property="BoxShadow" Value="{DynamicResource FiliElevation2}" />
     </Style>
-    <Style Selector="^.elevation3 /template/ Border#DataGridBorder">
+    <Style Selector="^.elevation3 /template/ theme|PartBorder#DataGridBorder">
       <Setter Property="BoxShadow" Value="{DynamicResource FiliElevation3}" />
     </Style>
-    <Style Selector="^.elevation4 /template/ Border#DataGridBorder">
+    <Style Selector="^.elevation4 /template/ theme|PartBorder#DataGridBorder">
       <Setter Property="BoxShadow" Value="{DynamicResource FiliElevation4}" />
     </Style>
-    <Style Selector="^.elevation5 /template/ Border#DataGridBorder">
+    <Style Selector="^.elevation5 /template/ theme|PartBorder#DataGridBorder">
       <Setter Property="BoxShadow" Value="{DynamicResource FiliElevation5}" />
     </Style>
-    <Style Selector="^.elevation6 /template/ Border#DataGridBorder">
+    <Style Selector="^.elevation6 /template/ theme|PartBorder#DataGridBorder">
       <Setter Property="BoxShadow" Value="{DynamicResource FiliElevation6}" />
     </Style>
-    <Style Selector="^.elevation7 /template/ Border#DataGridBorder">
+    <Style Selector="^.elevation7 /template/ theme|PartBorder#DataGridBorder">
       <Setter Property="BoxShadow" Value="{DynamicResource FiliElevation7}" />
     </Style>
-    <Style Selector="^.elevation8 /template/ Border#DataGridBorder">
+    <Style Selector="^.elevation8 /template/ theme|PartBorder#DataGridBorder">
       <Setter Property="BoxShadow" Value="{DynamicResource FiliElevation8}" />
     </Style>
-    <Style Selector="^.elevation9 /template/ Border#DataGridBorder">
+    <Style Selector="^.elevation9 /template/ theme|PartBorder#DataGridBorder">
       <Setter Property="BoxShadow" Value="{DynamicResource FiliElevation9}" />
     </Style>
-    <Style Selector="^.elevation10 /template/ Border#DataGridBorder">
+    <Style Selector="^.elevation10 /template/ theme|PartBorder#DataGridBorder">
       <Setter Property="BoxShadow" Value="{DynamicResource FiliElevation10}" />
     </Style>
-    <Style Selector="^.elevation11 /template/ Border#DataGridBorder">
+    <Style Selector="^.elevation11 /template/ theme|PartBorder#DataGridBorder">
       <Setter Property="BoxShadow" Value="{DynamicResource FiliElevation11}" />
     </Style>
-    <Style Selector="^.elevation12 /template/ Border#DataGridBorder">
+    <Style Selector="^.elevation12 /template/ theme|PartBorder#DataGridBorder">
       <Setter Property="BoxShadow" Value="{DynamicResource FiliElevation12}" />
     </Style>
-    <Style Selector="^.elevation13 /template/ Border#DataGridBorder">
+    <Style Selector="^.elevation13 /template/ theme|PartBorder#DataGridBorder">
       <Setter Property="BoxShadow" Value="{DynamicResource FiliElevation13}" />
     </Style>
-    <Style Selector="^.elevation14 /template/ Border#DataGridBorder">
+    <Style Selector="^.elevation14 /template/ theme|PartBorder#DataGridBorder">
       <Setter Property="BoxShadow" Value="{DynamicResource FiliElevation14}" />
     </Style>
-    <Style Selector="^.elevation15 /template/ Border#DataGridBorder">
+    <Style Selector="^.elevation15 /template/ theme|PartBorder#DataGridBorder">
       <Setter Property="BoxShadow" Value="{DynamicResource FiliElevation15}" />
     </Style>
-    <Style Selector="^.elevation16 /template/ Border#DataGridBorder">
+    <Style Selector="^.elevation16 /template/ theme|PartBorder#DataGridBorder">
       <Setter Property="BoxShadow" Value="{DynamicResource FiliElevation16}" />
     </Style>
-    <Style Selector="^.elevation17 /template/ Border#DataGridBorder">
+    <Style Selector="^.elevation17 /template/ theme|PartBorder#DataGridBorder">
       <Setter Property="BoxShadow" Value="{DynamicResource FiliElevation17}" />
     </Style>
-    <Style Selector="^.elevation18 /template/ Border#DataGridBorder">
+    <Style Selector="^.elevation18 /template/ theme|PartBorder#DataGridBorder">
       <Setter Property="BoxShadow" Value="{DynamicResource FiliElevation18}" />
     </Style>
-    <Style Selector="^.elevation19 /template/ Border#DataGridBorder">
+    <Style Selector="^.elevation19 /template/ theme|PartBorder#DataGridBorder">
       <Setter Property="BoxShadow" Value="{DynamicResource FiliElevation19}" />
     </Style>
-    <Style Selector="^.elevation20 /template/ Border#DataGridBorder">
+    <Style Selector="^.elevation20 /template/ theme|PartBorder#DataGridBorder">
       <Setter Property="BoxShadow" Value="{DynamicResource FiliElevation20}" />
     </Style>
-    <Style Selector="^.elevation21 /template/ Border#DataGridBorder">
+    <Style Selector="^.elevation21 /template/ theme|PartBorder#DataGridBorder">
       <Setter Property="BoxShadow" Value="{DynamicResource FiliElevation21}" />
     </Style>
-    <Style Selector="^.elevation22 /template/ Border#DataGridBorder">
+    <Style Selector="^.elevation22 /template/ theme|PartBorder#DataGridBorder">
       <Setter Property="BoxShadow" Value="{DynamicResource FiliElevation22}" />
     </Style>
-    <Style Selector="^.elevation23 /template/ Border#DataGridBorder">
+    <Style Selector="^.elevation23 /template/ theme|PartBorder#DataGridBorder">
       <Setter Property="BoxShadow" Value="{DynamicResource FiliElevation23}" />
     </Style>
-    <Style Selector="^.elevation24 /template/ Border#DataGridBorder">
+    <Style Selector="^.elevation24 /template/ theme|PartBorder#DataGridBorder">
       <Setter Property="BoxShadow" Value="{DynamicResource FiliElevation24}" />
     </Style>
-    <Style Selector="^.elevation25 /template/ Border#DataGridBorder">
+    <Style Selector="^.elevation25 /template/ theme|PartBorder#DataGridBorder">
       <Setter Property="BoxShadow" Value="{DynamicResource FiliElevation25}" />
     </Style>
     <!-- END GENERATED -->
@@ -601,7 +602,7 @@
       <Setter Property="BorderBrush" Value="{DynamicResource FiliLinesDefaultBrush}" />
       <Setter Property="BorderThickness" Value="1" />
     </Style>
-    <Style Selector="^.outlined /template/ Border#DataGridBorder">
+    <Style Selector="^.outlined /template/ theme|PartBorder#DataGridBorder">
       <Setter Property="BoxShadow" Value="{DynamicResource FiliElevation0}" />
     </Style>
   </ControlTheme>

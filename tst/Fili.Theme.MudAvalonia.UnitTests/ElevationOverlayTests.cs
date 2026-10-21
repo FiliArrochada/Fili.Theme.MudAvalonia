@@ -232,7 +232,7 @@ public class ElevationOverlayTests
 
         // A popup's sheet is its child, which lives in the popup's own tree, not under the control.
         static Border Sheet(Control owner) =>
-            Assert.IsType<Border>(Matrix.Part<Avalonia.Controls.Primitives.Popup>(owner, "PART_Popup").Child);
+            Assert.IsAssignableFrom<Border>(Matrix.Part<Avalonia.Controls.Primitives.Popup>(owner, "PART_Popup").Child);
 
         static Border Presenter<T>(Control inside) where T : Control =>
             Matrix.Part<Border>(inside.GetVisualAncestors().OfType<T>().First(), "PART_Border");

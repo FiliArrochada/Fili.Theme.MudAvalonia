@@ -10,7 +10,7 @@ those silent failures into red builds, because looking at the app cannot be reli
 
 | Project | What it does | Speed |
 |---|---|---|
-| `tst/Fili.Theme.MudAvalonia.UnitTests` | 990 tests on a headless Avalonia session. They resolve resources, template controls, move a real pointer over them, and read back the values the theme applied. Nothing is rendered. | seconds |
+| `tst/Fili.Theme.MudAvalonia.UnitTests` | 992 tests on a headless Avalonia session. They resolve resources, template controls, move a real pointer over them, and read back the values the theme applied. Nothing is rendered. | seconds |
 | `tst/Fili.Theme.MudAvalonia.NoDataGridTests` | 3 tests. The theme in an app that does not reference `Avalonia.Controls.DataGrid`: the assembly is really absent, `FiliTheme.axaml` loads and themes a button, and no DataGrid rule was loaded. | seconds |
 | `tst/Fili.Theme.MudAvalonia.PixelTests` | 58 tests. Twelve render one gallery frame each with Skia and compare it pixel by pixel with a PNG committed in `Baselines/`. Thirty-six, in `GalleryAuditTests`, run three of the unit suite's checks over each of those twelve pages instead of a list of bare controls - no binding error, every control one Tab stop at most, no presented text showing an access key's underscore - so every class, state and variant a sample shows is covered. Ten, in `GalleryPageTests`, check how the gallery behaves - that the controls page opens on its introduction and a loading card pinned over the page, fills in a few rows per dispatcher pass with the card in view however far it is scrolled (pausing while off screen, and loading the rest at once for an index row ahead of the load), that it opens at the top in a window shorter than its first screen, that keyboard focus still scrolls it, that each row of the index beside it lands on its section and the index follows the scroll, that every section fits beside the index in the desktop window and in a frame, and that the app bar shows the theme's version. | ~45 seconds |
 
@@ -27,7 +27,7 @@ needed a different platform.
 
 ## The unit tests
 
-990 tests in 60 classes, grouped here by the failure each one exists to catch.
+992 tests in 61 classes, grouped here by the failure each one exists to catch.
 
 ### Tokens: does every value exist, in every variant?
 
@@ -45,6 +45,7 @@ needed a different platform.
 |---|---|---|---|
 | `OptionalBoundaryTests` | 7 | The packages the theme builds against but does not depend on: only a package's own folder under `Themes/Optional/` names its types (a scan of every `.axaml` and `.cs`, reporting file and line), each `OptionalStyleInclude`'s `MinimumVersion` is the version `Directory.Packages.props` builds against, an absent package loads nothing, an older one loads nothing and logs why, the one here is loaded, and the include keeps its compiled XAML through trimming. | A DataGrid selector anywhere else passes every other test - this suite has the package - and takes the whole theme down at startup in every app that does not. |
 | `StandaloneReadinessTests` | 3 | The exact set of hand-written control themes (47 of the 95 templated types, the DataGrid package's included) and that every one resolves; every other type is classified with the reason it stays on its forked template. | Avalonia has no implicit default theme. A control with no theme does not look wrong - it renders **nothing**. An Avalonia upgrade that adds a control type fails here asking to be classified. |
+| `StyleCostTests` | 2 | Every Border in a hand-written template is a `PartBorder`, and no top-level selector looks for a plain Border inside one. | A style is matched against every control of the type its selector ends in, template parts included: template Borders paying for every Border class style made a screen of ordinary controls six times slower to build than the base. |
 | `PublishedInterfaceTests` | 4 | The resource keys in `docs/published-keys.md` are exactly the `Fili*` keys the token dictionaries declare plus every glyph key, each resolves in light, dark and high contrast, and the public C# API is `FiliThemeVariants` alone. | Renaming a key breaks every app that names it, silently - a missing key resolves to nothing - while every test here passes, because the theme's own references move with it. See [Compatibility](compatibility.md). |
 | `BindingErrorTests` | 31 | Thirty-one controls and variants as an app first shows them - empty, unset - log no binding error. | Avalonia logs a failed binding and carries on, so nothing else here fails; an app that fails its own tests on a binding error inherits every one the theme makes, on every page. An adopting app found the first: the counter's `Text.Length` on every TextBox whose `Text` was null. |
 | `TabStopTests` | 31 | The same thirty-one controls are one Tab stop at most: the control, or the one part that stands for it. | A focusable part adds a stop nobody sees until they use the keyboard. An adopting app found one: a slider's two 2px rail halves, three stops per slider. |

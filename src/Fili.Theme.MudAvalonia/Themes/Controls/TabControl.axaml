@@ -63,10 +63,10 @@
 
     <Setter Property="Template">
       <ControlTemplate>
-        <Border x:Name="PART_Root" Background="Transparent">
+        <theme:PartBorder x:Name="PART_Root" Background="Transparent">
           <Panel>
-            <Border x:Name="PART_StateLayer" Background="Transparent" />
-            <Border x:Name="PART_Ripple"
+            <theme:PartBorder x:Name="PART_StateLayer" Background="Transparent" />
+            <theme:PartBorder x:Name="PART_Ripple"
                     theme:Ripple.IsLayer="True" />
 
             <ContentPresenter x:Name="PART_ContentPresenter"
@@ -85,43 +85,43 @@
             </ContentPresenter>
 
             <!-- Indicator. Present always, revealed on selection, so the header does not resize. -->
-            <Border x:Name="PART_Indicator"
+            <theme:PartBorder x:Name="PART_Indicator"
                     Height="2"
                     VerticalAlignment="Bottom"
                     Background="{DynamicResource FiliPrimaryBrush}"
                     Opacity="0">
-                <Border.Transitions>
+                <theme:PartBorder.Transitions>
                   <Transitions>
                     <!-- `.mud-tab-slider`: left (or top) .3s cubic-bezier(.64,.09,.08,1). The
                          theme's SlidingIndicator starts the selected indicator at the old one. -->
                     <TransformOperationsTransition Property="RenderTransform" Duration="0:0:0.3" Easing="0.64,0.09,0.08,1" />
                   </Transitions>
-                </Border.Transitions>
-            </Border>
+                </theme:PartBorder.Transitions>
+            </theme:PartBorder>
           </Panel>
-        </Border>
+        </theme:PartBorder>
       </ControlTemplate>
     </Setter>
 
     <Style Selector="^:selected">
       <Setter Property="Foreground" Value="{DynamicResource FiliPrimaryBrush}" />
     </Style>
-    <Style Selector="^:selected /template/ Border#PART_Indicator">
+    <Style Selector="^:selected /template/ theme|PartBorder#PART_Indicator">
       <Setter Property="Opacity" Value="1" />
     </Style>
 
     <!-- `.mud-tab-slider-horizontal-reverse` / `-vertical` / `-vertical-reverse`: the indicator
          sits on the side that faces the content. -->
-    <Style Selector="^[TabStripPlacement=Bottom] /template/ Border#PART_Indicator">
+    <Style Selector="^[TabStripPlacement=Bottom] /template/ theme|PartBorder#PART_Indicator">
       <Setter Property="VerticalAlignment" Value="Top" />
     </Style>
-    <Style Selector="^[TabStripPlacement=Left] /template/ Border#PART_Indicator">
+    <Style Selector="^[TabStripPlacement=Left] /template/ theme|PartBorder#PART_Indicator">
       <Setter Property="Height" Value="NaN" />
       <Setter Property="Width" Value="2" />
       <Setter Property="VerticalAlignment" Value="Stretch" />
       <Setter Property="HorizontalAlignment" Value="Right" />
     </Style>
-    <Style Selector="^[TabStripPlacement=Right] /template/ Border#PART_Indicator">
+    <Style Selector="^[TabStripPlacement=Right] /template/ theme|PartBorder#PART_Indicator">
       <Setter Property="Height" Value="NaN" />
       <Setter Property="Width" Value="2" />
       <Setter Property="VerticalAlignment" Value="Stretch" />
@@ -131,19 +131,19 @@
     <!-- _tabs.scss: action-default-hover on a tab, primary-hover on the active one. Keyboard
          focus paints the same tint - that IS the affordance in MudBlazor, where _reset.scss drops
          the browser ring. -->
-    <Style Selector="^:pointerover /template/ Border#PART_StateLayer">
+    <Style Selector="^:pointerover /template/ theme|PartBorder#PART_StateLayer">
       <Setter Property="Background" Value="{DynamicResource FiliActionDefaultHoverBrush}" />
     </Style>
-    <Style Selector="^:focus-visible /template/ Border#PART_StateLayer">
+    <Style Selector="^:focus-visible /template/ theme|PartBorder#PART_StateLayer">
       <Setter Property="Background" Value="{DynamicResource FiliActionDefaultHoverBrush}" />
     </Style>
-    <Style Selector="^:selected:pointerover /template/ Border#PART_StateLayer">
+    <Style Selector="^:selected:pointerover /template/ theme|PartBorder#PART_StateLayer">
       <Setter Property="Background" Value="{DynamicResource FiliPrimaryHoverBrush}" />
     </Style>
-    <Style Selector="^:selected:focus-visible /template/ Border#PART_StateLayer">
+    <Style Selector="^:selected:focus-visible /template/ theme|PartBorder#PART_StateLayer">
       <Setter Property="Background" Value="{DynamicResource FiliPrimaryHoverBrush}" />
     </Style>
-    <Style Selector="^:pressed /template/ Border#PART_StateLayer">
+    <Style Selector="^:pressed /template/ theme|PartBorder#PART_StateLayer">
       <Setter Property="Background" Value="{DynamicResource FiliOverlayPressedBrush}" />
     </Style>
 
@@ -162,12 +162,12 @@
 
     <Setter Property="Template">
       <ControlTemplate>
-        <Border Background="{TemplateBinding Background}"
+        <theme:PartBorder Background="{TemplateBinding Background}"
                 BorderBrush="{TemplateBinding BorderBrush}"
                 BorderThickness="{TemplateBinding BorderThickness}">
           <DockPanel>
-            <Border x:Name="PART_TabBarHost">
-              <Border x:Name="PART_TabBar">
+            <theme:PartBorder x:Name="PART_TabBarHost">
+              <theme:PartBorder x:Name="PART_TabBar">
                 <!-- MudTabs' scroll buttons, at the bar's ends while the tabs overflow it: icon buttons with
                      ChevronLeft and ChevronRight (NavigateBefore is the same path). TabBarScroll shows them,
                      disables each at its end and scrolls a bar's length per click. -->
@@ -187,15 +187,15 @@
                                     ItemsPanel="{TemplateBinding ItemsPanel}" />
                   </ScrollViewer>
                 </DockPanel>
-              </Border>
-            </Border>
+              </theme:PartBorder>
+            </theme:PartBorder>
 
             <ContentPresenter x:Name="PART_SelectedContentHost"
                               Content="{TemplateBinding SelectedContent}"
                               ContentTemplate="{TemplateBinding SelectedContentTemplate}"
                               Margin="{TemplateBinding Padding}" />
           </DockPanel>
-        </Border>
+        </theme:PartBorder>
       </ControlTemplate>
     </Setter>
 
@@ -204,20 +204,20 @@
       a style rather than a value inline in the template, because a value written there binds at
       Template priority and the classes below could not move it.
     -->
-    <Style Selector="^ /template/ Border#PART_TabBar">
+    <Style Selector="^ /template/ theme|PartBorder#PART_TabBar">
       <Setter Property="Background" Value="{DynamicResource FiliSurfaceBrush}" />
       <Setter Property="BorderBrush" Value="{DynamicResource FiliLinesDefaultBrush}" />
     </Style>
     <!-- Border: .mud-tabs-border-top, a lines-default rule on the content side. -->
-    <Style Selector="^.border /template/ Border#PART_TabBar">
+    <Style Selector="^.border /template/ theme|PartBorder#PART_TabBar">
       <Setter Property="BorderThickness" Value="0,0,0,1" />
     </Style>
     <!-- Outlined: .mud-paper-outlined on the bar. -->
-    <Style Selector="^.outlined /template/ Border#PART_TabBar">
+    <Style Selector="^.outlined /template/ theme|PartBorder#PART_TabBar">
       <Setter Property="BorderThickness" Value="1" />
     </Style>
     <!-- Rounded: .mud-tabs-rounded, default-borderradius, with the tabs' tints clipped to it. -->
-    <Style Selector="^.rounded /template/ Border#PART_TabBar">
+    <Style Selector="^.rounded /template/ theme|PartBorder#PART_TabBar">
       <Setter Property="CornerRadius" Value="{DynamicResource FiliCornerRadius}" />
       <Setter Property="ClipToBounds" Value="True" />
     </Style>
@@ -229,86 +229,86 @@
     <!-- Elevation: `.mud-elevation-{n}` on the bar. The shadow is on the host, outside the bar,
          because `rounded` clips the bar and would clip its own shadow away. -->
     <!-- GENERATED by ThemeColourGenerator: tab bar elevation. -->
-    <Style Selector="^.elevation0 /template/ Border#PART_TabBarHost">
+    <Style Selector="^.elevation0 /template/ theme|PartBorder#PART_TabBarHost">
       <Setter Property="BoxShadow" Value="{DynamicResource FiliElevation0}" />
     </Style>
-    <Style Selector="^.elevation1 /template/ Border#PART_TabBarHost">
+    <Style Selector="^.elevation1 /template/ theme|PartBorder#PART_TabBarHost">
       <Setter Property="BoxShadow" Value="{DynamicResource FiliElevation1}" />
     </Style>
-    <Style Selector="^.elevation2 /template/ Border#PART_TabBarHost">
+    <Style Selector="^.elevation2 /template/ theme|PartBorder#PART_TabBarHost">
       <Setter Property="BoxShadow" Value="{DynamicResource FiliElevation2}" />
     </Style>
-    <Style Selector="^.elevation3 /template/ Border#PART_TabBarHost">
+    <Style Selector="^.elevation3 /template/ theme|PartBorder#PART_TabBarHost">
       <Setter Property="BoxShadow" Value="{DynamicResource FiliElevation3}" />
     </Style>
-    <Style Selector="^.elevation4 /template/ Border#PART_TabBarHost">
+    <Style Selector="^.elevation4 /template/ theme|PartBorder#PART_TabBarHost">
       <Setter Property="BoxShadow" Value="{DynamicResource FiliElevation4}" />
     </Style>
-    <Style Selector="^.elevation5 /template/ Border#PART_TabBarHost">
+    <Style Selector="^.elevation5 /template/ theme|PartBorder#PART_TabBarHost">
       <Setter Property="BoxShadow" Value="{DynamicResource FiliElevation5}" />
     </Style>
-    <Style Selector="^.elevation6 /template/ Border#PART_TabBarHost">
+    <Style Selector="^.elevation6 /template/ theme|PartBorder#PART_TabBarHost">
       <Setter Property="BoxShadow" Value="{DynamicResource FiliElevation6}" />
     </Style>
-    <Style Selector="^.elevation7 /template/ Border#PART_TabBarHost">
+    <Style Selector="^.elevation7 /template/ theme|PartBorder#PART_TabBarHost">
       <Setter Property="BoxShadow" Value="{DynamicResource FiliElevation7}" />
     </Style>
-    <Style Selector="^.elevation8 /template/ Border#PART_TabBarHost">
+    <Style Selector="^.elevation8 /template/ theme|PartBorder#PART_TabBarHost">
       <Setter Property="BoxShadow" Value="{DynamicResource FiliElevation8}" />
     </Style>
-    <Style Selector="^.elevation9 /template/ Border#PART_TabBarHost">
+    <Style Selector="^.elevation9 /template/ theme|PartBorder#PART_TabBarHost">
       <Setter Property="BoxShadow" Value="{DynamicResource FiliElevation9}" />
     </Style>
-    <Style Selector="^.elevation10 /template/ Border#PART_TabBarHost">
+    <Style Selector="^.elevation10 /template/ theme|PartBorder#PART_TabBarHost">
       <Setter Property="BoxShadow" Value="{DynamicResource FiliElevation10}" />
     </Style>
-    <Style Selector="^.elevation11 /template/ Border#PART_TabBarHost">
+    <Style Selector="^.elevation11 /template/ theme|PartBorder#PART_TabBarHost">
       <Setter Property="BoxShadow" Value="{DynamicResource FiliElevation11}" />
     </Style>
-    <Style Selector="^.elevation12 /template/ Border#PART_TabBarHost">
+    <Style Selector="^.elevation12 /template/ theme|PartBorder#PART_TabBarHost">
       <Setter Property="BoxShadow" Value="{DynamicResource FiliElevation12}" />
     </Style>
-    <Style Selector="^.elevation13 /template/ Border#PART_TabBarHost">
+    <Style Selector="^.elevation13 /template/ theme|PartBorder#PART_TabBarHost">
       <Setter Property="BoxShadow" Value="{DynamicResource FiliElevation13}" />
     </Style>
-    <Style Selector="^.elevation14 /template/ Border#PART_TabBarHost">
+    <Style Selector="^.elevation14 /template/ theme|PartBorder#PART_TabBarHost">
       <Setter Property="BoxShadow" Value="{DynamicResource FiliElevation14}" />
     </Style>
-    <Style Selector="^.elevation15 /template/ Border#PART_TabBarHost">
+    <Style Selector="^.elevation15 /template/ theme|PartBorder#PART_TabBarHost">
       <Setter Property="BoxShadow" Value="{DynamicResource FiliElevation15}" />
     </Style>
-    <Style Selector="^.elevation16 /template/ Border#PART_TabBarHost">
+    <Style Selector="^.elevation16 /template/ theme|PartBorder#PART_TabBarHost">
       <Setter Property="BoxShadow" Value="{DynamicResource FiliElevation16}" />
     </Style>
-    <Style Selector="^.elevation17 /template/ Border#PART_TabBarHost">
+    <Style Selector="^.elevation17 /template/ theme|PartBorder#PART_TabBarHost">
       <Setter Property="BoxShadow" Value="{DynamicResource FiliElevation17}" />
     </Style>
-    <Style Selector="^.elevation18 /template/ Border#PART_TabBarHost">
+    <Style Selector="^.elevation18 /template/ theme|PartBorder#PART_TabBarHost">
       <Setter Property="BoxShadow" Value="{DynamicResource FiliElevation18}" />
     </Style>
-    <Style Selector="^.elevation19 /template/ Border#PART_TabBarHost">
+    <Style Selector="^.elevation19 /template/ theme|PartBorder#PART_TabBarHost">
       <Setter Property="BoxShadow" Value="{DynamicResource FiliElevation19}" />
     </Style>
-    <Style Selector="^.elevation20 /template/ Border#PART_TabBarHost">
+    <Style Selector="^.elevation20 /template/ theme|PartBorder#PART_TabBarHost">
       <Setter Property="BoxShadow" Value="{DynamicResource FiliElevation20}" />
     </Style>
-    <Style Selector="^.elevation21 /template/ Border#PART_TabBarHost">
+    <Style Selector="^.elevation21 /template/ theme|PartBorder#PART_TabBarHost">
       <Setter Property="BoxShadow" Value="{DynamicResource FiliElevation21}" />
     </Style>
-    <Style Selector="^.elevation22 /template/ Border#PART_TabBarHost">
+    <Style Selector="^.elevation22 /template/ theme|PartBorder#PART_TabBarHost">
       <Setter Property="BoxShadow" Value="{DynamicResource FiliElevation22}" />
     </Style>
-    <Style Selector="^.elevation23 /template/ Border#PART_TabBarHost">
+    <Style Selector="^.elevation23 /template/ theme|PartBorder#PART_TabBarHost">
       <Setter Property="BoxShadow" Value="{DynamicResource FiliElevation23}" />
     </Style>
-    <Style Selector="^.elevation24 /template/ Border#PART_TabBarHost">
+    <Style Selector="^.elevation24 /template/ theme|PartBorder#PART_TabBarHost">
       <Setter Property="BoxShadow" Value="{DynamicResource FiliElevation24}" />
     </Style>
-    <Style Selector="^.elevation25 /template/ Border#PART_TabBarHost">
+    <Style Selector="^.elevation25 /template/ theme|PartBorder#PART_TabBarHost">
       <Setter Property="BoxShadow" Value="{DynamicResource FiliElevation25}" />
     </Style>
     <!-- END GENERATED -->
-    <Style Selector="^.rounded /template/ Border#PART_TabBarHost">
+    <Style Selector="^.rounded /template/ theme|PartBorder#PART_TabBarHost">
       <Setter Property="CornerRadius" Value="{DynamicResource FiliCornerRadius}" />
     </Style>
 
@@ -317,16 +317,16 @@
       Bottom reverses the column, Left and Right turn it into a row with the tabs stacked, and
       `.mud-tabs-border-{position}` puts the rule on the side that faces the content.
     -->
-    <Style Selector="^ /template/ Border#PART_TabBarHost">
+    <Style Selector="^ /template/ theme|PartBorder#PART_TabBarHost">
       <Setter Property="DockPanel.Dock" Value="Top" />
     </Style>
-    <Style Selector="^[TabStripPlacement=Bottom] /template/ Border#PART_TabBarHost">
+    <Style Selector="^[TabStripPlacement=Bottom] /template/ theme|PartBorder#PART_TabBarHost">
       <Setter Property="DockPanel.Dock" Value="Bottom" />
     </Style>
-    <Style Selector="^[TabStripPlacement=Left] /template/ Border#PART_TabBarHost">
+    <Style Selector="^[TabStripPlacement=Left] /template/ theme|PartBorder#PART_TabBarHost">
       <Setter Property="DockPanel.Dock" Value="Left" />
     </Style>
-    <Style Selector="^[TabStripPlacement=Right] /template/ Border#PART_TabBarHost">
+    <Style Selector="^[TabStripPlacement=Right] /template/ theme|PartBorder#PART_TabBarHost">
       <Setter Property="DockPanel.Dock" Value="Right" />
     </Style>
 
@@ -367,13 +367,13 @@
       </Setter>
     </Style>
 
-    <Style Selector="^.border[TabStripPlacement=Bottom] /template/ Border#PART_TabBar">
+    <Style Selector="^.border[TabStripPlacement=Bottom] /template/ theme|PartBorder#PART_TabBar">
       <Setter Property="BorderThickness" Value="0,1,0,0" />
     </Style>
-    <Style Selector="^.border[TabStripPlacement=Left] /template/ Border#PART_TabBar">
+    <Style Selector="^.border[TabStripPlacement=Left] /template/ theme|PartBorder#PART_TabBar">
       <Setter Property="BorderThickness" Value="0,0,1,0" />
     </Style>
-    <Style Selector="^.border[TabStripPlacement=Right] /template/ Border#PART_TabBar">
+    <Style Selector="^.border[TabStripPlacement=Right] /template/ theme|PartBorder#PART_TabBar">
       <Setter Property="BorderThickness" Value="1,0,0,0" />
     </Style>
 

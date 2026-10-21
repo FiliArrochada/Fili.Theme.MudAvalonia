@@ -64,17 +64,17 @@
     <Setter Property="theme:Ripple.Opacity" Value="{DynamicResource FiliRippleOpacity}" />
     <Setter Property="Template">
       <ControlTemplate>
-        <Border x:Name="PART_Root"
+        <theme:PartBorder x:Name="PART_Root"
                 Background="{TemplateBinding Background}"
                 BorderBrush="{TemplateBinding BorderBrush}"
                 BorderThickness="{TemplateBinding BorderThickness}"
                 CornerRadius="{TemplateBinding CornerRadius}">
           <Panel>
             <!-- State layer. Sits under the content, over the fill. -->
-            <Border x:Name="PART_StateLayer"
+            <theme:PartBorder x:Name="PART_StateLayer"
                     CornerRadius="{TemplateBinding CornerRadius}"
                     Background="Transparent" />
-            <Border x:Name="PART_Ripple"
+            <theme:PartBorder x:Name="PART_Ripple"
                     theme:Ripple.IsLayer="True"
                     CornerRadius="{TemplateBinding CornerRadius}" />
             <ContentPresenter x:Name="PART_ContentPresenter"
@@ -92,19 +92,19 @@
               </ContentPresenter.Content>
             </ContentPresenter>
           </Panel>
-        </Border>
+        </theme:PartBorder>
       </ControlTemplate>
     </Setter>
 
     <!-- No colour: action-default-hover. Keyboard focus paints the same tint - that IS the
          affordance in MudBlazor, whose _reset.scss drops the browser focus ring. -->
-    <Style Selector="^:pointerover /template/ Border#PART_StateLayer">
+    <Style Selector="^:pointerover /template/ theme|PartBorder#PART_StateLayer">
       <Setter Property="Background" Value="{DynamicResource FiliActionDefaultHoverBrush}" />
     </Style>
-    <Style Selector="^:focus-visible /template/ Border#PART_StateLayer">
+    <Style Selector="^:focus-visible /template/ theme|PartBorder#PART_StateLayer">
       <Setter Property="Background" Value="{DynamicResource FiliActionDefaultHoverBrush}" />
     </Style>
-    <Style Selector="^:pressed /template/ Border#PART_StateLayer">
+    <Style Selector="^:pressed /template/ theme|PartBorder#PART_StateLayer">
       <Setter Property="Background" Value="{DynamicResource FiliActionDefaultHoverBrush}" />
     </Style>
 
@@ -121,97 +121,97 @@
     <Style Selector="^.primary">
       <Setter Property="Foreground" Value="{DynamicResource FiliPrimaryBrush}" />
     </Style>
-    <Style Selector="^.primary:pointerover /template/ Border#PART_StateLayer">
+    <Style Selector="^.primary:pointerover /template/ theme|PartBorder#PART_StateLayer">
       <Setter Property="Background" Value="{DynamicResource FiliPrimaryHoverBrush}" />
     </Style>
-    <Style Selector="^.primary:focus-visible /template/ Border#PART_StateLayer">
+    <Style Selector="^.primary:focus-visible /template/ theme|PartBorder#PART_StateLayer">
       <Setter Property="Background" Value="{DynamicResource FiliPrimaryHoverBrush}" />
     </Style>
-    <Style Selector="^.primary:pressed /template/ Border#PART_StateLayer">
+    <Style Selector="^.primary:pressed /template/ theme|PartBorder#PART_StateLayer">
       <Setter Property="Background" Value="{DynamicResource FiliPrimaryHoverBrush}" />
     </Style>
     <Style Selector="^.secondary">
       <Setter Property="Foreground" Value="{DynamicResource FiliSecondaryBrush}" />
     </Style>
-    <Style Selector="^.secondary:pointerover /template/ Border#PART_StateLayer">
+    <Style Selector="^.secondary:pointerover /template/ theme|PartBorder#PART_StateLayer">
       <Setter Property="Background" Value="{DynamicResource FiliSecondaryHoverBrush}" />
     </Style>
-    <Style Selector="^.secondary:focus-visible /template/ Border#PART_StateLayer">
+    <Style Selector="^.secondary:focus-visible /template/ theme|PartBorder#PART_StateLayer">
       <Setter Property="Background" Value="{DynamicResource FiliSecondaryHoverBrush}" />
     </Style>
-    <Style Selector="^.secondary:pressed /template/ Border#PART_StateLayer">
+    <Style Selector="^.secondary:pressed /template/ theme|PartBorder#PART_StateLayer">
       <Setter Property="Background" Value="{DynamicResource FiliSecondaryHoverBrush}" />
     </Style>
     <Style Selector="^.tertiary">
       <Setter Property="Foreground" Value="{DynamicResource FiliTertiaryBrush}" />
     </Style>
-    <Style Selector="^.tertiary:pointerover /template/ Border#PART_StateLayer">
+    <Style Selector="^.tertiary:pointerover /template/ theme|PartBorder#PART_StateLayer">
       <Setter Property="Background" Value="{DynamicResource FiliTertiaryHoverBrush}" />
     </Style>
-    <Style Selector="^.tertiary:focus-visible /template/ Border#PART_StateLayer">
+    <Style Selector="^.tertiary:focus-visible /template/ theme|PartBorder#PART_StateLayer">
       <Setter Property="Background" Value="{DynamicResource FiliTertiaryHoverBrush}" />
     </Style>
-    <Style Selector="^.tertiary:pressed /template/ Border#PART_StateLayer">
+    <Style Selector="^.tertiary:pressed /template/ theme|PartBorder#PART_StateLayer">
       <Setter Property="Background" Value="{DynamicResource FiliTertiaryHoverBrush}" />
     </Style>
     <Style Selector="^.info">
       <Setter Property="Foreground" Value="{DynamicResource FiliInfoBrush}" />
     </Style>
-    <Style Selector="^.info:pointerover /template/ Border#PART_StateLayer">
+    <Style Selector="^.info:pointerover /template/ theme|PartBorder#PART_StateLayer">
       <Setter Property="Background" Value="{DynamicResource FiliInfoHoverBrush}" />
     </Style>
-    <Style Selector="^.info:focus-visible /template/ Border#PART_StateLayer">
+    <Style Selector="^.info:focus-visible /template/ theme|PartBorder#PART_StateLayer">
       <Setter Property="Background" Value="{DynamicResource FiliInfoHoverBrush}" />
     </Style>
-    <Style Selector="^.info:pressed /template/ Border#PART_StateLayer">
+    <Style Selector="^.info:pressed /template/ theme|PartBorder#PART_StateLayer">
       <Setter Property="Background" Value="{DynamicResource FiliInfoHoverBrush}" />
     </Style>
     <Style Selector="^.success">
       <Setter Property="Foreground" Value="{DynamicResource FiliSuccessBrush}" />
     </Style>
-    <Style Selector="^.success:pointerover /template/ Border#PART_StateLayer">
+    <Style Selector="^.success:pointerover /template/ theme|PartBorder#PART_StateLayer">
       <Setter Property="Background" Value="{DynamicResource FiliSuccessHoverBrush}" />
     </Style>
-    <Style Selector="^.success:focus-visible /template/ Border#PART_StateLayer">
+    <Style Selector="^.success:focus-visible /template/ theme|PartBorder#PART_StateLayer">
       <Setter Property="Background" Value="{DynamicResource FiliSuccessHoverBrush}" />
     </Style>
-    <Style Selector="^.success:pressed /template/ Border#PART_StateLayer">
+    <Style Selector="^.success:pressed /template/ theme|PartBorder#PART_StateLayer">
       <Setter Property="Background" Value="{DynamicResource FiliSuccessHoverBrush}" />
     </Style>
     <Style Selector="^.warning">
       <Setter Property="Foreground" Value="{DynamicResource FiliWarningBrush}" />
     </Style>
-    <Style Selector="^.warning:pointerover /template/ Border#PART_StateLayer">
+    <Style Selector="^.warning:pointerover /template/ theme|PartBorder#PART_StateLayer">
       <Setter Property="Background" Value="{DynamicResource FiliWarningHoverBrush}" />
     </Style>
-    <Style Selector="^.warning:focus-visible /template/ Border#PART_StateLayer">
+    <Style Selector="^.warning:focus-visible /template/ theme|PartBorder#PART_StateLayer">
       <Setter Property="Background" Value="{DynamicResource FiliWarningHoverBrush}" />
     </Style>
-    <Style Selector="^.warning:pressed /template/ Border#PART_StateLayer">
+    <Style Selector="^.warning:pressed /template/ theme|PartBorder#PART_StateLayer">
       <Setter Property="Background" Value="{DynamicResource FiliWarningHoverBrush}" />
     </Style>
     <Style Selector="^.error">
       <Setter Property="Foreground" Value="{DynamicResource FiliErrorBrush}" />
     </Style>
-    <Style Selector="^.error:pointerover /template/ Border#PART_StateLayer">
+    <Style Selector="^.error:pointerover /template/ theme|PartBorder#PART_StateLayer">
       <Setter Property="Background" Value="{DynamicResource FiliErrorHoverBrush}" />
     </Style>
-    <Style Selector="^.error:focus-visible /template/ Border#PART_StateLayer">
+    <Style Selector="^.error:focus-visible /template/ theme|PartBorder#PART_StateLayer">
       <Setter Property="Background" Value="{DynamicResource FiliErrorHoverBrush}" />
     </Style>
-    <Style Selector="^.error:pressed /template/ Border#PART_StateLayer">
+    <Style Selector="^.error:pressed /template/ theme|PartBorder#PART_StateLayer">
       <Setter Property="Background" Value="{DynamicResource FiliErrorHoverBrush}" />
     </Style>
     <Style Selector="^.dark">
       <Setter Property="Foreground" Value="{DynamicResource FiliDarkBrush}" />
     </Style>
-    <Style Selector="^.dark:pointerover /template/ Border#PART_StateLayer">
+    <Style Selector="^.dark:pointerover /template/ theme|PartBorder#PART_StateLayer">
       <Setter Property="Background" Value="{DynamicResource FiliDarkHoverBrush}" />
     </Style>
-    <Style Selector="^.dark:focus-visible /template/ Border#PART_StateLayer">
+    <Style Selector="^.dark:focus-visible /template/ theme|PartBorder#PART_StateLayer">
       <Setter Property="Background" Value="{DynamicResource FiliDarkHoverBrush}" />
     </Style>
-    <Style Selector="^.dark:pressed /template/ Border#PART_StateLayer">
+    <Style Selector="^.dark:pressed /template/ theme|PartBorder#PART_StateLayer">
       <Setter Property="Background" Value="{DynamicResource FiliDarkHoverBrush}" />
     </Style>
 
@@ -242,7 +242,7 @@
     <Style Selector="^:disabled /template/ ContentPresenter#PART_ContentPresenter">
       <Setter Property="Foreground" Value="{DynamicResource FiliActionDisabledBrush}" />
     </Style>
-    <Style Selector="^:disabled /template/ Border#PART_StateLayer">
+    <Style Selector="^:disabled /template/ theme|PartBorder#PART_StateLayer">
       <Setter Property="Background" Value="Transparent" />
     </Style>
   </ControlTheme>
@@ -309,7 +309,7 @@
       <Setter Property="Padding" Value="4" />
     </Style>
 
-    <Style Selector="^:disabled /template/ Border#PART_Root">
+    <Style Selector="^:disabled /template/ theme|PartBorder#PART_Root">
       <Setter Property="BorderBrush" Value="{DynamicResource FiliActionDisabledBackgroundBrush}" />
     </Style>
   </ControlTheme>
@@ -342,7 +342,7 @@
     <Setter Property="theme:Ripple.Opacity" Value="{DynamicResource FiliRippleOpacitySecondary}" />
     <Setter Property="Template">
       <ControlTemplate>
-        <Border x:Name="PART_Root"
+        <theme:PartBorder x:Name="PART_Root"
                 Background="{TemplateBinding Background}"
                 BorderBrush="{TemplateBinding BorderBrush}"
                 BorderThickness="{TemplateBinding BorderThickness}"
@@ -350,10 +350,10 @@
                 BoxShadow="{DynamicResource FiliElevation2}">
           <Panel>
             <!-- State layer. Sits under the content, over the fill. -->
-            <Border x:Name="PART_StateLayer"
+            <theme:PartBorder x:Name="PART_StateLayer"
                     CornerRadius="{TemplateBinding CornerRadius}"
                     Background="Transparent" />
-            <Border x:Name="PART_Ripple"
+            <theme:PartBorder x:Name="PART_Ripple"
                     theme:Ripple.IsLayer="True"
                     CornerRadius="{TemplateBinding CornerRadius}" />
             <ContentPresenter x:Name="PART_ContentPresenter"
@@ -371,28 +371,28 @@
               </ContentPresenter.Content>
             </ContentPresenter>
           </Panel>
-        </Border>
+        </theme:PartBorder>
       </ControlTemplate>
     </Setter>
 
-    <Style Selector="^:pointerover /template/ Border#PART_Root">
+    <Style Selector="^:pointerover /template/ theme|PartBorder#PART_Root">
       <Setter Property="BoxShadow" Value="{DynamicResource FiliElevation4}" />
     </Style>
-    <Style Selector="^:focus-visible /template/ Border#PART_Root">
+    <Style Selector="^:focus-visible /template/ theme|PartBorder#PART_Root">
       <Setter Property="BoxShadow" Value="{DynamicResource FiliElevation4}" />
     </Style>
-    <Style Selector="^:pressed /template/ Border#PART_Root">
+    <Style Selector="^:pressed /template/ theme|PartBorder#PART_Root">
       <Setter Property="BoxShadow" Value="{DynamicResource FiliElevation8}" />
     </Style>
 
     <!-- No colour: grey, going to action-disabled-background. -->
-    <Style Selector="^:pointerover /template/ Border#PART_Root">
+    <Style Selector="^:pointerover /template/ theme|PartBorder#PART_Root">
       <Setter Property="Background" Value="{DynamicResource FiliActionDisabledBackgroundBrush}" />
     </Style>
-    <Style Selector="^:focus-visible /template/ Border#PART_Root">
+    <Style Selector="^:focus-visible /template/ theme|PartBorder#PART_Root">
       <Setter Property="Background" Value="{DynamicResource FiliActionDisabledBackgroundBrush}" />
     </Style>
-    <Style Selector="^:pressed /template/ Border#PART_Root">
+    <Style Selector="^:pressed /template/ theme|PartBorder#PART_Root">
       <Setter Property="Background" Value="{DynamicResource FiliActionDisabledBackgroundBrush}" />
     </Style>
 
@@ -409,104 +409,104 @@
       <Setter Property="Background" Value="{DynamicResource FiliPrimaryBrush}" />
       <Setter Property="Foreground" Value="{DynamicResource FiliPrimaryContrastTextBrush}" />
     </Style>
-    <Style Selector="^.primary:pointerover /template/ Border#PART_Root">
+    <Style Selector="^.primary:pointerover /template/ theme|PartBorder#PART_Root">
       <Setter Property="Background" Value="{DynamicResource FiliPrimaryDarkenBrush}" />
     </Style>
-    <Style Selector="^.primary:focus-visible /template/ Border#PART_Root">
+    <Style Selector="^.primary:focus-visible /template/ theme|PartBorder#PART_Root">
       <Setter Property="Background" Value="{DynamicResource FiliPrimaryDarkenBrush}" />
     </Style>
-    <Style Selector="^.primary:pressed /template/ Border#PART_Root">
+    <Style Selector="^.primary:pressed /template/ theme|PartBorder#PART_Root">
       <Setter Property="Background" Value="{DynamicResource FiliPrimaryDarkenBrush}" />
     </Style>
     <Style Selector="^.secondary">
       <Setter Property="Background" Value="{DynamicResource FiliSecondaryBrush}" />
       <Setter Property="Foreground" Value="{DynamicResource FiliSecondaryContrastTextBrush}" />
     </Style>
-    <Style Selector="^.secondary:pointerover /template/ Border#PART_Root">
+    <Style Selector="^.secondary:pointerover /template/ theme|PartBorder#PART_Root">
       <Setter Property="Background" Value="{DynamicResource FiliSecondaryDarkenBrush}" />
     </Style>
-    <Style Selector="^.secondary:focus-visible /template/ Border#PART_Root">
+    <Style Selector="^.secondary:focus-visible /template/ theme|PartBorder#PART_Root">
       <Setter Property="Background" Value="{DynamicResource FiliSecondaryDarkenBrush}" />
     </Style>
-    <Style Selector="^.secondary:pressed /template/ Border#PART_Root">
+    <Style Selector="^.secondary:pressed /template/ theme|PartBorder#PART_Root">
       <Setter Property="Background" Value="{DynamicResource FiliSecondaryDarkenBrush}" />
     </Style>
     <Style Selector="^.tertiary">
       <Setter Property="Background" Value="{DynamicResource FiliTertiaryBrush}" />
       <Setter Property="Foreground" Value="{DynamicResource FiliTertiaryContrastTextBrush}" />
     </Style>
-    <Style Selector="^.tertiary:pointerover /template/ Border#PART_Root">
+    <Style Selector="^.tertiary:pointerover /template/ theme|PartBorder#PART_Root">
       <Setter Property="Background" Value="{DynamicResource FiliTertiaryDarkenBrush}" />
     </Style>
-    <Style Selector="^.tertiary:focus-visible /template/ Border#PART_Root">
+    <Style Selector="^.tertiary:focus-visible /template/ theme|PartBorder#PART_Root">
       <Setter Property="Background" Value="{DynamicResource FiliTertiaryDarkenBrush}" />
     </Style>
-    <Style Selector="^.tertiary:pressed /template/ Border#PART_Root">
+    <Style Selector="^.tertiary:pressed /template/ theme|PartBorder#PART_Root">
       <Setter Property="Background" Value="{DynamicResource FiliTertiaryDarkenBrush}" />
     </Style>
     <Style Selector="^.info">
       <Setter Property="Background" Value="{DynamicResource FiliInfoBrush}" />
       <Setter Property="Foreground" Value="{DynamicResource FiliInfoContrastTextBrush}" />
     </Style>
-    <Style Selector="^.info:pointerover /template/ Border#PART_Root">
+    <Style Selector="^.info:pointerover /template/ theme|PartBorder#PART_Root">
       <Setter Property="Background" Value="{DynamicResource FiliInfoDarkenBrush}" />
     </Style>
-    <Style Selector="^.info:focus-visible /template/ Border#PART_Root">
+    <Style Selector="^.info:focus-visible /template/ theme|PartBorder#PART_Root">
       <Setter Property="Background" Value="{DynamicResource FiliInfoDarkenBrush}" />
     </Style>
-    <Style Selector="^.info:pressed /template/ Border#PART_Root">
+    <Style Selector="^.info:pressed /template/ theme|PartBorder#PART_Root">
       <Setter Property="Background" Value="{DynamicResource FiliInfoDarkenBrush}" />
     </Style>
     <Style Selector="^.success">
       <Setter Property="Background" Value="{DynamicResource FiliSuccessBrush}" />
       <Setter Property="Foreground" Value="{DynamicResource FiliSuccessContrastTextBrush}" />
     </Style>
-    <Style Selector="^.success:pointerover /template/ Border#PART_Root">
+    <Style Selector="^.success:pointerover /template/ theme|PartBorder#PART_Root">
       <Setter Property="Background" Value="{DynamicResource FiliSuccessDarkenBrush}" />
     </Style>
-    <Style Selector="^.success:focus-visible /template/ Border#PART_Root">
+    <Style Selector="^.success:focus-visible /template/ theme|PartBorder#PART_Root">
       <Setter Property="Background" Value="{DynamicResource FiliSuccessDarkenBrush}" />
     </Style>
-    <Style Selector="^.success:pressed /template/ Border#PART_Root">
+    <Style Selector="^.success:pressed /template/ theme|PartBorder#PART_Root">
       <Setter Property="Background" Value="{DynamicResource FiliSuccessDarkenBrush}" />
     </Style>
     <Style Selector="^.warning">
       <Setter Property="Background" Value="{DynamicResource FiliWarningBrush}" />
       <Setter Property="Foreground" Value="{DynamicResource FiliWarningContrastTextBrush}" />
     </Style>
-    <Style Selector="^.warning:pointerover /template/ Border#PART_Root">
+    <Style Selector="^.warning:pointerover /template/ theme|PartBorder#PART_Root">
       <Setter Property="Background" Value="{DynamicResource FiliWarningDarkenBrush}" />
     </Style>
-    <Style Selector="^.warning:focus-visible /template/ Border#PART_Root">
+    <Style Selector="^.warning:focus-visible /template/ theme|PartBorder#PART_Root">
       <Setter Property="Background" Value="{DynamicResource FiliWarningDarkenBrush}" />
     </Style>
-    <Style Selector="^.warning:pressed /template/ Border#PART_Root">
+    <Style Selector="^.warning:pressed /template/ theme|PartBorder#PART_Root">
       <Setter Property="Background" Value="{DynamicResource FiliWarningDarkenBrush}" />
     </Style>
     <Style Selector="^.error">
       <Setter Property="Background" Value="{DynamicResource FiliErrorBrush}" />
       <Setter Property="Foreground" Value="{DynamicResource FiliErrorContrastTextBrush}" />
     </Style>
-    <Style Selector="^.error:pointerover /template/ Border#PART_Root">
+    <Style Selector="^.error:pointerover /template/ theme|PartBorder#PART_Root">
       <Setter Property="Background" Value="{DynamicResource FiliErrorDarkenBrush}" />
     </Style>
-    <Style Selector="^.error:focus-visible /template/ Border#PART_Root">
+    <Style Selector="^.error:focus-visible /template/ theme|PartBorder#PART_Root">
       <Setter Property="Background" Value="{DynamicResource FiliErrorDarkenBrush}" />
     </Style>
-    <Style Selector="^.error:pressed /template/ Border#PART_Root">
+    <Style Selector="^.error:pressed /template/ theme|PartBorder#PART_Root">
       <Setter Property="Background" Value="{DynamicResource FiliErrorDarkenBrush}" />
     </Style>
     <Style Selector="^.dark">
       <Setter Property="Background" Value="{DynamicResource FiliDarkBrush}" />
       <Setter Property="Foreground" Value="{DynamicResource FiliDarkContrastTextBrush}" />
     </Style>
-    <Style Selector="^.dark:pointerover /template/ Border#PART_Root">
+    <Style Selector="^.dark:pointerover /template/ theme|PartBorder#PART_Root">
       <Setter Property="Background" Value="{DynamicResource FiliDarkDarkenBrush}" />
     </Style>
-    <Style Selector="^.dark:focus-visible /template/ Border#PART_Root">
+    <Style Selector="^.dark:focus-visible /template/ theme|PartBorder#PART_Root">
       <Setter Property="Background" Value="{DynamicResource FiliDarkDarkenBrush}" />
     </Style>
-    <Style Selector="^.dark:pressed /template/ Border#PART_Root">
+    <Style Selector="^.dark:pressed /template/ theme|PartBorder#PART_Root">
       <Setter Property="Background" Value="{DynamicResource FiliDarkDarkenBrush}" />
     </Style>
 
@@ -533,21 +533,21 @@
     </Style>
 
     <!-- `flat` is DropShadow="false": `.mud-button-disable-elevation` drops the shadow in every state. -->
-    <Style Selector="^.flat /template/ Border#PART_Root">
+    <Style Selector="^.flat /template/ theme|PartBorder#PART_Root">
       <Setter Property="BoxShadow" Value="{DynamicResource FiliElevation0}" />
     </Style>
-    <Style Selector="^.flat:pointerover /template/ Border#PART_Root">
+    <Style Selector="^.flat:pointerover /template/ theme|PartBorder#PART_Root">
       <Setter Property="BoxShadow" Value="{DynamicResource FiliElevation0}" />
     </Style>
-    <Style Selector="^.flat:focus-visible /template/ Border#PART_Root">
+    <Style Selector="^.flat:focus-visible /template/ theme|PartBorder#PART_Root">
       <Setter Property="BoxShadow" Value="{DynamicResource FiliElevation0}" />
     </Style>
-    <Style Selector="^.flat:pressed /template/ Border#PART_Root">
+    <Style Selector="^.flat:pressed /template/ theme|PartBorder#PART_Root">
       <Setter Property="BoxShadow" Value="{DynamicResource FiliElevation0}" />
     </Style>
 
     <!-- Disabled drops to the ground: no shadow at all, not a dimmed one. -->
-    <Style Selector="^:disabled /template/ Border#PART_Root">
+    <Style Selector="^:disabled /template/ theme|PartBorder#PART_Root">
       <Setter Property="BoxShadow" Value="{DynamicResource FiliElevation0}" />
       <Setter Property="Background" Value="{DynamicResource FiliActionDisabledBackgroundBrush}" />
     </Style>

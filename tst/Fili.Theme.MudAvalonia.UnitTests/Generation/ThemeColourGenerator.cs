@@ -158,10 +158,16 @@ public static class ThemeColourGenerator
 
     private static string Res(string key) => "{DynamicResource " + key + "}";
 
+    /// <summary>
+    /// A Border in a hand-written template is a PartBorder, which the app's Border class styles
+    /// pass over (PartBorder.cs); a selector reaching one through /template/ names that type.
+    /// </summary>
+    private static string Parts(string selector) => selector.Replace("/template/ Border", "/template/ theme|PartBorder");
+
     private static string Style(string selector, params (string Property, string Value)[] setters)
     {
         var sb = new StringBuilder();
-        sb.Append("    <Style Selector=\"").Append(selector).Append("\">\n");
+        sb.Append("    <Style Selector=\"").Append(Parts(selector)).Append("\">\n");
         foreach (var (property, value) in setters)
         {
             sb.Append("      <Setter Property=\"").Append(property).Append("\" Value=\"").Append(value).Append("\" />\n");
@@ -195,7 +201,7 @@ public static class ThemeColourGenerator
             + """
     <Setter Property="Template">
       <ControlTemplate>
-        <Border x:Name="PART_Root"
+        <theme:PartBorder x:Name="PART_Root"
                 Background="{TemplateBinding Background}"
                 BorderBrush="{TemplateBinding BorderBrush}"
                 BorderThickness="{TemplateBinding BorderThickness}"
@@ -204,10 +210,10 @@ public static class ThemeColourGenerator
             + """
           <Panel>
             <!-- State layer. Sits under the content, over the fill. -->
-            <Border x:Name="PART_StateLayer"
+            <theme:PartBorder x:Name="PART_StateLayer"
                     CornerRadius="{TemplateBinding CornerRadius}"
                     Background="Transparent" />
-            <Border x:Name="PART_Ripple"
+            <theme:PartBorder x:Name="PART_Ripple"
                     theme:Ripple.IsLayer="True"
                     CornerRadius="{TemplateBinding CornerRadius}" />
             <ContentPresenter x:Name="PART_ContentPresenter"
@@ -225,7 +231,7 @@ public static class ThemeColourGenerator
               </ContentPresenter.Content>
             </ContentPresenter>
           </Panel>
-        </Border>
+        </theme:PartBorder>
       </ControlTemplate>
     </Setter>
 """
@@ -1180,7 +1186,13 @@ public static class ThemeColourGenerator
     private static string PaperRegion() =>
         string.Concat(Elevations.Select(level => TopStyle($"Border.elevation{level}", ("BoxShadow", Res($"FiliElevation{level}")))));
 
-    private const string Overlay = ".material-elevation-overlay";
+    /// <summary>
+    /// A control with `material-elevation-overlay` on, read on the control itself. The class sets
+    /// ElevationOverlay.IsOn, which inherits: a descendant selector ending in a Border is matched
+    /// against every Border in the window, watching each one's ancestors, and cost more than the
+    /// rest of the theme's top-level styles together.
+    /// </summary>
+    private static string Overlay(string control) => $"{control}[(theme|ElevationOverlay.IsOn)=True]";
 
     // FiliTheme.axaml: `material-elevation-overlay`, Material's dark-theme overlay, on the surfaces
     // that paint their own surface colour - a paper or card, an expansion panel, and the popups'
@@ -1188,22 +1200,22 @@ public static class ThemeColourGenerator
     private static string OverlayRegion()
     {
         var o = new StringBuilder();
-        o.Append(TopStyle($"{Overlay} Border.card", ("BoxShadow", Res("FiliElevationOverlay1"))));
+        o.Append(TopStyle(Overlay("Border.card"), ("BoxShadow", Res("FiliElevationOverlay1"))));
         foreach (var level in Elevations)
         {
-            o.Append(TopStyle($"{Overlay} Border.surface.elevation{level}, {Overlay} Border.card.elevation{level}", ("BoxShadow", Res($"FiliElevationOverlay{level}"))));
+            o.Append(TopStyle($"{Overlay($"Border.surface.elevation{level}")}, {Overlay($"Border.card.elevation{level}")}", ("BoxShadow", Res($"FiliElevationOverlay{level}"))));
         }
 
-        o.Append(TopStyle($"{Overlay} Expander /template/ Border#PART_Root", ("BoxShadow", Res("FiliElevationOverlay1"))));
+        o.Append(TopStyle($"{Overlay("Expander")} /template/ Border#PART_Root", ("BoxShadow", Res("FiliElevationOverlay1"))));
         foreach (var level in Elevations)
         {
-            o.Append(TopStyle($"{Overlay} Expander.elevation{level} /template/ Border#PART_Root", ("BoxShadow", Res($"FiliElevationOverlay{level}"))));
+            o.Append(TopStyle($"{Overlay($"Expander.elevation{level}")} /template/ Border#PART_Root", ("BoxShadow", Res($"FiliElevationOverlay{level}"))));
         }
 
         o.Append(TopStyle(
-            $"{Overlay} MenuItem /template/ Border#PART_PopupBorder, {Overlay} ComboBox /template/ Border#PART_PopupBorder, "
-            + $"{Overlay} AutoCompleteBox /template/ Border#PART_PopupBorder, {Overlay} ContextMenu /template/ Border#PART_Border, "
-            + $"{Overlay} FlyoutPresenter /template/ Border#PART_Border, {Overlay} MenuFlyoutPresenter /template/ Border#PART_Border",
+            $"{Overlay("MenuItem")} /template/ Border#PART_PopupBorder, {Overlay("ComboBox")} /template/ Border#PART_PopupBorder, "
+            + $"{Overlay("AutoCompleteBox")} /template/ Border#PART_PopupBorder, {Overlay("ContextMenu")} /template/ Border#PART_Border, "
+            + $"{Overlay("FlyoutPresenter")} /template/ Border#PART_Border, {Overlay("MenuFlyoutPresenter")} /template/ Border#PART_Border",
             ("BoxShadow", Res("FiliElevationOverlay8"))));
         return o.ToString();
     }
@@ -1213,10 +1225,10 @@ public static class ThemeColourGenerator
     private static string DataGridOverlayRegion()
     {
         var o = new StringBuilder();
-        o.Append(TopStyle($"{Overlay} DataGrid:not(.outlined) /template/ Border#DataGridBorder", ("BoxShadow", Res("FiliElevationOverlay1"))));
+        o.Append(TopStyle($"{Overlay("DataGrid")}:not(.outlined) /template/ Border#DataGridBorder", ("BoxShadow", Res("FiliElevationOverlay1"))));
         foreach (var level in Elevations)
         {
-            o.Append(TopStyle($"{Overlay} DataGrid.elevation{level}:not(.outlined) /template/ Border#DataGridBorder", ("BoxShadow", Res($"FiliElevationOverlay{level}"))));
+            o.Append(TopStyle($"{Overlay($"DataGrid.elevation{level}")}:not(.outlined) /template/ Border#DataGridBorder", ("BoxShadow", Res($"FiliElevationOverlay{level}"))));
         }
 
         return o.ToString();
@@ -1256,7 +1268,7 @@ public static class ThemeColourGenerator
     // ---------------------------------------------------------------------------------------
 
     private static string TopStyle(string selector, params (string Property, string Value)[] setters) =>
-        "  <Style Selector=\"" + selector + "\">\n"
+        "  <Style Selector=\"" + Parts(selector) + "\">\n"
         + string.Concat(setters.Select(s => $"    <Setter Property=\"{s.Property}\" Value=\"{s.Value}\" />\n"))
         + "  </Style>\n";
 

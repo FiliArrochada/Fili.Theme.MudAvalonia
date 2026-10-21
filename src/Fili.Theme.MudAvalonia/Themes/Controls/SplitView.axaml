@@ -21,6 +21,7 @@
 -->
 <ResourceDictionary xmlns="https://github.com/avaloniaui"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:theme="using:Fili.Theme.MudAvalonia"
                     xmlns:fili="using:Fili.Theme.MudAvalonia.Converters">
 
   <ControlTheme x:Key="FiliSplitView" TargetType="SplitView">
@@ -45,7 +46,7 @@
                    HorizontalAlignment="Left"
                    ZIndex="100">
               <!-- MudDrawer's elevation, cast past the pane's edge. -->
-              <Border Name="PART_PaneShadow"
+              <theme:PartBorder Name="PART_PaneShadow"
                       IsHitTestVisible="False"
                       Opacity="{Binding $parent[SplitView].ActualThemeVariant, Converter={x:Static fili:HighContrastOpacityConverter.Instance}}" />
               <!-- The content clips here, one level in, so the pane still clips it as it slides and
@@ -133,7 +134,7 @@
                    HorizontalAlignment="Right"
                    ZIndex="100">
               <!-- MudDrawer's elevation, cast past the pane's edge. -->
-              <Border Name="PART_PaneShadow"
+              <theme:PartBorder Name="PART_PaneShadow"
                       IsHitTestVisible="False"
                       Opacity="{Binding $parent[SplitView].ActualThemeVariant, Converter={x:Static fili:HighContrastOpacityConverter.Instance}}" />
               <!-- The content clips here, one level in, so the pane still clips it as it slides and
@@ -222,7 +223,7 @@
                    VerticalAlignment="Top"
                    ZIndex="100">
               <!-- MudDrawer's elevation, cast past the pane's edge. -->
-              <Border Name="PART_PaneShadow"
+              <theme:PartBorder Name="PART_PaneShadow"
                       IsHitTestVisible="False"
                       Opacity="{Binding $parent[SplitView].ActualThemeVariant, Converter={x:Static fili:HighContrastOpacityConverter.Instance}}" />
               <!-- The content clips here, one level in, so the pane still clips it as it slides and
@@ -313,7 +314,7 @@
                    VerticalAlignment="Bottom"
                    ZIndex="100">
               <!-- MudDrawer's elevation, cast past the pane's edge. -->
-              <Border Name="PART_PaneShadow"
+              <theme:PartBorder Name="PART_PaneShadow"
                       IsHitTestVisible="False"
                       Opacity="{Binding $parent[SplitView].ActualThemeVariant, Converter={x:Static fili:HighContrastOpacityConverter.Instance}}" />
               <!-- The content clips here, one level in, so the pane still clips it as it slides and
@@ -490,10 +491,10 @@
     <!-- MudDrawer.Elevation, 1 by default: `mud-elevation-{n}` on the drawer. The elevation
          classes are in FiliTheme.axaml, generated. A drawer closed to nothing has nothing to
          cast it from. -->
-    <Style Selector="^ /template/ Border#PART_PaneShadow">
+    <Style Selector="^ /template/ theme|PartBorder#PART_PaneShadow">
       <Setter Property="BoxShadow" Value="{DynamicResource FiliElevation1}" />
     </Style>
-    <Style Selector="^:overlay:closed /template/ Border#PART_PaneShadow, ^:inline:closed /template/ Border#PART_PaneShadow">
+    <Style Selector="^:overlay:closed /template/ theme|PartBorder#PART_PaneShadow, ^:inline:closed /template/ theme|PartBorder#PART_PaneShadow">
       <Setter Property="IsVisible" Value="False" />
     </Style>
   </ControlTheme>

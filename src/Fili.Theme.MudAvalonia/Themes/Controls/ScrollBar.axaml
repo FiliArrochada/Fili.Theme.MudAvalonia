@@ -14,21 +14,22 @@
   horizontal template on a vertical bar renders a sideways rail.
 -->
 <ResourceDictionary xmlns="https://github.com/avaloniaui"
-                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:theme="using:Fili.Theme.MudAvalonia">
 
   <ControlTheme x:Key="FiliScrollBarThumb" TargetType="Thumb">
     <Setter Property="Background" Value="{DynamicResource FiliActionDisabledBrush}" />
     <Setter Property="Template">
       <ControlTemplate>
-        <Border Background="{TemplateBinding Background}"
+        <theme:PartBorder Background="{TemplateBinding Background}"
                 CornerRadius="4"
                 Margin="2">
-          <Border.Transitions>
+          <theme:PartBorder.Transitions>
             <Transitions>
               <BrushTransition Property="Background" Duration="0:0:0.1" />
             </Transitions>
-          </Border.Transitions>
-        </Border>
+          </theme:PartBorder.Transitions>
+        </theme:PartBorder>
       </ControlTemplate>
     </Setter>
 
@@ -48,7 +49,7 @@
     <!-- Vertical is the default orientation for a ScrollBar. -->
     <Setter Property="Template">
       <ControlTemplate>
-        <Border Background="{TemplateBinding Background}" Width="12">
+        <theme:PartBorder Background="{TemplateBinding Background}" Width="12">
           <Track x:Name="PART_Track"
                  Minimum="{TemplateBinding Minimum}"
                  Maximum="{TemplateBinding Maximum}"
@@ -58,14 +59,14 @@
                  IsDirectionReversed="True">
             <Thumb x:Name="PART_Thumb" Theme="{StaticResource FiliScrollBarThumb}" />
           </Track>
-        </Border>
+        </theme:PartBorder>
       </ControlTemplate>
     </Setter>
 
     <Style Selector="^:horizontal">
       <Setter Property="Template">
         <ControlTemplate>
-          <Border Background="{TemplateBinding Background}" Height="12">
+          <theme:PartBorder Background="{TemplateBinding Background}" Height="12">
             <Track x:Name="PART_Track"
                    Minimum="{TemplateBinding Minimum}"
                    Maximum="{TemplateBinding Maximum}"
@@ -74,7 +75,7 @@
                    Orientation="Horizontal">
               <Thumb x:Name="PART_Thumb" Theme="{StaticResource FiliScrollBarThumb}" />
             </Track>
-          </Border>
+          </theme:PartBorder>
         </ControlTemplate>
       </Setter>
     </Style>

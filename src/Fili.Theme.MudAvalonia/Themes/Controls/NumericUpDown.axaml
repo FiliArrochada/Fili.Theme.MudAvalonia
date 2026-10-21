@@ -42,7 +42,7 @@
     <Setter Property="Template">
       <ControlTemplate>
         <Panel>
-          <Border x:Name="PART_StateLayer"
+          <theme:PartBorder x:Name="PART_StateLayer"
                   Background="Transparent"
                   CornerRadius="{DynamicResource FiliCornerRadius}" />
           <ContentPresenter x:Name="PART_ContentPresenter"
@@ -54,15 +54,15 @@
       </ControlTemplate>
     </Setter>
 
-    <Style Selector="^:pointerover /template/ Border#PART_StateLayer">
+    <Style Selector="^:pointerover /template/ theme|PartBorder#PART_StateLayer">
       <Setter Property="Background" Value="{DynamicResource FiliOverlayHoverBrush}" />
     </Style>
     <!-- Keyboard focus paints the hover layer. That IS the affordance in MudBlazor: _reset.scss
          drops the browser ring, and every component sets `:focus-visible` to the hover tint. -->
-    <Style Selector="^:focus-visible /template/ Border#PART_StateLayer">
+    <Style Selector="^:focus-visible /template/ theme|PartBorder#PART_StateLayer">
       <Setter Property="Background" Value="{DynamicResource FiliOverlayHoverBrush}" />
     </Style>
-    <Style Selector="^:pressed /template/ Border#PART_StateLayer">
+    <Style Selector="^:pressed /template/ theme|PartBorder#PART_StateLayer">
       <Setter Property="Background" Value="{DynamicResource FiliOverlayPressedBrush}" />
     </Style>
   </ControlTheme>
@@ -78,7 +78,7 @@
     <Setter Property="Template">
       <ControlTemplate>
         <DataValidationErrors>
-          <Border x:Name="border"
+          <theme:PartBorder x:Name="border"
                   Background="{TemplateBinding Background}"
                   BorderBrush="{TemplateBinding BorderBrush}"
                   BorderThickness="{TemplateBinding BorderThickness}"
@@ -118,7 +118,7 @@
                                 HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
                                 VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" />
             </DockPanel>
-          </Border>
+          </theme:PartBorder>
         </DataValidationErrors>
       </ControlTemplate>
     </Setter>

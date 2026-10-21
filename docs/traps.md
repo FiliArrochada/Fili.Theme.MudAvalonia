@@ -407,6 +407,15 @@ its own, so tune against the gallery rather than against an app.
   one machine and passes on another. `GalleryFrames.Render` therefore waits out `SettleTime`
   before capturing. Raise that constant if a longer animation starts on load; do not mask a
   region whose colours the suite is meant to be watching.
+- **A style costs every control of the type its selector ends in.** Avalonia cannot know a class
+  will never come, so a style ending in `Border.surface` sets up a watcher on every Border in the
+  window, and a descendant one watches each Border's ancestors too. A screen of 1,600 ordinary
+  controls built in 7.3 seconds here against the forked base's 1.2: nineteen in twenty of its
+  Borders are template parts, each paying for 127 Border class styles, and 27 descendant overlay
+  styles (`.material-elevation-overlay Border.card`) cost more than all the rest. Template Borders
+  are `PartBorder`s now, which those styles pass over by type, and the overlay sets an inherited
+  property each surface reads on itself: 2.2 seconds. `StyleCostTests` keeps a plain Border out
+  of the templates; measure a new top-level style that ends in a common type before keeping it.
 - **A `Border` with square corners and a one-sided `BorderThickness` draws no `BoxShadow`.** A
   closed `expansion-panels` group's middle panels - no radius, a rule under them - lost their
   shadow, a notch in the group's edge, and in high contrast their ring. Rounded corners or a

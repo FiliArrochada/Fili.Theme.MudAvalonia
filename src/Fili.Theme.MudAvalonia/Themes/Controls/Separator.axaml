@@ -17,7 +17,8 @@
   Margin because they turn with `vertical`: 72px at the top of a vertical divider, not the left.
 -->
 <ResourceDictionary xmlns="https://github.com/avaloniaui"
-                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:theme="using:Fili.Theme.MudAvalonia">
 
   <ControlTheme x:Key="FiliSeparator" TargetType="Separator">
     <Setter Property="Focusable" Value="False" />
@@ -28,7 +29,7 @@
 
     <Setter Property="Template">
       <ControlTemplate>
-        <Border Background="{TemplateBinding Background}" />
+        <theme:PartBorder Background="{TemplateBinding Background}" />
       </ControlTemplate>
     </Setter>
 

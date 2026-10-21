@@ -823,6 +823,11 @@ for something XAML cannot express on its own:
   TextBox's own theme reads them two templates down from the outer control.
 - **`MenuIconGutter`** opens a menu row's icon column when another row in the same list has an
   icon, MudMenu's `:has(.mud-menu-item-icon)` rule. A selector cannot ask about siblings.
+- **`ElevationOverlay`** is the inherited property `material-elevation-overlay` sets, which each
+  surface reads on itself: a descendant selector made every Border watch all its ancestors.
+- **`PartBorder`** is every Border in a hand-written template. It keeps them out of the app's
+  Border class styles, which every Border in the window was matched against
+  ([Traps](traps.md)).
 - **`HighContrastOpacityConverter`** hides the drawer's shadow in high contrast, where the
   drawer's edge is its own line. A style cannot select on the theme variant.
 - **`HighContrastRings`** builds high contrast's elevation rings in the application's

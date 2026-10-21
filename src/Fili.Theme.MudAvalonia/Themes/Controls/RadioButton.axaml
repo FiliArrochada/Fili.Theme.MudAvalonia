@@ -35,7 +35,7 @@
 
             <Ellipse x:Name="PART_StateLayer" Fill="Transparent" />
             <!-- The ripple, clipped to the halo: every corner is clamped to half the box. -->
-            <Border x:Name="PART_Ripple" theme:Ripple.IsLayer="True" CornerRadius="999" />
+            <theme:PartBorder x:Name="PART_Ripple" theme:Ripple.IsLayer="True" CornerRadius="999" />
 
             <LayoutTransformControl x:Name="PART_Scale"
                                     HorizontalAlignment="Center"
@@ -161,7 +161,7 @@
     <Style Selector="^.primary:pressed /template/ Ellipse#PART_StateLayer">
       <Setter Property="Fill" Value="{DynamicResource FiliPrimaryHoverBrush}" />
     </Style>
-    <Style Selector="^.primary /template/ Border#PART_Ripple">
+    <Style Selector="^.primary /template/ theme|PartBorder#PART_Ripple">
       <Setter Property="theme:Ripple.Brush" Value="{DynamicResource FiliPrimaryBrush}" />
     </Style>
     <Style Selector="^.secondary /template/ Path#PART_Unchecked">
@@ -179,7 +179,7 @@
     <Style Selector="^.secondary:pressed /template/ Ellipse#PART_StateLayer">
       <Setter Property="Fill" Value="{DynamicResource FiliSecondaryHoverBrush}" />
     </Style>
-    <Style Selector="^.secondary /template/ Border#PART_Ripple">
+    <Style Selector="^.secondary /template/ theme|PartBorder#PART_Ripple">
       <Setter Property="theme:Ripple.Brush" Value="{DynamicResource FiliSecondaryBrush}" />
     </Style>
     <Style Selector="^.tertiary /template/ Path#PART_Unchecked">
@@ -197,7 +197,7 @@
     <Style Selector="^.tertiary:pressed /template/ Ellipse#PART_StateLayer">
       <Setter Property="Fill" Value="{DynamicResource FiliTertiaryHoverBrush}" />
     </Style>
-    <Style Selector="^.tertiary /template/ Border#PART_Ripple">
+    <Style Selector="^.tertiary /template/ theme|PartBorder#PART_Ripple">
       <Setter Property="theme:Ripple.Brush" Value="{DynamicResource FiliTertiaryBrush}" />
     </Style>
     <Style Selector="^.info /template/ Path#PART_Unchecked">
@@ -215,7 +215,7 @@
     <Style Selector="^.info:pressed /template/ Ellipse#PART_StateLayer">
       <Setter Property="Fill" Value="{DynamicResource FiliInfoHoverBrush}" />
     </Style>
-    <Style Selector="^.info /template/ Border#PART_Ripple">
+    <Style Selector="^.info /template/ theme|PartBorder#PART_Ripple">
       <Setter Property="theme:Ripple.Brush" Value="{DynamicResource FiliInfoBrush}" />
     </Style>
     <Style Selector="^.success /template/ Path#PART_Unchecked">
@@ -233,7 +233,7 @@
     <Style Selector="^.success:pressed /template/ Ellipse#PART_StateLayer">
       <Setter Property="Fill" Value="{DynamicResource FiliSuccessHoverBrush}" />
     </Style>
-    <Style Selector="^.success /template/ Border#PART_Ripple">
+    <Style Selector="^.success /template/ theme|PartBorder#PART_Ripple">
       <Setter Property="theme:Ripple.Brush" Value="{DynamicResource FiliSuccessBrush}" />
     </Style>
     <Style Selector="^.warning /template/ Path#PART_Unchecked">
@@ -251,7 +251,7 @@
     <Style Selector="^.warning:pressed /template/ Ellipse#PART_StateLayer">
       <Setter Property="Fill" Value="{DynamicResource FiliWarningHoverBrush}" />
     </Style>
-    <Style Selector="^.warning /template/ Border#PART_Ripple">
+    <Style Selector="^.warning /template/ theme|PartBorder#PART_Ripple">
       <Setter Property="theme:Ripple.Brush" Value="{DynamicResource FiliWarningBrush}" />
     </Style>
     <Style Selector="^.error /template/ Path#PART_Unchecked">
@@ -269,7 +269,7 @@
     <Style Selector="^.error:pressed /template/ Ellipse#PART_StateLayer">
       <Setter Property="Fill" Value="{DynamicResource FiliErrorHoverBrush}" />
     </Style>
-    <Style Selector="^.error /template/ Border#PART_Ripple">
+    <Style Selector="^.error /template/ theme|PartBorder#PART_Ripple">
       <Setter Property="theme:Ripple.Brush" Value="{DynamicResource FiliErrorBrush}" />
     </Style>
     <Style Selector="^.dark /template/ Path#PART_Unchecked">
@@ -287,7 +287,7 @@
     <Style Selector="^.dark:pressed /template/ Ellipse#PART_StateLayer">
       <Setter Property="Fill" Value="{DynamicResource FiliDarkHoverBrush}" />
     </Style>
-    <Style Selector="^.dark /template/ Border#PART_Ripple">
+    <Style Selector="^.dark /template/ theme|PartBorder#PART_Ripple">
       <Setter Property="theme:Ripple.Brush" Value="{DynamicResource FiliDarkBrush}" />
     </Style>
 
@@ -305,7 +305,7 @@
     <Style Selector="^.unchecked-primary:unchecked:pressed /template/ Ellipse#PART_StateLayer">
       <Setter Property="Fill" Value="{DynamicResource FiliPrimaryHoverBrush}" />
     </Style>
-    <Style Selector="^.unchecked-primary:unchecked /template/ Border#PART_Ripple">
+    <Style Selector="^.unchecked-primary:unchecked /template/ theme|PartBorder#PART_Ripple">
       <Setter Property="theme:Ripple.Brush" Value="{DynamicResource FiliPrimaryBrush}" />
     </Style>
     <Style Selector="^.unchecked-secondary /template/ Path#PART_Unchecked">
@@ -320,7 +320,7 @@
     <Style Selector="^.unchecked-secondary:unchecked:pressed /template/ Ellipse#PART_StateLayer">
       <Setter Property="Fill" Value="{DynamicResource FiliSecondaryHoverBrush}" />
     </Style>
-    <Style Selector="^.unchecked-secondary:unchecked /template/ Border#PART_Ripple">
+    <Style Selector="^.unchecked-secondary:unchecked /template/ theme|PartBorder#PART_Ripple">
       <Setter Property="theme:Ripple.Brush" Value="{DynamicResource FiliSecondaryBrush}" />
     </Style>
     <Style Selector="^.unchecked-tertiary /template/ Path#PART_Unchecked">
@@ -335,7 +335,7 @@
     <Style Selector="^.unchecked-tertiary:unchecked:pressed /template/ Ellipse#PART_StateLayer">
       <Setter Property="Fill" Value="{DynamicResource FiliTertiaryHoverBrush}" />
     </Style>
-    <Style Selector="^.unchecked-tertiary:unchecked /template/ Border#PART_Ripple">
+    <Style Selector="^.unchecked-tertiary:unchecked /template/ theme|PartBorder#PART_Ripple">
       <Setter Property="theme:Ripple.Brush" Value="{DynamicResource FiliTertiaryBrush}" />
     </Style>
     <Style Selector="^.unchecked-info /template/ Path#PART_Unchecked">
@@ -350,7 +350,7 @@
     <Style Selector="^.unchecked-info:unchecked:pressed /template/ Ellipse#PART_StateLayer">
       <Setter Property="Fill" Value="{DynamicResource FiliInfoHoverBrush}" />
     </Style>
-    <Style Selector="^.unchecked-info:unchecked /template/ Border#PART_Ripple">
+    <Style Selector="^.unchecked-info:unchecked /template/ theme|PartBorder#PART_Ripple">
       <Setter Property="theme:Ripple.Brush" Value="{DynamicResource FiliInfoBrush}" />
     </Style>
     <Style Selector="^.unchecked-success /template/ Path#PART_Unchecked">
@@ -365,7 +365,7 @@
     <Style Selector="^.unchecked-success:unchecked:pressed /template/ Ellipse#PART_StateLayer">
       <Setter Property="Fill" Value="{DynamicResource FiliSuccessHoverBrush}" />
     </Style>
-    <Style Selector="^.unchecked-success:unchecked /template/ Border#PART_Ripple">
+    <Style Selector="^.unchecked-success:unchecked /template/ theme|PartBorder#PART_Ripple">
       <Setter Property="theme:Ripple.Brush" Value="{DynamicResource FiliSuccessBrush}" />
     </Style>
     <Style Selector="^.unchecked-warning /template/ Path#PART_Unchecked">
@@ -380,7 +380,7 @@
     <Style Selector="^.unchecked-warning:unchecked:pressed /template/ Ellipse#PART_StateLayer">
       <Setter Property="Fill" Value="{DynamicResource FiliWarningHoverBrush}" />
     </Style>
-    <Style Selector="^.unchecked-warning:unchecked /template/ Border#PART_Ripple">
+    <Style Selector="^.unchecked-warning:unchecked /template/ theme|PartBorder#PART_Ripple">
       <Setter Property="theme:Ripple.Brush" Value="{DynamicResource FiliWarningBrush}" />
     </Style>
     <Style Selector="^.unchecked-error /template/ Path#PART_Unchecked">
@@ -395,7 +395,7 @@
     <Style Selector="^.unchecked-error:unchecked:pressed /template/ Ellipse#PART_StateLayer">
       <Setter Property="Fill" Value="{DynamicResource FiliErrorHoverBrush}" />
     </Style>
-    <Style Selector="^.unchecked-error:unchecked /template/ Border#PART_Ripple">
+    <Style Selector="^.unchecked-error:unchecked /template/ theme|PartBorder#PART_Ripple">
       <Setter Property="theme:Ripple.Brush" Value="{DynamicResource FiliErrorBrush}" />
     </Style>
     <Style Selector="^.unchecked-dark /template/ Path#PART_Unchecked">
@@ -410,7 +410,7 @@
     <Style Selector="^.unchecked-dark:unchecked:pressed /template/ Ellipse#PART_StateLayer">
       <Setter Property="Fill" Value="{DynamicResource FiliDarkHoverBrush}" />
     </Style>
-    <Style Selector="^.unchecked-dark:unchecked /template/ Border#PART_Ripple">
+    <Style Selector="^.unchecked-dark:unchecked /template/ theme|PartBorder#PART_Ripple">
       <Setter Property="theme:Ripple.Brush" Value="{DynamicResource FiliDarkBrush}" />
     </Style>
 

@@ -37,6 +37,7 @@
 -->
 <ResourceDictionary xmlns="https://github.com/avaloniaui"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:theme="using:Fili.Theme.MudAvalonia"
                     xmlns:fili="using:Fili.Theme.MudAvalonia.Converters">
 
   <fili:BadgeContentConverter x:Key="FiliBadgeContent" />
@@ -69,7 +70,7 @@
                  HorizontalAlignment="Right" VerticalAlignment="Top"
                  Margin="0,-9996,-9996,0"
                  IsVisible="{TemplateBinding Header, Converter={x:Static ObjectConverters.IsNotNull}}">
-            <Border x:Name="PART_Badge"
+            <theme:PartBorder x:Name="PART_Badge"
                     HorizontalAlignment="Left" VerticalAlignment="Bottom"
                     Height="20" MinWidth="20"
                     Padding="6,4"
@@ -90,14 +91,14 @@
                                   LineHeight="12"
                                   LetterSpacing="0" />
               </Viewbox>
-            </Border>
+            </theme:PartBorder>
           </Panel>
         </Panel>
       </ControlTemplate>
     </Setter>
 
     <!-- `.mud-badge-dot`: a 9px circle with nothing in it. -->
-    <Style Selector="^.dot /template/ Border#PART_Badge">
+    <Style Selector="^.dot /template/ theme|PartBorder#PART_Badge">
       <Setter Property="Width" Value="9" />
       <Setter Property="Height" Value="9" />
       <Setter Property="MinWidth" Value="0" />
@@ -111,13 +112,13 @@
     <!-- `.mud-badge-bordered`: 2px of surface round the pill, 3px 4px inside it. The vertical 3px
          is 2px here: CSS centres the 12px line in what is left, which puts its top where 2px
          puts it, and Avalonia would otherwise squeeze the line instead. -->
-    <Style Selector="^.bordered /template/ Border#PART_Badge">
+    <Style Selector="^.bordered /template/ theme|PartBorder#PART_Badge">
       <Setter Property="BorderThickness" Value="2" />
       <Setter Property="Padding" Value="4,2" />
     </Style>
 
     <!-- `.mud-badge-icon`: a fixed 20px circle, the icon 12px and centred in it. -->
-    <Style Selector="^.icon /template/ Border#PART_Badge">
+    <Style Selector="^.icon /template/ theme|PartBorder#PART_Badge">
       <Setter Property="Width" Value="20" />
       <Setter Property="Padding" Value="0" />
     </Style>
@@ -126,7 +127,7 @@
       <Setter Property="Width" Value="12" />
       <Setter Property="Height" Value="12" />
     </Style>
-    <Style Selector="^.dot.icon /template/ Border#PART_Badge">
+    <Style Selector="^.dot.icon /template/ theme|PartBorder#PART_Badge">
       <Setter Property="Width" Value="9" />
     </Style>
 
@@ -139,7 +140,7 @@
       <Setter Property="Height" Value="10000" />
       <Setter Property="Margin" Value="-9996,-9996,0,0" />
     </Style>
-    <Style Selector="^.top-left /template/ Border#PART_Badge">
+    <Style Selector="^.top-left /template/ theme|PartBorder#PART_Badge">
       <Setter Property="HorizontalAlignment" Value="Right" />
       <Setter Property="VerticalAlignment" Value="Bottom" />
     </Style>
@@ -150,7 +151,7 @@
       <Setter Property="Height" Value="10000" />
       <Setter Property="Margin" Value="-10000,-9996,-10000,0" />
     </Style>
-    <Style Selector="^.top-center /template/ Border#PART_Badge">
+    <Style Selector="^.top-center /template/ theme|PartBorder#PART_Badge">
       <Setter Property="HorizontalAlignment" Value="Center" />
       <Setter Property="VerticalAlignment" Value="Bottom" />
     </Style>
@@ -161,7 +162,7 @@
       <Setter Property="Height" Value="NaN" />
       <Setter Property="Margin" Value="-9996,-10000,0,-10000" />
     </Style>
-    <Style Selector="^.center-left /template/ Border#PART_Badge">
+    <Style Selector="^.center-left /template/ theme|PartBorder#PART_Badge">
       <Setter Property="HorizontalAlignment" Value="Right" />
       <Setter Property="VerticalAlignment" Value="Center" />
     </Style>
@@ -172,7 +173,7 @@
       <Setter Property="Height" Value="NaN" />
       <Setter Property="Margin" Value="-10000,-10000,-10000,-10000" />
     </Style>
-    <Style Selector="^.center-center /template/ Border#PART_Badge">
+    <Style Selector="^.center-center /template/ theme|PartBorder#PART_Badge">
       <Setter Property="HorizontalAlignment" Value="Center" />
       <Setter Property="VerticalAlignment" Value="Center" />
     </Style>
@@ -183,7 +184,7 @@
       <Setter Property="Height" Value="NaN" />
       <Setter Property="Margin" Value="0,-10000,-9996,-10000" />
     </Style>
-    <Style Selector="^.center-right /template/ Border#PART_Badge">
+    <Style Selector="^.center-right /template/ theme|PartBorder#PART_Badge">
       <Setter Property="HorizontalAlignment" Value="Left" />
       <Setter Property="VerticalAlignment" Value="Center" />
     </Style>
@@ -194,7 +195,7 @@
       <Setter Property="Height" Value="10000" />
       <Setter Property="Margin" Value="-9996,0,0,-9996" />
     </Style>
-    <Style Selector="^.bottom-left /template/ Border#PART_Badge">
+    <Style Selector="^.bottom-left /template/ theme|PartBorder#PART_Badge">
       <Setter Property="HorizontalAlignment" Value="Right" />
       <Setter Property="VerticalAlignment" Value="Top" />
     </Style>
@@ -205,7 +206,7 @@
       <Setter Property="Height" Value="10000" />
       <Setter Property="Margin" Value="-10000,0,-10000,-9996" />
     </Style>
-    <Style Selector="^.bottom-center /template/ Border#PART_Badge">
+    <Style Selector="^.bottom-center /template/ theme|PartBorder#PART_Badge">
       <Setter Property="HorizontalAlignment" Value="Center" />
       <Setter Property="VerticalAlignment" Value="Top" />
     </Style>
@@ -216,7 +217,7 @@
       <Setter Property="Height" Value="10000" />
       <Setter Property="Margin" Value="0,0,-9996,-9996" />
     </Style>
-    <Style Selector="^.bottom-right /template/ Border#PART_Badge">
+    <Style Selector="^.bottom-right /template/ theme|PartBorder#PART_Badge">
       <Setter Property="HorizontalAlignment" Value="Left" />
       <Setter Property="VerticalAlignment" Value="Top" />
     </Style>
@@ -248,49 +249,49 @@
     </Style>
 
     <!-- `.mud-theme-{color}`: the colour, with its contrast text. -->
-    <Style Selector="^.primary /template/ Border#PART_Badge">
+    <Style Selector="^.primary /template/ theme|PartBorder#PART_Badge">
       <Setter Property="Background" Value="{DynamicResource FiliPrimaryBrush}" />
     </Style>
     <Style Selector="^.primary /template/ ContentPresenter#PART_HeaderPresenter">
       <Setter Property="Foreground" Value="{DynamicResource FiliPrimaryContrastTextBrush}" />
     </Style>
-    <Style Selector="^.secondary /template/ Border#PART_Badge">
+    <Style Selector="^.secondary /template/ theme|PartBorder#PART_Badge">
       <Setter Property="Background" Value="{DynamicResource FiliSecondaryBrush}" />
     </Style>
     <Style Selector="^.secondary /template/ ContentPresenter#PART_HeaderPresenter">
       <Setter Property="Foreground" Value="{DynamicResource FiliSecondaryContrastTextBrush}" />
     </Style>
-    <Style Selector="^.tertiary /template/ Border#PART_Badge">
+    <Style Selector="^.tertiary /template/ theme|PartBorder#PART_Badge">
       <Setter Property="Background" Value="{DynamicResource FiliTertiaryBrush}" />
     </Style>
     <Style Selector="^.tertiary /template/ ContentPresenter#PART_HeaderPresenter">
       <Setter Property="Foreground" Value="{DynamicResource FiliTertiaryContrastTextBrush}" />
     </Style>
-    <Style Selector="^.info /template/ Border#PART_Badge">
+    <Style Selector="^.info /template/ theme|PartBorder#PART_Badge">
       <Setter Property="Background" Value="{DynamicResource FiliInfoBrush}" />
     </Style>
     <Style Selector="^.info /template/ ContentPresenter#PART_HeaderPresenter">
       <Setter Property="Foreground" Value="{DynamicResource FiliInfoContrastTextBrush}" />
     </Style>
-    <Style Selector="^.success /template/ Border#PART_Badge">
+    <Style Selector="^.success /template/ theme|PartBorder#PART_Badge">
       <Setter Property="Background" Value="{DynamicResource FiliSuccessBrush}" />
     </Style>
     <Style Selector="^.success /template/ ContentPresenter#PART_HeaderPresenter">
       <Setter Property="Foreground" Value="{DynamicResource FiliSuccessContrastTextBrush}" />
     </Style>
-    <Style Selector="^.warning /template/ Border#PART_Badge">
+    <Style Selector="^.warning /template/ theme|PartBorder#PART_Badge">
       <Setter Property="Background" Value="{DynamicResource FiliWarningBrush}" />
     </Style>
     <Style Selector="^.warning /template/ ContentPresenter#PART_HeaderPresenter">
       <Setter Property="Foreground" Value="{DynamicResource FiliWarningContrastTextBrush}" />
     </Style>
-    <Style Selector="^.error /template/ Border#PART_Badge">
+    <Style Selector="^.error /template/ theme|PartBorder#PART_Badge">
       <Setter Property="Background" Value="{DynamicResource FiliErrorBrush}" />
     </Style>
     <Style Selector="^.error /template/ ContentPresenter#PART_HeaderPresenter">
       <Setter Property="Foreground" Value="{DynamicResource FiliErrorContrastTextBrush}" />
     </Style>
-    <Style Selector="^.dark /template/ Border#PART_Badge">
+    <Style Selector="^.dark /template/ theme|PartBorder#PART_Badge">
       <Setter Property="Background" Value="{DynamicResource FiliDarkBrush}" />
     </Style>
     <Style Selector="^.dark /template/ ContentPresenter#PART_HeaderPresenter">
@@ -298,82 +299,82 @@
     </Style>
 
     <!-- `mud-elevation-{n}`, on the badge. -->
-    <Style Selector="^.elevation0 /template/ Border#PART_Badge">
+    <Style Selector="^.elevation0 /template/ theme|PartBorder#PART_Badge">
       <Setter Property="BoxShadow" Value="{DynamicResource FiliElevation0}" />
     </Style>
-    <Style Selector="^.elevation1 /template/ Border#PART_Badge">
+    <Style Selector="^.elevation1 /template/ theme|PartBorder#PART_Badge">
       <Setter Property="BoxShadow" Value="{DynamicResource FiliElevation1}" />
     </Style>
-    <Style Selector="^.elevation2 /template/ Border#PART_Badge">
+    <Style Selector="^.elevation2 /template/ theme|PartBorder#PART_Badge">
       <Setter Property="BoxShadow" Value="{DynamicResource FiliElevation2}" />
     </Style>
-    <Style Selector="^.elevation3 /template/ Border#PART_Badge">
+    <Style Selector="^.elevation3 /template/ theme|PartBorder#PART_Badge">
       <Setter Property="BoxShadow" Value="{DynamicResource FiliElevation3}" />
     </Style>
-    <Style Selector="^.elevation4 /template/ Border#PART_Badge">
+    <Style Selector="^.elevation4 /template/ theme|PartBorder#PART_Badge">
       <Setter Property="BoxShadow" Value="{DynamicResource FiliElevation4}" />
     </Style>
-    <Style Selector="^.elevation5 /template/ Border#PART_Badge">
+    <Style Selector="^.elevation5 /template/ theme|PartBorder#PART_Badge">
       <Setter Property="BoxShadow" Value="{DynamicResource FiliElevation5}" />
     </Style>
-    <Style Selector="^.elevation6 /template/ Border#PART_Badge">
+    <Style Selector="^.elevation6 /template/ theme|PartBorder#PART_Badge">
       <Setter Property="BoxShadow" Value="{DynamicResource FiliElevation6}" />
     </Style>
-    <Style Selector="^.elevation7 /template/ Border#PART_Badge">
+    <Style Selector="^.elevation7 /template/ theme|PartBorder#PART_Badge">
       <Setter Property="BoxShadow" Value="{DynamicResource FiliElevation7}" />
     </Style>
-    <Style Selector="^.elevation8 /template/ Border#PART_Badge">
+    <Style Selector="^.elevation8 /template/ theme|PartBorder#PART_Badge">
       <Setter Property="BoxShadow" Value="{DynamicResource FiliElevation8}" />
     </Style>
-    <Style Selector="^.elevation9 /template/ Border#PART_Badge">
+    <Style Selector="^.elevation9 /template/ theme|PartBorder#PART_Badge">
       <Setter Property="BoxShadow" Value="{DynamicResource FiliElevation9}" />
     </Style>
-    <Style Selector="^.elevation10 /template/ Border#PART_Badge">
+    <Style Selector="^.elevation10 /template/ theme|PartBorder#PART_Badge">
       <Setter Property="BoxShadow" Value="{DynamicResource FiliElevation10}" />
     </Style>
-    <Style Selector="^.elevation11 /template/ Border#PART_Badge">
+    <Style Selector="^.elevation11 /template/ theme|PartBorder#PART_Badge">
       <Setter Property="BoxShadow" Value="{DynamicResource FiliElevation11}" />
     </Style>
-    <Style Selector="^.elevation12 /template/ Border#PART_Badge">
+    <Style Selector="^.elevation12 /template/ theme|PartBorder#PART_Badge">
       <Setter Property="BoxShadow" Value="{DynamicResource FiliElevation12}" />
     </Style>
-    <Style Selector="^.elevation13 /template/ Border#PART_Badge">
+    <Style Selector="^.elevation13 /template/ theme|PartBorder#PART_Badge">
       <Setter Property="BoxShadow" Value="{DynamicResource FiliElevation13}" />
     </Style>
-    <Style Selector="^.elevation14 /template/ Border#PART_Badge">
+    <Style Selector="^.elevation14 /template/ theme|PartBorder#PART_Badge">
       <Setter Property="BoxShadow" Value="{DynamicResource FiliElevation14}" />
     </Style>
-    <Style Selector="^.elevation15 /template/ Border#PART_Badge">
+    <Style Selector="^.elevation15 /template/ theme|PartBorder#PART_Badge">
       <Setter Property="BoxShadow" Value="{DynamicResource FiliElevation15}" />
     </Style>
-    <Style Selector="^.elevation16 /template/ Border#PART_Badge">
+    <Style Selector="^.elevation16 /template/ theme|PartBorder#PART_Badge">
       <Setter Property="BoxShadow" Value="{DynamicResource FiliElevation16}" />
     </Style>
-    <Style Selector="^.elevation17 /template/ Border#PART_Badge">
+    <Style Selector="^.elevation17 /template/ theme|PartBorder#PART_Badge">
       <Setter Property="BoxShadow" Value="{DynamicResource FiliElevation17}" />
     </Style>
-    <Style Selector="^.elevation18 /template/ Border#PART_Badge">
+    <Style Selector="^.elevation18 /template/ theme|PartBorder#PART_Badge">
       <Setter Property="BoxShadow" Value="{DynamicResource FiliElevation18}" />
     </Style>
-    <Style Selector="^.elevation19 /template/ Border#PART_Badge">
+    <Style Selector="^.elevation19 /template/ theme|PartBorder#PART_Badge">
       <Setter Property="BoxShadow" Value="{DynamicResource FiliElevation19}" />
     </Style>
-    <Style Selector="^.elevation20 /template/ Border#PART_Badge">
+    <Style Selector="^.elevation20 /template/ theme|PartBorder#PART_Badge">
       <Setter Property="BoxShadow" Value="{DynamicResource FiliElevation20}" />
     </Style>
-    <Style Selector="^.elevation21 /template/ Border#PART_Badge">
+    <Style Selector="^.elevation21 /template/ theme|PartBorder#PART_Badge">
       <Setter Property="BoxShadow" Value="{DynamicResource FiliElevation21}" />
     </Style>
-    <Style Selector="^.elevation22 /template/ Border#PART_Badge">
+    <Style Selector="^.elevation22 /template/ theme|PartBorder#PART_Badge">
       <Setter Property="BoxShadow" Value="{DynamicResource FiliElevation22}" />
     </Style>
-    <Style Selector="^.elevation23 /template/ Border#PART_Badge">
+    <Style Selector="^.elevation23 /template/ theme|PartBorder#PART_Badge">
       <Setter Property="BoxShadow" Value="{DynamicResource FiliElevation23}" />
     </Style>
-    <Style Selector="^.elevation24 /template/ Border#PART_Badge">
+    <Style Selector="^.elevation24 /template/ theme|PartBorder#PART_Badge">
       <Setter Property="BoxShadow" Value="{DynamicResource FiliElevation24}" />
     </Style>
-    <Style Selector="^.elevation25 /template/ Border#PART_Badge">
+    <Style Selector="^.elevation25 /template/ theme|PartBorder#PART_Badge">
       <Setter Property="BoxShadow" Value="{DynamicResource FiliElevation25}" />
     </Style>
     <!-- END GENERATED -->

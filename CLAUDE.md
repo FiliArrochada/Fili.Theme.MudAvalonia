@@ -39,7 +39,9 @@ classes, `ControlTheme`s where a Material look cannot be faked without one, and 
   ripple in a template's `PART_Ripple`; `HighContrastRings`, high contrast's elevation rings in
   the application's line colour;
   `SlidingIndicator`, the tabs' slide; `FieldClasses`, the text field's classes passed to the
-  TextBox inside an AutoCompleteBox or NumericUpDown; `MenuIconGutter`, a menu's shared icon
+  TextBox inside an AutoCompleteBox or NumericUpDown; `ElevationOverlay`, the inherited property
+  `material-elevation-overlay` sets; `PartBorder`, every Border in a hand-written template;
+  `MenuIconGutter`, a menu's shared icon
   column; `StartAdornment`, a text field's `:start-adornment`; `TabBarScroll`, the tab bar's
   scroll buttons; and `DataGridLastColumn` and
   `GroupIndentConverter`,
@@ -107,6 +109,12 @@ One line each; [`docs/traps.md`](docs/traps.md) has the full account and the tes
   `{Binding}` in a template binds at LocalValue and beats every style.
 - A `/template/` style from a parent's theme loses to the targeted control's own theme for any
   property that theme sets (the snackbar's close button): colour the parent it inherits from.
+- **A top-level style is matched against every control of the type it ends in**, the parts of
+  every template included, and one ending in a class watches each of them: every Border in a
+  hand-written template is a `PartBorder`, which `Border.*` styles pass over, and a selector into
+  one names `theme|PartBorder`. Never end a descendant selector in a common type
+  (`.material-elevation-overlay Border.card`): it watches every ancestor of every Border; read an
+  inherited property on the control instead (`StyleCostTests`).
 - A selector may cross only ONE `/template/` boundary; two throw at load and take other themes
   down with them.
 - A ControlTheme may not hold a child or descendant selector (`^.hover TreeViewItem`): it throws

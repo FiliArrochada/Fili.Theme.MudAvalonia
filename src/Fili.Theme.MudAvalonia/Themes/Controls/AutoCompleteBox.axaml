@@ -55,7 +55,7 @@
                  IsLightDismissEnabled="True"
                  WindowManagerAddShadowHint="False"
                  PlacementTarget="{TemplateBinding}">
-            <Border x:Name="PART_PopupBorder" Background="{DynamicResource FiliSurfaceBrush}"
+            <theme:PartBorder x:Name="PART_PopupBorder" Background="{DynamicResource FiliSurfaceBrush}"
                     CornerRadius="{DynamicResource FiliCornerRadius}"
                     BoxShadow="{DynamicResource FiliElevation8}"
                     Margin="8">
@@ -67,7 +67,7 @@
                        ScrollViewer.IsScrollChainingEnabled="False"
                        ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                        ScrollViewer.VerticalScrollBarVisibility="Auto" />
-            </Border>
+            </theme:PartBorder>
           </Popup>
         </Panel>
       </ControlTemplate>

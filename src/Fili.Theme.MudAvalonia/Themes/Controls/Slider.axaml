@@ -32,6 +32,7 @@
 -->
 <ResourceDictionary xmlns="https://github.com/avaloniaui"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:theme="using:Fili.Theme.MudAvalonia"
                     xmlns:fili="using:Fili.Theme.MudAvalonia.Converters">
 
   <fili:TickPositionsConverter x:Key="FiliTickPositions" />
@@ -45,7 +46,7 @@
     <Setter Property="Focusable" Value="False" />
     <Setter Property="Template">
       <ControlTemplate>
-        <Border Background="{TemplateBinding Background}"
+        <theme:PartBorder Background="{TemplateBinding Background}"
                 CornerRadius="{DynamicResource FiliCornerRadius}" />
       </ControlTemplate>
     </Setter>
@@ -101,7 +102,7 @@
                 <DoubleTransition Property="Opacity" Duration="0:0:0.2" Easing="SineEaseInOut" />
               </Transitions>
             </Panel.Transitions>
-            <Border HorizontalAlignment="Center"
+            <theme:PartBorder HorizontalAlignment="Center"
                     Padding="8,4"
                     CornerRadius="2"
                     Background="{TemplateBinding Background}"
@@ -111,7 +112,7 @@
                          FontSize="12"
                          LineHeight="NaN"
                          Foreground="{TemplateBinding Foreground}" />
-            </Border>
+            </theme:PartBorder>
           </Panel>
         </Panel>
       </ControlTemplate>
@@ -146,7 +147,7 @@
       <ControlTemplate>
         <Grid x:Name="PART_Container" Margin="{TemplateBinding Padding}">
           <!-- The rail: one piece, the colour at 30%, under everything - Variant.Text's whole look. -->
-          <Border x:Name="PART_Rail"
+          <theme:PartBorder x:Name="PART_Rail"
                   Height="2"
                   VerticalAlignment="Center"
                   Background="{TemplateBinding Foreground}"
@@ -229,7 +230,7 @@
         <ControlTemplate>
           <Grid x:Name="PART_Container" Margin="{TemplateBinding Padding}">
             <!-- The rail: one piece, the colour at 30%, under everything - Variant.Text's whole look. -->
-            <Border x:Name="PART_Rail"
+            <theme:PartBorder x:Name="PART_Rail"
                     Width="2"
                     HorizontalAlignment="Center"
                     Background="{TemplateBinding Foreground}"
@@ -382,10 +383,10 @@
     <Style Selector="^.medium:vertical /template/ RepeatButton">
       <Setter Property="Width" Value="4" />
     </Style>
-    <Style Selector="^.medium:horizontal /template/ Border#PART_Rail">
+    <Style Selector="^.medium:horizontal /template/ theme|PartBorder#PART_Rail">
       <Setter Property="Height" Value="4" />
     </Style>
-    <Style Selector="^.medium:vertical /template/ Border#PART_Rail">
+    <Style Selector="^.medium:vertical /template/ theme|PartBorder#PART_Rail">
       <Setter Property="Width" Value="4" />
     </Style>
     <Style Selector="^.medium:horizontal /template/ ItemsControl#PART_TickMarks">
@@ -415,10 +416,10 @@
     <Style Selector="^.large:vertical /template/ RepeatButton">
       <Setter Property="Width" Value="6" />
     </Style>
-    <Style Selector="^.large:horizontal /template/ Border#PART_Rail">
+    <Style Selector="^.large:horizontal /template/ theme|PartBorder#PART_Rail">
       <Setter Property="Height" Value="6" />
     </Style>
-    <Style Selector="^.large:vertical /template/ Border#PART_Rail">
+    <Style Selector="^.large:vertical /template/ theme|PartBorder#PART_Rail">
       <Setter Property="Width" Value="6" />
     </Style>
     <Style Selector="^.large:horizontal /template/ ItemsControl#PART_TickMarks">

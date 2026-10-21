@@ -54,10 +54,10 @@
     <Setter Property="Template">
       <ControlTemplate>
         <Panel>
-          <Border x:Name="PART_StateLayer"
+          <theme:PartBorder x:Name="PART_StateLayer"
                   Background="Transparent"
                   CornerRadius="16" />
-          <Border x:Name="PART_Ripple"
+          <theme:PartBorder x:Name="PART_Ripple"
                   theme:Ripple.IsLayer="True"
                   CornerRadius="16" />
           <Path x:Name="PART_Chevron"
@@ -87,7 +87,7 @@
     <Style Selector="^:checked /template/ Path#PART_Chevron">
       <Setter Property="RenderTransform" Value="rotate(90deg)" />
     </Style>
-    <Style Selector="^:pointerover /template/ Border#PART_StateLayer">
+    <Style Selector="^:pointerover /template/ theme|PartBorder#PART_StateLayer">
       <Setter Property="Background" Value="{DynamicResource FiliOverlayHoverBrush}" />
     </Style>
   </ControlTheme>
@@ -105,19 +105,19 @@
     <Setter Property="Template">
       <ControlTemplate>
         <StackPanel>
-          <Border x:Name="SelectionBorder"
+          <theme:PartBorder x:Name="SelectionBorder"
                   Background="{TemplateBinding Background}"
                   MinHeight="{TemplateBinding MinHeight}"
                   Focusable="True"
                   TemplatedControl.IsTemplateFocusTarget="True">
-            <Border.Transitions>
+            <theme:PartBorder.Transitions>
               <Transitions>
                 <BrushTransition Property="Background" Duration="0:0:0.15" />
               </Transitions>
-            </Border.Transitions>
+            </theme:PartBorder.Transitions>
 
             <Panel>
-              <Border x:Name="PART_Ripple" theme:Ripple.IsLayer="True" />
+              <theme:PartBorder x:Name="PART_Ripple" theme:Ripple.IsLayer="True" />
               <!-- Level x 17px of left margin. Avalonia computes it; the converter is the framework's
                    own, and without it every level would sit at the same indent. -->
               <Grid x:Name="PART_Header" ColumnDefinitions="Auto,Auto,*">
@@ -175,7 +175,7 @@
                                   Focusable="False" />
               </Grid>
             </Panel>
-          </Border>
+          </theme:PartBorder>
 
           <ItemsPresenter x:Name="PART_ItemsPresenter"
                           IsVisible="{TemplateBinding IsExpanded}"
@@ -192,11 +192,11 @@
       <Setter Property="IsHitTestVisible" Value="False" />
     </Style>
 
-    <Style Selector="^:focus-visible /template/ Border#SelectionBorder">
+    <Style Selector="^:focus-visible /template/ theme|PartBorder#SelectionBorder">
       <Setter Property="Background" Value="{DynamicResource FiliOverlayHoverBrush}" />
     </Style>
 
-    <Style Selector="^:selected /template/ Border#SelectionBorder">
+    <Style Selector="^:selected /template/ theme|PartBorder#SelectionBorder">
       <Setter Property="Background" Value="{DynamicResource FiliPrimaryHoverBrush}" />
     </Style>
     <Style Selector="^:selected /template/ ContentPresenter#PART_HeaderPresenter">
@@ -221,7 +221,7 @@
 
     <Setter Property="Template">
       <ControlTemplate>
-        <Border Background="{TemplateBinding Background}"
+        <theme:PartBorder Background="{TemplateBinding Background}"
                 BorderBrush="{TemplateBinding BorderBrush}"
                 BorderThickness="{TemplateBinding BorderThickness}"
                 CornerRadius="{TemplateBinding CornerRadius}">
@@ -231,7 +231,7 @@
                             ItemsPanel="{TemplateBinding ItemsPanel}"
                             Margin="{TemplateBinding Padding}" />
           </ScrollViewer>
-        </Border>
+        </theme:PartBorder>
       </ControlTemplate>
     </Setter>
 
@@ -273,16 +273,16 @@
     <Setter Property="Cursor" Value="Hand" />
     <Setter Property="Template">
       <ControlTemplate>
-        <Border x:Name="PART_StateLayer"
+        <theme:PartBorder x:Name="PART_StateLayer"
                 Background="{TemplateBinding Background}"
                 CornerRadius="{TemplateBinding CornerRadius}">
-          <Border x:Name="PART_Ripple"
+          <theme:PartBorder x:Name="PART_Ripple"
                   theme:Ripple.IsLayer="True"
                   CornerRadius="{TemplateBinding CornerRadius}" />
-        </Border>
+        </theme:PartBorder>
       </ControlTemplate>
     </Setter>
-    <Style Selector="^:pointerover /template/ Border#PART_StateLayer">
+    <Style Selector="^:pointerover /template/ theme|PartBorder#PART_StateLayer">
       <Setter Property="Background" Value="{DynamicResource FiliActionDefaultHoverBrush}" />
     </Style>
   </ControlTheme>
@@ -302,31 +302,31 @@
         <StackPanel>
           <Panel>
             <!-- The row's ground; its child takes the pointer, so the whole row tints. -->
-            <Border x:Name="SelectionBorder"
+            <theme:PartBorder x:Name="SelectionBorder"
                     Background="{TemplateBinding Background}"
                     CornerRadius="{TemplateBinding CornerRadius}"
                     Focusable="True"
                     TemplatedControl.IsTemplateFocusTarget="True">
-              <Border.Transitions>
+              <theme:PartBorder.Transitions>
                 <Transitions>
                   <!-- background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) -->
                   <BrushTransition Property="Background" Duration="0:0:0.25" />
                 </Transitions>
-              </Border.Transitions>
-              <Border x:Name="PART_Tint"
+              </theme:PartBorder.Transitions>
+              <theme:PartBorder x:Name="PART_Tint"
                       Background="Transparent"
                       CornerRadius="{TemplateBinding CornerRadius}">
-                <Border x:Name="PART_Ripple"
+                <theme:PartBorder x:Name="PART_Ripple"
                         theme:Ripple.IsLayer="True"
                         CornerRadius="{TemplateBinding CornerRadius}" />
-              </Border>
-            </Border>
+              </theme:PartBorder>
+            </theme:PartBorder>
 
             <Grid x:Name="PART_Header"
                   ColumnDefinitions="Auto,*,Auto"
                   Margin="{TemplateBinding Padding}"
                   IsHitTestVisible="False">
-              <Border x:Name="PART_Indent" Grid.Column="0" Width="0" />
+              <theme:PartBorder x:Name="PART_Indent" Grid.Column="0" Width="0" />
               <ContentPresenter x:Name="PART_HeaderPresenter"
                                 Grid.Column="1"
                                 Margin="12,0,0,0"
@@ -394,16 +394,16 @@
     </Style>
 
     <!-- The indent beyond the 16px padding, by depth: 36, 48, 60 and 72px in all. -->
-    <Style Selector="^[Level=1] /template/ Border#PART_Indent">
+    <Style Selector="^[Level=1] /template/ theme|PartBorder#PART_Indent">
       <Setter Property="Width" Value="20" />
     </Style>
-    <Style Selector="^[Level=2] /template/ Border#PART_Indent">
+    <Style Selector="^[Level=2] /template/ theme|PartBorder#PART_Indent">
       <Setter Property="Width" Value="32" />
     </Style>
-    <Style Selector="^[Level=3] /template/ Border#PART_Indent">
+    <Style Selector="^[Level=3] /template/ theme|PartBorder#PART_Indent">
       <Setter Property="Width" Value="44" />
     </Style>
-    <Style Selector="^[Level=4] /template/ Border#PART_Indent">
+    <Style Selector="^[Level=4] /template/ theme|PartBorder#PART_Indent">
       <Setter Property="Width" Value="56" />
     </Style>
 
@@ -415,19 +415,19 @@
       <Setter Property="FontWeight" Value="Medium" />
     </Style>
 
-    <Style Selector="^ /template/ Border#PART_Tint:pointerover">
+    <Style Selector="^ /template/ theme|PartBorder#PART_Tint:pointerover">
       <Setter Property="Background" Value="{DynamicResource FiliActionDefaultHoverBrush}" />
     </Style>
-    <Style Selector="^:focus-visible /template/ Border#SelectionBorder">
+    <Style Selector="^:focus-visible /template/ theme|PartBorder#SelectionBorder">
       <Setter Property="Background" Value="{DynamicResource FiliActionDefaultHoverBrush}" />
     </Style>
 
     <!-- The active link: 500, primary over action-default-hover, which hovering keeps. -->
-    <Style Selector="^:selected /template/ Border#SelectionBorder">
+    <Style Selector="^:selected /template/ theme|PartBorder#SelectionBorder">
       <Setter Property="Background" Value="{DynamicResource FiliActionDefaultHoverBrush}" />
       <Setter Property="BorderBrush" Value="{DynamicResource FiliPrimaryBrush}" />
     </Style>
-    <Style Selector="^:selected /template/ Border#PART_Tint:pointerover">
+    <Style Selector="^:selected /template/ theme|PartBorder#PART_Tint:pointerover">
       <Setter Property="Background" Value="Transparent" />
     </Style>
     <Style Selector="^:selected /template/ ContentPresenter#PART_HeaderPresenter">

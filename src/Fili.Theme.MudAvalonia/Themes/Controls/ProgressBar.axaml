@@ -24,6 +24,7 @@
 -->
 <ResourceDictionary xmlns="https://github.com/avaloniaui"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:theme="using:Fili.Theme.MudAvalonia"
                     xmlns:converters="using:Avalonia.Controls.Converters"
                     xmlns:fili="using:Fili.Theme.MudAvalonia.Converters">
 
@@ -49,16 +50,16 @@
     <Setter Property="Template">
       <ControlTemplate TargetType="ProgressBar">
         <Grid>
-          <Border x:Name="PART_Bars"
+          <theme:PartBorder x:Name="PART_Bars"
                   CornerRadius="{TemplateBinding CornerRadius}"
                   ClipToBounds="True">
             <Panel>
               <!-- The track: the bar's colour at 20%, per ::before. -->
-              <Border x:Name="PART_Track"
+              <theme:PartBorder x:Name="PART_Track"
                       Background="{TemplateBinding Background}"
                       Opacity="0.2" />
 
-              <Border x:Name="PART_Indicator"
+              <theme:PartBorder x:Name="PART_Indicator"
                       Background="{TemplateBinding Foreground}"
                       ClipToBounds="True"
                       IsVisible="{Binding !IsIndeterminate, RelativeSource={RelativeSource TemplatedParent}}">
@@ -80,17 +81,17 @@
                     </DrawingBrush>
                   </Panel.Background>
                 </Panel>
-              </Border>
+              </theme:PartBorder>
 
-              <Border x:Name="PART_IndeterminateIndicator"
+              <theme:PartBorder x:Name="PART_IndeterminateIndicator"
                       Background="{TemplateBinding Foreground}"
                       IsVisible="{Binding IsIndeterminate, RelativeSource={RelativeSource TemplatedParent}}" />
 
-              <Border x:Name="PART_IndeterminateIndicator2"
+              <theme:PartBorder x:Name="PART_IndeterminateIndicator2"
                       Background="{TemplateBinding Foreground}"
                       IsVisible="{Binding IsIndeterminate, RelativeSource={RelativeSource TemplatedParent}}" />
             </Panel>
-          </Border>
+          </theme:PartBorder>
 
           <!-- .mud-progress-linear-content: centred over the bar, not beside it, and whole
                whatever the bar's thickness, either way up. The panel's negative margin is the
@@ -162,11 +163,11 @@
       <Setter Property="CornerRadius" Value="{DynamicResource FiliCornerRadius}" />
     </Style>
 
-    <Style Selector="^:horizontal /template/ Border#PART_Indicator">
+    <Style Selector="^:horizontal /template/ theme|PartBorder#PART_Indicator">
       <Setter Property="HorizontalAlignment" Value="Left" />
       <Setter Property="VerticalAlignment" Value="Stretch" />
     </Style>
-    <Style Selector="^:vertical /template/ Border#PART_Indicator">
+    <Style Selector="^:vertical /template/ theme|PartBorder#PART_Indicator">
       <Setter Property="HorizontalAlignment" Value="Stretch" />
       <Setter Property="VerticalAlignment" Value="Bottom" />
     </Style>
@@ -195,7 +196,7 @@
 
       MudBlazor's timing is kept exactly: 2.1s, the two cubic-beziers, bar 2 delayed by 1.15s.
     -->
-    <Style Selector="^:horizontal:indeterminate /template/ Border#PART_IndeterminateIndicator">
+    <Style Selector="^:horizontal:indeterminate /template/ theme|PartBorder#PART_IndeterminateIndicator">
       <Setter Property="HorizontalAlignment" Value="Left" />
       <Style.Animations>
         <Animation IterationCount="Infinite" Duration="0:0:2.1">
@@ -217,7 +218,7 @@
         </Animation>
       </Style.Animations>
     </Style>
-    <Style Selector="^:horizontal:indeterminate /template/ Border#PART_IndeterminateIndicator2">
+    <Style Selector="^:horizontal:indeterminate /template/ theme|PartBorder#PART_IndeterminateIndicator2">
       <!-- Bar 2 enters 1.15s late. Until its animation takes over, a Border with no width
            would stretch the whole rail and flash a solid bar on every start, so it rests at
            zero - which is also where the web has it, off-screen at left -200%. -->
@@ -246,7 +247,7 @@
 
     <!-- Vertical: the same two bars in the other axis. ContainerWidth is measured off whichever
          dimension the orientation makes the long one, so the factors carry over unchanged. -->
-    <Style Selector="^:vertical:indeterminate /template/ Border#PART_IndeterminateIndicator">
+    <Style Selector="^:vertical:indeterminate /template/ theme|PartBorder#PART_IndeterminateIndicator">
       <Setter Property="VerticalAlignment" Value="Top" />
       <Style.Animations>
         <Animation IterationCount="Infinite" Duration="0:0:2.1">
@@ -268,7 +269,7 @@
         </Animation>
       </Style.Animations>
     </Style>
-    <Style Selector="^:vertical:indeterminate /template/ Border#PART_IndeterminateIndicator2">
+    <Style Selector="^:vertical:indeterminate /template/ theme|PartBorder#PART_IndeterminateIndicator2">
       <Setter Property="Height" Value="0" />
       <Setter Property="VerticalAlignment" Value="Top" />
       <Style.Animations>
