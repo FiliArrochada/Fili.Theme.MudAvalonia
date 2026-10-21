@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.Presenters;
@@ -32,6 +33,13 @@ namespace Fili.Theme.MudAvalonia;
 /// into. Every child counts as a neighbour, as in CSS. Internal, like the converters: a theme
 /// needs it, a consumer does not.
 /// </para>
+/// <para>
+/// A generated panel's place is its item's index, not its place among the panel's children: a
+/// virtualising panel holds only the containers on screen, in no promised order, and recycles one
+/// for another item without detaching it. So the first and last on screen are not the group's
+/// ends, and the group refreshes when its ItemsControl prepares, moves or clears a container, or
+/// its item count changes. A neighbour that is not realised is off screen, and counts as closed.
+/// </para>
 /// </remarks>
 internal sealed class ExpansionPanels
 {
@@ -40,6 +48,9 @@ internal sealed class ExpansionPanels
     private const string LastPanel = ":last-panel";
     private const string NextExpanded = ":next-expanded";
     private const string PreviousExpanded = ":previous-expanded";
+
+    /// <summary>The ItemsControls whose container events already refresh their group.</summary>
+    private static readonly ConditionalWeakTable<ItemsControl, object> Watched = new();
 
     private ExpansionPanels()
     {
@@ -109,6 +120,7 @@ internal sealed class ExpansionPanels
     {
         var panel = (Expander)sender!;
         var group = GroupOf(panel);
+        Watch(OwnerOf(SlotOf(panel)));
 
         // MudExpansionPanels.AddPanelAsync: a panel that arrives open while another is open closes.
         // Only panels already there count: a group attaches its children in order, so of panels
@@ -127,6 +139,34 @@ internal sealed class ExpansionPanels
         // The panel has already left its parent's visual children; its group is where it was.
         var from = e.AttachmentPoint as Visual;
         RefreshLater(from is ContentPresenter presenter && presenter.GetVisualParent() is Panel ? presenter.GetVisualParent() : from);
+    }
+
+    /// <summary>The ItemsControl that generated this slot, if one did.</summary>
+    private static ItemsControl? OwnerOf(Visual slot) =>
+        slot is Control container ? ItemsControl.ItemsControlFromItemContainer(container) : null;
+
+    /// <summary>
+    /// Refreshes the group whenever its ItemsControl hands a container another item, or the items
+    /// change: a recycled container stays attached, so its own events do not fire.
+    /// </summary>
+    private static void Watch(ItemsControl? owner)
+    {
+        if (owner is null || Watched.TryGetValue(owner, out _))
+        {
+            return;
+        }
+
+        Watched.Add(owner, new object());
+        owner.ContainerPrepared += (_, _) => RefreshLater(owner.ItemsPanelRoot);
+        owner.ContainerIndexChanged += (_, _) => RefreshLater(owner.ItemsPanelRoot);
+        owner.ContainerClearing += (_, _) => RefreshLater(owner.ItemsPanelRoot);
+        owner.PropertyChanged += (_, e) =>
+        {
+            if (e.Property == ItemsControl.ItemCountProperty)
+            {
+                RefreshLater(owner.ItemsPanelRoot);
+            }
+        };
     }
 
     /// <summary>The panel's place in its group: the panel, or the presenter it was generated into.</summary>
@@ -170,11 +210,34 @@ internal sealed class ExpansionPanels
                 continue;
             }
 
+            bool first, last, next, previous;
+            if (OwnerOf(children[i]) is { } owner)
+            {
+                // A container waiting to be recycled has no index; it is hidden, and left alone.
+                var index = owner.IndexFromContainer((Control)children[i]);
+                if (index < 0)
+                {
+                    continue;
+                }
+
+                first = index == 0;
+                last = index == owner.ItemCount - 1;
+                next = owner.ContainerFromIndex(index + 1) is { } after && PanelIn(after) is { IsExpanded: true };
+                previous = index > 0 && owner.ContainerFromIndex(index - 1) is { } before && PanelIn(before) is { IsExpanded: true };
+            }
+            else
+            {
+                first = i == 0;
+                last = i == children.Count - 1;
+                next = i + 1 < children.Count && PanelIn(children[i + 1]) is { IsExpanded: true };
+                previous = i > 0 && PanelIn(children[i - 1]) is { IsExpanded: true };
+            }
+
             var pseudo = (IPseudoClasses)panel.Classes;
-            pseudo.Set(FirstPanel, i == 0);
-            pseudo.Set(LastPanel, i == children.Count - 1);
-            pseudo.Set(NextExpanded, i + 1 < children.Count && PanelIn(children[i + 1]) is { IsExpanded: true });
-            pseudo.Set(PreviousExpanded, i > 0 && PanelIn(children[i - 1]) is { IsExpanded: true });
+            pseudo.Set(FirstPanel, first);
+            pseudo.Set(LastPanel, last);
+            pseudo.Set(NextExpanded, next);
+            pseudo.Set(PreviousExpanded, previous);
         }
     }
 }

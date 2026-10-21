@@ -55,9 +55,6 @@ hits them:
   line down the grid: the DataGrid keeps its resize state internal, and showing the line would
   mean re-implementing its pointer handling. A selected row is tinted although MudDataGrid draws
   none - see [Data grid](controls.md#data-grid).
-- **A virtualising items panel joins only the panels it has realised.** `expansion-panels` on a
-  `ListBox`, whose panel virtualises, rules and rounds the panels on screen as a group; one
-  scrolled out of view is not there to be its neighbour.
 - **MudSlider's `TickMarkLabels` and MudProgressLinear's `Buffer`.** Both are data the Avalonia
   control has no property for - an array of strings, a second value - and the only way to pass
   it would be a public attached property, which this package does not add: its public API is

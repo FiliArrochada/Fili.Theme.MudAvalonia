@@ -334,4 +334,113 @@ public class ExpansionPanelsTests
         Dispatcher.UIThread.RunJobs();
         Assert.Equal([Top, Bottom], Enumerable.Range(0, 2).Select(i => PanelAt(i).CornerRadius));
     });
+    /// <summary>A panel's item. A virtualising panel rebuilds and reuses its panels, so whether one is open belongs to the item.</summary>
+    private sealed class PanelItem(string header)
+    {
+        public string Header { get; } = header;
+
+        public bool IsExpanded { get; set; }
+    }
+
+    /// <summary>
+    /// Forty generated panels in a virtualising panel, 480px of them on screen, with the
+    /// ScrollViewer that the panel virtualises against.
+    /// </summary>
+    private static (ItemsControl Group, ScrollViewer Scroller) VirtualisedGroup()
+    {
+        var group = new ItemsControl
+        {
+            Classes = { "expansion-panels" },
+            ItemsSource = Enumerable.Range(0, 40).Select(i => new PanelItem($"Panel {i}")).ToArray(),
+            ItemsPanel = new FuncTemplate<Panel?>(() => new VirtualizingStackPanel()),
+            ItemTemplate = new FuncDataTemplate<PanelItem>((_, _) => new Expander
+            {
+                Content = "Body",
+                [!Avalonia.Controls.Primitives.HeaderedContentControl.HeaderProperty] = new Avalonia.Data.Binding(nameof(PanelItem.Header)),
+                [!Expander.IsExpandedProperty] = new Avalonia.Data.Binding(nameof(PanelItem.IsExpanded)) { Mode = Avalonia.Data.BindingMode.TwoWay },
+            }),
+        };
+        // A window of its own: a virtualising panel realises only what the window shows.
+        var scroller = new ScrollViewer { Width = 400, Height = 480, Content = group };
+        new Window { Width = 600, Height = 600, Content = scroller }.Show();
+        Dispatcher.UIThread.RunJobs();
+        return (group, scroller);
+    }
+
+    private static Dictionary<int, Expander> OnScreen(ItemsControl group)
+    {
+        Dispatcher.UIThread.RunJobs();
+        return group.GetRealizedContainers()
+            .Where(c => c.IsVisible && group.IndexFromContainer(c) >= 0)
+            .ToDictionary(group.IndexFromContainer, c => (Expander)((Avalonia.Controls.Presenters.ContentPresenter)c).Child!);
+    }
+
+    /// <summary>
+    /// Scrolls and lets the panel settle: it realises against an estimated row height first, and
+    /// corrects once the rows it made have measured, so one layout pass can stop short.
+    /// </summary>
+    private static void ScrollTo(ScrollViewer scroller, double y)
+    {
+        scroller.Offset = new Vector(0, y);
+        for (var pass = 0; pass < 4; pass++)
+        {
+            Dispatcher.UIThread.RunJobs();
+            scroller.UpdateLayout();
+        }
+
+        Dispatcher.UIThread.RunJobs();
+    }
+
+    /// <summary>
+    /// A virtualising panel holds only the panels on screen. The first and last of those are
+    /// not the group's ends unless their items are: scrolled to the middle, every panel is a
+    /// middle one, and scrolled to the end the last item's panel closes the group.
+    /// </summary>
+    [Fact]
+    public Task AVirtualisedGroupsEndsAreItsItemsEnds() => UiThread.RunAsync(() =>
+    {
+        var (group, scroller) = VirtualisedGroup();
+        var top = OnScreen(group);
+        Assert.Equal(Top, top[0].CornerRadius);
+        Assert.All(top.Where(p => p.Key > 0), p => Assert.Equal((None, Rule), (p.Value.CornerRadius, p.Value.BorderThickness)));
+
+        ScrollTo(scroller, 1000);
+        var middle = OnScreen(group);
+        Assert.DoesNotContain(0, middle.Keys);
+        Assert.All(middle.Values, p => Assert.Equal((None, Rule), (p.CornerRadius, p.BorderThickness)));
+
+        ScrollTo(scroller, double.PositiveInfinity);
+        var bottom = OnScreen(group);
+        Assert.Equal((Bottom, NoRule), (bottom[39].CornerRadius, bottom[39].BorderThickness));
+        Assert.All(bottom.Where(p => p.Key < 39), p => Assert.Equal(None, p.Value.CornerRadius));
+    });
+
+    /// <summary>
+    /// A container recycled for another item stays attached, so the group hears it from its
+    /// ItemsControl: an expanded panel rounds the panels on either side of it however often the
+    /// panel rebuilds them, and still does after a scroll away and back.
+    /// </summary>
+    [Fact]
+    public Task AVirtualisedGroupFollowsItsRecycledPanels() => UiThread.RunAsync(() =>
+    {
+        var (group, scroller) = VirtualisedGroup();
+        ScrollTo(scroller, 1000);
+        var shown = OnScreen(group);
+        var open = shown.Keys.OrderBy(i => i).ElementAt(2);
+        Expand(shown[open]);
+
+        shown = OnScreen(group);
+        Assert.Equal((Bottom, NoRule), (shown[open - 1].CornerRadius, shown[open - 1].BorderThickness));
+        Assert.Equal(All, shown[open].CornerRadius);
+        Assert.Equal(Top, shown[open + 1].CornerRadius);
+        Assert.Equal(None, shown[open + 2].CornerRadius);
+
+        ScrollTo(scroller, 0);
+        Assert.All(OnScreen(group).Values, p => Assert.False(p.IsExpanded));
+        ScrollTo(scroller, 1000);
+        shown = OnScreen(group);
+        Assert.True(shown[open].IsExpanded);
+        Assert.Equal((Bottom, NoRule), (shown[open - 1].CornerRadius, shown[open - 1].BorderThickness));
+        Assert.Equal(Top, shown[open + 1].CornerRadius);
+    });
 }

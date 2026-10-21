@@ -387,7 +387,12 @@ Five places where the MudBlazor default is not the one you would guess:
   `square` on the group squares every panel, and `no-outline` drops every rule, as
   `Outlined="false"` does. Each panel keeps its own elevation, as each MudExpansionPanel takes
   the group's, so where two closed panels meet the lower one's shadow falls faintly on the upper,
-  in MudBlazor too; in high contrast that edge is the panel's ring. As in MudBlazor, where `MultiExpansion` is off by
+  in MudBlazor too; in high contrast that edge is the panel's ring. A virtualising items panel
+  is a group too: a generated panel's place is its item's index, so the panels on screen are
+  rounded and ruled as their items stand, and a neighbour not yet realised is off screen and
+  counts as closed. Bind `IsExpanded` to the item there, as a virtualising panel rebuilds and
+  reuses its Expanders. A `ListBox` is not a group: its rows are list rows, with their own
+  padding and selection. As in MudBlazor, where `MultiExpansion` is off by
   default, opening a panel closes the others, and of panels written open only the first stays
   open; `multi-expansion` on the group lets them open independently. Closing is a current value,
   so a binding on `IsExpanded` survives it and hears the change.
