@@ -108,10 +108,10 @@ public class ParityOptionsTests
     });
 
     [Fact]
-    public Task ASquareAlertHasNoRadius() => UiThread.RunAsync(() =>
+    public Task AnAlertIsRoundedUntilItsCornerRadiusSaysOtherwise() => UiThread.RunAsync(() =>
     {
         Assert.Equal(new CornerRadius(4), Matrix.Show(new Border { Classes = { "alert" } }).CornerRadius);
-        Assert.Equal(new CornerRadius(0), Matrix.Show(new Border { Classes = { "alert", "square" } }).CornerRadius);
+        Assert.Equal(new CornerRadius(0), Matrix.Show(new Border { Classes = { "alert" }, CornerRadius = new CornerRadius(0) }).CornerRadius);
     });
 
     [Fact]
@@ -277,7 +277,7 @@ public class ParityOptionsTests
         combo.IsDropDownOpen = false;
     });
 
-    /// <summary>`.mud-toolbar`: 64px with 24px gutters; dense 48; Gutters="false" none.</summary>
+    /// <summary>`.mud-toolbar`: 64px with 24px gutters; dense 48; Gutters="false" is Padding="0".</summary>
     [Fact]
     public Task AToolbarIsMudToolBarsBox() => UiThread.RunAsync(() =>
     {
@@ -288,8 +288,8 @@ public class ParityOptionsTests
         Assert.Equal(new Thickness(24, 0), bar.Padding);
         Assert.Equal(Avalonia.Layout.VerticalAlignment.Center, button.VerticalAlignment);
         Assert.Equal(48, Matrix.Show(new Border { Classes = { "toolbar", "dense" } }).Height);
-        Assert.Equal(new Thickness(0), Matrix.Show(new Border { Classes = { "toolbar", "no-gutters" } }).Padding);
-        Assert.Equal(new Thickness(0), Matrix.Show(new Border { Classes = { "appbar", "no-gutters" } }).Padding);
+        Assert.Equal(new Thickness(0), Matrix.Show(new Border { Classes = { "toolbar" }, Padding = new Thickness(0) }).Padding);
+        Assert.Equal(new Thickness(0), Matrix.Show(new Border { Classes = { "appbar" }, Padding = new Thickness(0) }).Padding);
     });
 
     /// <summary>MudIcon's Size, 20 / 24 / 36px, and Color, on a PathIcon.</summary>

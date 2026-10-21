@@ -99,7 +99,8 @@ One line each; [`docs/traps.md`](docs/traps.md) has the full account and the tes
 - Most MudBlazor components default to `Color.Default`, which is NOT primary - a checked checkbox
   with no class is grey. Only MudSlider and MudLink default to primary.
 - Control themes are keyed by TYPE (declared as `Fili*`, aliased at the file's foot); a class only
-  ever names a variant.
+  ever names a variant, and an option that is one fixed property of its own control is that
+  property, not a class (`ClassVocabularyTests.NoClassIsOnePropertyOfItsOwnControl`).
 - When a control gets a ControlTheme, delete it from the blanket styles in `FiliTheme.axaml`.
 - **A Style always outranks a ControlTheme setter** - the most likely way to break this package.
 - A Style overrides a value set inline in a template ONLY IF its selector has an activator; a

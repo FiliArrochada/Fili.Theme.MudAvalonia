@@ -370,8 +370,8 @@
             </DataGrid.Columns>
         </DataGrid>
 
-        <TextBlock Classes="overline" Text="dense striped bordered hover, a row selected" />
-        <DataGrid x:Name="OptionsGrid" Classes="dense striped bordered hover" Width="760" HorizontalAlignment="Left" Margin="0,0,0,8">
+        <TextBlock Classes="overline" Text="dense striped hover, GridLinesVisibility All, a row selected" />
+        <DataGrid x:Name="OptionsGrid" Classes="dense striped hover" GridLinesVisibility="All" Width="760" HorizontalAlignment="Left" Margin="0,0,0,8">
             <DataGrid.Columns>
               <DataGridTextColumn Header="Nr" Binding="{Binding Number}" x:DataType="v:GalleryElement" />
               <DataGridTextColumn Header="Sign" Binding="{Binding Sign}" x:DataType="v:GalleryElement" />
@@ -382,8 +382,8 @@
             </DataGrid.Columns>
         </DataGrid>
 
-        <TextBlock Classes="overline" Text="outlined square dense, grouped by group and then position" />
-        <DataGrid x:Name="GroupedGrid" Classes="outlined square dense" Width="760" HorizontalAlignment="Left">
+        <TextBlock Classes="overline" Text="outlined dense, CornerRadius 0, grouped by group and then position" />
+        <DataGrid x:Name="GroupedGrid" Classes="outlined dense" CornerRadius="0" Width="760" HorizontalAlignment="Left">
             <DataGrid.Columns>
               <DataGridTextColumn Header="Nr" Binding="{Binding Number}" x:DataType="v:GalleryElement" />
               <DataGridTextColumn Header="Sign" Binding="{Binding Sign}" x:DataType="v:GalleryElement" />
@@ -397,7 +397,7 @@
                    TextWrapping="Wrap"
                    MaxWidth="760"
                    HorizontalAlignment="Left"
-                   Text="Avalonia's own DataGrid needs nothing to look like MudDataGrid: surface at elevation 1, subtitle2 headers in a 59px row, body2 cells 16px round with a table-lines rule under every row but the last, and MudIconButton's ArrowUpward at the end of a sorted header. dense, striped, bordered and hover are MudDataGrid's Dense, Striped, Bordered and Hover; outlined and square are the paper's. A nested group's header steps in 48px; its rows do not. MudDataGrid does not draw a selected row, so selection borrows a selected list row's primary-hover." />
+                   Text="Avalonia's own DataGrid needs nothing to look like MudDataGrid: surface at elevation 1, subtitle2 headers in a 59px row, body2 cells 16px round with a table-lines rule under every row but the last, and MudIconButton's ArrowUpward at the end of a sorted header. dense, striped and hover are MudDataGrid's Dense, Striped and Hover, and GridLinesVisibility All its Bordered; outlined is the paper's, and CornerRadius 0 its Square. A nested group's header steps in 48px; its rows do not. MudDataGrid does not draw a selected row, so selection borrows a selected list row's primary-hover." />
 
         <TextBlock Classes="overline" Text="A selection column and long text" Margin="0,8,0,0" />
         <DataGrid x:Name="TaskGrid" Width="640" HorizontalAlignment="Left">
@@ -1011,9 +1011,9 @@
           </Expander>
         </StackPanel>
         <StackPanel Orientation="Horizontal" Spacing="24">
-          <Expander Width="330" Classes="dense square" Header="dense square" IsExpanded="True">
+          <Expander Width="330" Classes="dense" CornerRadius="0" Header="dense, CornerRadius 0" IsExpanded="True">
             <TextBlock Classes="body2" TextWrapping="Wrap"
-                       Text="Dense drops the content's 16px top and bottom; square drops the radius." />
+                       Text="Dense drops the content's 16px top and bottom; CornerRadius 0 is Square." />
           </Expander>
           <Expander Width="330" Classes="no-gutters elevation4" Header="no-gutters elevation4" IsExpanded="True">
             <TextBlock Classes="body2" TextWrapping="Wrap"

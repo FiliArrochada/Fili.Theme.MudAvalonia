@@ -208,9 +208,10 @@ public class DataGridTests
     [Fact]
     public Task BorderedRulesTheBodyAndNotTheHeaders() => UiThread.RunAsync(() =>
     {
-        var grid = Show(null, "bordered");
+        var grid = Show();
+        grid.GridLinesVisibility = DataGridGridLinesVisibility.All;
+        Dispatcher.UIThread.RunJobs();
 
-        Assert.Equal(DataGridGridLinesVisibility.All, grid.GridLinesVisibility);
         Assert.Equal(Matrix.Token("FiliTableLinesColor"), Matrix.Colour(grid.VerticalGridLinesBrush));
         // The column headers; the corner headers are hidden and never templated.
         Assert.All(grid.GetVisualDescendants().OfType<DataGridColumnHeader>().Where(h => h.Content is string),
@@ -230,9 +231,11 @@ public class DataGridTests
     });
 
     [Fact]
-    public Task SquareAndElevation() => UiThread.RunAsync(() =>
+    public Task SquareIsTheCornerRadiusAndElevationAClass() => UiThread.RunAsync(() =>
     {
-        var grid = Show(null, "square", "elevation8");
+        var grid = Show(null, "elevation8");
+        Assert.Equal(new CornerRadius(4), Matrix.Part<Border>(grid, "DataGridBorder").CornerRadius);
+        grid.CornerRadius = new CornerRadius(0);
         var border = Matrix.Part<Border>(grid, "DataGridBorder");
 
         Assert.Equal(new CornerRadius(0), border.CornerRadius);

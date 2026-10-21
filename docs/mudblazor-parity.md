@@ -17,6 +17,28 @@ Material's dark-theme elevation overlay. MudBlazor offers neither.
 | ❌ | Not available, with the reason |
 | ➕ | Material's own, beyond MudBlazor, under a `material-` name: no MudBlazor parameter to transcribe |
 
+### Properties, not classes
+
+**An option that is one property of its control is that property.** A class that set
+`CornerRadius="0"` would say what the property already says, and be one more ordinary word to
+collide with an app's own styles. These are written as the property, and each is ✅ in its row
+below:
+
+| MudBlazor | Here |
+|---|---|
+| `MudPaper Square`, `MudAlert Square`, `MudDataGrid Square`, one `MudExpansionPanel`'s `Square` | `CornerRadius="0"` |
+| `MudToolBar`'s and `MudAppBar`'s `Gutters="false"` | `Padding="0"` |
+| `MudDataGrid Bordered` | `GridLinesVisibility="All"` |
+
+A word keeps its class where it does more than that: `square` on a card squares its media too, on
+an avatar it lets the image fill the corners, and on an `expansion-panels` group it reaches every
+panel; `no-gutters` on an `Expander` or a `ListBox` reaches the header or every row, and on one
+row it halves with `dense`; `inset` and `middle` move to the top of a `vertical` divider; and
+`rounded` on a linear bar is `FiliCornerRadius`, so it follows an app's radius. The Size and
+Variant words (`small`, `dense`, `outlined`, …) are classes everywhere, so that one word means one
+thing on every control. `ClassVocabularyTests.NoClassIsOnePropertyOfItsOwnControl` fails a new
+class that is only one fixed value on its own control.
+
 **A MudBlazor icon parameter is a resource key.** Every glyph the theme draws is a
 `DynamicResource`, so the app sets the key in the control's `Resources` (or a parent's, for a
 whole region) and that control draws its own glyph in the theme's place:
@@ -206,7 +228,7 @@ Put initials, a `PathIcon` or an `Image` inside: `<Border Classes="avatar primar
 | `Elevation="0…25"` | `elevation0` … `elevation25` | ✅ every level `_elevation.scss` has; three shadow layers each, from `Shadow.cs` |
 | (none: Material's dark-theme overlay) | `material-elevation-overlay` on a window or container | ➕ in dark, each raised surface inside lightened by white at its level's opacity, 5% at 1 to 16% at 24: papers, cards, panels, grids, menus, selects and flyouts. Light and high contrast unchanged |
 | `Outlined` | `outlined` | ✅ 1px `lines-default` |
-| `Square` | `square` | ✅ no radius, on a paper or a card |
+| `Square` | `CornerRadius="0"` on a paper; `square` on a card | ✅ no radius; a card's media squares with it |
 | `MudCard` | `Border.card` | ✅ a paper at elevation 1 in text-primary; `outlined` drops the shadow whatever elevation class is on it, as MudPaper does |
 | `MudCardHeader` | `card-header`, on a `DockPanel` | ✅ 16px round |
 | `CardHeaderAvatar` / `CardHeaderContent` / `CardHeaderActions` | `card-header-avatar` / `card-header-content` / `card-header-actions` | ✅ docked at the start 16px from the content, filling the rest (so it goes last), docked at the end pulled 8px up and out |
@@ -226,7 +248,7 @@ Put initials, a `PathIcon` or an `Image` inside: `<Border Classes="avatar primar
 | `Elevation` (default 4) | no class, or the elevation classes | ✅ |
 | `Dense` | `dense` | ✅ 48px |
 | `Color` | the colour classes | ✅ `.mud-theme-{color}`: the colour as ground, its contrast text inherited |
-| `Gutters` (default true) | `no-gutters` for false | ✅ 24px a side, or none |
+| `Gutters` (default true) | `Padding="0"` for false | ✅ 24px a side, or none |
 | `Bottom`, `Fixed` | — | ≈ placement, which is the app's layout |
 | `WrapContent` | a `WrapPanel` inside | ≈ |
 | `Contextual` | — | ❌ swapping the bar's content on selection is code |
@@ -443,7 +465,7 @@ Put initials, a `PathIcon` or an `Image` inside: `<Border Classes="avatar primar
 | panel on a surface at elevation 1 | the same | ✅ |
 | 15px header | the same | ✅ `.9375rem`, sized on its own |
 | `Elevation` (default 1) | no class, or `elevation0` … `elevation25` | ✅ on the panel; `elevation0` keeps the surface |
-| `Square` | `square` | ✅ no radius |
+| `Square` | `CornerRadius="0"` | ✅ no radius |
 | `Dense` | `dense` | ✅ the content loses its 16px top and bottom |
 | `Gutters` (default true) | `no-gutters` for false | ✅ the header and the content lose their 24px sides |
 | `Outlined` (default true) | in a group, on; `no-outline` on the group for false | ✅ a 1px lines-default rule under each panel but the last, and under none that is expanded or comes before one; `no-outline` rules none |
@@ -558,7 +580,7 @@ The message goes in the `Border`; an icon is a `PathIcon` inside it, and takes t
 | `ShowCloseIcon`, `CloseIcon`, `ContentAlignment` | — | ≈ put a button in the content; align with ordinary layout |
 | `Icon`, `NoIcon` | a `PathIcon` in the content, or none | ≈ there is no default icon per severity |
 | `Elevation` | the elevation classes | ✅ any `Border` takes them |
-| `Square` | `square` | ✅ no radius |
+| `Square` | `CornerRadius="0"` | ✅ no radius |
 
 ### MudSkeleton → `Border.skeleton`
 
@@ -580,13 +602,13 @@ the app references it; this package does not depend on it.
 |---|---|---|
 | the component | any `DataGrid` | ✅ surface, the default radius, text-primary |
 | `Elevation` (default 1) | no class, or the elevation classes | ✅ |
-| `Outlined` / `Square` | `outlined` / `square` | ✅ outlined drops the elevation, as MudPaper does |
+| `Outlined` / `Square` | `outlined` / `CornerRadius="0"` | ✅ outlined drops the elevation, as MudPaper does |
 | header row | the column headers | ✅ subtitle2, 16px round, 59px with the rule under it; no rule between headers |
 | body row | the rows | ✅ body2, 16px round, a table-lines rule under every row but the last |
 | `Dense` | `dense` | ✅ 6px 24px 6px 16px, 16px on the right of the last visible column, a 39px header row |
 | `Hover` | `hover` | ✅ table-hover, off by default |
 | `Striped` | `striped` | ✅ the 1st, 3rd, 5th… row; hover replaces it |
-| `Bordered` | `bordered` | ✅ table-lines between body cells, none after the last, none in the header |
+| `Bordered` | `GridLinesVisibility="All"` | ✅ table-lines between body cells, none after the last, none in the header |
 | `SortIcon`, sorting | the column's sort | ✅ ArrowUpward in a small icon button at the end of the header, action-default, hidden until sorted, 0.8 on hover, turned for descending |
 | a selected row | `SelectedItem` | ≈ MudDataGrid draws none; here a selected list row's primary-hover, so selection is visible |
 | `Groupable`, a group row | a `DataGridCollectionView` with `GroupDescriptions` | ✅ background-gray, "Title: Key" in bold, ExpandMore / ChevronRight, a nested group's header 48px further in per level and its rows not at all |
@@ -674,7 +696,7 @@ one with children:
 | MudBlazor | Here | |
 |---|---|---|
 | the component | `toolbar` on a `Border` | ✅ 64px, the children centred; ≈ 56px below the sm breakpoint is the app's to set |
-| `Gutters` (default true) | `no-gutters` for false | ✅ 24px a side, or none |
+| `Gutters` (default true) | `Padding="0"` for false | ✅ 24px a side, or none |
 | `Dense` | `dense` | ✅ 48px |
 | `WrapContent` | a `WrapPanel` inside and `Height="NaN"` | ≈ |
 

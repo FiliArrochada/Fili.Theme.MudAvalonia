@@ -364,9 +364,9 @@ Five places where the MudBlazor default is not the one you would guess:
   menu-shaped indent baked into every divider, which used to survive because the theme only
   recoloured it. `inset` (72px) and `middle` (16px) are MudBlazor's real variants.
 - **An `Expander` header is 15px**, which is neither body1 (16) nor body2 (14) — MudBlazor sizes
-  `.mud-expand-panel-header` on its own at `.9375rem`. The panel carries a surface and elevation 1
-  because `MudExpansionPanels` is a `MudPaper`. MudExpansionPanels' options are classes on the
-  panel: the elevation classes (`elevation0` when it already sits on a card), `square`, `dense`
+  `.mud-expand-panel-header` on its own at `.9375rem`. The panel carries a surface and elevation 1,
+  as each MudExpansionPanel does. MudExpansionPanels' options are on the panel: the elevation
+  classes (`elevation0` when it already sits on a card), `CornerRadius="0"` for `Square`, `dense`
   (no padding above and below the content) and `no-gutters` (`Gutters="false"`: no 24px sides on
   the header or the content).
 - **`expansion-panels` on a `StackPanel` is MudExpansionPanels**, the group, as it is on an
@@ -475,8 +475,8 @@ has no default theme, so the grid then needs the package's own theme included to
     <DataGridTextColumn Header="Name" Binding="{Binding Name}" />
   </DataGrid.Columns>
 </DataGrid>
-<DataGrid Classes="dense striped bordered hover" ItemsSource="…" />
-<DataGrid Classes="outlined square" ItemsSource="…" />
+<DataGrid Classes="dense striped hover" GridLinesVisibility="All" ItemsSource="…" />   Bordered
+<DataGrid Classes="outlined" CornerRadius="0" ItemsSource="…" />                       Square
 ```
 
 - **Hover is off, and so are the stripes.** `MudDataGrid.Hover` and `Striped` default to false;
@@ -592,7 +592,7 @@ would show a group's arrow instead of the icon.
 ## Toolbars and icons
 
 **`toolbar` on a `Border` is MudToolBar**: 64px high with 24px gutters, its children centred.
-`dense` is 48px and `no-gutters` is `Gutters="false"`, which an app bar takes too. The row inside
+`dense` is 48px, and `Gutters="false"` is `Padding="0"`, on an app bar too. The row inside
 is the app's own panel.
 
 ```xml

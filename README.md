@@ -159,6 +159,17 @@ lie to adopters. It walks the styles *and* the control themes, because the varia
 a resource dictionary rather than in the styles collection: walking only `Application.Styles`
 finds barely half of them.
 
+**A MudBlazor option that is one property of its control is that property, not a class.**
+`Square` on a paper is `CornerRadius="0"`, a data grid's `Bordered` is
+`GridLinesVisibility="All"`, a toolbar's `Gutters="false"` is `Padding="0"`: the Avalonia property
+already says it, and a class saying it again would only be one more word to collide with. A class
+is kept where it does more - reaches a template part or the children, carries a token (`rounded`
+follows `FiliCornerRadius`), sets several properties, gives a value that follows another class
+(`inset` moves to the top of a `vertical` divider), or is one of the Size and Variant words that
+must work alike on every control - and `ClassVocabularyTests` fails a class that is one fixed
+value on its own control. The whole list is in
+[MudBlazor parity](docs/mudblazor-parity.md#properties-not-classes).
+
 Note how ordinary those words are — `small`, `flat`, `middle`, `vertical`, `error`. That is the
 hazard, and it is why the list is a published interface rather than an implementation detail.
 
@@ -227,9 +238,9 @@ has the details.
 **A `DataGrid` is MudDataGrid with nothing to opt into.** The package does not depend on
 `Avalonia.Controls.DataGrid`; it is built against it, and when the app references it (12.1.0 or
 later) the theme finds it and themes its controls by type, so a grid on screen is surface at
-elevation 1 with MudDataGrid's header, rows and sort arrow. `dense`, `striped`, `bordered` and
-`hover` are its `Dense`, `Striped`, `Bordered` and `Hover`; `outlined`, `square` and the elevation
-classes are the paper's. [Controls](docs/controls.md#data-grid) has the rest.
+elevation 1 with MudDataGrid's header, rows and sort arrow. `dense`, `striped` and `hover` are
+its `Dense`, `Striped` and `Hover`, and `GridLinesVisibility="All"` its `Bordered`; `outlined` and
+the elevation classes are the paper's, and `CornerRadius="0"` its `Square`. [Controls](docs/controls.md#data-grid) has the rest.
 
 ### One rule for adopters: no blanket metric styles
 

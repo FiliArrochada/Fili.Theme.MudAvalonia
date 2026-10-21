@@ -551,8 +551,9 @@
   </Style>
   <!-- END GENERATED -->
 
-  <!-- MudPaper.Square, on a paper or a card: `.mud-paper-square`, no radius. -->
-  <Style Selector="Border.surface.square, Border.card.square">
+  <!-- MudPaper.Square on a card: `.mud-paper-square`, no radius, and none on its media either.
+       A paper's is `CornerRadius="0"`: one property, so no class. -->
+  <Style Selector="Border.card.square">
     <Setter Property="CornerRadius" Value="0" />
   </Style>
   <!-- An outlined card has no elevation at all: MudPaper adds `mud-elevation-{n}` only when it is
@@ -637,10 +638,7 @@
     <Setter Property="TextElement.Foreground" Value="{DynamicResource FiliTextPrimaryBrush}" />
   </Style>
 
-  <!-- MudAlert.Square: `.mud-alert.mud-square`, no radius. -->
-  <Style Selector="Border.alert.square">
-    <Setter Property="CornerRadius" Value="0" />
-  </Style>
+  <!-- MudAlert.Square is `CornerRadius="0"`: one property, so no class. -->
   <Style Selector="Border.alert.dense">
     <Setter Property="Padding" Value="12,0" />
   </Style>
@@ -1123,9 +1121,7 @@
   <Style Selector="Border.toolbar.dense">
     <Setter Property="Height" Value="48" />
   </Style>
-  <Style Selector="Border.toolbar.no-gutters, Border.appbar.no-gutters">
-    <Setter Property="Padding" Value="0" />
-  </Style>
+  <!-- Gutters="false" on a toolbar or an app bar is `Padding="0"`: one property, so no class. -->
   <Style Selector="Border.toolbar > :is(Control), Border.toolbar > :is(Panel) > :is(Control)">
     <Setter Property="VerticalAlignment" Value="Center" />
   </Style>

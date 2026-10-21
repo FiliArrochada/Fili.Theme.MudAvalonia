@@ -626,10 +626,9 @@ public class CardTests
     });
 
     [Fact]
-    public Task SquareHasNoRadiusOnAPaperOrACard() => UiThread.RunAsync(() =>
+    public Task SquareHasNoRadiusOnACard() => UiThread.RunAsync(() =>
     {
         Assert.Equal(new CornerRadius(0), Matrix.Show(new Border { Classes = { "card", "square" } }).CornerRadius);
-        Assert.Equal(new CornerRadius(0), Matrix.Show(new Border { Classes = { "surface", "square" } }).CornerRadius);
     });
 
     [Fact]

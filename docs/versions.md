@@ -6,7 +6,7 @@ What changed in each release of `Fili.Theme.MudAvalonia`, newest first. The pack
 
 | Version | |
 |---|---|
-| *(unreleased)* | Seven known gaps closed, and two of Material's own options. `no-animation` on tabs is `SliderAnimation="false"` and `expansion-panels` follows a virtualising panel by item index. A press ripples, as in MudBlazor: a circle from the pointer in the control's text colour on buttons, chips, FABs, toggles, tabs and rows, and in the halo of a checkbox, radio or switch; `FiliRippleOpacity` and `FiliRippleOpacitySecondary` at 0 turn it off. A button's label is uppercase, as MudBlazor's button typography makes it, on buttons, split and drop-down buttons, toggle items, extended FABs and tabs; `FiliButtonTextTransform` keeps labels as written. Every popup fades in over 251ms, as a MudPopover does. `expansion-panels` on a `StackPanel` is MudExpansionPanels: the panels joined into one shape, ruled between, with an expanded one standing 16px apart and the others closing, unless the group is `multi-expansion`, and `no-outline` drops its rules; the group also reads an `ItemsControl`'s generated panels. `material-fixed-tabs` shares the tab bar in equal parts, and `material-elevation-overlay` lightens raised surfaces by their level in dark mode; both are Material's, not MudBlazor's, and named so. In high contrast the elevation rings are the application's line colour rather than a fixed `#E8E8EE`. The published class list grows to 151. See [Upgrading from 0.9.4](#upgrading-from-094). |
+| *(unreleased)* | Seven known gaps closed, and two of Material's own options. An option that is one fixed property of its control is that property: `Square` on a paper, an alert, a data grid or one panel is `CornerRadius="0"`, a toolbar's or an app bar's `Gutters="false"` is `Padding="0"`, and a data grid's `Bordered` is `GridLinesVisibility="All"`. `no-animation` on tabs is `SliderAnimation="false"` and `expansion-panels` follows a virtualising panel by item index. A press ripples, as in MudBlazor: a circle from the pointer in the control's text colour on buttons, chips, FABs, toggles, tabs and rows, and in the halo of a checkbox, radio or switch; `FiliRippleOpacity` and `FiliRippleOpacitySecondary` at 0 turn it off. A button's label is uppercase, as MudBlazor's button typography makes it, on buttons, split and drop-down buttons, toggle items, extended FABs and tabs; `FiliButtonTextTransform` keeps labels as written. Every popup fades in over 251ms, as a MudPopover does. `expansion-panels` on a `StackPanel` is MudExpansionPanels: the panels joined into one shape, ruled between, with an expanded one standing 16px apart and the others closing, unless the group is `multi-expansion`, and `no-outline` drops its rules; the group also reads an `ItemsControl`'s generated panels. `material-fixed-tabs` shares the tab bar in equal parts, and `material-elevation-overlay` lightens raised surfaces by their level in dark mode; both are Material's, not MudBlazor's, and named so. In high contrast the elevation rings are the application's line colour rather than a fixed `#E8E8EE`. The published class list grows to 151. See [Upgrading from 0.9.4](#upgrading-from-094). |
 | **0.9.4** | Eleven fixes: eight found by moving four more apps onto 0.9.3, three by the gallery's new samples of each control as an app uses it. A `MenuFlyout`'s rows and a submenu's own rows are MudMenuItem's 48px rows, not the base's 24px ones. Keyboard focus draws no dashed rectangle over the state layer, and a slider is one Tab stop rather than three. "_Save" is Save with Alt+S on buttons, toggles, checkboxes, radios, switches, tabs, expanders and menus. An app's own `FiliFontFamily` reaches popups. A start adornment floats a text field's label; a multi-line field's label sits above its text, which starts at the top. `ShowProgressText` on a thin bar shows the whole value. A data grid's checkbox column keeps its colour in every row, and a switch stretched to its row centres its label. See [Upgrading from 0.9.3 to 0.9.4](#upgrading-from-093-to-094). |
 | 0.9.3 | Two fixes found by moving an app onto 0.9.2. A `TextBox` whose `Text` is null no longer logs a binding error from its hidden counter, which every such field did. A checkbox in a `DataGrid` cell is MudBlazor's table checkbox, a 32px circle pulled in 4px, so a selection column no longer makes its rows 81px tall; they are 57. |
 | 0.9.2 | Nothing changes on screen: this release fixes the interface 1.0 will promise. [Compatibility](compatibility.md) says what a version may and may not change, and the resource keys an app may name are listed in [Published resource keys](published-keys.md) and pinned by a test, beside the classes. The README's links work on nuget.org, each pointing at the release's own commit, and the package has an icon and a description that says what it is. |
@@ -29,8 +29,22 @@ nuget.org can be unlisted but never replaced.
 
 ## Upgrading from 0.9.4
 
-Nothing needs a markup change; three things look different, and a fourth in an app that repaints
+Three classes no longer apply to some controls, where the control's own property says the same,
+and need a markup change there; three things look different, and a fourth in an app that repaints
 high contrast's line colour.
+
+- **One option, one property.** Each of these classes did nothing but set one value the control
+  already has a property for, so it is gone from that control; write the property:
+
+  | Was | Now |
+  |---|---|
+  | `square` on a `Border.surface`, a `Border.alert`, a `DataGrid` or one `Expander` | `CornerRadius="0"` |
+  | `no-gutters` on a `Border.toolbar` or `Border.appbar` | `Padding="0"` |
+  | `bordered` on a `DataGrid` | `GridLinesVisibility="All"` |
+
+  The class left behind does nothing, and fails no build: grep for these pairs. `square` on a
+  card, an avatar or an `expansion-panels` group, `no-gutters` on an `Expander`, a `ListBox` or
+  a row, and `bordered` on a badge or a nav menu are unchanged.
 
 - **Button and tab labels are uppercase**: `Content="Save"` reads SAVE on a `Button`, a
   `SplitButton`, a `DropDownButton`, a `ToggleButton`, an extended FAB and a tab, as on every

@@ -360,9 +360,8 @@
       <Setter Property="BoxShadow" Value="{DynamicResource FiliElevation25}" />
     </Style>
     <!-- END GENERATED -->
-    <Style Selector="^.square">
-      <Setter Property="CornerRadius" Value="0" />
-    </Style>
+    <!-- Square on one panel is `CornerRadius="0"`; `square` is the group's, which reaches every
+         panel. -->
     <Style Selector="^.dense">
       <Setter Property="Padding" Value="24,0,24,0" />
     </Style>

@@ -13,10 +13,8 @@
   Note `margin: 0`. The forked Simple template ships `Margin="29,1,0,1"` - a menu-shaped indent
   baked into every divider - and FiliTheme.axaml previously recoloured it with a blanket Style
   while leaving that margin in place. Both are replaced here: a divider is a hairline at the edge
-  of its container unless `inset` or `middle` says otherwise.
-
-  `light` is not implemented: it needs a divider-light token that the palette does not carry yet,
-  and adding one is a Palette.axaml + ResourceResolutionTests change rather than a drive-by.
+  of its container unless `inset` or `middle` says otherwise. Those two are classes rather than a
+  Margin because they turn with `vertical`: 72px at the top of a vertical divider, not the left.
 -->
 <ResourceDictionary xmlns="https://github.com/avaloniaui"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
@@ -34,12 +32,12 @@
       </ControlTemplate>
     </Setter>
 
-    <!-- .mud-divider-vertical: the rule turns 90 degrees, so the fixed dimension swaps. -->
     <!-- MudDivider.Light: `.mud-divider-light`, the divider-light colour. -->
     <Style Selector="^.light">
       <Setter Property="Background" Value="{DynamicResource FiliDividerLightBrush}" />
     </Style>
 
+    <!-- .mud-divider-vertical: the rule turns 90 degrees, so the fixed dimension swaps. -->
     <Style Selector="^.vertical">
       <Setter Property="Height" Value="NaN" />
       <Setter Property="Width" Value="1" />

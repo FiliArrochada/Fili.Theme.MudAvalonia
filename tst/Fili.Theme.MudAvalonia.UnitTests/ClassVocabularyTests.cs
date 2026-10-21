@@ -1,6 +1,8 @@
 using System.Text.RegularExpressions;
 using Avalonia;
 using Avalonia.Controls;
+using Avalonia.Controls.Templates;
+using Avalonia.Data;
 using Avalonia.Markup.Xaml.Styling;
 using Avalonia.Styling;
 using Xunit;
@@ -29,7 +31,7 @@ namespace Fili.Theme.MudAvalonia.UnitTests;
 /// So the list below is a published interface rather than an implementation detail. Adding a
 /// class costs adopters something, and this test is what makes that deliberate — as well as
 /// giving an adopter one place to grep against. Note how ordinary the words are: <c>small</c>,
-/// <c>flat</c>, <c>middle</c>, <c>vertical</c>, <c>error</c>. That is the whole hazard.
+/// <c>flat</c>, <c>light</c>, <c>vertical</c>, <c>error</c>. That is the whole hazard.
 /// </para>
 /// </summary>
 public class ClassVocabularyTests
@@ -40,7 +42,9 @@ public class ClassVocabularyTests
         "body1", "body2", "button", "caption", "h1", "h2", "h3", "h4", "h5", "h6",
         "overline", "subtitle1", "subtitle2",
 
-        // Surfaces, on Border, and MudPaper's, MudAvatar's and MudExpansionPanels' Square.
+        // Surfaces, on Border, and the Square of MudCard, MudAvatar and MudExpansionPanels, which
+        // reach the card's media, the avatar's image and every panel. Elsewhere Square is
+        // CornerRadius="0", and no class.
         "appbar", "square", "surface",
 
         // Elevation: every level _elevation.scss has, mud-elevation-0 to mud-elevation-25.
@@ -155,6 +159,122 @@ public class ClassVocabularyTests
 
         Assert.Equal(Vocabulary.OrderBy(c => c, StringComparer.Ordinal).ToArray(), used);
     });
+
+    /// <summary>
+    /// No class is one fixed value on its own control. MudPaper's Square is
+    /// <c>CornerRadius="0"</c> and MudDataGrid's Bordered <c>GridLinesVisibility="All"</c>: the
+    /// property says it, and a class that says it again is one more word to collide with. A class
+    /// earns its place on a control by reaching a template part or a child, by carrying a token,
+    /// by setting more than one property, by a value that changes with another class -
+    /// <c>inset</c> moves to the top of a <c>vertical</c> divider, <c>no-gutters</c> on a row
+    /// halves with <c>dense</c> - or by being one of a family that has to work alike everywhere.
+    /// </summary>
+    /// <remarks>
+    /// Counted per selector, by its control and the classes it names, so <c>Border.card.square</c>
+    /// and <c>Border.card.square Border.card-media</c> are one use and <c>Border.alert.square</c>
+    /// another. A pseudo-class is a state of the same control.
+    /// </remarks>
+    [Fact]
+    public Task NoClassIsOnePropertyOfItsOwnControl() => UiThread.RunAsync(() =>
+    {
+        var styles = new List<(string Selector, Style Style, string Target)>();
+        WalkStyles(Application.Current!.Styles, "*", styles);
+        foreach (var key in StandaloneReadinessTests.ThemeKeys)
+        {
+            Application.Current!.TryFindResource(key, ThemeVariant.Light, out var value);
+            var theme = (ControlTheme)value!;
+            WalkStyles(theme.Children, theme.TargetType?.Name ?? "*", styles);
+        }
+
+        // Every selector, by the control and the classes it names before any descendant or part.
+        var uses = styles
+            .SelectMany(s => s.Selector.Split(',').Select(part => (Part: part.Trim(), s.Style, s.Target)))
+            .Select(s => (Control: ControlOf(s.Part, s.Target), Classes: ClassesOf(s.Part).Order().ToArray(), s.Part, s.Style))
+            .Where(s => s.Classes.Length > 0)
+            .GroupBy(s => $"{s.Control}.{string.Join(".", s.Classes)}")
+            .Select(g => (g.Key, g.First().Control, g.First().Classes, Uses: g.ToArray(),
+                Setters: g.SelectMany(s => s.Style.Setters.OfType<Setter>()).ToArray()))
+            .ToArray();
+
+        // One fixed value of the control's own: what a property on it would say.
+        var single = uses
+            .Where(u => u.Uses.All(s => IsOwn(s.Part)) && u.Setters.All(Fixed))
+            .Where(u => u.Setters.Select(x => (x.Property, x.Value)).Distinct().Count() == 1)
+            .ToArray();
+
+        var redundant = single
+            .Where(u => !u.Classes.Any(Families.Contains))
+            // Unless another such class combined with it gives another value: `inset` is 72px at
+            // the left, and `vertical inset` 72px at the top, so the one class follows the other.
+            .Where(u => !single.Any(v => v.Key != u.Key && v.Control == u.Control
+                && (v.Classes.All(u.Classes.Contains) || u.Classes.All(v.Classes.Contains))
+                && v.Setters[0].Property == u.Setters[0].Property && !Equals(v.Setters[0].Value, u.Setters[0].Value)))
+            .Select(u => u.Key)
+            .ToArray();
+
+        Assert.True(redundant.Length == 0, "One fixed property on its own control: " + string.Join(", ", redundant));
+    });
+
+    /// <summary>
+    /// The words that must mean the same on every control that takes them: MudBlazor's Size and
+    /// Variant, and its components' parts, whose names are what a Razor page is ported from.
+    /// </summary>
+    private static readonly HashSet<string> Families =
+    [
+        "small", "medium", "large", "dense", "text", "filled", "outlined",
+        "card-actions", "card-content", "card-header", "card-header-content",
+    ];
+
+    /// <summary>The selector's own control and its classes, before any descendant, child or part.</summary>
+    private static string Head(string selector) =>
+        Regex.Replace(Regex.Split(selector, @"\s|>|/template/")[0], @"\[[^\]]*\]|:[a-z-]+(\([^)]*\))?", string.Empty);
+
+    private static IEnumerable<string> ClassesOf(string selector) =>
+        Regex.Matches(Head(selector), @"\.([A-Za-z][A-Za-z0-9-]*)").Select(m => m.Groups[1].Value);
+
+    private static string ControlOf(string selector, string target) =>
+        Regex.Match(Head(selector), @"^[A-Za-z][A-Za-z0-9]*") is { Success: true } m ? m.Value : target;
+
+    /// <summary>Styles the selected control itself: no descendant, child or template part.</summary>
+    private static bool IsOwn(string selector) => !Regex.IsMatch(selector.Trim(), @"\s|>|/template/");
+
+    /// <summary>
+    /// A literal an app could write itself: not a resource or a binding, which a theme could
+    /// repaint, nor a template or a theme, nor one of the theme's own internal properties.
+    /// </summary>
+    private static bool Fixed(Setter setter) =>
+        setter.Value is not (BindingBase or ITemplate or ControlTheme)
+        && setter.Property?.OwnerType.Assembly != typeof(FiliThemeVariants).Assembly;
+
+    private static void WalkStyles(IEnumerable<IStyle> styles, string target, List<(string, Style, string)> into)
+    {
+        foreach (var style in styles)
+        {
+            switch (style)
+            {
+                case Style s:
+                    if (s.Selector is not null)
+                    {
+                        into.Add((s.Selector.ToString()!, s, target));
+                    }
+
+                    WalkStyles(s.Children, target, into);
+                    break;
+
+                case ControlTheme theme:
+                    WalkStyles(theme.Children, theme.TargetType?.Name ?? target, into);
+                    break;
+
+                case StyleInclude include when include.Loaded is { } loaded:
+                    WalkStyles([loaded], target, into);
+                    break;
+
+                case Styles group:
+                    WalkStyles(group, target, into);
+                    break;
+            }
+        }
+    }
 
     /// <summary>
     /// Walks every style in the tree, including those behind a StyleInclude and those nested in

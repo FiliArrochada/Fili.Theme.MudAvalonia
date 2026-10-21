@@ -59,11 +59,14 @@ public class ExpansionPanelTests
         Assert.Equal(Matrix.Token("FiliSurfaceColor"), Matrix.Colour(Root(flat).Background));
     });
 
-    /// <summary>`.mud-expansion-panels-square`: no radius.</summary>
+    /// <summary>Square on one panel is its CornerRadius, which reaches the root that draws it.</summary>
     [Fact]
-    public Task SquareHasNoRadius() => UiThread.RunAsync(() =>
+    public Task SquareIsTheCornerRadius() => UiThread.RunAsync(() =>
     {
-        Assert.Equal(new CornerRadius(0), Root(Show("square")).CornerRadius);
+        var expander = Show();
+        expander.CornerRadius = new CornerRadius(0);
+
+        Assert.Equal(new CornerRadius(0), Root(expander).CornerRadius);
     });
 
     /// <summary>`.mud-expand-panel-dense`: the content loses its top and bottom padding, the header keeps its own.</summary>
