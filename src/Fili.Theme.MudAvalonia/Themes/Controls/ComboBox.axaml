@@ -349,12 +349,23 @@
     </Style>
 
     <!-- As a disabled text field: text-disabled for the text, label, adornment and helper text,
-         and a paler line where MudBlazor's turns dotted. -->
+         and the line dotted. -->
     <Style Selector="^:disabled">
       <Setter Property="Foreground" Value="{DynamicResource FiliTextDisabledBrush}" />
     </Style>
     <Style Selector="^:disabled /template/ Border#PART_Underline">
-      <Setter Property="Background" Value="{DynamicResource FiliActionDisabledBrush}" />
+      <Setter Property="OpacityMask">
+        <!-- 1px on, 1px off: a 1px CSS dotted border. A mask, so the line keeps its colour and
+             its other states: the brush holds no resource. -->
+        <DrawingBrush TileMode="Tile" DestinationRect="0,0,2,1" SourceRect="0,0,2,1" Stretch="None" AlignmentX="Left" AlignmentY="Top">
+          <DrawingBrush.Drawing>
+            <DrawingGroup>
+              <GeometryDrawing Brush="Transparent" Geometry="M0,0 H2 V1 H0 Z" />
+              <GeometryDrawing Brush="Black" Geometry="M0,0 H1 V1 H0 Z" />
+            </DrawingGroup>
+          </DrawingBrush.Drawing>
+        </DrawingBrush>
+      </Setter>
     </Style>
     <Style Selector="^:disabled /template/ Path#PART_Chevron">
       <Setter Property="Fill" Value="{DynamicResource FiliTextDisabledBrush}" />

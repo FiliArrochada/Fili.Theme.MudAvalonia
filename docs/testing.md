@@ -10,7 +10,7 @@ those silent failures into red builds, because looking at the app cannot be reli
 
 | Project | What it does | Speed |
 |---|---|---|
-| `tst/Fili.Theme.MudAvalonia.UnitTests` | 984 tests on a headless Avalonia session. They resolve resources, template controls, move a real pointer over them, and read back the values the theme applied. Nothing is rendered. | seconds |
+| `tst/Fili.Theme.MudAvalonia.UnitTests` | 985 tests on a headless Avalonia session. They resolve resources, template controls, move a real pointer over them, and read back the values the theme applied. Nothing is rendered. | seconds |
 | `tst/Fili.Theme.MudAvalonia.NoDataGridTests` | 3 tests. The theme in an app that does not reference `Avalonia.Controls.DataGrid`: the assembly is really absent, `FiliTheme.axaml` loads and themes a button, and no DataGrid rule was loaded. | seconds |
 | `tst/Fili.Theme.MudAvalonia.PixelTests` | 57 tests. Twelve render one gallery frame each with Skia and compare it pixel by pixel with a PNG committed in `Baselines/`. Thirty-six, in `GalleryAuditTests`, run three of the unit suite's checks over each of those twelve pages instead of a list of bare controls - no binding error, every control one Tab stop at most, no presented text showing an access key's underscore - so every class, state and variant a sample shows is covered. Nine, in `GalleryPageTests`, check how the gallery behaves - that the controls page shows its first section at once and adds the rest one dispatcher pass at a time (pausing while off screen, and loading the rest at once for an index row ahead of the load), that it opens at the top in a window shorter than its first screen, that keyboard focus still scrolls it, that each row of the index beside it lands on its section and the index follows the scroll, that every section fits beside the index in the desktop window and in a frame, and that the app bar shows the theme's version. | ~45 seconds |
 
@@ -27,7 +27,7 @@ needed a different platform.
 
 ## The unit tests
 
-984 tests in 60 classes, grouped here by the failure each one exists to catch.
+985 tests in 60 classes, grouped here by the failure each one exists to catch.
 
 ### Tokens: does every value exist, in every variant?
 
@@ -75,7 +75,7 @@ from MudBlazor's SCSS or the component's parameter defaults.
 | `GreyGroundTextTests` | 3 | The text on a default avatar and badge is text-primary (white on a `text` avatar) in light and dark, and black in high contrast. |
 | `TabsAndAppBarTests` | 37 | MudTabs' defaults, colours, `border` / `outlined` / `rounded` / `centered` / `hide-slider`, that a bar's colour never reaches a nested `TabControl`, and the sliding indicator - starting at the old tab, on either axis, from wherever an interrupted slide had got to, resting at its own with MudBlazor's timing, not on first show, and not at all with `no-animation`; the app bar's gutters, `dense` and colours. |
 | `SplitButtonMatrixTests` | 29 | `SplitButton` as MudButtonGroup, including the separator rule and the hit-testing of each half. |
-| `FieldDetailTests` | 42 | Helper text, the error in its place, the counter, `helper-on-focus`, `dense`, select variants, that filled and outlined fields pad their content, a start adornment floating the label, a multi-line field's label as far above its first line as a single-line field's is above its text, grown or sized by the app, and a single-line field's height left alone, a disabled field and select in text-disabled, the 300px drop-downs, and the tooltip's weight. |
+| `FieldDetailTests` | 43 | Helper text, the error in its place, the counter, `helper-on-focus`, `dense`, select variants, that filled and outlined fields pad their content, a start adornment floating the label, a multi-line field's label as far above its first line as a single-line field's is above its text, grown or sized by the app, and a single-line field's height left alone, a disabled field and select in text-disabled with a dotted line, the 300px drop-downs, and the tooltip's weight. |
 | `SliderMatrixTests` | 13 | `Slider` sizes and colours, the 30% rail, and the rings on hover and focus. |
 | `RemainingOptionsTests` | 25 | Tab position, elevation and slider colour, striped progress, the progress text whole and centred over a thin bar, and start and end icon spacing on buttons and chips. |
 | `UncheckedColourTests` | 11 | `unchecked-{colour}` on a checkbox and a radio: the glyph and halo while not checked, the colour class once checked. |

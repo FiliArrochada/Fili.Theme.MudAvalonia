@@ -457,6 +457,32 @@ public class FieldDetailTests
         Assert.Equal(Matrix.Token("FiliTextDisabledColor"), Matrix.Colour(Named<Avalonia.Controls.Shapes.Path>(combo, "PART_Chevron").Fill));
     });
 
+    /// <summary>
+    /// `.mud-disabled:before`: the line keeps lines-inputs and turns dotted, 1px on and 1px off,
+    /// on a text field and a select alike. An enabled line is solid.
+    /// </summary>
+    [Fact]
+    public Task ADisabledFieldsLineIsDotted() => UiThread.RunAsync(() =>
+    {
+        foreach (var field in new Control[] { new TextBox { Width = 200 }, new ComboBox { Width = 200 } })
+        {
+            Matrix.Show(field);
+            var line = Named<Border>(field, "PART_Underline");
+            Assert.Null(line.OpacityMask);
+
+            field.IsEnabled = false;
+            Dispatcher.UIThread.RunJobs();
+
+            Assert.Equal(Matrix.Token("FiliLinesInputsColor"), Matrix.Colour(line.Background));
+            var mask = Assert.IsType<DrawingBrush>(line.OpacityMask);
+            Assert.Equal(TileMode.Tile, mask.TileMode);
+            Assert.Equal(new RelativeRect(0, 0, 2, 1, RelativeUnit.Absolute), mask.DestinationRect);
+            var dots = Assert.IsType<DrawingGroup>(mask.Drawing).Children.OfType<GeometryDrawing>().ToList();
+            Assert.Equal(new Rect(0, 0, 2, 1), dots[0].Geometry!.Bounds);
+            Assert.Equal(new Rect(0, 0, 1, 1), Assert.Single(dots, d => d.Brush is ISolidColorBrush { Color.A: 255 }).Geometry!.Bounds);
+        }
+    });
+
     /// <summary>`.mud-tooltip`: 12px at weight 500.</summary>
     [Fact]
     public Task ATooltipIsMedium() => UiThread.RunAsync(() =>

@@ -269,7 +269,7 @@ Put initials, a `PathIcon` or an `Image` inside: `<Border Classes="avatar primar
 | `Margin.Normal` | `Margin` | ≈ only an outer margin in MudBlazor; an ordinary Avalonia property |
 | `Adornment`, `AdornmentIcon`, `AdornmentText`, `AdornmentColor`, `IconSize` | `InnerLeftContent` / `InnerRightContent` | ≈ ordinary Avalonia properties; an icon there takes no size or colour from the theme. A start adornment floats the label, as `Adornment.Start` does |
 | `Placeholder` | — | ❌ the placeholder slot is the floating label |
-| `Disabled` | `IsEnabled="False"` | ≈ text-disabled text, label and helper text; the line pales to action-disabled where MudBlazor's turns dotted, which a `Border` cannot draw |
+| `Disabled` | `IsEnabled="False"` | ✅ text-disabled text, label and helper text; the line stays lines-inputs and turns dotted, 1px on and 1px off, on a text field and a select alike |
 | `ReadOnly` | `IsReadOnly` | ✅ looks the same, as in MudBlazor |
 | `Underline="false"` | `no-underline` | ✅ neither the resting nor the focus rule; an outlined field has none anyway |
 | `Required` | `required` | ✅ `*` straight after the label, as `.mud-input-label::after` |
