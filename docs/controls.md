@@ -310,8 +310,9 @@ The indicator slides between tabs, as MudTabs' does: over .3s on cubic-bezier(.6
 moving its position while its width jumps to the new tab's. Each tab still has its own indicator,
 so every class above reaches it; `SlidingIndicator` starts the newly selected one where the old
 one was drawn and lets its transition bring it home, from wherever an interrupted slide had got
-to. The tabs do not clip, or it would vanish outside its own tab. There is no switch for
-MudTabs' `SliderAnimation="false"`.
+to. The tabs do not clip, or it would vanish outside its own tab. `no-animation` on the bar is
+MudTabs' `SliderAnimation="false"`, as it is a skeleton's `Animation.False`: the new tab's
+indicator is under it at once.
 
 **Tabs that do not fit the bar scroll**, as MudTabs' do: the tab row sits in a `ScrollViewer`
 with no scroll bars, between a ChevronLeft and a ChevronRight icon button that show only while

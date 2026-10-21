@@ -400,7 +400,7 @@ Put initials, a `PathIcon` or an `Image` inside: `<Border Classes="avatar primar
 | `Position` | `TabStripPlacement` on a `TabControl` | ✅ Top, Bottom, Left, Right: the bar docks there, `border` draws its rule on the content side, and the indicator follows |
 | `Elevation` | `elevation0` … `elevation25` | ✅ on the bar, outside `rounded`'s clip |
 | `SliderColor` | `slider-primary` … `slider-dark` | ✅ the indicator alone, over any bar colour |
-| sliding indicator, `SliderAnimation` | the indicator slides | ✅ .3s, cubic-bezier(.64,.09,.08,1), the width jumping ≈ no switch to turn it off |
+| sliding indicator, `SliderAnimation` (default true) | the indicator slides; `no-animation` for false | ✅ .3s, cubic-bezier(.64,.09,.08,1), the width jumping; `no-animation` puts the new tab's indicator under it at once |
 | uppercase tab text (`.mud-tab`) | the same | ✅ a string `Header` is uppercase; `FiliButtonTextTransform` is the switch, as for buttons |
 | `Disabled` on the tabs | `IsEnabled="False"` | ✅ text-disabled |
 | `MudTabPanel.Icon`, `IconColor` | an icon in the `Header` | ≈ no 8px gap from the theme |

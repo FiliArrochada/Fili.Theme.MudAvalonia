@@ -1251,6 +1251,11 @@
     MudTabs' Color, on a TabControl or TabStrip: the bar in the colour, the tabs and indicator in
     its contrast text. The rest of MudTabs lives in Controls/TabControl.axaml and TabStrip.axaml.
   -->
+  <!-- SliderAnimation="false": `no-animation`, as on a skeleton. The new tab's indicator appears
+       under it at once instead of sliding over from the old one. -->
+  <Style Selector="TabControl.no-animation, TabStrip.no-animation">
+    <Setter Property="theme:SlidingIndicator.Slides" Value="False" />
+  </Style>
   <!-- HideSlider: `hide-slider`, the indicator gone from the bar's own tabs. -->
   <Style Selector="TabControl.hide-slider > TabItem /template/ Border#PART_Indicator">
     <Setter Property="IsVisible" Value="False" />

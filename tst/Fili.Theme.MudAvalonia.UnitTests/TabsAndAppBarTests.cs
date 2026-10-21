@@ -113,6 +113,27 @@ public class TabsAndAppBarTests
     });
 
     /// <summary>
+    /// SliderAnimation="false" is `no-animation`: the new tab's indicator is under it from the
+    /// first frame, with nothing to slide.
+    /// </summary>
+    [Fact]
+    public Task NoAnimationPutsTheIndicatorStraightUnderTheTab() => UiThread.RunAsync(() =>
+    {
+        var tabs = Tabs("no-animation");
+        var strip = Strip("no-animation");
+        var second = (TabStripItem)strip.Items[1]!;
+        var tabHome = Named<Border>(Item(tabs, 1), "PART_Indicator").Bounds.Position;
+        var stripHome = Named<Border>(second, "PART_Indicator").Bounds.Position;
+
+        tabs.SelectedIndex = 1;
+        strip.SelectedIndex = 1;
+
+        // Read before the dispatcher runs, where a slide would still be at the old tab.
+        Assert.Equal(Item(tabs, 1).TranslatePoint(tabHome, tabs), Drawn(tabs, Item(tabs, 1)));
+        Assert.Equal(second.TranslatePoint(stripHome, strip), Drawn(strip, second));
+    });
+
+    /// <summary>
     /// A slide starts wherever the old indicator is drawn, so one interrupted mid-way carries on from
     /// there; and leftwards works like rightwards.
     /// </summary>
