@@ -2021,6 +2021,24 @@
     <Setter Property="TextElement.Foreground" Value="{DynamicResource FiliDrawerTextBrush}" />
   </Style>
 
+  <!--
+    MudDrawerHeader: `drawer-header` on a Border at the top of the pane. layout/_drawer.scss:
+
+      .mud-drawer-header         min-height: the app bar's height; padding: 12px 24px
+      .mud-drawer-header-dense   min-height: three quarters of it, 48px; padding: 8px 24px
+
+    The height is a floor, as min-height is: a taller header grows. Its text is the drawer's, as
+    everything in the pane is.
+  -->
+  <Style Selector="Border.drawer-header">
+    <Setter Property="MinHeight" Value="{DynamicResource FiliAppbarHeight}" />
+    <Setter Property="Padding" Value="24,12" />
+  </Style>
+  <Style Selector="Border.drawer-header.dense">
+    <Setter Property="MinHeight" Value="48" />
+    <Setter Property="Padding" Value="24,8" />
+  </Style>
+
   <!-- The scrim behind a temporary drawer. MudOverlay's dark variant is #212121 at 50%. -->
   <Style Selector="SplitView /template/ Rectangle#LightDismissLayer">
     <Setter Property="Fill" Value="{DynamicResource FiliOverlayDarkBrush}" />

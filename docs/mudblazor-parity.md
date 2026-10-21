@@ -6,7 +6,7 @@ where the two differ. For side-by-side markup, see [Razor and AXAML](razor-vs-ax
 The rule behind every row: **a class only ever names a MudBlazor variant.** Every control the
 theme templates is keyed to its type, so an unclassed control is already the MudBlazor default.
 Class names are MudBlazor's own words (`primary`, `outlined`, `small`), deliberately not
-namespaced. `ClassVocabularyTests` pins the full list of 151. Two are not MudBlazor's, and their
+namespaced. `ClassVocabularyTests` pins the full list of 152. Two are not MudBlazor's, and their
 names say so: `material-fixed-tabs`, Material's fixed tabs, and `material-elevation-overlay`,
 Material's dark-theme elevation overlay. MudBlazor offers neither.
 
@@ -293,7 +293,7 @@ Put initials, a `PathIcon` or an `Image` inside: `<Border Classes="avatar primar
 | `Variant` on a select | `filled` / `outlined` | ✅ the text field's own variants |
 | `HelperText`, `Margin.Dense` on a select | `AutomationProperties.HelpText`, `dense` | ✅ as on a text field; a failing binding shows its message too |
 | `MudAutocomplete` | `AutoCompleteBox` | ✅ the popup on a surface at elevation 8 |
-| `MudNumericField` | `NumericUpDown` | ≈ a 24px spin column, as `_inputcontrol.scss` reserves, but beside the field: its underline stops short of the arrows |
+| `MudNumericField` | `NumericUpDown` | ✅ a 24px spin column inside the input box, top to bottom, as `.mud-input-numeric-spin` is: the underline, the filled ground and the outline run on under it, and the text keeps 24px clear |
 | `Variant`, `Margin.Dense`, `Error`, `Counter`, `HelperText`, `HelperTextOnFocus` on either | the text field's classes and `AutomationProperties.HelpText`, on the outer control | ✅ passed to the `TextBox` inside; a `NumericUpDown`'s validation error shows in its helper line |
 | `MaxHeight` (default 300) on a select or an autocomplete | `MaxDropDownHeight` | ✅ 300, where Avalonia's default is 200 |
 | `Disabled` on a select | `IsEnabled="False"` | ≈ as a disabled text field, its arrow in text-disabled |
@@ -476,7 +476,7 @@ Put initials, a `PathIcon` or an `Image` inside: `<Border Classes="avatar primar
 | `HideIcon` | `hide-icon` | ✅ no chevron |
 | `Icon` | `FiliExpandMoreGeometry` in the panel's `Resources` | ✅ |
 | `MaxHeight` | `MaxHeight` on the content | ≈ |
-| opening | — | ≈ the content cross-fades in .25s, where MudBlazor grows its height over .3s |
+| opening | the same | ✅ MudCollapse: the content grows into view over .3s `ease-in-out` and shrinks away closing, from where it is if turned back half-way |
 
 ### MudCollapse
 
@@ -523,7 +523,7 @@ Put initials, a `PathIcon` or an `Image` inside: `<Border Classes="avatar primar
 
 | MudBlazor | Here | |
 |---|---|---|
-| `MudTooltip` | `ToolTip.Tip` | ✅ a solid `gray-darker` chip in light, dark and high contrast, 12px at weight 500, 4px 8px; ≈ it wraps at 320px, where MudBlazor's never wraps |
+| `MudTooltip` | `ToolTip.Tip` | ✅ a solid `gray-darker` chip in light, dark and high contrast, 12px at weight 500, 4px 8px; no width of its own, so it wraps only at the screen's edge, or the page's in a browser |
 | `Placement`, `Delay` | `ToolTip.Placement`, `ToolTip.ShowDelay` | ≈ |
 | `Duration` (251ms) | the same | ✅ the tooltip fades in as every popup does (see MudPopover) |
 | `Color` (default `Default`) | a `ToolTip` as the `Tip`, with `primary` … `dark` | ✅ `.mud-theme-{color}`: the colour and its contrast text. `ToolTip.Tip` uses a `ToolTip` as it is, so its classes survive |
@@ -552,7 +552,7 @@ Put initials, a `PathIcon` or an `Image` inside: `<Border Classes="avatar primar
 | `ClipMode`, `Fixed` | — | ≈ layout |
 | `Color` | `primary` … `dark` on the `SplitView` | ✅ the pane in the colour, its content in the contrast text |
 | `OpenMiniOnHover` | — | ❌ behaviour |
-| `MudDrawerHeader` | a panel at the pane's top | ≈ no class for its app-bar height and 12px 24px padding |
+| `MudDrawerHeader` | `drawer-header` on a `Border` at the pane's top | ✅ at least the app bar's 64px, 12px 24px round it; `dense` 48px and 8px 24px |
 | `MudTreeView` | `TreeView` | ✅ 32px rows, 17px per level; a leaf keeps the arrow's empty 40px slot, so its text lines up with a branch's |
 | `Hover` (default false) | `hover` | ✅ action-default-hover on the row under the pointer, not on its branch; a selected row keeps its tint |
 | `Disabled` | `IsEnabled="False"` | ✅ action-disabled |

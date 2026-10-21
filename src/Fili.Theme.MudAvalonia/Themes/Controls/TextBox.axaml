@@ -383,6 +383,14 @@
     <Style Selector="^.dense:not(:empty) /template/ TextBlock#PART_FloatingLabel, ^.dense.shrink-label /template/ TextBlock#PART_FloatingLabel, ^.dense:start-adornment /template/ TextBlock#PART_FloatingLabel">
       <Setter Property="RenderTransform" Value="translateY(-12.5px)" />
     </Style>
+    <!-- A NumericUpDown's spin column over the input box: `.mud-input-showspin` input
+         padding-right: 24px from the box's edge, all of it here (SpinColumn.cs). -->
+    <Style Selector="^:spin-end /template/ ContentPresenter#PART_InnerRightContent">
+      <Setter Property="Margin" Value="0,0,24,0" />
+    </Style>
+    <Style Selector="^:spin-start /template/ ContentPresenter#PART_InnerLeftContent">
+      <Setter Property="Margin" Value="24,0,0,0" />
+    </Style>
   </ControlTheme>
 
   <!-- Filled: the standard field on a tinted sheet, top corners only. -->
@@ -438,6 +446,14 @@
     </Style>
     <Style Selector="^.dense:not(:empty) /template/ TextBlock#PART_FloatingLabel, ^.dense.shrink-label /template/ TextBlock#PART_FloatingLabel, ^.dense:start-adornment /template/ TextBlock#PART_FloatingLabel">
       <Setter Property="RenderTransform" Value="translateY(-9px)" />
+    </Style>
+    <!-- A NumericUpDown's spin column over the input box: `.mud-input-showspin` input
+         padding-right: 24px from the box's edge, which with the 12px of padding is 24 (SpinColumn.cs). -->
+    <Style Selector="^:spin-end /template/ ContentPresenter#PART_InnerRightContent">
+      <Setter Property="Margin" Value="0,0,12,0" />
+    </Style>
+    <Style Selector="^:spin-start /template/ ContentPresenter#PART_InnerLeftContent">
+      <Setter Property="Margin" Value="12,0,0,0" />
     </Style>
   </ControlTheme>
 
@@ -531,6 +547,14 @@
     </Style>
     <Style Selector="^.dense:not(:empty) /template/ TextBlock#PART_FloatingLabel, ^.dense.shrink-label /template/ TextBlock#PART_FloatingLabel, ^.dense:start-adornment /template/ TextBlock#PART_FloatingLabel">
       <Setter Property="RenderTransform" Value="translateY(-18px)" />
+    </Style>
+    <!-- A NumericUpDown's spin column over the input box: `.mud-input-showspin` input
+         padding-right: 24px from the box's edge, which with the 14px of padding is 24 (SpinColumn.cs). -->
+    <Style Selector="^:spin-end /template/ ContentPresenter#PART_InnerRightContent">
+      <Setter Property="Margin" Value="0,0,10,0" />
+    </Style>
+    <Style Selector="^:spin-start /template/ ContentPresenter#PART_InnerLeftContent">
+      <Setter Property="Margin" Value="10,0,0,0" />
     </Style>
   </ControlTheme>
 

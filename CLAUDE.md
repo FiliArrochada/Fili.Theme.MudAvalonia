@@ -39,9 +39,10 @@ classes, `ControlTheme`s where a Material look cannot be faked without one, and 
   ripple in a template's `PART_Ripple`; `HighContrastRings`, high contrast's elevation rings in
   the application's line colour;
   `SlidingIndicator`, the tabs' slide; `FieldClasses`, the text field's classes passed to the
-  TextBox inside an AutoCompleteBox or NumericUpDown; `ElevationOverlay`, the inherited property
-  `material-elevation-overlay` sets; `PartBorder`, every Border in a hand-written template;
-  `MenuIconGutter`, a menu's shared icon
+  TextBox inside an AutoCompleteBox or NumericUpDown; `SpinColumn`, a number field's spin column
+  inside its box; `CollapsePanel`, an expansion panel growing open; `ElevationOverlay`, the
+  inherited property `material-elevation-overlay` sets; `PartBorder`, every Border in a
+  hand-written template; `MenuIconGutter`, a menu's shared icon
   column; `StartAdornment`, a text field's `:start-adornment`; `TabBarScroll`, the tab bar's
   scroll buttons; and `DataGridLastColumn` and
   `GroupIndentConverter`,

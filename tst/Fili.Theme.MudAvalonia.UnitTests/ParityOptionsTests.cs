@@ -387,6 +387,26 @@ public class ParityOptionsTests
         Assert.True(shadow.IsVisible);
     });
 
+    /// <summary>
+    /// MudDrawerHeader: `.mud-drawer-header`, at least the app bar's 64px with 12px 24px round it,
+    /// and dense 48px with 8px 24px. A floor, so a taller header grows.
+    /// </summary>
+    [Fact]
+    public Task ADrawerHeaderIsAnAppBarTallAndDenseThreeQuarters() => UiThread.RunAsync(() =>
+    {
+        var header = Matrix.Show(new Border { Classes = { "drawer-header" }, Child = new TextBlock { Text = "Library" } });
+        Assert.Equal(64, header.MinHeight);
+        Assert.Equal(new Thickness(24, 12), header.Padding);
+        Assert.Equal(64, header.Bounds.Height);
+
+        header.Classes.Add("dense");
+        Assert.Equal(48, header.MinHeight);
+        Assert.Equal(new Thickness(24, 8), header.Padding);
+
+        var tall = Matrix.Show(new Border { Classes = { "drawer-header" }, Child = new Border { Height = 100 } });
+        Assert.Equal(124, tall.Bounds.Height);
+    });
+
     /// <summary>MudMenu.Dense: 2px 12px rows in body2.</summary>
     [Fact]
     public Task ADenseMenusRowsAre2By12InBody2() => UiThread.RunAsync(() =>

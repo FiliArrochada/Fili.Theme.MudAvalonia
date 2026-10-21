@@ -154,4 +154,76 @@ public class ExpansionPanelTests
         Assert.Equal(0.4, text.LetterSpacing);
         Assert.Equal(FontWeight.Medium, text.FontWeight);
     });
+    /// <summary>The panel the content grows in; internal to the theme, so read through its properties.</summary>
+    private static Decorator Collapse(Expander expander) => Matrix.Part<Decorator>(expander, "PART_Collapse");
+
+    private static AvaloniaProperty Property(AvaloniaObject owner, string name) =>
+        AvaloniaPropertyRegistry.Instance.FindRegistered(owner, name)!;
+
+    private static double Openness(Decorator collapse) => (double)collapse.GetValue(Property(collapse, "Openness"))!;
+
+    /// <summary>
+    /// MudCollapse: `grid-template-rows` 0fr to 1fr over `300ms ease-in-out`. The content grows
+    /// into view, as a height the panel eases between nothing and all of it, not a cross-fade.
+    /// </summary>
+    [Fact]
+    public Task OpeningGrowsTheContentOver300MsEaseInOut() => UiThread.RunAsync(() =>
+    {
+        var expander = Matrix.Show(new Expander { Header = "Panel", Content = "Content", Width = 320 });
+        var collapse = Collapse(expander);
+
+        Assert.Null(expander.ContentTransition);
+        Assert.Equal(0d, Openness(collapse));
+        Assert.False(collapse.Child!.IsVisible);
+
+        expander.IsExpanded = true;
+        Assert.Equal(1d, collapse.GetBaseValue(Property(collapse, "Openness")));
+        Assert.True(collapse.Child!.IsVisible);
+
+        var grow = Assert.IsType<Avalonia.Animation.DoubleTransition>(Assert.Single(collapse.Transitions!));
+        Assert.Equal(Property(collapse, "Openness"), grow.Property);
+        Assert.Equal(TimeSpan.FromMilliseconds(300), grow.Duration);
+        var easing = Assert.IsType<Avalonia.Animation.Easings.SplineEasing>(grow.Easing);
+        Assert.Equal((0.42, 0d, 0.58, 1d), (easing.X1, easing.Y1, easing.X2, easing.Y2));
+    });
+
+    /// <summary>A panel that starts open is open on its first frame: nothing grows on load.</summary>
+    [Fact]
+    public Task APanelThatStartsOpenDoesNotGrowOnLoad() => UiThread.RunAsync(() =>
+    {
+        var expander = Matrix.Show(new Expander { Header = "Open", Content = new Border { Height = 80 }, IsExpanded = true, Width = 300 });
+        var collapse = Collapse(expander);
+
+        Assert.Equal(1d, Openness(collapse));
+        Assert.Equal(80 + expander.Padding.Top + expander.Padding.Bottom, collapse.Bounds.Height, 0.5);
+    });
+
+    /// <summary>
+    /// Part way, the panel is that share of the content's height, the content at its own size and
+    /// clipped; a panel that opens upwards shows the content's far end first. Closed, the content
+    /// is hidden, so Tab does not reach it.
+    /// </summary>
+    [Fact]
+    public Task PartWayThePanelShowsThatShareOfTheContent() => UiThread.RunAsync(() =>
+    {
+        var content = new Border { Height = 100 };
+        var expander = Matrix.Show(new Expander { Header = "Panel", Content = content, IsExpanded = true, Width = 300, Padding = new Thickness(0) });
+        var collapse = Collapse(expander);
+        collapse.Transitions = null;
+
+        collapse.SetValue(Property(collapse, "Openness"), 0.5);
+        expander.UpdateLayout();
+        Assert.Equal(50, collapse.Bounds.Height, 0.5);
+        Assert.Equal(100, content.Bounds.Height, 0.5);
+        Assert.True(collapse.ClipToBounds);
+        Assert.Equal(0, content.TranslatePoint(default, collapse)!.Value.Y, 0.5);
+
+        collapse.SetValue(Property(collapse, "FromEnd"), true);
+        expander.UpdateLayout();
+        Assert.Equal(-50, content.TranslatePoint(default, collapse)!.Value.Y, 0.5);
+
+        expander.IsExpanded = false;
+        Assert.Equal(0d, Openness(collapse));
+        Assert.False(content.IsEffectivelyVisible);
+    });
 }

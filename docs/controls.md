@@ -368,7 +368,8 @@ Five places where the MudBlazor default is not the one you would guess:
   as each MudExpansionPanel does. MudExpansionPanels' options are on the panel: the elevation
   classes (`elevation0` when it already sits on a card), `CornerRadius="0"` for `Square`, `dense`
   (no padding above and below the content) and `no-gutters` (`Gutters="false"`: no 24px sides on
-  the header or the content).
+  the header or the content). Opening grows the content into view over .3s `ease-in-out`, as
+  MudCollapse does, rather than fading it in; a panel that starts open is open on its first frame.
 - **`expansion-panels` on a `StackPanel` is MudExpansionPanels**, the group, as it is on an
   `ItemsControl` whose items are Expanders or whose `ItemTemplate` makes them:
 
@@ -569,6 +570,10 @@ set, where MudBlazor matches the URL. `hide-icon` on a group's row is `HideExpan
 
 **A colour class on the `SplitView` is MudDrawer's `Color`**, `.mud-theme-{color}`: the pane in the
 colour and its content in the contrast text.
+
+**`drawer-header` on a `Border` at the top of the pane is MudDrawerHeader**: at least the app bar's
+64px tall, 12px 24px round its content; `dense` makes it 48px and 8px 24px. A floor, so a taller
+header grows.
 
 **A mini drawer is a compact `SplitView`.** `CompactInline` or `CompactOverlay` with the pane
 closed is MudBlazor's closed mini drawer: a nav link's text beside its `start-icon` is hidden, so
@@ -823,6 +828,11 @@ for something XAML cannot express on its own:
   TextBox's own theme reads them two templates down from the outer control.
 - **`MenuIconGutter`** opens a menu row's icon column when another row in the same list has an
   icon, MudMenu's `:has(.mud-menu-item-icon)` rule. A selector cannot ask about siblings.
+- **`SpinColumn`** puts a number field's spin column inside its input box: it keeps the text
+  clear of the column and sizes the column to the box, two templates down from the NumericUpDown.
+- **`CollapsePanel`** grows an expansion panel's content into view. Avalonia cannot animate a
+  height to `Auto`, so it lays the content out whole and shows a share of it that a transition
+  eases from nothing to all.
 - **`ElevationOverlay`** is the inherited property `material-elevation-overlay` sets, which each
   surface reads on itself: a descendant selector made every Border watch all its ancestors.
 - **`PartBorder`** is every Border in a hand-written template. It keeps them out of the app's
@@ -902,8 +912,10 @@ that the XAML route does not exist.
   padding. An Avalonia toggle is one item rather than a group, so those are classes on each.
 - **NumericUpDown** — a `MudInput` with a 24px spin column, which is not a guess:
   `_inputcontrol.scss` reserves exactly `padding-right: 24px` for it, with the comment *"This must
-  be the same width of the spinners"*. The column sits beside the field rather than over its
-  underline, so the line stops short of the arrows where MudBlazor's runs under them.
+  be the same width of the spinners"*. The column sits inside the input box, top to bottom, as
+  `.mud-input-numeric-spin` does: the box runs on under it, so its underline, filled ground or
+  outline reaches the field's edge, and the text keeps 24px clear. The helper line below runs the
+  field's full width.
 - **AutoCompleteBox** — both halves were already themed (a `TextBox` and a `ListBox`), so its
   theme exists for the popup surface.
 - **Both take the text field's classes.** `filled`, `outlined`, `dense`, `error`, `counter` and
@@ -967,7 +979,9 @@ The tooltip is deliberately **not theme-varying**: a Material tooltip is a dark 
 dark alike, so it reads as an annotation floating above the UI rather than as another surface of
 it. Its fill is transcribed rather than chosen — `_tooltip.scss` paints
 `var(--mud-palette-gray-darker)`, which is `Palette.GrayDarker` = `Colors.Gray.Darken2` = `#616161`,
-**solid**. An earlier version used 90% alpha, which is Material's spec and not MudBlazor's.
+**solid**. An earlier version used 90% alpha, which is Material's spec and not MudBlazor's. It has
+no width of its own, as `.mud-tooltip` sets none, so a long tooltip wraps only where the screen,
+or the page in a browser, stops it.
 
 **A tooltip can carry a class after all.** `ToolTip.Tip` uses a `ToolTip` as it is rather than
 wrapping it, so one built in markup keeps its classes: a colour class is MudTooltip's `Color`, and

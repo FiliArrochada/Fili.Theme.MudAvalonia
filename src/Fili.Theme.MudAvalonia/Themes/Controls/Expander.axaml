@@ -127,11 +127,8 @@
     <Setter Property="FontFamily" Value="{DynamicResource FiliFontFamily}" />
     <Setter Property="FontSize" Value="{DynamicResource FiliBody2FontSize}" />
     <Setter Property="HorizontalAlignment" Value="Stretch" />
-    <Setter Property="ContentTransition">
-      <Setter.Value>
-        <CrossFade Duration="0:0:0.25" />
-      </Setter.Value>
-    </Setter>
+    <!-- No cross-fade: MudCollapse grows the content's height instead, in PART_Collapse. -->
+    <Setter Property="ContentTransition" Value="{x:Null}" />
 
     <Setter Property="Template">
       <ControlTemplate>
@@ -146,15 +143,19 @@
                             Theme="{StaticResource FiliExpanderToggle}"
                             Content="{TemplateBinding Header}"
                             IsChecked="{TemplateBinding IsExpanded, Mode=TwoWay}" />
-              <ContentPresenter x:Name="PART_ContentPresenter"
-                                Grid.Row="1"
-                                Padding="{TemplateBinding Padding}"
-                                Content="{TemplateBinding Content}"
-                                ContentTemplate="{TemplateBinding ContentTemplate}"
-                                Foreground="{TemplateBinding Foreground}"
-                                HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
-                                VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
-                                IsVisible="{TemplateBinding IsExpanded}" />
+              <!-- MudCollapse: the content grows into view over .3s, not faded in (CollapsePanel.cs). -->
+              <theme:CollapsePanel x:Name="PART_Collapse"
+                                   Grid.Row="1"
+                                   Orientation="Vertical"
+                                   IsOpen="{TemplateBinding IsExpanded}">
+                <ContentPresenter x:Name="PART_ContentPresenter"
+                                  Padding="{TemplateBinding Padding}"
+                                  Content="{TemplateBinding Content}"
+                                  ContentTemplate="{TemplateBinding ContentTemplate}"
+                                  Foreground="{TemplateBinding Foreground}"
+                                  HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                  VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" />
+              </theme:CollapsePanel>
             </Grid>
             <!-- The rule, over the panel rather than on PART_Root: a Border with square corners and
                  a one-sided BorderThickness draws no BoxShadow, so a group's middle panels lost
@@ -179,15 +180,20 @@
                   BoxShadow="{DynamicResource FiliElevation1}">
             <Panel>
               <Grid Margin="{TemplateBinding BorderThickness}" RowDefinitions="*,Auto">
-                <ContentPresenter x:Name="PART_ContentPresenter"
-                                  Grid.Row="0"
-                                  Padding="{TemplateBinding Padding}"
-                                  Content="{TemplateBinding Content}"
-                                  ContentTemplate="{TemplateBinding ContentTemplate}"
-                                  Foreground="{TemplateBinding Foreground}"
-                                  HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
-                                  VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
-                                  IsVisible="{TemplateBinding IsExpanded}" />
+                <!-- MudCollapse: the content grows into view over .3s, not faded in (CollapsePanel.cs). -->
+                <theme:CollapsePanel x:Name="PART_Collapse"
+                                     Grid.Row="0"
+                                     Orientation="Vertical"
+                                     FromEnd="True"
+                                     IsOpen="{TemplateBinding IsExpanded}">
+                  <ContentPresenter x:Name="PART_ContentPresenter"
+                                    Padding="{TemplateBinding Padding}"
+                                    Content="{TemplateBinding Content}"
+                                    ContentTemplate="{TemplateBinding ContentTemplate}"
+                                    Foreground="{TemplateBinding Foreground}"
+                                    HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                    VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" />
+                </theme:CollapsePanel>
                 <ToggleButton x:Name="PART_toggle"
                               Grid.Row="1"
                               Theme="{StaticResource FiliExpanderToggle}"
@@ -230,15 +236,19 @@
                               Theme="{StaticResource FiliExpanderToggle}"
                               Content="{TemplateBinding Header}"
                               IsChecked="{TemplateBinding IsExpanded, Mode=TwoWay}" />
-                <ContentPresenter x:Name="PART_ContentPresenter"
-                                  Grid.Column="1"
-                                  Padding="{TemplateBinding Padding}"
-                                  Content="{TemplateBinding Content}"
-                                  ContentTemplate="{TemplateBinding ContentTemplate}"
-                                  Foreground="{TemplateBinding Foreground}"
-                                  HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
-                                  VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
-                                  IsVisible="{TemplateBinding IsExpanded}" />
+                <!-- MudCollapse: the content grows into view over .3s, not faded in (CollapsePanel.cs). -->
+                <theme:CollapsePanel x:Name="PART_Collapse"
+                                     Grid.Column="1"
+                                     Orientation="Horizontal"
+                                     IsOpen="{TemplateBinding IsExpanded}">
+                  <ContentPresenter x:Name="PART_ContentPresenter"
+                                    Padding="{TemplateBinding Padding}"
+                                    Content="{TemplateBinding Content}"
+                                    ContentTemplate="{TemplateBinding ContentTemplate}"
+                                    Foreground="{TemplateBinding Foreground}"
+                                    HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                    VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" />
+                </theme:CollapsePanel>
               </Grid>
               <!-- The rule, over the panel rather than on PART_Root: a Border with square corners and
                    a one-sided BorderThickness draws no BoxShadow, so a group's middle panels lost
@@ -270,15 +280,20 @@
                   BoxShadow="{DynamicResource FiliElevation1}">
             <Panel>
               <Grid Margin="{TemplateBinding BorderThickness}" ColumnDefinitions="*,Auto">
-                <ContentPresenter x:Name="PART_ContentPresenter"
-                                  Grid.Column="0"
-                                  Padding="{TemplateBinding Padding}"
-                                  Content="{TemplateBinding Content}"
-                                  ContentTemplate="{TemplateBinding ContentTemplate}"
-                                  Foreground="{TemplateBinding Foreground}"
-                                  HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
-                                  VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
-                                  IsVisible="{TemplateBinding IsExpanded}" />
+                <!-- MudCollapse: the content grows into view over .3s, not faded in (CollapsePanel.cs). -->
+                <theme:CollapsePanel x:Name="PART_Collapse"
+                                     Grid.Column="0"
+                                     Orientation="Horizontal"
+                                     FromEnd="True"
+                                     IsOpen="{TemplateBinding IsExpanded}">
+                  <ContentPresenter x:Name="PART_ContentPresenter"
+                                    Padding="{TemplateBinding Padding}"
+                                    Content="{TemplateBinding Content}"
+                                    ContentTemplate="{TemplateBinding ContentTemplate}"
+                                    Foreground="{TemplateBinding Foreground}"
+                                    HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                    VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" />
+                </theme:CollapsePanel>
                 <ToggleButton x:Name="PART_toggle"
                               Grid.Column="1"
                               Theme="{StaticResource FiliExpanderToggle}"

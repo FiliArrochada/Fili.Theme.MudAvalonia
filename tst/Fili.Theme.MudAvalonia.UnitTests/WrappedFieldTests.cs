@@ -1,6 +1,7 @@
 using Avalonia;
 using Avalonia.Automation;
 using Avalonia.Controls;
+using Avalonia.Controls.Presenters;
 using Avalonia.Controls.Primitives;
 using Avalonia.Styling;
 using Avalonia.Threading;
@@ -89,5 +90,66 @@ public class WrappedFieldTests
         Dispatcher.UIThread.RunJobs();
 
         Assert.True(DataValidationErrors.GetHasErrors(Field(control)));
+    });
+    /// <summary>
+    /// `.mud-input-numeric-spin`: the spin column sits inside the input box, top to bottom, and the
+    /// box runs on under it, so the underline, the filled ground and the outline reach the field's
+    /// edge; the text keeps 24px clear of it, as `padding-right: 24px` does. The helper line below
+    /// runs the whole width.
+    /// </summary>
+    [Theory]
+    [InlineData("")]
+    [InlineData("filled")]
+    [InlineData("outlined")]
+    public Task TheSpinColumnSitsInsideTheInputBox(string variant) => UiThread.RunAsync(() =>
+    {
+        var field = (NumericUpDown)Show("NumericUpDown", variant.Length > 0 ? [variant, "counter"] : ["counter"]);
+        Dispatcher.UIThread.RunJobs();
+        var box = Field(field);
+        var root = Matrix.Part<Border>(box, "PART_Root");
+        var column = Matrix.Part<Control>(Matrix.Part<ButtonSpinner>(field, "PART_Spinner"), "PART_SpinnerPanel");
+        var text = Matrix.Part<Control>(box, "PART_ScrollViewer");
+        double Left(Visual v) => v.TranslatePoint(default, field)!.Value.X;
+        double Top(Visual v) => v.TranslatePoint(default, field)!.Value.Y;
+
+        Assert.Equal(field.Bounds.Width, box.Bounds.Width, 0.5);
+        Assert.Equal(field.Bounds.Width, root.Bounds.Width, 0.5);
+        Assert.Equal(field.Bounds.Width, Left(column) + column.Bounds.Width, 0.5);
+        Assert.Equal(Top(root), Top(column), 0.5);
+        Assert.Equal(root.Bounds.Height, column.Bounds.Height, 0.5);
+        Assert.InRange(Left(text) + text.Bounds.Width, 0, field.Bounds.Width - 24 + 0.5);
+        // The helper line keeps its own inset under filled and outlined, and nothing more.
+        var helper = Matrix.Part<Control>(box, "PART_HelperLine");
+        Assert.Equal(field.Bounds.Width - helper.Margin.Right, Left(helper) + helper.Bounds.Width, 0.5);
+    });
+
+    /// <summary>With no spin buttons the box is the field, and the text runs to its padding.</summary>
+    [Fact]
+    public Task WithoutSpinButtonsTheTextHasTheWholeBox() => UiThread.RunAsync(() =>
+    {
+        var field = (NumericUpDown)Show("NumericUpDown");
+        field.ShowButtonSpinner = false;
+        Dispatcher.UIThread.RunJobs();
+        var box = Field(field);
+
+        Assert.Equal(field.Bounds.Width, box.Bounds.Width, 0.5);
+        Assert.Equal(default, Matrix.Part<ContentPresenter>(box, "PART_InnerRightContent").Margin);
+        Assert.Equal(default, Matrix.Part<ContentPresenter>(box, "PART_InnerLeftContent").Margin);
+    });
+
+    /// <summary>Spin buttons on the left: the column at the start of the box, the text clear of it there.</summary>
+    [Fact]
+    public Task SpinButtonsOnTheLeftSitInsideTheBoxThere() => UiThread.RunAsync(() =>
+    {
+        var field = (NumericUpDown)Show("NumericUpDown");
+        field.ButtonSpinnerLocation = Location.Left;
+        Dispatcher.UIThread.RunJobs();
+        var box = Field(field);
+        var column = Matrix.Part<Control>(Matrix.Part<ButtonSpinner>(field, "PART_Spinner"), "PART_SpinnerPanel");
+
+        Assert.Equal(0, column.TranslatePoint(default, field)!.Value.X, 0.5);
+        Assert.Equal(0, box.TranslatePoint(default, field)!.Value.X, 0.5);
+        Assert.Equal(new Thickness(24, 0, 0, 0), Matrix.Part<ContentPresenter>(box, "PART_InnerLeftContent").Margin);
+        Assert.Equal(default, Matrix.Part<ContentPresenter>(box, "PART_InnerRightContent").Margin);
     });
 }

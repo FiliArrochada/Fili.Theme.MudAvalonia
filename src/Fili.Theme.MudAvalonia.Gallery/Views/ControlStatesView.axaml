@@ -1108,12 +1108,16 @@
                    TextWrapping="Wrap"
                    MaxWidth="760"
                    HorizontalAlignment="Left"
-                   Text="SplitView is MudDrawer, and it is the one control here treated with styles rather than a ControlTheme: everything MudDrawer contributes is a value — 240px open, 56px mini, the drawer-background and drawer-text tokens — while the pane sliding and the display modes are structure the forked template already gets right. A Style outranks a ControlTheme setter, which is normally the trap this repo warns about and is exactly what makes it work. The pane holds a nav TreeView, MudNavMenu: the active link in primary at weight 500, and Downloads a group that opens on a click." />
+                   Text="SplitView is MudDrawer: 240px open, 56px mini, the drawer-background and drawer-text tokens, and elevation 1 past the pane's edge. Nearly all of it is styles over the forked template's structure; the theme adds only the part the shadow is drawn on. drawer-header is MudDrawerHeader, an app bar's height. The pane holds a nav TreeView, MudNavMenu: the active link in primary at weight 500, and Downloads a group that opens on a click." />
         <StackPanel Orientation="Horizontal" Spacing="16">
-        <Border Classes="surface elevation1" Width="520" Height="180" ClipToBounds="True">
+        <Border Classes="surface elevation1" Width="520" Height="244" ClipToBounds="True">
           <SplitView IsPaneOpen="True" DisplayMode="Inline">
             <SplitView.Pane>
-              <TreeView Classes="nav" Margin="0,8">
+              <DockPanel>
+              <Border DockPanel.Dock="Top" Classes="drawer-header">
+                <TextBlock Classes="h6" Text="Gallery" VerticalAlignment="Center" />
+              </Border>
+              <TreeView Classes="nav">
                 <TreeViewItem Header="Library" IsSelected="True" />
                 <TreeViewItem Header="Store" />
                 <TreeViewItem Header="Downloads">
@@ -1121,6 +1125,7 @@
                   <TreeViewItem Header="History" />
                 </TreeViewItem>
               </TreeView>
+              </DockPanel>
             </SplitView.Pane>
             <SplitView.Content>
               <StackPanel Margin="16" Spacing="4">
@@ -1131,7 +1136,7 @@
             </SplitView.Content>
           </SplitView>
         </Border>
-        <Border Classes="surface elevation1" Width="240" Height="180" ClipToBounds="True">
+        <Border Classes="surface elevation1" Width="240" Height="244" ClipToBounds="True">
           <SplitView IsPaneOpen="False" DisplayMode="CompactInline">
             <SplitView.Pane>
               <TreeView Classes="nav" Margin="0,8">

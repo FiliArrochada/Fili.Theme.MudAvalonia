@@ -85,6 +85,9 @@ public class ClassVocabularyTests
         // MudSnackbar's Severity.Normal, on a notification card.
         "normal",
 
+        // MudDrawerHeader, after its CSS class.
+        "drawer-header",
+
         // MudCard's parts, after the CSS classes that draw them.
         "card-actions", "card-content", "card-header", "card-header-actions",
         "card-header-avatar", "card-header-content", "card-media",

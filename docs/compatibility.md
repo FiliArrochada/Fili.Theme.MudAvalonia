@@ -49,8 +49,8 @@ These are implementation, and may change in any version:
 - **The forked base's keys** (`ThemeAccentBrush`, `ThemeControlMidBrush`...), Avalonia Simple's
   names for what the base paints from. Use the `Fili*` tokens instead.
 - **Internal types**: the converters, `OptionalStyleInclude`, `SlidingIndicator`, `FieldClasses`,
-  `MenuIconGutter`, `TabBarScroll`, `ElevationOverlay`, `PartBorder` and the DataGrid helpers. A
-  template's Borders are `PartBorder`s, so a `/template/ Border` selector of the app's own finds
-  none of them.
+  `MenuIconGutter`, `TabBarScroll`, `SpinColumn`, `CollapsePanel`, `ElevationOverlay`, `PartBorder`
+  and the DataGrid helpers. A template's Borders are `PartBorder`s, so a `/template/ Border`
+  selector of the app's own finds none of them.
 - **Exact pixels.** Rendering follows Avalonia and Skia, and anti-aliased edges can differ by a
   level between machines; the pixel tests allow for that ([Testing](testing.md)).
