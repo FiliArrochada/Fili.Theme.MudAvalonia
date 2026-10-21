@@ -176,8 +176,10 @@ A split button takes the same classes as a button and they mean the same things:
 <Border Classes="surface outlined" Padding="16">…</Border>
 ```
 
-`pa-4` is MudBlazor's 4 × 4px spacing step. Here it is a plain `Padding="16"`, or
-`{DynamicResource FiliSpacing4}` where a resource is wanted.
+`pa-4` is MudBlazor's 4 × 4px spacing step. Here it is a plain `Padding="16"`. `FiliSpacing4`
+holds the same 16 as a number, so it fills a `StackPanel`'s `Spacing`; a `Padding` or `Margin`
+is a `Thickness`, and a number resource there fails to cast. The other layout utilities are
+properties too: see [Known gaps](known-gaps.md).
 
 ## App bar
 

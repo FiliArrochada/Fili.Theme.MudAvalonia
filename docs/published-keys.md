@@ -249,7 +249,8 @@ MudBlazor's 26 shadow levels as `BoxShadows`, 0 to 25. In high contrast each is 
 
 ## Geometry
 
-Corner radii, border thickness, the 4px spacing scale and the layout sizes.
+Corner radii, border thickness, the 4px spacing scale and the layout sizes. The spacing steps are
+numbers, for a `Spacing`; a `Padding` or `Margin` takes a `Thickness`.
 
 - `FiliAppbarHeight`
 - `FiliBorderThickness`

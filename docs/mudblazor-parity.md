@@ -741,7 +741,7 @@ Light and dark are MudBlazor's `Palette.cs` and `PaletteDark.cs`; high contrast 
 | `Shadow.cs` | `FiliElevation0` … `FiliElevation25` | ✅ three layers each; a 1px ring in high contrast |
 | `DefaultBorderRadius` | `FiliCornerRadius` | ✅ 4px |
 | `AppbarHeight`, `DrawerWidthLeft`, `DrawerMiniWidthLeft` | `FiliAppbarHeight`, `FiliDrawerWidth`, `FiliDrawerMiniWidth` | ✅ |
-| spacing scale (`pa-4` and friends) | `FiliSpacing1` … `FiliSpacing8` | ≈ values only, no utility classes |
+| spacing scale (`pa-4` and friends) | `Padding`, `Margin`, `Spacing`; `FiliSpacing1` … `FiliSpacing8` | ≈ properties, not classes; the resources are numbers, for a `Spacing`, not a `Thickness` |
 | font | Roboto, embedded | ✅ Light, Regular and Medium as static faces |
 
 ### Theme variants

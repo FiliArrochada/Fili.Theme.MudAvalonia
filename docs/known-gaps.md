@@ -84,8 +84,15 @@ And the things that are not controls:
   narrow: no control here has a *bidi-aware* behaviour beyond mirroring, so if one ever needs to
   keep a numeral or a code fragment left-to-right inside otherwise-RTL content, that is the app's
   `FlowDirection` to set, not the theme's.
-- **No spacing utility classes.** The 4px scale exists as values; `pa-4`-style generated classes
-  do not.
+- **MudBlazor's layout utility classes are properties here.** `pa-4`, `mx-2`, `d-flex` and the
+  rest are CSS for what an Avalonia control sets itself: spacing is `Padding`, `Margin` and a
+  panel's `Spacing`, at 4px a step (`pa-4` is `Padding="16"`, `gap-2` is `Spacing="8"`);
+  `d-flex` and `flex-column` are a `StackPanel` and its `Orientation`; `justify-*` and `align-*`
+  are `HorizontalAlignment` and `VerticalAlignment`; `rounded-*` is `CornerRadius`, `border-*`
+  `BorderThickness`, `d-none` `IsVisible`, `cursor-pointer` `Cursor`, `overflow-hidden`
+  `ClipToBounds` and `z-*` `ZIndex`. The utilities that carry a token - colour, elevation, the
+  type ramp - are classes here as well. `FiliSpacing1` … `FiliSpacing8` are numbers, so they
+  fill a `Spacing`; a `Padding` or `Margin` is a `Thickness`, written out.
 - **Elevation reads faintly in dark mode.** Material's shadows are black at low alpha, which is
   nearly invisible on a dark ground; MudBlazor has the same problem and this theme reproduces it
   by default. `material-elevation-overlay` on a window or container opts into Material's own
