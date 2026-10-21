@@ -132,7 +132,7 @@ base became a fork of Simple that this repo owns, the hazard went with it: a `Te
 `Variant.Outlined`, `Variant.Text` and `Variant.Filled` — API familiarity is the point of this
 package, so they are not namespaced to `mud-primary` or hidden behind an attached property.
 
-**All 150 of them, which is the list to grep an app against before adopting:**
+**All 151 of them, which is the list to grep an app against before adopting:**
 
 | | |
 |---|---|
@@ -145,7 +145,7 @@ package, so they are not namespaced to `mud-primary` or hidden behind an attache
 | Component | `icon`, `chip`, `fab`, `extended`, `alert`, `avatar`, `badge`, `card`, `skeleton`, `circle`, `rectangle`, `counter`, `circular`, `nav`, `toolbar`, `normal`, `expansion-panels` |
 | Card parts | `card-header`, `card-header-avatar`, `card-header-content`, `card-header-actions`, `card-media`, `card-content`, `card-actions` |
 | Badge (`Origin`, `Dot`, `Bordered`, `Overlap`) | `top-left`, `top-center`, `center-left`, `center-center`, `center-right`, `bottom-left`, `bottom-center`, `bottom-right`, `dot`, `bordered`, `overlap` |
-| Behaviour | `arrow`, `dense-items`, `helper-on-focus`, `hide-close`, `hide-icon`, `hover`, `multi-expansion`, `multi-selection`, `no-animation`, `no-gutters`, `required`, `shrink-label`, `value-label`, `striped`, `wave` |
+| Behaviour | `arrow`, `dense-items`, `helper-on-focus`, `hide-close`, `hide-icon`, `hover`, `multi-expansion`, `multi-selection`, `no-animation`, `no-gutters`, `no-outline`, `required`, `shrink-label`, `value-label`, `striped`, `wave` |
 | Label placement (`LabelPlacement`) | `label-start`, `label-top`, `label-bottom` |
 | Icons in content | `start-icon`, `end-icon` |
 | Material, not MudBlazor | `material-fixed-tabs`, `material-elevation-overlay` |

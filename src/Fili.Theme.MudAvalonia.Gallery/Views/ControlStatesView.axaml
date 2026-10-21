@@ -1040,19 +1040,36 @@
                      Text="expansion-panels on the StackPanel is MudExpansionPanels: one shape, a rule under each panel but the last, and the group's corners on its first and last. Open a panel: the open one closes, as MultiExpansion is false by default." />
         </StackPanel>
         <StackPanel Orientation="Horizontal" Spacing="24">
-          <StackPanel Classes="expansion-panels multi-expansion" Width="330">
-            <Expander Header="Open me" IsExpanded="True">
-              <TextBlock Classes="body2" Text="Body" />
-            </Expander>
-            <Expander Header="And me too" IsExpanded="True">
-              <TextBlock Classes="body2" Text="Body" />
-            </Expander>
-            <Expander Header="Third panel">
-              <TextBlock Classes="body2" Text="Body" />
-            </Expander>
+          <StackPanel Width="330" Spacing="8">
+            <StackPanel Classes="expansion-panels multi-expansion">
+              <Expander Header="Open me" IsExpanded="True">
+                <TextBlock Classes="body2" Text="Body" />
+              </Expander>
+              <Expander Header="And me too" IsExpanded="True">
+                <TextBlock Classes="body2" Text="Body" />
+              </Expander>
+              <Expander Header="Third panel">
+                <TextBlock Classes="body2" Text="Body" />
+              </Expander>
+            </StackPanel>
+            <TextBlock Classes="caption" TextWrapping="Wrap"
+                       Text="multi-expansion on the group is MultiExpansion=&quot;true&quot;: panels open independently." />
           </StackPanel>
-          <TextBlock Classes="caption" TextWrapping="Wrap" Width="330" VerticalAlignment="Top"
-                     Text="multi-expansion on the group is MultiExpansion=&quot;true&quot;: panels open independently." />
+          <StackPanel Width="330" Spacing="8">
+            <StackPanel Classes="expansion-panels no-outline">
+              <Expander Header="First panel">
+                <TextBlock Classes="body2" Text="Body" />
+              </Expander>
+              <Expander Header="Second panel">
+                <TextBlock Classes="body2" Text="Body" />
+              </Expander>
+              <Expander Header="Third panel">
+                <TextBlock Classes="body2" Text="Body" />
+              </Expander>
+            </StackPanel>
+            <TextBlock Classes="caption" TextWrapping="Wrap"
+                       Text="no-outline on the group is Outlined=&quot;false&quot;: no rule under any panel." />
+          </StackPanel>
         </StackPanel>
 
         <TextBlock Classes="overline" Text="Numeric field, autocomplete, validation" Margin="0,8,0,0" />

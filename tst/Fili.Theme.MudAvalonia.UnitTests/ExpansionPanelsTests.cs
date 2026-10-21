@@ -153,6 +153,35 @@ public class ExpansionPanelsTests
         Assert.All(p, x => Assert.Equal(None, x.CornerRadius));
     });
 
+    /// <summary>
+    /// MudExpansionPanels' Outlined="false": no rule under any panel, closed or open, and the
+    /// corners and margins as an outlined group has them.
+    /// </summary>
+    [Fact]
+    public Task ANoOutlineGroupRulesNoPanel() => UiThread.RunAsync(() =>
+    {
+        var (_, p) = Group(3, "expansion-panels no-outline");
+
+        Assert.Equal([NoRule, NoRule, NoRule], p.Select(x => x.BorderThickness));
+        Assert.Equal([Top, None, Bottom], p.Select(x => x.CornerRadius));
+
+        Expand(p[1]);
+        Assert.Equal([NoRule, NoRule, NoRule], p.Select(x => x.BorderThickness));
+        Assert.Equal([All, All, All], p.Select(x => x.CornerRadius));
+        Assert.Equal(new Thickness(0, 16), Margin(p[1]));
+    });
+
+    /// <summary>A generated group takes no-outline as a written one does.</summary>
+    [Fact]
+    public Task AGeneratedNoOutlineGroupRulesNoPanel() => UiThread.RunAsync(() =>
+    {
+        var (group, p) = GeneratedGroup(3);
+        group.Classes.Add("no-outline");
+        Dispatcher.UIThread.RunJobs();
+
+        Assert.Equal([NoRule, NoRule, NoRule], p.Select(x => x.BorderThickness));
+    });
+
     /// <summary>Outside a group an Expander is one whole panel, as it was: rounded, unruled.</summary>
     [Fact]
     public Task APanelOutsideAGroupIsUnchanged() => UiThread.RunAsync(() =>

@@ -1172,6 +1172,8 @@
     ItemsControl that generates them. What the group does between its panels, from
     _expansionpanel.scss, with Outlined on as it is by default:
 
+      Outlined (true)                `no-outline` on the group for false: no rule under any panel
+
       .mud-expand-panel-border       a 1px lines-default rule under each panel
       :first-child / :last-child     the group's radius on the top / bottom corners only; the
                                      last loses its rule
@@ -1190,7 +1192,8 @@
     neighbours - which see through those presenters where :nth-child cannot. The radius is written
     as 4 where only two corners take it, as SplitButton.axaml writes its halves: this theme has ONE
     radius. Elevation, Dense and Gutters stay on each Expander, as classes.
-    Order is load-bearing: of these, the later style wins, and `square` comes last.
+    Order is load-bearing: of these, the later style wins, and `square` and `no-outline` come
+    last.
   -->
   <Style Selector=".expansion-panels > Expander, .expansion-panels > ContentPresenter > Expander">
     <Setter Property="theme:ExpansionPanels.Joins" Value="True" />
@@ -1239,6 +1242,9 @@
   </Style>
   <Style Selector=".expansion-panels.square > Expander, .expansion-panels.square > ContentPresenter > Expander">
     <Setter Property="CornerRadius" Value="0" />
+  </Style>
+  <Style Selector=".expansion-panels.no-outline > Expander, .expansion-panels.no-outline > ContentPresenter > Expander">
+    <Setter Property="BorderThickness" Value="0" />
   </Style>
 
   <!--

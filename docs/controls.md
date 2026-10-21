@@ -383,7 +383,8 @@ Five places where the MudBlazor default is not the one you would guess:
   one's bottom, a lines-default rule under each panel but the last (`Outlined`, on by default),
   and an expanded panel moved 16px from its neighbours over .3s with every corner rounded. The
   panel before it drops its rule and takes the bottom corners, the one after it the top ones.
-  `square` on the group squares every panel. As in MudBlazor, where `MultiExpansion` is off by
+  `square` on the group squares every panel, and `no-outline` drops every rule, as
+  `Outlined="false"` does. As in MudBlazor, where `MultiExpansion` is off by
   default, opening a panel closes the others, and of panels written open only the first stays
   open; `multi-expansion` on the group lets them open independently. Closing is a current value,
   so a binding on `IsExpanded` survives it and hears the change.

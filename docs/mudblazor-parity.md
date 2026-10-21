@@ -6,7 +6,7 @@ where the two differ. For side-by-side markup, see [Razor and AXAML](razor-vs-ax
 The rule behind every row: **a class only ever names a MudBlazor variant.** Every control the
 theme templates is keyed to its type, so an unclassed control is already the MudBlazor default.
 Class names are MudBlazor's own words (`primary`, `outlined`, `small`), deliberately not
-namespaced. `ClassVocabularyTests` pins the full list of 150. Two are not MudBlazor's, and their
+namespaced. `ClassVocabularyTests` pins the full list of 151. Two are not MudBlazor's, and their
 names say so: `material-fixed-tabs`, Material's fixed tabs, and `material-elevation-overlay`,
 Material's dark-theme elevation overlay. MudBlazor offers neither.
 
@@ -446,7 +446,7 @@ Put initials, a `PathIcon` or an `Image` inside: `<Border Classes="avatar primar
 | `Square` | `square` | ✅ no radius |
 | `Dense` | `dense` | ✅ the content loses its 16px top and bottom |
 | `Gutters` (default true) | `no-gutters` for false | ✅ the header and the content lose their 24px sides |
-| `Outlined` (default true) | in a group, on | ✅ a 1px lines-default rule under each panel but the last, and under none that is expanded or comes before one. ❌ `Outlined="false"` has no class: a group always rules its panels |
+| `Outlined` (default true) | in a group, on; `no-outline` on the group for false | ✅ a 1px lines-default rule under each panel but the last, and under none that is expanded or comes before one; `no-outline` rules none |
 | an expanded panel | in a group | ✅ 16px from its neighbours (none above the first or below the last) over .3s, every corner rounded; the panel before it takes the bottom corners and the one after it the top |
 | `Square` on the group | `square` on the group | ✅ no radius on any panel |
 | `MultiExpansion` (default false) | no class, or `multi-expansion` for true | ✅ opening a panel closes the others, and of panels written open the first stays open; `multi-expansion` lets them open independently |

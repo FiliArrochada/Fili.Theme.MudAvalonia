@@ -426,6 +426,11 @@ it. [MudBlazor parity](mudblazor-parity.md) lists the keys. `LabelPlacement` is 
 <StackPanel Classes="expansion-panels multi-expansion">
   <Expander Header="Details">…</Expander>
 </StackPanel>
+
+<!-- <MudExpansionPanels Outlined="false"> -->
+<StackPanel Classes="expansion-panels no-outline">
+  <Expander Header="Details">…</Expander>
+</StackPanel>
 ```
 
 **`SelectionMode.MultiSelection` takes two settings**, and both are needed: the class draws the
