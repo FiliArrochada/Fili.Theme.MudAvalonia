@@ -73,7 +73,18 @@
                    TextWrapping="Wrap"
                    MaxWidth="760"
                    HorizontalAlignment="Left"
-                   Text="MudButton's Variant × Color, one class each: Classes=&quot;outlined error&quot; is Variant.Outlined, Color.Error. A colour class is only a colour, so primary on its own is a primary TEXT button; the fill comes from filled. Hover each one: text and outlined tint with the colour at 6%, filled switches to the colour's darken shade and lifts from elevation 2 to 4 to 8, which no forked template can express because Button has no BoxShadow — only the Border inside a template has one. Default is Color.Default: text-primary, and a grey fill when filled. No ripple — the tint is the static half of it." />
+                   Text="MudButton's Variant × Color, one class each: Classes=&quot;outlined error&quot; is Variant.Outlined, Color.Error. A colour class is only a colour, so primary on its own is a primary TEXT button; the fill comes from filled. Hover each one: text and outlined tint with the colour at 6%, filled switches to the colour's darken shade and lifts from elevation 2 to 4 to 8, which no forked template can express because Button has no BoxShadow — only the Border inside a template has one. Default is Color.Default: text-primary, and a grey fill when filled. Press one: a ripple grows from the pointer in the label's colour, at 10%, or 20% on a filled button." />
+        <StackPanel Orientation="Horizontal" Spacing="8" VerticalAlignment="Center">
+          <Button Content="Ripples" Classes="filled primary" />
+          <Button Content="No ripple" Classes="filled primary">
+            <Button.Resources>
+              <x:Double x:Key="FiliRippleOpacity">0</x:Double>
+              <x:Double x:Key="FiliRippleOpacitySecondary">0</x:Double>
+            </Button.Resources>
+          </Button>
+          <TextBlock Classes="caption" VerticalAlignment="Center"
+                     Text="Ripple=&quot;false&quot;: FiliRippleOpacity and FiliRippleOpacitySecondary at 0 in the button's Resources." />
+        </StackPanel>
 
         <TextBlock Classes="overline" Text="Button — size and inherit" Margin="0,8,0,0" />
         <StackPanel Orientation="Horizontal" Spacing="8" VerticalAlignment="Center">
@@ -1026,7 +1037,22 @@
             </Expander>
           </StackPanel>
           <TextBlock Classes="caption" TextWrapping="Wrap" Width="330" VerticalAlignment="Top"
-                     Text="expansion-panels on the StackPanel is MudExpansionPanels: one shape, a rule under each panel but the last, and the group's corners on its first and last." />
+                     Text="expansion-panels on the StackPanel is MudExpansionPanels: one shape, a rule under each panel but the last, and the group's corners on its first and last. Open a panel: the open one closes, as MultiExpansion is false by default." />
+        </StackPanel>
+        <StackPanel Orientation="Horizontal" Spacing="24">
+          <StackPanel Classes="expansion-panels multi-expansion" Width="330">
+            <Expander Header="Open me" IsExpanded="True">
+              <TextBlock Classes="body2" Text="Body" />
+            </Expander>
+            <Expander Header="And me too" IsExpanded="True">
+              <TextBlock Classes="body2" Text="Body" />
+            </Expander>
+            <Expander Header="Third panel">
+              <TextBlock Classes="body2" Text="Body" />
+            </Expander>
+          </StackPanel>
+          <TextBlock Classes="caption" TextWrapping="Wrap" Width="330" VerticalAlignment="Top"
+                     Text="multi-expansion on the group is MultiExpansion=&quot;true&quot;: panels open independently." />
         </StackPanel>
 
         <TextBlock Classes="overline" Text="Numeric field, autocomplete, validation" Margin="0,8,0,0" />
