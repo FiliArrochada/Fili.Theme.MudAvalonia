@@ -188,7 +188,35 @@ public static class ThemeColourGenerator
 
     private static string Sizes(string small, string large) =>
         Style("^.small", ("Padding", small), ("FontSize", "13"))
-        + Style("^.large", ("Padding", large), ("FontSize", "15"));
+        + Style("^.large", ("Padding", large), ("FontSize", "15"))
+        + IconSlots("button");
+
+    /// <summary>
+    /// What a `start-icon` or `end-icon` in this host's content takes, through IconSlot's
+    /// inherited properties: _button.scss's 20px (18 small, 22 large), pulled 4px out (2 small) and
+    /// 8px from the label; a chip's `.mud-chip-icon` 20px (18 small, 24 large), 4px out and in (6
+    /// large), its end icon the close button's 18px, 6px in; a FAB's 24px at any size, 8px from the
+    /// label (4 small). Set on the host, so only hosts are styled and the icon reads one value.
+    /// </summary>
+    private static string IconSlots(string kind)
+    {
+        static (string, string) Start(string size) => ("theme:IconSlot.StartSize", size);
+        static (string, string) StartGap(string margin) => ("theme:IconSlot.StartMargin", margin);
+        static (string, string) End(string size) => ("theme:IconSlot.EndSize", size);
+        static (string, string) EndGap(string margin) => ("theme:IconSlot.EndMargin", margin);
+
+        return kind switch
+        {
+            "chip" => Style("^", Start("20"), StartGap("-4,0,4,0"), End("18"), EndGap("6,0,-4,0"))
+                + Style("^.small", Start("18"))
+                + Style("^.large", Start("24"), StartGap("-6,0,6,0")),
+            "fab" => Style("^", Start("24"), StartGap("0,0,8,0"), End("24"), EndGap("8,0,0,0"))
+                + Style("^.small", StartGap("0,0,4,0"), EndGap("4,0,0,0")),
+            _ => Style("^", Start("20"), StartGap("-4,0,8,0"), End("20"), EndGap("8,0,-4,0"))
+                + Style("^.small", Start("18"), StartGap("-2,0,8,0"), End("18"), EndGap("8,0,-2,0"))
+                + Style("^.large", Start("22"), End("22")),
+        };
+    }
 
     private static string Template(bool shadow)
     {
@@ -935,7 +963,7 @@ public static class ThemeColourGenerator
         {
             var nav = $"TreeView.nav.{c.ToLowerInvariant()} TreeViewItem";
             o.Append(Style($"{nav}:selected /template/ Border#SelectionBorder", ("BorderBrush", Res($"Fili{c}Brush"))));
-            o.Append(Style($"{nav}:selected :is(Control).start-icon", ("TextElement.Foreground", Res($"Fili{c}Brush"))));
+            o.Append(Style($"{nav}:selected", ("theme:IconSlot.Brush", Res($"Fili{c}Brush"))));
             o.Append(Style($"{nav}[IsExpanded=True] /template/ Path#PART_ExpandIcon", ("Fill", Res($"Fili{c}Brush"))));
             o.Append(Style($"{nav}:selected /template/ Border#PART_Tint:pointerover", ("Background", Res($"Fili{c}Brush")), ("Opacity", "0.064")));
             o.Append(Style($"{nav}:selected:focus-visible /template/ Border#PART_Tint", ("Background", Res($"Fili{c}Brush")), ("Opacity", "0.064")));
@@ -1008,6 +1036,7 @@ public static class ThemeColourGenerator
         o.Append("\n    <!-- `.mud-chip-size-small` / `-large`: 24px / 40px, radius half the height. -->\n");
         o.Append(Style("^.small", ("Height", "24"), ("CornerRadius", "12"), ("FontSize", "12"), ("Padding", "8,0")));
         o.Append(Style("^.large", ("Height", "40"), ("CornerRadius", "20"), ("FontSize", "16"), ("Padding", "16,0")));
+        o.Append(IconSlots("chip"));
         o.Append("\n    <!-- `.mud-disabled`: half opacity. -->\n");
         o.Append(Style("^:disabled", ("Opacity", "0.5")));
         return o.ToString();
@@ -1078,6 +1107,7 @@ public static class ThemeColourGenerator
         o.Append(Style("^.extended", ("Width", "NaN"), ("Height", "48"), ("MinWidth", "48"), ("MinHeight", "0"), ("Padding", "16,0"), ("CornerRadius", "24")));
         o.Append(Style("^.extended.medium", ("Height", "40"), ("MinWidth", "40"), ("CornerRadius", "20")));
         o.Append(Style("^.extended.small", ("Height", "34"), ("MinWidth", "34"), ("Padding", "12,0"), ("CornerRadius", "17")));
+        o.Append(IconSlots("fab"));
         o.Append("\n    <!-- `flat` is DropShadow=\"false\": `.mud-fab-disable-elevation` drops the shadow in every state. -->\n");
         o.Append(FabGrounded(".flat"));
         o.Append("\n    <!-- Disabled: action-disabled on action-disabled-background, flat; outlined and text keep\n");

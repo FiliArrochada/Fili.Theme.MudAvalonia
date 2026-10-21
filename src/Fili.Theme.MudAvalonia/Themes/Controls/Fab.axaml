@@ -537,6 +537,16 @@
       <Setter Property="Padding" Value="12,0" />
       <Setter Property="CornerRadius" Value="17" />
     </Style>
+    <Style Selector="^">
+      <Setter Property="theme:IconSlot.StartSize" Value="24" />
+      <Setter Property="theme:IconSlot.StartMargin" Value="0,0,8,0" />
+      <Setter Property="theme:IconSlot.EndSize" Value="24" />
+      <Setter Property="theme:IconSlot.EndMargin" Value="8,0,0,0" />
+    </Style>
+    <Style Selector="^.small">
+      <Setter Property="theme:IconSlot.StartMargin" Value="0,0,4,0" />
+      <Setter Property="theme:IconSlot.EndMargin" Value="4,0,0,0" />
+    </Style>
 
     <!-- `flat` is DropShadow="false": `.mud-fab-disable-elevation` drops the shadow in every state. -->
     <Style Selector="^.flat /template/ theme|PartBorder#PART_Root">

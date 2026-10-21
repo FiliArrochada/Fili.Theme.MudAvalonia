@@ -835,6 +835,10 @@ for something XAML cannot express on its own:
   eases from nothing to all.
 - **`ElevationOverlay`** is the inherited property `material-elevation-overlay` sets, which each
   surface reads on itself: a descendant selector made every Border watch all its ancestors.
+- **`IconSlot`** gives a `start-icon` or `end-icon` its host's size, gap and colour: the host's
+  theme sets inherited values, and the icon that carries the class takes them as they arrive. A
+  style ending in the icon would be matched against every control in the window; the class is
+  read when the icon joins its host, so put it on the icon in markup.
 - **`PartBorder`** is every Border in a hand-written template. It keeps them out of the app's
   Border class styles, which every Border in the window was matched against
   ([Traps](traps.md)).

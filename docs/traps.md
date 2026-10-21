@@ -416,6 +416,12 @@ its own, so tune against the gallery rather than against an app.
   are `PartBorder`s now, which those styles pass over by type, and the overlay sets an inherited
   property each surface reads on itself: 2.2 seconds. `StyleCostTests` keeps a plain Border out
   of the templates; measure a new top-level style that ends in a common type before keeping it.
+- **A property selector on an inherited value watches every control too.** The 23 descendant
+  styles that sized `start-icon` and `end-icon` per host (`Button.small :is(Control).start-icon`)
+  were rewritten as three, `:is(Control).start-icon[(theme|IconSlot.StartsSized)=True]` and two
+  more, reading what the host set: they cost 0.5 seconds on the benchmark screen, more than the 23
+  had. The class check and the property watch land on every control either way. The icon now
+  takes its host's values in code, as they arrive (`IconSlot`), and no style reaches it.
 - **A `Border` with square corners and a one-sided `BorderThickness` draws no `BoxShadow`.** A
   closed `expansion-panels` group's middle panels - no radius, a rule under them - lost their
   shadow, a notch in the group's edge, and in high contrast their ring. Rounded corners or a

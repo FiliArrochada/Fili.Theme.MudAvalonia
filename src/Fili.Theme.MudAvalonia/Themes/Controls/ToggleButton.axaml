@@ -359,6 +359,22 @@
       <Setter Property="Padding" Value="8" />
       <Setter Property="FontSize" Value="15" />
     </Style>
+    <Style Selector="^">
+      <Setter Property="theme:IconSlot.StartSize" Value="20" />
+      <Setter Property="theme:IconSlot.StartMargin" Value="-4,0,8,0" />
+      <Setter Property="theme:IconSlot.EndSize" Value="20" />
+      <Setter Property="theme:IconSlot.EndMargin" Value="8,0,-4,0" />
+    </Style>
+    <Style Selector="^.small">
+      <Setter Property="theme:IconSlot.StartSize" Value="18" />
+      <Setter Property="theme:IconSlot.StartMargin" Value="-2,0,8,0" />
+      <Setter Property="theme:IconSlot.EndSize" Value="18" />
+      <Setter Property="theme:IconSlot.EndMargin" Value="8,0,-2,0" />
+    </Style>
+    <Style Selector="^.large">
+      <Setter Property="theme:IconSlot.StartSize" Value="22" />
+      <Setter Property="theme:IconSlot.EndSize" Value="22" />
+    </Style>
     <Style Selector="^.outlined.small">
       <Setter Property="Padding" Value="3" />
     </Style>
@@ -725,6 +741,22 @@
       <Setter Property="Padding" Value="11,8" />
       <Setter Property="FontSize" Value="15" />
     </Style>
+    <Style Selector="^">
+      <Setter Property="theme:IconSlot.StartSize" Value="20" />
+      <Setter Property="theme:IconSlot.StartMargin" Value="-4,0,8,0" />
+      <Setter Property="theme:IconSlot.EndSize" Value="20" />
+      <Setter Property="theme:IconSlot.EndMargin" Value="8,0,-4,0" />
+    </Style>
+    <Style Selector="^.small">
+      <Setter Property="theme:IconSlot.StartSize" Value="18" />
+      <Setter Property="theme:IconSlot.StartMargin" Value="-2,0,8,0" />
+      <Setter Property="theme:IconSlot.EndSize" Value="18" />
+      <Setter Property="theme:IconSlot.EndMargin" Value="8,0,-2,0" />
+    </Style>
+    <Style Selector="^.large">
+      <Setter Property="theme:IconSlot.StartSize" Value="22" />
+      <Setter Property="theme:IconSlot.EndSize" Value="22" />
+    </Style>
 
     <!-- `.mud-icon-button-size-small`: 3px; large keeps 12px and grows the icon instead. -->
     <Style Selector="^.icon.small">
@@ -814,6 +846,22 @@
     <Style Selector="^.large">
       <Setter Property="Padding" Value="21,7" />
       <Setter Property="FontSize" Value="15" />
+    </Style>
+    <Style Selector="^">
+      <Setter Property="theme:IconSlot.StartSize" Value="20" />
+      <Setter Property="theme:IconSlot.StartMargin" Value="-4,0,8,0" />
+      <Setter Property="theme:IconSlot.EndSize" Value="20" />
+      <Setter Property="theme:IconSlot.EndMargin" Value="8,0,-4,0" />
+    </Style>
+    <Style Selector="^.small">
+      <Setter Property="theme:IconSlot.StartSize" Value="18" />
+      <Setter Property="theme:IconSlot.StartMargin" Value="-2,0,8,0" />
+      <Setter Property="theme:IconSlot.EndSize" Value="18" />
+      <Setter Property="theme:IconSlot.EndMargin" Value="8,0,-2,0" />
+    </Style>
+    <Style Selector="^.large">
+      <Setter Property="theme:IconSlot.StartSize" Value="22" />
+      <Setter Property="theme:IconSlot.EndSize" Value="22" />
     </Style>
 
     <!-- `.mud-button-outlined.mud-icon-button`: the default radius again, 5px; 4px small or large. -->
@@ -1147,6 +1195,22 @@
     <Style Selector="^.large">
       <Setter Property="Padding" Value="22,8" />
       <Setter Property="FontSize" Value="15" />
+    </Style>
+    <Style Selector="^">
+      <Setter Property="theme:IconSlot.StartSize" Value="20" />
+      <Setter Property="theme:IconSlot.StartMargin" Value="-4,0,8,0" />
+      <Setter Property="theme:IconSlot.EndSize" Value="20" />
+      <Setter Property="theme:IconSlot.EndMargin" Value="8,0,-4,0" />
+    </Style>
+    <Style Selector="^.small">
+      <Setter Property="theme:IconSlot.StartSize" Value="18" />
+      <Setter Property="theme:IconSlot.StartMargin" Value="-2,0,8,0" />
+      <Setter Property="theme:IconSlot.EndSize" Value="18" />
+      <Setter Property="theme:IconSlot.EndMargin" Value="8,0,-2,0" />
+    </Style>
+    <Style Selector="^.large">
+      <Setter Property="theme:IconSlot.StartSize" Value="22" />
+      <Setter Property="theme:IconSlot.EndSize" Value="22" />
     </Style>
     <Style Selector="^.icon.small">
       <Setter Property="Padding" Value="4" />

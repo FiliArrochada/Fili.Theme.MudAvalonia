@@ -204,4 +204,55 @@ public class RemainingOptionsTests
         Assert.Equal(24, large.Width);
         Assert.Equal(new Thickness(-6, 0, 6, 0), large.Margin);
     });
+    /// <summary>
+    /// A split or drop-down button's content sits inside plain Buttons in its template, which set
+    /// no icon values of their own, so the outer button's size reaches its icons; a toggle item
+    /// sizes them as a button does.
+    /// </summary>
+    [Theory]
+    [InlineData("SplitButton", null, 20, -4)]
+    [InlineData("SplitButton", "small", 18, -2)]
+    [InlineData("DropDownButton", "large", 22, -4)]
+    [InlineData("ToggleButton", "small", 18, -2)]
+    public Task EveryButtonSizesItsIconsAsMudButton(string type, string? size, double px, double outset) => UiThread.RunAsync(() =>
+    {
+        ContentControl host = type switch
+        {
+            "SplitButton" => new SplitButton(),
+            "DropDownButton" => new DropDownButton(),
+            _ => new ToggleButton(),
+        };
+        var (start, end) = Icons(host, size is null ? [] : [size]);
+
+        Assert.Equal(px, start.Width);
+        Assert.Equal(px, end.Height);
+        Assert.Equal(new Thickness(outset, 0, 8, 0), start.Margin);
+        Assert.Equal(new Thickness(8, 0, outset, 0), end.Margin);
+    });
+
+    /// <summary>A FAB's icons are 24px at any size, 8px from the label, 4px on a small one; a chip's end icon stays 18px.</summary>
+    [Fact]
+    public Task FabAndChipIconsKeepTheirOwnSizes() => UiThread.RunAsync(() =>
+    {
+        var (start, end) = Icons(new Button(), "fab", "extended", "small");
+        Assert.Equal(24, start.Width);
+        Assert.Equal(new Thickness(0, 0, 4, 0), start.Margin);
+        Assert.Equal(new Thickness(4, 0, 0, 0), end.Margin);
+
+        var (_, chipEnd) = Icons(new Button(), "chip", "large");
+        Assert.Equal(18, chipEnd.Width);
+        Assert.Equal(new Thickness(6, 0, -4, 0), chipEnd.Margin);
+    });
+
+    /// <summary>An icon marked start-icon outside any host keeps its own size and gap.</summary>
+    [Fact]
+    public Task AnIconOutsideAHostKeepsItsOwnSize() => UiThread.RunAsync(() =>
+    {
+        var plain = Matrix.Show(new PathIcon { Data = Geometry.Parse("M0 0h2v2H0z") });
+        var marked = Matrix.Show(new PathIcon { Classes = { "start-icon" }, Data = Geometry.Parse("M0 0h2v2H0z") });
+
+        Assert.Equal(plain.Width, marked.Width);
+        Assert.Equal(plain.Height, marked.Height);
+        Assert.Equal(default, marked.Margin);
+    });
 }

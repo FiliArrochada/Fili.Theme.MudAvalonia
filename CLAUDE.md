@@ -42,7 +42,8 @@ classes, `ControlTheme`s where a Material look cannot be faked without one, and 
   TextBox inside an AutoCompleteBox or NumericUpDown; `SpinColumn`, a number field's spin column
   inside its box; `CollapsePanel`, an expansion panel growing open; `ElevationOverlay`, the
   inherited property `material-elevation-overlay` sets; `PartBorder`, every Border in a
-  hand-written template; `MenuIconGutter`, a menu's shared icon
+  hand-written template; `IconSlot`, the icon size, gap and colour a host gives a `start-icon` or
+  `end-icon`; `MenuIconGutter`, a menu's shared icon
   column; `StartAdornment`, a text field's `:start-adornment`; `TabBarScroll`, the tab bar's
   scroll buttons; and `DataGridLastColumn` and
   `GroupIndentConverter`,
@@ -115,7 +116,9 @@ One line each; [`docs/traps.md`](docs/traps.md) has the full account and the tes
   hand-written template is a `PartBorder`, which `Border.*` styles pass over, and a selector into
   one names `theme|PartBorder`. Never end a descendant selector in a common type
   (`.material-elevation-overlay Border.card`): it watches every ancestor of every Border; read an
-  inherited property on the control instead (`StyleCostTests`).
+  inherited property on the control instead (`StyleCostTests`). Not with a property selector on
+  an inherited value either, `:is(Control)[(theme|X)=True]`: that watches every control too, and
+  cost more than the descendant styles it replaced; set it from the host in code (`IconSlot`).
 - A selector may cross only ONE `/template/` boundary; two throw at load and take other themes
   down with them.
 - A ControlTheme may not hold a child or descendant selector (`^.hover TreeViewItem`): it throws

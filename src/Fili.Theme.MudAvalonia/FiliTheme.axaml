@@ -1789,72 +1789,19 @@
     and 4px in (6px on a large chip); its end icon takes the close button's place, 18px, 6px from
     the label and 4px out.
   -->
-  <Style Selector="Button :is(Control).start-icon, ToggleButton :is(Control).start-icon, SplitButton :is(Control).start-icon, DropDownButton :is(Control).start-icon">
-    <Setter Property="Width" Value="20" />
-    <Setter Property="Height" Value="20" />
-    <Setter Property="Margin" Value="-4,0,8,0" />
-  </Style>
-  <Style Selector="Button :is(Control).end-icon, ToggleButton :is(Control).end-icon, SplitButton :is(Control).end-icon, DropDownButton :is(Control).end-icon">
-    <Setter Property="Width" Value="20" />
-    <Setter Property="Height" Value="20" />
-    <Setter Property="Margin" Value="8,0,-4,0" />
-  </Style>
-  <Style Selector="Button.small :is(Control).start-icon, ToggleButton.small :is(Control).start-icon, SplitButton.small :is(Control).start-icon, DropDownButton.small :is(Control).start-icon">
-    <Setter Property="Width" Value="18" />
-    <Setter Property="Height" Value="18" />
-    <Setter Property="Margin" Value="-2,0,8,0" />
-  </Style>
-  <Style Selector="Button.small :is(Control).end-icon, ToggleButton.small :is(Control).end-icon, SplitButton.small :is(Control).end-icon, DropDownButton.small :is(Control).end-icon">
-    <Setter Property="Width" Value="18" />
-    <Setter Property="Height" Value="18" />
-    <Setter Property="Margin" Value="8,0,-2,0" />
-  </Style>
-  <Style Selector="Button.large :is(Control).start-icon, ToggleButton.large :is(Control).start-icon, SplitButton.large :is(Control).start-icon, DropDownButton.large :is(Control).start-icon, Button.large :is(Control).end-icon, ToggleButton.large :is(Control).end-icon, SplitButton.large :is(Control).end-icon, DropDownButton.large :is(Control).end-icon">
-    <Setter Property="Width" Value="22" />
-    <Setter Property="Height" Value="22" />
-  </Style>
-
-  <Style Selector="Button.chip :is(Control).start-icon, ToggleButton.chip :is(Control).start-icon">
-    <Setter Property="Width" Value="20" />
-    <Setter Property="Height" Value="20" />
-    <Setter Property="Margin" Value="-4,0,4,0" />
-  </Style>
-  <Style Selector="Button.chip.small :is(Control).start-icon, ToggleButton.chip.small :is(Control).start-icon">
-    <Setter Property="Width" Value="18" />
-    <Setter Property="Height" Value="18" />
-  </Style>
-  <Style Selector="Button.chip.large :is(Control).start-icon, ToggleButton.chip.large :is(Control).start-icon">
-    <Setter Property="Width" Value="24" />
-    <Setter Property="Height" Value="24" />
-    <Setter Property="Margin" Value="-6,0,6,0" />
-  </Style>
-  <Style Selector="Button.chip :is(Control).end-icon, ToggleButton.chip :is(Control).end-icon">
-    <Setter Property="Width" Value="18" />
-    <Setter Property="Height" Value="18" />
-    <Setter Property="Margin" Value="6,0,-4,0" />
-  </Style>
+  <!--
+    MudButton's StartIcon and EndIcon, and MudChip's Icon: `start-icon` before the label, `end-icon`
+    after it, on whatever icon a button's content carries. Each host's theme says what its icons
+    take - 20px on a button, 18 small, 22 large; a chip's, a FAB's, a nav link's - and IconSlot.cs
+    sets it on the icon. No style here reaches the icon: one ending in :is(Control) is matched
+    against every control in the window.
+  -->
 
   <!-- A FAB's icons are MudIcon at its IconSize, Size.Medium: 24px whatever the FAB's size. In an
        `extended` FAB the label's gap sits between icon and text, 8px (4px when small). -->
   <Style Selector="Button.fab PathIcon">
     <Setter Property="Width" Value="24" />
     <Setter Property="Height" Value="24" />
-  </Style>
-  <Style Selector="Button.fab :is(Control).start-icon">
-    <Setter Property="Width" Value="24" />
-    <Setter Property="Height" Value="24" />
-    <Setter Property="Margin" Value="0,0,8,0" />
-  </Style>
-  <Style Selector="Button.fab :is(Control).end-icon">
-    <Setter Property="Width" Value="24" />
-    <Setter Property="Height" Value="24" />
-    <Setter Property="Margin" Value="8,0,0,0" />
-  </Style>
-  <Style Selector="Button.fab.small :is(Control).start-icon">
-    <Setter Property="Margin" Value="0,0,4,0" />
-  </Style>
-  <Style Selector="Button.fab.small :is(Control).end-icon">
-    <Setter Property="Margin" Value="4,0,0,0" />
   </Style>
 
   <Style Selector="TextBox.filled">
@@ -2177,21 +2124,22 @@
     <Setter Property="BorderThickness" Value="0,0,2,0" />
   </Style>
   <!-- The text keeps its 12px from where the padding ends; an icon pulls itself back into it. -->
-  <Style Selector="TreeView.nav TreeViewItem :is(Control).start-icon">
-    <Setter Property="Width" Value="24" />
-    <Setter Property="Height" Value="24" />
-    <Setter Property="Margin" Value="-12,0,12,0" />
-    <Setter Property="TextElement.Foreground" Value="{DynamicResource FiliDrawerIconBrush}" />
+  <!-- Set on the row, which its icon reads through IconSlot: a selector ending in the icon was
+       matched against every control in the window. -->
+  <Style Selector="TreeView.nav TreeViewItem">
+    <Setter Property="theme:IconSlot.StartSize" Value="24" />
+    <Setter Property="theme:IconSlot.StartMargin" Value="-12,0,12,0" />
+    <Setter Property="theme:IconSlot.Brush" Value="{DynamicResource FiliDrawerIconBrush}" />
   </Style>
-  <Style Selector="TreeView.nav TreeViewItem:disabled :is(Control).start-icon">
-    <Setter Property="TextElement.Foreground" Value="{DynamicResource FiliTextDisabledBrush}" />
+  <Style Selector="TreeView.nav TreeViewItem:disabled">
+    <Setter Property="theme:IconSlot.Brush" Value="{DynamicResource FiliTextDisabledBrush}" />
   </Style>
   <!-- GENERATED by ThemeColourGenerator: nav menu colours. -->
   <Style Selector="TreeView.nav.secondary TreeViewItem:selected /template/ theme|PartBorder#SelectionBorder">
     <Setter Property="BorderBrush" Value="{DynamicResource FiliSecondaryBrush}" />
   </Style>
-  <Style Selector="TreeView.nav.secondary TreeViewItem:selected :is(Control).start-icon">
-    <Setter Property="TextElement.Foreground" Value="{DynamicResource FiliSecondaryBrush}" />
+  <Style Selector="TreeView.nav.secondary TreeViewItem:selected">
+    <Setter Property="theme:IconSlot.Brush" Value="{DynamicResource FiliSecondaryBrush}" />
   </Style>
   <Style Selector="TreeView.nav.secondary TreeViewItem[IsExpanded=True] /template/ Path#PART_ExpandIcon">
     <Setter Property="Fill" Value="{DynamicResource FiliSecondaryBrush}" />
@@ -2207,8 +2155,8 @@
   <Style Selector="TreeView.nav.tertiary TreeViewItem:selected /template/ theme|PartBorder#SelectionBorder">
     <Setter Property="BorderBrush" Value="{DynamicResource FiliTertiaryBrush}" />
   </Style>
-  <Style Selector="TreeView.nav.tertiary TreeViewItem:selected :is(Control).start-icon">
-    <Setter Property="TextElement.Foreground" Value="{DynamicResource FiliTertiaryBrush}" />
+  <Style Selector="TreeView.nav.tertiary TreeViewItem:selected">
+    <Setter Property="theme:IconSlot.Brush" Value="{DynamicResource FiliTertiaryBrush}" />
   </Style>
   <Style Selector="TreeView.nav.tertiary TreeViewItem[IsExpanded=True] /template/ Path#PART_ExpandIcon">
     <Setter Property="Fill" Value="{DynamicResource FiliTertiaryBrush}" />
@@ -2224,8 +2172,8 @@
   <Style Selector="TreeView.nav.info TreeViewItem:selected /template/ theme|PartBorder#SelectionBorder">
     <Setter Property="BorderBrush" Value="{DynamicResource FiliInfoBrush}" />
   </Style>
-  <Style Selector="TreeView.nav.info TreeViewItem:selected :is(Control).start-icon">
-    <Setter Property="TextElement.Foreground" Value="{DynamicResource FiliInfoBrush}" />
+  <Style Selector="TreeView.nav.info TreeViewItem:selected">
+    <Setter Property="theme:IconSlot.Brush" Value="{DynamicResource FiliInfoBrush}" />
   </Style>
   <Style Selector="TreeView.nav.info TreeViewItem[IsExpanded=True] /template/ Path#PART_ExpandIcon">
     <Setter Property="Fill" Value="{DynamicResource FiliInfoBrush}" />
@@ -2241,8 +2189,8 @@
   <Style Selector="TreeView.nav.success TreeViewItem:selected /template/ theme|PartBorder#SelectionBorder">
     <Setter Property="BorderBrush" Value="{DynamicResource FiliSuccessBrush}" />
   </Style>
-  <Style Selector="TreeView.nav.success TreeViewItem:selected :is(Control).start-icon">
-    <Setter Property="TextElement.Foreground" Value="{DynamicResource FiliSuccessBrush}" />
+  <Style Selector="TreeView.nav.success TreeViewItem:selected">
+    <Setter Property="theme:IconSlot.Brush" Value="{DynamicResource FiliSuccessBrush}" />
   </Style>
   <Style Selector="TreeView.nav.success TreeViewItem[IsExpanded=True] /template/ Path#PART_ExpandIcon">
     <Setter Property="Fill" Value="{DynamicResource FiliSuccessBrush}" />
@@ -2258,8 +2206,8 @@
   <Style Selector="TreeView.nav.warning TreeViewItem:selected /template/ theme|PartBorder#SelectionBorder">
     <Setter Property="BorderBrush" Value="{DynamicResource FiliWarningBrush}" />
   </Style>
-  <Style Selector="TreeView.nav.warning TreeViewItem:selected :is(Control).start-icon">
-    <Setter Property="TextElement.Foreground" Value="{DynamicResource FiliWarningBrush}" />
+  <Style Selector="TreeView.nav.warning TreeViewItem:selected">
+    <Setter Property="theme:IconSlot.Brush" Value="{DynamicResource FiliWarningBrush}" />
   </Style>
   <Style Selector="TreeView.nav.warning TreeViewItem[IsExpanded=True] /template/ Path#PART_ExpandIcon">
     <Setter Property="Fill" Value="{DynamicResource FiliWarningBrush}" />
@@ -2275,8 +2223,8 @@
   <Style Selector="TreeView.nav.error TreeViewItem:selected /template/ theme|PartBorder#SelectionBorder">
     <Setter Property="BorderBrush" Value="{DynamicResource FiliErrorBrush}" />
   </Style>
-  <Style Selector="TreeView.nav.error TreeViewItem:selected :is(Control).start-icon">
-    <Setter Property="TextElement.Foreground" Value="{DynamicResource FiliErrorBrush}" />
+  <Style Selector="TreeView.nav.error TreeViewItem:selected">
+    <Setter Property="theme:IconSlot.Brush" Value="{DynamicResource FiliErrorBrush}" />
   </Style>
   <Style Selector="TreeView.nav.error TreeViewItem[IsExpanded=True] /template/ Path#PART_ExpandIcon">
     <Setter Property="Fill" Value="{DynamicResource FiliErrorBrush}" />
@@ -2292,8 +2240,8 @@
   <Style Selector="TreeView.nav.dark TreeViewItem:selected /template/ theme|PartBorder#SelectionBorder">
     <Setter Property="BorderBrush" Value="{DynamicResource FiliDarkBrush}" />
   </Style>
-  <Style Selector="TreeView.nav.dark TreeViewItem:selected :is(Control).start-icon">
-    <Setter Property="TextElement.Foreground" Value="{DynamicResource FiliDarkBrush}" />
+  <Style Selector="TreeView.nav.dark TreeViewItem:selected">
+    <Setter Property="theme:IconSlot.Brush" Value="{DynamicResource FiliDarkBrush}" />
   </Style>
   <Style Selector="TreeView.nav.dark TreeViewItem[IsExpanded=True] /template/ Path#PART_ExpandIcon">
     <Setter Property="Fill" Value="{DynamicResource FiliDarkBrush}" />
@@ -2333,11 +2281,11 @@
   </Style>
   <!-- The 12px between icon and text is `.mud-nav-link-text`'s, so it goes with the text: an icon
        keeping it would make each row 68px in a 56px rail, and the menu would scroll sideways. -->
-  <Style Selector="SplitView:closed:compactinline TreeView.nav TreeViewItem :is(Control).start-icon,
-                   SplitView:closed:compactoverlay TreeView.nav TreeViewItem :is(Control).start-icon,
-                   DrawerPage[IsOpen=False][DisplayMode=CompactInline] TreeView.nav TreeViewItem :is(Control).start-icon,
-                   DrawerPage[IsOpen=False][DisplayMode=CompactOverlay] TreeView.nav TreeViewItem :is(Control).start-icon">
-    <Setter Property="Margin" Value="-12,0,0,0" />
+  <Style Selector="SplitView:closed:compactinline TreeView.nav TreeViewItem,
+                   SplitView:closed:compactoverlay TreeView.nav TreeViewItem,
+                   DrawerPage[IsOpen=False][DisplayMode=CompactInline] TreeView.nav TreeViewItem,
+                   DrawerPage[IsOpen=False][DisplayMode=CompactOverlay] TreeView.nav TreeViewItem">
+    <Setter Property="theme:IconSlot.StartMargin" Value="-12,0,0,0" />
   </Style>
   <!-- A group's row still carries its ExpandMore at the end, which MudBlazor's closed mini drawer
        does not hide either: its rows are the rail's width and the arrow runs past the edge. So the

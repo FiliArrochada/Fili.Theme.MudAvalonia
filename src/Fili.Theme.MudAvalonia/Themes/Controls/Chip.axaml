@@ -1313,6 +1313,19 @@
       <Setter Property="FontSize" Value="16" />
       <Setter Property="Padding" Value="16,0" />
     </Style>
+    <Style Selector="^">
+      <Setter Property="theme:IconSlot.StartSize" Value="20" />
+      <Setter Property="theme:IconSlot.StartMargin" Value="-4,0,4,0" />
+      <Setter Property="theme:IconSlot.EndSize" Value="18" />
+      <Setter Property="theme:IconSlot.EndMargin" Value="6,0,-4,0" />
+    </Style>
+    <Style Selector="^.small">
+      <Setter Property="theme:IconSlot.StartSize" Value="18" />
+    </Style>
+    <Style Selector="^.large">
+      <Setter Property="theme:IconSlot.StartSize" Value="24" />
+      <Setter Property="theme:IconSlot.StartMargin" Value="-6,0,6,0" />
+    </Style>
 
     <!-- `.mud-disabled`: half opacity. -->
     <Style Selector="^:disabled">

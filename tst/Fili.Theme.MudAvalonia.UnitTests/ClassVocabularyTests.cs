@@ -130,6 +130,13 @@ public class ClassVocabularyTests
     ];
 
     /// <summary>
+    /// Classes the theme reads in code rather than in a selector: IconSlot sets a host's icon size,
+    /// gap and colour on the icon that carries one, since a style ending in the icon would be
+    /// matched against every control in the window.
+    /// </summary>
+    private static readonly string[] ReadInCode = ["end-icon", "start-icon"];
+
+    /// <summary>
     /// The classes the theme actually uses must match the declared list exactly, in both
     /// directions. An undeclared class is a collision nobody signed off on; a declared one that
     /// no selector uses means the list is lying to adopters.
@@ -156,6 +163,7 @@ public class ClassVocabularyTests
             // [(DataValidationErrors.HasErrors)=True] — which otherwise reads as a class.
             .Select(s => Regex.Replace(s, @"\[[^\]]*\]", string.Empty))
             .SelectMany(s => Regex.Matches(s, @"\.([A-Za-z][A-Za-z0-9-]*)").Select(m => m.Groups[1].Value))
+            .Concat(ReadInCode)
             .Distinct()
             .OrderBy(c => c, StringComparer.Ordinal)
             .ToArray();
