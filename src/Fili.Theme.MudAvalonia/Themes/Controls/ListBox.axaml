@@ -167,7 +167,7 @@
 
     <!-- A list inside a card or a drawer has no ground of its own; one that needs a surface says
          so. This mirrors MudPaper wrapping a MudList rather than MudList painting itself. -->
-    <Style Selector="^.surface">
+    <Style Selector="^.paper">
       <Setter Property="Background" Value="{DynamicResource FiliSurfaceBrush}" />
       <Setter Property="CornerRadius" Value="{DynamicResource FiliCornerRadius}" />
     </Style>

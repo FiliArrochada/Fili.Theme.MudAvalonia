@@ -169,16 +169,17 @@ A split button takes the same classes as a button and they mean the same things:
 ```
 
 ```xml
-<Border Classes="surface elevation4" Padding="16">
+<Border Classes="paper elevation4" Padding="16">
   <TextBlock Classes="h6" Text="Section" />
 </Border>
 
-<Border Classes="surface outlined" Padding="16">…</Border>
+<Border Classes="paper outlined" Padding="16">…</Border>
 ```
 
-`pa-4` is MudBlazor's 4 × 4px spacing step. Here it is a plain `Padding="16"`. `FiliSpacing4`
-holds the same 16 as a number, so it fills a `StackPanel`'s `Spacing`; a `Padding` or `Margin`
-is a `Thickness`, and a number resource there fails to cast. The other layout utilities are
+`pa-4` is MudBlazor's 4 × 4px spacing step. Here it is `Padding="16"`, or
+`Padding="{DynamicResource FiliSpacing4Thickness}"`; `FiliSpacing4` holds the same 16 as a number,
+for a `StackPanel`'s `Spacing`. Each key fits only its own kind: a number in a `Padding` fails to
+cast. The other layout utilities are
 properties too: see [Known gaps](known-gaps.md).
 
 ## App bar
@@ -411,12 +412,12 @@ it. [MudBlazor parity](mudblazor-parity.md) lists the keys. `LabelPlacement` is 
 <TabControl Classes="primary centered rounded border">…</TabControl>
 
 <!-- <MudTabs Position="Position.Left" Elevation="4" SliderColor="Color.Secondary"> -->
-<TabControl TabStripPlacement="Left" Classes="elevation4 slider-secondary">…</TabControl>
+<TabControl TabStripPlacement="Left" Classes="elevation4 indicator-secondary">…</TabControl>
 
 <!-- <MudProgressLinear Color="Color.Primary" Striped="true" Value="70" /> -->
 <ProgressBar Classes="primary striped" Value="70" />
 
-<ListBox Classes="surface">
+<ListBox Classes="paper">
   <ListBoxItem Classes="dense">First</ListBoxItem>
   <ListBoxItem Classes="dense">Second</ListBoxItem>
 </ListBox>

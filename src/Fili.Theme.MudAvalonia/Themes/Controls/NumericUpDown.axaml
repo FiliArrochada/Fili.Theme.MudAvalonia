@@ -101,7 +101,7 @@
                               IsTabStop="{TemplateBinding IsTabStop}">
                   <Path Width="24" Height="24"
                         Stretch="None"
-                        Data="{DynamicResource FiliArrowDropUpGeometry}"
+                        Data="{DynamicResource FiliKeyboardArrowUpGeometry}"
                         Fill="{DynamicResource FiliActionDefaultBrush}" />
                 </RepeatButton>
                 <RepeatButton x:Name="PART_DecreaseButton"
@@ -109,7 +109,7 @@
                               IsTabStop="{TemplateBinding IsTabStop}">
                   <Path Width="24" Height="24"
                         Stretch="None"
-                        Data="{DynamicResource FiliArrowDropDownGeometry}"
+                        Data="{DynamicResource FiliKeyboardArrowDownGeometry}"
                         Fill="{DynamicResource FiliActionDefaultBrush}" />
                 </RepeatButton>
               </UniformGrid>

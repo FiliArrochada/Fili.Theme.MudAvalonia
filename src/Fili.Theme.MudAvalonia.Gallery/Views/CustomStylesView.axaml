@@ -25,7 +25,7 @@
                  HorizontalAlignment="Left"
                  Text="Avalonia's page with a drawer. Its pane toggles are MudLayout's drawer button, a MudIconButton: grey, round, the same open or closed. Closed and compact, it is a mini drawer as a compact SplitView is: a 56px rail showing only the links' icons. Everything else - the top bar and its title - is the fork's own." />
       <StackPanel Orientation="Horizontal" Spacing="16">
-        <Border Classes="surface elevation1" Width="520" Height="200" ClipToBounds="True">
+        <Border Classes="paper elevation1" Width="520" Height="200" ClipToBounds="True">
           <DrawerPage Header="Library" IsOpen="True" DrawerLayoutBehavior="Split" DrawerBreakpointLength="0" DrawerLength="200">
             <DrawerPage.Drawer>
               <TreeView Classes="nav" Margin="0,8">
@@ -39,7 +39,7 @@
             </ContentPage>
           </DrawerPage>
         </Border>
-        <Border Classes="surface elevation1" Width="360" Height="200" ClipToBounds="True">
+        <Border Classes="paper elevation1" Width="360" Height="200" ClipToBounds="True">
           <DrawerPage Header="Library" IsOpen="False" DrawerLayoutBehavior="CompactInline" DrawerBreakpointLength="0">
             <DrawerPage.Drawer>
               <TreeView Classes="nav" Margin="0,8">
@@ -75,7 +75,7 @@
                  MaxWidth="760"
                  HorizontalAlignment="Left"
                  Text="MudBlazor's loading pattern, MudOverlay with DarkBackground and Absolute over the content and an indeterminate MudProgressCircular on it. There is no overlay control here: a Panel over the content takes FiliOverlayDarkBrush, and the spinner is circular on a ProgressBar. Show the Panel while loading; nothing behind it can be clicked." />
-      <Border Classes="surface elevation1" Width="520" Height="200" ClipToBounds="True" HorizontalAlignment="Left">
+      <Border Classes="paper elevation1" Width="520" Height="200" ClipToBounds="True" HorizontalAlignment="Left">
         <Panel>
           <StackPanel Margin="16" Spacing="8">
             <TextBlock Classes="h6" Text="Library" />

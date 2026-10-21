@@ -15,7 +15,7 @@ namespace Fili.Theme.MudAvalonia;
 /// <para>
 /// MudBlazor draws one slider under the tab row and transitions its <c>left</c> (or <c>top</c>,
 /// for a vertical bar) by .3s cubic-bezier(.64,.09,.08,1); its width jumps. Here every tab keeps
-/// its own <c>PART_Indicator</c>, so the colour, placement and <c>hide-slider</c> styles still
+/// its own <c>PART_Indicator</c>, so the colour, placement and <c>hide-indicator</c> styles still
 /// apply to it, and this moves the newly selected one: it is put, untransitioned, at the old
 /// indicator's offset, and then let go, so the <c>RenderTransform</c> transition its template
 /// declares slides it home. Its width is its own tab's from the start, as MudBlazor's is.

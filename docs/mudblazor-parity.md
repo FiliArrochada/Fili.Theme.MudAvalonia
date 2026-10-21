@@ -57,6 +57,7 @@ whole region) and that control draws its own glyph in the theme's place:
 | MudRadio `CheckedIcon`, `UncheckedIcon` | `FiliRadioCheckedGeometry`, `FiliRadioUncheckedGeometry` |
 | MudSwitch `ThumbIcon` (none by default) | `FiliSwitchThumbIconGeometry` |
 | MudSelect `OpenIcon` (shown while closed), `CloseIcon` (shown while open) | `FiliArrowDropDownGeometry`, `FiliArrowDropUpGeometry` |
+| MudNumericField `NumericUpIcon`, `NumericDownIcon` | `FiliKeyboardArrowUpGeometry`, `FiliKeyboardArrowDownGeometry` |
 | MudExpansionPanel `Icon`, MudNavGroup `ExpandIcon` | `FiliExpandMoreGeometry` |
 | MudTreeView `ExpandButtonIcon` | `FiliChevronRightGeometry` |
 | MudTabs `PrevIcon`, `NextIcon` | `FiliNavigateBeforeGeometry`, `FiliChevronRightGeometry` |
@@ -224,7 +225,7 @@ Put initials, a `PathIcon` or an `Image` inside: `<Border Classes="avatar primar
 
 | MudBlazor | Here | |
 |---|---|---|
-| `MudPaper` | `Border.surface` | ≈ surface fill and the default radius, but no shadow: MudPaper's `Elevation` defaults to 1, so it is `surface elevation1` (a `card` carries it) |
+| `MudPaper` | `Border.paper` | ≈ surface fill and the default radius, but no shadow: MudPaper's `Elevation` defaults to 1, so it is `paper elevation1` (a `card` carries it) |
 | `Elevation="0…25"` | `elevation0` … `elevation25` | ✅ every level `_elevation.scss` has; three shadow layers each, from `Shadow.cs` |
 | (none: Material's dark-theme overlay) | `material-elevation-overlay` on a window or container | ➕ in dark, each raised surface inside lightened by white at its level's opacity, 5% at 1 to 16% at 24: papers, cards, panels, grids, menus, selects and flyouts. Light and high contrast unchanged |
 | `Outlined` | `outlined` | ✅ 1px `lines-default` |
@@ -410,7 +411,7 @@ Put initials, a `PathIcon` or an `Image` inside: `<Border Classes="avatar primar
 | MudBlazor | Here | |
 |---|---|---|
 | 48px strip, 2px indicator | the same | ✅ |
-| tab bar | the same | ✅ `surface`, with no rule under it until `Border` |
+| tab bar | the same | ✅ the surface colour, with no rule under it until `Border` |
 | tab text | the same | ✅ text-primary, primary when active, text-disabled when disabled |
 | hover | the same | ✅ `action-default-hover`; `primary-hover` on the active tab |
 | `MinimumTabWidth` (160px) | the same | ✅ |
@@ -418,10 +419,10 @@ Put initials, a `PathIcon` or an `Image` inside: `<Border Classes="avatar primar
 | `Border` / `Outlined` | `border` / `outlined` | ✅ a `lines-default` rule under the bar, or round it |
 | `Rounded` / `Centered` | `rounded` / `centered` | ✅ |
 | (none: Material's fixed tabs) | `material-fixed-tabs` | ➕ the tabs share the bar in equal parts, under `MinimumTabWidth`, and never scroll |
-| `HideSlider` | `hide-slider` | ✅ |
+| `HideSlider` | `hide-indicator` | ✅ |
 | `Position` | `TabStripPlacement` on a `TabControl` | ✅ Top, Bottom, Left, Right: the bar docks there, `border` draws its rule on the content side, and the indicator follows |
 | `Elevation` | `elevation0` … `elevation25` | ✅ on the bar, outside `rounded`'s clip |
-| `SliderColor` | `slider-primary` … `slider-dark` | ✅ the indicator alone, over any bar colour |
+| `SliderColor` | `indicator-primary` … `indicator-dark` | ✅ the indicator alone, over any bar colour |
 | sliding indicator, `SliderAnimation` (default true) | the indicator slides; `no-animation` for false | ✅ .3s, cubic-bezier(.64,.09,.08,1), the width jumping; `no-animation` puts the new tab's indicator under it at once |
 | uppercase tab text (`.mud-tab`) | the same | ✅ a string `Header` is uppercase; `FiliButtonTextTransform` is the switch, as for buttons |
 | `Disabled` on the tabs | `IsEnabled="False"` | ✅ text-disabled |
@@ -434,7 +435,7 @@ Put initials, a `PathIcon` or an `Image` inside: `<Border Classes="avatar primar
 | `ShowCloseIcon` | a button in the `Header` | ≈ closing is the app's |
 | `Header`, `HeaderPosition`, `TabPanelHeader` | `HeaderTemplate`, or content beside the bar | ≈ |
 | `MaxHeight` | `MaxHeight` | ≈ |
-| `ApplyEffectsToContainer` | a `Border.surface` with an elevation class round the control | ≈ |
+| `ApplyEffectsToContainer` | a `Border.paper` with an elevation class round the control | ≈ |
 | `Ripple` (default true) | on | ✅ in the tab's text colour |
 
 ### MudList → `ListBox`
@@ -445,7 +446,7 @@ Put initials, a `PathIcon` or an `Image` inside: `<Border Classes="avatar primar
 | `Dense` | `dense` on the `ListBox` or an item | ✅ 4px top and bottom, body2 |
 | the text | the same | ✅ body1, MudListItem's own; body2 when dense |
 | a row's height | the same | ✅ 48px, 36 dense: the row's 8px (4px) and `.mud-list-item-text`'s 4px round the line |
-| on a surface | `ListBox.surface` | ✅ |
+| on a paper | `ListBox.paper` | ✅ |
 | `Disabled` | `IsEnabled="False"` | ✅ action-disabled |
 | `Color` (the selection, default `Primary`) | `primary` … `dark` on the `ListBox` | ✅ the colour as the text over its hover tint |
 | `Gutters` (default true) | `no-gutters` on the `ListBox` or an item | ✅ no 16px sides |
@@ -707,7 +708,7 @@ one with children:
 |---|---|---|
 | the divider | `GridSplitter` | ≈ left on the forked template on purpose; see [Known gaps](known-gaps.md) |
 | `Horizontal`, `MinPanelSize` | `ResizeDirection`, the columns' or rows' `MinWidth` / `MinHeight` | ≈ |
-| `Rounded`, `Elevation`, `PanelGap`, `Padding`, `Transparent` | a `Border.surface` round each panel | ≈ |
+| `Rounded`, `Elevation`, `PanelGap`, `Padding`, `Transparent` | a `Border.paper` round each panel | ≈ |
 
 ### Not here
 
@@ -764,7 +765,7 @@ Light and dark are MudBlazor's `Palette.cs` and `PaletteDark.cs`; high contrast 
 | `Shadow.cs` | `FiliElevation0` … `FiliElevation25` | ✅ three layers each; a 1px ring in high contrast |
 | `DefaultBorderRadius` | `FiliCornerRadius` | ✅ 4px |
 | `AppbarHeight`, `DrawerWidthLeft`, `DrawerMiniWidthLeft` | `FiliAppbarHeight`, `FiliDrawerWidth`, `FiliDrawerMiniWidth` | ✅ |
-| spacing scale (`pa-4` and friends) | `Padding`, `Margin`, `Spacing`; `FiliSpacing1` … `FiliSpacing8` | ≈ properties, not classes; the resources are numbers, for a `Spacing`, not a `Thickness` |
+| spacing scale (`pa-4` and friends) | `Padding`, `Margin`, `Spacing`; `FiliSpacing0` … `FiliSpacing20` and `FiliSpacing0Thickness` … `FiliSpacing20Thickness` | ≈ properties, not classes: MudBlazor's 0 to 20 steps of 4px, a number for a `Spacing` and a `Thickness` on every side for `pa-N` and `ma-N`; a one-sided step is written out |
 | font | Roboto, embedded | ✅ Light, Regular and Medium as static faces |
 
 ### Theme variants

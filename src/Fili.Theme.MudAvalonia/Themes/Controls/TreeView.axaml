@@ -239,7 +239,7 @@
          its items, and a ControlTheme may not hold a descendant selector. -->
 
     <!-- Same opt-in as the list: a tree inside a drawer already has a ground. -->
-    <Style Selector="^.surface">
+    <Style Selector="^.paper">
       <Setter Property="Background" Value="{DynamicResource FiliSurfaceBrush}" />
       <Setter Property="CornerRadius" Value="{DynamicResource FiliCornerRadius}" />
     </Style>

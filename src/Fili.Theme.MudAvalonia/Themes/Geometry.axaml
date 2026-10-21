@@ -4,9 +4,10 @@
   The 4px corner radius is doing more work than it looks: it is what keeps the look crisp
   rather than bubbly, and it is markedly tighter than the Avalonia Fluent default.
 
-  The spacing scale is Material 4px units, matching the MudBlazor pa-N / ma-N classes
-  (pa-1 = 4px, pa-4 = 16px). Generated utility Classes are a follow-up; for now these are
-  the raw values to reference from Margin and Padding.
+  The spacing scale is MudBlazor's, $spacing-values in utilities/spacing/_spacing.scss: 0 to 20
+  steps of 4px (pa-1 = 4px, pa-4 = 16px). Each step twice: FiliSpacingN a number, for a panel's
+  Spacing or a size, and FiliSpacingNThickness the same on every side, for a Padding or Margin
+  (pa-N, ma-N). A one-sided step (pl-4, mx-2) is a Thickness written out.
 -->
 <ResourceDictionary xmlns="https://github.com/avaloniaui"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -36,12 +37,49 @@
   -->
   <sys:Double x:Key="FiliInputMinWidth">120</sys:Double>
 
-  <!-- 4px spacing scale -->
+  <!-- The 4px spacing scale, 0 to 20: a number for a Spacing, a Thickness for a Padding or Margin. -->
+  <sys:Double x:Key="FiliSpacing0">0</sys:Double>
   <sys:Double x:Key="FiliSpacing1">4</sys:Double>
   <sys:Double x:Key="FiliSpacing2">8</sys:Double>
   <sys:Double x:Key="FiliSpacing3">12</sys:Double>
   <sys:Double x:Key="FiliSpacing4">16</sys:Double>
+  <sys:Double x:Key="FiliSpacing5">20</sys:Double>
   <sys:Double x:Key="FiliSpacing6">24</sys:Double>
+  <sys:Double x:Key="FiliSpacing7">28</sys:Double>
   <sys:Double x:Key="FiliSpacing8">32</sys:Double>
+  <sys:Double x:Key="FiliSpacing9">36</sys:Double>
+  <sys:Double x:Key="FiliSpacing10">40</sys:Double>
+  <sys:Double x:Key="FiliSpacing11">44</sys:Double>
+  <sys:Double x:Key="FiliSpacing12">48</sys:Double>
+  <sys:Double x:Key="FiliSpacing13">52</sys:Double>
+  <sys:Double x:Key="FiliSpacing14">56</sys:Double>
+  <sys:Double x:Key="FiliSpacing15">60</sys:Double>
+  <sys:Double x:Key="FiliSpacing16">64</sys:Double>
+  <sys:Double x:Key="FiliSpacing17">68</sys:Double>
+  <sys:Double x:Key="FiliSpacing18">72</sys:Double>
+  <sys:Double x:Key="FiliSpacing19">76</sys:Double>
+  <sys:Double x:Key="FiliSpacing20">80</sys:Double>
+
+  <Thickness x:Key="FiliSpacing0Thickness">0</Thickness>
+  <Thickness x:Key="FiliSpacing1Thickness">4</Thickness>
+  <Thickness x:Key="FiliSpacing2Thickness">8</Thickness>
+  <Thickness x:Key="FiliSpacing3Thickness">12</Thickness>
+  <Thickness x:Key="FiliSpacing4Thickness">16</Thickness>
+  <Thickness x:Key="FiliSpacing5Thickness">20</Thickness>
+  <Thickness x:Key="FiliSpacing6Thickness">24</Thickness>
+  <Thickness x:Key="FiliSpacing7Thickness">28</Thickness>
+  <Thickness x:Key="FiliSpacing8Thickness">32</Thickness>
+  <Thickness x:Key="FiliSpacing9Thickness">36</Thickness>
+  <Thickness x:Key="FiliSpacing10Thickness">40</Thickness>
+  <Thickness x:Key="FiliSpacing11Thickness">44</Thickness>
+  <Thickness x:Key="FiliSpacing12Thickness">48</Thickness>
+  <Thickness x:Key="FiliSpacing13Thickness">52</Thickness>
+  <Thickness x:Key="FiliSpacing14Thickness">56</Thickness>
+  <Thickness x:Key="FiliSpacing15Thickness">60</Thickness>
+  <Thickness x:Key="FiliSpacing16Thickness">64</Thickness>
+  <Thickness x:Key="FiliSpacing17Thickness">68</Thickness>
+  <Thickness x:Key="FiliSpacing18Thickness">72</Thickness>
+  <Thickness x:Key="FiliSpacing19Thickness">76</Thickness>
+  <Thickness x:Key="FiliSpacing20Thickness">80</Thickness>
 
 </ResourceDictionary>

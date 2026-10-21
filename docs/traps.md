@@ -408,7 +408,7 @@ its own, so tune against the gallery rather than against an app.
   before capturing. Raise that constant if a longer animation starts on load; do not mask a
   region whose colours the suite is meant to be watching.
 - **A style costs every control of the type its selector ends in.** Avalonia cannot know a class
-  will never come, so a style ending in `Border.surface` sets up a watcher on every Border in the
+  will never come, so a style ending in `Border.paper` sets up a watcher on every Border in the
   window, and a descendant one watches each Border's ancestors too. A screen of 1,600 ordinary
   controls built in 7.3 seconds here against the forked base's 1.2: nineteen in twenty of its
   Borders are template parts, each paying for 127 Border class styles, and 27 descendant overlay

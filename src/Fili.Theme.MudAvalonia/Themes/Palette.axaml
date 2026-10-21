@@ -494,6 +494,7 @@
   <SolidColorBrush x:Key="FiliWarningLightenBrush" Color="{DynamicResource FiliWarningLightenColor}" />
   <SolidColorBrush x:Key="FiliErrorLightenBrush" Color="{DynamicResource FiliErrorLightenColor}" />
   <SolidColorBrush x:Key="FiliDarkLightenBrush" Color="{DynamicResource FiliDarkLightenColor}" />
+  <SolidColorBrush x:Key="FiliBlackBrush"   Color="{DynamicResource FiliBlackColor}" />
   <SolidColorBrush x:Key="FiliWhiteBrush"   Color="{DynamicResource FiliWhiteColor}" />
 
   <SolidColorBrush x:Key="FiliTextPrimaryBrush"   Color="{DynamicResource FiliTextPrimaryColor}" />

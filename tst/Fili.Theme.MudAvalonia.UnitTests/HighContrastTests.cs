@@ -293,7 +293,7 @@ public class HighContrastTests
             Assert.Equal(Colors.Orange, Elevation(4, HighContrast)[0].Color);
             Assert.Equal(Colors.Orange, Shadows("FiliElevationOverlay4", HighContrast)[0].Color);
 
-            var surface = new Border { Classes = { "surface", "elevation4" }, Width = 100, Height = 100 };
+            var surface = new Border { Classes = { "paper", "elevation4" }, Width = 100, Height = 100 };
             var window = new Window { Content = surface };
 
             window.Show();

@@ -258,8 +258,8 @@ public class TabsAndAppBarTests
     [Fact]
     public Task HideSliderHidesTheIndicator() => UiThread.RunAsync(() =>
     {
-        var tabs = Tabs("hide-slider", "primary");
-        var strip = Strip("hide-slider");
+        var tabs = Tabs("hide-indicator", "primary");
+        var strip = Strip("hide-indicator");
 
         Assert.False(Named<Border>(Item(tabs, 0), "PART_Indicator").IsVisible);
         Assert.False(Named<Border>((TabStripItem)strip.Items[0]!, "PART_Indicator").IsVisible);

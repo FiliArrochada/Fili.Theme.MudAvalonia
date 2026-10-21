@@ -14,6 +14,10 @@ resolves every key in each variant: a new key is listed here in the change that 
 
 Every colour as a `*Color` and its `*Brush`, in light, dark and high contrast. Values and provenance: [Tokens](../README.md#tokens).
 
+One exception: `FiliSkeletonWaveColor` is the middle stop of the wave's two gradients,
+`FiliSkeletonWaveStartBrush` and `FiliSkeletonWaveEndBrush`, and has no solid brush, as the theme
+paints nothing in it alone.
+
 - `FiliActionDefaultBrush`
 - `FiliActionDefaultColor`
 - `FiliActionDefaultHoverBrush`
@@ -36,6 +40,7 @@ Every colour as a `*Color` and its `*Brush`, in light, dark and high contrast. V
 - `FiliBackgroundGrayColor`
 - `FiliBadgeTextBrush`
 - `FiliBadgeTextColor`
+- `FiliBlackBrush`
 - `FiliBlackColor`
 - `FiliDarkBrush`
 - `FiliDarkColor`
@@ -249,8 +254,10 @@ MudBlazor's 26 shadow levels as `BoxShadows`, 0 to 25. In high contrast each is 
 
 ## Geometry
 
-Corner radii, border thickness, the 4px spacing scale and the layout sizes. The spacing steps are
-numbers, for a `Spacing`; a `Padding` or `Margin` takes a `Thickness`.
+Corner radii, border thickness, the 4px spacing scale and the layout sizes. The spacing scale is
+MudBlazor's, 0 to 20 steps of 4px, each twice: `FiliSpacing4` is 16 as a number, for a panel's
+`Spacing`, and `FiliSpacing4Thickness` is 16 on every side, for a `Padding` or `Margin`
+(`pa-4`, `ma-4`).
 
 - `FiliAppbarHeight`
 - `FiliBorderThickness`
@@ -260,12 +267,48 @@ numbers, for a `Spacing`; a `Padding` or `Margin` takes a `Thickness`.
 - `FiliDrawerMiniWidth`
 - `FiliDrawerWidth`
 - `FiliInputMinWidth`
+- `FiliSpacing0`
 - `FiliSpacing1`
 - `FiliSpacing2`
 - `FiliSpacing3`
 - `FiliSpacing4`
+- `FiliSpacing5`
 - `FiliSpacing6`
+- `FiliSpacing7`
 - `FiliSpacing8`
+- `FiliSpacing9`
+- `FiliSpacing10`
+- `FiliSpacing11`
+- `FiliSpacing12`
+- `FiliSpacing13`
+- `FiliSpacing14`
+- `FiliSpacing15`
+- `FiliSpacing16`
+- `FiliSpacing17`
+- `FiliSpacing18`
+- `FiliSpacing19`
+- `FiliSpacing20`
+- `FiliSpacing0Thickness`
+- `FiliSpacing1Thickness`
+- `FiliSpacing2Thickness`
+- `FiliSpacing3Thickness`
+- `FiliSpacing4Thickness`
+- `FiliSpacing5Thickness`
+- `FiliSpacing6Thickness`
+- `FiliSpacing7Thickness`
+- `FiliSpacing8Thickness`
+- `FiliSpacing9Thickness`
+- `FiliSpacing10Thickness`
+- `FiliSpacing11Thickness`
+- `FiliSpacing12Thickness`
+- `FiliSpacing13Thickness`
+- `FiliSpacing14Thickness`
+- `FiliSpacing15Thickness`
+- `FiliSpacing16Thickness`
+- `FiliSpacing17Thickness`
+- `FiliSpacing18Thickness`
+- `FiliSpacing19Thickness`
+- `FiliSpacing20Thickness`
 
 ## Typography
 
@@ -336,6 +379,8 @@ Every icon the theme draws. Set one in a control's `Resources`, or a parent's, t
 - `FiliEventNoteGeometry`
 - `FiliExpandMoreGeometry`
 - `FiliInfoOutlinedGeometry`
+- `FiliKeyboardArrowDownGeometry`
+- `FiliKeyboardArrowUpGeometry`
 - `FiliNavigateBeforeGeometry`
 - `FiliRadioCheckedGeometry`
 - `FiliRadioUncheckedGeometry`

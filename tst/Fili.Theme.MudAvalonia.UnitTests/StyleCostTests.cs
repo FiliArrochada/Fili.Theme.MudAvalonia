@@ -12,7 +12,7 @@ namespace Fili.Theme.MudAvalonia.UnitTests;
 ///
 /// <para>
 /// Avalonia matches a style against every control of the type its selector ends in, and a class
-/// can arrive later, so a style ending in <c>Border.surface</c> sets up a watcher on every Border
+/// can arrive later, so a style ending in <c>Border.paper</c> sets up a watcher on every Border
 /// in the window whether it carries the class or not; a descendant selector watches each one's
 /// ancestors as well. A screen of 1,600 ordinary controls took 7.3 seconds to build here against
 /// the forked base's 1.2: nineteen in twenty Borders are parts of a control's template, and each

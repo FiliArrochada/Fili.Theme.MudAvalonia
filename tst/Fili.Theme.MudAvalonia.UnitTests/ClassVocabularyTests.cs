@@ -45,7 +45,7 @@ public class ClassVocabularyTests
         // Surfaces, on Border, and the Square of MudCard, MudAvatar and MudExpansionPanels, which
         // reach the card's media, the avatar's image and every panel. Elsewhere Square is
         // CornerRadius="0", and no class.
-        "appbar", "square", "surface",
+        "appbar", "square", "paper",
 
         // Elevation: every level _elevation.scss has, mud-elevation-0 to mud-elevation-25.
         "elevation0", "elevation1", "elevation2", "elevation3", "elevation4", "elevation5",
@@ -65,7 +65,7 @@ public class ClassVocabularyTests
         "dense", "large", "medium", "small",
 
         // Placement and decoration, from MudDivider, MudLink and MudTabs.
-        "border", "centered", "hide-slider", "inset", "light", "middle", "no-underline", "underline",
+        "border", "centered", "hide-indicator", "inset", "light", "middle", "no-underline", "underline",
         "vertical",
 
         // Material's fixed tabs, which MudTabs does not offer, named for where they come from so
@@ -122,8 +122,8 @@ public class ClassVocabularyTests
         "thumb-secondary", "thumb-success", "thumb-tertiary", "thumb-warning",
 
         // MudTabs' SliderColor, one per palette colour.
-        "slider-dark", "slider-error", "slider-info", "slider-primary",
-        "slider-secondary", "slider-success", "slider-tertiary", "slider-warning",
+        "indicator-dark", "indicator-error", "indicator-info", "indicator-primary",
+        "indicator-secondary", "indicator-success", "indicator-tertiary", "indicator-warning",
 
         // MudProgressLinear's Striped, and MudButton's and MudChip's icon placement.
         "end-icon", "start-icon", "striped",

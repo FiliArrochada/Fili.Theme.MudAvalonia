@@ -63,7 +63,7 @@
           </StackPanel>
 
           <WrapPanel>
-            <Border Classes="surface elevation2" Width="160" Height="210" Margin="0,0,16,16">
+            <Border Classes="paper elevation2" Width="160" Height="210" Margin="0,0,16,16">
               <StackPanel>
                 <Border Height="140" Background="{DynamicResource FiliPrimaryBrush}" CornerRadius="4,4,0,0" />
                 <StackPanel Margin="12,8" Spacing="2">
@@ -73,7 +73,7 @@
               </StackPanel>
             </Border>
 
-            <Border Classes="surface elevation2" Width="160" Height="210" Margin="0,0,16,16">
+            <Border Classes="paper elevation2" Width="160" Height="210" Margin="0,0,16,16">
               <StackPanel>
                 <Border Height="140" Background="{DynamicResource FiliTertiaryBrush}" CornerRadius="4,4,0,0" />
                 <StackPanel Margin="12,8" Spacing="2">
@@ -83,7 +83,7 @@
               </StackPanel>
             </Border>
 
-            <Border Classes="surface elevation2" Width="160" Height="210" Margin="0,0,16,16">
+            <Border Classes="paper elevation2" Width="160" Height="210" Margin="0,0,16,16">
               <StackPanel>
                 <Border Height="140" Background="{DynamicResource FiliSecondaryBrush}" CornerRadius="4,4,0,0" />
                 <StackPanel Margin="12,8" Spacing="2">
@@ -93,7 +93,7 @@
               </StackPanel>
             </Border>
 
-            <Border Classes="surface elevation2" Width="160" Height="210" Margin="0,0,16,16">
+            <Border Classes="paper elevation2" Width="160" Height="210" Margin="0,0,16,16">
               <StackPanel>
                 <!--
                   Info, not Dark. FiliDark is #27272F in the dark variant — all but identical to
@@ -115,7 +115,7 @@
 
       <!-- Detail panel -->
       <Border Grid.Column="2"
-              Classes="surface elevation8"
+              Classes="paper elevation8"
               Margin="0,16,16,16"
               Padding="20">
         <StackPanel Spacing="12">

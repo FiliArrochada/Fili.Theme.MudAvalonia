@@ -90,8 +90,8 @@ public class ElevationOverlayTests
     private static string Expected(int level, ThemeVariant variant) => Token($"FiliElevationOverlay{level}", variant).ToString();
 
     [Theory]
-    [InlineData("surface elevation4", 4)]
-    [InlineData("surface elevation24", 24)]
+    [InlineData("paper elevation4", 4)]
+    [InlineData("paper elevation24", 24)]
     [InlineData("card", 1)]
     [InlineData("card elevation8", 8)]
     public Task APaperOrCardTakesItsLevelsOverlay(string classes, int level) => UiThread.RunAsync(() =>
@@ -110,7 +110,7 @@ public class ElevationOverlayTests
     {
         foreach (var (variant, overlay) in new[] { (ThemeVariant.Dark, false), (ThemeVariant.Light, true), (HighContrast, true) })
         {
-            var paper = new Border { Width = 100, Height = 40, Classes = { "surface", "elevation4" } };
+            var paper = new Border { Width = 100, Height = 40, Classes = { "paper", "elevation4" } };
             Host(variant, paper, overlay);
 
             Assert.Null(Inset(paper.BoxShadow));
@@ -123,7 +123,7 @@ public class ElevationOverlayTests
     /// not a surface - a coloured box - take none: Material lightens surfaces, not colours.
     /// </summary>
     [Theory]
-    [InlineData("surface")]
+    [InlineData("paper")]
     [InlineData("card outlined")]
     [InlineData("elevation4")]
     [InlineData("appbar primary")]

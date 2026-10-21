@@ -725,7 +725,7 @@
                    MaxWidth="760"
                    HorizontalAlignment="Left"
                    Text="MudDivider is a 1px rule in the divider colour with no margin of its own. inset indents it by 72px to clear an avatar column, middle by 16px on both sides, and vertical turns it into a hairline column." />
-        <Border Classes="surface elevation1" Width="420" Padding="0,8" HorizontalAlignment="Left">
+        <Border Classes="paper elevation1" Width="420" Padding="0,8" HorizontalAlignment="Left">
           <StackPanel>
             <TextBlock Classes="body2" Margin="16,8" Text="Plain divider below" />
             <Separator />
@@ -747,19 +747,19 @@
         <Separator Margin="0,8,0,0" />
         <TextBlock Classes="h5" Tag="section" Text="Surfaces" Margin="0,8,0,4" />
         <StackPanel Orientation="Horizontal" Spacing="16">
-          <Border Classes="surface elevation1" Width="200" Height="96" Padding="16">
+          <Border Classes="paper elevation1" Width="200" Height="96" Padding="16">
             <StackPanel Spacing="4">
               <TextBlock Classes="subtitle2" Text="Elevated surface" />
               <TextBlock Classes="caption" Text="elevation1" />
             </StackPanel>
           </Border>
-          <Border Classes="surface elevation4" Width="200" Height="96" Padding="16">
+          <Border Classes="paper elevation4" Width="200" Height="96" Padding="16">
             <StackPanel Spacing="4">
               <TextBlock Classes="subtitle2" Text="Card" />
               <TextBlock Classes="caption" Text="elevation4" />
             </StackPanel>
           </Border>
-          <Border Classes="surface outlined" Width="200" Height="96" Padding="16">
+          <Border Classes="paper outlined" Width="200" Height="96" Padding="16">
             <StackPanel Spacing="4">
               <TextBlock Classes="subtitle2" Text="Outlined" />
               <TextBlock Classes="caption" Text="no shadow" />
@@ -768,43 +768,43 @@
         </StackPanel>
         <TextBlock Classes="overline" Text="MudBlazor" Margin="0,8,0,0" />
         <StackPanel Orientation="Horizontal" Spacing="16">
-            <Border Classes="surface elevation0" Width="88" Height="56" Padding="12,8">
+            <Border Classes="paper elevation0" Width="88" Height="56" Padding="12,8">
               <TextBlock Classes="caption" Text="0" />
             </Border>
-            <Border Classes="surface elevation1" Width="88" Height="56" Padding="12,8">
+            <Border Classes="paper elevation1" Width="88" Height="56" Padding="12,8">
               <TextBlock Classes="caption" Text="1" />
             </Border>
-            <Border Classes="surface elevation4" Width="88" Height="56" Padding="12,8">
+            <Border Classes="paper elevation4" Width="88" Height="56" Padding="12,8">
               <TextBlock Classes="caption" Text="4" />
             </Border>
-            <Border Classes="surface elevation8" Width="88" Height="56" Padding="12,8">
+            <Border Classes="paper elevation8" Width="88" Height="56" Padding="12,8">
               <TextBlock Classes="caption" Text="8" />
             </Border>
-            <Border Classes="surface elevation16" Width="88" Height="56" Padding="12,8">
+            <Border Classes="paper elevation16" Width="88" Height="56" Padding="12,8">
               <TextBlock Classes="caption" Text="16" />
             </Border>
-            <Border Classes="surface elevation24" Width="88" Height="56" Padding="12,8">
+            <Border Classes="paper elevation24" Width="88" Height="56" Padding="12,8">
               <TextBlock Classes="caption" Text="24" />
             </Border>
         </StackPanel>
         <TextBlock Classes="overline" Text="material-elevation-overlay" Margin="0,8,0,0" />
         <StackPanel Orientation="Horizontal" Spacing="16" Classes="material-elevation-overlay">
-            <Border Classes="surface elevation0" Width="88" Height="56" Padding="12,8">
+            <Border Classes="paper elevation0" Width="88" Height="56" Padding="12,8">
               <TextBlock Classes="caption" Text="0" />
             </Border>
-            <Border Classes="surface elevation1" Width="88" Height="56" Padding="12,8">
+            <Border Classes="paper elevation1" Width="88" Height="56" Padding="12,8">
               <TextBlock Classes="caption" Text="1" />
             </Border>
-            <Border Classes="surface elevation4" Width="88" Height="56" Padding="12,8">
+            <Border Classes="paper elevation4" Width="88" Height="56" Padding="12,8">
               <TextBlock Classes="caption" Text="4" />
             </Border>
-            <Border Classes="surface elevation8" Width="88" Height="56" Padding="12,8">
+            <Border Classes="paper elevation8" Width="88" Height="56" Padding="12,8">
               <TextBlock Classes="caption" Text="8" />
             </Border>
-            <Border Classes="surface elevation16" Width="88" Height="56" Padding="12,8">
+            <Border Classes="paper elevation16" Width="88" Height="56" Padding="12,8">
               <TextBlock Classes="caption" Text="16" />
             </Border>
-            <Border Classes="surface elevation24" Width="88" Height="56" Padding="12,8">
+            <Border Classes="paper elevation24" Width="88" Height="56" Padding="12,8">
               <TextBlock Classes="caption" Text="24" />
             </Border>
         </StackPanel>
@@ -838,7 +838,7 @@
               <TextBlock Classes="body2" Margin="12" Text="Four tabs do not fit 480px, so the bar scrolls" />
             </TabItem>
           </TabControl>
-          <TreeView x:Name="SampleTree" Classes="surface" Width="180" Height="140">
+          <TreeView x:Name="SampleTree" Classes="paper" Width="180" Height="140">
             <TreeViewItem Header="Library" IsExpanded="True">
               <TreeViewItem x:Name="SelectedNode" Header="Installed" IsExpanded="True">
                 <TreeViewItem Header="Recently played" />
@@ -855,7 +855,7 @@
             <ListBoxItem>Starred</ListBoxItem>
             <ListBoxItem>Sent</ListBoxItem>
           </ListBox>
-          <TreeView x:Name="MultiTree" Classes="multi-selection surface" SelectionMode="Multiple, Toggle" Width="220" Height="160">
+          <TreeView x:Name="MultiTree" Classes="multi-selection paper" SelectionMode="Multiple, Toggle" Width="220" Height="160">
             <TreeViewItem Header="Library" IsExpanded="True">
               <TreeViewItem Header="Installed" />
               <TreeViewItem Header="Collections" />
@@ -870,7 +870,7 @@
 
         <TextBlock Classes="overline" Text="Menu and scrolling" Margin="0,8,0,0" />
         <StackPanel Orientation="Horizontal" Spacing="16">
-          <Border Classes="surface elevation1" Width="380" Height="140">
+          <Border Classes="paper elevation1" Width="380" Height="140">
             <StackPanel>
               <Menu>
                 <MenuItem Header="Library">
@@ -961,7 +961,7 @@
                    HorizontalAlignment="Left"
                    Text="A selected list row is primary text over primary at 6%, not a filled bar — MudList marks it with mud-primary-text plus mud-primary-hover, which keeps it as readable as the rows around it. A toggle is MudToggleItem, a button in the group's colour: the colour as text while off, filled once on; the second row adds outlined, the group's line. icon on a ToggleButton is MudToggleIconButton: a colour class is ToggledColor, unchecked-{colour} is Color, so the grey heart is the red one switched off; the bell becomes a letter, its second PathIcon being ToggledIcon." />
         <StackPanel Orientation="Horizontal" Spacing="24">
-          <ListBox Classes="surface" Width="220" Height="176" SelectedIndex="1">
+          <ListBox Classes="paper" Width="220" Height="176" SelectedIndex="1">
             <ListBoxItem>First item</ListBoxItem>
             <ListBoxItem>Selected item</ListBoxItem>
             <ListBoxItem>Third item</ListBoxItem>
@@ -1110,7 +1110,7 @@
                    HorizontalAlignment="Left"
                    Text="SplitView is MudDrawer: 240px open, 56px mini, the drawer-background and drawer-text tokens, and elevation 1 past the pane's edge. Nearly all of it is styles over the forked template's structure; the theme adds only the part the shadow is drawn on. drawer-header is MudDrawerHeader, an app bar's height. The pane holds a nav TreeView, MudNavMenu: the active link in primary at weight 500, and Downloads a group that opens on a click." />
         <StackPanel Orientation="Horizontal" Spacing="16">
-        <Border Classes="surface elevation1" Width="520" Height="244" ClipToBounds="True">
+        <Border Classes="paper elevation1" Width="520" Height="244" ClipToBounds="True">
           <SplitView IsPaneOpen="True" DisplayMode="Inline">
             <SplitView.Pane>
               <DockPanel>
@@ -1136,7 +1136,7 @@
             </SplitView.Content>
           </SplitView>
         </Border>
-        <Border Classes="surface elevation1" Width="240" Height="244" ClipToBounds="True">
+        <Border Classes="paper elevation1" Width="240" Height="244" ClipToBounds="True">
           <SplitView IsPaneOpen="False" DisplayMode="CompactInline">
             <SplitView.Pane>
               <TreeView Classes="nav" Margin="0,8">
@@ -1248,15 +1248,15 @@
             <TabStripItem>Border</TabStripItem>
             <TabStripItem>Centered</TabStripItem>
           </TabStrip>
-          <TabStrip Classes="outlined rounded hide-slider" Width="480" SelectedIndex="0">
+          <TabStrip Classes="outlined rounded hide-indicator" Width="480" SelectedIndex="0">
             <TabStripItem>Outlined, no slider</TabStripItem>
             <TabStripItem>Rounded</TabStripItem>
           </TabStrip>
-          <TabStrip Classes="elevation4 rounded slider-secondary" Width="480" SelectedIndex="0" Margin="0,0,0,8">
+          <TabStrip Classes="elevation4 rounded indicator-secondary" Width="480" SelectedIndex="0" Margin="0,0,0,8">
             <TabStripItem>Elevation 4</TabStripItem>
             <TabStripItem>Slider colour</TabStripItem>
           </TabStrip>
-          <TabStrip Classes="primary slider-warning" Width="480" SelectedIndex="1">
+          <TabStrip Classes="primary indicator-warning" Width="480" SelectedIndex="1">
             <TabStripItem>Primary bar</TabStripItem>
             <TabStripItem>Warning slider</TabStripItem>
           </TabStrip>
@@ -1286,7 +1286,7 @@
           <Border Classes="appbar primary" Width="480">
             <TextBlock Classes="h6" Text="Primary app bar" VerticalAlignment="Center" />
           </Border>
-          <Border Classes="toolbar surface" Width="480">
+          <Border Classes="toolbar paper" Width="480">
             <StackPanel Orientation="Horizontal" Spacing="8">
               <Button Classes="icon"><PathIcon Data="{StaticResource GalleryMenuIcon}" /></Button>
               <TextBlock Classes="subtitle1" Text="Toolbar" />
@@ -1298,7 +1298,7 @@
                    TextWrapping="Wrap"
                    MaxWidth="760"
                    HorizontalAlignment="Left"
-                   Text="MudTabs' defaults: a surface bar with no rule under it, tabs in text-primary and at least 160px wide. A colour class is MudTabs' Color, the bar in the colour and the tabs in its contrast text; border, outlined, rounded, centered and hide-slider are its parameters of the same names, on a TabControl or a TabStrip; elevation4 and the like are Elevation, and slider-warning and the like are SliderColor. Position is TabStripPlacement on a TabControl. material-fixed-tabs is Material's fixed tabs, which MudTabs does not offer: the tabs share the bar in equal parts, under the 160px minimum, and never scroll. An app bar is 64px with 24px gutters, dense is 48px, and a colour class is MudAppBar's Color. toolbar on a Border is MudToolBar's box, the same 64px and 24px without the colour; the heart in it is a PathIcon with small and primary, MudIcon's Size and Color." />
+                   Text="MudTabs' defaults: a surface bar with no rule under it, tabs in text-primary and at least 160px wide. A colour class is MudTabs' Color, the bar in the colour and the tabs in its contrast text; border, outlined, rounded, centered and hide-indicator are its parameters of the same names, on a TabControl or a TabStrip; elevation4 and the like are Elevation, and indicator-warning and the like are SliderColor. Position is TabStripPlacement on a TabControl. material-fixed-tabs is Material's fixed tabs, which MudTabs does not offer: the tabs share the bar in equal parts, under the 160px minimum, and never scroll. An app bar is 64px with 24px gutters, dense is 48px, and a colour class is MudAppBar's Color. toolbar on a Border is MudToolBar's box, the same 64px and 24px without the colour; the heart in it is a PathIcon with small and primary, MudIcon's Size and Color." />
       </StackPanel>
 
       <!-- Right to left -->
@@ -1327,7 +1327,7 @@
           <StackPanel Orientation="Horizontal" Spacing="12">
             <Button Classes="filled primary" Content="حفظ" />
             <Separator Classes="vertical" />
-            <TreeView Classes="surface" Width="200" Height="96">
+            <TreeView Classes="paper" Width="200" Height="96">
               <TreeViewItem Header="المكتبة" IsExpanded="True">
                 <TreeViewItem Header="مثبت" />
               </TreeViewItem>
@@ -1341,16 +1341,16 @@
         <Separator Margin="0,8,0,0" />
         <TextBlock Classes="h5" Tag="section" Text="Semantic colours" Margin="0,8,0,4" />
         <StackPanel Orientation="Horizontal" Spacing="12">
-          <Border Classes="surface elevation1" Padding="12,8" Background="{DynamicResource FiliInfoBrush}">
+          <Border Classes="paper elevation1" Padding="12,8" Background="{DynamicResource FiliInfoBrush}">
             <TextBlock Classes="body2" Foreground="White" Text="Info" />
           </Border>
-          <Border Classes="surface elevation1" Padding="12,8" Background="{DynamicResource FiliSuccessBrush}">
+          <Border Classes="paper elevation1" Padding="12,8" Background="{DynamicResource FiliSuccessBrush}">
             <TextBlock Classes="body2" Foreground="White" Text="Success" />
           </Border>
-          <Border Classes="surface elevation1" Padding="12,8" Background="{DynamicResource FiliWarningBrush}">
+          <Border Classes="paper elevation1" Padding="12,8" Background="{DynamicResource FiliWarningBrush}">
             <TextBlock Classes="body2" Foreground="White" Text="Warning" />
           </Border>
-          <Border Classes="surface elevation1" Padding="12,8" Background="{DynamicResource FiliErrorBrush}">
+          <Border Classes="paper elevation1" Padding="12,8" Background="{DynamicResource FiliErrorBrush}">
             <TextBlock Classes="body2" Foreground="White" Text="Error" />
           </Border>
         </StackPanel>
@@ -1364,7 +1364,7 @@
        goes with the last row. Determinate on purpose: an indeterminate bar animates on the UI
        thread, so it would stall for as long as each pass takes. -->
   <Border x:Name="LoadingMore" Grid.Column="1"
-          Classes="surface elevation4"
+          Classes="paper elevation4"
           HorizontalAlignment="Center" VerticalAlignment="Top"
           Margin="0,16,0,0" Padding="16,12">
     <StackPanel Spacing="8">

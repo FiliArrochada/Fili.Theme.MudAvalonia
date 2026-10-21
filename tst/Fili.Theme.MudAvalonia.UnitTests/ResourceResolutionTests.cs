@@ -69,7 +69,7 @@ public class ResourceResolutionTests
         "FiliDrawerBackgroundBrush", "FiliDrawerTextBrush", "FiliDrawerIconBrush",
         "FiliDrawerBorderBrush",
         "FiliLinesDefaultBrush", "FiliLinesInputsBrush", "FiliDividerBrush",
-        "FiliWhiteBrush",
+        "FiliBlackBrush", "FiliWhiteBrush",
         "FiliPrimaryHoverBrush", "FiliOverlayHoverBrush", "FiliOverlayPressedBrush",
         "FiliOverlayDarkBrush", "FiliOverlayLightBrush",
         // These two exist because a Border.Background bound to a Color silently renders nothing:
@@ -170,5 +170,22 @@ public class ResourceResolutionTests
         Assert.Equal(Color.Parse("#32333D"), Assert.IsType<Color>(background));
         Assert.Equal(Color.Parse("#373740"), Assert.IsType<Color>(surface));
         Assert.NotEqual(background, surface);
+    });
+
+    /// <summary>
+    /// MudBlazor's spacing scale, $spacing-values in _spacing.scss: 0 to 20 steps of 4px, each a
+    /// number for a Spacing and a Thickness on every side for a Padding or Margin (pa-N, ma-N).
+    /// </summary>
+    [Fact]
+    public Task TheSpacingScaleIsMudBlazorsInBothKinds() => UiThread.RunAsync(() =>
+    {
+        for (var step = 0; step <= 20; step++)
+        {
+            Assert.True(Application.Current!.TryFindResource($"FiliSpacing{step}", out var number), $"FiliSpacing{step}");
+            Assert.True(Application.Current!.TryFindResource($"FiliSpacing{step}Thickness", out var thickness), $"FiliSpacing{step}Thickness");
+
+            Assert.Equal(4.0 * step, Assert.IsType<double>(number));
+            Assert.Equal(new Thickness(4 * step), Assert.IsType<Thickness>(thickness));
+        }
     });
 }

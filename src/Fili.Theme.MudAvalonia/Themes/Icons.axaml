@@ -51,6 +51,18 @@
   <!-- Icons.Material.Filled.ArrowDropUp -->
   <StreamGeometry x:Key="FiliArrowDropUpGeometry">M7 14l5-5 5 5z</StreamGeometry>
 
+  <!--
+    MudInput's NumericUpIcon and NumericDownIcon, MudNumericField's spin buttons: chevrons, not
+    the select's triangles, and keys of their own, so swapping one control's glyph leaves the
+    other's.
+  -->
+
+  <!-- Icons.Material.Filled.KeyboardArrowUp -->
+  <StreamGeometry x:Key="FiliKeyboardArrowUpGeometry">M7.41 15.41 12 10.83l4.59 4.58L18 14l-6-6-6 6z</StreamGeometry>
+
+  <!-- Icons.Material.Filled.KeyboardArrowDown -->
+  <StreamGeometry x:Key="FiliKeyboardArrowDownGeometry">M7.41 8.59 12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z</StreamGeometry>
+
   <!-- Icons.Material.Filled.ExpandMore -->
   <StreamGeometry x:Key="FiliExpandMoreGeometry">M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z</StreamGeometry>
 

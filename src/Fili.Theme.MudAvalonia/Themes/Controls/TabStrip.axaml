@@ -12,7 +12,7 @@
     label text-primary, going to primary when selected
     a 2px indicator in primary under the selected item, on a surface bar, sliding between items
     (SlidingIndicator, as in TabControl.axaml)
-    the same classes: a colour, border, outlined, rounded, centered, material-fixed-tabs, elevation*, slider-{colour}
+    the same classes: a colour, border, outlined, rounded, centered, material-fixed-tabs, elevation*, indicator-{colour}
     (a strip has no TabStripPlacement; place it with ordinary layout)
 
   If either file changes, change both. The gallery shows them side by side for that reason.

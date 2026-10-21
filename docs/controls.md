@@ -288,7 +288,7 @@ the data is already in 0–24 space.
   behind them. Both orientations need their own `Template`; a horizontal one applied to a
   vertical slider renders sideways rather than degrading.
 - **TabControl** — MudTabs' 48px bar with a 2px primary indicator. MudTabs' defaults decide the
-  rest, and this theme used to differ on each: the bar is `surface` with **no** rule under it
+  rest, and this theme used to differ on each: the bar is in the surface colour with **no** rule under it
   (`Border` defaults to false), tabs are text-primary rather than text-secondary, and
   `MinimumTabWidth` is 160px. `ItemContainerTheme` is what carries the header theme down to a bare
   `<TabItem>`; without it the control is themed and its headers are not, which looks like the
@@ -881,7 +881,7 @@ that the XAML route does not exist.
 
 ```xml
 <ComboBox PlaceholderText="Platform"> <ComboBoxItem>PC</ComboBoxItem> </ComboBox>
-<ListBox Classes="surface"> <ListBoxItem>First</ListBoxItem> </ListBox>
+<ListBox Classes="paper"> <ListBoxItem>First</ListBoxItem> </ListBox>
 <AutoCompleteBox PlaceholderText="Search" />
 <NumericUpDown Value="42" PlaceholderText="Quantity" />
 ```

@@ -88,8 +88,9 @@ And the things that are not controls:
   are `HorizontalAlignment` and `VerticalAlignment`; `rounded-*` is `CornerRadius`, `border-*`
   `BorderThickness`, `d-none` `IsVisible`, `cursor-pointer` `Cursor`, `overflow-hidden`
   `ClipToBounds` and `z-*` `ZIndex`. The utilities that carry a token - colour, elevation, the
-  type ramp - are classes here as well. `FiliSpacing1` … `FiliSpacing8` are numbers, so they
-  fill a `Spacing`; a `Padding` or `Margin` is a `Thickness`, written out.
+  type ramp - are classes here as well. MudBlazor's spacing scale is a pair of keys per step,
+  0 to 20: `FiliSpacing4` is 16 as a number, for a `Spacing`, and `FiliSpacing4Thickness` 16 on
+  every side, for a `Padding` or `Margin`; a one-sided step is a `Thickness` written out.
 - **Elevation reads faintly in dark mode.** Material's shadows are black at low alpha, which is
   nearly invisible on a dark ground; MudBlazor has the same problem and this theme reproduces it
   by default. `material-elevation-overlay` on a window or container opts into Material's own

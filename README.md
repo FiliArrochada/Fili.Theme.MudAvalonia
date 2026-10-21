@@ -93,7 +93,7 @@ this package's own fork of Avalonia Simple templates - see [The base](docs/the-b
 Then use the tokens by key, and the type ramp by class:
 
 ```xml
-<Border Classes="surface elevation4" Padding="16">
+<Border Classes="paper elevation4" Padding="16">
   <StackPanel Spacing="4">
     <TextBlock Classes="h6" Text="Section" />
     <TextBlock Classes="caption" Text="Supporting line" />
@@ -137,11 +137,11 @@ package, so they are not namespaced to `mud-primary` or hidden behind an attache
 | | |
 |---|---|
 | Type ramp (`TextBlock`) | `h1`–`h6`, `subtitle1`, `subtitle2`, `body1`, `body2`, `button`, `caption`, `overline` |
-| Surfaces (`Border`) | `surface`, `appbar`, `square`, `elevation0` to `elevation25` (all 26 of MudBlazor's levels) |
+| Surfaces (`Border`) | `paper`, `appbar`, `square`, `elevation0` to `elevation25` (all 26 of MudBlazor's levels) |
 | Colour (`Color`) | `primary`, `secondary`, `tertiary`, `info`, `success`, `warning`, `error`, `dark`, `inherit` |
 | Shape (`Variant`) | `text`, `filled`, `outlined`, `rounded`, `flat` |
 | Size (`Size`) | `small`, `medium`, `large`, `dense` |
-| Placement | `inset`, `middle`, `vertical`, `light`, `underline`, `no-underline`, `border`, `centered`, `hide-slider` |
+| Placement | `inset`, `middle`, `vertical`, `light`, `underline`, `no-underline`, `border`, `centered`, `hide-indicator` |
 | Component | `icon`, `chip`, `fab`, `extended`, `alert`, `avatar`, `badge`, `card`, `skeleton`, `circle`, `rectangle`, `counter`, `circular`, `nav`, `toolbar`, `drawer-header`, `normal`, `expansion-panels` |
 | Card parts | `card-header`, `card-header-avatar`, `card-header-content`, `card-header-actions`, `card-media`, `card-content`, `card-actions` |
 | Badge (`Origin`, `Dot`, `Bordered`, `Overlap`) | `top-left`, `top-center`, `center-left`, `center-center`, `center-right`, `bottom-left`, `bottom-center`, `bottom-right`, `dot`, `bordered`, `overlap` |
@@ -149,7 +149,7 @@ package, so they are not namespaced to `mud-primary` or hidden behind an attache
 | Label placement (`LabelPlacement`) | `label-start`, `label-top`, `label-bottom` |
 | Icons in content | `start-icon`, `end-icon` |
 | Material, not MudBlazor | `material-fixed-tabs`, `material-elevation-overlay` |
-| Tab indicator colour (`SliderColor`) | `slider-primary`, `slider-secondary`, `slider-tertiary`, `slider-info`, `slider-success`, `slider-warning`, `slider-error`, `slider-dark` |
+| Tab indicator colour (`SliderColor`) | `indicator-primary`, `indicator-secondary`, `indicator-tertiary`, `indicator-info`, `indicator-success`, `indicator-warning`, `indicator-error`, `indicator-dark` |
 | Unchecked colour (`UncheckedColor`) | `unchecked-primary`, `unchecked-secondary`, `unchecked-tertiary`, `unchecked-info`, `unchecked-success`, `unchecked-warning`, `unchecked-error`, `unchecked-dark` |
 | Switch thumb icon colour (`ThumbIconColor`) | `thumb-primary`, `thumb-secondary`, `thumb-tertiary`, `thumb-info`, `thumb-success`, `thumb-warning`, `thumb-error`, `thumb-dark` |
 

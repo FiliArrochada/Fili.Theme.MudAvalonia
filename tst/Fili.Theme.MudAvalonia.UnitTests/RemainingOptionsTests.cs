@@ -99,7 +99,7 @@ public class RemainingOptionsTests
     [MemberData(nameof(Matrix.Colours), MemberType = typeof(Matrix))]
     public Task SliderColourPaintsTheIndicatorOverABarColour(string colour) => UiThread.RunAsync(() =>
     {
-        var tabs = Tabs(Dock.Top, "primary", $"slider-{colour.ToLowerInvariant()}");
+        var tabs = Tabs(Dock.Top, "primary", $"indicator-{colour.ToLowerInvariant()}");
 
         Assert.Equal(Matrix.Token($"Fili{colour}Color"), Matrix.Colour(Named<Border>(Item(tabs, 0), "PART_Indicator").Background));
         Assert.Equal(Matrix.Token("FiliPrimaryContrastTextColor"), Matrix.Colour(Item(tabs, 0).Foreground));
@@ -108,7 +108,7 @@ public class RemainingOptionsTests
     [Fact]
     public Task ATabStripTakesTheSliderColour() => UiThread.RunAsync(() =>
     {
-        var strip = new TabStrip { Width = 560, Classes = { "slider-success" } };
+        var strip = new TabStrip { Width = 560, Classes = { "indicator-success" } };
         strip.Items.Add(new TabStripItem { Content = "One" });
         strip.Items.Add(new TabStripItem { Content = "Two" });
         strip.SelectedIndex = 0;

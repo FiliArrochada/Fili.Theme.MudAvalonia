@@ -1233,7 +1233,7 @@ public static class ThemeColourGenerator
         o.Append(TopStyle(Overlay("Border.card"), ("BoxShadow", Res("FiliElevationOverlay1"))));
         foreach (var level in Elevations)
         {
-            o.Append(TopStyle($"{Overlay($"Border.surface.elevation{level}")}, {Overlay($"Border.card.elevation{level}")}", ("BoxShadow", Res($"FiliElevationOverlay{level}"))));
+            o.Append(TopStyle($"{Overlay($"Border.paper.elevation{level}")}, {Overlay($"Border.card.elevation{level}")}", ("BoxShadow", Res($"FiliElevationOverlay{level}"))));
         }
 
         o.Append(TopStyle($"{Overlay("Expander")} /template/ Border#PART_Root", ("BoxShadow", Res("FiliElevationOverlay1"))));
@@ -1359,7 +1359,7 @@ public static class ThemeColourGenerator
         // `.mud-tab-slider.mud-{color}`, the indicator alone in the colour.
         foreach (var c in Colours)
         {
-            var cls = $"slider-{c.ToLowerInvariant()}";
+            var cls = $"indicator-{c.ToLowerInvariant()}";
             o.Append(TopStyle($"TabControl.{cls} > TabItem /template/ Border#PART_Indicator", ("Background", Res($"Fili{c}Brush"))));
             o.Append(TopStyle($"TabStrip.{cls} > TabStripItem:selected /template/ Border#PART_Indicator", ("Background", Res($"Fili{c}Brush"))));
         }

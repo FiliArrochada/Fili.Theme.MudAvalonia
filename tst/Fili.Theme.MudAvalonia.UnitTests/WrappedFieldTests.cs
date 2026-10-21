@@ -123,6 +123,24 @@ public class WrappedFieldTests
         Assert.Equal(field.Bounds.Width - helper.Margin.Right, Left(helper) + helper.Bounds.Width, 0.5);
     });
 
+    /// <summary>
+    /// MudInput's NumericUpIcon and NumericDownIcon are KeyboardArrowUp and KeyboardArrowDown,
+    /// chevrons with keys of their own: not the select's ArrowDropUp and ArrowDropDown.
+    /// </summary>
+    [Fact]
+    public Task TheSpinButtonsDrawMudBlazorsChevrons() => UiThread.RunAsync(() =>
+    {
+        var field = (NumericUpDown)Show("NumericUpDown");
+        Dispatcher.UIThread.RunJobs();
+        var spinner = Matrix.Part<ButtonSpinner>(field, "PART_Spinner");
+        Application.Current!.TryFindResource("FiliKeyboardArrowUpGeometry", out var up);
+        Application.Current!.TryFindResource("FiliKeyboardArrowDownGeometry", out var down);
+
+        Assert.NotNull(up);
+        Assert.Same(up, ((Avalonia.Controls.Shapes.Path)Matrix.Part<RepeatButton>(spinner, "PART_IncreaseButton").Content!).Data);
+        Assert.Same(down, ((Avalonia.Controls.Shapes.Path)Matrix.Part<RepeatButton>(spinner, "PART_DecreaseButton").Content!).Data);
+    });
+
     /// <summary>With no spin buttons the box is the field, and the text runs to its padding.</summary>
     [Fact]
     public Task WithoutSpinButtonsTheTextHasTheWholeBox() => UiThread.RunAsync(() =>

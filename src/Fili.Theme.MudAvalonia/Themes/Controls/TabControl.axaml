@@ -26,7 +26,7 @@
                    the tabs share the bar in equal parts and never scroll. Not MudBlazor's, so
                    not one of its words: the name says where it comes from.
     Elevation      elevation0 ... elevation25, the shadow under the bar
-    SliderColor    slider-{colour}: the indicator in that colour, whatever the bar's
+    SliderColor    indicator-{colour}: the indicator in that colour, whatever the bar's
     Position       TabStripPlacement - Top, Bottom, Left or Right. The bar docks to that edge,
                    `border` draws its rule on the content side, the tabs stack for Left and
                    Right, and each tab moves its indicator to the content side: a TabItem knows
