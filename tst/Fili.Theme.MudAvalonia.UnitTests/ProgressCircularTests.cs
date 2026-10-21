@@ -195,7 +195,7 @@ public class SkeletonWaveTests
     [InlineData("Light")]
     [InlineData("Dark")]
     [InlineData("HighContrast")]
-    public void TheBandIsFourPercentBlackOverTheSkeleton(string variant)
+    public Task TheBandIsFourPercentBlackOverTheSkeleton(string variant) => UiThread.RunAsync(() =>
     {
         var theme = variant == "HighContrast" ? FiliThemeVariants.HighContrast : new ThemeVariant(variant, null);
         Assert.True(Application.Current!.TryFindResource("FiliSkeletonColor", theme, out var s));
@@ -213,7 +213,7 @@ public class SkeletonWaveTests
         Assert.InRange(Math.Abs(actual.R - expected.R), 0, 1);
         Assert.InRange(Math.Abs(actual.G - expected.G), 0, 1);
         Assert.InRange(Math.Abs(actual.B - expected.B), 0, 1);
-    }
+    });
 
     [Fact]
     public Task AWaveSkeletonDoesNotAlsoPulse() => UiThread.RunAsync(() =>
