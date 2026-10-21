@@ -10,12 +10,13 @@
     .mud-expand-panel-icon           transition: .3s cubic-bezier(.25,.8,.5,1)
     .mud-expand-panel-icon.mud-transform  transform: rotate(-180deg)
     .mud-expand-panel-content        padding-bottom: 16px, gutters 24px
-    .mud-expansion-panels            border-radius: the default radius, elevation 1
+    .mud-expansion-panels            border-radius: the default radius
+    MudExpansionPanel                mud-elevation-{group's Elevation}, 1 by default, on each panel
 
   .9375rem is 15px, which is neither body1 (16) nor body2 (14) - MudBlazor sizes this header on
   its own. It is written as a literal here for that reason, not pulled from the type scale.
 
-  The panel carries the surface and the elevation because MudExpansionPanels is a MudPaper: a bare
+  The panel carries the surface and the elevation because each MudExpansionPanel does: a bare
   expander on a page ground would otherwise have nothing to sit on. What is NOT carried over is
   the group behaviour - the 1px separators between stacked panels (Outlined, on by default) and
   the 16px margin an expanded one grows - because those are relationships between siblings, and
