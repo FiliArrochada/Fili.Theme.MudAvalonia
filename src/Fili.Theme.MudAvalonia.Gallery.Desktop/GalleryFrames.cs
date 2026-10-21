@@ -187,6 +187,20 @@ public static class GalleryFrames
 
         SettleAnimations(shown);
 
+        // Measure again once they have settled: a transition that moves layout - an expanded
+        // panel easing out to its 16px margin in an expansion-panels group - was part way when
+        // the window was sized, and the frame's height would follow how fast this run was.
+        view.Measure(new Size(window.Width, double.PositiveInfinity));
+        var settled = Math.Max(Math.Ceiling(view.DesiredSize.Height), 800);
+        if (settled != window.Height)
+        {
+            window.Height = settled;
+            Dispatcher.UIThread.RunJobs();
+            window.Measure(new Size(window.Width, window.Height));
+            window.Arrange(new Rect(0, 0, window.Width, window.Height));
+            Dispatcher.UIThread.RunJobs();
+        }
+
         var unstable = UnstableRegions(window);
         var frameBitmap = Capture(window);
 

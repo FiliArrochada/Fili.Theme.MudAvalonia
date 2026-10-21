@@ -201,7 +201,8 @@ One line each; [`docs/traps.md`](docs/traps.md) has the full account and the tes
 - Avalonia's browser host swallows every key; `wwwroot/main.js` passes browser shortcuts through.
 - `UseHeadlessDrawing` defaults to a no-op renderer; `GalleryFrames.Configure` turns it off.
 - Indeterminate, striped and pulsing-skeleton regions are masked, located from the live tree.
-- A one-shot animation is waited out (`SettleTime`), never masked.
+- A one-shot animation is waited out (`SettleTime`), never masked; the frame is measured again
+  after it, as a layout transition changes the page's height.
 - A frame must not depend on the locale; `GalleryFrames.Render` pins the invariant culture.
 - A frame taller than `MaxFrameHeight` fails rather than being cut off; split the view or raise it.
 - Anything loaded by URI at runtime is invisible to trimming: `OptionalStyleInclude` keeps the

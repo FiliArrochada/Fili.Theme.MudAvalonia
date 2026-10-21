@@ -407,6 +407,11 @@ its own, so tune against the gallery rather than against an app.
   one machine and passes on another. `GalleryFrames.Render` therefore waits out `SettleTime`
   before capturing. Raise that constant if a longer animation starts on load; do not mask a
   region whose colours the suite is meant to be watching.
+- **A transition that moves layout changed the frame's height.** An expanded panel in an
+  `expansion-panels` group eases out to its 16px margin over .3s from the moment it joins, and the
+  window was sized to the page before that had finished: the light controls frame, rendered first
+  in a cold process, came out 2 to 5px taller or shorter from run to run. `GalleryFrames.Render`
+  measures the page again after `SettleTime` and resizes before capturing.
 - **A frame taller than the cap was cut off at the cap, silently.** The frame grows to the page,
   up to a guard against a runaway measurement; the controls page outgrew the 12,000px guard and
   its new last section was missing from every frame, with nothing failing. The guard is 20,000px

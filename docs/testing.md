@@ -131,7 +131,8 @@ Four things keep a frame reproducible, and each was learned from a failure:
   are found from the live tree and left out of the comparison; everything else stays strict. A
   `no-animation` skeleton holds still and is compared like everything else.
 - **One-shot animations are waited out.** The capture waits until the longest animation that
-  starts on load (the snackbar's 0.45s enter) has finished.
+  starts on load (the snackbar's 0.45s enter) has finished, then measures the page again, since a
+  transition that moves layout (an expanded panel's margin) changes its height.
 - **The culture is pinned.** The palette view formats contrast ratios with the current culture,
   so baselines recorded on a pt-PT machine (`6,00:1`) failed on an en-US runner (`6.00:1`).
   Frames render under the invariant culture.
