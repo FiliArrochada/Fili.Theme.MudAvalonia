@@ -16,7 +16,7 @@ Simple theme at 12.1.3**, rebased onto this package and repaletted by a single h
 `Themes/Base/Accents.axaml`, which redefines the ~96 resource keys those templates paint from in
 terms of Fili tokens. One file repalettes all 79.
 
-On top of that sit **hand-written Material control themes for 46 of the 95 templated control
+On top of that sit **hand-written Material control themes for 47 of the 95 templated control
 types**, which win over their forked counterparts because `FiliTheme.axaml` is included second:
 
 | | |
@@ -26,6 +26,7 @@ types**, which win over their forked counterparts because `FiliTheme.axaml` is i
 | Selection | `CheckBox`, `RadioButton`, `ToggleSwitch` |
 | Collections | `ListBox`, `ListBoxItem`, `TreeView`, `TreeViewItem`, `TabControl`, `TabItem`, `TabStrip`, `TabStripItem`, `Expander` |
 | Indicators | `Slider`, `ProgressBar`, `PipsPager`, `Separator`, `ScrollBar` |
+| Layout | `SplitView` (MudDrawer: the fork's template with the part its elevation is drawn on) |
 | Menus and overlays | `Menu`, `MenuItem`, `ContextMenu`, `ToolTip`, `FlyoutPresenter`, `MenuFlyoutPresenter` |
 | Notifications | `NotificationCard`, `WindowNotificationManager` |
 | Opt-in through a class | `HeaderedContentControl` (`badge`, MudBadge) |
@@ -35,7 +36,7 @@ types**, which win over their forked counterparts because `FiliTheme.axaml` is i
 build, and so an Avalonia version that adds control types shows up as a failure rather than as a
 gap nobody noticed.
 
-The other 49 keep the forked templates. Most of them are Avalonia plumbing MudBlazor has no
+The other 48 keep the forked templates. Most of them are Avalonia plumbing MudBlazor has no
 counterpart for — `PopupRoot`, `AdornerLayer`, `TextSelectionHandle`, `ManagedFileChooser`,
 `CommandBar`, the `*Page` shell types — and keeping those byte-faithful is what makes an Avalonia
 upgrade a re-download and a diff.

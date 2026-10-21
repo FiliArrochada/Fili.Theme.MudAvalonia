@@ -543,7 +543,8 @@ Put initials, a `PathIcon` or an `Image` inside: `<Border Classes="avatar primar
 | `PositionClass` | `WindowNotificationManager.Position` | ✅ every position, 24px from its edges |
 | `NewestOnTop`, `MaxDisplayedSnackbars` | `ReverseOrder`, `MaxItems` | ≈ |
 | `MaximumOpacity`, `BackgroundBlurred`, the show and hide durations | — | ≈ fully opaque, unblurred, and Avalonia's own enter and exit animations |
-| `MudDrawer` | `SplitView` | ≈ 240px open, 56px mini, drawer-background and drawer-text; MudDrawer's elevation 1 is not drawn, because the pane is a `Panel` |
+| `MudDrawer` | `SplitView` | ✅ 240px open, 56px mini, drawer-background and drawer-text, elevation 1 past the pane's edge |
+| `Elevation` (default 1) | no class, or `elevation0` … `elevation25` on the `SplitView` | ✅ none from a drawer closed to nothing, and none in high contrast, where the drawer's edge is its drawer-border line |
 | `Anchor` | `PanePlacement` | ≈ |
 | `Width`, `MiniWidth`, `Height` | `OpenPaneLength`, `CompactPaneLength`, `Height` | ≈ |
 | `Variant` (Temporary, Persistent, Mini, Responsive) | `DisplayMode` (`Overlay`, `Inline`, `CompactInline`, `CompactOverlay`) | ≈; `Responsive`'s breakpoints are the app's |

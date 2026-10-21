@@ -5,6 +5,7 @@ using Avalonia.Controls.Presenters;
 using Avalonia.Controls.Primitives;
 using Avalonia.Media;
 using Avalonia.Threading;
+using Avalonia.VisualTree;
 using Xunit;
 using Path = Avalonia.Controls.Shapes.Path;
 using Ellipse = Avalonia.Controls.Shapes.Ellipse;
@@ -341,6 +342,49 @@ public class ParityOptionsTests
 
         Assert.Equal(Matrix.Token("FiliPrimaryColor"), Matrix.Colour(drawer.PaneBackground));
         Assert.Equal(Matrix.Token("FiliPrimaryContrastTextColor"), Matrix.Colour(pane.GetValue(TextElement.ForegroundProperty)));
+    });
+
+    /// <summary>
+    /// MudDrawer.Elevation, 1 by default: a shadow beside the pane, on every side the pane can
+    /// stand. The pane's content still clips to the pane, one level in, and the shadow is
+    /// outside that clip. `elevation0` drops it, and a drawer closed to nothing casts none.
+    /// </summary>
+    [Theory]
+    [InlineData(SplitViewPanePlacement.Left)]
+    [InlineData(SplitViewPanePlacement.Right)]
+    [InlineData(SplitViewPanePlacement.Top)]
+    [InlineData(SplitViewPanePlacement.Bottom)]
+    public Task ADrawerCastsElevationOne(SplitViewPanePlacement placement) => UiThread.RunAsync(() =>
+    {
+        var drawer = Matrix.Show(new SplitView
+        {
+            IsPaneOpen = true,
+            DisplayMode = SplitViewDisplayMode.Inline,
+            PanePlacement = placement,
+            Pane = new TextBlock { Text = "Library" },
+            Width = 600,
+            Height = 300,
+        });
+        var shadow = Matrix.Part<Border>(drawer, "PART_PaneShadow");
+
+        Assert.Equal(FabTests.Shadow(1), shadow.BoxShadow);
+        Assert.True(shadow.IsEffectivelyVisible);
+        Assert.False(Matrix.Part<Panel>(drawer, "PART_PaneRoot").ClipToBounds);
+        Assert.True(Matrix.Part<Panel>(drawer, "PART_PaneClip").ClipToBounds);
+        Assert.Same(Matrix.Part<Panel>(drawer, "PART_PaneClip"), Matrix.Part<ContentPresenter>(drawer, "PART_PanePresenter").GetVisualParent());
+
+        drawer.Classes.Add("elevation0");
+        Assert.Equal(FabTests.Shadow(0), shadow.BoxShadow);
+        drawer.Classes.Remove("elevation0");
+        drawer.Classes.Add("elevation8");
+        Assert.Equal(FabTests.Shadow(8), shadow.BoxShadow);
+
+        drawer.IsPaneOpen = false;
+        Dispatcher.UIThread.RunJobs();
+        Assert.False(shadow.IsVisible);
+        drawer.DisplayMode = SplitViewDisplayMode.CompactInline;
+        Dispatcher.UIThread.RunJobs();
+        Assert.True(shadow.IsVisible);
     });
 
     /// <summary>MudMenu.Dense: 2px 12px rows in body2.</summary>

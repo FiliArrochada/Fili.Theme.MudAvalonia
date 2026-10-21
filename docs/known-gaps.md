@@ -4,12 +4,12 @@ What this theme does not do, and why. Per-parameter differences are in
 [MudBlazor parity](mudblazor-parity.md).
 
 
-**46 of the 95 templated control types are hand-written**; the other 49 wear forked Simple
+**47 of the 95 templated control types are hand-written**; the other 48 wear forked Simple
 templates repaletted onto these tokens. Nothing is invisible and nothing external is required —
 the remaining gap is Material *shape*, not colour.
 
-**The control list is closed, and "forty-nine still forked" is not a backlog.** Every one of
-those forty-nine is classified with a reason in `StandaloneReadinessTests.Unthemed`, and the test asserts
+**The control list is closed, and "forty-eight still forked" is not a backlog.** Every one of
+those forty-eight is classified with a reason in `StandaloneReadinessTests.Unthemed`, and the test asserts
 that inventory is exhaustive and says each type once — so a future Avalonia that adds a control
 fails by name asking to be classified, rather than quietly making the coverage number mean less.
 What is left is framework plumbing with no design opinion to express, a bespoke MudBlazor

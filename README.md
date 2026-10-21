@@ -396,7 +396,7 @@ publish to nuget.org and its one-time setup. [Versions](docs/versions.md) is the
 
 ## Known gaps
 
-46 of the 95 templated control types are hand-written; the other 49 wear forked Simple
+47 of the 95 templated control types are hand-written; the other 48 wear forked Simple
 templates repaletted onto these tokens, each classified with a reason. There is no date or time
 picker restyle. [Known gaps](docs/known-gaps.md)
 has the full list and the reason for each.

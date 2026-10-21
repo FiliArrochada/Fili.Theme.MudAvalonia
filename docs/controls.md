@@ -499,17 +499,23 @@ has no default theme, so the grid then needs the package's own theme included to
 
 ## The drawer, and a third way to theme a control
 
-`SplitView` is MudDrawer, and it is the one control here treated with **styles rather than a
-`ControlTheme`** — so it is not in the 34 above, and that is the point rather than an oversight.
+`SplitView` is MudDrawer, and nearly all of it is **styles rather than its `ControlTheme`**.
 
-Everything MudDrawer contributes is a *value*: `layout/_drawer.scss` (in `Styles/layout/`, not
+Nearly everything MudDrawer contributes is a *value*: `layout/_drawer.scss` (in `Styles/layout/`, not
 `components/`, which is why it takes some finding) paints from the `drawer-background` and
 `drawer-text` tokens, `LayoutProperties.cs` gives `DrawerWidthLeft = "240px"` and
-`DrawerMiniWidthLeft = "56px"` — already `FiliDrawerWidth` and `FiliDrawerMiniWidth` — and
-`MudDrawer.Elevation` defaults to 1. What the forked template carries is *structure*: pane
-sliding, the four display modes, the light-dismiss layer. Get a part name wrong there and the
-drawer lays out perfectly and never opens, which is the same reason `ScrollViewer` and `Window`
-are left alone.
+`DrawerMiniWidthLeft = "56px"` — already `FiliDrawerWidth` and `FiliDrawerMiniWidth`. What the
+template carries is *structure*: pane sliding, the four display modes, the light-dismiss layer.
+Get a part name wrong there and the drawer lays out perfectly and never opens, which is the same
+reason `ScrollViewer` and `Window` are left alone.
+
+The exception is `MudDrawer.Elevation`, 1 by default, which needs a part: the pane root is a
+`Panel`, which cannot carry a `BoxShadow`, and it clips. So `Controls/SplitView.axaml` owns the
+template - the fork's, part for part, with `PART_PaneShadow` added under the pane's content and
+the content clipping one level in, in `PART_PaneClip` - while the fork itself stays byte-faithful.
+The elevation classes on the `SplitView` change the shadow (`elevation0` drops it). A drawer
+closed to nothing casts none, and high contrast draws none: the drawer's edge there is its
+drawer-border line, and a ring beside it would make it 2px.
 
 So there are three ways to change how a control looks here, and the third is new:
 
@@ -817,6 +823,8 @@ for something XAML cannot express on its own:
   TextBox's own theme reads them two templates down from the outer control.
 - **`MenuIconGutter`** opens a menu row's icon column when another row in the same list has an
   icon, MudMenu's `:has(.mud-menu-item-icon)` rule. A selector cannot ask about siblings.
+- **`HighContrastOpacityConverter`** hides the drawer's shadow in high contrast, where the
+  drawer's edge is its own line. A style cannot select on the theme variant.
 - **`HighContrastRings`** builds high contrast's elevation rings in the application's
   `FiliLinesDefaultColor`. A `BoxShadows` string cannot carry a `DynamicResource`.
 - **`ExpansionPanels`** keeps `:joined`, `:first-panel`, `:last-panel`, `:next-expanded` and

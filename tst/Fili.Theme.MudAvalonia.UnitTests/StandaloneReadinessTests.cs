@@ -53,6 +53,10 @@ public class StandaloneReadinessTests
         "FiliNotificationCard", "FiliWindowNotificationManager",
         "FiliToolTip", "FiliFlyoutPresenter", "FiliMenuFlyoutPresenter",
 
+        // MudDrawer. Almost all values, set by styles in FiliTheme.axaml; the theme is the fork's
+        // template with the part MudDrawer's elevation is drawn on.
+        "FiliSplitView",
+
         // MudBadge. Opt-in through the `badge` class: an unclassed HeaderedContentControl keeps
         // the forked template, as an unclassed Button keeps the text one.
         "FiliBadge",
@@ -63,10 +67,10 @@ public class StandaloneReadinessTests
     ];
 
     /// <summary>
-    /// The other forty-nine, each with the reason it is still wearing a forked Simple template.
+    /// The other forty-eight, each with the reason it is still wearing a forked Simple template.
     ///
     /// <para>
-    /// This list exists because "forty-nine still forked" reads like a backlog and is not one. Every
+    /// This list exists because "forty-eight still forked" reads like a backlog and is not one. Every
     /// entry below was checked against MudBlazor rather than assumed, and the honest finding is
     /// that the control work is CLOSED: what remains is either framework plumbing with no design
     /// opinion to express, a bespoke MudBlazor component that would be a rewrite rather than a
@@ -107,10 +111,6 @@ public class StandaloneReadinessTests
         // Avalonia's navigation shells. A design system has no opinion about a page host.
         ("Shell page types",
             ["CarouselPage", "ContentPage", "DrawerPage", "NavigationPage", "TabbedPage"]),
-
-        // MudDrawer, and the worked example of the cheapest of the three ways to theme a control:
-        // the forked template's structure is already right, so only values needed changing.
-        ("Deliberately treated with a Style rather than a ControlTheme", ["SplitView"]),
 
         // Structural rather than decorative: get a part name wrong and it lays out perfectly and
         // does not scroll. Written once while layering, deleted when the fork made it redundant.
@@ -193,20 +193,20 @@ public class StandaloneReadinessTests
                 "FlyoutPresenter", "HeaderedContentControl", "HyperlinkButton", "Label", "ListBox", "ListBoxItem", "Menu",
                 "MenuFlyoutPresenter", "MenuItem", "NotificationCard", "NumericUpDown",
                 "PipsPager", "ProgressBar", "RadioButton", "RepeatButton", "ScrollBar",
-                "Separator", "Slider", "SplitButton", "TabControl", "TabItem", "TabStrip",
+                "Separator", "Slider", "SplitButton", "SplitView", "TabControl", "TabItem", "TabStrip",
                 "TabStripItem",
                 "TextBox", "ToggleButton", "ToggleSwitch", "ToolTip", "TreeView", "TreeViewItem",
                 "WindowNotificationManager",
             ],
             themed.Select(t => t.Name).ToArray());
 
-        // THE NUMBER THAT SAYS HOW MUCH OF THE FORK IS STILL DOING THE WORK. 46 of 95 templated
-        // control types are hand-written here; the other 49 are still wearing the forked Simple
+        // THE NUMBER THAT SAYS HOW MUCH OF THE FORK IS STILL DOING THE WORK. 47 of 95 templated
+        // control types are hand-written here; the other 48 are still wearing the forked Simple
         // templates from Themes/Base. Pinned rather than merely reported, so it cannot drift
         // unnoticed and so an Avalonia version that adds controls surfaces as a failure here.
         var templated = TemplatedControlTypes();
 
-        Assert.Equal(46, themed.Count);
+        Assert.Equal(47, themed.Count);
         Assert.Equal(95, templated.Count);
     });
 
@@ -214,8 +214,8 @@ public class StandaloneReadinessTests
     /// The inventory is complete and says each type once.
     ///
     /// <para>
-    /// This is what turns the coverage number from a claim into a fact. Without it, "46 of 95"
-    /// only says how many themes exist; with it, every one of the other forty-nine has a stated reason
+    /// This is what turns the coverage number from a claim into a fact. Without it, "47 of 95"
+    /// only says how many themes exist; with it, every one of the other forty-eight has a stated reason
     /// for not being one, and a control type added by a future Avalonia fails here by name rather
     /// than by making 89 into 90.
     /// </para>

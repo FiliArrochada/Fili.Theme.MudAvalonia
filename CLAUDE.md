@@ -31,8 +31,8 @@ classes, `ControlTheme`s where a Material look cannot be faked without one, and 
   public is a design change, and belongs in a separate package.
 - **`internal` helpers only where XAML genuinely cannot express something** (compiled XAML can
   construct them, so nothing leaks): `FactorConverter`, `ErrorMessageConverter`,
-  `TickPositionsConverter`, `BadgeContentConverter`, `StripedRowConverter` and `TextLengthConverter`
-  in `Converters/`;
+  `TickPositionsConverter`, `BadgeContentConverter`, `StripedRowConverter`, `TextLengthConverter`
+  and `HighContrastOpacityConverter` in `Converters/`;
   `OptionalStyleInclude`, a `StyleInclude` that loads only when the app has the package;
   `TextTransform`, a button label's case from `FiliButtonTextTransform`; `ExpansionPanels`, the
   neighbours, ends and single expansion of an `expansion-panels` group; `Ripple`, MudBlazor's

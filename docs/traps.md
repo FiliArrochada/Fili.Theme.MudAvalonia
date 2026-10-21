@@ -482,7 +482,7 @@ the package does not ship and drew Fluent's dark theme under the High contrast l
 Fluent back for a comparison - `StandaloneReadinessTests` is the record of what is hand-written.
 
 **Coverage is pinned, not reported.** `StandaloneReadinessTests` asserts the exact set of
-hand-written themes — **46 of the 95 templated types** — plus the count of both. The other 49 wear
+hand-written themes — **47 of the 95 templated types** — plus the count of both. The other 48 wear
 forked templates, and `SimpleBridgeTests` asserts the ~96 contract keys those paint from still
 resolve in both variants. Adding a theme means adding its `Fili*` key AND its target type to the
 first test in the same change; that is what keeps the number honest and turns an Avalonia version
@@ -491,7 +491,8 @@ that adds control types into a failing build rather than a silent gap.
 **There are THREE ways to change how a control looks, and reaching for the heaviest one by
 default is the mistake.** In order of increasing cost: a `Style` in `FiliTheme.axaml` when the
 shape is right and only values are wrong (`SplitView`/MudDrawer is the worked example — a Style
-outranks a ControlTheme setter, which is the trap above used deliberately); `Accents.axaml` when
+outranks a ControlTheme setter, which is the trap above used deliberately; its own theme only adds
+the part its elevation needs); `Accents.axaml` when
 the control paints from one of Simple's shared keys; a hand-written `ControlTheme` when the shape
 itself is wrong.
 

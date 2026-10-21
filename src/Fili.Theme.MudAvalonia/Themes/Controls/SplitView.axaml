@@ -1,0 +1,503 @@
+<!--
+  SplitView: MudDrawer.
+
+  Avalonia Simple's SplitView, from the fork in Themes/Base/Controls at 12.1.3, with one part
+  added: PART_PaneShadow, a Border under the pane's content that carries MudDrawer's elevation
+  (`.mud-drawer` takes `mud-elevation-{Elevation}`, and Elevation defaults to 1). The pane root
+  is a Panel, which cannot carry a BoxShadow, and it clips, which would cut one off; so the root
+  no longer clips, and the content clips one level in, in PART_PaneClip. The fork stays
+  byte-faithful (Themes/Base/FORK.md); this file is where the template is owned.
+
+  Everything else is the fork's, part for part: the four placements, the four display modes, the
+  pane's slide and the light-dismiss layer, where a wrong part name gives a drawer that lays out
+  perfectly and never opens. Its three StaticResource timings are written in place, because the
+  fork's keys are not in scope from here. What MudDrawer paints - drawer-background,
+  drawer-text, 240px and 56px, the edge in high contrast, the scrim, the colour classes - is
+  still the styles in FiliTheme.axaml.
+
+  In high contrast the shadow is not drawn. Elevation is a ring there, and beside HCPaneBorder,
+  the edge high contrast gives the drawer, it would make a 2px line. A style cannot select on the
+  theme variant, so HighContrastOpacityConverter reads it.
+-->
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:fili="using:Fili.Theme.MudAvalonia.Converters">
+
+  <ControlTheme x:Key="FiliSplitView" TargetType="SplitView">
+    <Setter Property="OpenPaneLength" Value="{DynamicResource SplitViewOpenPaneThemeLength}" />
+    <Setter Property="CompactPaneLength" Value="{DynamicResource SplitViewCompactPaneThemeLength}" />
+    <Setter Property="PaneBackground" Value="{DynamicResource ThemeControlHighlightLowBrush}" />
+
+    <!-- Left -->
+    <Style Selector="^:left">
+      <Setter Property="Template">
+        <ControlTemplate TargetType="SplitView">
+          <Grid Name="Container"
+                Background="{TemplateBinding Background}">
+            <Grid.ColumnDefinitions>
+              <ColumnDefinition
+                Width="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=TemplateSettings.PaneColumnGridLength}" />
+              <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <Panel Name="PART_PaneRoot" Background="{TemplateBinding PaneBackground}"
+                   ClipToBounds="False"
+                   HorizontalAlignment="Left"
+                   ZIndex="100">
+              <!-- MudDrawer's elevation, cast past the pane's edge. -->
+              <Border Name="PART_PaneShadow"
+                      IsHitTestVisible="False"
+                      Opacity="{Binding $parent[SplitView].ActualThemeVariant, Converter={x:Static fili:HighContrastOpacityConverter.Instance}}" />
+              <!-- The content clips here, one level in, so the pane still clips it as it slides and
+                   the shadow beside the pane is not cut away with it. -->
+              <Panel Name="PART_PaneClip" ClipToBounds="True">
+                <ContentPresenter x:Name="PART_PanePresenter" Content="{TemplateBinding Pane}"
+                                  ContentTemplate="{TemplateBinding PaneTemplate}" />
+                <Rectangle Name="HCPaneBorder" Fill="Transparent" Width="1"
+                           HorizontalAlignment="Right" />
+              </Panel>
+            </Panel>
+
+            <Panel Name="ContentRoot" Grid.Column="1">
+              <ContentPresenter x:Name="PART_ContentPresenter" Content="{TemplateBinding Content}"
+                                ContentTemplate="{TemplateBinding ContentTemplate}" />
+              <Rectangle Name="LightDismissLayer" IsVisible="False"/>
+            </Panel>
+
+          </Grid>
+        </ControlTemplate>
+      </Setter>
+    </Style>
+
+    <!-- Overlay -->
+    <Style Selector="^:overlay:left /template/ Panel#PART_PaneRoot">
+      <Setter Property="Width"
+              Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=TemplateSettings.ClosedPaneWidth}" />
+      <Setter Property="Grid.ColumnSpan" Value="2" />
+      <Setter Property="Grid.Column" Value="0" />
+    </Style>
+    <Style Selector="^:overlay:left /template/ Panel#ContentRoot">
+      <Setter Property="Grid.Column" Value="1" />
+      <Setter Property="Grid.ColumnSpan" Value="2" />
+    </Style>
+
+    <!-- CompactInline -->
+    <Style Selector="^:compactinline:left /template/ Panel#PART_PaneRoot">
+      <Setter Property="Grid.ColumnSpan" Value="1" />
+      <Setter Property="Grid.Column" Value="0" />
+      <Setter Property="Width"
+              Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=TemplateSettings.ClosedPaneWidth}" />
+    </Style>
+    <Style Selector="^:compactinline:left /template/ Panel#ContentRoot">
+      <Setter Property="Grid.Column" Value="1" />
+      <Setter Property="Grid.ColumnSpan" Value="1" />
+    </Style>
+
+    <!-- CompactOverlay -->
+    <Style Selector="^:compactoverlay:left /template/ Panel#PART_PaneRoot">
+      <Setter Property="Grid.ColumnSpan" Value="2" />
+      <Setter Property="Grid.Column" Value="0" />
+      <Setter Property="Width"
+              Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=TemplateSettings.ClosedPaneWidth}" />
+    </Style>
+    <Style Selector="^:compactoverlay:left /template/ Panel#ContentRoot">
+      <Setter Property="Grid.Column" Value="1" />
+      <Setter Property="Grid.ColumnSpan" Value="1" />
+    </Style>
+
+    <!-- Inline -->
+    <Style Selector="^:inline:left /template/ Panel#PART_PaneRoot">
+      <Setter Property="Grid.ColumnSpan" Value="1" />
+      <Setter Property="Grid.Column" Value="0" />
+      <Setter Property="Width"
+              Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=TemplateSettings.ClosedPaneWidth}" />
+    </Style>
+    <Style Selector="^:inline:left /template/ Panel#ContentRoot">
+      <Setter Property="Grid.Column" Value="1" />
+      <Setter Property="Grid.ColumnSpan" Value="1" />
+    </Style>
+
+    <!-- Right -->
+    <Style Selector="^:right">
+      <Setter Property="Template">
+        <ControlTemplate TargetType="SplitView">
+          <Grid Name="Container" Background="{TemplateBinding Background}">
+            <Grid.ColumnDefinitions>
+              <ColumnDefinition Width="*" />
+              <ColumnDefinition
+                Width="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=TemplateSettings.PaneColumnGridLength}" />
+            </Grid.ColumnDefinitions>
+
+            <Panel Name="PART_PaneRoot" Background="{TemplateBinding PaneBackground}"
+                   ClipToBounds="False"
+                   HorizontalAlignment="Right"
+                   ZIndex="100">
+              <!-- MudDrawer's elevation, cast past the pane's edge. -->
+              <Border Name="PART_PaneShadow"
+                      IsHitTestVisible="False"
+                      Opacity="{Binding $parent[SplitView].ActualThemeVariant, Converter={x:Static fili:HighContrastOpacityConverter.Instance}}" />
+              <!-- The content clips here, one level in, so the pane still clips it as it slides and
+                   the shadow beside the pane is not cut away with it. -->
+              <Panel Name="PART_PaneClip" ClipToBounds="True">
+                <ContentPresenter x:Name="PART_PanePresenter" Content="{TemplateBinding Pane}"
+                                  ContentTemplate="{TemplateBinding PaneTemplate}" />
+                <Rectangle Name="HCPaneBorder"
+                           Fill="Transparent"
+                           Width="1" HorizontalAlignment="Left" />
+              </Panel>
+            </Panel>
+
+            <Panel Name="ContentRoot" Grid.Column="0">
+              <ContentPresenter x:Name="PART_ContentPresenter" Content="{TemplateBinding Content}"
+                                ContentTemplate="{TemplateBinding ContentTemplate}" />
+              <Rectangle Name="LightDismissLayer" IsVisible="False"/>
+            </Panel>
+
+          </Grid>
+        </ControlTemplate>
+      </Setter>
+    </Style>
+
+    <!-- Overlay -->
+    <Style Selector="^:overlay:right /template/ Panel#PART_PaneRoot">
+      <Setter Property="Width"
+              Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=TemplateSettings.ClosedPaneWidth}" />
+      <Setter Property="Grid.ColumnSpan" Value="2" />
+      <Setter Property="Grid.Column" Value="1" />
+    </Style>
+    <Style Selector="^:overlay:right /template/ Panel#ContentRoot">
+      <Setter Property="Grid.Column" Value="0" />
+      <Setter Property="Grid.ColumnSpan" Value="2" />
+    </Style>
+
+    <!-- CompactInline -->
+    <Style Selector="^:compactinline:right /template/ Panel#PART_PaneRoot">
+      <Setter Property="Grid.ColumnSpan" Value="1" />
+      <Setter Property="Grid.Column" Value="1" />
+      <Setter Property="Width"
+              Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=TemplateSettings.ClosedPaneWidth}" />
+    </Style>
+    <Style Selector="^:compactinline:right /template/ Panel#ContentRoot">
+      <Setter Property="Grid.Column" Value="0" />
+      <Setter Property="Grid.ColumnSpan" Value="1" />
+    </Style>
+
+    <!-- CompactOverlay -->
+    <Style Selector="^:compactoverlay:right /template/ Panel#PART_PaneRoot">
+      <Setter Property="Grid.ColumnSpan" Value="2" />
+      <Setter Property="Grid.Column" Value="1" />
+      <Setter Property="Width"
+              Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=TemplateSettings.ClosedPaneWidth}" />
+    </Style>
+    <Style Selector="^:compactoverlay:right /template/ Panel#ContentRoot">
+      <Setter Property="Grid.Column" Value="0" />
+      <Setter Property="Grid.ColumnSpan" Value="1" />
+    </Style>
+
+    <!-- Inline -->
+    <Style Selector="^:inline:right /template/ Panel#PART_PaneRoot">
+      <Setter Property="Grid.ColumnSpan" Value="1" />
+      <Setter Property="Grid.Column" Value="1" />
+      <Setter Property="Width"
+              Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=TemplateSettings.ClosedPaneWidth}" />
+    </Style>
+    <Style Selector="^:inline:right /template/ Panel#ContentRoot">
+      <Setter Property="Grid.Column" Value="0" />
+      <Setter Property="Grid.ColumnSpan" Value="1" />
+    </Style>
+
+    <!-- TOP placement -->
+    <Style Selector="^:top">
+      <Setter Property="Template">
+        <ControlTemplate TargetType="SplitView">
+          <Grid Name="Container" Background="{TemplateBinding Background}">
+            <Grid.RowDefinitions>
+              <RowDefinition Height="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=TemplateSettings.PaneRowGridLength}" />
+              <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <Panel Name="PART_PaneRoot"
+                   Background="{TemplateBinding PaneBackground}"
+                   ClipToBounds="False"
+                   VerticalAlignment="Top"
+                   ZIndex="100">
+              <!-- MudDrawer's elevation, cast past the pane's edge. -->
+              <Border Name="PART_PaneShadow"
+                      IsHitTestVisible="False"
+                      Opacity="{Binding $parent[SplitView].ActualThemeVariant, Converter={x:Static fili:HighContrastOpacityConverter.Instance}}" />
+              <!-- The content clips here, one level in, so the pane still clips it as it slides and
+                   the shadow beside the pane is not cut away with it. -->
+              <Panel Name="PART_PaneClip" ClipToBounds="True">
+                <ContentPresenter x:Name="PART_PanePresenter"
+                                  Content="{TemplateBinding Pane}"
+                                  ContentTemplate="{TemplateBinding PaneTemplate}" />
+                <Rectangle Name="HCPaneBorder"
+                           Fill="Transparent"
+                           Height="1"
+                           VerticalAlignment="Bottom" />
+              </Panel>
+            </Panel>
+
+            <Panel Name="ContentRoot" Grid.Row="1">
+              <ContentPresenter x:Name="PART_ContentPresenter"
+                                Content="{TemplateBinding Content}"
+                                ContentTemplate="{TemplateBinding ContentTemplate}" />
+              <Rectangle Name="LightDismissLayer" IsVisible="False" />
+            </Panel>
+          </Grid>
+        </ControlTemplate>
+      </Setter>
+    </Style>
+
+    <!-- Overlay -->
+    <Style Selector="^:overlay:top /template/ Panel#PART_PaneRoot">
+      <Setter Property="Height"
+              Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=TemplateSettings.ClosedPaneHeight}" />
+      <Setter Property="Grid.RowSpan" Value="1" />
+      <Setter Property="Grid.Row" Value="0" />
+    </Style>
+    <Style Selector="^:overlay:top /template/ Panel#ContentRoot">
+      <Setter Property="Grid.Row" Value="1" />
+      <Setter Property="Grid.RowSpan" Value="2" />
+    </Style>
+
+    <!-- CompactInline -->
+    <Style Selector="^:compactinline:top /template/ Panel#PART_PaneRoot">
+      <Setter Property="Grid.RowSpan" Value="1" />
+      <Setter Property="Grid.Row" Value="0" />
+      <Setter Property="Height"
+              Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=TemplateSettings.ClosedPaneHeight}" />
+    </Style>
+    <Style Selector="^:compactinline:top /template/ Panel#ContentRoot">
+      <Setter Property="Grid.Row" Value="1" />
+      <Setter Property="Grid.RowSpan" Value="1" />
+    </Style>
+
+    <!-- CompactOverlay -->
+    <Style Selector="^:compactoverlay:top /template/ Panel#PART_PaneRoot">
+      <Setter Property="Grid.RowSpan" Value="1" />
+      <Setter Property="Grid.Row" Value="0" />
+      <Setter Property="Height"
+              Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=TemplateSettings.ClosedPaneHeight}" />
+    </Style>
+    <Style Selector="^:compactoverlay:top /template/ Panel#ContentRoot">
+      <Setter Property="Grid.Row" Value="1" />
+      <Setter Property="Grid.RowSpan" Value="1" />
+    </Style>
+
+    <!-- Inline -->
+    <Style Selector="^:inline:top /template/ Panel#PART_PaneRoot">
+      <Setter Property="Grid.RowSpan" Value="1" />
+      <Setter Property="Grid.Row" Value="0" />
+      <Setter Property="Height"
+              Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=TemplateSettings.ClosedPaneHeight}" />
+    </Style>
+    <Style Selector="^:inline:top /template/ Panel#ContentRoot">
+      <Setter Property="Grid.Row" Value="1" />
+      <Setter Property="Grid.RowSpan" Value="1" />
+    </Style>
+
+    <!-- BOTTOM placement -->
+    <Style Selector="^:bottom">
+      <Setter Property="Template">
+        <ControlTemplate TargetType="SplitView">
+          <Grid Name="Container" Background="{TemplateBinding Background}">
+            <Grid.RowDefinitions>
+              <RowDefinition Height="*" />
+              <RowDefinition Height="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=TemplateSettings.PaneRowGridLength}" />
+            </Grid.RowDefinitions>
+
+            <Panel Name="PART_PaneRoot"
+                   Background="{TemplateBinding PaneBackground}"
+                   ClipToBounds="False"
+                   VerticalAlignment="Bottom"
+                   ZIndex="100">
+              <!-- MudDrawer's elevation, cast past the pane's edge. -->
+              <Border Name="PART_PaneShadow"
+                      IsHitTestVisible="False"
+                      Opacity="{Binding $parent[SplitView].ActualThemeVariant, Converter={x:Static fili:HighContrastOpacityConverter.Instance}}" />
+              <!-- The content clips here, one level in, so the pane still clips it as it slides and
+                   the shadow beside the pane is not cut away with it. -->
+              <Panel Name="PART_PaneClip" ClipToBounds="True">
+                <ContentPresenter x:Name="PART_PanePresenter"
+                                  Content="{TemplateBinding Pane}"
+                                  ContentTemplate="{TemplateBinding PaneTemplate}" />
+                <Rectangle Name="HCPaneBorder"
+                           Fill="Transparent"
+                           Height="1"
+                           VerticalAlignment="Top" />
+              </Panel>
+            </Panel>
+
+            <Panel Name="ContentRoot" Grid.Row="0">
+              <ContentPresenter x:Name="PART_ContentPresenter"
+                                Content="{TemplateBinding Content}"
+                                ContentTemplate="{TemplateBinding ContentTemplate}" />
+              <Rectangle Name="LightDismissLayer" IsVisible="False" />
+            </Panel>
+          </Grid>
+        </ControlTemplate>
+      </Setter>
+    </Style>
+
+    <!-- Overlay -->
+    <Style Selector="^:overlay:bottom /template/ Panel#PART_PaneRoot">
+      <Setter Property="Height"
+              Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=TemplateSettings.ClosedPaneHeight}" />
+      <Setter Property="Grid.RowSpan" Value="2" />
+      <Setter Property="Grid.Row" Value="1" />
+    </Style>
+    <Style Selector="^:overlay:bottom /template/ Panel#ContentRoot">
+      <Setter Property="Grid.Row" Value="0" />
+      <Setter Property="Grid.RowSpan" Value="2" />
+    </Style>
+
+    <!-- CompactInline -->
+    <Style Selector="^:compactinline:bottom /template/ Panel#PART_PaneRoot">
+      <Setter Property="Grid.RowSpan" Value="1" />
+      <Setter Property="Grid.Row" Value="1" />
+      <Setter Property="Height"
+              Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=TemplateSettings.ClosedPaneHeight}" />
+    </Style>
+    <Style Selector="^:compactinline:bottom /template/ Panel#ContentRoot">
+      <Setter Property="Grid.Row" Value="0" />
+      <Setter Property="Grid.RowSpan" Value="1" />
+    </Style>
+
+    <!-- CompactOverlay -->
+    <Style Selector="^:compactoverlay:bottom /template/ Panel#PART_PaneRoot">
+      <Setter Property="Grid.RowSpan" Value="2" />
+      <Setter Property="Grid.Row" Value="1" />
+      <Setter Property="Height"
+              Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=TemplateSettings.ClosedPaneHeight}" />
+    </Style>
+    <Style Selector="^:compactoverlay:bottom /template/ Panel#ContentRoot">
+      <Setter Property="Grid.Row" Value="0" />
+      <Setter Property="Grid.RowSpan" Value="1" />
+    </Style>
+
+    <!-- Inline -->
+    <Style Selector="^:inline:bottom /template/ Panel#PART_PaneRoot">
+      <Setter Property="Grid.RowSpan" Value="1" />
+      <Setter Property="Grid.Row" Value="1" />
+      <Setter Property="Height"
+              Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=TemplateSettings.ClosedPaneHeight}" />
+    </Style>
+    <Style Selector="^:inline:bottom /template/ Panel#ContentRoot">
+      <Setter Property="Grid.Row" Value="0" />
+      <Setter Property="Grid.RowSpan" Value="1" />
+    </Style>
+
+    <!-- Open/Close Pane animation  -->
+    <!-- Scope width animations to horizontal placements -->
+    <Style Selector="^:left:open /template/ Panel#PART_PaneRoot">
+      <Setter Property="Transitions">
+        <Transitions>
+          <DoubleTransition Property="Width" Duration="0:0:0.2"
+                            Easing="0.1,0.9,0.2,1.0" />
+        </Transitions>
+      </Setter>
+      <Setter Property="Width" Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=OpenPaneLength}" />
+    </Style>
+    <Style Selector="^:right:open /template/ Panel#PART_PaneRoot">
+      <Setter Property="Transitions">
+        <Transitions>
+          <DoubleTransition Property="Width" Duration="0:0:0.2"
+                            Easing="0.1,0.9,0.2,1.0" />
+        </Transitions>
+      </Setter>
+      <Setter Property="Width" Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=OpenPaneLength}" />
+    </Style>
+
+    <Style Selector="^:left:closed /template/ Panel#PART_PaneRoot">
+      <Setter Property="Transitions">
+        <Transitions>
+          <DoubleTransition Property="Width" Duration="0:0:0.1"
+                            Easing="0.1,0.9,0.2,1.0" />
+        </Transitions>
+      </Setter>
+      <Setter Property="Width"
+              Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=TemplateSettings.ClosedPaneWidth}" />
+    </Style>
+    <Style Selector="^:right:closed /template/ Panel#PART_PaneRoot">
+      <Setter Property="Transitions">
+        <Transitions>
+          <DoubleTransition Property="Width" Duration="0:0:0.1"
+                            Easing="0.1,0.9,0.2,1.0" />
+        </Transitions>
+      </Setter>
+      <Setter Property="Width"
+              Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=TemplateSettings.ClosedPaneWidth}" />
+    </Style>
+
+    <!-- Placement-specific open/closed transitions for vertical panes (top/bottom) -->
+    <Style Selector="^:top:open /template/ Panel#PART_PaneRoot">
+      <Setter Property="Transitions">
+        <Transitions>
+          <DoubleTransition Property="Height" Duration="0:0:0.2"
+                            Easing="0.1,0.9,0.2,1.0" />
+        </Transitions>
+      </Setter>
+      <Setter Property="Height" Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=OpenPaneLength}" />
+    </Style>
+    <Style Selector="^:bottom:open /template/ Panel#PART_PaneRoot">
+      <Setter Property="Transitions">
+        <Transitions>
+          <DoubleTransition Property="Height" Duration="0:0:0.2"
+                            Easing="0.1,0.9,0.2,1.0" />
+        </Transitions>
+      </Setter>
+      <Setter Property="Height" Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=OpenPaneLength}" />
+    </Style>
+
+    <Style Selector="^:top:closed /template/ Panel#PART_PaneRoot">
+      <Setter Property="Transitions">
+        <Transitions>
+          <DoubleTransition Property="Height" Duration="0:0:0.1"
+                            Easing="0.1,0.9,0.2,1.0" />
+        </Transitions>
+      </Setter>
+      <Setter Property="Height"
+              Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=TemplateSettings.ClosedPaneHeight}" />
+    </Style>
+    <Style Selector="^:bottom:closed /template/ Panel#PART_PaneRoot">
+      <Setter Property="Transitions">
+        <Transitions>
+          <DoubleTransition Property="Height" Duration="0:0:0.1"
+                            Easing="0.1,0.9,0.2,1.0" />
+        </Transitions>
+      </Setter>
+      <Setter Property="Height"
+              Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=TemplateSettings.ClosedPaneHeight}" />
+    </Style>
+
+    <Style Selector="^ /template/ Rectangle#LightDismissLayer">
+      <Setter Property="IsVisible" Value="False" />
+      <Setter Property="Fill" Value="Transparent" />
+    </Style>
+    <Style Selector="^:lightDismiss /template/ Rectangle#LightDismissLayer">
+      <Setter Property="Fill">
+        <SolidColorBrush Color="{DynamicResource ThemeControlLowColor}" Opacity="0.6" />
+      </Setter>
+    </Style>
+
+    <Style Selector="^:overlay:open /template/ Rectangle#LightDismissLayer">
+      <Setter Property="IsVisible" Value="True" />
+    </Style>
+    <Style Selector="^:compactoverlay:open /template/ Rectangle#LightDismissLayer">
+      <Setter Property="IsVisible" Value="True" />
+    </Style>
+    <!-- MudDrawer.Elevation, 1 by default: `mud-elevation-{n}` on the drawer. The elevation
+         classes are in FiliTheme.axaml, generated. A drawer closed to nothing has nothing to
+         cast it from. -->
+    <Style Selector="^ /template/ Border#PART_PaneShadow">
+      <Setter Property="BoxShadow" Value="{DynamicResource FiliElevation1}" />
+    </Style>
+    <Style Selector="^:overlay:closed /template/ Border#PART_PaneShadow, ^:inline:closed /template/ Border#PART_PaneShadow">
+      <Setter Property="IsVisible" Value="False" />
+    </Style>
+  </ControlTheme>
+
+  <ControlTheme x:Key="{x:Type SplitView}" TargetType="SplitView" BasedOn="{StaticResource FiliSplitView}" />
+
+</ResourceDictionary>

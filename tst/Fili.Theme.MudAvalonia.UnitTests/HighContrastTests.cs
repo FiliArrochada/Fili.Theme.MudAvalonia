@@ -421,6 +421,40 @@ public class HighContrastTests
         Assert.Equal(255, PaneBorderFill(HighContrast).A);
     });
 
+    /// <summary>
+    /// MudDrawer's elevation is a shadow in light and dark, and not drawn in high contrast: there
+    /// it would be a ring beside <c>HCPaneBorder</c>, and the edge a 2px line.
+    /// </summary>
+    [Fact]
+    public Task TheDrawersShadowGivesWayToItsEdgeInHighContrast() => UiThread.RunAsync(() =>
+    {
+        Assert.True(PaneShadowShown(ThemeVariant.Light));
+        Assert.True(PaneShadowShown(ThemeVariant.Dark));
+        Assert.False(PaneShadowShown(HighContrast));
+    });
+
+    /// <remarks>On the application, as <see cref="PaneBorderFill"/> explains.</remarks>
+    private static bool PaneShadowShown(ThemeVariant variant)
+    {
+        var application = Application.Current!;
+        var previous = application.RequestedThemeVariant;
+
+        try
+        {
+            application.RequestedThemeVariant = variant;
+
+            var split = new SplitView { IsPaneOpen = true, DisplayMode = SplitViewDisplayMode.Inline };
+            new Window { Content = split }.Show();
+            split.ApplyTemplate();
+
+            return split.GetVisualDescendants().OfType<Border>().Single(b => b.Name == "PART_PaneShadow") is { IsVisible: true, Opacity: 1 };
+        }
+        finally
+        {
+            application.RequestedThemeVariant = previous;
+        }
+    }
+
     /// <remarks>
     /// The variant goes on the APPLICATION, not on the window, and that is not incidental. Every
     /// brush in this theme is one shared object declared once at application level whose Color is

@@ -48,6 +48,7 @@ public static class ThemeColourGenerator
     public const string ToggleIconLabel = "toggle icon button variants, colours and sizes.";
     public const string IconLabel = "icon sizes and colours.";
     public const string DrawerLabel = "drawer colours.";
+    public const string DrawerElevationLabel = "drawer elevation.";
     public const string SnackbarLabel = "snackbar variants and colours.";
     public const string TooltipLabel = "tooltip colours.";
     public const string ThumbIconLabel = "switch thumb icon colours.";
@@ -101,6 +102,7 @@ public static class ThemeColourGenerator
             (Controls("ToggleButton.axaml"), ToggleIconLabel, ToggleIconRegion()),
             (FiliThemePath, IconLabel, IconRegion()),
             (FiliThemePath, DrawerLabel, DrawerRegion()),
+            (FiliThemePath, DrawerElevationLabel, DrawerElevationRegion()),
             (Controls("Notifications.axaml"), SnackbarLabel, SnackbarRegion()),
             (Controls("Overlays.axaml"), TooltipLabel, TooltipRegion()),
             (Controls("ToggleSwitch.axaml"), ThumbIconLabel, ThumbIconRegion()),
@@ -1393,6 +1395,10 @@ public static class ThemeColourGenerator
 
         return o.ToString();
     }
+
+    // FiliTheme.axaml: MudDrawer's Elevation, on the Border the fork's pane carries for it.
+    private static string DrawerElevationRegion() =>
+        string.Concat(Elevations.Select(level => TopStyle($"SplitView.elevation{level} /template/ Border#PART_PaneShadow", ("BoxShadow", Res($"FiliElevation{level}")))));
 
     private static string DrawerRegion() =>
         string.Concat(Colours.Select(c => TopStyle($"SplitView.{c.ToLowerInvariant()}", ("PaneBackground", Res($"Fili{c}Brush")))
