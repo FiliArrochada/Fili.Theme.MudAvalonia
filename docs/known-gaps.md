@@ -86,10 +86,6 @@ And the things that are not controls:
   `FlowDirection` to set, not the theme's.
 - **No spacing utility classes.** The 4px scale exists as values; `pa-4`-style generated classes
   do not.
-- **High contrast does not reach the ring colour.** Every raised surface is outlined there rather
-  than shadowed, but the outline is a `BoxShadows` string and those cannot carry a
-  `DynamicResource`, so `#E8E8EE` is fixed. An app whose high-contrast palette uses a different
-  line colour gets that colour on its borders and this one on its rings.
 - **Elevation reads faintly in dark mode.** Material's shadows are black at low alpha, which is
   nearly invisible on a dark ground; MudBlazor has the same problem and this theme reproduces it
   by default. `material-elevation-overlay` on a window or container opts into Material's own

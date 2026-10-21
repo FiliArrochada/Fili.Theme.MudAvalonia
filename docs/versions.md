@@ -6,7 +6,7 @@ What changed in each release of `Fili.Theme.MudAvalonia`, newest first. The pack
 
 | Version | |
 |---|---|
-| *(unreleased)* | Four known gaps closed, and two of Material's own options. A press ripples, as in MudBlazor: a circle from the pointer in the control's text colour on buttons, chips, FABs, toggles, tabs and rows, and in the halo of a checkbox, radio or switch; `FiliRippleOpacity` and `FiliRippleOpacitySecondary` at 0 turn it off. A button's label is uppercase, as MudBlazor's button typography makes it, on buttons, split and drop-down buttons, toggle items, extended FABs and tabs; `FiliButtonTextTransform` keeps labels as written. Every popup fades in over 251ms, as a MudPopover does. `expansion-panels` on a `StackPanel` is MudExpansionPanels: the panels joined into one shape, ruled between, with an expanded one standing 16px apart and the others closing, unless the group is `multi-expansion`; the group also reads an `ItemsControl`'s generated panels. `material-fixed-tabs` shares the tab bar in equal parts, and `material-elevation-overlay` lightens raised surfaces by their level in dark mode; both are Material's, not MudBlazor's, and named so. The published class list grows to 150. See [Upgrading from 0.9.4](#upgrading-from-094). |
+| *(unreleased)* | Five known gaps closed, and two of Material's own options. A press ripples, as in MudBlazor: a circle from the pointer in the control's text colour on buttons, chips, FABs, toggles, tabs and rows, and in the halo of a checkbox, radio or switch; `FiliRippleOpacity` and `FiliRippleOpacitySecondary` at 0 turn it off. A button's label is uppercase, as MudBlazor's button typography makes it, on buttons, split and drop-down buttons, toggle items, extended FABs and tabs; `FiliButtonTextTransform` keeps labels as written. Every popup fades in over 251ms, as a MudPopover does. `expansion-panels` on a `StackPanel` is MudExpansionPanels: the panels joined into one shape, ruled between, with an expanded one standing 16px apart and the others closing, unless the group is `multi-expansion`; the group also reads an `ItemsControl`'s generated panels. `material-fixed-tabs` shares the tab bar in equal parts, and `material-elevation-overlay` lightens raised surfaces by their level in dark mode; both are Material's, not MudBlazor's, and named so. In high contrast the elevation rings are the application's line colour rather than a fixed `#E8E8EE`. The published class list grows to 150. See [Upgrading from 0.9.4](#upgrading-from-094). |
 | **0.9.4** | Eleven fixes: eight found by moving four more apps onto 0.9.3, three by the gallery's new samples of each control as an app uses it. A `MenuFlyout`'s rows and a submenu's own rows are MudMenuItem's 48px rows, not the base's 24px ones. Keyboard focus draws no dashed rectangle over the state layer, and a slider is one Tab stop rather than three. "_Save" is Save with Alt+S on buttons, toggles, checkboxes, radios, switches, tabs, expanders and menus. An app's own `FiliFontFamily` reaches popups. A start adornment floats a text field's label; a multi-line field's label sits above its text, which starts at the top. `ShowProgressText` on a thin bar shows the whole value. A data grid's checkbox column keeps its colour in every row, and a switch stretched to its row centres its label. See [Upgrading from 0.9.3 to 0.9.4](#upgrading-from-093-to-094). |
 | 0.9.3 | Two fixes found by moving an app onto 0.9.2. A `TextBox` whose `Text` is null no longer logs a binding error from its hidden counter, which every such field did. A checkbox in a `DataGrid` cell is MudBlazor's table checkbox, a 32px circle pulled in 4px, so a selection column no longer makes its rows 81px tall; they are 57. |
 | 0.9.2 | Nothing changes on screen: this release fixes the interface 1.0 will promise. [Compatibility](compatibility.md) says what a version may and may not change, and the resource keys an app may name are listed in [Published resource keys](published-keys.md) and pinned by a test, beside the classes. The README's links work on nuget.org, each pointing at the release's own commit, and the package has an icon and a description that says what it is. |
@@ -29,7 +29,8 @@ nuget.org can be unlisted but never replaced.
 
 ## Upgrading from 0.9.4
 
-Nothing needs a markup change; three things look different.
+Nothing needs a markup change; three things look different, and a fourth in an app that repaints
+high contrast's line colour.
 
 - **Button and tab labels are uppercase**: `Content="Save"` reads SAVE on a `Button`, a
   `SplitButton`, a `DropDownButton`, a `ToggleButton`, an extended FAB and a tab, as on every
@@ -43,6 +44,9 @@ Nothing needs a markup change; three things look different.
   list, select, menu, tree and nav rows, and in a checkbox's, radio's or switch's halo. To keep
   the old still press, put `<x:Double x:Key="FiliRippleOpacity">0</x:Double>` and the same for
   `FiliRippleOpacitySecondary` in the application's resources, or one control's.
+- **High contrast's rings follow the line colour.** An app that sets `FiliLinesDefaultColor` in
+  its high-contrast resources now sees that colour round every raised surface too, where the
+  rings stayed `#E8E8EE`.
 
 ## Upgrading from 0.9.3 to 0.9.4
 

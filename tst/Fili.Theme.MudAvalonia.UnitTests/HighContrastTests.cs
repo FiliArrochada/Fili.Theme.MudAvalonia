@@ -251,6 +251,69 @@ public class HighContrastTests
     });
 
     /// <summary>
+    /// The ring is the line colour, at every level and on the overlay ladder too, so a ring and
+    /// a border drawn side by side are one colour.
+    /// </summary>
+    [Fact]
+    public Task EveryRingIsTheLineColour() => UiThread.RunAsync(() =>
+    {
+        var line = Resolve("FiliLinesDefaultColor", HighContrast);
+
+        Assert.Equal(0, Shadows("FiliElevationOverlay0", HighContrast).Count);
+
+        for (var level = 1; level <= 25; level++)
+        {
+            Assert.Equal(line, Elevation(level, HighContrast)[0].Color);
+
+            var overlay = Shadows($"FiliElevationOverlay{level}", HighContrast);
+
+            Assert.True(overlay.Count == 1, $"FiliElevationOverlay{level} is not a single ring.");
+            Assert.Equal(line, overlay[0].Color);
+        }
+    });
+
+    /// <summary>
+    /// The gap this closes: a BoxShadows string cannot carry a DynamicResource, so the rings were
+    /// written out in #E8E8EE and an app that repainted the line for high contrast got its colour
+    /// on borders and the old one on every ring. They now follow the application's line colour,
+    /// including a change made while the app runs.
+    /// </summary>
+    [Fact]
+    public Task AnAppsLineColourReachesTheRings() => UiThread.RunAsync(() =>
+    {
+        var application = Application.Current!;
+        var previous = application.RequestedThemeVariant;
+        var appPalette = new ResourceDictionary { ["FiliLinesDefaultColor"] = Colors.Orange };
+
+        try
+        {
+            application.Resources.ThemeDictionaries[HighContrast] = appPalette;
+            application.RequestedThemeVariant = HighContrast;
+
+            Assert.Equal(Colors.Orange, Elevation(4, HighContrast)[0].Color);
+            Assert.Equal(Colors.Orange, Shadows("FiliElevationOverlay4", HighContrast)[0].Color);
+
+            var surface = new Border { Classes = { "surface", "elevation4" }, Width = 100, Height = 100 };
+            var window = new Window { Content = surface };
+
+            window.Show();
+            Assert.Equal(Colors.Orange, surface.BoxShadow[0].Color);
+
+            appPalette["FiliLinesDefaultColor"] = Colors.Cyan;
+            Assert.Equal(Colors.Cyan, surface.BoxShadow[0].Color);
+
+            window.Close();
+        }
+        finally
+        {
+            application.Resources.ThemeDictionaries.Remove(HighContrast);
+            application.RequestedThemeVariant = previous;
+        }
+
+        Assert.Equal(Resolve("FiliLinesDefaultColor", HighContrast), Elevation(4, HighContrast)[0].Color);
+    });
+
+    /// <summary>
     /// Light and Dark hold two copies of the same ladder, which exist only because a token
     /// declared outside the theme dictionaries cannot be overridden by one. Two copies can
     /// drift; this is what stops them.
@@ -422,11 +485,14 @@ public class HighContrastTests
         return (0.2126 * Linear(color.R)) + (0.7152 * Linear(color.G)) + (0.0722 * Linear(color.B));
     }
 
-    private static BoxShadows Elevation(int level, ThemeVariant variant)
+    private static BoxShadows Elevation(int level, ThemeVariant variant) =>
+        Shadows($"FiliElevation{level}", variant);
+
+    private static BoxShadows Shadows(string key, ThemeVariant variant)
     {
         Assert.True(
-            Application.Current!.TryFindResource($"FiliElevation{level}", variant, out var value),
-            $"FiliElevation{level} did not resolve under {variant}.");
+            Application.Current!.TryFindResource(key, variant, out var value),
+            $"{key} did not resolve under {variant}.");
 
         return Assert.IsType<BoxShadows>(value);
     }

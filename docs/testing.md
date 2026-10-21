@@ -10,7 +10,7 @@ those silent failures into red builds, because looking at the app cannot be reli
 
 | Project | What it does | Speed |
 |---|---|---|
-| `tst/Fili.Theme.MudAvalonia.UnitTests` | 976 tests on a headless Avalonia session. They resolve resources, template controls, move a real pointer over them, and read back the values the theme applied. Nothing is rendered. | seconds |
+| `tst/Fili.Theme.MudAvalonia.UnitTests` | 978 tests on a headless Avalonia session. They resolve resources, template controls, move a real pointer over them, and read back the values the theme applied. Nothing is rendered. | seconds |
 | `tst/Fili.Theme.MudAvalonia.NoDataGridTests` | 3 tests. The theme in an app that does not reference `Avalonia.Controls.DataGrid`: the assembly is really absent, `FiliTheme.axaml` loads and themes a button, and no DataGrid rule was loaded. | seconds |
 | `tst/Fili.Theme.MudAvalonia.PixelTests` | 57 tests. Twelve render one gallery frame each with Skia and compare it pixel by pixel with a PNG committed in `Baselines/`. Thirty-six, in `GalleryAuditTests`, run three of the unit suite's checks over each of those twelve pages instead of a list of bare controls - no binding error, every control one Tab stop at most, no presented text showing an access key's underscore - so every class, state and variant a sample shows is covered. Nine, in `GalleryPageTests`, check how the gallery behaves - that the controls page shows its first section at once and adds the rest one dispatcher pass at a time (pausing while off screen, and loading the rest at once for an index row ahead of the load), that it opens at the top in a window shorter than its first screen, that keyboard focus still scrolls it, that each row of the index beside it lands on its section and the index follows the scroll, that every section fits beside the index in the desktop window and in a frame, and that the app bar shows the theme's version. | ~45 seconds |
 
@@ -27,7 +27,7 @@ needed a different platform.
 
 ## The unit tests
 
-976 tests in 60 classes, grouped here by the failure each one exists to catch.
+978 tests in 60 classes, grouped here by the failure each one exists to catch.
 
 ### Tokens: does every value exist, in every variant?
 
@@ -35,7 +35,7 @@ needed a different platform.
 |---|---|---|---|
 | `ResourceResolutionTests` | 5 | Every colour, brush and elevation token resolves in light and dark, every brush really is an `IBrush`, primary differs between the variants, and the dark surface sits above the dark background. | A missing or misspelt key is silent in Avalonia: the control keeps whatever it had and the colour quietly never changes. A `*Color` bound where a `*Brush` belonged compiles and paints nothing. |
 | `ElevationOverlayTests` | 18 | `material-elevation-overlay`: each overlay level is its shadow plus, in Dark only, Material's white at 4.5 ln(level + 1) + 2 percent; papers, cards, panels and grids take their level's, and every popup sheet - a select's, an autocomplete's, a submenu, a context menu, a flyout and a menu flyout - takes level 8; nothing changes without the class, in Light or in high contrast; and an unraised paper, an outlined card or grid, a coloured box, an app bar and a filled button are left alone. | An overlay on a coloured surface would wash out the colour, and one that missed a popup would leave the most raised sheet on the page the darkest. |
-| `HighContrastTests` | 15 | Every token resolves in high contrast **and differs from dark**, and the variant's own rules (hard rings for elevation, the drawer edge) apply only there. | High contrast inherits from Dark, so a forgotten token comes back with the dark value - usually a translucent line over black, which is to say no line. Only "differs from dark" proves the key was written. |
+| `HighContrastTests` | 17 | Every token resolves in high contrast **and differs from dark**, and the variant's own rules (hard rings for elevation, the drawer edge) apply only there. Every ring is the line colour, and an app's own high-contrast line colour reaches them, changed at run time too. | High contrast inherits from Dark, so a forgotten token comes back with the dark value - usually a translucent line over black, which is to say no line. Only "differs from dark" proves the key was written. |
 | `PaletteDerivationTests` | 23 | Every `*DarkenColor` and `*LightenColor` equals MudBlazor's own derivation (`MudColorPort`, HSL lightness ∓ 0.075 with .NET rounding), and the port matches the 14 values mudblazor.com publishes. | Hover and filled-button shades are derived, not chosen. Changing a colour without its shades, or rounding the port differently, shows up here rather than as a slightly wrong hover. |
 | `SimpleBridgeTests` | 6 | The ~96 keys the forked Avalonia Simple templates paint from still resolve in both variants. | The first standalone render had switches with no switch: eighteen `*Color` keys were missing while their brushes were mapped. A new Avalonia version that adds a key fails here instead of on screen. |
 

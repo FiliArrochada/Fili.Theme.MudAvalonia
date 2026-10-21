@@ -36,7 +36,8 @@ classes, `ControlTheme`s where a Material look cannot be faked without one, and 
   `OptionalStyleInclude`, a `StyleInclude` that loads only when the app has the package;
   `TextTransform`, a button label's case from `FiliButtonTextTransform`; `ExpansionPanels`, the
   neighbours, ends and single expansion of an `expansion-panels` group; `Ripple`, MudBlazor's
-  ripple in a template's `PART_Ripple`;
+  ripple in a template's `PART_Ripple`; `HighContrastRings`, high contrast's elevation rings in
+  the application's line colour;
   `SlidingIndicator`, the tabs' slide; `FieldClasses`, the text field's classes passed to the
   TextBox inside an AutoCompleteBox or NumericUpDown; `MenuIconGutter`, a menu's shared icon
   column; `StartAdornment`, a text field's `:start-adornment`; `TabBarScroll`, the tab bar's
@@ -134,7 +135,8 @@ One line each; [`docs/traps.md`](docs/traps.md) has the full account and the tes
   missing token.
 - Every brush is one shared application-level object: set the variant on the `Application`, not a
   window.
-- Elevation varies only in high contrast, where it becomes a 1px ring.
+- Elevation varies only in high contrast, where it becomes a 1px ring in the application's
+  `FiliLinesDefaultColor`, built by `HighContrastRings` when looked up.
 
 **Templates and controls**
 

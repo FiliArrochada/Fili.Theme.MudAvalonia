@@ -718,10 +718,12 @@ Three rules produced every value in it:
 
 **The shadow ladder becomes a hard 1px ring.** That is the whole reason this variant needed no
 control template edits: every surface that already asked for a `FiliElevation*` gets its outline
-for free. Two things follow — a surface painted with `FiliElevation0` has no outline here either,
-and **the ring colour is fixed at `#E8E8EE`**, because a `BoxShadows` string cannot carry a
-`DynamicResource`. An app that repaints `FiliLinesDefaultColor` for high contrast will find the
-rings did not follow it.
+for free. A surface painted with `FiliElevation0` has no outline here either. **The ring is
+`FiliLinesDefaultColor`**, as the application resolves it: an app that repaints the line for high
+contrast in its own resources repaints every ring with it, at run time too. A `BoxShadows` string
+cannot carry a `DynamicResource`, so the theme builds each ring when it is looked up
+(`HighContrastRings`). A line colour repainted only in a window's or a control's resources does
+not reach the rings, which are one application-level value, like every brush here.
 
 ### What an adopting app has to do
 
@@ -806,6 +808,8 @@ for something XAML cannot express on its own:
   TextBox's own theme reads them two templates down from the outer control.
 - **`MenuIconGutter`** opens a menu row's icon column when another row in the same list has an
   icon, MudMenu's `:has(.mud-menu-item-icon)` rule. A selector cannot ask about siblings.
+- **`HighContrastRings`** builds high contrast's elevation rings in the application's
+  `FiliLinesDefaultColor`. A `BoxShadows` string cannot carry a `DynamicResource`.
 - **`ExpansionPanels`** keeps `:joined`, `:first-panel`, `:last-panel`, `:next-expanded` and
   `:previous-expanded` on the panels of an `expansion-panels` group, for the rule and corners
   MudBlazor gives each panel by its neighbours, and closes the others when one opens. A selector

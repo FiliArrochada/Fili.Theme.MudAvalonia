@@ -188,7 +188,8 @@ Its colour is the control's text. Set both to `0` to turn the ripple off.
 
 ## Elevation
 
-MudBlazor's 26 shadow levels as `BoxShadows`, 0 to 25. In high contrast each is a 1px ring instead.
+MudBlazor's 26 shadow levels as `BoxShadows`, 0 to 25. In high contrast each is a 1px ring instead, in
+`FiliLinesDefaultColor`.
 
 - `FiliElevation0`
 - `FiliElevation1`
