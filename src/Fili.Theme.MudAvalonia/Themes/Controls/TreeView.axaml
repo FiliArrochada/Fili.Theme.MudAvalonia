@@ -32,6 +32,7 @@
 -->
 <ResourceDictionary xmlns="https://github.com/avaloniaui"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:theme="using:Fili.Theme.MudAvalonia"
                     xmlns:converters="using:Avalonia.Controls.Converters">
 
   <!-- .mud-treeview-group margin-left. Declared here rather than reused from the forked base,
@@ -40,6 +41,8 @@
 
   <!-- The disclosure arrow: a 32px column with a 24px glyph in it, per .mud-treeview-item-arrow. -->
   <ControlTheme x:Key="FiliTreeViewChevron" TargetType="ToggleButton">
+    <!-- MudBlazor's ripple, drawn in PART_Ripple (Ripple.cs). -->
+    <Setter Property="theme:Ripple.Opacity" Value="{DynamicResource FiliRippleOpacity}" />
     <Setter Property="Background" Value="Transparent" />
     <Setter Property="BorderThickness" Value="0" />
     <Setter Property="Padding" Value="4" />
@@ -53,6 +56,9 @@
         <Panel>
           <Border x:Name="PART_StateLayer"
                   Background="Transparent"
+                  CornerRadius="16" />
+          <Border x:Name="PART_Ripple"
+                  theme:Ripple.IsLayer="True"
                   CornerRadius="16" />
           <Path x:Name="PART_Chevron"
                 Width="24" Height="24"
@@ -87,6 +93,8 @@
   </ControlTheme>
 
   <ControlTheme x:Key="FiliTreeViewItem" TargetType="TreeViewItem">
+    <!-- MudBlazor's ripple, drawn in PART_Ripple (Ripple.cs). -->
+    <Setter Property="theme:Ripple.Opacity" Value="{DynamicResource FiliRippleOpacity}" />
     <Setter Property="Foreground" Value="{DynamicResource FiliTextPrimaryBrush}" />
     <Setter Property="FontFamily" Value="{DynamicResource FiliFontFamily}" />
     <Setter Property="FontSize" Value="{DynamicResource FiliBody2FontSize}" />
@@ -108,62 +116,65 @@
               </Transitions>
             </Border.Transitions>
 
-            <!-- Level x 17px of left margin. Avalonia computes it; the converter is the framework's
-                 own, and without it every level would sit at the same indent. -->
-            <Grid x:Name="PART_Header" ColumnDefinitions="Auto,Auto,*">
-              <Grid.Margin>
-                <MultiBinding Converter="{x:Static converters:TreeViewItemIndentConverter.Instance}">
-                  <Binding Path="Level" RelativeSource="{RelativeSource TemplatedParent}" />
-                  <DynamicResource ResourceKey="FiliTreeViewItemIndent" />
-                </MultiBinding>
-              </Grid.Margin>
+            <Panel>
+              <Border x:Name="PART_Ripple" theme:Ripple.IsLayer="True" />
+              <!-- Level x 17px of left margin. Avalonia computes it; the converter is the framework's
+                   own, and without it every level would sit at the same indent. -->
+              <Grid x:Name="PART_Header" ColumnDefinitions="Auto,Auto,*">
+                <Grid.Margin>
+                  <MultiBinding Converter="{x:Static converters:TreeViewItemIndentConverter.Instance}">
+                    <Binding Path="Level" RelativeSource="{RelativeSource TemplatedParent}" />
+                    <DynamicResource ResourceKey="FiliTreeViewItemIndent" />
+                  </MultiBinding>
+                </Grid.Margin>
 
-              <ToggleButton x:Name="PART_ExpandCollapseChevron"
-                            Grid.Column="0"
-                            Focusable="False"
-                            Theme="{StaticResource FiliTreeViewChevron}"
-                            IsChecked="{TemplateBinding IsExpanded, Mode=TwoWay}" />
+                <ToggleButton x:Name="PART_ExpandCollapseChevron"
+                              Grid.Column="0"
+                              Focusable="False"
+                              Theme="{StaticResource FiliTreeViewChevron}"
+                              IsChecked="{TemplateBinding IsExpanded, Mode=TwoWay}" />
 
-              <!--
-                MudTreeView's MultiSelection checkbox, shown by `multi-selection` on the TreeView
-                (FiliTheme.axaml): `.mud-treeview-item-checkbox` pads its icon button 4px, so 32px
-                (24 dense). A click on it is a click on the row.
-              -->
-              <Panel x:Name="PART_CheckBox"
-                     Grid.Column="1"
-                     IsVisible="False"
-                     Width="32" Height="32"
-                     VerticalAlignment="Center">
-                <Ellipse x:Name="PART_CheckHalo" Fill="Transparent" />
-                <Path x:Name="PART_CheckUnchecked"
-                      Width="24" Height="24"
-                      Stretch="None"
-                      Data="{DynamicResource FiliCheckBoxUncheckedGeometry}"
-                      Fill="{DynamicResource FiliActionDefaultBrush}"
-                      FlowDirection="LeftToRight"
-                      HorizontalAlignment="Center"
-                      VerticalAlignment="Center" />
-                <Path x:Name="PART_CheckChecked"
-                      Width="24" Height="24"
-                      Stretch="None"
-                      Data="{DynamicResource FiliCheckBoxCheckedGeometry}"
-                      Fill="{DynamicResource FiliActionDefaultBrush}"
-                      FlowDirection="LeftToRight"
-                      HorizontalAlignment="Center"
-                      VerticalAlignment="Center"
-                      IsVisible="False" />
-              </Panel>
+                <!--
+                  MudTreeView's MultiSelection checkbox, shown by `multi-selection` on the TreeView
+                  (FiliTheme.axaml): `.mud-treeview-item-checkbox` pads its icon button 4px, so 32px
+                  (24 dense). A click on it is a click on the row.
+                -->
+                <Panel x:Name="PART_CheckBox"
+                       Grid.Column="1"
+                       IsVisible="False"
+                       Width="32" Height="32"
+                       VerticalAlignment="Center">
+                  <Ellipse x:Name="PART_CheckHalo" Fill="Transparent" />
+                  <Path x:Name="PART_CheckUnchecked"
+                        Width="24" Height="24"
+                        Stretch="None"
+                        Data="{DynamicResource FiliCheckBoxUncheckedGeometry}"
+                        Fill="{DynamicResource FiliActionDefaultBrush}"
+                        FlowDirection="LeftToRight"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center" />
+                  <Path x:Name="PART_CheckChecked"
+                        Width="24" Height="24"
+                        Stretch="None"
+                        Data="{DynamicResource FiliCheckBoxCheckedGeometry}"
+                        Fill="{DynamicResource FiliActionDefaultBrush}"
+                        FlowDirection="LeftToRight"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        IsVisible="False" />
+                </Panel>
 
-              <ContentPresenter x:Name="PART_HeaderPresenter"
-                                Grid.Column="2"
-                                Background="Transparent"
-                                Padding="{TemplateBinding Padding}"
-                                Content="{TemplateBinding Header}"
-                                ContentTemplate="{TemplateBinding HeaderTemplate}"
-                                Foreground="{TemplateBinding Foreground}"
-                                VerticalAlignment="Center"
-                                Focusable="False" />
-            </Grid>
+                <ContentPresenter x:Name="PART_HeaderPresenter"
+                                  Grid.Column="2"
+                                  Background="Transparent"
+                                  Padding="{TemplateBinding Padding}"
+                                  Content="{TemplateBinding Header}"
+                                  ContentTemplate="{TemplateBinding HeaderTemplate}"
+                                  Foreground="{TemplateBinding Foreground}"
+                                  VerticalAlignment="Center"
+                                  Focusable="False" />
+              </Grid>
+            </Panel>
           </Border>
 
           <ItemsPresenter x:Name="PART_ItemsPresenter"
@@ -255,6 +266,8 @@
     and the colours are Styles in FiliTheme.axaml, where they reach from the tree to its rows.
   -->
   <ControlTheme x:Key="FiliNavGroupToggle" TargetType="ToggleButton">
+    <!-- MudBlazor's ripple, drawn in PART_Ripple (Ripple.cs). -->
+    <Setter Property="theme:Ripple.Opacity" Value="{DynamicResource FiliRippleOpacity}" />
     <Setter Property="Background" Value="Transparent" />
     <Setter Property="Focusable" Value="False" />
     <Setter Property="Cursor" Value="Hand" />
@@ -262,7 +275,11 @@
       <ControlTemplate>
         <Border x:Name="PART_StateLayer"
                 Background="{TemplateBinding Background}"
-                CornerRadius="{TemplateBinding CornerRadius}" />
+                CornerRadius="{TemplateBinding CornerRadius}">
+          <Border x:Name="PART_Ripple"
+                  theme:Ripple.IsLayer="True"
+                  CornerRadius="{TemplateBinding CornerRadius}" />
+        </Border>
       </ControlTemplate>
     </Setter>
     <Style Selector="^:pointerover /template/ Border#PART_StateLayer">
@@ -271,6 +288,8 @@
   </ControlTheme>
 
   <ControlTheme x:Key="FiliNavItem" TargetType="TreeViewItem">
+    <!-- MudBlazor's ripple, drawn in PART_Ripple (Ripple.cs). -->
+    <Setter Property="theme:Ripple.Opacity" Value="{DynamicResource FiliRippleOpacity}" />
     <Setter Property="Foreground" Value="{DynamicResource FiliTextPrimaryBrush}" />
     <Setter Property="FontFamily" Value="{DynamicResource FiliFontFamily}" />
     <Setter Property="FontSize" Value="{DynamicResource FiliBody1FontSize}" />
@@ -296,7 +315,11 @@
               </Border.Transitions>
               <Border x:Name="PART_Tint"
                       Background="Transparent"
-                      CornerRadius="{TemplateBinding CornerRadius}" />
+                      CornerRadius="{TemplateBinding CornerRadius}">
+                <Border x:Name="PART_Ripple"
+                        theme:Ripple.IsLayer="True"
+                        CornerRadius="{TemplateBinding CornerRadius}" />
+              </Border>
             </Border>
 
             <Grid x:Name="PART_Header"

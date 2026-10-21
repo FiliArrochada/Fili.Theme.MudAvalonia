@@ -297,6 +297,11 @@ one.
   the animation actually runs: it compiles, the resources resolve, and a headless test whose clock
   never advances passes. The skeleton `wave` therefore rests on its own start gradient, whose band
   is wholly off the edge and so draws the plain skeleton.
+- **The compositor clips a visual to a RECTANGLE.** In 12.1.3's source a composition visual's clip
+  is its bounds when `ClipToBounds` is set, and only the immediate renderer - the one
+  `RenderTargetBitmap` uses - reads a `Border`'s radius, so a pixel frame can look right where a
+  window does not. The ripple sets a rounded `Clip` geometry on its layer instead
+  (`Ripple.RoundedRect`).
 
 ## Writing tests
 
@@ -324,6 +329,14 @@ one.
   like a popup stuck part transparent, or invisible. Show that an animation runs by catching a
   value part way, and pin where it ends and how long it takes by reading the `Animation` from the
   styles, as `PopupFadeTests` does.
+- **The headless mouse is one device for every window.** A press a test leaves down keeps its
+  control captured, and the next test's press - in a new window - goes to that control instead.
+  Release every press (`RippleTests` holds one in a `using`). And a `DispatcherTimer` runs on the
+  next pass of jobs rather than when it is due, so anything timed - the ripple's .5s hold - is
+  read from the code, not waited for.
+- **`GetBaseValue` of a property nobody set is empty, and `GetValueOrDefault` makes that 0**, not
+  the property's default: a panel whose `Opacity` was never set reads 0. Read the live value for
+  a property that is not transitioning.
 - **Roboto's static instances use legacy name tables.** `Roboto-Light` reports family
   `Roboto Light`, not weight 300 of `Roboto`. Avalonia groups them correctly; assert family names
   with `StartsWith`, not `Equal`. And do not swap in the variable `Roboto[wdth,wght].ttf` —

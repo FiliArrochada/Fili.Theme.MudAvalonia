@@ -70,7 +70,7 @@ Variant, colour and size are one class each and combine freely:
 | `DropShadow="false"` | `flat` | ✅ elevation 0 at rest, hover, focus and press |
 | `FullWidth` | `HorizontalAlignment="Stretch"` | ≈ |
 | `StartIcon` / `EndIcon` | an icon in `Content` with `start-icon` / `end-icon` | ✅ 20px (18 small, 22 large), 4px out and 8px from the label (2px out when small) |
-| ripple | — | ❌ no Avalonia primitive; the state tint is its static half |
+| `Ripple` (default true) | on | ✅ mudRipple.js: from the pointer, a circle twice the button's longer side grows over .5s while it rises to `RippleOpacity` 0.1 (0.2 filled) in the text colour, then fades over .4s once released and at least .5s old; clipped to the corners. ≈ `Ripple="false"` is `FiliRippleOpacity` and `FiliRippleOpacitySecondary` at 0 in the button's `Resources` |
 | uppercase label (`Typography.Button.TextTransform`) | the same; `FiliButtonTextTransform` is the switch | ✅ a string label is drawn uppercase, and `none`, `lowercase` or `capitalize` in the key change it as CSS would. ≈ content that is already a control keeps its own case, where CSS reaches every piece of text inside the button |
 | `IconColor`, `IconSize`, `IconClass` | the icon's own `Foreground`, `Width` / `Height`, `Classes` | ≈ ordinary Avalonia properties |
 | `Href`, `Target` | — | ≈ no look of their own; a link is `HyperlinkButton` |
@@ -90,7 +90,7 @@ Put a `PathIcon` in `Content`: `<Button Classes="icon primary"><PathIcon Data="�
 | `Icon` | a `PathIcon` in `Content` | ≈ the gallery carries a few Material glyphs; the theme ships no icon set |
 | `DropShadow="false"` | `icon filled flat` | ✅ |
 | `Disabled` | `IsEnabled="False"` | ✅ action-disabled |
-| ripple | — | ❌ no ripple |
+| `Ripple` (default true) | on | ✅ as on a button: 0.1, 0.2 when `filled` |
 
 ### MudToggleIconButton → `ToggleButton.icon`
 
@@ -125,7 +125,7 @@ Put a `PathIcon` in `Content`: `<Button Classes="icon primary"><PathIcon Data="�
 | `IconColor` | the icon's `Foreground` | ≈ |
 | `CheckedIcon`, `MudChipSet.CheckMark` | an icon in `Content` | ≈ shown by the app while `IsChecked` |
 | `MudChipSet`'s `Variant`, `Color`, `Size`, `Label`, `CloseIcon`, `AllClosable`, `Disabled` | the classes on each chip, or one `Style` over the container | ≈ a chip set is a panel of chips; nothing cascades |
-| ripple | — | ❌ no ripple |
+| `Ripple` (default true) | on | ✅ 0.2 on a filled chip, the default, and 0.1 on `outlined` and `text`; a selected chip keeps its variant's |
 
 ### MudFab → `Button.fab`
 
@@ -143,7 +143,7 @@ Put a `PathIcon` in `Content`: `<Button Classes="icon primary"><PathIcon Data="�
 | `DropShadow="false"` | `flat` | ✅ |
 | `Disabled` | `IsEnabled="False"` | ✅ action-disabled on action-disabled-background, flat; outlined and text keep no ground |
 | uppercase label | the same | ✅ as on every button: a string `Content` |
-| ripple | — | ❌ as on every button |
+| `Ripple` (default true) | on | ✅ 0.2 on a coloured FAB, 0.1 on the default, text and outlined ones |
 
 ### MudAvatar → `Border.avatar`
 
@@ -309,7 +309,7 @@ Put initials, a `PathIcon` or an `Image` inside: `<Border Classes="avatar primar
 | `MudSwitch.ThumbIcon` | `FiliSwitchThumbIconGeometry` in the switch's `Resources` | ✅ MudIcon filling the thumb with 2px padding: 16px in a 20px thumb |
 | `MudSwitch.ThumbIconColor` (default `Default`) | no class, or `thumb-primary` … `thumb-dark` | ✅ text-secondary, `.mud-icon-default`, or the colour |
 | `MudSwitch.Disabled` | `IsEnabled="False"` | ✅ the thumb gray-default, the track keeping its colour at 12%, the label text-disabled |
-| ripple | — | ❌ no ripple; the halo is its static half |
+| `Ripple` (default true) | on | ✅ in the halo only, as `.mud-ripple-checkbox` / `-radio` / `-switch` is the icon button round the glyph: in the glyph's colour (`UncheckedColor` while off), text-primary with no colour; a switch's rides with its thumb |
 | `MudRadioGroup` | a panel of `RadioButton`s with one `GroupName` | ≈ no look of its own |
 
 ### MudSlider → `Slider`
@@ -413,6 +413,7 @@ Put initials, a `PathIcon` or an `Image` inside: `<Border Classes="avatar primar
 | `Header`, `HeaderPosition`, `TabPanelHeader` | `HeaderTemplate`, or content beside the bar | ≈ |
 | `MaxHeight` | `MaxHeight` | ≈ |
 | `ApplyEffectsToContainer` | a `Border.surface` with an elevation class round the control | ≈ |
+| `Ripple` (default true) | on | ✅ in the tab's text colour |
 
 ### MudList → `ListBox`
 
@@ -432,6 +433,7 @@ Put initials, a `PathIcon` or an `Image` inside: `<Border Classes="avatar primar
 | `SelectionMode.MultiSelection` | `multi-selection` and `SelectionMode="Multiple, Toggle"` | ✅ a 48px checkbox on each row, 8px into the gutter, checked while the row is selected; no row is marked selected. ≈ two settings for one parameter: a XAML list pins `SelectionMode` before any style can set it |
 | `CheckBoxColor` (default `Default`) | no class, or `primary` … `dark` on the list while `multi-selection` is on | ✅ both glyphs and the halo; ≈ the list's `Color` class doubles as it, the selection colour being unused while selecting many |
 | `MudListSubheader` | a `TextBlock` with `Margin` | ≈ |
+| `Ripple` (default true) | on | ✅ on every row, and on a select's options, which are MudListItems |
 
 ### MudExpansionPanels → `Expander`
 
@@ -474,7 +476,7 @@ Put initials, a `PathIcon` or an `Image` inside: `<Border Classes="avatar primar
 | `CheckMark`, `SelectedIcon`, `UnselectedIcon`, `FixedContent`, `CheckMarkClass` | an icon in `Content` | ≈ shown by the app while `IsChecked` |
 | `SelectedClass` | a `:checked` style | ≈ |
 | `Disabled` | `IsEnabled="False"` | ✅ action-disabled text, and the line or ground in action-disabled-background |
-| ripple | — | ❌ no ripple |
+| `Ripple` (default true) | on | ✅ on toggle items, both halves of a split button (0.2 when `filled`), drop-down buttons and menu rows |
 | a two-part `MudButtonGroup` | `SplitButton` | ✅ Button's classes: `outlined` / `filled`, any colour, `small` / `large` |
 | group separator | the same | ✅ text-primary or the colour; `divider` when filled; `{color}-lighten` between filled coloured segments |
 | `DropShadow="false"` | `filled flat` | ✅ on `SplitButton` and `DropDownButton` alike |
@@ -539,6 +541,7 @@ Put initials, a `PathIcon` or an `Image` inside: `<Border Classes="avatar primar
 | `ExpandButtonIcon` | `FiliChevronRightGeometry` in the tree's `Resources` | ✅ |
 | `ExpandButtonIconColor`, `LoadingIcon` | — | ❌ the arrow is action-default; nothing loads lazily |
 | `Width`, `Height`, `MaxHeight` | the same | ≈ |
+| MudTreeView `Ripple` (default true) | on | ✅ on each row, and on its expand arrow |
 
 ### MudAlert → `Border.alert`
 
@@ -664,6 +667,7 @@ one with children:
 | `MudNavGroup.ExpandIcon` | `FiliExpandMoreGeometry` in the group's `Resources` | ✅ |
 | `MudNavGroup.MaxHeight` | — | ❌ a tree item's children have no scroller of their own, so a cap would clip them rather than scroll |
 | a mini drawer's nav | a nav tree in a closed `CompactInline` or `CompactOverlay` `SplitView`, or the drawer of a closed compact `DrawerPage` | ✅ a link's text beside its icon hidden, so the 56px rail shows the icons, and every row 8px 16px whatever its depth; no sideways scrolling, a group's arrow running off the edge as in MudBlazor |
+| `Ripple` (default true) on MudNavLink and MudNavGroup | on | ✅ on a link's row and a group's header |
 
 ### MudToolBar → `Border.toolbar`
 
@@ -726,7 +730,7 @@ Light and dark are MudBlazor's `Palette.cs` and `PaletteDark.cs`; high contrast 
 | `DividerLight` | `FiliDividerLightColor` | ✅ high contrast keeps a visible line |
 | `GrayDefault` … `GrayDarker` | `FiliGrayDefaultColor` … `FiliGrayDarkerColor` | ✅ the same in light and dark, as PaletteDark.cs leaves them; a step lighter in high contrast |
 | `HoverOpacity` / `BorderOpacity` | — | ≈ folded into the hover and line tokens rather than exposed |
-| `RippleOpacity` / `RippleOpacitySecondary` | — | ❌ no ripple |
+| `RippleOpacity` / `RippleOpacitySecondary` | `FiliRippleOpacity` / `FiliRippleOpacitySecondary` | ✅ 0.1 and 0.2, a `Double` the same in every variant, as MudThemeProvider writes both from the light palette |
 
 ### Typography, shadows, layout
 
@@ -752,4 +756,3 @@ Light and dark are MudBlazor's `Palette.cs` and `PaletteDark.cs`; high contrast 
 - **The `dark` colour barely shows in dark mode, and not at all in high contrast** when used as text
   or a line: `#27272F` on a `#32333D` page, and black on black. MudBlazor's dark theme has the same
   property; a filled dark button is still visible.
-- **No ripple.** Avalonia has no primitive for it.

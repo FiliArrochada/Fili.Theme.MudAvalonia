@@ -65,9 +65,9 @@ hits them:
 
 And the things that are not controls:
 
-- **No ripple.** Avalonia has no primitive for it; faking it means an animated, clipped ellipse
-  driven from pointer position. Everything interactive carries the static half — a tinted state
-  layer on hover, press and keyboard focus.
+- **The ripple answers a pointer only**, as MudBlazor's does: mudRipple.js listens for
+  `pointerdown`, so a key press shows the state layer and no ripple, here as there. Its colour is
+  the text's at the moment of the press; a ripple already growing keeps it.
 - **Uppercase reaches a string label only.** Avalonia has no text-transform, so a button's or
   tab's string is drawn in `FiliButtonTextTransform`'s case on its way into the template. Content
   that is already a control - a `TextBlock`, a panel with an icon and a label - keeps the case it

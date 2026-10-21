@@ -29,6 +29,8 @@
                     xmlns:sys="using:System">
 
   <ControlTheme x:Key="FiliMenuItem" TargetType="MenuItem">
+    <!-- MudBlazor's ripple, drawn in PART_Ripple (Ripple.cs). -->
+    <Setter Property="theme:Ripple.Opacity" Value="{DynamicResource FiliRippleOpacity}" />
     <Setter Property="Foreground" Value="{DynamicResource FiliTextPrimaryBrush}" />
     <Setter Property="FontFamily" Value="{DynamicResource FiliFontFamily}" />
     <Setter Property="FontSize" Value="{DynamicResource FiliBody1FontSize}" />
@@ -43,6 +45,9 @@
           <Panel>
             <Border x:Name="PART_StateLayer"
                     Background="Transparent"
+                    CornerRadius="{DynamicResource FiliCornerRadius}" />
+            <Border x:Name="PART_Ripple"
+                    theme:Ripple.IsLayer="True"
                     CornerRadius="{DynamicResource FiliCornerRadius}" />
 
             <Grid ColumnDefinitions="Auto,*,Auto,Auto" Margin="{TemplateBinding Padding}">
@@ -177,6 +182,8 @@
     strip-shaped and every level under it row-shaped.
   -->
   <ControlTheme x:Key="FiliTopLevelMenuItem" TargetType="MenuItem">
+    <!-- MudBlazor's ripple, drawn in PART_Ripple (Ripple.cs). -->
+    <Setter Property="theme:Ripple.Opacity" Value="{DynamicResource FiliRippleOpacity}" />
     <Setter Property="Foreground" Value="{DynamicResource FiliTextPrimaryBrush}" />
     <Setter Property="FontFamily" Value="{DynamicResource FiliFontFamily}" />
     <Setter Property="FontSize" Value="{DynamicResource FiliBody2FontSize}" />
@@ -191,6 +198,9 @@
           <Panel>
             <Border x:Name="PART_StateLayer"
                     Background="Transparent"
+                    CornerRadius="{DynamicResource FiliCornerRadius}" />
+            <Border x:Name="PART_Ripple"
+                    theme:Ripple.IsLayer="True"
                     CornerRadius="{DynamicResource FiliCornerRadius}" />
 
             <ContentPresenter x:Name="PART_HeaderPresenter"

@@ -179,6 +179,13 @@ Every colour as a `*Color` and its `*Brush`, in light, dark and high contrast. V
 - `FiliWhiteBrush`
 - `FiliWhiteColor`
 
+The ripple's opacity, a `Double` the same in every variant: `FiliRippleOpacity` (0.1) on most
+controls, `FiliRippleOpacitySecondary` (0.2) on filled buttons, filled chips and coloured FABs.
+Its colour is the control's text. Set both to `0` to turn the ripple off.
+
+- `FiliRippleOpacity`
+- `FiliRippleOpacitySecondary`
+
 ## Elevation
 
 MudBlazor's 26 shadow levels as `BoxShadows`, 0 to 25. In high contrast each is a 1px ring instead.

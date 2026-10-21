@@ -40,6 +40,23 @@ CSS's words, as MudBlazor's typography setting is:
 `lowercase` and `capitalize` work too, and the key can go in any control's `Resources` to change
 one region.
 
+**A press ripples.** As in MudBlazor, a circle grows from the pointer over .5s and fades once the
+button is released, in the label's colour at 10% - 20% on a filled button, a filled chip or a
+coloured FAB. The same ripple is on icon buttons, chips, FABs, split and drop-down buttons, toggle
+items, tabs, list, select, menu, tree and nav rows, and in the halo of a checkbox, radio or
+switch, where it takes the glyph's colour. A link and an expansion panel's header do not ripple,
+as they do not in MudBlazor, and nor does a key press. `Ripple="false"` is both opacities at zero
+in a control's `Resources`, or the application's to turn it off everywhere:
+
+```xml
+<Button Content="Quiet">
+  <Button.Resources>
+    <x:Double x:Key="FiliRippleOpacity">0</x:Double>
+    <x:Double x:Key="FiliRippleOpacitySecondary">0</x:Double>
+  </Button.Resources>
+</Button>
+```
+
 **A colour class is only a colour**, as `Color` is in MudBlazor: `primary` on its own is a primary
 *text* button, and the fill comes from `filled`. With no colour, a button is `text-primary` with a
 grey hover, which is MudBlazor's default and not Material's primary one.
@@ -793,6 +810,9 @@ for something XAML cannot express on its own:
   `:previous-expanded` on the panels of an `expansion-panels` group, for the rule and corners
   MudBlazor gives each panel by its neighbours, and closes the others when one opens. A selector
   cannot ask about siblings, and `:nth-child` cannot see past an `ItemsControl`'s presenters.
+- **`Ripple`** draws MudBlazor's ripple in a template's `PART_Ripple` border: a circle from the
+  pointer, its opacity inherited from the control's theme. Avalonia has no ripple, and a style
+  cannot follow a pointer.
 - **`TextTransform`** draws a button's string label in `FiliButtonTextTransform`'s case. Avalonia
   has no text-transform, and a binding cannot read a resource as a converter parameter.
 - **`StartAdornment`** marks a text field that has `InnerLeftContent` with `:start-adornment`,

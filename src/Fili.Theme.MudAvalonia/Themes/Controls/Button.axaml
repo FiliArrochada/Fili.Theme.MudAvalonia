@@ -60,6 +60,8 @@
     <Setter Property="HorizontalContentAlignment" Value="Center" />
     <Setter Property="VerticalContentAlignment" Value="Center" />
     <Setter Property="Cursor" Value="Hand" />
+    <!-- MudBlazor's ripple, drawn in PART_Ripple (Ripple.cs). -->
+    <Setter Property="theme:Ripple.Opacity" Value="{DynamicResource FiliRippleOpacity}" />
     <Setter Property="Template">
       <ControlTemplate>
         <Border x:Name="PART_Root"
@@ -72,6 +74,9 @@
             <Border x:Name="PART_StateLayer"
                     CornerRadius="{TemplateBinding CornerRadius}"
                     Background="Transparent" />
+            <Border x:Name="PART_Ripple"
+                    theme:Ripple.IsLayer="True"
+                    CornerRadius="{TemplateBinding CornerRadius}" />
             <ContentPresenter x:Name="PART_ContentPresenter"
                               theme:TextTransform.Case="{DynamicResource FiliButtonTextTransform}"
                               ContentTemplate="{TemplateBinding ContentTemplate}"
@@ -333,6 +338,8 @@
     <Setter Property="HorizontalContentAlignment" Value="Center" />
     <Setter Property="VerticalContentAlignment" Value="Center" />
     <Setter Property="Cursor" Value="Hand" />
+    <!-- MudBlazor's ripple, drawn in PART_Ripple (Ripple.cs). -->
+    <Setter Property="theme:Ripple.Opacity" Value="{DynamicResource FiliRippleOpacitySecondary}" />
     <Setter Property="Template">
       <ControlTemplate>
         <Border x:Name="PART_Root"
@@ -346,6 +353,9 @@
             <Border x:Name="PART_StateLayer"
                     CornerRadius="{TemplateBinding CornerRadius}"
                     Background="Transparent" />
+            <Border x:Name="PART_Ripple"
+                    theme:Ripple.IsLayer="True"
+                    CornerRadius="{TemplateBinding CornerRadius}" />
             <ContentPresenter x:Name="PART_ContentPresenter"
                               theme:TextTransform.Case="{DynamicResource FiliButtonTextTransform}"
                               ContentTemplate="{TemplateBinding ContentTemplate}"

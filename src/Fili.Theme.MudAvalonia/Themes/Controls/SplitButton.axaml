@@ -54,6 +54,9 @@
           <Border x:Name="PART_StateLayer"
                   CornerRadius="{TemplateBinding CornerRadius}"
                   Background="{TemplateBinding BorderBrush}" />
+          <Border x:Name="PART_Ripple"
+                  theme:Ripple.IsLayer="True"
+                  CornerRadius="{TemplateBinding CornerRadius}" />
           <ContentPresenter x:Name="PART_ContentPresenter"
                             theme:TextTransform.Case="{DynamicResource FiliButtonTextTransform}"
                             ContentTemplate="{TemplateBinding ContentTemplate}"
@@ -90,6 +93,9 @@
     no colour, and `{color}-lighten` between the segments of a filled coloured one.
   -->
   <ControlTheme x:Key="FiliSplitButton" TargetType="SplitButton">
+    <!-- MudBlazor's ripple, drawn in each half's PART_Ripple (Ripple.cs): the halves inherit it,
+         so `filled` raises both. -->
+    <Setter Property="theme:Ripple.Opacity" Value="{DynamicResource FiliRippleOpacity}" />
     <Setter Property="Background" Value="Transparent" />
     <Setter Property="Foreground" Value="{DynamicResource FiliTextPrimaryBrush}" />
     <Setter Property="BorderBrush" Value="{DynamicResource FiliTextPrimaryBrush}" />
@@ -348,6 +354,7 @@
       <Setter Property="Foreground" Value="{DynamicResource FiliTextPrimaryBrush}" />
       <Setter Property="BorderBrush" Value="{DynamicResource FiliDividerBrush}" />
       <Setter Property="Padding" Value="16,6" />
+      <Setter Property="theme:Ripple.Opacity" Value="{DynamicResource FiliRippleOpacitySecondary}" />
     </Style>
     <Style Selector="^.filled /template/ Border#PART_Root">
       <Setter Property="BoxShadow" Value="{DynamicResource FiliElevation2}" />
@@ -558,6 +565,8 @@
     The glyph is painted with the Foreground, so it follows every colour without its own rules.
   -->
   <ControlTheme x:Key="FiliDropDownButton" TargetType="DropDownButton">
+    <!-- MudBlazor's ripple, drawn in PART_Ripple (Ripple.cs). -->
+    <Setter Property="theme:Ripple.Opacity" Value="{DynamicResource FiliRippleOpacity}" />
     <Setter Property="Background" Value="Transparent" />
     <Setter Property="Foreground" Value="{DynamicResource FiliTextPrimaryBrush}" />
     <Setter Property="BorderBrush" Value="Transparent" />
@@ -587,6 +596,9 @@
             <Border x:Name="PART_StateLayer"
                     CornerRadius="{TemplateBinding CornerRadius}"
                     Background="Transparent" />
+            <Border x:Name="PART_Ripple"
+                    theme:Ripple.IsLayer="True"
+                    CornerRadius="{TemplateBinding CornerRadius}" />
             <Grid x:Name="InnerGrid" ColumnDefinitions="*,Auto" Margin="{TemplateBinding Padding}">
               <ContentPresenter x:Name="PART_ContentPresenter"
                                 theme:TextTransform.Case="{DynamicResource FiliButtonTextTransform}"
@@ -811,6 +823,7 @@
       <Setter Property="Background" Value="{DynamicResource FiliActionDefaultHoverBrush}" />
       <Setter Property="Foreground" Value="{DynamicResource FiliTextPrimaryBrush}" />
       <Setter Property="Padding" Value="16,6" />
+      <Setter Property="theme:Ripple.Opacity" Value="{DynamicResource FiliRippleOpacitySecondary}" />
     </Style>
     <Style Selector="^.filled /template/ Border#RootBorder">
       <Setter Property="BoxShadow" Value="{DynamicResource FiliElevation2}" />

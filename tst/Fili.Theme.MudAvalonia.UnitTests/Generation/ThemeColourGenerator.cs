@@ -186,7 +186,11 @@ public static class ThemeColourGenerator
     {
         var sh = shadow ? "\n                BoxShadow=\"{DynamicResource FiliElevation2}\"" : "";
 
-        return """
+        // `.mud-button-filled` raises the ripple to --mud-ripple-opacity-secondary.
+        var ripple = shadow ? "FiliRippleOpacitySecondary" : "FiliRippleOpacity";
+        return "    <!-- MudBlazor's ripple, drawn in PART_Ripple (Ripple.cs). -->\n"
+            + "    <Setter Property=\"theme:Ripple.Opacity\" Value=\"{DynamicResource " + ripple + "}\" />\n"
+            + """
     <Setter Property="Template">
       <ControlTemplate>
         <Border x:Name="PART_Root"
@@ -201,6 +205,9 @@ public static class ThemeColourGenerator
             <Border x:Name="PART_StateLayer"
                     CornerRadius="{TemplateBinding CornerRadius}"
                     Background="Transparent" />
+            <Border x:Name="PART_Ripple"
+                    theme:Ripple.IsLayer="True"
+                    CornerRadius="{TemplateBinding CornerRadius}" />
             <ContentPresenter x:Name="PART_ContentPresenter"
                               theme:TextTransform.Case="{DynamicResource FiliButtonTextTransform}"
                               ContentTemplate="{TemplateBinding ContentTemplate}"
@@ -513,7 +520,8 @@ public static class ThemeColourGenerator
          lifting to 4. A coloured fill divides with {color}-lighten and darkens on hover. -->
 
 """);
-        o.Append(Style("^.filled", ("Background", Res("FiliActionDefaultHoverBrush")), ("Foreground", Res("FiliTextPrimaryBrush")), ("BorderBrush", Res("FiliDividerBrush")), ("Padding", "16,6")));
+        o.Append(Style("^.filled", ("Background", Res("FiliActionDefaultHoverBrush")), ("Foreground", Res("FiliTextPrimaryBrush")), ("BorderBrush", Res("FiliDividerBrush")), ("Padding", "16,6"),
+            ("theme:Ripple.Opacity", Res("FiliRippleOpacitySecondary"))));
         o.Append(Style("^.filled /template/ Border#PART_Root", ("BoxShadow", Res("FiliElevation2"))));
         o.Append(Style("^.filled:pointerover /template/ Border#PART_Root", ("BoxShadow", Res("FiliElevation4"))));
         o.Append(Style("^.filled:focus-visible /template/ Border#PART_Root", ("BoxShadow", Res("FiliElevation4"))));
@@ -575,7 +583,8 @@ public static class ThemeColourGenerator
         o.Append(Style("^.outlined.large", ("Padding", "21,7"), ("FontSize", "15")));
 
         o.Append("\n    <!-- Filled: the fill darkens instead of tinting, and the button lifts 2 -> 4 -> 8. -->\n");
-        o.Append(Style("^.filled", ("Background", Res("FiliActionDefaultHoverBrush")), ("Foreground", Res("FiliTextPrimaryBrush")), ("Padding", "16,6")));
+        o.Append(Style("^.filled", ("Background", Res("FiliActionDefaultHoverBrush")), ("Foreground", Res("FiliTextPrimaryBrush")), ("Padding", "16,6"),
+            ("theme:Ripple.Opacity", Res("FiliRippleOpacitySecondary"))));
         o.Append(Style("^.filled /template/ Border#RootBorder", ("BoxShadow", Res("FiliElevation2"))));
         o.Append(Style("^.filled:pointerover /template/ Border#RootBorder", ("BoxShadow", Res("FiliElevation4"))));
         o.Append(Style("^.filled:focus-visible /template/ Border#RootBorder", ("BoxShadow", Res("FiliElevation4"))));
@@ -615,13 +624,15 @@ public static class ThemeColourGenerator
         var o = new StringBuilder();
         o.Append("    <!-- No colour: the action-default halo. -->\n");
         o.Append(string.Concat(States.Select(s => Style($"^{s} /template/ Ellipse#PART_StateLayer", ("Fill", Res("FiliActionDefaultHoverBrush"))))));
-        o.Append("\n    <!-- Colours: every glyph, checked or not, and the halo. -->\n");
+        o.Append("\n    <!-- Colours: every glyph, checked or not, the halo, and the ripple (`.mud-{color}-text`'s\n");
+        o.Append("         ripple colour). With no colour the ripple is text-primary, the control's own. -->\n");
 
         foreach (var c in Colours)
         {
             var cls = c.ToLowerInvariant();
             o.Append(string.Concat(glyphs.Select(g => Style($"^.{cls} /template/ Path#{g}", ("Fill", Res($"Fili{c}Brush"))))));
             o.Append(string.Concat(States.Select(s => Style($"^.{cls}{s} /template/ Ellipse#PART_StateLayer", ("Fill", Res($"Fili{c}HoverBrush"))))));
+            o.Append(Style($"^.{cls} /template/ Border#PART_Ripple", ("theme:Ripple.Brush", Res($"Fili{c}Brush"))));
         }
 
         // After the colours, so it wins where both are set: `primary unchecked-error` is
@@ -635,6 +646,8 @@ public static class ThemeColourGenerator
             o.Append(string.Concat(uncheckedGlyphs.Select(g => Style($"^.{cls} /template/ Path#{g}", ("Fill", Res($"Fili{c}Brush"))))));
             o.Append(string.Concat(uncheckedStates.SelectMany(u => States.Select(s =>
                 Style($"^.{cls}{u}{s} /template/ Ellipse#PART_StateLayer", ("Fill", Res($"Fili{c}HoverBrush")))))));
+            o.Append(string.Concat(uncheckedStates.Select(u =>
+                Style($"^.{cls}{u} /template/ Border#PART_Ripple", ("theme:Ripple.Brush", Res($"Fili{c}Brush"))))));
         }
 
         o.Append("\n    <!-- `mud-icon-size-small` / `-large`: 1.25rem and 2.25rem against 1.5rem. -->\n");
@@ -651,13 +664,17 @@ public static class ThemeColourGenerator
     private static readonly (string Size, int TrackWidth, int TrackHeight, int Thumb)[] SwitchSizes =
         [("small", 30, 10, 14), ("large", 38, 18, 26)];
 
+    /// <summary>The thumb's halo and its ripple layer, which move and size together.</summary>
+    private static string Halo(string prefix) =>
+        $"^{prefix} /template/ Ellipse#PART_ThumbStateLayer, ^{prefix} /template/ Border#PART_ThumbRipple";
+
     private static string SwitchRegion()
     {
         var o = new StringBuilder();
         o.Append("    <!-- On: the thumb travels the track width minus its own, 34 - 20 = 14px, and the\n");
         o.Append("         track lifts from 48% to 50%. -->\n");
         o.Append(Style("^:checked /template/ Border#PART_Thumb", ("RenderTransform", "translateX(14px)")));
-        o.Append(Style("^:checked /template/ Ellipse#PART_ThumbStateLayer", ("RenderTransform", "translateX(14px)")));
+        o.Append(Style(Halo(":checked"), ("RenderTransform", "translateX(14px)")));
         o.Append(Style("^:checked /template/ Border#PART_Track", ("Opacity", "0.5")));
         o.Append("\n    <!-- `.mud-switch-base:hover`: action-default-hover; keyboard focus and press the same. -->\n");
         o.Append(string.Concat(States.Select(s => Style($"^{s} /template/ Ellipse#PART_ThumbStateLayer", ("Fill", Res("FiliActionDefaultHoverBrush"))))));
@@ -672,30 +689,33 @@ public static class ThemeColourGenerator
             o.Append(Style($"^.{size} /template/ Border#PART_Track", ("Width", $"{trackWidth}"), ("Height", $"{trackHeight}")));
             o.Append(Style($"^.{size} /template/ Panel#PART_SwitchKnob", ("Width", $"{trackWidth}"), ("Height", $"{thumb}")));
             o.Append(Style($"^.{size} /template/ Border#PART_Thumb", ("Width", $"{thumb}"), ("Height", $"{thumb}"), ("CornerRadius", $"{thumb / 2}")));
-            o.Append(Style($"^.{size} /template/ Ellipse#PART_ThumbStateLayer", ("Width", $"{halo}"), ("Height", $"{halo}")));
+            o.Append(Style(Halo($".{size}"), ("Width", $"{halo}"), ("Height", $"{halo}")));
             o.Append(Style($"^.{size}:checked /template/ Border#PART_Thumb", ("RenderTransform", $"translateX({travel}px)")));
-            o.Append(Style($"^.{size}:checked /template/ Ellipse#PART_ThumbStateLayer", ("RenderTransform", $"translateX({travel}px)")));
+            o.Append(Style(Halo($".{size}:checked"), ("RenderTransform", $"translateX({travel}px)")));
         }
 
-        o.Append("\n    <!-- Colours paint the thumb and the track only when ON, with the colour's hover tint. -->\n");
+        o.Append("\n    <!-- Colours paint the thumb and the track only when ON, with the colour's hover tint and\n");
+        o.Append("         ripple. -->\n");
         foreach (var c in Colours)
         {
             var cls = c.ToLowerInvariant();
             o.Append(Style($"^.{cls}:checked /template/ Border#PART_Thumb", ("Background", Res($"Fili{c}Brush"))));
             o.Append(Style($"^.{cls}:checked /template/ Border#PART_Track", ("Background", Res($"Fili{c}Brush"))));
             o.Append(string.Concat(States.Select(s => Style($"^.{cls}:checked{s} /template/ Ellipse#PART_ThumbStateLayer", ("Fill", Res($"Fili{c}HoverBrush"))))));
+            o.Append(Style($"^.{cls}:checked /template/ Border#PART_ThumbRipple", ("theme:Ripple.Brush", Res($"Fili{c}Brush"))));
         }
 
         // MudSwitch's UncheckedColor: `mud-{color}-text` on the thumb (its currentColor) and
         // `mud-{color}` on the track, while the switch is off.
         o.Append("\n    <!-- UncheckedColor: `unchecked-{colour}`, the thumb and the track while OFF, with the\n");
-        o.Append("         colour's hover tint. -->\n");
+        o.Append("         colour's hover tint and ripple. -->\n");
         foreach (var c in Colours)
         {
             var cls = $"unchecked-{c.ToLowerInvariant()}";
             o.Append(Style($"^.{cls}:not(:checked) /template/ Border#PART_Thumb", ("Background", Res($"Fili{c}Brush"))));
             o.Append(Style($"^.{cls}:not(:checked) /template/ Border#PART_Track", ("Background", Res($"Fili{c}Brush"))));
             o.Append(string.Concat(States.Select(s => Style($"^.{cls}:not(:checked){s} /template/ Ellipse#PART_ThumbStateLayer", ("Fill", Res($"Fili{c}HoverBrush"))))));
+            o.Append(Style($"^.{cls}:not(:checked) /template/ Border#PART_ThumbRipple", ("theme:Ripple.Brush", Res($"Fili{c}Brush"))));
         }
 
         return o.ToString();
@@ -931,7 +951,8 @@ public static class ThemeColourGenerator
         }
 
         o.Append("\n    <!-- Outlined: lines-inputs or the colour as a 1px line, the tint on hover. -->\n");
-        o.Append(Style("^.outlined", ("Background", "Transparent"), ("Foreground", Res("FiliTextPrimaryBrush")), ("BorderBrush", Res("FiliLinesInputsBrush")), ("BorderThickness", "1")));
+        o.Append(Style("^.outlined", ("Background", "Transparent"), ("Foreground", Res("FiliTextPrimaryBrush")), ("BorderBrush", Res("FiliLinesInputsBrush")), ("BorderThickness", "1"),
+            ("theme:Ripple.Opacity", Res("FiliRippleOpacity"))));
         o.Append(ChipStates(".outlined", "PART_Root", ("Background", "Transparent")));
         o.Append(ChipStates(".outlined", "PART_StateLayer", ("Background", Res("FiliActionDefaultHoverBrush"))));
         foreach (var c in Colours)
@@ -947,6 +968,9 @@ public static class ThemeColourGenerator
         {
             o.Append(ChipTextLook($".text.{c.ToLowerInvariant()}", c));
         }
+
+        // Only `.mud-chip-filled` raises the ripple to --mud-ripple-opacity-secondary.
+        o.Append(Style("^.text", ("theme:Ripple.Opacity", Res("FiliRippleOpacity"))));
 
         o.Append("\n    <!-- Selected: a filled chip draws as text, a text chip as filled. -->\n");
         o.Append(ChipTextLook(":checked", null));
@@ -1004,16 +1028,19 @@ public static class ThemeColourGenerator
         o.Append(Style("^:pressed /template/ Border#PART_Root", ("BoxShadow", Res("FiliElevation12"))));
         o.Append("\n    <!-- No colour: grey, going to action-disabled-background. -->\n");
         o.Append(FabStates("", ("Background", Res("FiliActionDisabledBackgroundBrush"))));
-        o.Append("\n    <!-- `.mud-fab-{color}`: the colour, {color}-text on it, {color}-darken on hover. -->\n");
+        o.Append("\n    <!-- `.mud-fab-{color}`: the colour, {color}-text on it, {color}-darken on hover, and the\n");
+        o.Append("         ripple at the secondary ripple opacity. -->\n");
         foreach (var c in Colours)
         {
             var cls = c.ToLowerInvariant();
-            o.Append(Style($"^.{cls}", ("Background", Res($"Fili{c}Brush")), ("Foreground", Res($"Fili{c}ContrastTextBrush"))));
+            o.Append(Style($"^.{cls}", ("Background", Res($"Fili{c}Brush")), ("Foreground", Res($"Fili{c}ContrastTextBrush")),
+                ("theme:Ripple.Opacity", Res("FiliRippleOpacitySecondary"))));
             o.Append(FabStates($".{cls}", ("Background", Res($"Fili{c}DarkenBrush"))));
         }
 
         o.Append("\n    <!-- `.mud-fab-text`: no ground and no shadow; the colour as content, its tint on hover. -->\n");
-        o.Append(Style("^.text", ("Background", "Transparent"), ("Foreground", Res("FiliTextPrimaryBrush"))));
+        o.Append(Style("^.text", ("Background", "Transparent"), ("Foreground", Res("FiliTextPrimaryBrush")),
+            ("theme:Ripple.Opacity", Res("FiliRippleOpacity"))));
         o.Append(FabGrounded(".text"));
         o.Append(FabStates(".text", ("Background", Res("FiliActionDefaultHoverBrush"))));
         foreach (var c in Colours)
@@ -1025,7 +1052,8 @@ public static class ThemeColourGenerator
 
         o.Append("\n    <!-- `.mud-fab-outlined`: the text look plus a 1px line, text-primary or the colour\n");
         o.Append("         (BorderOpacity is 1.0, so the line IS the colour). -->\n");
-        o.Append(Style("^.outlined", ("Background", "Transparent"), ("Foreground", Res("FiliTextPrimaryBrush")), ("BorderBrush", Res("FiliTextPrimaryBrush")), ("BorderThickness", "1")));
+        o.Append(Style("^.outlined", ("Background", "Transparent"), ("Foreground", Res("FiliTextPrimaryBrush")), ("BorderBrush", Res("FiliTextPrimaryBrush")), ("BorderThickness", "1"),
+            ("theme:Ripple.Opacity", Res("FiliRippleOpacity"))));
         o.Append(FabGrounded(".outlined"));
         o.Append(FabStates(".outlined", ("Background", Res("FiliActionDefaultHoverBrush"))));
         foreach (var c in Colours)

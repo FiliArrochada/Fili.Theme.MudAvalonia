@@ -35,7 +35,8 @@ classes, `ControlTheme`s where a Material look cannot be faked without one, and 
   in `Converters/`;
   `OptionalStyleInclude`, a `StyleInclude` that loads only when the app has the package;
   `TextTransform`, a button label's case from `FiliButtonTextTransform`; `ExpansionPanels`, the
-  neighbours, ends and single expansion of an `expansion-panels` group;
+  neighbours, ends and single expansion of an `expansion-panels` group; `Ripple`, MudBlazor's
+  ripple in a template's `PART_Ripple`;
   `SlidingIndicator`, the tabs' slide; `FieldClasses`, the text field's classes passed to the
   TextBox inside an AutoCompleteBox or NumericUpDown; `MenuIconGutter`, a menu's shared icon
   column; `StartAdornment`, a text field's `:start-adornment`; `TabBarScroll`, the tab bar's
@@ -111,6 +112,8 @@ One line each; [`docs/traps.md`](docs/traps.md) has the full account and the tes
   FiliTheme.axaml.
 - Every `TemplatedControl` clips to its bounds: a template that draws past its edge (a shadow, a
   floated label, a badge) sets `ClipToBounds="False"`. And never clip a `Border` that has a shadow.
+- The compositor clips to a rectangle, whatever a `Border`'s radius: a rounded clip is a `Clip`
+  geometry (the ripple's layer).
 - An optional package's types live only in its `Themes/Optional/` folder; one anywhere else breaks
   every app without the package, and the main suite cannot see it.
 - RTL needs nothing from a template - do not "fix" hardcoded `Left`/`Right`. A glyph that must not
@@ -179,6 +182,9 @@ One line each; [`docs/traps.md`](docs/traps.md) has the full account and the tes
 
 - Every test body runs inside `UiThread.RunAsync`; one that does not poisons the headless session.
 - Re-focusing a focused control does not revisit `:focus-visible`; use two controls.
+- The headless mouse is shared by every window: release every press, or its capture swallows the
+  next test's. Headless timers run on the next `RunJobs`, not when due.
+- `GetBaseValue` of a property nobody set reads 0 through `GetValueOrDefault`; read the live value.
 - A key-frame animation stalls when ticked frame by frame headless: catch a value part way to show
   it runs, and read its end and timing from the `Animation` in the styles (`PopupFadeTests`).
 - Transitioned properties cannot be asserted synchronously; assert a non-transitioned property of

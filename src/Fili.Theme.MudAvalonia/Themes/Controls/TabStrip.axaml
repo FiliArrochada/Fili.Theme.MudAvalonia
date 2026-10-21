@@ -22,6 +22,8 @@
                     xmlns:theme="using:Fili.Theme.MudAvalonia">
 
   <ControlTheme x:Key="FiliTabStripItem" TargetType="TabStripItem">
+    <!-- MudBlazor's ripple, drawn in PART_Ripple (Ripple.cs). -->
+    <Setter Property="theme:Ripple.Opacity" Value="{DynamicResource FiliRippleOpacity}" />
     <Setter Property="Foreground" Value="{DynamicResource FiliTextPrimaryBrush}" />
     <Setter Property="FontFamily" Value="{DynamicResource FiliFontFamily}" />
     <Setter Property="FontSize" Value="{DynamicResource FiliButtonFontSize}" />
@@ -40,6 +42,8 @@
       <ControlTemplate>
         <Panel>
           <Border x:Name="PART_StateLayer" Background="Transparent" />
+          <Border x:Name="PART_Ripple"
+                  theme:Ripple.IsLayer="True" />
 
           <ContentPresenter x:Name="PART_ContentPresenter"
                             theme:TextTransform.Case="{DynamicResource FiliButtonTextTransform}"

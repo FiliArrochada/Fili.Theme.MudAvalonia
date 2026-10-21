@@ -183,6 +183,11 @@ is:
 <x:String x:Key="FiliButtonTextTransform">none</x:String>
 ```
 
+**A press ripples**, as in MudBlazor: a circle grows from the pointer in the label's colour, on
+buttons, chips, FABs, toggles, tabs and list, select, menu and tree rows, and in the halo of a
+checkbox, radio or switch. `Ripple="false"` is `FiliRippleOpacity` and `FiliRippleOpacitySecondary`
+set to `0` in a control's resources, or the application's.
+
 The raised variants step elevation 2 → 4 → 8 across rest, hover and press, and drop to 0 when
 disabled. That step is the thing Fluent cannot express at all, because `Button` has no `BoxShadow`
 property — only the `Border` inside a template does. `flat` is `DropShadow="false"`: a filled
@@ -381,8 +386,8 @@ publish to nuget.org and its one-time setup. [Versions](docs/versions.md) is the
 ## Known gaps
 
 46 of the 95 templated control types are hand-written; the other 49 wear forked Simple
-templates repaletted onto these tokens, each classified with a reason. There is no ripple and no
-date or time picker restyle. [Known gaps](docs/known-gaps.md)
+templates repaletted onto these tokens, each classified with a reason. There is no date or time
+picker restyle. [Known gaps](docs/known-gaps.md)
 has the full list and the reason for each.
 
 ## Where the light palette's colours come from

@@ -22,9 +22,12 @@
   colour itself on the state layer at Opacity 0.12, which is the same thing.
 -->
 <ResourceDictionary xmlns="https://github.com/avaloniaui"
-                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:theme="using:Fili.Theme.MudAvalonia">
 
   <ControlTheme x:Key="FiliChip" TargetType="Button">
+    <!-- MudBlazor's ripple, drawn in PART_Ripple (Ripple.cs). -->
+    <Setter Property="theme:Ripple.Opacity" Value="{DynamicResource FiliRippleOpacitySecondary}" />
     <Setter Property="Background" Value="{DynamicResource FiliActionDisabledBackgroundBrush}" />
     <Setter Property="Foreground" Value="{DynamicResource FiliTextPrimaryBrush}" />
     <Setter Property="BorderBrush" Value="Transparent" />
@@ -52,6 +55,9 @@
             <Border x:Name="PART_StateLayer"
                     CornerRadius="{TemplateBinding CornerRadius}"
                     Background="Transparent" />
+            <Border x:Name="PART_Ripple"
+                    theme:Ripple.IsLayer="True"
+                    CornerRadius="{TemplateBinding CornerRadius}" />
             <ContentPresenter x:Name="PART_ContentPresenter"
                               Content="{TemplateBinding Content}"
                               ContentTemplate="{TemplateBinding ContentTemplate}"
@@ -258,6 +264,7 @@
       <Setter Property="Foreground" Value="{DynamicResource FiliTextPrimaryBrush}" />
       <Setter Property="BorderBrush" Value="{DynamicResource FiliLinesInputsBrush}" />
       <Setter Property="BorderThickness" Value="1" />
+      <Setter Property="theme:Ripple.Opacity" Value="{DynamicResource FiliRippleOpacity}" />
     </Style>
     <Style Selector="^.outlined:pointerover /template/ Border#PART_Root">
       <Setter Property="Background" Value="Transparent" />
@@ -621,6 +628,9 @@
     <Style Selector="^.text.dark:pressed /template/ Border#PART_StateLayer">
       <Setter Property="Background" Value="{DynamicResource FiliDarkBrush}" />
       <Setter Property="Opacity" Value="0.12" />
+    </Style>
+    <Style Selector="^.text">
+      <Setter Property="theme:Ripple.Opacity" Value="{DynamicResource FiliRippleOpacity}" />
     </Style>
 
     <!-- Selected: a filled chip draws as text, a text chip as filled. -->

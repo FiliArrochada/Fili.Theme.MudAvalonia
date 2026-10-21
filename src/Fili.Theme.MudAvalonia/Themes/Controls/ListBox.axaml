@@ -21,9 +21,12 @@
   The same row shape feeds Controls/ComboBox.axaml, because a MudSelect's options ARE list items.
 -->
 <ResourceDictionary xmlns="https://github.com/avaloniaui"
-                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:theme="using:Fili.Theme.MudAvalonia">
 
   <ControlTheme x:Key="FiliListBoxItem" TargetType="ListBoxItem">
+    <!-- MudBlazor's ripple, drawn in PART_Ripple (Ripple.cs). -->
+    <Setter Property="theme:Ripple.Opacity" Value="{DynamicResource FiliRippleOpacity}" />
     <Setter Property="Foreground" Value="{DynamicResource FiliTextPrimaryBrush}" />
     <Setter Property="FontFamily" Value="{DynamicResource FiliFontFamily}" />
     <Setter Property="FontSize" Value="{DynamicResource FiliBody1FontSize}" />
@@ -45,6 +48,8 @@
               </Transitions>
             </Border.Transitions>
           </Border>
+          <Border x:Name="PART_Ripple"
+                  theme:Ripple.IsLayer="True" />
           <DockPanel Margin="{TemplateBinding Padding}">
             <!--
               MudList's MultiSelection checkbox, shown by `multi-selection` on the ListBox

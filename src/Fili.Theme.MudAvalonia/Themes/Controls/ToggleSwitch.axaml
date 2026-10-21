@@ -18,9 +18,12 @@
   INSIDE PART_MovingKnobs so it composes with the drag transform instead of fighting it.
 -->
 <ResourceDictionary xmlns="https://github.com/avaloniaui"
-                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:theme="using:Fili.Theme.MudAvalonia">
 
   <ControlTheme x:Key="FiliToggleSwitch" TargetType="ToggleSwitch">
+    <!-- MudBlazor's ripple, drawn in PART_ThumbRipple (Ripple.cs). -->
+    <Setter Property="theme:Ripple.Opacity" Value="{DynamicResource FiliRippleOpacity}" />
     <Setter Property="Foreground" Value="{DynamicResource FiliTextPrimaryBrush}" />
     <Setter Property="FontFamily" Value="{DynamicResource FiliFontFamily}" />
     <Setter Property="FontSize" Value="{DynamicResource FiliBody2FontSize}" />
@@ -70,6 +73,24 @@
                     </Transitions>
                   </Ellipse.Transitions>
                 </Ellipse>
+
+                <!-- `.mud-ripple-switch`: the ripple in the halo's circle, moving with it. -->
+                <Border x:Name="PART_ThumbRipple"
+                        theme:Ripple.IsLayer="True"
+                        Width="40" Height="40"
+                        CornerRadius="999"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center"
+                        Margin="-10,0,0,0"
+                        RenderTransform="translateX(0px)">
+                  <Border.Transitions>
+                    <Transitions>
+                      <TransformOperationsTransition Property="RenderTransform"
+                                                     Duration="0:0:0.15"
+                                                     Easing="CubicEaseOut" />
+                    </Transitions>
+                  </Border.Transitions>
+                </Border>
 
                 <Border x:Name="PART_Thumb"
                         Width="20" Height="20"
@@ -152,7 +173,7 @@
     <Style Selector="^:checked /template/ Border#PART_Thumb">
       <Setter Property="RenderTransform" Value="translateX(14px)" />
     </Style>
-    <Style Selector="^:checked /template/ Ellipse#PART_ThumbStateLayer">
+    <Style Selector="^:checked /template/ Ellipse#PART_ThumbStateLayer, ^:checked /template/ Border#PART_ThumbRipple">
       <Setter Property="RenderTransform" Value="translateX(14px)" />
     </Style>
     <Style Selector="^:checked /template/ Border#PART_Track">
@@ -191,14 +212,14 @@
       <Setter Property="Height" Value="14" />
       <Setter Property="CornerRadius" Value="7" />
     </Style>
-    <Style Selector="^.small /template/ Ellipse#PART_ThumbStateLayer">
+    <Style Selector="^.small /template/ Ellipse#PART_ThumbStateLayer, ^.small /template/ Border#PART_ThumbRipple">
       <Setter Property="Width" Value="34" />
       <Setter Property="Height" Value="34" />
     </Style>
     <Style Selector="^.small:checked /template/ Border#PART_Thumb">
       <Setter Property="RenderTransform" Value="translateX(16px)" />
     </Style>
-    <Style Selector="^.small:checked /template/ Ellipse#PART_ThumbStateLayer">
+    <Style Selector="^.small:checked /template/ Ellipse#PART_ThumbStateLayer, ^.small:checked /template/ Border#PART_ThumbRipple">
       <Setter Property="RenderTransform" Value="translateX(16px)" />
     </Style>
 
@@ -223,18 +244,19 @@
       <Setter Property="Height" Value="26" />
       <Setter Property="CornerRadius" Value="13" />
     </Style>
-    <Style Selector="^.large /template/ Ellipse#PART_ThumbStateLayer">
+    <Style Selector="^.large /template/ Ellipse#PART_ThumbStateLayer, ^.large /template/ Border#PART_ThumbRipple">
       <Setter Property="Width" Value="46" />
       <Setter Property="Height" Value="46" />
     </Style>
     <Style Selector="^.large:checked /template/ Border#PART_Thumb">
       <Setter Property="RenderTransform" Value="translateX(12px)" />
     </Style>
-    <Style Selector="^.large:checked /template/ Ellipse#PART_ThumbStateLayer">
+    <Style Selector="^.large:checked /template/ Ellipse#PART_ThumbStateLayer, ^.large:checked /template/ Border#PART_ThumbRipple">
       <Setter Property="RenderTransform" Value="translateX(12px)" />
     </Style>
 
-    <!-- Colours paint the thumb and the track only when ON, with the colour's hover tint. -->
+    <!-- Colours paint the thumb and the track only when ON, with the colour's hover tint and
+         ripple. -->
     <Style Selector="^.primary:checked /template/ Border#PART_Thumb">
       <Setter Property="Background" Value="{DynamicResource FiliPrimaryBrush}" />
     </Style>
@@ -249,6 +271,9 @@
     </Style>
     <Style Selector="^.primary:checked:pressed /template/ Ellipse#PART_ThumbStateLayer">
       <Setter Property="Fill" Value="{DynamicResource FiliPrimaryHoverBrush}" />
+    </Style>
+    <Style Selector="^.primary:checked /template/ Border#PART_ThumbRipple">
+      <Setter Property="theme:Ripple.Brush" Value="{DynamicResource FiliPrimaryBrush}" />
     </Style>
     <Style Selector="^.secondary:checked /template/ Border#PART_Thumb">
       <Setter Property="Background" Value="{DynamicResource FiliSecondaryBrush}" />
@@ -265,6 +290,9 @@
     <Style Selector="^.secondary:checked:pressed /template/ Ellipse#PART_ThumbStateLayer">
       <Setter Property="Fill" Value="{DynamicResource FiliSecondaryHoverBrush}" />
     </Style>
+    <Style Selector="^.secondary:checked /template/ Border#PART_ThumbRipple">
+      <Setter Property="theme:Ripple.Brush" Value="{DynamicResource FiliSecondaryBrush}" />
+    </Style>
     <Style Selector="^.tertiary:checked /template/ Border#PART_Thumb">
       <Setter Property="Background" Value="{DynamicResource FiliTertiaryBrush}" />
     </Style>
@@ -279,6 +307,9 @@
     </Style>
     <Style Selector="^.tertiary:checked:pressed /template/ Ellipse#PART_ThumbStateLayer">
       <Setter Property="Fill" Value="{DynamicResource FiliTertiaryHoverBrush}" />
+    </Style>
+    <Style Selector="^.tertiary:checked /template/ Border#PART_ThumbRipple">
+      <Setter Property="theme:Ripple.Brush" Value="{DynamicResource FiliTertiaryBrush}" />
     </Style>
     <Style Selector="^.info:checked /template/ Border#PART_Thumb">
       <Setter Property="Background" Value="{DynamicResource FiliInfoBrush}" />
@@ -295,6 +326,9 @@
     <Style Selector="^.info:checked:pressed /template/ Ellipse#PART_ThumbStateLayer">
       <Setter Property="Fill" Value="{DynamicResource FiliInfoHoverBrush}" />
     </Style>
+    <Style Selector="^.info:checked /template/ Border#PART_ThumbRipple">
+      <Setter Property="theme:Ripple.Brush" Value="{DynamicResource FiliInfoBrush}" />
+    </Style>
     <Style Selector="^.success:checked /template/ Border#PART_Thumb">
       <Setter Property="Background" Value="{DynamicResource FiliSuccessBrush}" />
     </Style>
@@ -309,6 +343,9 @@
     </Style>
     <Style Selector="^.success:checked:pressed /template/ Ellipse#PART_ThumbStateLayer">
       <Setter Property="Fill" Value="{DynamicResource FiliSuccessHoverBrush}" />
+    </Style>
+    <Style Selector="^.success:checked /template/ Border#PART_ThumbRipple">
+      <Setter Property="theme:Ripple.Brush" Value="{DynamicResource FiliSuccessBrush}" />
     </Style>
     <Style Selector="^.warning:checked /template/ Border#PART_Thumb">
       <Setter Property="Background" Value="{DynamicResource FiliWarningBrush}" />
@@ -325,6 +362,9 @@
     <Style Selector="^.warning:checked:pressed /template/ Ellipse#PART_ThumbStateLayer">
       <Setter Property="Fill" Value="{DynamicResource FiliWarningHoverBrush}" />
     </Style>
+    <Style Selector="^.warning:checked /template/ Border#PART_ThumbRipple">
+      <Setter Property="theme:Ripple.Brush" Value="{DynamicResource FiliWarningBrush}" />
+    </Style>
     <Style Selector="^.error:checked /template/ Border#PART_Thumb">
       <Setter Property="Background" Value="{DynamicResource FiliErrorBrush}" />
     </Style>
@@ -339,6 +379,9 @@
     </Style>
     <Style Selector="^.error:checked:pressed /template/ Ellipse#PART_ThumbStateLayer">
       <Setter Property="Fill" Value="{DynamicResource FiliErrorHoverBrush}" />
+    </Style>
+    <Style Selector="^.error:checked /template/ Border#PART_ThumbRipple">
+      <Setter Property="theme:Ripple.Brush" Value="{DynamicResource FiliErrorBrush}" />
     </Style>
     <Style Selector="^.dark:checked /template/ Border#PART_Thumb">
       <Setter Property="Background" Value="{DynamicResource FiliDarkBrush}" />
@@ -355,9 +398,12 @@
     <Style Selector="^.dark:checked:pressed /template/ Ellipse#PART_ThumbStateLayer">
       <Setter Property="Fill" Value="{DynamicResource FiliDarkHoverBrush}" />
     </Style>
+    <Style Selector="^.dark:checked /template/ Border#PART_ThumbRipple">
+      <Setter Property="theme:Ripple.Brush" Value="{DynamicResource FiliDarkBrush}" />
+    </Style>
 
     <!-- UncheckedColor: `unchecked-{colour}`, the thumb and the track while OFF, with the
-         colour's hover tint. -->
+         colour's hover tint and ripple. -->
     <Style Selector="^.unchecked-primary:not(:checked) /template/ Border#PART_Thumb">
       <Setter Property="Background" Value="{DynamicResource FiliPrimaryBrush}" />
     </Style>
@@ -372,6 +418,9 @@
     </Style>
     <Style Selector="^.unchecked-primary:not(:checked):pressed /template/ Ellipse#PART_ThumbStateLayer">
       <Setter Property="Fill" Value="{DynamicResource FiliPrimaryHoverBrush}" />
+    </Style>
+    <Style Selector="^.unchecked-primary:not(:checked) /template/ Border#PART_ThumbRipple">
+      <Setter Property="theme:Ripple.Brush" Value="{DynamicResource FiliPrimaryBrush}" />
     </Style>
     <Style Selector="^.unchecked-secondary:not(:checked) /template/ Border#PART_Thumb">
       <Setter Property="Background" Value="{DynamicResource FiliSecondaryBrush}" />
@@ -388,6 +437,9 @@
     <Style Selector="^.unchecked-secondary:not(:checked):pressed /template/ Ellipse#PART_ThumbStateLayer">
       <Setter Property="Fill" Value="{DynamicResource FiliSecondaryHoverBrush}" />
     </Style>
+    <Style Selector="^.unchecked-secondary:not(:checked) /template/ Border#PART_ThumbRipple">
+      <Setter Property="theme:Ripple.Brush" Value="{DynamicResource FiliSecondaryBrush}" />
+    </Style>
     <Style Selector="^.unchecked-tertiary:not(:checked) /template/ Border#PART_Thumb">
       <Setter Property="Background" Value="{DynamicResource FiliTertiaryBrush}" />
     </Style>
@@ -402,6 +454,9 @@
     </Style>
     <Style Selector="^.unchecked-tertiary:not(:checked):pressed /template/ Ellipse#PART_ThumbStateLayer">
       <Setter Property="Fill" Value="{DynamicResource FiliTertiaryHoverBrush}" />
+    </Style>
+    <Style Selector="^.unchecked-tertiary:not(:checked) /template/ Border#PART_ThumbRipple">
+      <Setter Property="theme:Ripple.Brush" Value="{DynamicResource FiliTertiaryBrush}" />
     </Style>
     <Style Selector="^.unchecked-info:not(:checked) /template/ Border#PART_Thumb">
       <Setter Property="Background" Value="{DynamicResource FiliInfoBrush}" />
@@ -418,6 +473,9 @@
     <Style Selector="^.unchecked-info:not(:checked):pressed /template/ Ellipse#PART_ThumbStateLayer">
       <Setter Property="Fill" Value="{DynamicResource FiliInfoHoverBrush}" />
     </Style>
+    <Style Selector="^.unchecked-info:not(:checked) /template/ Border#PART_ThumbRipple">
+      <Setter Property="theme:Ripple.Brush" Value="{DynamicResource FiliInfoBrush}" />
+    </Style>
     <Style Selector="^.unchecked-success:not(:checked) /template/ Border#PART_Thumb">
       <Setter Property="Background" Value="{DynamicResource FiliSuccessBrush}" />
     </Style>
@@ -432,6 +490,9 @@
     </Style>
     <Style Selector="^.unchecked-success:not(:checked):pressed /template/ Ellipse#PART_ThumbStateLayer">
       <Setter Property="Fill" Value="{DynamicResource FiliSuccessHoverBrush}" />
+    </Style>
+    <Style Selector="^.unchecked-success:not(:checked) /template/ Border#PART_ThumbRipple">
+      <Setter Property="theme:Ripple.Brush" Value="{DynamicResource FiliSuccessBrush}" />
     </Style>
     <Style Selector="^.unchecked-warning:not(:checked) /template/ Border#PART_Thumb">
       <Setter Property="Background" Value="{DynamicResource FiliWarningBrush}" />
@@ -448,6 +509,9 @@
     <Style Selector="^.unchecked-warning:not(:checked):pressed /template/ Ellipse#PART_ThumbStateLayer">
       <Setter Property="Fill" Value="{DynamicResource FiliWarningHoverBrush}" />
     </Style>
+    <Style Selector="^.unchecked-warning:not(:checked) /template/ Border#PART_ThumbRipple">
+      <Setter Property="theme:Ripple.Brush" Value="{DynamicResource FiliWarningBrush}" />
+    </Style>
     <Style Selector="^.unchecked-error:not(:checked) /template/ Border#PART_Thumb">
       <Setter Property="Background" Value="{DynamicResource FiliErrorBrush}" />
     </Style>
@@ -463,6 +527,9 @@
     <Style Selector="^.unchecked-error:not(:checked):pressed /template/ Ellipse#PART_ThumbStateLayer">
       <Setter Property="Fill" Value="{DynamicResource FiliErrorHoverBrush}" />
     </Style>
+    <Style Selector="^.unchecked-error:not(:checked) /template/ Border#PART_ThumbRipple">
+      <Setter Property="theme:Ripple.Brush" Value="{DynamicResource FiliErrorBrush}" />
+    </Style>
     <Style Selector="^.unchecked-dark:not(:checked) /template/ Border#PART_Thumb">
       <Setter Property="Background" Value="{DynamicResource FiliDarkBrush}" />
     </Style>
@@ -477,6 +544,9 @@
     </Style>
     <Style Selector="^.unchecked-dark:not(:checked):pressed /template/ Ellipse#PART_ThumbStateLayer">
       <Setter Property="Fill" Value="{DynamicResource FiliDarkHoverBrush}" />
+    </Style>
+    <Style Selector="^.unchecked-dark:not(:checked) /template/ Border#PART_ThumbRipple">
+      <Setter Property="theme:Ripple.Brush" Value="{DynamicResource FiliDarkBrush}" />
     </Style>
     <!-- END GENERATED -->
 

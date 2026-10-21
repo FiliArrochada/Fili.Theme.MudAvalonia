@@ -11,7 +11,8 @@
 -->
 <ResourceDictionary xmlns="https://github.com/avaloniaui"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:theme="using:Fili.Theme.MudAvalonia">
+                    xmlns:theme="using:Fili.Theme.MudAvalonia"
+                    xmlns:sys="clr-namespace:System;assembly=System.Runtime">
 
   <ResourceDictionary.ThemeDictionaries>
 
@@ -566,5 +567,14 @@
   <SolidColorBrush x:Key="FiliSwitchThumbBrush" Color="{DynamicResource FiliSwitchThumbColor}" />
 
   <SolidColorBrush x:Key="FiliInputFilledBrush"    Color="{DynamicResource FiliInputFilledColor}" />
+
+  <!--
+    The ripple's opacity: Palette.cs RippleOpacity 0.1 and RippleOpacitySecondary 0.2, the second
+    on filled buttons, filled chips and coloured FABs. NON-VARYING: MudThemeProvider.razor.cs
+    writes both from PaletteLight whatever the mode. Its colour is the control's text, so it has
+    no token. Zero, in an app's or a control's resources, turns the ripple off there.
+  -->
+  <sys:Double x:Key="FiliRippleOpacity">0.1</sys:Double>
+  <sys:Double x:Key="FiliRippleOpacitySecondary">0.2</sys:Double>
 
 </ResourceDictionary>

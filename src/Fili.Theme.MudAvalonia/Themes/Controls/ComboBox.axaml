@@ -23,9 +23,12 @@
   needed for IsEditable, which this theme does not style differently.
 -->
 <ResourceDictionary xmlns="https://github.com/avaloniaui"
-                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:theme="using:Fili.Theme.MudAvalonia">
 
   <ControlTheme x:Key="FiliComboBoxItem" TargetType="ComboBoxItem">
+    <!-- MudBlazor's ripple, drawn in PART_Ripple (Ripple.cs). -->
+    <Setter Property="theme:Ripple.Opacity" Value="{DynamicResource FiliRippleOpacity}" />
     <Setter Property="Foreground" Value="{DynamicResource FiliTextPrimaryBrush}" />
     <Setter Property="FontFamily" Value="{DynamicResource FiliFontFamily}" />
     <!-- MudSelectItem is a MudListItem, so body1. -->
@@ -41,6 +44,8 @@
       <ControlTemplate>
         <Panel>
           <Border x:Name="PART_StateLayer" Background="Transparent" />
+          <Border x:Name="PART_Ripple"
+                  theme:Ripple.IsLayer="True" />
           <!-- MudSelectItem is a MudListItem: `.mud-list-item-text`'s 4px above and below. -->
           <ContentPresenter x:Name="PART_ContentPresenter"
                             Content="{TemplateBinding Content}"
