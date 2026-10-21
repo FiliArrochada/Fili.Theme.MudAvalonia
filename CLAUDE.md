@@ -136,6 +136,8 @@ One line each; [`docs/traps.md`](docs/traps.md) has the full account and the tes
   missing token.
 - Every brush is one shared application-level object: set the variant on the `Application`, not a
   window.
+- A `Border` with square corners and a one-sided `BorderThickness` draws no `BoxShadow`: put a
+  partial border on its own `Border` over the shadowed one (`Expander`'s `PART_Rule`).
 - Elevation varies only in high contrast, where it becomes a 1px ring in the application's
   `FiliLinesDefaultColor`, built by `HighContrastRings` when looked up.
 

@@ -54,15 +54,25 @@ public class ExpansionPanelsTests
         Assert.All(p, x => Assert.Equal(default, Margin(x)));
     });
 
-    /// <summary>The panel itself draws the rule and the corners: its root Border takes both.</summary>
+    /// <summary>
+    /// The panel's root draws the corners and the shadow, and PART_Rule over it the rule. The root
+    /// never takes the rule: a Border with square corners and a one-sided BorderThickness draws no
+    /// BoxShadow, and a closed group's middle panels lost theirs - a notch in the group's edge,
+    /// and no ring at all in high contrast.
+    /// </summary>
     [Fact]
-    public Task ThePanelsRootDrawsThem() => UiThread.RunAsync(() =>
+    public Task ThePanelsRootDrawsTheShapeAndItsRuleTheLine() => UiThread.RunAsync(() =>
     {
-        var (_, p) = Group(2);
-        var root = Matrix.Part<Border>(p[0], "PART_Root");
+        var (_, p) = Group(3);
+        var root = Matrix.Part<Border>(p[1], "PART_Root");
+        var rule = Matrix.Part<Border>(p[1], "PART_Rule");
 
-        Assert.Equal(Top, root.CornerRadius);
-        Assert.Equal(Rule, root.BorderThickness);
+        Assert.Equal(None, root.CornerRadius);
+        Assert.Equal(NoRule, root.BorderThickness);
+        Assert.Equal(FabTests.Shadow(1), root.BoxShadow);
+        Assert.Equal(Rule, rule.BorderThickness);
+        Assert.Equal(Matrix.Token("FiliLinesDefaultColor"), Matrix.Colour(rule.BorderBrush));
+        Assert.Equal(Top, Matrix.Part<Border>(p[0], "PART_Rule").CornerRadius);
     });
 
     [Fact]

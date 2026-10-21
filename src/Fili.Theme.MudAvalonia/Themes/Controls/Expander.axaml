@@ -136,26 +136,34 @@
       <ControlTemplate>
         <Border x:Name="PART_Root"
                 Background="{TemplateBinding Background}"
-                BorderBrush="{TemplateBinding BorderBrush}"
-                BorderThickness="{TemplateBinding BorderThickness}"
                 CornerRadius="{TemplateBinding CornerRadius}"
                 BoxShadow="{DynamicResource FiliElevation1}">
-          <Grid RowDefinitions="Auto,*">
-            <ToggleButton x:Name="PART_toggle"
-                          Grid.Row="0"
-                          Theme="{StaticResource FiliExpanderToggle}"
-                          Content="{TemplateBinding Header}"
-                          IsChecked="{TemplateBinding IsExpanded, Mode=TwoWay}" />
-            <ContentPresenter x:Name="PART_ContentPresenter"
-                              Grid.Row="1"
-                              Padding="{TemplateBinding Padding}"
-                              Content="{TemplateBinding Content}"
-                              ContentTemplate="{TemplateBinding ContentTemplate}"
-                              Foreground="{TemplateBinding Foreground}"
-                              HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
-                              VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
-                              IsVisible="{TemplateBinding IsExpanded}" />
-          </Grid>
+          <Panel>
+            <Grid Margin="{TemplateBinding BorderThickness}" RowDefinitions="Auto,*">
+              <ToggleButton x:Name="PART_toggle"
+                            Grid.Row="0"
+                            Theme="{StaticResource FiliExpanderToggle}"
+                            Content="{TemplateBinding Header}"
+                            IsChecked="{TemplateBinding IsExpanded, Mode=TwoWay}" />
+              <ContentPresenter x:Name="PART_ContentPresenter"
+                                Grid.Row="1"
+                                Padding="{TemplateBinding Padding}"
+                                Content="{TemplateBinding Content}"
+                                ContentTemplate="{TemplateBinding ContentTemplate}"
+                                Foreground="{TemplateBinding Foreground}"
+                                HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+                                IsVisible="{TemplateBinding IsExpanded}" />
+            </Grid>
+            <!-- The rule, over the panel rather than on PART_Root: a Border with square corners and
+                 a one-sided BorderThickness draws no BoxShadow, so a group's middle panels lost
+                 their shadow and, in high contrast, their ring. -->
+            <Border x:Name="PART_Rule"
+                    BorderBrush="{TemplateBinding BorderBrush}"
+                    BorderThickness="{TemplateBinding BorderThickness}"
+                    CornerRadius="{TemplateBinding CornerRadius}"
+                    IsHitTestVisible="False" />
+          </Panel>
         </Border>
       </ControlTemplate>
     </Setter>
@@ -166,26 +174,34 @@
         <ControlTemplate>
           <Border x:Name="PART_Root"
                   Background="{TemplateBinding Background}"
-                  BorderBrush="{TemplateBinding BorderBrush}"
-                  BorderThickness="{TemplateBinding BorderThickness}"
                   CornerRadius="{TemplateBinding CornerRadius}"
                   BoxShadow="{DynamicResource FiliElevation1}">
-            <Grid RowDefinitions="*,Auto">
-              <ContentPresenter x:Name="PART_ContentPresenter"
-                                Grid.Row="0"
-                                Padding="{TemplateBinding Padding}"
-                                Content="{TemplateBinding Content}"
-                                ContentTemplate="{TemplateBinding ContentTemplate}"
-                                Foreground="{TemplateBinding Foreground}"
-                                HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
-                                VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
-                                IsVisible="{TemplateBinding IsExpanded}" />
-              <ToggleButton x:Name="PART_toggle"
-                            Grid.Row="1"
-                            Theme="{StaticResource FiliExpanderToggle}"
-                            Content="{TemplateBinding Header}"
-                            IsChecked="{TemplateBinding IsExpanded, Mode=TwoWay}" />
-            </Grid>
+            <Panel>
+              <Grid Margin="{TemplateBinding BorderThickness}" RowDefinitions="*,Auto">
+                <ContentPresenter x:Name="PART_ContentPresenter"
+                                  Grid.Row="0"
+                                  Padding="{TemplateBinding Padding}"
+                                  Content="{TemplateBinding Content}"
+                                  ContentTemplate="{TemplateBinding ContentTemplate}"
+                                  Foreground="{TemplateBinding Foreground}"
+                                  HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                  VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+                                  IsVisible="{TemplateBinding IsExpanded}" />
+                <ToggleButton x:Name="PART_toggle"
+                              Grid.Row="1"
+                              Theme="{StaticResource FiliExpanderToggle}"
+                              Content="{TemplateBinding Header}"
+                              IsChecked="{TemplateBinding IsExpanded, Mode=TwoWay}" />
+              </Grid>
+              <!-- The rule, over the panel rather than on PART_Root: a Border with square corners and
+                   a one-sided BorderThickness draws no BoxShadow, so a group's middle panels lost
+                   their shadow and, in high contrast, their ring. -->
+              <Border x:Name="PART_Rule"
+                      BorderBrush="{TemplateBinding BorderBrush}"
+                      BorderThickness="{TemplateBinding BorderThickness}"
+                      CornerRadius="{TemplateBinding CornerRadius}"
+                      IsHitTestVisible="False" />
+            </Panel>
           </Border>
         </ControlTemplate>
       </Setter>
@@ -204,26 +220,34 @@
         <ControlTemplate>
           <Border x:Name="PART_Root"
                   Background="{TemplateBinding Background}"
-                  BorderBrush="{TemplateBinding BorderBrush}"
-                  BorderThickness="{TemplateBinding BorderThickness}"
                   CornerRadius="{TemplateBinding CornerRadius}"
                   BoxShadow="{DynamicResource FiliElevation1}">
-            <Grid ColumnDefinitions="Auto,*">
-              <ToggleButton x:Name="PART_toggle"
-                            Grid.Column="0"
-                            Theme="{StaticResource FiliExpanderToggle}"
-                            Content="{TemplateBinding Header}"
-                            IsChecked="{TemplateBinding IsExpanded, Mode=TwoWay}" />
-              <ContentPresenter x:Name="PART_ContentPresenter"
-                                Grid.Column="1"
-                                Padding="{TemplateBinding Padding}"
-                                Content="{TemplateBinding Content}"
-                                ContentTemplate="{TemplateBinding ContentTemplate}"
-                                Foreground="{TemplateBinding Foreground}"
-                                HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
-                                VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
-                                IsVisible="{TemplateBinding IsExpanded}" />
-            </Grid>
+            <Panel>
+              <Grid Margin="{TemplateBinding BorderThickness}" ColumnDefinitions="Auto,*">
+                <ToggleButton x:Name="PART_toggle"
+                              Grid.Column="0"
+                              Theme="{StaticResource FiliExpanderToggle}"
+                              Content="{TemplateBinding Header}"
+                              IsChecked="{TemplateBinding IsExpanded, Mode=TwoWay}" />
+                <ContentPresenter x:Name="PART_ContentPresenter"
+                                  Grid.Column="1"
+                                  Padding="{TemplateBinding Padding}"
+                                  Content="{TemplateBinding Content}"
+                                  ContentTemplate="{TemplateBinding ContentTemplate}"
+                                  Foreground="{TemplateBinding Foreground}"
+                                  HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                  VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+                                  IsVisible="{TemplateBinding IsExpanded}" />
+              </Grid>
+              <!-- The rule, over the panel rather than on PART_Root: a Border with square corners and
+                   a one-sided BorderThickness draws no BoxShadow, so a group's middle panels lost
+                   their shadow and, in high contrast, their ring. -->
+              <Border x:Name="PART_Rule"
+                      BorderBrush="{TemplateBinding BorderBrush}"
+                      BorderThickness="{TemplateBinding BorderThickness}"
+                      CornerRadius="{TemplateBinding CornerRadius}"
+                      IsHitTestVisible="False" />
+            </Panel>
           </Border>
         </ControlTemplate>
       </Setter>
@@ -241,26 +265,34 @@
         <ControlTemplate>
           <Border x:Name="PART_Root"
                   Background="{TemplateBinding Background}"
-                  BorderBrush="{TemplateBinding BorderBrush}"
-                  BorderThickness="{TemplateBinding BorderThickness}"
                   CornerRadius="{TemplateBinding CornerRadius}"
                   BoxShadow="{DynamicResource FiliElevation1}">
-            <Grid ColumnDefinitions="*,Auto">
-              <ContentPresenter x:Name="PART_ContentPresenter"
-                                Grid.Column="0"
-                                Padding="{TemplateBinding Padding}"
-                                Content="{TemplateBinding Content}"
-                                ContentTemplate="{TemplateBinding ContentTemplate}"
-                                Foreground="{TemplateBinding Foreground}"
-                                HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
-                                VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
-                                IsVisible="{TemplateBinding IsExpanded}" />
-              <ToggleButton x:Name="PART_toggle"
-                            Grid.Column="1"
-                            Theme="{StaticResource FiliExpanderToggle}"
-                            Content="{TemplateBinding Header}"
-                            IsChecked="{TemplateBinding IsExpanded, Mode=TwoWay}" />
-            </Grid>
+            <Panel>
+              <Grid Margin="{TemplateBinding BorderThickness}" ColumnDefinitions="*,Auto">
+                <ContentPresenter x:Name="PART_ContentPresenter"
+                                  Grid.Column="0"
+                                  Padding="{TemplateBinding Padding}"
+                                  Content="{TemplateBinding Content}"
+                                  ContentTemplate="{TemplateBinding ContentTemplate}"
+                                  Foreground="{TemplateBinding Foreground}"
+                                  HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                  VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+                                  IsVisible="{TemplateBinding IsExpanded}" />
+                <ToggleButton x:Name="PART_toggle"
+                              Grid.Column="1"
+                              Theme="{StaticResource FiliExpanderToggle}"
+                              Content="{TemplateBinding Header}"
+                              IsChecked="{TemplateBinding IsExpanded, Mode=TwoWay}" />
+              </Grid>
+              <!-- The rule, over the panel rather than on PART_Root: a Border with square corners and
+                   a one-sided BorderThickness draws no BoxShadow, so a group's middle panels lost
+                   their shadow and, in high contrast, their ring. -->
+              <Border x:Name="PART_Rule"
+                      BorderBrush="{TemplateBinding BorderBrush}"
+                      BorderThickness="{TemplateBinding BorderThickness}"
+                      CornerRadius="{TemplateBinding CornerRadius}"
+                      IsHitTestVisible="False" />
+            </Panel>
           </Border>
         </ControlTemplate>
       </Setter>

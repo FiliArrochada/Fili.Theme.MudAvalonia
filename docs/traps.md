@@ -407,6 +407,12 @@ its own, so tune against the gallery rather than against an app.
   one machine and passes on another. `GalleryFrames.Render` therefore waits out `SettleTime`
   before capturing. Raise that constant if a longer animation starts on load; do not mask a
   region whose colours the suite is meant to be watching.
+- **A `Border` with square corners and a one-sided `BorderThickness` draws no `BoxShadow`.** A
+  closed `expansion-panels` group's middle panels - no radius, a rule under them - lost their
+  shadow, a notch in the group's edge, and in high contrast their ring. Rounded corners or a
+  uniform thickness hide it. The `Expander` keeps the shape and shadow on `PART_Root`, with no
+  border, and draws the rule in `PART_Rule` over it; any template that puts a partial border and
+  a shadow on one `Border` needs the same split.
 - **A transition that moves layout changed the frame's height.** An expanded panel in an
   `expansion-panels` group eases out to its 16px margin over .3s from the moment it joins, and the
   window was sized to the page before that had finished: the light controls frame, rendered first
