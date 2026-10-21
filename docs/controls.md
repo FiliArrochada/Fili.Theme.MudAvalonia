@@ -351,7 +351,8 @@ Five places where the MudBlazor default is not the one you would guess:
   panel: the elevation classes (`elevation0` when it already sits on a card), `square`, `dense`
   (no padding above and below the content) and `no-gutters` (`Gutters="false"`: no 24px sides on
   the header or the content).
-- **`expansion-panels` on a `StackPanel` is MudExpansionPanels**, the group:
+- **`expansion-panels` on a `StackPanel` is MudExpansionPanels**, the group, as it is on an
+  `ItemsControl` whose items are Expanders or whose `ItemTemplate` makes them:
 
   ```xml
   <StackPanel Classes="expansion-panels">
@@ -365,9 +366,10 @@ Five places where the MudBlazor default is not the one you would guess:
   one's bottom, a lines-default rule under each panel but the last (`Outlined`, on by default),
   and an expanded panel moved 16px from its neighbours over .3s with every corner rounded. The
   panel before it drops its rule and takes the bottom corners, the one after it the top ones.
-  `square` on the group squares every panel. Write the Expanders straight into a panel: the group
-  reads its children, and an `ItemsControl` wraps each item in a presenter of its own. Panels open
-  independently; closing the others when one opens, MudBlazor's default, is the app's.
+  `square` on the group squares every panel. As in MudBlazor, where `MultiExpansion` is off by
+  default, opening a panel closes the others, and of panels written open only the first stays
+  open; `multi-expansion` on the group lets them open independently. Closing is a current value,
+  so a binding on `IsExpanded` survives it and hears the change.
 - **A `HyperlinkButton` is not underlined at rest.** `MudLink.Underline` defaults to
   `Underline.Hover`. `Classes="underline"` is always-on, `no-underline` is never.
 
@@ -787,9 +789,10 @@ for something XAML cannot express on its own:
   TextBox's own theme reads them two templates down from the outer control.
 - **`MenuIconGutter`** opens a menu row's icon column when another row in the same list has an
   icon, MudMenu's `:has(.mud-menu-item-icon)` rule. A selector cannot ask about siblings.
-- **`ExpansionPanels`** keeps `:next-expanded` and `:previous-expanded` on the panels of an
-  `expansion-panels` group, for the rule and corners MudBlazor gives the panels either side of an
-  expanded one. A selector cannot ask about siblings.
+- **`ExpansionPanels`** keeps `:joined`, `:first-panel`, `:last-panel`, `:next-expanded` and
+  `:previous-expanded` on the panels of an `expansion-panels` group, for the rule and corners
+  MudBlazor gives each panel by its neighbours, and closes the others when one opens. A selector
+  cannot ask about siblings, and `:nth-child` cannot see past an `ItemsControl`'s presenters.
 - **`TextTransform`** draws a button's string label in `FiliButtonTextTransform`'s case. Avalonia
   has no text-transform, and a binding cannot read a resource as a converter parameter.
 - **`StartAdornment`** marks a text field that has `InnerLeftContent` with `:start-adornment`,

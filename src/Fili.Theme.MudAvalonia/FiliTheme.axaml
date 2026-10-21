@@ -1168,8 +1168,9 @@
   <!-- END GENERATED -->
 
   <!--
-    MudExpansionPanels: `expansion-panels` on the StackPanel that holds the Expanders. What the
-    group does between its panels, from _expansionpanel.scss, with Outlined on as it is by default:
+    MudExpansionPanels: `expansion-panels` on the StackPanel that holds the Expanders, or on an
+    ItemsControl that generates them. What the group does between its panels, from
+    _expansionpanel.scss, with Outlined on as it is by default:
 
       .mud-expand-panel-border       a 1px lines-default rule under each panel
       :first-child / :last-child     the group's radius on the top / bottom corners only; the
@@ -1180,14 +1181,24 @@
       .mud-panel-next-expanded       the panel before an expanded one: no rule, bottom corners
       expanded + panel               the panel after one: top corners
       .mud-expansion-panels-square   `square` on the group: no radius anywhere
+      MultiExpansion (false)         opening a panel closes the others; `multi-expansion` on the
+                                     group lets them open independently
 
-    Neighbours are ExpansionPanels.cs's pseudo-classes; first and last are :nth-child. The radius
-    is written as 4 where only two corners take it, as SplitButton.axaml writes its halves: this
-    theme has ONE radius. Elevation, Dense and Gutters stay on each Expander, as classes.
+    The two selectors below are the only ones that name the group: one for a panel written in
+    place, one for a panel an ItemsControl generated into a presenter. Everything after them
+    reads ExpansionPanels.cs's pseudo-classes - :joined, :first-panel, :last-panel and the two
+    neighbours - which see through those presenters where :nth-child cannot. The radius is written
+    as 4 where only two corners take it, as SplitButton.axaml writes its halves: this theme has ONE
+    radius. Elevation, Dense and Gutters stay on each Expander, as classes.
     Order is load-bearing: of these, the later style wins, and `square` comes last.
   -->
-  <Style Selector=".expansion-panels > Expander">
+  <Style Selector=".expansion-panels > Expander, .expansion-panels > ContentPresenter > Expander">
     <Setter Property="theme:ExpansionPanels.Joins" Value="True" />
+  </Style>
+  <Style Selector=".expansion-panels.multi-expansion > Expander, .expansion-panels.multi-expansion > ContentPresenter > Expander">
+    <Setter Property="theme:ExpansionPanels.MultiExpansion" Value="True" />
+  </Style>
+  <Style Selector="Expander:joined">
     <Setter Property="CornerRadius" Value="0" />
     <Setter Property="BorderThickness" Value="0,0,0,1" />
     <Setter Property="BorderBrush" Value="{DynamicResource FiliLinesDefaultBrush}" />
@@ -1197,17 +1208,17 @@
       </Transitions>
     </Setter>
   </Style>
-  <Style Selector=".expansion-panels > Expander:nth-child(1), .expansion-panels > Expander:previous-expanded">
+  <Style Selector="Expander:joined:first-panel, Expander:joined:previous-expanded">
     <Setter Property="CornerRadius" Value="4,4,0,0" />
   </Style>
-  <Style Selector=".expansion-panels > Expander:nth-last-child(1), .expansion-panels > Expander:next-expanded">
+  <Style Selector="Expander:joined:last-panel, Expander:joined:next-expanded">
     <Setter Property="CornerRadius" Value="0,0,4,4" />
     <Setter Property="BorderThickness" Value="0" />
   </Style>
-  <Style Selector=".expansion-panels > Expander:nth-child(1):nth-last-child(1), .expansion-panels > Expander:nth-child(1):next-expanded, .expansion-panels > Expander:previous-expanded:nth-last-child(1), .expansion-panels > Expander:previous-expanded:next-expanded">
+  <Style Selector="Expander:joined:first-panel:last-panel, Expander:joined:first-panel:next-expanded, Expander:joined:previous-expanded:last-panel, Expander:joined:previous-expanded:next-expanded">
     <Setter Property="CornerRadius" Value="{DynamicResource FiliCornerRadius}" />
   </Style>
-  <Style Selector=".expansion-panels > Expander:expanded">
+  <Style Selector="Expander:joined:expanded">
     <Setter Property="Transitions">
       <Transitions>
         <ThicknessTransition Property="Margin" Duration="0:0:0.3" Easing="0.25,0.8,0.5,1" />
@@ -1217,16 +1228,16 @@
     <Setter Property="CornerRadius" Value="{DynamicResource FiliCornerRadius}" />
     <Setter Property="BorderThickness" Value="0" />
   </Style>
-  <Style Selector=".expansion-panels > Expander:expanded:nth-child(1)">
+  <Style Selector="Expander:joined:expanded:first-panel">
     <Setter Property="Margin" Value="0,0,0,16" />
   </Style>
-  <Style Selector=".expansion-panels > Expander:expanded:nth-last-child(1)">
+  <Style Selector="Expander:joined:expanded:last-panel">
     <Setter Property="Margin" Value="0,16,0,0" />
   </Style>
-  <Style Selector=".expansion-panels > Expander:expanded:nth-child(1):nth-last-child(1)">
+  <Style Selector="Expander:joined:expanded:first-panel:last-panel">
     <Setter Property="Margin" Value="0" />
   </Style>
-  <Style Selector=".expansion-panels.square > Expander">
+  <Style Selector=".expansion-panels.square > Expander, .expansion-panels.square > ContentPresenter > Expander">
     <Setter Property="CornerRadius" Value="0" />
   </Style>
 

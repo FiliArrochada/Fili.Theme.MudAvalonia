@@ -96,9 +96,10 @@ public class ClassVocabularyTests
         "helper-on-focus", "hide-close", "hide-icon", "hover", "no-animation", "no-gutters",
         "required", "shrink-label", "wave",
 
-        // MudSlider's ValueLabel, MudTooltip's Arrow, MudSelect's Dense on its options, and
-        // SelectionMode.MultiSelection on MudList and MudTreeView.
-        "arrow", "dense-items", "multi-selection", "value-label",
+        // MudSlider's ValueLabel, MudTooltip's Arrow, MudSelect's Dense on its options,
+        // SelectionMode.MultiSelection on MudList and MudTreeView, and MudExpansionPanels'
+        // MultiExpansion.
+        "arrow", "dense-items", "multi-expansion", "multi-selection", "value-label",
 
         // LabelPlacement on MudCheckBox, MudRadio and MudSwitch; End is the default.
         "label-bottom", "label-start", "label-top",

@@ -6,7 +6,7 @@ where the two differ. For side-by-side markup, see [Razor and AXAML](razor-vs-ax
 The rule behind every row: **a class only ever names a MudBlazor variant.** Every control the
 theme templates is keyed to its type, so an unclassed control is already the MudBlazor default.
 Class names are MudBlazor's own words (`primary`, `outlined`, `small`), deliberately not
-namespaced. `ClassVocabularyTests` pins the full list of 149. Two are not MudBlazor's, and their
+namespaced. `ClassVocabularyTests` pins the full list of 150. Two are not MudBlazor's, and their
 names say so: `material-fixed-tabs`, Material's fixed tabs, and `material-elevation-overlay`,
 Material's dark-theme elevation overlay. MudBlazor offers neither.
 
@@ -437,7 +437,7 @@ Put initials, a `PathIcon` or an `Image` inside: `<Border Classes="avatar primar
 
 | MudBlazor | Here | |
 |---|---|---|
-| `MudExpansionPanels`, the group | `expansion-panels` on the `StackPanel` that holds the Expanders | ✅ one shape: the group's radius on the first panel's top and the last one's bottom, square between |
+| `MudExpansionPanels`, the group | `expansion-panels` on the `StackPanel` that holds the Expanders, or on an `ItemsControl` that generates them | ✅ one shape: the group's radius on the first panel's top and the last one's bottom, square between |
 | panel on a surface at elevation 1 | the same | ✅ |
 | 15px header | the same | ✅ `.9375rem`, sized on its own |
 | `Elevation` (default 1) | no class, or `elevation0` … `elevation25` | ✅ on the panel; `elevation0` keeps the surface |
@@ -447,7 +447,7 @@ Put initials, a `PathIcon` or an `Image` inside: `<Border Classes="avatar primar
 | `Outlined` (default true) | in a group, on | ✅ a 1px lines-default rule under each panel but the last, and under none that is expanded or comes before one. ❌ `Outlined="false"` has no class: a group always rules its panels |
 | an expanded panel | in a group | ✅ 16px from its neighbours (none above the first or below the last) over .3s, every corner rounded; the panel before it takes the bottom corners and the one after it the top |
 | `Square` on the group | `square` on the group | ✅ no radius on any panel |
-| `MultiExpansion` | — | ≈ panels open independently, as `MultiExpansion="true"` does; closing the others is the app's |
+| `MultiExpansion` (default false) | no class, or `multi-expansion` for true | ✅ opening a panel closes the others, and of panels written open the first stays open; `multi-expansion` lets them open independently |
 | `Disabled` | `IsEnabled="False"` | ✅ text-disabled header, action-disabled chevron |
 | `HideIcon` | `hide-icon` | ✅ no chevron |
 | `Icon` | `FiliExpandMoreGeometry` in the panel's `Resources` | ✅ |

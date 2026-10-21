@@ -55,12 +55,9 @@ hits them:
   line down the grid: the DataGrid keeps its resize state internal, and showing the line would
   mean re-implementing its pointer handling. A selected row is tinted although MudDataGrid draws
   none - see [Data grid](controls.md#data-grid).
-- **What MudExpansionPanels does beyond its look.** `expansion-panels` on a `StackPanel` is the
-  group's shape - the rules, the corners, the 16px round an expanded panel - but not its
-  behaviour: `MultiExpansion="false"`, MudBlazor's default, closes the other panels when one
-  opens, and here they open independently. `Outlined="false"` has no class, so a group always
-  rules its panels. The panels must be the panel's own children: an `ItemsControl` wraps each in a
-  presenter, and the group cannot see them as neighbours.
+- **MudExpansionPanels' `Outlined="false"`.** A group always rules its panels: MudBlazor has no
+  word for the rule's absence, only a parameter, and this package's classes are MudBlazor's words.
+  A virtualising items panel, such as a `ListBox`'s, joins only the panels it has realised.
 - **MudSlider's `TickMarkLabels` and MudProgressLinear's `Buffer`.** Both are data the Avalonia
   control has no property for - an array of strings, a second value - and the only way to pass
   it would be a public attached property, which this package does not add: its public API is
