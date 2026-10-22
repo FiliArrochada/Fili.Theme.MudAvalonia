@@ -1,5 +1,7 @@
 using Avalonia;
 using Avalonia.Controls;
+using Avalonia.Controls.Documents;
+using Avalonia.Controls.Presenters;
 using Avalonia.Controls.Primitives;
 using Avalonia.Layout;
 using Avalonia.Media;
@@ -242,6 +244,111 @@ public class RemainingOptionsTests
         var (_, chipEnd) = Icons(new Button(), "chip", "large");
         Assert.Equal(18, chipEnd.Width);
         Assert.Equal(new Thickness(6, 0, -4, 0), chipEnd.Margin);
+    });
+
+    /// <summary>MudLink's icons: `font-size: inherit`, the link's own size, and 4px from the text.</summary>
+    [Fact]
+    public Task LinkIconsAreTheLinksSizeAndSpacedAsMudLinks() => UiThread.RunAsync(() =>
+    {
+        var link = new HyperlinkButton { FontSize = 18 };
+        var (start, end) = Icons(link);
+
+        Assert.Equal(18, start.Width);
+        Assert.Equal(18, end.Height);
+        Assert.Equal(new Thickness(0, 0, 4, 0), start.Margin);
+        Assert.Equal(new Thickness(4, 0, 0, 0), end.Margin);
+    });
+
+    /// <summary>MudTabPanel's Icon beside its Text: 24px, `.mud-tab-icon-text` 8px from the text.</summary>
+    [Fact]
+    public Task ATabsIconIsSpacedAsMudTabs() => UiThread.RunAsync(() =>
+    {
+        var icon = new PathIcon { Classes = { "start-icon" }, Data = Geometry.Parse("M0 0h2v2H0z") };
+        var header = new StackPanel { Orientation = Orientation.Horizontal, Children = { icon, new TextBlock { Text = "Tab" } } };
+        var tabs = new TabControl();
+        tabs.Items.Add(new TabItem { Header = header, Content = "Content" });
+        Matrix.Show(tabs);
+
+        var stripIcon = new PathIcon { Classes = { "start-icon" }, Data = Geometry.Parse("M0 0h2v2H0z") };
+        var strip = new TabStrip();
+        strip.Items.Add(new TabStripItem { Content = new StackPanel { Orientation = Orientation.Horizontal, Children = { stripIcon, new TextBlock { Text = "Tab" } } } });
+        Matrix.Show(strip);
+
+        foreach (var i in new[] { icon, stripIcon })
+        {
+            Assert.Equal(24, i.Width);
+            Assert.Equal(new Thickness(0, 0, 8, 0), i.Margin);
+        }
+    });
+
+    /// <summary>MudInput's adornments: a 24px icon, 8px from the text on either side.</summary>
+    [Fact]
+    public Task AnAdornmentIsSpacedAsMudInputs() => UiThread.RunAsync(() =>
+    {
+        var start = new PathIcon { Classes = { "start-icon" }, Data = Geometry.Parse("M0 0h2v2H0z") };
+        var end = new PathIcon { Classes = { "end-icon" }, Data = Geometry.Parse("M0 0h2v2H0z") };
+        var box = Matrix.Show(new TextBox { Width = 240, Text = "Text", InnerLeftContent = start, InnerRightContent = end });
+        var text = Matrix.Part<Control>(box, "PART_TextPresenter");
+        double Left(Visual v) => v.TranslatePoint(default, box)!.Value.X;
+
+        Assert.Equal(24, start.Width);
+        Assert.Equal(24, end.Height);
+        Assert.Equal(Left(start) + 24 + 8, Left(text), 0.5);
+        Assert.Equal(Left(text) + text.Bounds.Width + 8, Left(end), 0.5);
+    });
+
+    /// <summary>With no adornment the presenters take no gap: the text runs to the padding.</summary>
+    [Fact]
+    public Task NoAdornmentTakesNoGap() => UiThread.RunAsync(() =>
+    {
+        var box = Matrix.Show(new TextBox { Width = 240, Text = "Text" });
+
+        Assert.Equal(default, Matrix.Part<ContentPresenter>(box, "PART_InnerLeftContent").Margin);
+        Assert.Equal(default, Matrix.Part<ContentPresenter>(box, "PART_InnerRightContent").Margin);
+    });
+
+    /// <summary>A chip's avatar, _chip.scss's `.mud-avatar` at each chip size.</summary>
+    [Theory]
+    [InlineData("small", 18, -4, 4, 10)]
+    [InlineData(null, 24, -8, 8, 12)]
+    [InlineData("large", 32, -12, 8, 16)]
+    public Task AChipsAvatarIsSizedAsMudChips(string? size, double px, double outset, double gap, double text) => UiThread.RunAsync(() =>
+    {
+        var avatar = new Border { Classes = { "avatar" }, Child = new TextBlock { Text = "A" } };
+        var chip = new Button { Classes = { "chip" }, Content = new StackPanel { Orientation = Orientation.Horizontal, Children = { avatar, new TextBlock { Text = "Chip" } } } };
+        if (size is not null)
+        {
+            chip.Classes.Add(size);
+        }
+
+        Matrix.Show(chip);
+
+        Assert.Equal(px, avatar.Width);
+        Assert.Equal(px, avatar.Height);
+        Assert.Equal(new Thickness(outset, 0, gap, 0), avatar.Margin);
+        Assert.Equal(text, avatar.GetValue(TextElement.FontSizeProperty));
+    });
+
+    /// <summary>An avatar outside a chip keeps MudAvatar's 40px.</summary>
+    [Fact]
+    public Task AnAvatarOutsideAChipKeepsItsSize() => UiThread.RunAsync(() =>
+    {
+        var avatar = Matrix.Show(new Border { Classes = { "avatar" } });
+
+        Assert.Equal(40, avatar.Width);
+        Assert.Equal(default, avatar.Margin);
+    });
+
+    /// <summary>MudIcon's Size defaults to Medium: a bare PathIcon is 24px, as `medium` is.</summary>
+    [Fact]
+    public Task ABareIconIsMudIconsMedium() => UiThread.RunAsync(() =>
+    {
+        var bare = Matrix.Show(new PathIcon { Data = Geometry.Parse("M0 0h2v2H0z") });
+        var medium = Matrix.Show(new PathIcon { Classes = { "medium" }, Data = Geometry.Parse("M0 0h2v2H0z") });
+
+        Assert.Equal(24, bare.Width);
+        Assert.Equal(24, bare.Height);
+        Assert.Equal(medium.Bounds.Size, bare.Bounds.Size);
     });
 
     /// <summary>An icon marked start-icon outside any host keeps its own size and gap.</summary>

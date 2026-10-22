@@ -45,6 +45,11 @@
                     xmlns:theme="using:Fili.Theme.MudAvalonia">
 
   <ControlTheme x:Key="FiliTabItem" TargetType="TabItem">
+    <!-- MudTabPanel's Icon beside its Text: a MudIcon at its default 24px, `.mud-tab-icon-text`
+         8px from the text (_tabs.scss). An icon in the header marked `start-icon` takes them
+         (IconSlot). -->
+    <Setter Property="theme:IconSlot.StartSize" Value="24" />
+    <Setter Property="theme:IconSlot.StartMargin" Value="0,0,8,0" />
     <!-- MudBlazor's ripple, drawn in PART_Ripple (Ripple.cs). -->
     <Setter Property="theme:Ripple.Opacity" Value="{DynamicResource FiliRippleOpacity}" />
     <Setter Property="Foreground" Value="{DynamicResource FiliTextPrimaryBrush}" />

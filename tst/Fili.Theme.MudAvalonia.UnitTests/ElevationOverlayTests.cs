@@ -90,6 +90,7 @@ public class ElevationOverlayTests
     private static string Expected(int level, ThemeVariant variant) => Token($"FiliElevationOverlay{level}", variant).ToString();
 
     [Theory]
+    [InlineData("paper", 1)]
     [InlineData("paper elevation4", 4)]
     [InlineData("paper elevation24", 24)]
     [InlineData("card", 1)]
@@ -119,11 +120,11 @@ public class ElevationOverlayTests
     });
 
     /// <summary>
-    /// A paper with no elevation, an outlined card, and an elevation class on a Border that is
+    /// An outlined paper or card, and an elevation class on a Border that is
     /// not a surface - a coloured box - take none: Material lightens surfaces, not colours.
     /// </summary>
     [Theory]
-    [InlineData("paper")]
+    [InlineData("paper outlined")]
     [InlineData("card outlined")]
     [InlineData("elevation4")]
     [InlineData("appbar primary")]

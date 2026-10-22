@@ -835,10 +835,15 @@ for something XAML cannot express on its own:
   eases from nothing to all.
 - **`ElevationOverlay`** is the inherited property `material-elevation-overlay` sets, which each
   surface reads on itself: a descendant selector made every Border watch all its ancestors.
-- **`IconSlot`** gives a `start-icon` or `end-icon` its host's size, gap and colour: the host's
-  theme sets inherited values, and the icon that carries the class takes them as they arrive. A
+- **`IconSlot`** gives a `start-icon` or `end-icon` its host's size, gap and colour, and an
+  `avatar` in a chip the chip's avatar size: the host's theme sets inherited values, and the
+  control that carries the class takes them as they arrive. The hosts are buttons, split and
+  drop-down buttons, toggle items, chips, FABs, nav links, links, tabs and text fields. A
   style ending in the icon would be matched against every control in the window; the class is
   read when the icon joins its host, so put it on the icon in markup.
+- **`OverlayScrim`** centres an `overlay`'s child, gives it its container's corners and fades it
+  in when shown. A style could do none of it without being matched against every control or
+  every Border.
 - **`PartBorder`** is every Border in a hand-written template. It keeps them out of the app's
   Border class styles, which every Border in the window was matched against
   ([Traps](traps.md)).
@@ -855,8 +860,9 @@ for something XAML cannot express on its own:
   cannot follow a pointer.
 - **`TextTransform`** draws a button's string label in `FiliButtonTextTransform`'s case. Avalonia
   has no text-transform, and a binding cannot read a resource as a converter parameter.
-- **`StartAdornment`** marks a text field that has `InnerLeftContent` with `:start-adornment`,
-  which floats its label, as MudInput's start adornment does. A selector cannot ask whether a
+- **`Adornments`** marks a text field that has `InnerLeftContent` with `:start-adornment`, which
+  floats its label, as MudInput's start adornment does, and one with `InnerRightContent` with
+  `:end-adornment`; each adornment then keeps 8px from the text. A selector cannot ask whether a
   property is null.
 - **`TabBarScroll`** shows a tab bar's scroll buttons while its tabs overflow, disables each at
   its end, scrolls a bar's length per click, and brings the selected tab into view. Overflow is
@@ -998,6 +1004,24 @@ wrapping it, so one built in markup keeps its classes: a colour class is MudTool
     <ToolTip Classes="error arrow" Content="Deletes for good" />
   </ToolTip.Tip>
 </Button>
+```
+
+**MudOverlay is `overlay` on a Border**, over the content it covers in a `Panel` with it, and
+shown and hidden by the app. With no other class it is transparent and still takes the pointer, as
+a modal MudOverlay does; `dark-background` and `light-background` are `DarkBackground` and
+`LightBackground`. Its child is centred, its corners are those of the container above it, as CSS's
+`border-radius: inherit` makes them, and it fades in over .15s each time it is shown - the whole
+overlay, where MudBlazor fades the scrim and shows the content at once.
+
+```xml
+<Border Classes="paper" Height="200">
+  <Panel>
+    <StackPanel Margin="16">…</StackPanel>
+    <Border Classes="overlay dark-background" IsVisible="{Binding Loading}">
+      <ProgressBar Classes="circular primary" IsIndeterminate="True" />
+    </Border>
+  </Panel>
+</Border>
 ```
 
 **Every popup fades in**, as a MudPopover does: a select's list, a menu, an autocomplete's list,

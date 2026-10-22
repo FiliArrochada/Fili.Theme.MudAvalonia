@@ -19,7 +19,8 @@
   (see docs/traps.md), used deliberately here and scoped to this template.
 -->
 <ResourceDictionary xmlns="https://github.com/avaloniaui"
-                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:theme="using:Fili.Theme.MudAvalonia">
 
   <ControlTheme x:Key="FiliHyperlinkButton" TargetType="HyperlinkButton">
     <Setter Property="Background" Value="Transparent" />
@@ -33,6 +34,13 @@
     <Setter Property="HorizontalContentAlignment" Value="Left" />
     <Setter Property="VerticalContentAlignment" Value="Center" />
     <Setter Property="Cursor" Value="Hand" />
+    <!-- MudLink's StartIcon and EndIcon, _link.scss: `.mud-link-icon-start` / `-end` at the
+         link's own font size (font-size: inherit) and 4px from the text. An icon in the content
+         marked `start-icon` or `end-icon` takes them (IconSlot). -->
+    <Setter Property="theme:IconSlot.StartSize" Value="{Binding $self.FontSize}" />
+    <Setter Property="theme:IconSlot.StartMargin" Value="0,0,4,0" />
+    <Setter Property="theme:IconSlot.EndSize" Value="{Binding $self.FontSize}" />
+    <Setter Property="theme:IconSlot.EndMargin" Value="4,0,0,0" />
 
     <Setter Property="Template">
       <ControlTemplate>

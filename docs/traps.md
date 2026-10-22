@@ -270,7 +270,7 @@ one.
   the gallery showed it. The test now compares the gap with a single-line field's.
 - **A start adornment floats the label, which a selector cannot see.** MudInput shrinks the label
   for `Adornment.Start`; `InnerLeftContent` is a property a selector cannot test for null, so
-  `StartAdornment` keeps it as `:start-adornment`. A resting label had been drawn over the
+  `Adornments` keeps it as `:start-adornment`. A resting label had been drawn over the
   adornment.
 - **A checkbox column's boxes are disabled in most rows.** `DataGridCheckBoxColumn` disables the
   box in every row but the current one, and in every row of a read-only grid; the theme drew a

@@ -9,9 +9,11 @@ namespace Fili.Theme.MudAvalonia;
 
 /// <summary>
 /// What an icon marked <c>start-icon</c> or <c>end-icon</c> takes from the control it sits in: a
-/// button's, a chip's or a FAB's icon size and gaps, a nav link's size, gap and colour. Set by the
-/// host - a button's theme, a nav row's style - and inherited by everything in its content; when
-/// a value reaches a control with one of the two classes, this sets it on the icon.
+/// button's, a chip's or a FAB's icon size and gaps, a nav link's size, gap and colour, a link's,
+/// a tab's or a text field adornment's size and gap. And what an <c>avatar</c> takes from a chip:
+/// its size, gaps and text size. Set by the host - a button's theme, a nav row's style - and
+/// inherited by everything in its content; when a value reaches a control with the class, this
+/// sets it on that control.
 /// </summary>
 /// <remarks>
 /// <para>
@@ -40,6 +42,7 @@ internal sealed class IconSlot
 {
     private const string StartIcon = "start-icon";
     private const string EndIcon = "end-icon";
+    private const string Avatar = "avatar";
 
     private IconSlot()
     {
@@ -57,6 +60,17 @@ internal sealed class IconSlot
     public static readonly AttachedProperty<Thickness?> EndMarginProperty =
         AvaloniaProperty.RegisterAttached<IconSlot, Control, Thickness?>("EndMargin", inherits: true);
 
+    /// <summary>An avatar's width and height in a chip: `.mud-chip .mud-avatar`.</summary>
+    public static readonly AttachedProperty<double?> AvatarSizeProperty =
+        AvaloniaProperty.RegisterAttached<IconSlot, Control, double?>("AvatarSize", inherits: true);
+
+    public static readonly AttachedProperty<Thickness?> AvatarMarginProperty =
+        AvaloniaProperty.RegisterAttached<IconSlot, Control, Thickness?>("AvatarMargin", inherits: true);
+
+    /// <summary>An avatar's text size in a chip.</summary>
+    public static readonly AttachedProperty<double?> AvatarFontSizeProperty =
+        AvaloniaProperty.RegisterAttached<IconSlot, Control, double?>("AvatarFontSize", inherits: true);
+
     /// <summary>A start icon's colour: a nav link's drawer-icon, or its colour while active.</summary>
     public static readonly AttachedProperty<IBrush?> BrushProperty =
         AvaloniaProperty.RegisterAttached<IconSlot, Control, IBrush?>("Brush", inherits: true);
@@ -68,6 +82,9 @@ internal sealed class IconSlot
         StartMarginProperty.Changed.AddClassHandler<Control>((c, e) => Apply(c, StartIcon, e.GetNewValue<Thickness?>(), Layoutable.MarginProperty));
         EndMarginProperty.Changed.AddClassHandler<Control>((c, e) => Apply(c, EndIcon, e.GetNewValue<Thickness?>(), Layoutable.MarginProperty));
         BrushProperty.Changed.AddClassHandler<Control>((c, e) => Apply(c, StartIcon, e.GetNewValue<IBrush?>(), TextElement.ForegroundProperty));
+        AvatarSizeProperty.Changed.AddClassHandler<Control>((c, e) => Apply(c, Avatar, e.GetNewValue<double?>(), Layoutable.WidthProperty, Layoutable.HeightProperty));
+        AvatarMarginProperty.Changed.AddClassHandler<Control>((c, e) => Apply(c, Avatar, e.GetNewValue<Thickness?>(), Layoutable.MarginProperty));
+        AvatarFontSizeProperty.Changed.AddClassHandler<Control>((c, e) => Apply(c, Avatar, e.GetNewValue<double?>(), TextElement.FontSizeProperty));
     }
 
     public static double? GetStartSize(Control c) => c.GetValue(StartSizeProperty);
@@ -85,6 +102,18 @@ internal sealed class IconSlot
     public static Thickness? GetEndMargin(Control c) => c.GetValue(EndMarginProperty);
 
     public static void SetEndMargin(Control c, Thickness? value) => c.SetValue(EndMarginProperty, value);
+
+    public static double? GetAvatarSize(Control c) => c.GetValue(AvatarSizeProperty);
+
+    public static void SetAvatarSize(Control c, double? value) => c.SetValue(AvatarSizeProperty, value);
+
+    public static Thickness? GetAvatarMargin(Control c) => c.GetValue(AvatarMarginProperty);
+
+    public static void SetAvatarMargin(Control c, Thickness? value) => c.SetValue(AvatarMarginProperty, value);
+
+    public static double? GetAvatarFontSize(Control c) => c.GetValue(AvatarFontSizeProperty);
+
+    public static void SetAvatarFontSize(Control c, double? value) => c.SetValue(AvatarFontSizeProperty, value);
 
     public static IBrush? GetBrush(Control c) => c.GetValue(BrushProperty);
 

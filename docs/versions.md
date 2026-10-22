@@ -6,6 +6,7 @@ What changed in each release of `Fili.Theme.MudAvalonia`, newest first. The pack
 
 | Version | |
 |---|---|
+| *(unreleased)* | A `paper` casts MudPaper's default elevation 1, as a `card` does; `elevation0` takes it away. Icons find their place in four more hosts: an icon marked `start-icon` or `end-icon` in a link is the link's font size and 4px from the text, in a tab header 24px and 8px from the text, and in a text field's adornment 24px; an adornment keeps 8px from the text; and a chip's `avatar` is MudChip's 24px (18 small, 32 large) with its margins. A `PathIcon` with no size class is 24px, MudIcon's default `Size.Medium`, where it was 20. MudOverlay is `overlay` on a Border, with `dark-background` and `light-background`: its content centred, its container's corners, and MudBlazor's .15s fade each time it shows. The published class list grows to 155. See [Upgrading from 0.12.0](#upgrading-from-0120). |
 | **0.12.0** | The last names to settle before 1.0. MudPaper is `paper`, MudBlazor's word, where it was `surface`; MudTabs' `SliderColor` is `indicator-{colour}` and `HideSlider` is `hide-indicator`, so that no tab class reads as a `Slider`'s. A number field's spin buttons draw MudNumericField's chevrons, `FiliKeyboardArrowUpGeometry` and `FiliKeyboardArrowDownGeometry`, not the select's triangles. The spacing scale is MudBlazor's whole one, 0 to 20 steps of 4px, each as a number (`FiliSpacing4`) and a `Thickness` (`FiliSpacing4Thickness`); `FiliBlackBrush` joins `FiliBlackColor`. See [Upgrading from 0.11.0 to 0.12.0](#upgrading-from-0110-to-0120). |
 | 0.11.0 | Screens build about three times faster: a Border inside a control's template is no longer matched against every Border class style, `material-elevation-overlay` no longer searches each Border's ancestors, and an icon's `start-icon` or `end-icon` size comes from its button rather than from a style every control was matched against. A number field's spin buttons sit inside its box, as MudNumericField's do; an expansion panel grows open over .3s instead of cross-fading, as MudCollapse does; a tooltip wraps only at the screen's edge; and `drawer-header` is MudDrawerHeader. The published class list grows to 152. See [Upgrading from 0.10.0](#upgrading-from-0100-to-0110). |
 | 0.10.0 | Seven known gaps closed, and two of Material's own options. An option that is one fixed property of its control is that property: `Square` on a paper, an alert, a data grid or one panel is `CornerRadius="0"`, a toolbar's or an app bar's `Gutters="false"` is `Padding="0"`, and a data grid's `Bordered` is `GridLinesVisibility="All"`. A disabled field's line is dotted, `no-animation` on tabs is `SliderAnimation="false"`, a drawer casts MudDrawer's elevation 1, and `expansion-panels` follows a virtualising panel by item index. A press ripples, as in MudBlazor: a circle from the pointer in the control's text colour on buttons, chips, FABs, toggles, tabs and rows, and in the halo of a checkbox, radio or switch; `FiliRippleOpacity` and `FiliRippleOpacitySecondary` at 0 turn it off. A button's label is uppercase, as MudBlazor's button typography makes it, on buttons, split and drop-down buttons, toggle items, extended FABs and tabs; `FiliButtonTextTransform` keeps labels as written. Every popup fades in over 251ms, as a MudPopover does. `expansion-panels` on a `StackPanel` is MudExpansionPanels: the panels joined into one shape, ruled between, with an expanded one standing 16px apart and the others closing, unless the group is `multi-expansion`, and `no-outline` drops its rules; the group also reads an `ItemsControl`'s generated panels. `material-fixed-tabs` shares the tab bar in equal parts, and `material-elevation-overlay` lightens raised surfaces by their level in dark mode; both are Material's, not MudBlazor's, and named so. In high contrast the elevation rings are the application's line colour rather than a fixed `#E8E8EE`. The published class list grows to 151. See [Upgrading from 0.9.4](#upgrading-from-094-to-0100). |
@@ -28,6 +29,24 @@ What changed in each release of `Fili.Theme.MudAvalonia`, newest first. The pack
 Every version and its release notes are on the
 [releases page](https://github.com/FiliArrochada/Fili.Theme.MudAvalonia/releases); a version on
 nuget.org can be unlisted but never replaced.
+
+## Upgrading from 0.12.0
+
+Nothing needs a markup change; five things look different, and three classes are new.
+
+- **A bare `paper` casts a shadow**, MudPaper's default elevation 1. A paper meant flat, as
+  `Elevation="0"` is in MudBlazor, takes `elevation0`; an `outlined` paper has none.
+- **A text field's adornment sits 8px from the text**, on either side, where it touched it.
+- **An avatar in a chip shrinks to the chip's**: 24px, 18 on a small chip and 32 on a large one,
+  pulled out to the chip's edge, where it was 40px.
+- **An icon marked `start-icon` or `end-icon`** in a link, a tab header or a text field's
+  adornment takes that host's size and gap. One not marked keeps its own.
+- **A `PathIcon` with no size class is 24px**, MudIcon's default `Size.Medium`, where it was 20.
+  One meant at 20 takes `small`, MudIcon's `Size.Small`; an icon a host sizes is unchanged.
+- **`overlay`, `dark-background` and `light-background` are new** and MudOverlay's. An app that
+  draws a scrim as a `Panel` with `FiliOverlayDarkBrush` can make it a `Border` with
+  `overlay dark-background`; an app with its own class of one of those names now gets the
+  theme's look on a Border too.
 
 ## Upgrading from 0.11.0 to 0.12.0
 

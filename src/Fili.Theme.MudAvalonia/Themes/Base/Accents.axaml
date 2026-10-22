@@ -192,8 +192,10 @@
   <sys:Double x:Key="ScrollBarThickness">12</sys:Double>
   <sys:Double x:Key="ScrollBarThumbThickness">8</sys:Double>
 
-  <sys:Double x:Key="IconElementThemeHeight">20</sys:Double>
-  <sys:Double x:Key="IconElementThemeWidth">20</sys:Double>
+  <!-- A PathIcon with no size class is MudIcon's default Size.Medium, 24px (`.mud-icon-size-medium`,
+       1.5rem), not Simple's 20. -->
+  <sys:Double x:Key="IconElementThemeHeight">24</sys:Double>
+  <sys:Double x:Key="IconElementThemeWidth">24</sys:Double>
 
   <!-- 1.0, not Simple's 0.5: FiliTextSecondary already carries its own alpha, and dimming it
        again puts placeholder text below the contrast floor. -->

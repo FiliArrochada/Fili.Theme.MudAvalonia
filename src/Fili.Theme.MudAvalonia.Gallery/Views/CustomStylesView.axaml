@@ -74,7 +74,7 @@
                  TextWrapping="Wrap"
                  MaxWidth="760"
                  HorizontalAlignment="Left"
-                 Text="MudBlazor's loading pattern, MudOverlay with DarkBackground and Absolute over the content and an indeterminate MudProgressCircular on it. There is no overlay control here: a Panel over the content takes FiliOverlayDarkBrush, and the spinner is circular on a ProgressBar. Show the Panel while loading; nothing behind it can be clicked." />
+                 Text="MudBlazor's loading pattern, MudOverlay with DarkBackground and Absolute over the content and an indeterminate MudProgressCircular on it. Here the overlay is a Border with overlay and dark-background, in a Panel with the content: it centres the spinner, takes the paper's corners and fades in as it shows. The spinner is circular on a ProgressBar. Show the overlay while loading; nothing behind it can be clicked." />
       <Border Classes="paper elevation1" Width="520" Height="200" ClipToBounds="True" HorizontalAlignment="Left">
         <Panel>
           <StackPanel Margin="16" Spacing="8">
@@ -85,12 +85,9 @@
           <!-- <MudOverlay Visible="true" DarkBackground="true" Absolute="true">
                  <MudProgressCircular Color="Color.Primary" Indeterminate="true" />
                </MudOverlay> -->
-          <Panel Background="{DynamicResource FiliOverlayDarkBrush}">
-            <ProgressBar Classes="circular primary"
-                         IsIndeterminate="True"
-                         HorizontalAlignment="Center"
-                         VerticalAlignment="Center" />
-          </Panel>
+          <Border Classes="overlay dark-background">
+            <ProgressBar Classes="circular primary" IsIndeterminate="True" />
+          </Border>
         </Panel>
       </Border>
     </StackPanel>

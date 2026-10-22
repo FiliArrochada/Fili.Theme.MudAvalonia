@@ -196,7 +196,9 @@ public static class ThemeColourGenerator
     /// inherited properties: _button.scss's 20px (18 small, 22 large), pulled 4px out (2 small) and
     /// 8px from the label; a chip's `.mud-chip-icon` 20px (18 small, 24 large), 4px out and in (6
     /// large), its end icon the close button's 18px, 6px in; a FAB's 24px at any size, 8px from the
-    /// label (4 small). Set on the host, so only hosts are styled and the icon reads one value.
+    /// label (4 small). A chip's `avatar` is _chip.scss's `.mud-avatar`: 24px, 8px out and in, 12px
+    /// text; 18px, 4px and 10px small; 32px, 12px out and 8px in, 16px large. Set on the host, so
+    /// only hosts are styled and the icon reads one value.
     /// </summary>
     private static string IconSlots(string kind)
     {
@@ -204,12 +206,15 @@ public static class ThemeColourGenerator
         static (string, string) StartGap(string margin) => ("theme:IconSlot.StartMargin", margin);
         static (string, string) End(string size) => ("theme:IconSlot.EndSize", size);
         static (string, string) EndGap(string margin) => ("theme:IconSlot.EndMargin", margin);
+        static (string, string) Avatar(string size) => ("theme:IconSlot.AvatarSize", size);
+        static (string, string) AvatarGap(string margin) => ("theme:IconSlot.AvatarMargin", margin);
+        static (string, string) AvatarText(string size) => ("theme:IconSlot.AvatarFontSize", size);
 
         return kind switch
         {
-            "chip" => Style("^", Start("20"), StartGap("-4,0,4,0"), End("18"), EndGap("6,0,-4,0"))
-                + Style("^.small", Start("18"))
-                + Style("^.large", Start("24"), StartGap("-6,0,6,0")),
+            "chip" => Style("^", Start("20"), StartGap("-4,0,4,0"), End("18"), EndGap("6,0,-4,0"), Avatar("24"), AvatarGap("-8,0,8,0"), AvatarText("12"))
+                + Style("^.small", Start("18"), Avatar("18"), AvatarGap("-4,0,4,0"), AvatarText("10"))
+                + Style("^.large", Start("24"), StartGap("-6,0,6,0"), Avatar("32"), AvatarGap("-12,0,8,0"), AvatarText("16")),
             "fab" => Style("^", Start("24"), StartGap("0,0,8,0"), End("24"), EndGap("8,0,0,0"))
                 + Style("^.small", StartGap("0,0,4,0"), EndGap("4,0,0,0")),
             _ => Style("^", Start("20"), StartGap("-4,0,8,0"), End("20"), EndGap("8,0,-4,0"))
@@ -1230,7 +1235,7 @@ public static class ThemeColourGenerator
     private static string OverlayRegion()
     {
         var o = new StringBuilder();
-        o.Append(TopStyle(Overlay("Border.card"), ("BoxShadow", Res("FiliElevationOverlay1"))));
+        o.Append(TopStyle($"{Overlay("Border.paper")}, {Overlay("Border.card")}", ("BoxShadow", Res("FiliElevationOverlay1"))));
         foreach (var level in Elevations)
         {
             o.Append(TopStyle($"{Overlay($"Border.paper.elevation{level}")}, {Overlay($"Border.card.elevation{level}")}", ("BoxShadow", Res($"FiliElevationOverlay{level}"))));

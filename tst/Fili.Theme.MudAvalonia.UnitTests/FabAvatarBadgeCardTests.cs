@@ -592,6 +592,42 @@ public class GreyGroundTextTests
     }
 }
 
+/// <summary>MudPaper as the <c>paper</c> class on a Border, from _paper.scss and MudPaper.razor.cs.</summary>
+public class PaperTests
+{
+    /// <summary>MudPaper's Elevation defaults to 1: a bare paper casts it, in text-primary.</summary>
+    [Fact]
+    public Task APaperIsAtElevation1() => UiThread.RunAsync(() =>
+    {
+        var paper = Matrix.Show(new Border { Classes = { "paper" }, Width = 200, Height = 100 });
+
+        Assert.Equal(Matrix.Token("FiliSurfaceColor"), Matrix.Colour(paper.Background));
+        Assert.Equal(new CornerRadius(4), paper.CornerRadius);
+        Assert.Equal(FabTests.Shadow(1), paper.BoxShadow);
+        Assert.Equal(Matrix.Token("FiliTextPrimaryColor"), Matrix.Colour(paper.GetValue(TextElement.ForegroundProperty)));
+    });
+
+    [Theory]
+    [InlineData(0)]
+    [InlineData(8)]
+    public Task AnElevationClassReplacesIt(int level) => UiThread.RunAsync(() =>
+    {
+        var paper = Matrix.Show(new Border { Classes = { "paper", $"elevation{level}" } });
+
+        Assert.Equal(FabTests.Shadow(level), paper.BoxShadow);
+    });
+
+    /// <summary>MudPaper only adds `mud-elevation-{n}` when it is not outlined.</summary>
+    [Fact]
+    public Task OutlinedIsALineAndNoShadowWhateverTheElevation() => UiThread.RunAsync(() =>
+    {
+        var paper = Matrix.Show(new Border { Classes = { "paper", "outlined", "elevation8" } });
+
+        Assert.Equal(0, paper.BoxShadow.Count);
+        Assert.Equal(new Thickness(1), paper.BorderThickness);
+    });
+}
+
 /// <summary>MudCard as the <c>card</c> class on a Border, with its parts as classes, from _card.scss.</summary>
 public class CardTests
 {

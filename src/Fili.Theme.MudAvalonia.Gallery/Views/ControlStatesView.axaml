@@ -214,6 +214,9 @@
           <Button Classes="chip outlined" VerticalAlignment="Center">
             <StackPanel Orientation="Horizontal"><TextBlock Text="Closable" VerticalAlignment="Center" /><PathIcon Classes="end-icon" Data="{StaticResource GalleryDeleteIcon}" /></StackPanel>
           </Button>
+          <Button Classes="chip" VerticalAlignment="Center">
+            <StackPanel Orientation="Horizontal"><Border Classes="avatar primary"><TextBlock Text="A" /></Border><TextBlock Text="Avatar" VerticalAlignment="Center" /></StackPanel>
+          </Button>
         </StackPanel>
 
         <TextBlock Classes="overline" Text="Chip" Margin="0,8,0,0" />
@@ -260,7 +263,7 @@
                    TextWrapping="Wrap"
                    MaxWidth="760"
                    HorizontalAlignment="Left"
-                   Text="Each of these is a class on a control Avalonia already has. icon on a Button is MudIconButton: round, 12px round a 24px PathIcon, and action-default rather than text-primary; flat is DropShadow=&quot;false&quot;. chip on a Button or ToggleButton is MudChip, filled by default, and a selected filled chip draws as text. alert and skeleton on a Border are MudAlert, whose text is the colour&apos;s darken shade, and MudSkeleton, pulsing (the second line is no-animation, Animation.False, and the third wave, Animation.Wave). light on a Separator is MudDivider.Light." />
+                   Text="Each of these is a class on a control Avalonia already has. icon on a Button is MudIconButton: round, 12px round a 24px PathIcon, and action-default rather than text-primary; flat is DropShadow=&quot;false&quot;. chip on a Button or ToggleButton is MudChip, filled by default, and a selected filled chip draws as text; an avatar in it is MudChip's Avatar, 24px and pulled to the chip's edge. alert and skeleton on a Border are MudAlert, whose text is the colour&apos;s darken shade, and MudSkeleton, pulsing (the second line is no-animation, Animation.False, and the third wave, Animation.Wave). light on a Separator is MudDivider.Light." />
       </StackPanel>
 
       <!-- FABs, avatars, badges and cards -->
@@ -600,23 +603,23 @@
                    TextWrapping="Wrap"
                    MaxWidth="760"
                    HorizontalAlignment="Left"
-                   Text="Helper text is AutomationProperties.HelpText, which a screen reader announces too; an error takes its place. counter is MudTextField's Counter over MaxLength, the length alone when there is none, and helper-on-focus is HelperTextOnFocus: the third field's help appears when it has focus. dense is Margin.Dense, and a select takes filled and outlined exactly as a text field does. required is Required, the label's asterisk; shrink-label is ShrinkLabel, the label up with nothing typed; no-underline is Underline=&quot;false&quot;. Open a select and its arrow turns up, as MudSelect's OpenIcon." />
+                   Text="Helper text is AutomationProperties.HelpText, which a screen reader announces too; an error takes its place. counter is MudTextField's Counter over MaxLength, the length alone when there is none, and helper-on-focus is HelperTextOnFocus: the third field's help appears when it has focus. dense is Margin.Dense, and a select takes filled and outlined exactly as a text field does. required is Required, the label's asterisk; shrink-label is ShrinkLabel, the label up with nothing typed; no-underline is Underline=&quot;false&quot;. Open a select and its arrow turns up, as MudSelect's OpenIcon. InnerLeftContent and InnerRightContent are MudTextField's adornments, 8px from the text; an icon there marked start-icon or end-icon is MudIcon's 24px." />
 
         <TextBlock Classes="overline" Text="Adornments and several lines" Margin="0,8,0,0" />
         <StackPanel Orientation="Horizontal" Spacing="16">
           <TextBox Width="220" PlaceholderText="Search games">
             <TextBox.InnerLeftContent>
-              <PathIcon Data="{StaticResource GallerySearchIcon}" Width="20" Height="20" Margin="0,0,8,0" />
+              <PathIcon Classes="start-icon" Data="{StaticResource GallerySearchIcon}" />
             </TextBox.InnerLeftContent>
           </TextBox>
           <TextBox Classes="outlined" Width="220" PlaceholderText="Amount">
             <TextBox.InnerLeftContent>
-              <TextBlock Text="€" Margin="0,0,6,0" VerticalAlignment="Center" />
+              <TextBlock Text="€" VerticalAlignment="Center" />
             </TextBox.InnerLeftContent>
           </TextBox>
           <TextBox Classes="filled" Width="220" PlaceholderText="Weight" Text="72">
             <TextBox.InnerRightContent>
-              <TextBlock Text="kg" Margin="6,0,0,0" VerticalAlignment="Center" />
+              <TextBlock Text="kg" VerticalAlignment="Center" />
             </TextBox.InnerRightContent>
           </TextBox>
         </StackPanel>
@@ -827,8 +830,11 @@
             <ListBoxItem IsEnabled="False">Disabled item</ListBoxItem>
           </ListBox>
           <TabControl Width="480" Height="140">
-            <TabItem Header="One">
-              <TextBlock Classes="body2" Margin="12" Text="First tab content" />
+            <TabItem>
+              <TabItem.Header>
+                <StackPanel Orientation="Horizontal"><PathIcon Classes="start-icon" Data="{StaticResource GalleryInboxIcon}" /><TextBlock Text="One" VerticalAlignment="Center" /></StackPanel>
+              </TabItem.Header>
+              <TextBlock Classes="body2" Margin="12" Text="An icon marked start-icon: MudTabPanel's Icon" />
             </TabItem>
             <TabItem Header="Two">
               <TextBlock Classes="body2" Margin="12" Text="Second tab content" />
@@ -959,7 +965,7 @@
                    TextWrapping="Wrap"
                    MaxWidth="760"
                    HorizontalAlignment="Left"
-                   Text="A selected list row is primary text over primary at 6%, not a filled bar — MudList marks it with mud-primary-text plus mud-primary-hover, which keeps it as readable as the rows around it. A toggle is MudToggleItem, a button in the group's colour: the colour as text while off, filled once on; the second row adds outlined, the group's line. icon on a ToggleButton is MudToggleIconButton: a colour class is ToggledColor, unchecked-{colour} is Color, so the grey heart is the red one switched off; the bell becomes a letter, its second PathIcon being ToggledIcon." />
+                   Text="A selected list row is primary text over primary at 6%, not a filled bar — MudList marks it with mud-primary-text plus mud-primary-hover, which keeps it as readable as the rows around it. A toggle is MudToggleItem, a button in the group's colour: the colour as text while off, filled once on; the second row adds outlined, the group's line. icon on a ToggleButton is MudToggleIconButton: a colour class is ToggledColor, unchecked-{colour} is Color, so the grey heart is the red one switched off; the bell becomes a letter, its second PathIcon being ToggledIcon. A link's icon marked start-icon or end-icon is MudLink's StartIcon or EndIcon: the link's font size, 4px from the text." />
         <StackPanel Orientation="Horizontal" Spacing="24">
           <ListBox Classes="paper" Width="220" Height="176" SelectedIndex="1">
             <ListBoxItem>First item</ListBoxItem>
@@ -995,6 +1001,14 @@
               <HyperlinkButton Content="Hover to underline" />
               <HyperlinkButton Classes="underline" Content="Always underlined" />
               <HyperlinkButton Content="Disabled link" IsEnabled="False" />
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Spacing="16">
+              <HyperlinkButton>
+                <StackPanel Orientation="Horizontal"><PathIcon Classes="start-icon" Data="{StaticResource GalleryMailIcon}" /><TextBlock Text="Start icon" /></StackPanel>
+              </HyperlinkButton>
+              <HyperlinkButton>
+                <StackPanel Orientation="Horizontal"><TextBlock Text="End icon" /><PathIcon Classes="end-icon" Data="{StaticResource GalleryShareIcon}" /></StackPanel>
+              </HyperlinkButton>
             </StackPanel>
           </StackPanel>
         </StackPanel>

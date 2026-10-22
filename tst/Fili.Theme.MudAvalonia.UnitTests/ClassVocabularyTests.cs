@@ -47,6 +47,9 @@ public class ClassVocabularyTests
         // CornerRadius="0", and no class.
         "appbar", "square", "paper",
 
+        // MudOverlay, on a Border: DarkBackground and LightBackground.
+        "overlay", "dark-background", "light-background",
+
         // Elevation: every level _elevation.scss has, mud-elevation-0 to mud-elevation-25.
         "elevation0", "elevation1", "elevation2", "elevation3", "elevation4", "elevation5",
         "elevation6", "elevation7", "elevation8", "elevation9", "elevation10", "elevation11",

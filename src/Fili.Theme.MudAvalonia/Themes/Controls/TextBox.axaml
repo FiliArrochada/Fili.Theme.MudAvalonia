@@ -71,8 +71,13 @@
     <Setter Property="SelectionForegroundBrush" Value="{DynamicResource FiliPrimaryContrastTextBrush}" />
     <Setter Property="VerticalContentAlignment" Value="Center" />
     <Setter Property="Cursor" Value="IBeam" />
-    <!-- :start-adornment, for the float condition below. -->
-    <Setter Property="theme:StartAdornment.Tracks" Value="True" />
+    <!-- :start-adornment and :end-adornment, for the float condition and the gaps below. -->
+    <Setter Property="theme:Adornments.Tracks" Value="True" />
+    <!-- MudInput's AdornmentIcon is a MudIcon at IconSize Medium, 24px: an icon in
+         InnerLeftContent marked `start-icon`, or in InnerRightContent marked `end-icon`, takes it
+         (IconSlot). Its colour is the field's text, as MudBlazor's is. -->
+    <Setter Property="theme:IconSlot.StartSize" Value="24" />
+    <Setter Property="theme:IconSlot.EndSize" Value="24" />
 
     <Setter Property="Template">
       <ControlTemplate>
@@ -250,7 +255,7 @@
     </Style>
 
     <!-- The float condition: focused OR carrying content, or ShrinkLabel (`shrink-label`), or a
-         start adornment (`:start-adornment`, from StartAdornment) - each of which is
+         start adornment (`:start-adornment`, from Adornments) - each of which is
          `.mud-shrink` or `:focus-within` in MudBlazor. Avalonia's :empty pseudo-class
          on TextBox is what makes the second one expressible in a selector at all. A shrunk label
          is text-primary (`.mud-shrink ~ label`), and primary while the field has focus, so focus
@@ -391,6 +396,20 @@
     <Style Selector="^:spin-start /template/ ContentPresenter#PART_InnerLeftContent">
       <Setter Property="Margin" Value="24,0,0,0" />
     </Style>
+    <!-- `.mud-input-adornment-start` / `-end`: 8px between an adornment and the text; beside a
+         spin column the adornment keeps the column's 24px too. -->
+    <Style Selector="^:start-adornment /template/ ContentPresenter#PART_InnerLeftContent">
+      <Setter Property="Margin" Value="0,0,8,0" />
+    </Style>
+    <Style Selector="^:end-adornment /template/ ContentPresenter#PART_InnerRightContent">
+      <Setter Property="Margin" Value="8,0,0,0" />
+    </Style>
+    <Style Selector="^:spin-end:end-adornment /template/ ContentPresenter#PART_InnerRightContent">
+      <Setter Property="Margin" Value="8,0,24,0" />
+    </Style>
+    <Style Selector="^:spin-start:start-adornment /template/ ContentPresenter#PART_InnerLeftContent">
+      <Setter Property="Margin" Value="24,0,8,0" />
+    </Style>
   </ControlTheme>
 
   <!-- Filled: the standard field on a tinted sheet, top corners only. -->
@@ -454,6 +473,20 @@
     </Style>
     <Style Selector="^:spin-start /template/ ContentPresenter#PART_InnerLeftContent">
       <Setter Property="Margin" Value="12,0,0,0" />
+    </Style>
+    <!-- `.mud-input-adornment-start` / `-end`: 8px between an adornment and the text; beside a
+         spin column the adornment keeps the column's 12px too. -->
+    <Style Selector="^:start-adornment /template/ ContentPresenter#PART_InnerLeftContent">
+      <Setter Property="Margin" Value="0,0,8,0" />
+    </Style>
+    <Style Selector="^:end-adornment /template/ ContentPresenter#PART_InnerRightContent">
+      <Setter Property="Margin" Value="8,0,0,0" />
+    </Style>
+    <Style Selector="^:spin-end:end-adornment /template/ ContentPresenter#PART_InnerRightContent">
+      <Setter Property="Margin" Value="8,0,12,0" />
+    </Style>
+    <Style Selector="^:spin-start:start-adornment /template/ ContentPresenter#PART_InnerLeftContent">
+      <Setter Property="Margin" Value="12,0,8,0" />
     </Style>
   </ControlTheme>
 
@@ -555,6 +588,20 @@
     </Style>
     <Style Selector="^:spin-start /template/ ContentPresenter#PART_InnerLeftContent">
       <Setter Property="Margin" Value="10,0,0,0" />
+    </Style>
+    <!-- `.mud-input-adornment-start` / `-end`: 8px between an adornment and the text; beside a
+         spin column the adornment keeps the column's 10px too. -->
+    <Style Selector="^:start-adornment /template/ ContentPresenter#PART_InnerLeftContent">
+      <Setter Property="Margin" Value="0,0,8,0" />
+    </Style>
+    <Style Selector="^:end-adornment /template/ ContentPresenter#PART_InnerRightContent">
+      <Setter Property="Margin" Value="8,0,0,0" />
+    </Style>
+    <Style Selector="^:spin-end:end-adornment /template/ ContentPresenter#PART_InnerRightContent">
+      <Setter Property="Margin" Value="8,0,10,0" />
+    </Style>
+    <Style Selector="^:spin-start:start-adornment /template/ ContentPresenter#PART_InnerLeftContent">
+      <Setter Property="Margin" Value="10,0,8,0" />
     </Style>
   </ControlTheme>
 

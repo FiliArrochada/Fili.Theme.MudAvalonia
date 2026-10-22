@@ -43,8 +43,9 @@ classes, `ControlTheme`s where a Material look cannot be faked without one, and 
   inside its box; `CollapsePanel`, an expansion panel growing open; `ElevationOverlay`, the
   inherited property `material-elevation-overlay` sets; `PartBorder`, every Border in a
   hand-written template; `IconSlot`, the icon size, gap and colour a host gives a `start-icon` or
-  `end-icon`; `MenuIconGutter`, a menu's shared icon
-  column; `StartAdornment`, a text field's `:start-adornment`; `TabBarScroll`, the tab bar's
+  `end-icon`, and a chip gives an `avatar`; `OverlayScrim`, an `overlay`'s centring, corners and
+  fade; `MenuIconGutter`, a menu's shared icon
+  column; `Adornments`, a text field's `:start-adornment` and `:end-adornment`; `TabBarScroll`, the tab bar's
   scroll buttons; and `DataGridLastColumn` and
   `GroupIndentConverter`,
   which name DataGrid types and so live in `Themes/Optional/DataGrid/`.

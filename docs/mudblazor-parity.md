@@ -6,7 +6,7 @@ where the two differ. For side-by-side markup, see [Razor and AXAML](razor-vs-ax
 The rule behind every row: **a class only ever names a MudBlazor variant.** Every control the
 theme templates is keyed to its type, so an unclassed control is already the MudBlazor default.
 Class names are MudBlazor's own words (`primary`, `outlined`, `small`), deliberately not
-namespaced. `ClassVocabularyTests` pins the full list of 152. Two are not MudBlazor's, and their
+namespaced. `ClassVocabularyTests` pins the full list of 155. Two are not MudBlazor's, and their
 names say so: `material-fixed-tabs`, Material's fixed tabs, and `material-elevation-overlay`,
 Material's dark-theme elevation overlay. MudBlazor offers neither.
 
@@ -141,7 +141,7 @@ Put a `PathIcon` in `Content`: `<Button Classes="icon primary"><PathIcon Data="�
 | `Disabled` | `IsEnabled="False"` | ✅ |
 | `Icon` | an icon in `Content` with `start-icon` | ✅ 20px (18 small, 24 large), 4px out and 4px in (6px on a large chip) |
 | close icon | an icon or button in `Content` with `end-icon` | ≈ the close button's 18px and spacing; closing is the app's |
-| `Avatar` | put it in `Content` | ≈ no avatar margins applied |
+| `Avatar` | a `Border.avatar` in `Content` | ✅ `.mud-chip .mud-avatar`: 24px, 8px out and 8px in, 12px text; 18px, 4px and 10px on a small chip; 32px, 12px out and 8px in, 16px on a large one |
 | `MudChipSet` selection rules | — | ❌ single/multi selection is the app's, through `IsChecked` bindings |
 | `Label` | `CornerRadius="4"` | ≈ `.mud-chip-label`'s default radius in place of the pill |
 | `SelectedColor` | a colour class the app sets while `IsChecked` | ≈ |
@@ -225,7 +225,8 @@ Put initials, a `PathIcon` or an `Image` inside: `<Border Classes="avatar primar
 
 | MudBlazor | Here | |
 |---|---|---|
-| `MudPaper` | `Border.paper` | ≈ surface fill and the default radius, but no shadow: MudPaper's `Elevation` defaults to 1, so it is `paper elevation1` (a `card` carries it) |
+| `MudPaper` | `Border.paper` | ✅ the surface, the default radius and text-primary, at MudPaper's default `Elevation` 1; an elevation class replaces it |
+| `Outlined` | `outlined` | ✅ a 1px line in lines-default and no shadow, whatever the elevation, as MudPaper adds `mud-elevation-{n}` only when not outlined |
 | `Elevation="0…25"` | `elevation0` … `elevation25` | ✅ every level `_elevation.scss` has; three shadow layers each, from `Shadow.cs` |
 | (none: Material's dark-theme overlay) | `material-elevation-overlay` on a window or container | ➕ in dark, each raised surface inside lightened by white at its level's opacity, 5% at 1 to 16% at 24: papers, cards, panels, grids, menus, selects and flyouts. Light and high contrast unchanged |
 | `Outlined` | `outlined` | ✅ 1px `lines-default` |
@@ -268,7 +269,8 @@ Put initials, a `PathIcon` or an `Image` inside: `<Border Classes="avatar primar
 | `Counter` | `counter` with `MaxLength` | ✅ `12 / 50` on the right; the length alone when `MaxLength` is 0, as `Counter="0"` |
 | `Margin.Dense` | `dense` | ✅ standard 3px shorter, filled 8px, outlined 16px, with the label resting and floating to match |
 | `Margin.Normal` | `Margin` | ≈ only an outer margin in MudBlazor; an ordinary Avalonia property |
-| `Adornment`, `AdornmentIcon`, `AdornmentText`, `AdornmentColor`, `IconSize` | `InnerLeftContent` / `InnerRightContent` | ≈ ordinary Avalonia properties; an icon there takes no size or colour from the theme. A start adornment floats the label, as `Adornment.Start` does |
+| `Adornment`, `AdornmentIcon`, `AdornmentText` | `InnerLeftContent` / `InnerRightContent` | ✅ 8px from the text, as `.mud-input-adornment-start` and `-end` are, beside a spin column too; an icon there marked `start-icon` or `end-icon` is MudIcon's 24px, in the field's text colour. A start adornment floats the label, as `Adornment.Start` does |
+| `AdornmentColor`, `IconSize` | a colour class, or `Width` / `Height`, on the icon | ≈ ordinary Avalonia properties |
 | `Placeholder` | — | ❌ the placeholder slot is the floating label |
 | `Disabled` | `IsEnabled="False"` | ✅ text-disabled text, label and helper text; the line stays lines-inputs and turns dotted, 1px on and 1px off, on a text field and a select alike |
 | `ReadOnly` | `IsReadOnly` | ✅ looks the same, as in MudBlazor |
@@ -404,7 +406,7 @@ Put initials, a `PathIcon` or an `Image` inside: `<Border Classes="avatar primar
 | `Color.Tertiary` … `Color.Dark` | `tertiary` … `dark` | ✅ every palette colour as the text |
 | `Disabled` | `IsEnabled="False"` | ✅ action-disabled |
 | `Typo` | a type class on a `TextBlock` inside | ≈ |
-| `StartIcon`, `EndIcon`, `IconClass` | a `PathIcon` in the content | ≈ no spacing from the theme |
+| `StartIcon`, `EndIcon` | an icon in the content marked `start-icon` / `end-icon` | ✅ `.mud-link-icon-start` / `-end`: the link's own font size and 4px from the text |
 
 ### MudTabs → `TabControl`, `TabStrip`
 
@@ -426,7 +428,7 @@ Put initials, a `PathIcon` or an `Image` inside: `<Border Classes="avatar primar
 | sliding indicator, `SliderAnimation` (default true) | the indicator slides; `no-animation` for false | ✅ .3s, cubic-bezier(.64,.09,.08,1), the width jumping; `no-animation` puts the new tab's indicator under it at once |
 | uppercase tab text (`.mud-tab`) | the same | ✅ a string `Header` is uppercase; `FiliButtonTextTransform` is the switch, as for buttons |
 | `Disabled` on the tabs | `IsEnabled="False"` | ✅ text-disabled |
-| `MudTabPanel.Icon`, `IconColor` | an icon in the `Header` | ≈ no 8px gap from the theme |
+| `MudTabPanel.Icon`, `IconColor` | an icon in the `Header` marked `start-icon` | ✅ MudIcon's 24px, `.mud-tab-icon-text` 8px from the text, in the tab's colour unless set |
 | `BadgeData`, `BadgeDot`, `BadgeColor`, `BadgeMax` | a `HeaderedContentControl.badge` as the `Header` | ≈ |
 | `ToolTip` | `ToolTip.Tip` on the `TabItem` | ≈ |
 | scroll buttons | the same | ✅ ChevronLeft and ChevronRight icon buttons at the bar's ends while the tabs overflow it, each disabled at its end, a bar's length per click; the selected tab scrolls into view; on a side bar, 32px high and turned |
@@ -631,7 +633,7 @@ the app references it; this package does not depend on it.
 | MudBlazor | Here | |
 |---|---|---|
 | `Icon` | `Data` | ≈ the gallery carries a few Material glyphs; the theme ships no icon set |
-| `Size.Small` / `Medium` (default) / `Large` | `small` / `medium` / `large` | ✅ 20 / 24 / 36px |
+| `Size.Small` / `Medium` (default) / `Large` | `small` / `medium` (or no class) / `large` | ✅ 20 / 24 / 36px; a bare `PathIcon` is 24px, as MudIcon is with no `Size` |
 | `Color.Inherit` (default) | no class | ✅ the surrounding text colour |
 | `Color.Primary` … `Color.Dark` | `primary` … `dark` | ✅ and the icon's own class beats an alert's or a button's colour, as MudIcon's does |
 | `Color.Default` | — | ≈ no class names it: set `Foreground` to `FiliTextSecondaryBrush` |
@@ -659,13 +661,32 @@ the app references it; this package does not depend on it.
 | the opening fade, `Duration` (251ms), `Delay` (0) | the same, on every popup | ✅ opacity 0 to 1 over 251ms at CSS's `ease`, closing at once; a select's list, a menu, an autocomplete's list, a flyout and a tooltip alike. ≈ a dense MudMenu opens without it, and here fades too; ❌ the two are not settable per popup |
 | `RelativeWidth` | — | ❌ its width relative to the anchor is the app's to bind |
 
-### MudOverlay
+### MudOverlay → `Border.overlay`
+
+A Border over the content it covers, in a `Panel` with it; the app shows and hides it.
+
+```xml
+<Panel>
+  <StackPanel>…</StackPanel>
+  <!-- <MudOverlay Visible="true" DarkBackground="true" Absolute="true"> -->
+  <Border Classes="overlay dark-background" IsVisible="{Binding Loading}">
+    <ProgressBar Classes="circular primary" IsIndeterminate="True" />
+  </Border>
+</Panel>
+```
 
 | MudBlazor | Here | |
 |---|---|---|
-| `DarkBackground` | a temporary drawer's scrim | ✅ `overlay-dark`, behind an overlay `SplitView` pane |
-| the component on its own | a `Panel` with `FiliOverlayDarkBrush` or `FiliOverlayLightBrush` | ≈ there is no overlay control |
-| a loading page: `Visible`, `DarkBackground`, `Absolute`, a `MudProgressCircular` inside | a `Panel` over the content with `FiliOverlayDarkBrush` and an indeterminate `circular` `ProgressBar` | ≈ the gallery's **Custom styles** tab has it; the app shows the `Panel` while loading |
+| the component | `overlay` | ✅ transparent, and it still takes the pointer, as a modal MudOverlay does |
+| `DarkBackground`, `LightBackground` | `dark-background`, `light-background` | ✅ the palette's `OverlayDark` and `OverlayLight` |
+| the content, centred (`align-items` and `justify-content` center) | the Border's child | ✅ centred; an alignment the app sets on it wins |
+| `border-radius: inherit` | the same | ✅ the corners of the nearest Border, ContentPresenter or templated control above, past a `Panel`, which has none; a `CornerRadius` the app sets wins |
+| the scrim's 0.15s fade-in (`mud-animation-fadein ease 0.15s`) | the same, each time it is shown | ≈ the whole overlay fades, content included, where MudBlazor fades the scrim alone and shows the content at once |
+| `Modal="false"` | `IsHitTestVisible="False"` | ≈ an ordinary Avalonia property |
+| `Absolute` (over its container) / fixed (over the page) | the overlay in a `Panel` with the container's content, or with the window's | ≈ layout |
+| `ZIndex` (5) | `ZIndex` | ≈ an ordinary Avalonia property |
+| `DarkBackground` on a temporary drawer's scrim | the light-dismiss layer behind an overlay `SplitView` pane | ✅ `FiliOverlayDarkBrush` |
+| `AutoClose`, `OnClick`, `LockScroll` | — | ❌ behaviour: closing on a click and locking scroll are the app's |
 
 ### MudNavMenu, MudNavLink, MudNavGroup → `TreeView.nav`
 
