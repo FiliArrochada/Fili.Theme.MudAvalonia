@@ -1,17 +1,13 @@
 <Project>
 
-  <!-- =====================================================================================
-       SHARED BLOCK - keep it exactly as it is, byte for byte. Put this repo's own settings
-       below the separator, in this same file.
-       ===================================================================================== -->
+  <!-- SHARED BLOCK - keep it exactly as it is, byte for byte. Put this repo's own settings below the separator, in this same file. -->
 
   <PropertyGroup>
     <LangVersion>latest</LangVersion>
   </PropertyGroup>
 
   <!-- Binding redirects for projects that carry an app.config or a web.config.
-       GenerateBindingRedirectsOutputType extends the generation to library and test outputs,
-       which are skipped otherwise. -->
+       GenerateBindingRedirectsOutputType extends the generation to library and test outputs, which are skipped otherwise. -->
   <PropertyGroup Condition="Exists('$(MSBuildProjectDirectory)/app.config') Or Exists('$(MSBuildProjectDirectory)/web.config')">
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <GenerateBindingRedirectsOutputType>true</GenerateBindingRedirectsOutputType>
