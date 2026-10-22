@@ -1,9 +1,8 @@
 <Project>
 
   <!-- =====================================================================================
-       SHARED BLOCK - identical in every repo in this workspace. Source of truth: the
-       "Anatomy of a service repo" recipe in the workspace CLAUDE.md. Copy it verbatim; put
-       this repo's own settings below the separator, in this same file.
+       SHARED BLOCK - keep it exactly as it is, byte for byte. Put this repo's own settings
+       below the separator, in this same file.
        ===================================================================================== -->
 
   <PropertyGroup>
