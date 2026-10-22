@@ -110,12 +110,17 @@
     <!-- END GENERATED -->
   </ControlTheme>
 
+  <!--
+    MudPopover: `.mud-popover` and the paper it is - surface, the default radius, elevation 8 - and
+    no padding: what sits in a popover brings its own, as `<MudPaper Class="pa-4">` does. A flyout
+    whose content wants room sets Padding on the content or through FlyoutPresenterClasses.
+  -->
   <ControlTheme x:Key="FiliFlyoutPresenter" TargetType="FlyoutPresenter">
     <Setter Property="Background" Value="{DynamicResource FiliSurfaceBrush}" />
     <Setter Property="Foreground" Value="{DynamicResource FiliTextPrimaryBrush}" />
     <Setter Property="FontFamily" Value="{DynamicResource FiliFontFamily}" />
     <Setter Property="FontSize" Value="{DynamicResource FiliBody2FontSize}" />
-    <Setter Property="Padding" Value="16" />
+    <Setter Property="Padding" Value="0" />
     <Setter Property="MinWidth" Value="160" />
     <Setter Property="CornerRadius" Value="{DynamicResource FiliCornerRadius}" />
 

@@ -44,7 +44,7 @@ classes, `ControlTheme`s where a Material look cannot be faked without one, and 
   inherited property `material-elevation-overlay` sets; `PartBorder`, every Border in a
   hand-written template; `IconSlot`, the icon size, gap and colour a host gives a `start-icon` or
   `end-icon`, and a chip gives an `avatar`; `OverlayScrim`, an `overlay`'s centring, corners and
-  fade; `MenuIconGutter`, a menu's shared icon
+  fade; `ButtonGroup`, where each button of a `button-group` sits; `MenuIconGutter`, a menu's shared icon
   column; `Adornments`, a text field's `:start-adornment` and `:end-adornment`; `TabBarScroll`, the tab bar's
   scroll buttons; and `DataGridLastColumn` and
   `GroupIndentConverter`,

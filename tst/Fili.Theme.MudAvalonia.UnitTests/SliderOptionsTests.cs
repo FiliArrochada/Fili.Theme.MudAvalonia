@@ -30,6 +30,31 @@ public class SliderOptionsTests
         Assert.Equal(0.30, Matrix.Part<Border>(slider, "PART_Rail").Opacity, 2);
     });
 
+    /// <summary>
+    /// `.mud-slider-input:disabled`: the rail and thumb at .38, in their colour still, with a 1px
+    /// white ring round the knob; the filled part, an element of its own, keeps its strength.
+    /// </summary>
+    [Theory]
+    [InlineData(null, 13)]
+    [InlineData("medium", 9)]
+    [InlineData("large", 7)]
+    public Task ADisabledSliderFadesItsRailAndThumb(string? size, double ring) => UiThread.RunAsync(() =>
+    {
+        var slider = new Slider { Width = 240, Value = 40, IsEnabled = false, Classes = { "filled", "secondary" } };
+        if (size is not null) slider.Classes.Add(size);
+        Show(slider);
+        var thumb = Matrix.Part<Thumb>(slider, "PART_Thumb");
+        var halo = Matrix.Part<Ellipse>(thumb, "PART_Ring");
+
+        Assert.Equal(Matrix.Token("FiliSecondaryColor"), Matrix.Colour(slider.Foreground));
+        Assert.Equal(0.114, Matrix.Part<Border>(slider, "PART_Rail").Opacity, 3);
+        Assert.Equal(0.38, thumb.Opacity, 2);
+        Assert.Equal(new Thickness(ring), thumb.BorderThickness);
+        Assert.Equal(Colors.White, Matrix.Colour(halo.Fill));
+        Assert.Equal(1, halo.Opacity);
+        Assert.Equal(1, Matrix.Part<RepeatButton>(slider, "PART_DecreaseButton").Opacity);
+    });
+
     [Fact]
     public Task NoTicksUnlessAskedFor() => UiThread.RunAsync(() =>
     {

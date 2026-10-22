@@ -6,7 +6,7 @@ where the two differ. For side-by-side markup, see [Razor and AXAML](razor-vs-ax
 The rule behind every row: **a class only ever names a MudBlazor variant.** Every control the
 theme templates is keyed to its type, so an unclassed control is already the MudBlazor default.
 Class names are MudBlazor's own words (`primary`, `outlined`, `small`), deliberately not
-namespaced. `ClassVocabularyTests` pins the full list of 155. Two are not MudBlazor's, and their
+namespaced. `ClassVocabularyTests` pins the full list of 156. Two are not MudBlazor's, and their
 names say so: `material-fixed-tabs`, Material's fixed tabs, and `material-elevation-overlay`,
 Material's dark-theme elevation overlay. MudBlazor offers neither.
 
@@ -353,7 +353,7 @@ Put initials, a `PathIcon` or an `Image` inside: `<Border Classes="avatar primar
 | `ValueLabel` | `value-label` | ✅ a 12px chip of the colour above the thumb while it is held |
 | `ValueLabelFormat`, `Culture` | — | ≈ at most two decimals, in the app's culture rather than MudBlazor's invariant default |
 | `ValueLabelContent` | — | ❌ the label shows the value |
-| `Disabled` | `IsEnabled="False"` | ≈ action-disabled thumb and rail, where MudBlazor fades the whole slider to .38 |
+| `Disabled` | `IsEnabled="False"` | ✅ the rail and thumb at .38 in their colour, the thumb ringed 1px in white; the filled part and ticks keep their strength, as elements outside the native input. The rule's black, ×4 thumb loses the cascade to the colour and size rules |
 | `ChildContent` | a `TextBlock` above it | ≈ |
 
 ### MudProgressLinear → `ProgressBar`
@@ -506,7 +506,9 @@ Put initials, a `PathIcon` or an `Image` inside: `<Border Classes="avatar primar
 | group separator | the same | ✅ text-primary or the colour; `divider` when filled; `{color}-lighten` between filled coloured segments |
 | `DropShadow="false"` | `filled flat` | ✅ on `SplitButton` and `DropDownButton` alike |
 | `Vertical` | — | ≈ not applicable: `SplitButton` is two halves side by side; a vertical group is a `StackPanel` of buttons |
-| a `MudButtonGroup` of three or more | a `StackPanel` of buttons | ≈ no shared border or separators |
+| a `MudButtonGroup` of three or more | `button-group` on a `StackPanel` of buttons | ✅ the radius on the outer corners only, each button after the first 1px over the one before so outlined lines are shared, a 1px line before each text button in its colour and before each filled one in `{color}-lighten` or `divider`; a hidden button leaves the group |
+| `MudButtonGroup` `Vertical` | `Orientation="Vertical"` on the `StackPanel` | ✅ the same, top to bottom |
+| `MudButtonGroup` `Variant.Filled`'s elevation | — | ≈ each filled button rests flat and lifts to 4, as in the group; the group's own elevation 2 is the app's, a `StackPanel` having no shadow |
 | `MudButtonGroup` `FullWidth` | `HorizontalAlignment="Stretch"` | ≈ |
 | `MudButtonGroup` `OverrideStyles` | — | ❌ nothing cascades; put the classes on each button |
 | `MudMenu` with a button activator | `DropDownButton` | ✅ Button's classes; an unclassed one is `Color.Default`, text-primary |
@@ -654,7 +656,7 @@ the app references it; this package does not depend on it.
 | MudBlazor | Here | |
 |---|---|---|
 | the paper | `FlyoutPresenter`, `MenuFlyoutPresenter`, `ContextMenu` | ✅ surface, the default radius, elevation 8 |
-| padding | — | ≈ a `FlyoutPresenter` pads its content 16px, where MudPopover leaves it to the content |
+| padding | none | ✅ the content brings its own, as `<MudPaper Class="pa-4">` does in a popover |
 | `Elevation`, `Square`, `Paper="false"`, `DropShadow="false"` | — | ❌ a presenter takes no elevation or shape class |
 | `AnchorOrigin`, `TransformOrigin` | `Placement` | ≈ |
 | `MaxHeight` | `MaxHeight` | ≈ |

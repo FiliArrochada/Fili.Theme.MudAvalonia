@@ -122,6 +122,24 @@ The `-1px` does not appear here: Avalonia's `SplitButton` already puts a dedicat
 element between its halves, so there are no two borders to collapse. Same result, different
 route — which is the usual shape of transcribing CSS onto a templated control.
 
+**A group of any length is `button-group` on a `StackPanel` of buttons**, across or, with
+`Orientation="Vertical"`, down:
+
+```xml
+<StackPanel Classes="button-group" Orientation="Horizontal">
+  <Button Classes="outlined primary" Content="One" />
+  <Button Classes="outlined primary" Content="Two" />
+  <Button Classes="outlined primary" Content="Three" />
+</StackPanel>
+```
+
+The rules are the same: the radius on the outer corners only, each button after the first pulled
+back 1px so two outlined lines are one, a 1px line in its colour before each text button after
+the first, and `{color}-lighten` (`divider` with no colour) before each filled one. A filled
+button rests flat in a group and lifts to elevation 4. Each button keeps its own classes:
+MudButtonGroup's `OverrideStyles` hands the group's Variant, Color and Size down, and nothing
+cascades here, so put them on each button. A hidden button leaves the group.
+
 ## Text fields
 
 ```xml
@@ -841,6 +859,9 @@ for something XAML cannot express on its own:
   drop-down buttons, toggle items, chips, FABs, nav links, links, tabs and text fields. A
   style ending in the icon would be matched against every control in the window; the class is
   read when the icon joins its host, so put it on the icon in markup.
+- **`ButtonGroup`** marks each button of a `button-group` with where it sits: before another,
+  after one, in a vertical group. A selector from the panel to its buttons would end in Button
+  and be matched against every button in the window, and `:nth-child` counts hidden ones.
 - **`OverlayScrim`** centres an `overlay`'s child, gives it its container's corners and fades it
   in when shown. A style could do none of it without being matched against every control or
   every Border.
@@ -984,6 +1005,10 @@ position, size and colour, so the handover is invisible.
 placed in markup — `ToolTip.Tip="text"` builds the ToolTip internally, `<Flyout>` builds its
 presenter — which is why they were keyed by type even back when everything else was keyed by
 class. They now look like every other theme in the package.
+
+A flyout is MudPopover's paper - surface, the default radius, elevation 8 - and, like it, has no
+padding: the content brings its own, as `<MudPaper Class="pa-4">` does in a popover. Set
+`Padding` on the content, or on the presenter through `FlyoutPresenterClasses`.
 
 The tooltip is deliberately **not theme-varying**: a Material tooltip is a dark chip in light and
 dark alike, so it reads as an annotation floating above the UI rather than as another surface of

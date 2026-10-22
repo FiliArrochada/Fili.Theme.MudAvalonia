@@ -121,6 +121,15 @@
     <Style Selector="^:pressed /template/ Panel#PART_ValueLabel">
       <Setter Property="Opacity" Value="1" />
     </Style>
+
+    <!-- Disabled: MudSlider's `box-shadow: 0 0 0 1px` white, the ring 1px round the knob. -->
+    <Style Selector="^:disabled">
+      <Setter Property="Cursor" Value="Arrow" />
+    </Style>
+    <Style Selector="^:disabled /template/ Ellipse#PART_Ring">
+      <Setter Property="Fill" Value="White" />
+      <Setter Property="Opacity" Value="1" />
+    </Style>
   </ControlTheme>
 
   <ControlTheme x:Key="FiliSlider" TargetType="Slider">
@@ -472,9 +481,26 @@
       <Setter Property="Margin" Value="0,-20,0,0" />
     </Style>
 
-    <Style Selector="^:disabled">
-      <Setter Property="Foreground" Value="{DynamicResource FiliActionDisabledBrush}" />
-      <Setter Property="Background" Value="{DynamicResource FiliActionDisabledBackgroundBrush}" />
+    <!--
+      Disabled: `.mud-slider-input:disabled` is opacity .38 on the native input, which is the
+      rail and the thumb - not Variant.Filled's solid part or the ticks, elements of their own -
+      and a 1px white ring round the thumb, `!important`. The same rule's black thumb, scale(4)
+      and text-disabled rail lose the cascade: the colour and size rules come later in
+      _slider.scss at the same specificity, so the slider keeps its colour and size. The rail
+      already sits at .30, so .30 x .38.
+    -->
+    <Style Selector="^:disabled /template/ theme|PartBorder#PART_Rail">
+      <Setter Property="Opacity" Value="0.114" />
+    </Style>
+    <Style Selector="^:disabled /template/ Thumb#PART_Thumb">
+      <Setter Property="Opacity" Value="0.38" />
+      <Setter Property="BorderThickness" Value="13" />
+    </Style>
+    <Style Selector="^.medium:disabled /template/ Thumb#PART_Thumb">
+      <Setter Property="BorderThickness" Value="9" />
+    </Style>
+    <Style Selector="^.large:disabled /template/ Thumb#PART_Thumb">
+      <Setter Property="BorderThickness" Value="7" />
     </Style>
   </ControlTheme>
 

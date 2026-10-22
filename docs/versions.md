@@ -6,6 +6,7 @@ What changed in each release of `Fili.Theme.MudAvalonia`, newest first. The pack
 
 | Version | |
 |---|---|
+| *(unreleased)* | MudButtonGroup of any length is `button-group` on a `StackPanel` of buttons, across or down: one shape with the radius on its outer corners, shared lines and MudBlazor's separators. A disabled slider is MudSlider's: rail and thumb at .38 in their colour, the thumb ringed in white, where it was grey. A flyout has no padding of its own, as MudPopover has none. The published class list grows to 156. See [Upgrading from 0.13.0](#upgrading-from-0130). |
 | **0.13.0** | A `paper` casts MudPaper's default elevation 1, as a `card` does; `elevation0` takes it away. Icons find their place in four more hosts: an icon marked `start-icon` or `end-icon` in a link is the link's font size and 4px from the text, in a tab header 24px and 8px from the text, and in a text field's adornment 24px; an adornment keeps 8px from the text; and a chip's `avatar` is MudChip's 24px (18 small, 32 large) with its margins. A `PathIcon` with no size class is 24px, MudIcon's default `Size.Medium`, where it was 20. MudOverlay is `overlay` on a Border, with `dark-background` and `light-background`: its content centred, its container's corners, and MudBlazor's .15s fade each time it shows. The published class list grows to 155. See [Upgrading from 0.12.0 to 0.13.0](#upgrading-from-0120-to-0130). |
 | 0.12.0 | The last names to settle before 1.0. MudPaper is `paper`, MudBlazor's word, where it was `surface`; MudTabs' `SliderColor` is `indicator-{colour}` and `HideSlider` is `hide-indicator`, so that no tab class reads as a `Slider`'s. A number field's spin buttons draw MudNumericField's chevrons, `FiliKeyboardArrowUpGeometry` and `FiliKeyboardArrowDownGeometry`, not the select's triangles. The spacing scale is MudBlazor's whole one, 0 to 20 steps of 4px, each as a number (`FiliSpacing4`) and a `Thickness` (`FiliSpacing4Thickness`); `FiliBlackBrush` joins `FiliBlackColor`. See [Upgrading from 0.11.0 to 0.12.0](#upgrading-from-0110-to-0120). |
 | 0.11.0 | Screens build about three times faster: a Border inside a control's template is no longer matched against every Border class style, `material-elevation-overlay` no longer searches each Border's ancestors, and an icon's `start-icon` or `end-icon` size comes from its button rather than from a style every control was matched against. A number field's spin buttons sit inside its box, as MudNumericField's do; an expansion panel grows open over .3s instead of cross-fading, as MudCollapse does; a tooltip wraps only at the screen's edge; and `drawer-header` is MudDrawerHeader. The published class list grows to 152. See [Upgrading from 0.10.0](#upgrading-from-0100-to-0110). |
@@ -29,6 +30,19 @@ What changed in each release of `Fili.Theme.MudAvalonia`, newest first. The pack
 Every version and its release notes are on the
 [releases page](https://github.com/FiliArrochada/Fili.Theme.MudAvalonia/releases); a version on
 nuget.org can be unlisted but never replaced.
+
+## Upgrading from 0.13.0
+
+One thing needs a markup change, one looks different, and one class is new.
+
+- **A flyout no longer pads its content.** A `Flyout` whose content relied on the 16px gives the
+  content a `Margin` or `Padding` of 16, as MudBlazor's popover content does with `pa-4`. Menu
+  flyouts are unchanged.
+- **A disabled slider keeps its colour**, faded to .38 with a white ring round the thumb, where
+  it was action-disabled grey.
+- **`button-group` is new**, on a `StackPanel` of buttons. An app that joined buttons by hand -
+  `Spacing="-1"`, corner radii per button - can drop that for the class; an app with its own
+  `button-group` class now gets the theme's look on a StackPanel.
 
 ## Upgrading from 0.12.0 to 0.13.0
 

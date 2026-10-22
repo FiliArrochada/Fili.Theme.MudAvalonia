@@ -1827,6 +1827,95 @@
     <Setter Property="Height" Value="24" />
   </Style>
 
+  <!--
+    MudButtonGroup, _buttongroup.scss: `button-group` on a StackPanel of buttons joins them into
+    one shape. The radius stays on the outer corners only; each button after the first overlaps
+    the one before by 1px, so two outlined buttons share a line; a text button after the first
+    draws a 1px line in its own colour before it (`rgba(color, border-opacity)`, and
+    BorderOpacity is 1), a filled one `{color}-lighten`, or divider with no colour; and a filled
+    button in a group rests flat and lifts to elevation 4. The buttons keep their own classes:
+    nothing cascades, so OverrideStyles is the app's to repeat on each. ButtonGroup.cs marks
+    where each button sits; these styles ask only for those pseudo-classes, so no selector here
+    reaches from the panel to its children.
+  -->
+  <Style Selector="StackPanel.button-group">
+    <Setter Property="theme:ButtonGroup.IsOn" Value="True" />
+  </Style>
+  <Style Selector="Button:joined-next">
+    <Setter Property="CornerRadius" Value="4,0,0,4" />
+  </Style>
+  <Style Selector="Button:joined-previous">
+    <Setter Property="CornerRadius" Value="0,4,4,0" />
+    <Setter Property="Margin" Value="-1,0,0,0" />
+  </Style>
+  <Style Selector="Button:joined-vertical:joined-next">
+    <Setter Property="CornerRadius" Value="4,4,0,0" />
+  </Style>
+  <Style Selector="Button:joined-vertical:joined-previous">
+    <Setter Property="CornerRadius" Value="0,0,4,4" />
+    <Setter Property="Margin" Value="0,-1,0,0" />
+  </Style>
+  <Style Selector="Button:joined-previous:joined-next">
+    <Setter Property="CornerRadius" Value="0" />
+  </Style>
+  <Style Selector="Button:joined-previous:not(.outlined):not(.filled)">
+    <Setter Property="BorderThickness" Value="1,0,0,0" />
+    <Setter Property="BorderBrush" Value="{Binding $self.Foreground}" />
+  </Style>
+  <Style Selector="Button.filled:joined-previous">
+    <Setter Property="BorderThickness" Value="1,0,0,0" />
+    <Setter Property="BorderBrush" Value="{DynamicResource FiliDividerBrush}" />
+  </Style>
+  <Style Selector="Button.filled.primary:joined-previous">
+    <Setter Property="BorderBrush" Value="{DynamicResource FiliPrimaryLightenBrush}" />
+  </Style>
+  <Style Selector="Button.filled.secondary:joined-previous">
+    <Setter Property="BorderBrush" Value="{DynamicResource FiliSecondaryLightenBrush}" />
+  </Style>
+  <Style Selector="Button.filled.tertiary:joined-previous">
+    <Setter Property="BorderBrush" Value="{DynamicResource FiliTertiaryLightenBrush}" />
+  </Style>
+  <Style Selector="Button.filled.info:joined-previous">
+    <Setter Property="BorderBrush" Value="{DynamicResource FiliInfoLightenBrush}" />
+  </Style>
+  <Style Selector="Button.filled.success:joined-previous">
+    <Setter Property="BorderBrush" Value="{DynamicResource FiliSuccessLightenBrush}" />
+  </Style>
+  <Style Selector="Button.filled.warning:joined-previous">
+    <Setter Property="BorderBrush" Value="{DynamicResource FiliWarningLightenBrush}" />
+  </Style>
+  <Style Selector="Button.filled.error:joined-previous">
+    <Setter Property="BorderBrush" Value="{DynamicResource FiliErrorLightenBrush}" />
+  </Style>
+  <Style Selector="Button.filled.dark:joined-previous">
+    <Setter Property="BorderBrush" Value="{DynamicResource FiliDarkLightenBrush}" />
+  </Style>
+  <Style Selector="Button:joined-vertical:joined-previous:not(.outlined)">
+    <Setter Property="BorderThickness" Value="0,1,0,0" />
+  </Style>
+  <!-- `.mud-button-root:disabled { border-color: action-disabled-background !important }`. -->
+  <Style Selector="Button:joined-previous:disabled:not(.outlined)">
+    <Setter Property="BorderBrush" Value="{DynamicResource FiliActionDisabledBackgroundBrush}" />
+  </Style>
+  <Style Selector="Button.filled:joined /template/ theme|PartBorder#PART_Root">
+    <Setter Property="BoxShadow" Value="{DynamicResource FiliElevation0}" />
+  </Style>
+  <Style Selector="Button.filled:joined:pointerover /template/ theme|PartBorder#PART_Root">
+    <Setter Property="BoxShadow" Value="{DynamicResource FiliElevation4}" />
+  </Style>
+  <Style Selector="Button.filled:joined:focus-visible /template/ theme|PartBorder#PART_Root">
+    <Setter Property="BoxShadow" Value="{DynamicResource FiliElevation4}" />
+  </Style>
+  <Style Selector="Button.filled:joined:pressed /template/ theme|PartBorder#PART_Root">
+    <Setter Property="BoxShadow" Value="{DynamicResource FiliElevation4}" />
+  </Style>
+  <Style Selector="Button.filled.flat:joined /template/ theme|PartBorder#PART_Root">
+    <Setter Property="BoxShadow" Value="{DynamicResource FiliElevation0}" />
+  </Style>
+  <Style Selector="Button.filled:joined:disabled /template/ theme|PartBorder#PART_Root">
+    <Setter Property="BoxShadow" Value="{DynamicResource FiliElevation0}" />
+  </Style>
+
   <Style Selector="TextBox.filled">
     <Setter Property="Theme" Value="{StaticResource FiliFilledTextBox}" />
   </Style>

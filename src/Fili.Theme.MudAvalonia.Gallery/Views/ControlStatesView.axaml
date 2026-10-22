@@ -173,11 +173,33 @@
           <DropDownButton Classes="filled primary" Content="Create" />
           <DropDownButton Content="Disabled" IsEnabled="False" />
         </StackPanel>
+        <StackPanel Orientation="Horizontal" Spacing="16">
+          <StackPanel Classes="button-group" Orientation="Horizontal" VerticalAlignment="Top">
+            <Button Content="One" />
+            <Button Content="Two" />
+            <Button Content="Three" />
+          </StackPanel>
+          <StackPanel Classes="button-group" Orientation="Horizontal" VerticalAlignment="Top">
+            <Button Classes="outlined primary" Content="One" />
+            <Button Classes="outlined primary" Content="Two" />
+            <Button Classes="outlined primary" Content="Three" />
+          </StackPanel>
+          <StackPanel Classes="button-group" Orientation="Horizontal" VerticalAlignment="Top">
+            <Button Classes="filled secondary" Content="One" />
+            <Button Classes="filled secondary" Content="Two" />
+            <Button Classes="filled secondary" Content="Three" />
+          </StackPanel>
+          <StackPanel Classes="button-group" VerticalAlignment="Top">
+            <Button Classes="outlined" Content="Top" />
+            <Button Classes="outlined" Content="Middle" />
+            <Button Classes="outlined" Content="Bottom" />
+          </StackPanel>
+        </StackPanel>
         <TextBlock Classes="caption"
                    TextWrapping="Wrap"
                    MaxWidth="760"
                    HorizontalAlignment="Left"
-                   Text="A split button is MudButtonGroup, with the same classes as Button: text by default, outlined, filled, any colour, small and large. The halves square off their inner corners and a 1px line sits between them — text-primary or the colour at FULL strength, because Palette.cs sets BorderOpacity to 1.0; divider when filled; the colour&apos;s lighten shade between filled coloured segments." />
+                   Text="A split button is MudButtonGroup, with the same classes as Button: text by default, outlined, filled, any colour, small and large. The halves square off their inner corners and a 1px line sits between them — text-primary or the colour at FULL strength, because Palette.cs sets BorderOpacity to 1.0; divider when filled; the colour&apos;s lighten shade between filled coloured segments. button-group on a StackPanel of buttons is a MudButtonGroup of any length, across or down, with the same lines between; each button keeps its own classes." />
       </StackPanel>
 
       <!-- Icon buttons, chips, alerts, skeletons -->
@@ -658,7 +680,7 @@
                    TextWrapping="Wrap"
                    MaxWidth="760"
                    HorizontalAlignment="Left"
-                   Text="MudSlider defaults to Size.Small, Color.Primary and Variant.Text: a 2px rail and a 12px thumb, the whole rail the colour at 30%. medium and large are 4px / 20px and 6px / 24px. filled is Variant.Filled, solid up to the thumb; TickPlacement and TickFrequency are TickMarks, dots on the rail; value-label shows the value above the thumb while it is held. Hover a thumb: it does not grow, it gains a 1px ring of the colour at 24%, and 2px while dragged or focused." />
+                   Text="MudSlider defaults to Size.Small, Color.Primary and Variant.Text: a 2px rail and a 12px thumb, the whole rail the colour at 30%. medium and large are 4px / 20px and 6px / 24px. filled is Variant.Filled, solid up to the thumb; TickPlacement and TickFrequency are TickMarks, dots on the rail; value-label shows the value above the thumb while it is held. Hover a thumb: it does not grow, it gains a 1px ring of the colour at 24%, and 2px while dragged or focused. Disabled, the rail and thumb fade to 38% in their colour, the thumb ringed in white." />
 
         <TextBlock Classes="caption"
                    TextWrapping="Wrap"

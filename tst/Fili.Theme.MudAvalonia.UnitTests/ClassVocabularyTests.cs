@@ -85,6 +85,9 @@ public class ClassVocabularyTests
         "alert", "avatar", "badge", "card", "chip", "circle", "circular", "counter",
         "expansion-panels", "fab", "icon", "nav", "rectangle", "skeleton", "toolbar",
 
+        // MudButtonGroup, on a StackPanel of buttons.
+        "button-group",
+
         // MudSnackbar's Severity.Normal, on a notification card.
         "normal",
 

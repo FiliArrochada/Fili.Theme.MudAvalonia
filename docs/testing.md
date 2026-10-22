@@ -10,7 +10,7 @@ those silent failures into red builds, because looking at the app cannot be reli
 
 | Project | What it does | Speed |
 |---|---|---|
-| `tst/Fili.Theme.MudAvalonia.UnitTests` | 1032 tests on a headless Avalonia session. They resolve resources, template controls, move a real pointer over them, and read back the values the theme applied. Nothing is rendered. | seconds |
+| `tst/Fili.Theme.MudAvalonia.UnitTests` | 1045 tests on a headless Avalonia session. They resolve resources, template controls, move a real pointer over them, and read back the values the theme applied. Nothing is rendered. | seconds |
 | `tst/Fili.Theme.MudAvalonia.NoDataGridTests` | 3 tests. The theme in an app that does not reference `Avalonia.Controls.DataGrid`: the assembly is really absent, `FiliTheme.axaml` loads and themes a button, and no DataGrid rule was loaded. | seconds |
 | `tst/Fili.Theme.MudAvalonia.PixelTests` | 58 tests. Twelve render one gallery frame each with Skia and compare it pixel by pixel with a PNG committed in `Baselines/`. Thirty-six, in `GalleryAuditTests`, run three of the unit suite's checks over each of those twelve pages instead of a list of bare controls - no binding error, every control one Tab stop at most, no presented text showing an access key's underscore - so every class, state and variant a sample shows is covered. Ten, in `GalleryPageTests`, check how the gallery behaves - that the controls page opens on its introduction and a loading card pinned over the page, fills in a few rows per dispatcher pass with the card in view however far it is scrolled (pausing while off screen, and loading the rest at once for an index row ahead of the load), that it opens at the top in a window shorter than its first screen, that keyboard focus still scrolls it, that each row of the index beside it lands on its section and the index follows the scroll, that every section fits beside the index in the desktop window and in a frame, and that the app bar shows the theme's version. | ~45 seconds |
 
@@ -27,7 +27,7 @@ needed a different platform.
 
 ## The unit tests
 
-1032 tests in 63 classes, grouped here by the failure each one exists to catch.
+1045 tests in 65 classes, grouped here by the failure each one exists to catch.
 
 ### Tokens: does every value exist, in every variant?
 
@@ -52,7 +52,7 @@ needed a different platform.
 | `AccessKeyTests` | 14 | "_Save" is Save with an access key on every control the base recognises one on - buttons, toggles, checkboxes, radios, switches, split and drop-down buttons, links, tabs, expanders - and on a menu bar's items and rows. | The hand-written templates had dropped what the forked base does, so the underscore showed and Alt did nothing. It renders fine either way to anyone who never types an underscore. |
 | `TextTransformTests` | 24 | A button's string label is uppercase - text, outlined and filled buttons, an extended FAB, a toggle item, split and drop-down buttons, a tab and a tab strip's item - while a chip, a link, a checkbox, a radio, a switch and a panel header keep their case; content that is a control is left alone; `_Save` keeps its access key as `_SAVE`; and `FiliButtonTextTransform` turns it off in a region, live, and takes CSS's other values. | MudBlazor's buttons are uppercase by its typography, and a label in the wrong case is the first thing a MudBlazor user notices. The switch is what an app that wants sentence case has, as MudBlazor's has `TextTransform`. |
 | `PackageReadmeTests` | 1 | Every relative link in the README names a file that exists. | The README is the package's page on nuget.org too. The pack rewrites its links to the commit and fails on a broken one; this catches a renamed doc on every build rather than at release. |
-| `ClassVocabularyTests` | 2 | The classes the theme's selectors use are exactly the 155 the README publishes, in both directions; and no class is one fixed value on its own control, which the property would say. | Class names are MudBlazor's ordinary words (`small`, `error`, `vertical`) and they collide with an app's own. An undeclared class is a collision nobody signed off on; a declared one nothing uses is a lie to adopters. |
+| `ClassVocabularyTests` | 2 | The classes the theme's selectors use are exactly the 156 the README publishes, in both directions; and no class is one fixed value on its own control, which the property would say. | Class names are MudBlazor's ordinary words (`small`, `error`, `vertical`) and they collide with an app's own. An undeclared class is a collision nobody signed off on; a declared one nothing uses is a lie to adopters. |
 | `GeneratedThemeTests` | 1 | `Button.axaml` and the marked regions in nineteen other files are exactly what `ThemeColourGenerator` writes from the one list of eight colours. | Hundreds of colour styles are generated so that no colour can differ from the others. Editing one block by hand fails the build. `FILI_REGENERATE=1` rewrites the files. |
 
 ### Controls: does each one look and behave as MudBlazor's does?
@@ -77,12 +77,14 @@ from MudBlazor's SCSS or the component's parameter defaults.
 | `CardTests` | 8 | `card` at elevation 1, `outlined` and `square`, and the header, media, content and actions laid out to MudCard's metrics. |
 | `GreyGroundTextTests` | 3 | The text on a default avatar and badge is text-primary (white on a `text` avatar) in light and dark, and black in high contrast. |
 | `TabsAndAppBarTests` | 37 | MudTabs' defaults, colours, `border` / `outlined` / `rounded` / `centered` / `hide-indicator`, that a bar's colour never reaches a nested `TabControl`, and the sliding indicator - starting at the old tab, on either axis, from wherever an interrupted slide had got to, resting at its own with MudBlazor's timing, not on first show, and not at all with `no-animation`; the app bar's gutters, `dense` and colours. |
+| `ButtonGroupTests` | 9 | `button-group` across and down: the radius on the outer corners, the 1px overlap, a text button's line in its colour and a filled one's in lighten or divider with no resting shadow, a hidden or removed button leaving the group, and a plain StackPanel untouched. |
+| `FlyoutPaddingTests` | 1 | A flyout leaves the padding to its content, as MudPopover does. |
 | `SplitButtonMatrixTests` | 29 | `SplitButton` as MudButtonGroup, including the separator rule and the hit-testing of each half. |
 | `FieldDetailTests` | 43 | Helper text, the error in its place, the counter, `helper-on-focus`, `dense`, select variants, that filled and outlined fields pad their content, a start adornment floating the label, a multi-line field's label as far above its first line as a single-line field's is above its text, grown or sized by the app, and a single-line field's height left alone, a disabled field and select in text-disabled with a dotted line, the 300px drop-downs, and the tooltip's weight. |
 | `SliderMatrixTests` | 13 | `Slider` sizes and colours, the 30% rail, and the rings on hover and focus. |
 | `RemainingOptionsTests` | 40 | Tab position, elevation and slider colour, striped progress, the progress text whole and centred over a thin bar, and start and end icon spacing on every host: buttons, split and drop-down buttons through the plain buttons in their templates, toggle items, chips, FABs, links, tabs and a text field's adornments, which keep 8px from the text and none when absent; a chip's avatar at each size; a bare icon at MudIcon's medium 24px; and an icon or avatar outside a host keeping its own size. |
 | `UncheckedColourTests` | 11 | `unchecked-{colour}` on a checkbox and a radio: the glyph and halo while not checked, the colour class once checked. |
-| `SliderOptionsTests` | 5 | `filled`, tick dots - their count, size, colour and where the first and last sit - and `value-label`. |
+| `SliderOptionsTests` | 8 | `filled`, tick dots - their count, size, colour and where the first and last sit - `value-label`, and a disabled slider's rail and thumb at .38 in their colour with a white ring, at each size. |
 | `DropDownButtonMatrixTests` | 12 | `DropDownButton` as MudMenu's button activator. |
 | `SelectionGlyphMatrixTests` | 13 | Checkbox and radio glyph colours and sizes, and the 48px halo round the glyph (44 small, 60 large). |
 | `SwitchMatrixTests` | 12 | Toggle switch thumb and track colours and sizes, and a switch stretched to its row centring its label with a checkbox's beside it. |
