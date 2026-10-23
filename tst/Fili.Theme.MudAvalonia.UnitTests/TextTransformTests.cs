@@ -1,5 +1,8 @@
 using Avalonia;
 using Avalonia.Controls;
+using Avalonia.Media;
+using Avalonia.Layout;
+using Avalonia.Controls.Documents;
 using Avalonia.Controls.Presenters;
 using Avalonia.Controls.Primitives;
 using Avalonia.Threading;
@@ -73,15 +76,104 @@ public class TextTransformTests
         Assert.Contains("Save changes", Drawn(control));
     });
 
-    /// <summary>A control as content is the app's own: an icon, or a label it built itself.</summary>
-    [Fact]
-    public Task ContentThatIsAControlIsLeftAsItIs() => UiThread.RunAsync(() =>
-    {
-        var label = new TextBlock { Text = "Create" };
-        var fab = Matrix.Show(new Button { Classes = { "fab", "extended" }, Content = new StackPanel { Children = { label } } });
+    /// <summary>What a TextBlock draws: the run the transform drew, or else its own Text.</summary>
+    private static string? Shown(TextBlock block) =>
+        block.Inlines is { Count: > 0 } inlines
+            ? string.Concat(inlines.OfType<Run>().Select(r => r.Text))
+            : block.Text;
 
-        Assert.Equal("Create", label.Text);
-        Assert.Same(label, fab.GetVisualDescendants().OfType<TextBlock>().Single());
+    private static (Button Button, TextBlock Label) IconButton(string classes, string label)
+    {
+        var text = new TextBlock { Text = label };
+        var button = new Button
+        {
+            Content = new StackPanel
+            {
+                Orientation = Orientation.Horizontal,
+                Children = { new PathIcon { Classes = { "start-icon" } }, text },
+            },
+        };
+        button.Classes.AddRange(classes.Split(' ', StringSplitOptions.RemoveEmptyEntries));
+        Matrix.Show(button);
+        return (button, text);
+    }
+
+    /// <summary>
+    /// MudButton's StartIcon idiom - an icon and a label in a panel - reads in capitals too, as CSS's
+    /// inherited text-transform makes it. The TextBlock's Text stays the app's, so a binding on it
+    /// is untouched; only what it draws is in case.
+    /// </summary>
+    [Theory]
+    [InlineData("")]
+    [InlineData("outlined")]
+    [InlineData("filled primary")]
+    [InlineData("fab extended")]
+    public Task ALabelBesideAnIconIsUppercase(string classes) => UiThread.RunAsync(() =>
+    {
+        var (_, label) = IconButton(classes, "Store reconciliation");
+
+        Assert.Equal("Store reconciliation", label.Text);
+        Assert.Equal("STORE RECONCILIATION", Shown(label));
+    });
+
+    /// <summary>A new Text clears the TextBlock's inlines; the label is drawn in case again.</summary>
+    [Fact]
+    public Task ALabelThatChangesStaysUppercase() => UiThread.RunAsync(() =>
+    {
+        var (_, label) = IconButton("", "Save");
+
+        label.Text = "Save as draft";
+        Dispatcher.UIThread.RunJobs();
+
+        Assert.Equal("Save as draft", label.Text);
+        Assert.Equal("SAVE AS DRAFT", Shown(label));
+    });
+
+    /// <summary>The switch reaches a label in a panel as it does a string, both ways and live.</summary>
+    [Fact]
+    public Task TheResourceTurnsOffALabelBesideAnIcon() => UiThread.RunAsync(() =>
+    {
+        var (button, label) = IconButton("", "Save changes");
+        Assert.Equal("SAVE CHANGES", Shown(label));
+
+        button.Resources["FiliButtonTextTransform"] = "none";
+        Dispatcher.UIThread.RunJobs();
+        Assert.Equal("Save changes", Shown(label));
+        Assert.Equal("Save changes", label.Text);
+
+        button.Resources.Remove("FiliButtonTextTransform");
+        Dispatcher.UIThread.RunJobs();
+        Assert.Equal("SAVE CHANGES", Shown(label));
+    });
+
+    /// <summary>A TextBlock with runs of the app's own is its formatting, and left as written.</summary>
+    [Fact]
+    public Task ALabelWithItsOwnRunsIsLeftAsWritten() => UiThread.RunAsync(() =>
+    {
+        var label = new TextBlock { Inlines = new InlineCollection { new Run("Pay "), new Run("now") { FontWeight = FontWeight.Bold } } };
+        Matrix.Show(new Button { Content = new StackPanel { Children = { label } } });
+
+        Assert.Equal("Pay now", Shown(label));
+        Assert.Equal(2, label.Inlines!.Count);
+    });
+
+    /// <summary>A chip's label beside its icon keeps its case, as a chip's string does.</summary>
+    [Fact]
+    public Task AChipsLabelBesideAnIconKeepsItsCase() => UiThread.RunAsync(() =>
+    {
+        var (_, label) = IconButton("chip", "Groceries");
+
+        Assert.Equal("Groceries", Shown(label));
+    });
+
+    /// <summary>Typo.button on a TextBlock is uppercase, as it is in MudBlazor.</summary>
+    [Fact]
+    public Task TheButtonTypeClassIsUppercase() => UiThread.RunAsync(() =>
+    {
+        var label = new TextBlock { Text = "Read more", Classes = { "button" } };
+        Matrix.Show(label);
+
+        Assert.Equal("READ MORE", Shown(label));
     });
 
     /// <summary>The underscore survives the transform, and with it the access key.</summary>

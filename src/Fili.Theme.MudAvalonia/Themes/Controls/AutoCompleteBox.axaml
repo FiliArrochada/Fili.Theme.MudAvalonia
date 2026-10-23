@@ -22,6 +22,10 @@
                     xmlns:theme="using:Fili.Theme.MudAvalonia">
 
   <ControlTheme x:Key="FiliAutoCompleteBox" TargetType="AutoCompleteBox">
+    <!-- Avalonia clips this control to its bounds, and the outlined label of the text field
+         inside it floats onto the stroke, 6px above the field, as a TextBox's does. Clipped, its
+         top was cut off. -->
+    <Setter Property="ClipToBounds" Value="False" />
     <Setter Property="MinWidth" Value="{DynamicResource FiliInputMinWidth}" />
     <!-- MudAutocomplete.MaxHeight defaults to 300; Avalonia's to 200. -->
     <Setter Property="MaxDropDownHeight" Value="300" />
@@ -35,12 +39,12 @@
     <Setter Property="Template">
       <ControlTemplate>
         <Panel>
+          <!-- No Background or BorderThickness here: a local value would beat the filled and
+               outlined variants' own, and the standard field's are already none. -->
           <TextBox x:Name="PART_TextBox"
                    theme:FieldClasses.Mirrors="True"
                    AutomationProperties.HelpText="{TemplateBinding (AutomationProperties.HelpText)}"
                    Padding="{TemplateBinding Padding}"
-                   Background="Transparent"
-                   BorderThickness="0"
                    CaretIndex="{TemplateBinding CaretIndex, Mode=TwoWay}"
                    ClearSelectionOnLostFocus="{TemplateBinding ClearSelectionOnLostFocus}"
                    DataValidationErrors.Errors="{TemplateBinding (DataValidationErrors.Errors)}"

@@ -75,10 +75,13 @@
     <Setter Property="HorizontalContentAlignment" Value="Stretch" />
     <Setter Property="VerticalContentAlignment" Value="Stretch" />
     <Setter Property="Focusable" Value="True" />
+    <!-- Unclipped, with the DataValidationErrors inside it, for the outlined label that floats
+         above a NumericUpDown's field (see FiliNumericUpDown). -->
+    <Setter Property="ClipToBounds" Value="False" />
 
     <Setter Property="Template">
       <ControlTemplate>
-        <DataValidationErrors>
+        <DataValidationErrors ClipToBounds="False">
           <theme:PartBorder x:Name="border"
                   Background="{TemplateBinding Background}"
                   BorderBrush="{TemplateBinding BorderBrush}"
@@ -88,9 +91,14 @@
               <!-- justify-content: space-between over the field's full height, which is what a
                    two-row UniformGrid gives once the panel stretches. -->
               <!-- Over the content: a NumericUpDown's TextBox runs on under the column. -->
+              <!-- Height 0 until SpinColumn sizes it to the input box: `position: absolute`, so
+                   the column takes no part in the field's height. Two 28px buttons asked for
+                   56px, the field grew to hold them, and the column then followed the grown
+                   field, so every variant was 56px tall and `dense` had no effect. -->
               <UniformGrid x:Name="PART_SpinnerPanel"
                            Rows="2"
                            Width="24"
+                           Height="0"
                            ZIndex="1"
                            TabIndex="2"
                            DockPanel.Dock="Right"
@@ -136,6 +144,10 @@
   </ControlTheme>
 
   <ControlTheme x:Key="FiliNumericUpDown" TargetType="NumericUpDown">
+    <!-- Avalonia clips this control to its bounds, and the text field inside it reaches past
+         them: the outlined label floats onto the stroke, 6px above the field, as a TextBox's does.
+         Clipped, its top was cut off. -->
+    <Setter Property="ClipToBounds" Value="False" />
     <Setter Property="MinWidth" Value="{DynamicResource FiliInputMinWidth}" />
     <Setter Property="Background" Value="Transparent" />
     <Setter Property="BorderThickness" Value="0" />
@@ -159,7 +171,9 @@
                        ShowButtonSpinner="{TemplateBinding ShowButtonSpinner}"
                        HorizontalContentAlignment="Stretch"
                        VerticalContentAlignment="Stretch">
-          <!-- No Margin and no BorderThickness: the TextBox already IS the field. -->
+          <!-- The TextBox already IS the field. No Background or BorderThickness here: a local
+               value would beat the filled and outlined variants' own, and the standard field's
+               are already none. -->
           <TextBox x:Name="PART_TextBox"
                    theme:FieldClasses.Mirrors="True"
                    theme:SpinColumn.Follows="True"
@@ -168,8 +182,6 @@
                    MinWidth="20"
                    Margin="0"
                    Padding="{TemplateBinding Padding}"
-                   Background="Transparent"
-                   BorderThickness="0"
                    AcceptsReturn="False"
                    TextWrapping="NoWrap"
                    ScrollViewer.VerticalScrollBarVisibility="Disabled"

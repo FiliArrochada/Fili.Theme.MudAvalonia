@@ -26,9 +26,11 @@ MudButton's whole Variant × Color × Size matrix, one class for each parameter:
 `.mud-button`, `.mud-fab` and `.mud-tab` apply it, so `Content="Save"` reads SAVE on a button, a
 split or drop-down button, a toggle item, an extended FAB and a tab header. A chip, a link, a
 checkbox, a menu row and an expansion panel's header keep their case, as they do in MudBlazor.
-Avalonia has no text-transform, so the string itself is transformed on its way into the template's
-presenter; content that is already a control, a `TextBlock` or a panel, is left as you wrote it.
-An access key survives: `_Save` is SAVE with Alt+S. `FiliButtonTextTransform` is the switch, in
+Avalonia has no text-transform, so a string is transformed on its way into the template's
+presenter, and the case is inherited, as CSS's is: a `TextBlock` in content that is a control - the
+label beside a `start-icon` - keeps its `Text`, binding and all, and draws it in the case through a
+run of its own. A `TextBlock` with runs you wrote keeps them as written. `TextBlock.button`
+(`Typo.button`) takes the case too. An access key survives: `_Save` is SAVE with Alt+S. `FiliButtonTextTransform` is the switch, in
 CSS's words, as MudBlazor's typography setting is:
 
 ```xml
@@ -214,6 +216,38 @@ variant's plain `^ /template/` style cannot beat that; see [the trap](traps.md#s
 The outlined variant masks the border behind the floated label with an opaque patch rather than
 cutting a real notch in the stroke — a notch needs a generated `Geometry`, and the mask is
 indistinguishable when the field sits on `FiliSurface`.
+
+## Date picker
+
+**`CalendarDatePicker` is MudDatePicker**, with nothing to opt into. Closed, it is the standard text
+field - the field's own theme, untouched - with MudPicker's adornment, the `Event` icon in an icon
+button at the end; `PlaceholderText` is the floating label. A field's classes go on the picker and
+reach the field inside it, as a number field's do: `outlined`, `filled`, `dense`, `error`,
+`required` and helper text through `AutomationProperties.HelpText`.
+
+```xml
+<CalendarDatePicker PlaceholderText="Due date" SelectedDate="{Binding Due}" />
+<CalendarDatePicker Classes="outlined dense" PlaceholderText="Start" />
+```
+
+Open, it is MudPicker's popover: a paper at elevation 8, the primary toolbar with the year and the
+date ("Sat, 11 Oct", in the case written), and the calendar. A day is a 36px circle; the selected
+one is filled primary and today is ringed in primary, as MudDatePicker always marks it, where
+Avalonia's picker would not (`IsTodayHighlighted="False"` still turns it off). Days of the months
+either side are hidden. The year in the toolbar opens the years and the date goes back to the
+selected month; the month's name between the arrows steps up to the months, as MudBlazor's does.
+A `Calendar` on its own is the static picker's calendar, without the toolbar or the paper.
+
+| MudBlazor | Here |
+|---|---|
+| `AdornmentIcon` (`Event`) | `FiliEventGeometry`, in the picker's `Resources` to swap it |
+| `PreviousIcon`, `NextIcon` | `FiliNavigateBeforeGeometry`, `FiliChevronRightGeometry` |
+| `TitleDateFormat` (`ddd, dd MMM`) | the same, in the current culture |
+| `Color` (Primary) | primary, the toolbar and the selected day |
+| `Editable` | on: the date can be typed, as Avalonia's picker allows |
+
+Two parts are Avalonia's own: the day names are its shortest (S M T), and the years are a decade
+in a grid. See [Known gaps](known-gaps.md).
 
 ## Selection controls
 
@@ -879,12 +913,17 @@ for something XAML cannot express on its own:
 - **`Ripple`** draws MudBlazor's ripple in a template's `PART_Ripple` border: a circle from the
   pointer, its opacity inherited from the control's theme. Avalonia has no ripple, and a style
   cannot follow a pointer.
-- **`TextTransform`** draws a button's string label in `FiliButtonTextTransform`'s case. Avalonia
-  has no text-transform, and a binding cannot read a resource as a converter parameter.
+- **`TextTransform`** draws a button's label in `FiliButtonTextTransform`'s case: a string on
+  its way into the presenter, and any plain `TextBlock` in the content, which the inherited case
+  reaches, through a run that leaves its `Text` alone. Avalonia has no text-transform, and a
+  binding cannot read a resource as a converter parameter.
 - **`Adornments`** marks a text field that has `InnerLeftContent` with `:start-adornment`, which
   floats its label, as MudInput's start adornment does, and one with `InnerRightContent` with
   `:end-adornment`; each adornment then keeps 8px from the text. A selector cannot ask whether a
   property is null.
+- **`CalendarView`** makes the date picker's toolbar buttons change the calendar's view - the
+  year to the years, the date back to the selected month - and gives the toolbar the paper's top
+  corners. A template cannot set another control's property on a click.
 - **`TabBarScroll`** shows a tab bar's scroll buttons while its tabs overflow, disables each at
   its end, scrolls a bar's length per click, and brings the selected tab into view. Overflow is
   the scroller's extent against its viewport, which no binding compares.

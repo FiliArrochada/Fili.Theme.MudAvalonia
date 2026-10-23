@@ -46,14 +46,16 @@ classes, `ControlTheme`s where a Material look cannot be faked without one, and 
   `end-icon`, and a chip gives an `avatar`; `OverlayScrim`, an `overlay`'s centring, corners and
   fade; `ButtonGroup`, where each button of a `button-group` sits; `MenuIconGutter`, a menu's shared icon
   column; `Adornments`, a text field's `:start-adornment` and `:end-adornment`; `TabBarScroll`, the tab bar's
-  scroll buttons; and `DataGridLastColumn` and
+  scroll buttons; `CalendarView`, the date picker's toolbar buttons changing the calendar's view and
+  its toolbar's top corners; and `DataGridLastColumn` and
   `GroupIndentConverter`,
   which name DataGrid types and so live in `Themes/Optional/DataGrid/`.
 - **Retemplating an Avalonia control is in scope; inventing one is not.** A MudBlazor component
   that is a *look* on an existing control is a class (`Button.icon`, `Button.chip`, `Button.fab`,
   `Border.alert`, `Border.avatar`, `Border.card`, `Border.skeleton`,
-  `HeaderedContentControl.badge`). A date picker or dialog service belongs in a separate
-  `Fili.Theme.MudAvalonia.*` package.
+  `HeaderedContentControl.badge`); MudDatePicker is a template on Avalonia's own
+  `CalendarDatePicker`. A control Avalonia does not have - a dialog service, a time picker built
+  from scratch - belongs in a separate `Fili.Theme.MudAvalonia.*` package.
 - **One package, one dependency: `Avalonia`.** `Avalonia.Controls.DataGrid` is built against
   (`PrivateAssets="all"`) and not passed on; in an app that references it, its controls are
   themed by type with nothing to opt into. **Its types are named only under

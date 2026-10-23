@@ -202,9 +202,11 @@
     <Setter Property="FontWeight" Value="Normal" />
   </Style>
 
-  <!-- Typo.button: .875rem, 500, 1.75, .02857em - and uppercase, which Avalonia cannot do. For
-       text that should read as a button's label without being one. -->
+  <!-- Typo.button: .875rem, 500, 1.75, .02857em, in FiliButtonTextTransform's case (uppercase, as
+       MudBlazor's typography). For text that should read as a button's label without being one;
+       TextTransform.cs draws the case. -->
   <Style Selector="TextBlock.button">
+    <Setter Property="theme:TextTransform.Case" Value="{DynamicResource FiliButtonTextTransform}" />
     <Setter Property="FontSize" Value="{DynamicResource FiliButtonFontSize}" />
     <Setter Property="LineHeight" Value="{DynamicResource FiliButtonLineHeight}" />
     <Setter Property="LetterSpacing" Value="{DynamicResource FiliButtonLetterSpacing}" />
@@ -2716,7 +2718,7 @@
     same trap as the TextBlock Foreground one above, in a different costume. The rule to carry
     forward: when a control gets a ControlTheme, delete it from here.
   -->
-  <Style Selector="DatePicker, TimePicker, CalendarDatePicker">
+  <Style Selector="DatePicker, TimePicker">
     <Setter Property="FontFamily" Value="{DynamicResource FiliFontFamily}" />
     <Setter Property="FontSize" Value="{DynamicResource FiliBody1FontSize}" />
     <Setter Property="CornerRadius" Value="{DynamicResource FiliCornerRadius}" />

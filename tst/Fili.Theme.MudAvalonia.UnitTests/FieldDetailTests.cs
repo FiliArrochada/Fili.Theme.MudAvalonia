@@ -3,6 +3,7 @@ using Avalonia.Automation;
 using Avalonia.Controls;
 using Avalonia.Controls.Presenters;
 using Avalonia.Controls.Primitives;
+using Avalonia.Controls.Templates;
 using Avalonia.Media;
 using Avalonia.Media.Transformation;
 using Avalonia.Threading;
@@ -165,8 +166,8 @@ public class FieldDetailTests
     // --------------------------------------------------------------------------------------
 
     /// <summary>
-    /// The dense deltas, not absolute heights: a standard field is as tall as its content wants
-    /// (51px), past its 48px minimum, so only the change is MudBlazor's - 3px off the standard
+    /// The dense deltas, not absolute heights: a standard field is its 48px minimum and a
+    /// filled or outlined one 56px, so only the change is MudBlazor's - 3px off the standard
     /// field, 4px top and bottom off filled, 8px top and bottom off outlined.
     /// </summary>
     [Theory]
@@ -410,6 +411,39 @@ public class FieldDetailTests
         Assert.Equal(-18, ((TransformOperations)Block(combo, "PART_SelectedLabel").RenderTransform!).Value.M32);
     });
 
+    /// <summary>The text the closed box presents.</summary>
+    private static string? ClosedBoxText(ComboBox combo) =>
+        Named<ContentPresenter>(combo, "PART_ContentPresenter")
+            .GetVisualDescendants().OfType<TextBlock>().Single().Text;
+
+    private static ComboBox ShowTemplatedSelect(bool withSelectionBoxTemplate)
+    {
+        var combo = new ComboBox
+        {
+            Width = 220,
+            ItemsSource = new[] { "One" },
+            ItemTemplate = new FuncDataTemplate<string>((s, _) => new TextBlock { Text = "list " + s }),
+        };
+        if (withSelectionBoxTemplate)
+            combo.SelectionBoxItemTemplate = new FuncDataTemplate<string>((s, _) => new TextBlock { Text = "box " + s });
+        combo.SelectedIndex = 0;
+        return Matrix.Show(combo);
+    }
+
+    /// <summary>
+    /// The closed box draws the selection with SelectionBoxItemTemplate, as the base's does. It drew
+    /// it with ItemTemplate, so an app's closed-box template was silently ignored, and whatever the
+    /// list's template set - a colour meant for the popup's surface - reached the closed box too.
+    /// </summary>
+    [Fact]
+    public Task TheClosedBoxUsesTheSelectionBoxItemTemplate() => UiThread.RunAsync(() =>
+        Assert.Equal("box One", ClosedBoxText(ShowTemplatedSelect(withSelectionBoxTemplate: true))));
+
+    /// <summary>With no SelectionBoxItemTemplate the closed box falls back to ItemTemplate.</summary>
+    [Fact]
+    public Task TheClosedBoxFallsBackToTheItemTemplate() => UiThread.RunAsync(() =>
+        Assert.Equal("list One", ClosedBoxText(ShowTemplatedSelect(withSelectionBoxTemplate: false))));
+
     /// <summary>A select used to have no error host at all: a failing binding showed nothing.</summary>
     [Fact]
     public Task AnInvalidSelectShowsItsErrorAndRedRule() => UiThread.RunAsync(() =>
@@ -500,5 +534,87 @@ public class FieldDetailTests
     {
         Assert.Equal(300, Matrix.Show(new ComboBox { Width = 200 }).MaxDropDownHeight);
         Assert.Equal(300, Matrix.Show(new AutoCompleteBox { Width = 200 }).MaxDropDownHeight);
+    });
+
+    /// <summary>
+    /// An outlined label floats onto the stroke, 6px above the field, so nothing between it and
+    /// the control may clip: not the TextBox, and not a control wrapping one. NumericUpDown and
+    /// CalendarDatePicker clip by default, which cut the label's top off.
+    /// </summary>
+    [Theory]
+    [InlineData(typeof(TextBox))]
+    [InlineData(typeof(NumericUpDown))]
+    [InlineData(typeof(AutoCompleteBox))]
+    [InlineData(typeof(CalendarDatePicker))]
+    [InlineData(typeof(ComboBox))]
+    public Task NothingClipsAnOutlinedLabel(Type type) => UiThread.RunAsync(() =>
+    {
+        var field = (Control)Activator.CreateInstance(type)!;
+        field.Width = 220;
+        field.Classes.Add("outlined");
+        Matrix.Show(field);
+        var label = Block(field, "PART_FloatingLabel");
+        var clipping = label.GetVisualAncestors().TakeWhile(v => v != field).Append(field)
+            .Where(v => v.ClipToBounds).Select(v => v.GetType().Name + " " + (v as Control)?.Name);
+
+        Assert.Empty(clipping);
+    });
+
+    /// <summary>
+    /// A control wrapping a text field takes the field's variants: outlined draws the 1px stroke
+    /// and filled the input-filled background. A local Background or BorderThickness on the
+    /// TextBox inside it beat both, so outlined and filled drew a bare field.
+    /// </summary>
+    [Theory]
+    [InlineData(typeof(NumericUpDown))]
+    [InlineData(typeof(AutoCompleteBox))]
+    [InlineData(typeof(CalendarDatePicker))]
+    public Task AWrappedFieldTakesTheVariants(Type type) => UiThread.RunAsync(() =>
+    {
+        Border Root(string variant)
+        {
+            var field = (Control)Activator.CreateInstance(type)!;
+            field.Width = 220;
+            field.Classes.Add(variant);
+            Matrix.Show(field);
+            return Matrix.Part<Border>(Matrix.Part<TextBox>(field, "PART_TextBox"), "PART_Root");
+        }
+
+        Assert.Equal(new Thickness(1), Root("outlined").BorderThickness);
+        Assert.Equal(Matrix.Token("FiliInputFilledColor"), Matrix.Colour(Root("filled").Background));
+    });
+
+    /// <summary>
+    /// Every control that is a text field - a select, a number field, an autocomplete, a date
+    /// picker - is exactly a text field's height in each variant, so a row of them lines up. A
+    /// select's 24px arrow made the standard one 3px taller, and a number field's two 28px spin
+    /// buttons held every variant at 56px, `dense` included.
+    /// </summary>
+    [Theory]
+    [InlineData("")]
+    [InlineData("dense")]
+    [InlineData("outlined")]
+    [InlineData("outlined dense")]
+    [InlineData("filled")]
+    [InlineData("filled dense")]
+    public Task EveryFieldIsATextFieldsHeight(string variant) => UiThread.RunAsync(() =>
+    {
+        var classes = variant.Split(' ', StringSplitOptions.RemoveEmptyEntries);
+        T Field<T>(T field) where T : Control
+        {
+            field.Width = 220;
+            field.Classes.AddRange(classes);
+            return Matrix.Show(field);
+        }
+
+        var height = Field(new TextBox { PlaceholderText = "Label", Text = "Value" }).Bounds.Height;
+        var select = new ComboBox { PlaceholderText = "Label" };
+        select.Items.Add("One");
+        select.SelectedIndex = 0;
+
+        Assert.Equal(height, Field(select).Bounds.Height);
+        Assert.Equal(height, Field(new NumericUpDown { PlaceholderText = "Label", Value = 4 }).Bounds.Height);
+        Assert.Equal(height, Field(new AutoCompleteBox { PlaceholderText = "Label", Text = "Value" }).Bounds.Height);
+        Assert.Equal(height, Field(new CalendarDatePicker { PlaceholderText = "Label", SelectedDate = new DateTime(2026, 10, 11) }).Bounds.Height);
     });
 }

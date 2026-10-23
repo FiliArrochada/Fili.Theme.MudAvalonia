@@ -94,7 +94,7 @@ Variant, colour and size are one class each and combine freely:
 | `FullWidth` | `HorizontalAlignment="Stretch"` | ≈ |
 | `StartIcon` / `EndIcon` | an icon in `Content` with `start-icon` / `end-icon` | ✅ 20px (18 small, 22 large), 4px out and 8px from the label (2px out when small) |
 | `Ripple` (default true) | on | ✅ mudRipple.js: from the pointer, a circle twice the button's longer side grows over .5s while it rises to `RippleOpacity` 0.1 (0.2 filled) in the text colour, then fades over .4s once released and at least .5s old; clipped to the corners. ≈ `Ripple="false"` is `FiliRippleOpacity` and `FiliRippleOpacitySecondary` at 0 in the button's `Resources` |
-| uppercase label (`Typography.Button.TextTransform`) | the same; `FiliButtonTextTransform` is the switch | ✅ a string label is drawn uppercase, and `none`, `lowercase` or `capitalize` in the key change it as CSS would. ≈ content that is already a control keeps its own case, where CSS reaches every piece of text inside the button |
+| uppercase label (`Typography.Button.TextTransform`) | the same; `FiliButtonTextTransform` is the switch | ✅ a string label is drawn uppercase, and so is a plain `TextBlock` in content that is a control, such as the label beside a `start-icon`; `none`, `lowercase` or `capitalize` in the key change it as CSS would. ≈ a `TextBlock` with runs the app wrote keeps them as written |
 | `IconColor`, `IconSize`, `IconClass` | the icon's own `Foreground`, `Width` / `Height`, `Classes` | ≈ ordinary Avalonia properties |
 | `Href`, `Target` | — | ≈ no look of their own; a link is `HyperlinkButton` |
 
@@ -741,7 +741,7 @@ already does:
 | MudBlazor | Why not |
 |---|---|
 | MudTable, MudSimpleTable | MudDataGrid's look, above, is the same `.mud-table`; a static table is a `Grid` |
-| MudDatePicker, MudTimePicker | out of 1.0, by decision: bespoke components, and the pickers keep the forked templates; see [Known gaps](known-gaps.md) |
+| MudTimePicker | out of 1.0, by decision: a clock face, a control of its own; `TimePicker` keeps the forked template; see [Known gaps](known-gaps.md) |
 | MudColorPicker, MudChart, MudRating, MudPagination, MudStepper, MudTimeline, MudBreadcrumbs, MudFileUpload, MudDropZone, MudFabMenu, MudHighlighter, MudPageContentNavigation, MudScrollToTop | a control of its own, with behaviour beyond a look |
 | MudCarousel | left on the forked template; see [Known gaps](known-gaps.md) |
 | MudDialog, MudMessageBox | a dialog service, not a look |

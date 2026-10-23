@@ -376,6 +376,7 @@ Every icon the theme draws. Set one in a control's `Resources`, or a parent's, t
 - `FiliChevronRightGeometry`
 - `FiliCloseGeometry`
 - `FiliErrorOutlineGeometry`
+- `FiliEventGeometry`
 - `FiliEventNoteGeometry`
 - `FiliExpandMoreGeometry`
 - `FiliInfoOutlinedGeometry`

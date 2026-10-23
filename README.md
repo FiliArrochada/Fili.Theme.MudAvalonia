@@ -187,9 +187,9 @@ colour, which is two setters and a deletion. Grep for `Classes="` before adoptin
 **A button's label is uppercase**, as MudBlazor's `Typography.Button.TextTransform` makes every
 MudButton, MudFab label and tab: `Content="Save"` reads SAVE, on a button, a split or drop-down
 button, a toggle item, an extended FAB and a tab. A chip, a link and a checkbox keep their case,
-as in MudBlazor. Only a string is transformed; content that is already a control is yours. To keep
-labels as written, everywhere or in one region, set the switch MudBlazor's `TextTransform = "none"`
-is:
+as in MudBlazor. The case is inherited, as CSS's is, so a label beside a `start-icon` in a panel
+reads in capitals too; its `Text` stays as you wrote or bound it. To keep labels as written,
+everywhere or in one region, set the switch MudBlazor's `TextTransform = "none"` is:
 
 ```xml
 <x:String x:Key="FiliButtonTextTransform">none</x:String>
@@ -265,7 +265,7 @@ clip, and `UnclassedTextKeepsItsNaturalLineHeight` keeps it that way.
 ### Every control
 
 [Controls](docs/controls.md) is the usage guide, one section per control: buttons, split and
-drop-down buttons, text fields, selection controls, slider and tabs, progress, dividers, panels
+drop-down buttons, text fields, the date picker, selection controls, slider and tabs, progress, dividers, panels
 and links, FABs, avatars, badges and cards, the data grid, the drawer, snackbars, right to left, high contrast,
 keyboard focus, the converters,
 lists and selects, scrolling and menus, and overlays.
@@ -291,7 +291,7 @@ Every token is asserted to resolve under **both** theme variants. Add a token, a
 | Elevation | `Themes/Elevation.axaml` | Levels 0–25 (25 is MudBlazor's softer last entry), three stacked shadow layers each — one hard ring each in high contrast. |
 | Typography | `Themes/Typography.axaml` | Roboto, embedded; base size **14px**, not 16. |
 | Controls | `Themes/ControlThemes.axaml` | Aggregator; one file per control under `Themes/Controls/`. Keyed by type. |
-| Icons | `Themes/Icons.axaml` | The seventeen Material glyphs the templates draw, and the switch's empty thumb icon. Each is a key an app can set in a control's `Resources` to swap that control's glyph: MudBlazor's icon parameters. Not an icon set. |
+| Icons | `Themes/Icons.axaml` | The twenty Material glyphs the templates draw, and the switch's empty thumb icon. Each is a key an app can set in a control's `Resources` to swap that control's glyph: MudBlazor's icon parameters. Not an icon set. |
 | Geometry | `Themes/Geometry.axaml` | 4px radius, 4px spacing scale, appbar and drawer sizes, and `FiliInputMinWidth` — the floor that keeps an unstretched empty field from measuring to nothing. |
 
 Three things worth knowing before changing any of them:

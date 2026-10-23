@@ -41,12 +41,14 @@ hits them:
   mini drawer as a `SplitView`'s is. Its top bar and title keep the fork's look. `GroupBox` has no MudBlazor counterpart at all: the
   nearest things are `MudCard` and `MudPaper`, which are different shapes, so theming it would be
   invention rather than transcription.
-- **The date and time pickers** (`Calendar` and its four helpers, `CalendarDatePicker`,
-  `DatePicker`, `TimePicker`) are out of 1.0, by decision. They wear the forked Simple templates
-  in this theme's palette, so they are legible in every variant, but not MudBlazor's shape.
-  These are not restyling jobs: `MudDatePicker` and `MudTimePicker` are bespoke components, so
-  matching them means a rewrite per template with no shortcut. Should that ever happen, it is a
-  visible change and lands with an upgrading note.
+- **The spinner pickers** (`DatePicker`, `TimePicker`) are out of 1.0, by decision. They wear
+  the forked Simple templates in this theme's palette, so they are legible in every variant, but
+  not MudBlazor's shape: `MudTimePicker` is a clock face, which is a control of its own rather
+  than a template. MudDatePicker is `CalendarDatePicker`; see [Date picker](controls.md#date-picker).
+- **Two parts of MudDatePicker are Avalonia's.** The day names are the `CalendarItem`'s shortest
+  names (S M T), where MudBlazor writes the abbreviated ones (Sun Mon Tue); and the year view is the
+  `CalendarItem`'s decade, twelve years in a grid, where MudBlazor scrolls a list of every year.
+  Months sit four to a row, where MudBlazor's sit three. The `CalendarItem` builds those itself.
 - **`TableView`**, Avalonia's newer table. MudDataGrid's look is on the `DataGrid` package's
   control instead, the one apps use.
 - **What MudDataGrid does beyond its look.** No column options menu, no filter row, no pager:
@@ -65,11 +67,10 @@ And the things that are not controls:
 - **The ripple answers a pointer only**, as MudBlazor's does: mudRipple.js listens for
   `pointerdown`, so a key press shows the state layer and no ripple, here as there. Its colour is
   the text's at the moment of the press; a ripple already growing keeps it.
-- **Uppercase reaches a string label only.** Avalonia has no text-transform, so a button's or
-  tab's string is drawn in `FiliButtonTextTransform`'s case on its way into the template. Content
-  that is already a control - a `TextBlock`, a panel with an icon and a label - keeps the case it
-  was written in, where CSS would reach every piece of text inside, and so does the `button` type
-  class on a `TextBlock`.
+- **Uppercase reaches plain text only.** Avalonia has no text-transform, so a button's string,
+  and each `TextBlock` in its content, is drawn in `FiliButtonTextTransform`'s case. A `TextBlock`
+  whose runs the app wrote keeps them as written, and text a nested control draws in its own
+  popup is not reached, where CSS would reach every piece of text inside.
 - **No separate placeholder on a text field** — `PlaceholderText` is the floating label; see
   [Text fields](controls.md#text-fields).
 - **The `dark` colour barely shows as text or a line in dark mode, and not at all in high

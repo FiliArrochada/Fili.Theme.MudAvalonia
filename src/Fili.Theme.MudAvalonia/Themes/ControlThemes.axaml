@@ -42,6 +42,7 @@
     <ResourceInclude Source="avares://Fili.Theme.MudAvalonia/Themes/Controls/TreeView.axaml" />
     <ResourceInclude Source="avares://Fili.Theme.MudAvalonia/Themes/Controls/NumericUpDown.axaml" />
     <ResourceInclude Source="avares://Fili.Theme.MudAvalonia/Themes/Controls/AutoCompleteBox.axaml" />
+    <ResourceInclude Source="avares://Fili.Theme.MudAvalonia/Themes/Controls/DatePicker.axaml" />
     <ResourceInclude Source="avares://Fili.Theme.MudAvalonia/Themes/Controls/Expander.axaml" />
     <ResourceInclude Source="avares://Fili.Theme.MudAvalonia/Themes/Controls/Fields.axaml" />
     <ResourceInclude Source="avares://Fili.Theme.MudAvalonia/Themes/Controls/ProgressBar.axaml" />

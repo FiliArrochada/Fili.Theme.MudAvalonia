@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Text;
 using Avalonia;
-using Avalonia.Controls.Presenters;
+using Avalonia.Controls;
+using Avalonia.Controls.Documents;
+using Avalonia.Controls.Primitives;
 using Avalonia.Data.Converters;
 
 namespace Fili.Theme.MudAvalonia;
@@ -22,9 +24,13 @@ namespace Fili.Theme.MudAvalonia;
 /// app that sets it to <c>none</c> keeps its labels as written, everywhere or in one region.
 /// </para>
 /// <para>
-/// Only a string is transformed. CSS reaches every piece of text inside a button; here content
-/// that is already a control - a <c>TextBlock</c>, a panel holding one - is the app's own and is
-/// shown as it is. An access key survives: "_Save" becomes "_SAVE", still Alt+S.
+/// The case is inherited, as CSS's <c>text-transform</c> is, so it also reaches the text in
+/// content that is a control: the label beside a <c>start-icon</c> in a panel, MudButton's
+/// <c>StartIcon</c> idiom. A <c>TextBlock</c> there keeps its <c>Text</c>, which may be the app's
+/// binding, and draws it through a single <c>Run</c> in that case; a new <c>Text</c> clears the
+/// run and a new one is made. A <c>TextBlock</c> with inlines of the app's own is left as written,
+/// and an <c>AccessText</c> too: the string path already hands it the text in case, and inlines
+/// would lose its access key. An access key survives: "_Save" becomes "_SAVE", still Alt+S.
 /// </para>
 /// <para>
 /// Internal, like the converters: a template needs it, a consumer does not.
@@ -36,13 +42,27 @@ internal sealed class TextTransform
     {
     }
 
-    /// <summary>The case a presenter's string content is shown in: CSS's <c>none</c>, <c>uppercase</c>, <c>lowercase</c> or <c>capitalize</c>.</summary>
+    /// <summary>
+    /// The case a presenter's content is shown in: CSS's <c>none</c>, <c>uppercase</c>,
+    /// <c>lowercase</c> or <c>capitalize</c>. Inherited, so every <c>TextBlock</c> in the content
+    /// takes it.
+    /// </summary>
     public static readonly AttachedProperty<string?> CaseProperty =
-        AvaloniaProperty.RegisterAttached<TextTransform, ContentPresenter, string?>("Case");
+        AvaloniaProperty.RegisterAttached<TextTransform, Control, string?>("Case", inherits: true);
 
-    public static string? GetCase(ContentPresenter presenter) => presenter.GetValue(CaseProperty);
+    /// <summary>Whether a TextBlock's inlines are the run this class drew, rather than the app's.</summary>
+    private static readonly AttachedProperty<bool> DrawsRunProperty =
+        AvaloniaProperty.RegisterAttached<TextTransform, TextBlock, bool>("DrawsRun");
 
-    public static void SetCase(ContentPresenter presenter, string? value) => presenter.SetValue(CaseProperty, value);
+    static TextTransform()
+    {
+        CaseProperty.Changed.AddClassHandler<TextBlock>((block, _) => Draw(block));
+        TextBlock.TextProperty.Changed.AddClassHandler<TextBlock>((block, _) => Draw(block));
+    }
+
+    public static string? GetCase(Control control) => control.GetValue(CaseProperty);
+
+    public static void SetCase(Control control, string? value) => control.SetValue(CaseProperty, value);
 
     /// <summary>The content, then the case: a string in that case, anything else unchanged.</summary>
     public static readonly IMultiValueConverter Converter = new CaseConverter();
@@ -55,6 +75,41 @@ internal sealed class TextTransform
             "capitalize" => Capitalize(text, culture),
             _ => text,
         };
+
+    /// <summary>
+    /// Draws a TextBlock's text in the case it inherited, through one run, leaving <c>Text</c> as
+    /// it is. Called when the case reaches it and whenever its text changes; the TextBlock has
+    /// cleared its inlines by then, so the run is drawn again.
+    /// </summary>
+    private static void Draw(TextBlock block)
+    {
+        if (block is AccessText)
+        {
+            return;
+        }
+
+        var drawn = block.GetValue(DrawsRunProperty);
+        if (!drawn && block.Inlines is { Count: > 0 })
+        {
+            return;
+        }
+
+        var text = block.Text;
+        var shown = Apply(text, block.GetValue(CaseProperty), CultureInfo.CurrentCulture) as string;
+        if (text is null || shown == text)
+        {
+            if (drawn)
+            {
+                block.ClearValue(DrawsRunProperty);
+                block.Inlines = null;
+            }
+
+            return;
+        }
+
+        block.Inlines = new InlineCollection { new Run(shown) };
+        block.SetValue(DrawsRunProperty, true);
+    }
 
     /// <summary>CSS's <c>capitalize</c>: the first letter of each word up, the rest left as written.</summary>
     private static string Capitalize(string text, CultureInfo culture)

@@ -583,7 +583,7 @@
           <TextBox Classes="filled" Width="190" VerticalAlignment="Top" PlaceholderText="Email"
                    AutomationProperties.HelpText="We never share it" />
           <TextBox Classes="outlined counter" Width="190" VerticalAlignment="Top" PlaceholderText="Title"
-                   MaxLength="40" Text="Fili Manga Reader"
+                   MaxLength="40" Text="my content"
                    AutomationProperties.HelpText="Shown on the card" />
           <TextBox Classes="counter helper-on-focus" Width="190" VerticalAlignment="Top" PlaceholderText="Notes" Text="No limit"
                    AutomationProperties.HelpText="Shown while focused" />
@@ -658,6 +658,39 @@
                    MaxWidth="760"
                    HorizontalAlignment="Left"
                    Text="A start adornment floats the label, as MudInput's Adornment.Start does, so the label never lies over the icon; an end adornment does not. With AcceptsReturn the text starts at the top and the label sits above it, as a textarea's do, in a field that grows with its lines or one given a height." />
+
+        <TextBlock Classes="overline" Text="Numeric field, autocomplete, validation" Margin="0,8,0,0" />
+        <StackPanel Orientation="Horizontal" Spacing="24" VerticalAlignment="Top">
+          <NumericUpDown Width="190" Value="42" PlaceholderText="Quantity" />
+          <AutoCompleteBox Width="190" PlaceholderText="Search" Text="Av" />
+          <StackPanel Width="220">
+            <TextBox x:Name="InvalidField" Width="220" PlaceholderText="Email" Text="not-an-email" />
+          </StackPanel>
+        </StackPanel>
+        <TextBlock Classes="caption"
+                   TextWrapping="Wrap"
+                   MaxWidth="760"
+                   HorizontalAlignment="Left"
+                   Text="The third field has a failing validation, not the error class: the rule turns red on its own and the message sits under the field at 12px, where MudBlazor puts it. The forked template's version was a red circle with a tooltip, off to the right." />
+
+        <TextBlock Classes="overline" Text="Date picker" Margin="0,8,0,0" />
+        <StackPanel Orientation="Horizontal" Spacing="24" VerticalAlignment="Top">
+          <CalendarDatePicker Width="220" PlaceholderText="Due date" />
+          <CalendarDatePicker Width="220" Classes="outlined" PlaceholderText="Start" />
+          <CalendarDatePicker Width="220" Classes="filled dense" PlaceholderText="End" />
+        </StackPanel>
+        <StackPanel Orientation="Horizontal" Spacing="24" VerticalAlignment="Top">
+          <!-- MudDatePicker's PickerVariant.Static calendar. A fixed month with today unmarked, so
+               the frame does not change from one day to the next. -->
+          <Border Classes="paper elevation1">
+            <Calendar DisplayDate="2026-10-01" SelectedDate="2026-10-11" IsTodayHighlighted="False" />
+          </Border>
+          <TextBlock Classes="caption"
+                     TextWrapping="Wrap"
+                     Width="320"
+                     VerticalAlignment="Top"
+                     Text="A CalendarDatePicker is MudDatePicker: the standard field with the Event adornment, taking the field's classes, and a popover with the primary toolbar over the calendar. The calendar on its own is the static picker." />
+        </StackPanel>
       </StackPanel>
 
       <!-- Range and progress -->
@@ -1120,20 +1153,6 @@
                        Text="square on the group is Square: no radius on any panel." />
           </StackPanel>
         </Grid>
-
-        <TextBlock Classes="overline" Text="Numeric field, autocomplete, validation" Margin="0,8,0,0" />
-        <StackPanel Orientation="Horizontal" Spacing="24" VerticalAlignment="Top">
-          <NumericUpDown Width="190" Value="42" PlaceholderText="Quantity" />
-          <AutoCompleteBox Width="190" PlaceholderText="Search" Text="Av" />
-          <StackPanel Width="220">
-            <TextBox x:Name="InvalidField" Width="220" PlaceholderText="Email" Text="not-an-email" />
-          </StackPanel>
-        </StackPanel>
-        <TextBlock Classes="caption"
-                   TextWrapping="Wrap"
-                   MaxWidth="760"
-                   HorizontalAlignment="Left"
-                   Text="The third field has a failing validation, not the error class: the rule turns red on its own and the message sits under the field at 12px, where MudBlazor puts it. The forked template's version was a red circle with a tooltip, off to the right." />
       </StackPanel>
 
       <!-- Drawer -->

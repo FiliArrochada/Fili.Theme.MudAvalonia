@@ -6,6 +6,7 @@ What changed in each release of `Fili.Theme.MudAvalonia`, newest first. The pack
 
 | Version | |
 |---|---|
+| *(unreleased)* | MudDatePicker on `CalendarDatePicker`: the standard field with the `Event` adornment, taking the field's classes, and MudPicker's popover - the primary toolbar with the year and the date over the calendar, a 36px day filled primary when selected and ringed when today. `FiliEventGeometry` is new. A button's label beside an icon is uppercase, as MudButton's is with a `StartIcon`: the case is inherited, as CSS's is, so a `TextBlock` in a button's content reads in capitals, with its `Text` left as the app wrote or bound it; `TextBlock.button` is uppercase too. See [Upgrading from 0.14.0](#upgrading-from-0140). A select's closed box draws the selection with its `SelectionBoxItemTemplate`, as Avalonia's own select does, and with its `ItemTemplate` only when it has none. It always used the `ItemTemplate`, so a closed-box template was ignored and anything the list's template set, such as a colour meant for the popup, showed in the closed box too. An outlined or filled `NumericUpDown` or `AutoCompleteBox` draws its stroke or its fill, which a value inside their templates had kept them from drawing, and an outlined label on either, or on the date picker, is no longer cut off along its top edge. A select, a number field, an autocomplete and a date picker are each exactly a text field's height in every variant, so a row of them lines up: a standard select was 3px taller, and a number field was 56px in every variant, `dense` included. |
 | **0.14.0** | MudButtonGroup of any length is `button-group` on a `StackPanel` of buttons, across or down: one shape with the radius on its outer corners, shared lines and MudBlazor's separators. A disabled slider is MudSlider's: rail and thumb at .38 in their colour, the thumb ringed in white, where it was grey. A flyout has no padding of its own, as MudPopover has none. The published class list grows to 156. See [Upgrading from 0.13.0 to 0.14.0](#upgrading-from-0130-to-0140). |
 | 0.13.0 | A `paper` casts MudPaper's default elevation 1, as a `card` does; `elevation0` takes it away. Icons find their place in four more hosts: an icon marked `start-icon` or `end-icon` in a link is the link's font size and 4px from the text, in a tab header 24px and 8px from the text, and in a text field's adornment 24px; an adornment keeps 8px from the text; and a chip's `avatar` is MudChip's 24px (18 small, 32 large) with its margins. A `PathIcon` with no size class is 24px, MudIcon's default `Size.Medium`, where it was 20. MudOverlay is `overlay` on a Border, with `dark-background` and `light-background`: its content centred, its container's corners, and MudBlazor's .15s fade each time it shows. The published class list grows to 155. See [Upgrading from 0.12.0 to 0.13.0](#upgrading-from-0120-to-0130). |
 | 0.12.0 | The last names to settle before 1.0. MudPaper is `paper`, MudBlazor's word, where it was `surface`; MudTabs' `SliderColor` is `indicator-{colour}` and `HideSlider` is `hide-indicator`, so that no tab class reads as a `Slider`'s. A number field's spin buttons draw MudNumericField's chevrons, `FiliKeyboardArrowUpGeometry` and `FiliKeyboardArrowDownGeometry`, not the select's triangles. The spacing scale is MudBlazor's whole one, 0 to 20 steps of 4px, each as a number (`FiliSpacing4`) and a `Thickness` (`FiliSpacing4Thickness`); `FiliBlackBrush` joins `FiliBlackColor`. See [Upgrading from 0.11.0 to 0.12.0](#upgrading-from-0110-to-0120). |
@@ -30,6 +31,30 @@ What changed in each release of `Fili.Theme.MudAvalonia`, newest first. The pack
 Every version and its release notes are on the
 [releases page](https://github.com/FiliArrochada/Fili.Theme.MudAvalonia/releases); a version on
 nuget.org can be unlisted but never replaced.
+
+## Upgrading from 0.14.0
+
+Nothing needs a markup change; five things look different.
+
+- **A `CalendarDatePicker` is MudDatePicker**, where it wore the forked Simple template: the
+  standard text field with the calendar icon button at its end, and a popover with the primary
+  toolbar over the calendar. Classes the field takes (`outlined`, `filled`, `dense`, `error`...)
+  now apply when set on the picker. Today is ringed, as MudDatePicker marks it; set
+  `IsTodayHighlighted="False"` to leave it plain. A `Calendar` on its own takes the same days,
+  months and arrows.
+- **The picker and its field are one Tab stop**, where they were two.
+- **An outlined or filled `NumericUpDown` or `AutoCompleteBox` is outlined or filled.** The
+  class reached the field inside, but the field drew neither the stroke nor the fill; a screen
+  that set one sees the box appear.
+- **A number field is a text field's height**, where it was 56px whatever its variant: 48px
+  standard, 45 dense, 40 outlined dense. A standard select is 48px, where it was 51. A form whose
+  rows held one of them closes up by those pixels.
+- **A label in a button's content is uppercase**, where only a string label was: the text beside
+  a `start-icon` or `end-icon` in a panel, on a button, a split or drop-down button, a toggle item,
+  an extended FAB and a tab header, and any `TextBlock` with the `button` class. A chip's label
+  keeps its case. To keep one region's labels as written, put
+  `<x:String x:Key="FiliButtonTextTransform">none</x:String>` in its `Resources`; a `TextBlock`
+  whose `Inlines` the app wrote is left as it is.
 
 ## Upgrading from 0.13.0 to 0.14.0
 

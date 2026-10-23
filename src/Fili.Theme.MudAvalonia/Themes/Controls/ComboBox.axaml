@@ -158,17 +158,20 @@
                                 Grid.Column="0"
                                 ClipToBounds="True"
                                 Content="{TemplateBinding SelectionBoxItem}"
-                                ContentTemplate="{TemplateBinding ItemTemplate}"
+                                ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}"
                                 Foreground="{TemplateBinding Foreground}"
                                 HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
                                 VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" />
 
               <!-- The end adornment: MudSelect's is ArrowDropDown, a SOLID triangle, not the
                    thin chevron an expander uses. Drawn at 24 with Stretch="None", like every
-                   other Material glyph in Themes/Icons.axaml. -->
+                   other Material glyph in Themes/Icons.axaml. Pulled 2px in at the top and
+                   bottom, so its 20px sits inside the text line's 21px and a standard select is a
+                   text field's height, as the icon is in MudInput's 32px slot; the triangle is
+                   the middle 5px, so nothing of it is lost. -->
               <Path x:Name="PART_Chevron"
                     Grid.Column="1"
-                    Margin="8,0,0,0"
+                    Margin="8,-2,0,-2"
                     Width="24" Height="24"
                     Stretch="None"
                     Data="{DynamicResource FiliArrowDropDownGeometry}"
