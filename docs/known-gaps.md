@@ -49,6 +49,9 @@ hits them:
   names (S M T), where MudBlazor writes the abbreviated ones (Sun Mon Tue); and the year view is the
   `CalendarItem`'s decade, twelve years in a grid, where MudBlazor scrolls a list of every year.
   Months sit four to a row, where MudBlazor's sit three. The `CalendarItem` builds those itself.
+  And a date picker with no `PlaceholderText` is labelled with its date format, `<dd/MM/yyyy>`,
+  where an unlabelled MudDatePicker is empty: Avalonia's code writes that format into the text
+  field itself, which a style cannot undo. Give every date picker a `PlaceholderText`, its label.
 - **What MudDataGrid does beyond its look.** No column options menu, no filter row, no pager:
   each is a control with behaviour of its own, which belongs in a separate package rather than
   a theme. Columns resize when `CanUserResizeColumns` is set, but without MudBlazor's 2px primary

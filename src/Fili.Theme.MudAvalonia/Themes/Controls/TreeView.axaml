@@ -208,9 +208,9 @@
     </Style>
   </ControlTheme>
 
-  <ControlTheme x:Key="FiliTreeView" TargetType="TreeView">
+  <!-- The tree without a text colour: the plain tree sets text-primary, the nav menu inherits. -->
+  <ControlTheme x:Key="FiliTreeViewBase" TargetType="TreeView">
     <Setter Property="Background" Value="Transparent" />
-    <Setter Property="Foreground" Value="{DynamicResource FiliTextPrimaryBrush}" />
     <Setter Property="BorderThickness" Value="0" />
     <Setter Property="Padding" Value="0" />
     <Setter Property="FontFamily" Value="{DynamicResource FiliFontFamily}" />
@@ -243,6 +243,10 @@
       <Setter Property="Background" Value="{DynamicResource FiliSurfaceBrush}" />
       <Setter Property="CornerRadius" Value="{DynamicResource FiliCornerRadius}" />
     </Style>
+  </ControlTheme>
+
+  <ControlTheme x:Key="FiliTreeView" TargetType="TreeView" BasedOn="{StaticResource FiliTreeViewBase}">
+    <Setter Property="Foreground" Value="{DynamicResource FiliTextPrimaryBrush}" />
   </ControlTheme>
 
   <!--
@@ -290,7 +294,8 @@
   <ControlTheme x:Key="FiliNavItem" TargetType="TreeViewItem">
     <!-- MudBlazor's ripple, drawn in PART_Ripple (Ripple.cs). -->
     <Setter Property="theme:Ripple.Opacity" Value="{DynamicResource FiliRippleOpacity}" />
-    <Setter Property="Foreground" Value="{DynamicResource FiliTextPrimaryBrush}" />
+    <!-- No Foreground: `.mud-nav-link` is `color: inherit`, so a link is the drawer's text colour,
+         drawer-text or a coloured drawer's contrast text, and text-primary outside a drawer. -->
     <Setter Property="FontFamily" Value="{DynamicResource FiliFontFamily}" />
     <Setter Property="FontSize" Value="{DynamicResource FiliBody1FontSize}" />
     <Setter Property="Background" Value="Transparent" />
@@ -327,9 +332,13 @@
                   Margin="{TemplateBinding Padding}"
                   IsHitTestVisible="False">
               <theme:PartBorder x:Name="PART_Indent" Grid.Column="0" Width="0" />
+              <!-- `.mud-nav-link`'s line-height is 1.75, a 28px line whatever the header holds: a
+                   control written in the Header is not styled from here, so the floor is the
+                   presenter's, and every row is 44px. -->
               <ContentPresenter x:Name="PART_HeaderPresenter"
                                 Grid.Column="1"
                                 Margin="12,0,0,0"
+                                MinHeight="28"
                                 Content="{TemplateBinding Header}"
                                 ContentTemplate="{TemplateBinding HeaderTemplate}"
                                 Foreground="{TemplateBinding Foreground}"
@@ -337,8 +346,10 @@
                                 LetterSpacing="0"
                                 VerticalAlignment="Center">
                 <ContentPresenter.Styles>
+                  <!-- `.mud-nav-link-text` wraps a label too long for the drawer. -->
                   <Style Selector="TextBlock">
                     <Setter Property="LineHeight" Value="28" />
+                    <Setter Property="TextWrapping" Value="Wrap" />
                   </Style>
                 </ContentPresenter.Styles>
               </ContentPresenter>
@@ -443,7 +454,11 @@
     </Style>
   </ControlTheme>
 
-  <ControlTheme x:Key="FiliNavMenu" TargetType="TreeView" BasedOn="{StaticResource FiliTreeView}" />
+  <!-- MudDrawer scrolls up and down, never sideways: the menu lays out at the drawer's width, and
+       a label too long for it wraps rather than pushing the row past the edge. -->
+  <ControlTheme x:Key="FiliNavMenu" TargetType="TreeView" BasedOn="{StaticResource FiliTreeViewBase}">
+    <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Disabled" />
+  </ControlTheme>
 
   <ControlTheme x:Key="{x:Type TreeView}" TargetType="TreeView" BasedOn="{StaticResource FiliTreeView}" />
   <ControlTheme x:Key="{x:Type TreeViewItem}" TargetType="TreeViewItem" BasedOn="{StaticResource FiliTreeViewItem}" />

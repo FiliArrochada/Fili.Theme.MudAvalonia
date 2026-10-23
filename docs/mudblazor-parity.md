@@ -86,7 +86,7 @@ Variant, colour and size are one class each and combine freely:
 | `Color.Default` (default) | no class | ✅ text-primary; grey fill when filled |
 | `Color.Primary` … `Color.Dark` | `primary` `secondary` `tertiary` `info` `success` `warning` `error` `dark` | ✅ |
 | `Color.Inherit` | `inherit` | ✅ text and line follow the surrounding text colour |
-| `Size.Small` / `Medium` / `Large` | `small` / no class / `large` | ✅ per-variant padding, 13 / 14 / 15px |
+| `Size.Small` / `Medium` / `Large` | `small` / no class / `large` | ✅ per-variant padding, 13 / 14 / 15px, on a 1.75 line: 30.75 / 36.5 / 42.25px in every variant |
 | `Disabled` | `IsEnabled="False"` | ✅ |
 | hover, `:focus-visible`, `:active` | the same state, as in `_button.scss` | ✅ `{color}-hover` for text and outlined, `{color}-darken` for filled |
 | elevation 2 → 4 → 8 | the same | ✅ |
@@ -698,7 +698,7 @@ one with children:
 
 | MudBlazor | Here | |
 |---|---|---|
-| `MudNavLink` | a row without children | ✅ 8px 16px, body1 on a 28px line, the text 12px in; action-default-hover under the pointer and keyboard focus |
+| `MudNavLink` | a row without children | ✅ 8px 16px, body1 on a 28px line, the drawer's text colour (`color: inherit`), the text 12px in and wrapping when too long, as the drawer never scrolls sideways; action-default-hover under the pointer and keyboard focus |
 | the active link (`.active`) | the selected row | ✅ weight 500, primary over action-default-hover |
 | `MudNavMenu.Color` | `primary` … `dark` | ✅ the active link's text over the colour's hover tint, the colour at 12% under the pointer; its icon, its line and an open group's arrow in the colour |
 | `Bordered` | `bordered` | ✅ a 2px line at the active link's end, in its colour |
@@ -740,7 +740,7 @@ one with children:
 
 | MudBlazor | Here | |
 |---|---|---|
-| the component | `TimePicker` | ✅ the standard field with the `AccessTime` adornment, and the toolbar's popover |
+| the component | `TimePicker` | ✅ the standard field with the `AccessTime` adornment, full width as a field is, and the toolbar's popover |
 | `AmPm`, `TimeFormat` | `ClockIdentifier`, `UseSeconds` | ✅ `HH:mm` or `hh:mm tt` |
 | `Label` | `AutomationProperties.Name` | ✅ the floating label |
 | `Editable` | `editable` | ✅ taken on Enter or when the field loses focus |

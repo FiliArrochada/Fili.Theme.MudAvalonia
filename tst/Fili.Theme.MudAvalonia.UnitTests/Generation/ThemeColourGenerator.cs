@@ -249,6 +249,14 @@ public static class ThemeColourGenerator
             <theme:PartBorder x:Name="PART_Ripple"
                     theme:Ripple.IsLayer="True"
                     CornerRadius="{TemplateBinding CornerRadius}" />
+            <!-- The label's line box. `.mud-button` sets the button typography's line-height,
+                 1.75 (Typography.cs), so the label is 1.75 of its font size tall whatever it
+                 holds: 6 + 24.5 + 6 = 36.5px at 14px, 30.75 small, 42.25 large. The text alone
+                 is 17px, and the button was 29. Nothing is drawn; it only holds the height. -->
+            <Rectangle x:Name="PART_LineBox"
+                       Margin="{TemplateBinding Padding}"
+                       Height="{Binding FontSize, RelativeSource={RelativeSource TemplatedParent}, Converter={x:Static conv:FactorConverter.Instance}, ConverterParameter=1.75}"
+                       IsHitTestVisible="False" />
             <ContentPresenter x:Name="PART_ContentPresenter"
                               theme:TextTransform.Case="{DynamicResource FiliButtonTextTransform}"
                               ContentTemplate="{TemplateBinding ContentTemplate}"
@@ -331,7 +339,8 @@ public static class ThemeColourGenerator
 -->
 <ResourceDictionary xmlns="https://github.com/avaloniaui"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:theme="using:Fili.Theme.MudAvalonia">
+                    xmlns:theme="using:Fili.Theme.MudAvalonia"
+                    xmlns:conv="using:Fili.Theme.MudAvalonia.Converters">
 
 
 """;
@@ -375,6 +384,8 @@ public static class ThemeColourGenerator
         o.Append("         than text-primary - `.mud-icon-button` comes after `.mud-button` in MudBlazor's\n");
         o.Append("         bundle, so its colour wins. Before the colours, so a colour class still beats it. -->\n");
         o.Append(Style("^.icon", ("CornerRadius", "999"), ("Padding", "12"), ("MinWidth", "0"), ("Foreground", Res("FiliActionDefaultBrush")))).Append('\n');
+        o.Append("    <!-- `.mud-icon-button` is its padding round the icon: no label, so no line box. -->\n");
+        o.Append(Style("^.icon /template/ Rectangle#PART_LineBox", ("IsVisible", "False"))).Append('\n');
 
         foreach (var c in Colours)
         {
@@ -470,6 +481,8 @@ public static class ThemeColourGenerator
         o.Append(ButtonStates("", "PART_Root", "Background", Res("FiliActionDisabledBackgroundBrush"))).Append('\n');
         o.Append("    <!-- `.mud-button-filled.mud-icon-button`: 5px inside a transparent 1px border. -->\n");
         o.Append(Style("^.icon", ("MinWidth", "0"), ("Padding", "5"), ("BorderThickness", "1"), ("BorderBrush", "Transparent"), ("Foreground", Res("FiliActionDefaultBrush")))).Append('\n');
+        o.Append("    <!-- `.mud-icon-button` is its padding round the icon: no label, so no line box. -->\n");
+        o.Append(Style("^.icon /template/ Rectangle#PART_LineBox", ("IsVisible", "False"))).Append('\n');
 
         foreach (var c in Colours)
         {

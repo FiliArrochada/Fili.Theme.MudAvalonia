@@ -2418,14 +2418,8 @@
     <Setter Property="theme:IconSlot.StartMargin" Value="-12,0,0,0" />
   </Style>
   <!-- A group's row still carries its ExpandMore at the end, which MudBlazor's closed mini drawer
-       does not hide either: its rows are the rail's width and the arrow runs past the edge. So the
-       menu lays out at the rail's width rather than scrolling sideways to reach the arrow. -->
-  <Style Selector="SplitView:closed:compactinline TreeView.nav,
-                   SplitView:closed:compactoverlay TreeView.nav,
-                   DrawerPage[IsOpen=False][DisplayMode=CompactInline] TreeView.nav,
-                   DrawerPage[IsOpen=False][DisplayMode=CompactOverlay] TreeView.nav">
-    <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Disabled" />
-  </Style>
+       does not hide either: its rows are the rail's width and the arrow runs past the edge. The
+       menu never scrolls sideways to reach it (FiliNavMenu, in Themes/Controls/TreeView.axaml). -->
   <Style Selector="DrawerPage">
     <Setter Property="CompactDrawerLength" Value="{DynamicResource FiliDrawerMiniWidth}" />
   </Style>

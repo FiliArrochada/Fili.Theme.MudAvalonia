@@ -54,6 +54,21 @@ public class TimePickerTests
     });
 
     /// <summary>
+    /// Full width, as MudTimePicker is a MudTextField: in a column it stretches as the date
+    /// picker does, where it stayed at its 120px minimum.
+    /// </summary>
+    [Fact]
+    public Task ItStretchesAsAField() => UiThread.RunAsync(() =>
+    {
+        var picker = new TimePicker();
+        var date = new CalendarDatePicker();
+        Matrix.Show(new StackPanel { Width = 300, Children = { date, picker } });
+
+        Assert.Equal(300, picker.Bounds.Width);
+        Assert.Equal(date.Bounds.Width, picker.Bounds.Width);
+    });
+
+    /// <summary>
     /// A 12-hour clock writes hh:mm and the period, "AM" or "PM" where the culture has none, as
     /// MudTimePicker's toolbar does; no time is an empty field, the label resting in it.
     /// </summary>

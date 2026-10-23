@@ -28,7 +28,8 @@
 -->
 <ResourceDictionary xmlns="https://github.com/avaloniaui"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:theme="using:Fili.Theme.MudAvalonia">
+                    xmlns:theme="using:Fili.Theme.MudAvalonia"
+                    xmlns:conv="using:Fili.Theme.MudAvalonia.Converters">
 
   <ControlTheme x:Key="FiliToggleButton" TargetType="ToggleButton">
     <!-- MudBlazor's ripple, drawn in PART_Ripple (Ripple.cs). -->
@@ -492,6 +493,14 @@
             <theme:PartBorder x:Name="PART_Ripple"
                     theme:Ripple.IsLayer="True"
                     CornerRadius="{TemplateBinding CornerRadius}" />
+            <!-- The label's line box. `.mud-button` sets the button typography's line-height,
+                 1.75 (Typography.cs), so the label is 1.75 of its font size tall whatever it
+                 holds: 6 + 24.5 + 6 = 36.5px at 14px, 30.75 small, 42.25 large. The text alone
+                 is 17px, and the button was 29. Nothing is drawn; it only holds the height. -->
+            <Rectangle x:Name="PART_LineBox"
+                       Margin="{TemplateBinding Padding}"
+                       Height="{Binding FontSize, RelativeSource={RelativeSource TemplatedParent}, Converter={x:Static conv:FactorConverter.Instance}, ConverterParameter=1.75}"
+                       IsHitTestVisible="False" />
             <ContentPresenter x:Name="PART_ContentPresenter"
                               theme:TextTransform.Case="{DynamicResource FiliButtonTextTransform}"
                               ContentTemplate="{TemplateBinding ContentTemplate}"
@@ -531,6 +540,11 @@
       <Setter Property="Padding" Value="12" />
       <Setter Property="MinWidth" Value="0" />
       <Setter Property="Foreground" Value="{DynamicResource FiliActionDefaultBrush}" />
+    </Style>
+
+    <!-- `.mud-icon-button` is its padding round the icon: no label, so no line box. -->
+    <Style Selector="^.icon /template/ Rectangle#PART_LineBox">
+      <Setter Property="IsVisible" Value="False" />
     </Style>
 
     <Style Selector="^.primary:checked">
@@ -923,6 +937,14 @@
             <theme:PartBorder x:Name="PART_Ripple"
                     theme:Ripple.IsLayer="True"
                     CornerRadius="{TemplateBinding CornerRadius}" />
+            <!-- The label's line box. `.mud-button` sets the button typography's line-height,
+                 1.75 (Typography.cs), so the label is 1.75 of its font size tall whatever it
+                 holds: 6 + 24.5 + 6 = 36.5px at 14px, 30.75 small, 42.25 large. The text alone
+                 is 17px, and the button was 29. Nothing is drawn; it only holds the height. -->
+            <Rectangle x:Name="PART_LineBox"
+                       Margin="{TemplateBinding Padding}"
+                       Height="{Binding FontSize, RelativeSource={RelativeSource TemplatedParent}, Converter={x:Static conv:FactorConverter.Instance}, ConverterParameter=1.75}"
+                       IsHitTestVisible="False" />
             <ContentPresenter x:Name="PART_ContentPresenter"
                               theme:TextTransform.Case="{DynamicResource FiliButtonTextTransform}"
                               ContentTemplate="{TemplateBinding ContentTemplate}"
@@ -970,6 +992,11 @@
       <Setter Property="BorderThickness" Value="1" />
       <Setter Property="BorderBrush" Value="Transparent" />
       <Setter Property="Foreground" Value="{DynamicResource FiliActionDefaultBrush}" />
+    </Style>
+
+    <!-- `.mud-icon-button` is its padding round the icon: no label, so no line box. -->
+    <Style Selector="^.icon /template/ Rectangle#PART_LineBox">
+      <Setter Property="IsVisible" Value="False" />
     </Style>
 
     <Style Selector="^.primary:checked">

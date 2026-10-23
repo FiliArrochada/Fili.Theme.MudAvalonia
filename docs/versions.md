@@ -6,6 +6,7 @@ What changed in each release of `Fili.Theme.MudAvalonia`, newest first. The pack
 
 | Version | |
 |---|---|
+| *(unreleased)* | An open drawer's nav menu never scrolls sideways, as MudDrawer does not: a label too long for it wraps, where it ran past the edge and the menu scrolled. A nav link is the drawer's text colour, as `.mud-nav-link` inherits it: on a coloured drawer the links were text-primary, dark on the colour; and every nav row is 44px, where one whose header was a control was 40. A button is MudButton's height, 36.5px (30.75 small, 42.25 large), where it was 29, as are a split and a drop-down button. A `TimePicker` stretches as the other fields do. See [Upgrading from 0.16.0](#upgrading-from-0160). |
 | **0.16.0** | Seven of Avalonia's controls in MudBlazor's look, where they wore the forked templates. `TimePicker` is MudTimePicker: the standard field with the `AccessTime` adornment, and the toolbar's popover over Avalonia's columns. `CommandBar` is MudToolBar of MudIconButtons with a `MoreVert` MudMenu. `TableView` is MudTable, as the data grid is. A `NavigationPage`'s bar is MudAppBar, a `TabbedPage` is MudTabs and a `ContentPage` sits on the background. `Carousel` and `CarouselPage` are MudCarousel, with `no-arrows` and `no-bullets`; a time picker with `editable` takes a typed time. A filled or outlined field's icon adornment is centred on the box, as `.mud-input` centres it, where it sat on the text line below the box's middle; a text adornment, such as a unit, stays on the text line beside the value it is read with. `FiliMoreVertGeometry`, `FiliAccessTimeGeometry`, `FiliCheckGeometry` and `FiliArrowBackGeometry` are new, and the published class list grows to 159. See [Upgrading from 0.15.0 to 0.16.0](#upgrading-from-0150-to-0160). |
 | 0.15.0 | MudDatePicker on `CalendarDatePicker`: the standard field with the `Event` adornment, taking the field's classes, and MudPicker's popover - the primary toolbar with the year and the date over the calendar, a 36px day filled primary when selected and ringed when today. `FiliEventGeometry` is new. A button's label beside an icon is uppercase, as MudButton's is with a `StartIcon`: the case is inherited, as CSS's is, so a `TextBlock` in a button's content reads in capitals, with its `Text` left as the app wrote or bound it; `TextBlock.button` is uppercase too. See [Upgrading from 0.14.0](#upgrading-from-0140-to-0150). A select's closed box draws the selection with its `SelectionBoxItemTemplate`, as Avalonia's own select does, and with its `ItemTemplate` only when it has none. It always used the `ItemTemplate`, so a closed-box template was ignored and anything the list's template set, such as a colour meant for the popup, showed in the closed box too. An outlined or filled `NumericUpDown` or `AutoCompleteBox` draws its stroke or its fill, which a value inside their templates had kept them from drawing, and an outlined label on either, or on the date picker, is no longer cut off along its top edge. A select, a number field, an autocomplete and a date picker are each exactly a text field's height in every variant, so a row of them lines up: a standard select was 3px taller, and a number field was 56px in every variant, `dense` included. |
 | 0.14.0 | MudButtonGroup of any length is `button-group` on a `StackPanel` of buttons, across or down: one shape with the radius on its outer corners, shared lines and MudBlazor's separators. A disabled slider is MudSlider's: rail and thumb at .38 in their colour, the thumb ringed in white, where it was grey. A flyout has no padding of its own, as MudPopover has none. The published class list grows to 156. See [Upgrading from 0.13.0 to 0.14.0](#upgrading-from-0130-to-0140). |
@@ -32,6 +33,26 @@ What changed in each release of `Fili.Theme.MudAvalonia`, newest first. The pack
 Every version and its release notes are on the
 [releases page](https://github.com/FiliArrochada/Fili.Theme.MudAvalonia/releases); a version on
 nuget.org can be unlisted but never replaced.
+
+## Upgrading from 0.16.0
+
+- **A nav menu never scrolls sideways**, open or closed. A label too long for the drawer wraps
+  onto a second line when its header lets it: a string `Header`, or a `Grid` or `DockPanel`
+  with the text in the star column. In a horizontal `StackPanel`, the layout the mini drawer
+  needs, the text cannot wrap and is cut off at the edge; widen the drawer (`OpenPaneLength`)
+  or shorten the label.
+- **A nav link takes the drawer's text colour** instead of setting text-primary. In a plain
+  drawer that is drawer-text, the same colour by default; in a coloured drawer (`SplitView.primary`
+  and the rest) the links are the contrast text, where they were dark. Outside a drawer a link
+  is still text-primary.
+- **Every button is taller**: 36.5px, MudButton's, where it was 29 (32 with an icon beside the
+  label); 30.75 small and 42.25 large. `.mud-button` gives its label a 1.75 line, which the text
+  alone did not. A split button and a drop-down button match it. Icon buttons, chips and FABs keep
+  their heights. A row or bar sized round the old 29px grows by 7 or 8.
+- **A nav row is 44px whatever its header holds**: one written with a control in its `Header`
+  (an icon and a `TextBlock`) was 40.
+- **A `TimePicker` stretches** across its column, as the date picker and every field do, where it
+  stayed at 120px. One that should not sets `HorizontalAlignment` or a `Width`.
 
 ## Upgrading from 0.15.0 to 0.16.0
 

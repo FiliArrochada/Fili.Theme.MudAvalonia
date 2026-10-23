@@ -40,7 +40,10 @@ CSS's words, as MudBlazor's typography setting is:
 ```
 
 `lowercase` and `capitalize` work too, and the key can go in any control's `Resources` to change
-one region.
+one region. That region is often needed: in Avalonia a `Button` is also the usual clickable
+container - a poster card, a list row, a button showing a value such as the current sort - and
+its text reads in capitals like any button label. Set `none` on the card rail, the list or the
+button, as MudBlazor would never have put that text in a MudButton.
 
 **A press ripples.** As in MudBlazor, a circle grows from the pointer over .5s and fades once the
 button is released, in the label's colour at 10% - 20% on a filled button, a filled chip or a
@@ -681,7 +684,10 @@ the pointer. A row with children is a group and opens on a click anywhere on it,
 arrow turning and taking the colour; a top-level group's title is 500. Rows step in to 36, 48, 60
 and 72px by depth. `dense`, `rounded` and `bordered` are MudNavMenu's; a `PathIcon` with
 `start-icon` in a header is the link icon, in drawer-icon. Which link is active is the app's to
-set, where MudBlazor matches the URL. `hide-icon` on a group's row is `HideExpandIcon`.
+set, where MudBlazor matches the URL. `hide-icon` on a group's row is `HideExpandIcon`. The menu
+scrolls up and down, never sideways, as MudDrawer does: a label too long for the drawer wraps
+when its header gives the text a width (a string, or a `Grid` or `DockPanel`); in a horizontal
+`StackPanel` it is cut off at the edge.
 
 **A colour class on the `SplitView` is MudDrawer's `Color`**, `.mud-theme-{color}`: the pane in the
 colour and its content in the contrast text.

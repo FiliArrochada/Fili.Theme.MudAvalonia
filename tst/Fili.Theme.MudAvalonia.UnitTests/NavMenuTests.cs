@@ -8,6 +8,7 @@ using Avalonia.Input;
 using Avalonia.Media;
 using Avalonia.Media.Transformation;
 using Avalonia.Threading;
+using Avalonia.VisualTree;
 using Xunit;
 
 namespace Fili.Theme.MudAvalonia.UnitTests;
@@ -47,6 +48,73 @@ public class NavMenuTests
         tree.SelectedItem = item;
         Dispatcher.UIThread.RunJobs();
     }
+
+    /// <summary>
+    /// MudDrawer scrolls up and down, never sideways: a label too long for the drawer wraps, as
+    /// `.mud-nav-link-text` does. It ran past the edge, and the open drawer scrolled sideways.
+    /// </summary>
+    [Fact]
+    public Task ALongLabelWrapsAndTheMenuNeverScrollsSideways() => UiThread.RunAsync(() =>
+    {
+        var link = new TreeViewItem { Header = "A label far too long to fit in the drawer's width" };
+        var group = new TreeViewItem { Header = "Group", IsExpanded = true, Items = { link } };
+        var short_ = new TreeViewItem { Header = "Short" };
+        var tree = new TreeView { Width = 240, Height = 400, Items = { short_, group } };
+        tree.Classes.Add("nav");
+        Matrix.Show(tree);
+        var scroller = tree.GetVisualDescendants().OfType<ScrollViewer>().First();
+
+        Assert.Equal(ScrollBarVisibility.Disabled, scroller.HorizontalScrollBarVisibility);
+        Assert.True(scroller.Extent.Width <= scroller.Viewport.Width, $"The menu scrolls: {scroller.Extent.Width} in {scroller.Viewport.Width}.");
+        Assert.True(Text(link).Bounds.Height > Text(short_).Bounds.Height * 1.5, "The long label stayed on one line.");
+    });
+
+    /// <summary>
+    /// `.mud-nav-link` is `color: inherit`: a link is the drawer's text colour - drawer-text, or a
+    /// coloured drawer's contrast text - and text-primary outside a drawer. It was text-primary
+    /// everywhere, so on a primary drawer the links were dark beside the pane's white text.
+    /// </summary>
+    [Theory]
+    [InlineData(null, "FiliDrawerTextColor")]
+    [InlineData("primary", "FiliPrimaryContrastTextColor")]
+    public Task ALinkIsTheDrawersTextColour(string? colour, string token) => UiThread.RunAsync(() =>
+    {
+        var link = new TreeViewItem { Header = "Downloads" };
+        var tree = new TreeView { Items = { new TreeViewItem { Header = "Library", IsSelected = true }, link } };
+        tree.Classes.Add("nav");
+        var drawer = new SplitView { DisplayMode = SplitViewDisplayMode.Inline, IsPaneOpen = true, Width = 420, Height = 260, Pane = tree };
+        if (colour is not null) drawer.Classes.Add(colour);
+        Matrix.Show(drawer);
+
+        Assert.Equal(Matrix.Token(token), Matrix.Colour(Text(link).Foreground));
+    });
+
+    [Fact]
+    public Task ALinkOutsideADrawerIsTextPrimary() => UiThread.RunAsync(() =>
+    {
+        var menu = Show();
+
+        Assert.Equal(Matrix.Token("FiliTextPrimaryColor"), Matrix.Colour(Text(menu.Child).Foreground));
+    });
+
+    /// <summary>
+    /// Every row is 44px, `.mud-nav-link`'s 8px and 28px line, whatever its header holds. A
+    /// control written in the Header - the icon and text the mini drawer needs - was 40px beside
+    /// a string header's 44: the presenter's line-height style never reached it.
+    /// </summary>
+    [Fact]
+    public Task ARowIs44PxWhateverItsHeaderHolds() => UiThread.RunAsync(() =>
+    {
+        var panel = new StackPanel { Orientation = Avalonia.Layout.Orientation.Horizontal, Children = { new PathIcon { Classes = { "start-icon" }, Data = Geometry.Parse("M0 0h2v2H0z") }, new TextBlock { Text = "Inbox" } } };
+        var control = new TreeViewItem { Header = panel };
+        var text = new TreeViewItem { Header = "Library" };
+        var tree = new TreeView { Width = 240, Items = { control, text } };
+        tree.Classes.Add("nav");
+        Matrix.Show(tree);
+
+        Assert.Equal(44, control.Bounds.Height);
+        Assert.Equal(44, text.Bounds.Height);
+    });
 
     [Fact]
     public Task ALinkIsBody1At8By16WithTheText12pxIn() => UiThread.RunAsync(() =>

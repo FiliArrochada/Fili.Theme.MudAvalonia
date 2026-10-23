@@ -31,6 +31,9 @@ namespace Fili.Theme.MudAvalonia.Converters;
 /// </remarks>
 internal sealed class FactorConverter : IValueConverter
 {
+    /// <summary>One shared instance, for a template that has no resources to declare one in.</summary>
+    public static readonly FactorConverter Instance = new();
+
     public object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
     {
         if (value is not double input || double.IsNaN(input))

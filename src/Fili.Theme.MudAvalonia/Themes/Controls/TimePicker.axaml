@@ -97,8 +97,8 @@
          stroke, and the icon button's circle reaches 12px past the end. -->
     <Setter Property="ClipToBounds" Value="False" />
     <Setter Property="MinWidth" Value="{DynamicResource FiliInputMinWidth}" />
-    <Setter Property="HorizontalAlignment" Value="Left" />
-    <Setter Property="VerticalAlignment" Value="Center" />
+    <!-- Full width, as the date picker and every other field: MudTimePicker is a MudTextField. -->
+    <Setter Property="HorizontalAlignment" Value="Stretch" />
     <Setter Property="Template">
       <ControlTemplate>
         <Panel>

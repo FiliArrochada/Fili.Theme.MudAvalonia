@@ -29,7 +29,8 @@
 -->
 <ResourceDictionary xmlns="https://github.com/avaloniaui"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:theme="using:Fili.Theme.MudAvalonia">
+                    xmlns:theme="using:Fili.Theme.MudAvalonia"
+                    xmlns:conv="using:Fili.Theme.MudAvalonia.Converters">
 
   <!--
     One half of the pair. Bare, because the SplitButton owns the geometry and every colour: the
@@ -57,6 +58,12 @@
           <theme:PartBorder x:Name="PART_Ripple"
                   theme:Ripple.IsLayer="True"
                   CornerRadius="{TemplateBinding CornerRadius}" />
+          <!-- The label's line box, as a button's: 1.75 of the font size, so a split or drop-down
+               button is a button's 36.5px (Button.axaml). -->
+          <Rectangle x:Name="PART_LineBox"
+                     Margin="{TemplateBinding Padding}"
+                     Height="{Binding FontSize, RelativeSource={RelativeSource TemplatedParent}, Converter={x:Static conv:FactorConverter.Instance}, ConverterParameter=1.75}"
+                     IsHitTestVisible="False" />
           <ContentPresenter x:Name="PART_ContentPresenter"
                             theme:TextTransform.Case="{DynamicResource FiliButtonTextTransform}"
                             ContentTemplate="{TemplateBinding ContentTemplate}"
@@ -615,6 +622,12 @@
             <theme:PartBorder x:Name="PART_Ripple"
                     theme:Ripple.IsLayer="True"
                     CornerRadius="{TemplateBinding CornerRadius}" />
+            <!-- The label's line box, as a button's: 1.75 of the font size, so a split or drop-down
+                 button is a button's 36.5px (Button.axaml). -->
+            <Rectangle x:Name="PART_LineBox"
+                       Margin="{TemplateBinding Padding}"
+                       Height="{Binding FontSize, RelativeSource={RelativeSource TemplatedParent}, Converter={x:Static conv:FactorConverter.Instance}, ConverterParameter=1.75}"
+                       IsHitTestVisible="False" />
             <Grid x:Name="InnerGrid" ColumnDefinitions="*,Auto" Margin="{TemplateBinding Padding}">
               <ContentPresenter x:Name="PART_ContentPresenter"
                                 theme:TextTransform.Case="{DynamicResource FiliButtonTextTransform}"
