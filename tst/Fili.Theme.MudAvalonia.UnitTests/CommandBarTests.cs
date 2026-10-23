@@ -64,7 +64,10 @@ public class CommandBarTests
         Assert.Equal(Matrix.Token("FiliActionDefaultColor"), Matrix.Colour(add.Foreground));
     });
 
-    /// <summary>LabelPosition Right is a text MudButton with a StartIcon: a 20px icon, the label in button type.</summary>
+    /// <summary>
+    /// LabelPosition Right is a text MudButton with a StartIcon: a 20px icon, the label in button
+    /// type, and a button's 36.5px, the label on its 1.75 line (it was 29).
+    /// </summary>
     [Fact]
     public Task ALabelOnTheRightIsATextButton() => UiThread.RunAsync(() =>
     {
@@ -74,6 +77,7 @@ public class CommandBarTests
         Assert.Equal(20, Matrix.Part<Viewbox>(add, "PART_IconBox").Bounds.Width);
         Assert.True(label.IsVisible);
         Assert.Equal(14, label.FontSize);
+        Assert.Equal(37, add.Bounds.Height);
         Assert.Equal("ADD", string.Concat(label.Inlines!.OfType<Avalonia.Controls.Documents.Run>().Select(r => r.Text)));
     });
 

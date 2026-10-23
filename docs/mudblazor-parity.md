@@ -491,7 +491,7 @@ Put initials, a `PathIcon` or an `Image` inside: `<Border Classes="avatar primar
 
 | MudBlazor | Here | |
 |---|---|---|
-| `MudToggleGroup` item | `ToggleButton` | ✅ a MudButton with no border, shadow or minimum width: the colour as text, `{color}-hover` under the pointer; filled once checked, `{color}-darken` under the pointer |
+| `MudToggleGroup` item | `ToggleButton` | ✅ a MudButton with no border, shadow or minimum width, on its 1.75 line, 36.5px: the colour as text, `{color}-hover` under the pointer; filled once checked, `{color}-darken` under the pointer |
 | `Color` (default `Primary`) | no class, or `primary` … `dark` | ✅ on each item |
 | `Outlined` (default true) | `outlined` | ≈ opt-in: an Avalonia toggle is one item, not a group, so the group's 1px line in the colour is a class on each |
 | `Size.Small` / `Large` | `small` / `large` | ✅ 4px / 8px at 13 / 15px; 3px / 7px when outlined |

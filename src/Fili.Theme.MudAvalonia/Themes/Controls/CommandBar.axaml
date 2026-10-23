@@ -106,11 +106,12 @@
     </Style>
 
     <!-- LabelPosition="Right": a text MudButton with a StartIcon - the label in button type, a
-         20px icon 8px before it and 4px into the padding (`.mud-button-icon-start`). -->
+         20px icon 8px before it and 4px into the padding (`.mud-button-icon-start`), on the
+         button's 1.75 line: 6 + 24.5 + 6 = 36.5px, a button's height (Button.axaml). -->
     <Style Selector="^[LabelPosition=Right]">
       <Setter Property="Width" Value="NaN" />
       <Setter Property="MinWidth" Value="64" />
-      <Setter Property="MinHeight" Value="0" />
+      <Setter Property="MinHeight" Value="36.5" />
     </Style>
     <Style Selector="^[LabelPosition=Right] /template/ StackPanel#PART_LayoutRoot">
       <Setter Property="Orientation" Value="Horizontal" />
@@ -261,11 +262,12 @@
     </Style>
 
     <!-- LabelPosition="Right": a text MudButton with a StartIcon - the label in button type, a
-         20px icon 8px before it and 4px into the padding (`.mud-button-icon-start`). -->
+         20px icon 8px before it and 4px into the padding (`.mud-button-icon-start`), on the
+         button's 1.75 line: 6 + 24.5 + 6 = 36.5px, a button's height (Button.axaml). -->
     <Style Selector="^[LabelPosition=Right]">
       <Setter Property="Width" Value="NaN" />
       <Setter Property="MinWidth" Value="64" />
-      <Setter Property="MinHeight" Value="0" />
+      <Setter Property="MinHeight" Value="36.5" />
     </Style>
     <Style Selector="^[LabelPosition=Right] /template/ StackPanel#PART_LayoutRoot">
       <Setter Property="Orientation" Value="Horizontal" />

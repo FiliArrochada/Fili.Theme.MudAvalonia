@@ -920,6 +920,15 @@ An app that swaps whole palette dictionaries at runtime rather than using `Reque
 needs nothing new: its high-contrast palette just has to carry the same
 `Fili*` overrides as its other palettes.
 
+**A colour is five tokens, not one.** Overriding `FiliPrimaryColor` recolours what rests in the
+primary; hover, focus and press paint `FiliPrimaryHoverColor` (the colour at 6%) on text and
+outlined controls and `FiliPrimaryDarkenColor` on filled ones, `FiliPrimaryLightenColor` lights a
+few, and `FiliPrimaryContrastTextColor` is the text on a fill. Leave one out and that state stays
+MudBlazor's own colour - a gold button that turns purple under the pointer. Override all five, in
+every variant you declare, for each colour you change; MudBlazor derives the darken and lighten
+shades from the colour (`ColorRgbDarken` and `ColorRgbLighten` in its `Palette.cs`), and this
+theme's own are that derivation's output.
+
 ## Keyboard focus
 
 Every interactive control lights its state layer on `:focus-visible` — the same tint hovering

@@ -26,6 +26,23 @@ public class ToggleIconButtonTests
         Dispatcher.UIThread.RunJobs();
     }
 
+    /// <summary>
+    /// The toggle icon button themes are icon buttons whatever their classes: DrawerPage's pane
+    /// toggles wear them with no `icon` class, which a style cannot add, so they carry no label
+    /// line box. One was left in them, live on those toggles and floor-ing them at 48.5px.
+    /// </summary>
+    [Theory]
+    [InlineData("FiliToggleIconButton")]
+    [InlineData("FiliOutlinedToggleIconButton")]
+    [InlineData("FiliFilledToggleIconButton")]
+    public Task WithoutTheClassItHasNoLabelLine(string theme) => UiThread.RunAsync(() =>
+    {
+        var toggle = new ToggleButton { Content = new PathIcon(), Theme = (Avalonia.Styling.ControlTheme)Avalonia.Application.Current!.FindResource(theme)! };
+        Matrix.Show(toggle);
+
+        Assert.DoesNotContain(Avalonia.VisualTree.VisualExtensions.GetVisualDescendants(toggle).OfType<Control>(), c => c.Name == "PART_LineBox");
+    });
+
     [Fact]
     public Task ItIsARoundIconButton() => UiThread.RunAsync(() =>
     {

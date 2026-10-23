@@ -105,6 +105,27 @@ public class DatePickerTests
     });
 
     /// <summary>The popover: MudPaper at elevation 8 round the 100px primary toolbar and a 310px calendar.</summary>
+    /// <summary>
+    /// The toolbar's year and date fit its 100px, centred: `.mud-button-year` is body1 on the
+    /// button's 1.75 line, 40px, and `.mud-button-date` h4 on a 1.17 line, 51.8px
+    /// (_pickerdate.scss). With a button's 1.75 line at 34px the date was 72px, and the pair
+    /// overflowed the toolbar, pushed to its top.
+    /// </summary>
+    [Fact]
+    public Task TheYearAndDateFitTheToolbar() => UiThread.RunAsync(() =>
+    {
+        var popover = Open(Show());
+        var year = popover.GetVisualDescendants().OfType<Button>().Single(b => b.Name == "PART_YearButton");
+        var date = popover.GetVisualDescendants().OfType<Button>().Single(b => b.Name == "PART_DateButton");
+        var toolbar = popover.GetVisualDescendants().OfType<Border>().Single(b => b.Name == "PART_Toolbar");
+
+        Assert.Equal(40, year.Bounds.Height);
+        Assert.InRange(date.Bounds.Height, 51, 52);
+        var top = year.TranslatePoint(default, toolbar)!.Value.Y;
+        var bottom = date.TranslatePoint(new Avalonia.Point(0, date.Bounds.Height), toolbar)!.Value.Y;
+        Assert.InRange(Math.Abs(toolbar.Bounds.Height - bottom - top), 0, 1);
+    });
+
     [Fact]
     public Task ThePopoverIsTheToolbarOverTheCalendar() => UiThread.RunAsync(() =>
     {

@@ -38,7 +38,8 @@ public class ToggleItemTests
         Assert.Equal(new Thickness(0), toggle.BorderThickness);
         Assert.Equal(new Thickness(6), toggle.Padding);
         Assert.Equal(0, toggle.MinWidth);
-        Assert.Equal(32, toggle.MinHeight);
+        // A MudButton: the label on its 1.75 line, 6 + 24.5 + 6 = 36.5px, drawn as 37.
+        Assert.Equal(37, toggle.Bounds.Height);
     });
 
     [Fact]

@@ -223,7 +223,23 @@ public static class ThemeColourGenerator
         };
     }
 
-    private static string Template(bool shadow)
+    /// <summary>
+    /// The label's line box, in the Button themes only: a toggle icon button is an icon button
+    /// whether or not it carries the class (DrawerPage's pane toggles cannot be given one), and
+    /// has no label line.
+    /// </summary>
+    private const string LineBox = """
+            <!-- The label's line box. `.mud-button` sets the button typography's line-height,
+                 1.75 (Typography.cs), so the label is 1.75 of its font size tall whatever it
+                 holds: 6 + 24.5 + 6 = 36.5px at 14px, 30.75 small, 42.25 large. The text alone
+                 is 17px, and the button was 29. Nothing is drawn; it only holds the height. -->
+            <Rectangle x:Name="PART_LineBox"
+                       Margin="{TemplateBinding Padding}"
+                       Height="{Binding FontSize, RelativeSource={RelativeSource TemplatedParent}, Converter={x:Static conv:FactorConverter.Instance}, ConverterParameter=1.75}"
+                       IsHitTestVisible="False" />
+""";
+
+    private static string Template(bool shadow, bool lineBox)
     {
         var sh = shadow ? "\n                BoxShadow=\"{DynamicResource FiliElevation2}\"" : "";
 
@@ -249,14 +265,7 @@ public static class ThemeColourGenerator
             <theme:PartBorder x:Name="PART_Ripple"
                     theme:Ripple.IsLayer="True"
                     CornerRadius="{TemplateBinding CornerRadius}" />
-            <!-- The label's line box. `.mud-button` sets the button typography's line-height,
-                 1.75 (Typography.cs), so the label is 1.75 of its font size tall whatever it
-                 holds: 6 + 24.5 + 6 = 36.5px at 14px, 30.75 small, 42.25 large. The text alone
-                 is 17px, and the button was 29. Nothing is drawn; it only holds the height. -->
-            <Rectangle x:Name="PART_LineBox"
-                       Margin="{TemplateBinding Padding}"
-                       Height="{Binding FontSize, RelativeSource={RelativeSource TemplatedParent}, Converter={x:Static conv:FactorConverter.Instance}, ConverterParameter=1.75}"
-                       IsHitTestVisible="False" />
+""" + "\n" + (lineBox ? LineBox + "\n" : "") + """
             <ContentPresenter x:Name="PART_ContentPresenter"
                               theme:TextTransform.Case="{DynamicResource FiliButtonTextTransform}"
                               ContentTemplate="{TemplateBinding ContentTemplate}"
@@ -372,7 +381,7 @@ public static class ThemeColourGenerator
     <Setter Property="Padding" Value="8,6" />
 
 """.Replace("x:Key=\"FiliTextButton\" TargetType=\"Button\"", $"x:Key=\"{key}\" TargetType=\"{target}\""));
-        o.Append(Common).Append(Template(false));
+        o.Append(Common).Append(Template(false, target == "Button"));
         o.Append("""
 
     <!-- No colour: action-default-hover. Keyboard focus paints the same tint - that IS the
@@ -384,8 +393,11 @@ public static class ThemeColourGenerator
         o.Append("         than text-primary - `.mud-icon-button` comes after `.mud-button` in MudBlazor's\n");
         o.Append("         bundle, so its colour wins. Before the colours, so a colour class still beats it. -->\n");
         o.Append(Style("^.icon", ("CornerRadius", "999"), ("Padding", "12"), ("MinWidth", "0"), ("Foreground", Res("FiliActionDefaultBrush")))).Append('\n');
-        o.Append("    <!-- `.mud-icon-button` is its padding round the icon: no label, so no line box. -->\n");
-        o.Append(Style("^.icon /template/ Rectangle#PART_LineBox", ("IsVisible", "False"))).Append('\n');
+        if (target == "Button")
+        {
+            o.Append("    <!-- `.mud-icon-button` is its padding round the icon: no label, so no line box. -->\n");
+            o.Append(Style("^.icon /template/ Rectangle#PART_LineBox", ("IsVisible", "False"))).Append('\n');
+        }
 
         foreach (var c in Colours)
         {
@@ -473,7 +485,7 @@ public static class ThemeColourGenerator
     <Setter Property="ClipToBounds" Value="False" />
 
 """.Replace("x:Key=\"FiliFilledButton\" TargetType=\"Button\"", $"x:Key=\"{key}\" TargetType=\"{target}\""));
-        o.Append(Common).Append(Template(true)).Append('\n');
+        o.Append(Common).Append(Template(true, target == "Button")).Append('\n');
         o.Append(Style("^:pointerover /template/ Border#PART_Root", ("BoxShadow", Res("FiliElevation4"))));
         o.Append(Style("^:focus-visible /template/ Border#PART_Root", ("BoxShadow", Res("FiliElevation4"))));
         o.Append(Style("^:pressed /template/ Border#PART_Root", ("BoxShadow", Res("FiliElevation8"))));
@@ -481,8 +493,11 @@ public static class ThemeColourGenerator
         o.Append(ButtonStates("", "PART_Root", "Background", Res("FiliActionDisabledBackgroundBrush"))).Append('\n');
         o.Append("    <!-- `.mud-button-filled.mud-icon-button`: 5px inside a transparent 1px border. -->\n");
         o.Append(Style("^.icon", ("MinWidth", "0"), ("Padding", "5"), ("BorderThickness", "1"), ("BorderBrush", "Transparent"), ("Foreground", Res("FiliActionDefaultBrush")))).Append('\n');
-        o.Append("    <!-- `.mud-icon-button` is its padding round the icon: no label, so no line box. -->\n");
-        o.Append(Style("^.icon /template/ Rectangle#PART_LineBox", ("IsVisible", "False"))).Append('\n');
+        if (target == "Button")
+        {
+            o.Append("    <!-- `.mud-icon-button` is its padding round the icon: no label, so no line box. -->\n");
+            o.Append(Style("^.icon /template/ Rectangle#PART_LineBox", ("IsVisible", "False"))).Append('\n');
+        }
 
         foreach (var c in Colours)
         {

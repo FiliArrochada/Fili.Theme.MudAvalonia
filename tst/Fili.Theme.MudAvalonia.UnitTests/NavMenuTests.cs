@@ -116,6 +116,37 @@ public class NavMenuTests
         Assert.Equal(44, text.Bounds.Height);
     });
 
+    /// <summary>
+    /// A label in a DockPanel or Grid written straight into the Header wraps too. The template's
+    /// presenter only reaches text it makes or templates; a panel in the Header is the row's own
+    /// child, so its label ran on at one line, cut off at the drawer's edge. Two lines of 28px: 72.
+    /// </summary>
+    [Theory]
+    [InlineData("DockPanel")]
+    [InlineData("Grid")]
+    public Task ALongLabelInAPanelHeaderWraps(string panel) => UiThread.RunAsync(() =>
+    {
+        TreeViewItem Row(string text)
+        {
+            var label = new TextBlock { Text = text };
+            Panel host = panel == "Grid"
+                ? new Grid { ColumnDefinitions = new ColumnDefinitions("Auto,*"), Children = { new PathIcon { Classes = { "start-icon" }, Data = Geometry.Parse("M0 0h2v2H0z") }, label } }
+                : new DockPanel { Children = { new PathIcon { Classes = { "start-icon" }, Data = Geometry.Parse("M0 0h2v2H0z") }, label } };
+            if (host is Grid) Grid.SetColumn(label, 1);
+            else DockPanel.SetDock(host.Children[0], Dock.Left);
+            return new TreeViewItem { Header = host };
+        }
+
+        var shortRow = Row("Inbox");
+        var longRow = Row("A label far too long to fit in the drawer's width");
+        var tree = new TreeView { Width = 240, Items = { shortRow, longRow } };
+        tree.Classes.Add("nav");
+        Matrix.Show(tree);
+
+        Assert.Equal(44, shortRow.Bounds.Height);
+        Assert.Equal(72, longRow.Bounds.Height);
+    });
+
     [Fact]
     public Task ALinkIsBody1At8By16WithTheText12pxIn() => UiThread.RunAsync(() =>
     {

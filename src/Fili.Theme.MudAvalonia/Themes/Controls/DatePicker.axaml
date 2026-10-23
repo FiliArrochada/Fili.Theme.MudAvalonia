@@ -382,12 +382,15 @@
                             theme:CalendarView.Target="{Binding ElementName=PART_Calendar}"
                             theme:CalendarView.Shows="Decade"
                             Content="{Binding DisplayDate.Year, ElementName=PART_Calendar}" />
+                    <!-- `.mud-button-date` is h4 on a 1.17 line, where a button's is 1.75: so the
+                         size and the line are the text's, 34 x 1.17 = 39.8px, and the button is
+                         51.8px, not the 71.5 a 34px button's own line would make it. The year's
+                         `.mud-button-year` keeps the button's 1.75, 40px. -->
                     <Button x:Name="PART_DateButton"
                             Classes="inherit"
                             FontWeight="Normal"
                             HorizontalAlignment="Left"
                             Focusable="False"
-                            FontSize="{DynamicResource FiliH4FontSize}"
                             LetterSpacing="0.25"
                             theme:CalendarView.Target="{Binding ElementName=PART_Calendar}"
                             theme:CalendarView.Shows="Month"
@@ -398,7 +401,9 @@
                       <!-- Shrunk to the toolbar's width where the culture's day name is long
                            ("domingo, 11 out"), so the date is never cut off; at h4 otherwise. -->
                       <Viewbox StretchDirection="DownOnly" HorizontalAlignment="Left">
-                        <TextBlock Text="{Binding SelectedDate, ElementName=PART_Calendar, StringFormat='{}{0:ddd, dd MMM}'}" />
+                        <TextBlock Text="{Binding SelectedDate, ElementName=PART_Calendar, StringFormat='{}{0:ddd, dd MMM}'}"
+                                   FontSize="{DynamicResource FiliH4FontSize}"
+                                   LineHeight="39.78" />
                       </Viewbox>
                     </Button>
                   </StackPanel>
