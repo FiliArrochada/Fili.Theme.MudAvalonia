@@ -431,7 +431,7 @@ public class RippleTests
         foreach (var variant in new[] { ThemeVariant.Light, ThemeVariant.Dark, FiliThemeVariants.HighContrast })
         {
             Assert.True(Application.Current!.TryFindResource("FiliRippleOpacity", variant, out var primary));
-            Assert.True(Application.Current.TryFindResource("FiliRippleOpacitySecondary", variant, out var secondary));
+            Assert.True(Application.Current!.TryFindResource("FiliRippleOpacitySecondary", variant, out var secondary));
             Assert.Equal(0.1, primary);
             Assert.Equal(0.2, secondary);
         }
