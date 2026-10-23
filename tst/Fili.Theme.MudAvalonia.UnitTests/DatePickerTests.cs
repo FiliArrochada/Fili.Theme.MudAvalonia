@@ -56,8 +56,10 @@ public class DatePickerTests
     });
 
     /// <summary>
-    /// The icon button sits inside the text line, so a picker is exactly as tall as a text field of
-    /// the same variant and lines up beside one; its 48px once made the standard field 3px taller.
+    /// The icon button reaches no further than the text line, so a picker is exactly as tall as a
+    /// text field of the same variant and lines up beside one; its 48px once made the standard
+    /// field 3px taller. It is centred on the text line in the standard field and on the box in a
+    /// filled or outlined one, where it once sat on the text line, 6px below the box's middle.
     /// </summary>
     [Theory]
     [InlineData("")]
@@ -78,8 +80,14 @@ public class DatePickerTests
         var glyphMiddle = glyph.TranslatePoint(new Point(0, glyph.Bounds.Height / 2), picker)!.Value.Y;
         var textMiddle = text.TranslatePoint(new Point(0, text.Bounds.Height / 2), picker)!.Value.Y;
 
+        var box = Matrix.Part<Border>(Matrix.Part<TextBox>(picker, "PART_TextBox"), "PART_Root");
+        var boxMiddle = box.TranslatePoint(new Point(0, box.Bounds.Height / 2), picker)!.Value.Y;
+
         Assert.Equal(field.Bounds.Height, picker.Bounds.Height);
-        Assert.InRange(glyphMiddle - textMiddle, -1.5, 1.5);
+        // `.mud-input` centres its adornment: on the text line in the standard field, whose
+        // padding is around the input; on the box in a filled or outlined one, whose padding is
+        // the input's own.
+        Assert.InRange(glyphMiddle - (names.Contains("filled") || names.Contains("outlined") ? boxMiddle : textMiddle), -1.5, 1.5);
     });
 
     /// <summary>MudPicker's AdornmentIcon, Icons.Material.Filled.Event, in a MudIconButton at the field's end.</summary>

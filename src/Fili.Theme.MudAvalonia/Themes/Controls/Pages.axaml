@@ -1,0 +1,304 @@
+<!--
+  Avalonia's page types and Carousel, in MudBlazor's layout components.
+
+    ContentPage      the page: text-primary on the app's background, as MudMainContent sits on
+                     the body. Its top and bottom command bars are the CommandBar's MudToolBar.
+    NavigationPage   its bar is MudAppBar (_appbar.scss): `appbar`, 64px, the appbar colours,
+                     24px gutters and elevation 4 - HasShadow, on by default here, is Elevation;
+                     False is 0. The back button is the edge-start MudIconButton the app bar
+                     examples put there, Icons.Material.Filled.ArrowBack in the bar's text colour,
+                     and the page's Header is h6, 12px after it (`ml-3`). The page's TopCommandBar
+                     sits at the bar's end; its commands take the bar's colour, Color.Inherit.
+    TabbedPage       MudTabs: the theme's own TabControl and tabs, with their sliding indicator.
+    Carousel         MudCarousel (MudCarousel.razor): the items, then on top the NavigateBefore and
+                     NavigateNext MudIconButtons at the sides, centred (ArrowsPosition.Center),
+                     and the bullets along the bottom (BulletsPosition.Bottom), all in the
+                     carousel's text colour at .75, as Color.Inherit and `opacity:0.75` give them.
+                     The bullets are a PipsPager, which this theme already draws as them. The
+                     arrows are for the pointer: the carousel itself is the one Tab stop, and its
+                     keys turn it.
+                     ShowArrows="false" is `no-arrows` and ShowBullets="false" `no-bullets`.
+    CarouselPage     a Carousel of pages, so the same arrows and bullets.
+
+  How pages slide, push and pop stays Avalonia's: that is behaviour, not a look.
+-->
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:theme="using:Fili.Theme.MudAvalonia">
+
+  <ControlTheme x:Key="FiliContentPage" TargetType="ContentPage">
+    <Setter Property="Background" Value="{DynamicResource FiliBackgroundBrush}" />
+    <Setter Property="Foreground" Value="{DynamicResource FiliTextPrimaryBrush}" />
+    <Setter Property="FontFamily" Value="{DynamicResource FiliFontFamily}" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <DockPanel>
+          <!-- Shown by the page's code when it has a command bar and no NavigationPage. -->
+          <ContentPresenter x:Name="PART_TopCommandBar"
+                            DockPanel.Dock="Top"
+                            HorizontalContentAlignment="Stretch"
+                            IsVisible="False" />
+          <ContentPresenter x:Name="PART_BottomCommandBar"
+                            DockPanel.Dock="Bottom"
+                            HorizontalContentAlignment="Stretch"
+                            IsVisible="False" />
+          <ContentPresenter x:Name="PART_ContentPresenter"
+                            HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                            VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+                            Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            Content="{TemplateBinding Content}"
+                            ContentTemplate="{TemplateBinding ContentTemplate}"
+                            CornerRadius="{TemplateBinding CornerRadius}" />
+        </DockPanel>
+      </ControlTemplate>
+    </Setter>
+  </ControlTheme>
+
+  <ControlTheme x:Key="FiliNavigationPage" TargetType="NavigationPage">
+    <Setter Property="Background" Value="Transparent" />
+    <Setter Property="BarHeight" Value="{DynamicResource FiliAppbarHeight}" />
+    <!-- MudAppBar's Elevation defaults to 4. -->
+    <Setter Property="HasShadow" Value="True" />
+    <Setter Property="PageTransition">
+      <Setter.Value>
+        <PageSlide Duration="0:0:0.3" Orientation="Horizontal" FillMode="Forward">
+          <PageSlide.SlideInEasing>
+            <SplineEasing X1="0.16" Y1="1" X2="0.3" Y2="1" />
+          </PageSlide.SlideInEasing>
+          <PageSlide.SlideOutEasing>
+            <SplineEasing X1="0.2" Y1="0.85" X2="0.3" Y2="1" />
+          </PageSlide.SlideOutEasing>
+        </PageSlide>
+      </Setter.Value>
+    </Setter>
+    <Setter Property="ModalTransition">
+      <Setter.Value>
+        <PageSlide Duration="0:0:0.25" Orientation="Vertical" FillMode="Forward">
+          <PageSlide.SlideInEasing>
+            <SplineEasing X1="0.16" Y1="1" X2="0.3" Y2="1" />
+          </PageSlide.SlideInEasing>
+          <PageSlide.SlideOutEasing>
+            <SplineEasing X1="0.2" Y1="0.85" X2="0.3" Y2="1" />
+          </PageSlide.SlideOutEasing>
+        </PageSlide>
+      </Setter.Value>
+    </Setter>
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Panel ClipToBounds="True">
+          <DockPanel>
+            <theme:PartBorder x:Name="PART_NavBarSpacer"
+                    Height="{TemplateBinding EffectiveBarHeight}"
+                    IsVisible="False"
+                    DockPanel.Dock="Top" />
+            <ContentPresenter x:Name="PART_BottomCommandBar"
+                              DockPanel.Dock="Bottom"
+                              HorizontalContentAlignment="Stretch"
+                              Background="{TemplateBinding Background}"
+                              Content="{Binding CurrentPage?.(NavigationPage.BottomCommandBar), RelativeSource={RelativeSource TemplatedParent}, FallbackValue={x:Null}}" />
+            <Grid x:Name="PART_ContentHost"
+                  Background="{TemplateBinding Background}"
+                  ClipToBounds="True">
+              <ContentPresenter x:Name="PART_PageBackPresenter"
+                                HorizontalAlignment="Stretch"
+                                VerticalAlignment="Stretch" />
+              <ContentPresenter x:Name="PART_PagePresenter"
+                                HorizontalAlignment="Stretch"
+                                VerticalAlignment="Stretch" />
+            </Grid>
+          </DockPanel>
+
+          <!-- MudAppBar, as `appbar` draws it: the appbar colours, 24px gutters, elevation 4; the
+               height is the page's bar height. The gutters are the Grid's margin: Avalonia's code
+               sets this Border's padding to the safe area. -->
+          <theme:PartBorder x:Name="PART_NavigationBar"
+                  ZIndex="1"
+                  VerticalAlignment="Top"
+                  Height="{TemplateBinding EffectiveBarHeight}"
+                  Background="{DynamicResource FiliAppbarBackgroundBrush}"
+                  TextElement.Foreground="{DynamicResource FiliAppbarTextBrush}"
+                  BoxShadow="{DynamicResource FiliElevation4}">
+            <Grid x:Name="PART_BarContent" ColumnDefinitions="Auto,*,Auto" Margin="24,0">
+              <Button x:Name="PART_BackButton"
+                      Grid.Column="0"
+                      Classes="icon"
+                      Margin="-12,0,12,0"
+                      VerticalAlignment="Center"
+                      Foreground="{Binding (TextElement.Foreground), ElementName=PART_NavigationBar}"
+                      IsVisible="{TemplateBinding IsBackButtonEffectivelyVisible}"
+                      ToolTip.Tip="{x:Null}">
+                <Panel>
+                  <Path x:Name="PART_BackButtonDefaultIcon"
+                        Width="24" Height="24"
+                        Stretch="None"
+                        Data="{DynamicResource FiliArrowBackGeometry}"
+                        Fill="{Binding $parent[Button].Foreground}" />
+                  <ContentPresenter x:Name="PART_BackButtonContentPresenter"
+                                    VerticalAlignment="Center"
+                                    HorizontalAlignment="Center" />
+                </Panel>
+              </Button>
+              <!-- The page's Header, MudText Typo.h6. -->
+              <ContentPresenter x:Name="PART_Header"
+                                Grid.Column="1"
+                                FontSize="{DynamicResource FiliH6FontSize}"
+                                FontWeight="Medium"
+                                LetterSpacing="0.15"
+                                Content="{Binding CurrentPage?.Header, RelativeSource={RelativeSource TemplatedParent}, FallbackValue={x:Null}}"
+                                ContentTemplate="{Binding CurrentPage?.HeaderTemplate, RelativeSource={RelativeSource TemplatedParent}, FallbackValue={x:Null}}"
+                                VerticalAlignment="Center"
+                                HorizontalAlignment="Stretch"
+                                HorizontalContentAlignment="Stretch"
+                                Margin="0,0,12,0" />
+              <ContentPresenter x:Name="PART_TopCommandBar"
+                                Grid.Column="2"
+                                HorizontalAlignment="Right"
+                                VerticalContentAlignment="Center"
+                                Content="{Binding CurrentPage?.(NavigationPage.TopCommandBar), RelativeSource={RelativeSource TemplatedParent}, FallbackValue={x:Null}}">
+                <!-- The page's commands on the bar: no gutters of their own, the last button's
+                     edge-end 12px, and the bar's text colour, Color.Inherit - but not a command
+                     moved into the overflow menu, on the surface. -->
+                <ContentPresenter.Styles>
+                  <Style Selector="CommandBar">
+                    <Setter Property="Padding" Value="0" />
+                    <Setter Property="Margin" Value="0,0,-12,0" />
+                  </Style>
+                  <Style Selector="CommandBarButton[IsInOverflow=False], CommandBarToggleButton[IsInOverflow=False]">
+                    <Setter Property="Foreground" Value="{Binding $parent[CommandBar].Foreground}" />
+                  </Style>
+                </ContentPresenter.Styles>
+              </ContentPresenter>
+            </Grid>
+          </theme:PartBorder>
+          <!-- Avalonia's own 4px gradient, shown by its code for HasShadow; the bar's elevation
+               draws the shadow here, so this stays empty. -->
+          <theme:PartBorder x:Name="PART_NavBarShadow"
+                  ZIndex="1"
+                  VerticalAlignment="Top"
+                  IsVisible="False"
+                  Height="4"
+                  Opacity="0"
+                  IsHitTestVisible="False" />
+          <ContentPresenter x:Name="PART_ModalBackPresenter"
+                            ZIndex="99"
+                            IsVisible="False"
+                            Background="{TemplateBinding Background}" />
+          <ContentPresenter x:Name="PART_ModalPresenter"
+                            ZIndex="100"
+                            IsVisible="False"
+                            Background="{TemplateBinding Background}" />
+        </Panel>
+      </ControlTemplate>
+    </Setter>
+
+    <!-- HasShadow="False" is Elevation 0. -->
+    <Style Selector="^[HasShadow=False] /template/ theme|PartBorder#PART_NavigationBar">
+      <Setter Property="BoxShadow" Value="{DynamicResource FiliElevation0}" />
+    </Style>
+    <Style Selector="^:nav-bar-inset /template/ theme|PartBorder#PART_NavBarSpacer">
+      <Setter Property="IsVisible" Value="True" />
+    </Style>
+  </ControlTheme>
+
+  <ControlTheme x:Key="FiliTabbedPage" TargetType="TabbedPage">
+    <Setter Property="Background" Value="{DynamicResource FiliBackgroundBrush}" />
+    <Setter Property="Foreground" Value="{DynamicResource FiliTextPrimaryBrush}" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Panel Background="{TemplateBinding Background}">
+          <TabControl x:Name="PART_TabControl"
+                      HorizontalAlignment="Stretch"
+                      VerticalAlignment="Stretch" />
+        </Panel>
+      </ControlTemplate>
+    </Setter>
+  </ControlTheme>
+
+  <ControlTheme x:Key="FiliCarousel" TargetType="Carousel">
+    <Setter Property="Foreground" Value="{DynamicResource FiliTextPrimaryBrush}" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Panel>
+          <ScrollViewer x:Name="PART_ScrollViewer"
+                        Background="{TemplateBinding Background}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}"
+                        BringIntoViewOnFocusChange="False"
+                        HorizontalScrollBarVisibility="Hidden"
+                        VerticalScrollBarVisibility="Hidden">
+            <ItemsPresenter x:Name="PART_ItemsPresenter"
+                            ItemsPanel="{TemplateBinding ItemsPanel}"
+                            Margin="{TemplateBinding Padding}" />
+          </ScrollViewer>
+
+          <Button x:Name="PART_PreviousButton"
+                  Classes="icon"
+                  IsTabStop="False"
+                  HorizontalAlignment="Left"
+                  VerticalAlignment="Center"
+                  Opacity="0.75"
+                  Foreground="{TemplateBinding Foreground}"
+                  Command="{Binding Previous, RelativeSource={RelativeSource TemplatedParent}}">
+            <Path Width="24" Height="24" Stretch="None"
+                  Data="{DynamicResource FiliNavigateBeforeGeometry}"
+                  Fill="{Binding $parent[Button].Foreground}" />
+          </Button>
+          <Button x:Name="PART_NextButton"
+                  Classes="icon"
+                  IsTabStop="False"
+                  HorizontalAlignment="Right"
+                  VerticalAlignment="Center"
+                  Opacity="0.75"
+                  Foreground="{TemplateBinding Foreground}"
+                  Command="{Binding Next, RelativeSource={RelativeSource TemplatedParent}}">
+            <Path Width="24" Height="24" Stretch="None"
+                  Data="{DynamicResource FiliChevronRightGeometry}"
+                  Fill="{Binding $parent[Button].Foreground}" />
+          </Button>
+          <PipsPager x:Name="PART_Bullets"
+                     VerticalAlignment="Bottom"
+                     HorizontalAlignment="Center"
+                     Foreground="{TemplateBinding Foreground}"
+                     IsPreviousButtonVisible="False"
+                     IsNextButtonVisible="False"
+                     MaxVisiblePips="{Binding ItemCount, RelativeSource={RelativeSource TemplatedParent}}"
+                     NumberOfPages="{Binding ItemCount, RelativeSource={RelativeSource TemplatedParent}}"
+                     SelectedPageIndex="{Binding SelectedIndex, RelativeSource={RelativeSource TemplatedParent}, Mode=TwoWay}" />
+        </Panel>
+      </ControlTemplate>
+    </Setter>
+
+    <Style Selector="^.no-arrows /template/ Button#PART_PreviousButton, ^.no-arrows /template/ Button#PART_NextButton">
+      <Setter Property="IsVisible" Value="False" />
+    </Style>
+    <Style Selector="^.no-bullets /template/ PipsPager#PART_Bullets">
+      <Setter Property="IsVisible" Value="False" />
+    </Style>
+  </ControlTheme>
+
+  <ControlTheme x:Key="FiliCarouselPage" TargetType="CarouselPage">
+    <Setter Property="Background" Value="{DynamicResource FiliBackgroundBrush}" />
+    <Setter Property="Foreground" Value="{DynamicResource FiliTextPrimaryBrush}" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Carousel x:Name="PART_Carousel"
+                  Background="{TemplateBinding Background}"
+                  Foreground="{TemplateBinding Foreground}"
+                  ItemTemplate="{TemplateBinding PageTemplate}"
+                  PageTransition="{TemplateBinding PageTransition}"
+                  ItemsPanel="{TemplateBinding ItemsPanel}"
+                  HorizontalAlignment="Stretch"
+                  VerticalAlignment="Stretch" />
+      </ControlTemplate>
+    </Setter>
+  </ControlTheme>
+
+  <ControlTheme x:Key="{x:Type ContentPage}" TargetType="ContentPage" BasedOn="{StaticResource FiliContentPage}" />
+  <ControlTheme x:Key="{x:Type NavigationPage}" TargetType="NavigationPage" BasedOn="{StaticResource FiliNavigationPage}" />
+  <ControlTheme x:Key="{x:Type TabbedPage}" TargetType="TabbedPage" BasedOn="{StaticResource FiliTabbedPage}" />
+  <ControlTheme x:Key="{x:Type Carousel}" TargetType="Carousel" BasedOn="{StaticResource FiliCarousel}" />
+  <ControlTheme x:Key="{x:Type CarouselPage}" TargetType="CarouselPage" BasedOn="{StaticResource FiliCarouselPage}" />
+
+</ResourceDictionary>

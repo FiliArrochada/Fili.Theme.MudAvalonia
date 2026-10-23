@@ -5,6 +5,7 @@ using Avalonia.Controls.Presenters;
 using Avalonia.Controls.Primitives;
 using Avalonia.Layout;
 using Avalonia.Media;
+using Avalonia.Threading;
 using Avalonia.VisualTree;
 using Xunit;
 
@@ -295,6 +296,38 @@ public class RemainingOptionsTests
         Assert.Equal(24, end.Height);
         Assert.Equal(Left(start) + 24 + 8, Left(text), 0.5);
         Assert.Equal(Left(text) + text.Bounds.Width + 8, Left(end), 0.5);
+    });
+
+    /// <summary>
+    /// A text adornment, a unit such as "kg", is centred on the text line it is read with, in
+    /// every variant; an icon is centred on a filled or outlined box, as `.mud-input` centres it.
+    /// Centred on the box, the unit sat above the value.
+    /// </summary>
+    [Theory]
+    [InlineData(null)]
+    [InlineData("dense")]
+    [InlineData("filled")]
+    [InlineData("filled dense")]
+    [InlineData("outlined")]
+    [InlineData("outlined dense")]
+    public Task ATextAdornmentStaysOnTheTextLine(string? classes) => UiThread.RunAsync(() =>
+    {
+        var start = new TextBlock { Text = "$", VerticalAlignment = VerticalAlignment.Center };
+        var end = new TextBlock { Text = "kg", VerticalAlignment = VerticalAlignment.Center };
+        var box = new TextBox { Width = 240, Text = "72", InnerLeftContent = start, InnerRightContent = end };
+        if (classes is not null) box.Classes.AddRange(classes.Split(' '));
+        Matrix.Show(box);
+        var text = Matrix.Part<Control>(box, "PART_TextPresenter");
+        double Middle(Visual v) => v.TranslatePoint(new Point(0, v.Bounds.Height / 2), box)!.Value.Y;
+
+        Assert.Contains(":start-text-adornment", box.Classes);
+        Assert.Contains(":end-text-adornment", box.Classes);
+        Assert.Equal(Middle(text), Middle(start), 1);
+        Assert.Equal(Middle(text), Middle(end), 1);
+
+        box.InnerRightContent = new PathIcon { Classes = { "end-icon" }, Data = Geometry.Parse("M0 0h2v2H0z") };
+        Dispatcher.UIThread.RunJobs();
+        Assert.DoesNotContain(":end-text-adornment", box.Classes);
     });
 
     /// <summary>With no adornment the presenters take no gap: the text runs to the padding.</summary>

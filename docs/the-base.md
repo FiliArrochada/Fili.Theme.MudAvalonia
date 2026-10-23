@@ -36,10 +36,9 @@ types**, which win over their forked counterparts because `FiliTheme.axaml` is i
 build, and so an Avalonia version that adds control types shows up as a failure rather than as a
 gap nobody noticed.
 
-The other 48 keep the forked templates. Most of them are Avalonia plumbing MudBlazor has no
-counterpart for — `PopupRoot`, `AdornerLayer`, `TextSelectionHandle`, `ManagedFileChooser`,
-`CommandBar`, the `*Page` shell types — and keeping those byte-faithful is what makes an Avalonia
-upgrade a re-download and a diff.
+The other 28 keep the forked templates. Most of them are Avalonia plumbing MudBlazor has no
+counterpart for — `PopupRoot`, `AdornerLayer`, `TextSelectionHandle`, `ManagedFileChooser` — and
+keeping those byte-faithful is what makes an Avalonia upgrade a re-download and a diff.
 
 So the distinction is no longer themed-versus-invisible, it is **hand-written Material versus
 forked-and-repaletted**. Nothing is missing, and nothing external is required.

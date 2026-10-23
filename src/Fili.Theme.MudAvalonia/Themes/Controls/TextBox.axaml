@@ -475,18 +475,31 @@
       <Setter Property="Margin" Value="12,0,0,0" />
     </Style>
     <!-- `.mud-input-adornment-start` / `-end`: 8px between an adornment and the text; beside a
-         spin column the adornment keeps the column's 12px too. -->
+         spin column the adornment keeps the column's 12px too. The end adornment is centred on
+         the box, not the text line: the filled padding is the input's, and `.mud-input` centres
+         its children. The text area sits 12px further from the top than the bottom, in both
+         densities, so the end adornment reaches 12px up. The start one stays on the text line,
+         as `.mud-input-root-filled-shrink`'s margin-top keeps it. -->
     <Style Selector="^:start-adornment /template/ ContentPresenter#PART_InnerLeftContent">
       <Setter Property="Margin" Value="0,0,8,0" />
     </Style>
     <Style Selector="^:end-adornment /template/ ContentPresenter#PART_InnerRightContent">
-      <Setter Property="Margin" Value="8,0,0,0" />
+      <Setter Property="Margin" Value="8,-12,0,0" />
     </Style>
     <Style Selector="^:spin-end:end-adornment /template/ ContentPresenter#PART_InnerRightContent">
-      <Setter Property="Margin" Value="8,0,12,0" />
+      <Setter Property="Margin" Value="8,-12,12,0" />
     </Style>
     <Style Selector="^:spin-start:start-adornment /template/ ContentPresenter#PART_InnerLeftContent">
       <Setter Property="Margin" Value="12,0,8,0" />
+    </Style>
+    <!-- A text adornment, a unit such as "kg", stays on the text line it is read with: centred on
+         the box it would sit above the value. A departure from `.mud-input`, which centres text
+         and icons alike (Adornments.cs). -->
+    <Style Selector="^:end-text-adornment /template/ ContentPresenter#PART_InnerRightContent">
+      <Setter Property="Margin" Value="8,0,0,0" />
+    </Style>
+    <Style Selector="^:spin-end:end-text-adornment /template/ ContentPresenter#PART_InnerRightContent">
+      <Setter Property="Margin" Value="8,0,12,0" />
     </Style>
   </ControlTheme>
 
@@ -590,17 +603,32 @@
       <Setter Property="Margin" Value="10,0,0,0" />
     </Style>
     <!-- `.mud-input-adornment-start` / `-end`: 8px between an adornment and the text; beside a
-         spin column the adornment keeps the column's 10px too. -->
+         spin column the adornment keeps the column's 10px too. Both are centred on the box, not
+         the text line, as `.mud-input` centres them: the text area sits 4px further from the top
+         than the bottom, in both densities, so they reach 4px up. -->
     <Style Selector="^:start-adornment /template/ ContentPresenter#PART_InnerLeftContent">
-      <Setter Property="Margin" Value="0,0,8,0" />
+      <Setter Property="Margin" Value="0,-4,8,0" />
     </Style>
     <Style Selector="^:end-adornment /template/ ContentPresenter#PART_InnerRightContent">
-      <Setter Property="Margin" Value="8,0,0,0" />
+      <Setter Property="Margin" Value="8,-4,0,0" />
     </Style>
     <Style Selector="^:spin-end:end-adornment /template/ ContentPresenter#PART_InnerRightContent">
-      <Setter Property="Margin" Value="8,0,10,0" />
+      <Setter Property="Margin" Value="8,-4,10,0" />
     </Style>
     <Style Selector="^:spin-start:start-adornment /template/ ContentPresenter#PART_InnerLeftContent">
+      <Setter Property="Margin" Value="10,-4,8,0" />
+    </Style>
+    <!-- A text adornment stays on the text line, as in the filled field. -->
+    <Style Selector="^:start-text-adornment /template/ ContentPresenter#PART_InnerLeftContent">
+      <Setter Property="Margin" Value="0,0,8,0" />
+    </Style>
+    <Style Selector="^:end-text-adornment /template/ ContentPresenter#PART_InnerRightContent">
+      <Setter Property="Margin" Value="8,0,0,0" />
+    </Style>
+    <Style Selector="^:spin-end:end-text-adornment /template/ ContentPresenter#PART_InnerRightContent">
+      <Setter Property="Margin" Value="8,0,10,0" />
+    </Style>
+    <Style Selector="^:spin-start:start-text-adornment /template/ ContentPresenter#PART_InnerLeftContent">
       <Setter Property="Margin" Value="10,0,8,0" />
     </Style>
   </ControlTheme>

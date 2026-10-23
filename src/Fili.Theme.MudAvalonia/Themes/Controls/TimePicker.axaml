@@ -1,0 +1,327 @@
+<!--
+  TimePicker: MudTimePicker, from MudTimePicker.razor, MudPicker.razor, _pickertime.scss and
+  _picker.scss.
+
+  Closed, it is the standard text field - the field's own theme, untouched - holding the time as
+  MudTimePicker writes it, "14:30" or "02:30 PM" (TimeView.FieldText), with MudPicker's adornment,
+  Icons.Material.Filled.AccessTime in an icon button at the end. A field's classes go on the
+  picker and reach the field, as a date picker's do. AutomationProperties.Name is the floating
+  label: TimePicker has no PlaceholderText, and that is Avalonia's own property, read by a screen
+  reader too, as AutomationProperties.HelpText is the helper text. Read-only, as MudTimePicker is
+  by default, a click on the field opens the picker; `editable` is MudTimePicker's Editable, the
+  time typed. The icon button is Avalonia's PART_FlyoutButton.
+
+  Open, it is MudPicker's popover: a paper at elevation 8, and MudTimePicker's toolbar on primary,
+  100px - the hour and the minute at h2's 60px light, AM and PM beside them at 18px with the one
+  not chosen at .54. What MudBlazor draws under the toolbar is a clock face, which is a control of
+  its own rather than a template, so Avalonia's hour and minute columns stay: body1 rows 40px high,
+  the chosen row on a primary band in its contrast text, as the clock's chosen number is, and the
+  up and down arrows MudNumericField's KeyboardArrowUp and KeyboardArrowDown. Avalonia's picker
+  commits on accept, so the popover ends in `.mud-picker-actions`: Close and Check icon buttons,
+  8px in from the paper's edge.
+
+  The hour, minute, second and period blocks Avalonia fills in for its closed button are required
+  parts; they are kept, out of sight, so its code still finds them.
+-->
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:theme="using:Fili.Theme.MudAvalonia">
+
+  <!-- A row in an hour, minute, second or period column: body1, centred, text-secondary; the
+       chosen one in the band's contrast text. -->
+  <ControlTheme x:Key="FiliDateTimePickerItem" TargetType="ListBoxItem">
+    <Setter Property="Background" Value="Transparent" />
+    <Setter Property="Foreground" Value="{DynamicResource FiliTextSecondaryBrush}" />
+    <Setter Property="FontFamily" Value="{DynamicResource FiliFontFamily}" />
+    <Setter Property="FontSize" Value="{DynamicResource FiliBody1FontSize}" />
+    <Setter Property="HorizontalContentAlignment" Value="Center" />
+    <Setter Property="VerticalContentAlignment" Value="Center" />
+    <Setter Property="Cursor" Value="Hand" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <ContentPresenter x:Name="PART_ContentPresenter"
+                          Background="{TemplateBinding Background}"
+                          Content="{TemplateBinding Content}"
+                          ContentTemplate="{TemplateBinding ContentTemplate}"
+                          Foreground="{TemplateBinding Foreground}"
+                          HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                          VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" />
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^:pointerover">
+      <Setter Property="Foreground" Value="{DynamicResource FiliTextPrimaryBrush}" />
+    </Style>
+    <Style Selector="^:selected">
+      <Setter Property="IsHitTestVisible" Value="False" />
+      <Setter Property="Foreground" Value="{DynamicResource FiliPrimaryContrastTextBrush}" />
+      <Setter Property="FontWeight" Value="Medium" />
+    </Style>
+  </ControlTheme>
+
+  <!-- A column's step arrow: shown while the column is hovered, as Avalonia's are, over the
+       surface so the rows scroll under it. -->
+  <ControlTheme x:Key="FiliDateTimePickerStepButton" TargetType="RepeatButton">
+    <Setter Property="Background" Value="{DynamicResource FiliSurfaceBrush}" />
+    <Setter Property="Foreground" Value="{DynamicResource FiliActionDefaultBrush}" />
+    <Setter Property="Height" Value="24" />
+    <Setter Property="HorizontalAlignment" Value="Stretch" />
+    <Setter Property="Focusable" Value="False" />
+    <Setter Property="IsVisible" Value="False" />
+    <Setter Property="Cursor" Value="Hand" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <theme:PartBorder Background="{TemplateBinding Background}">
+          <Path Width="24" Height="24"
+                Stretch="None"
+                HorizontalAlignment="Center"
+                Data="{TemplateBinding Tag}"
+                Fill="{TemplateBinding Foreground}" />
+        </theme:PartBorder>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^:pointerover">
+      <Setter Property="Foreground" Value="{DynamicResource FiliTextPrimaryBrush}" />
+    </Style>
+  </ControlTheme>
+  <ControlTheme x:Key="FiliDateTimePickerUpButton" TargetType="RepeatButton" BasedOn="{StaticResource FiliDateTimePickerStepButton}">
+    <Setter Property="VerticalAlignment" Value="Top" />
+    <Setter Property="Tag" Value="{DynamicResource FiliKeyboardArrowUpGeometry}" />
+  </ControlTheme>
+  <ControlTheme x:Key="FiliDateTimePickerDownButton" TargetType="RepeatButton" BasedOn="{StaticResource FiliDateTimePickerStepButton}">
+    <Setter Property="VerticalAlignment" Value="Bottom" />
+    <Setter Property="Tag" Value="{DynamicResource FiliKeyboardArrowDownGeometry}" />
+  </ControlTheme>
+
+  <ControlTheme x:Key="FiliTimePicker" TargetType="TimePicker">
+    <!-- The field inside reaches past the picker's bounds: the outlined label floats onto the
+         stroke, and the icon button's circle reaches 12px past the end. -->
+    <Setter Property="ClipToBounds" Value="False" />
+    <Setter Property="MinWidth" Value="{DynamicResource FiliInputMinWidth}" />
+    <Setter Property="HorizontalAlignment" Value="Left" />
+    <Setter Property="VerticalAlignment" Value="Center" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Panel>
+          <!-- The look: the standard text field. The picker's focus lands in it, so the picker
+               and its field are one Tab stop; read-only, a click or Enter opens the picker
+               (TimeView), and with `editable` the time is typed. -->
+          <TextBox x:Name="PART_TextBox"
+                   TemplatedControl.IsTemplateFocusTarget="True"
+                   IsReadOnly="True"
+                   Cursor="Hand"
+                   theme:TimeView.Field="True"
+                   theme:FieldClasses.Mirrors="True"
+                   DataValidationErrors.Errors="{TemplateBinding (DataValidationErrors.Errors)}"
+                   AutomationProperties.HelpText="{TemplateBinding (AutomationProperties.HelpText)}"
+                   PlaceholderText="{TemplateBinding (AutomationProperties.Name)}">
+            <TextBox.Text>
+              <MultiBinding Converter="{x:Static theme:TimeView.FieldText}">
+                <TemplateBinding Property="SelectedTime" />
+                <TemplateBinding Property="ClockIdentifier" />
+                <TemplateBinding Property="UseSeconds" />
+              </MultiBinding>
+            </TextBox.Text>
+            <TextBox.InnerRightContent>
+              <!-- Avalonia's flyout button, which its code opens the picker from: MudBlazor's
+                   edge-end icon button, pulled into the text line so the field keeps a text
+                   field's height, as the date picker's is. -->
+              <Button x:Name="PART_FlyoutButton"
+                      Classes="icon"
+                      Margin="0,-14,-12,-14"
+                      Focusable="False"
+                      IsEnabled="{TemplateBinding IsEnabled}">
+                <PathIcon Data="{DynamicResource FiliAccessTimeGeometry}" />
+              </Button>
+            </TextBox.InnerRightContent>
+          </TextBox>
+
+          <!-- Avalonia's required blocks, filled in by its code; not drawn. -->
+          <Grid x:Name="PART_FlyoutButtonContentGrid" IsVisible="False">
+            <theme:PartBorder x:Name="PART_FirstPickerHost" Grid.Column="0">
+              <TextBlock x:Name="PART_HourTextBlock" />
+            </theme:PartBorder>
+            <Rectangle x:Name="PART_FirstColumnDivider" Grid.Column="1" />
+            <theme:PartBorder x:Name="PART_SecondPickerHost" Grid.Column="2">
+              <TextBlock x:Name="PART_MinuteTextBlock" />
+            </theme:PartBorder>
+            <Rectangle x:Name="PART_SecondColumnDivider" Grid.Column="3" />
+            <theme:PartBorder x:Name="PART_ThirdPickerHost" Grid.Column="4">
+              <TextBlock x:Name="PART_SecondTextBlock" />
+            </theme:PartBorder>
+            <Rectangle x:Name="PART_ThirdColumnDivider" Grid.Column="5" />
+            <theme:PartBorder x:Name="PART_FourthPickerHost" Grid.Column="6">
+              <TextBlock x:Name="PART_PeriodTextBlock" />
+            </theme:PartBorder>
+          </Grid>
+
+          <!-- Avalonia's code opens PART_Popup and, as it does, moves it to centre the chosen row
+               on the field: AnchorAndGravity, and an offset worked from the presenter's height.
+               That is WinUI's flyout, not MudPicker's popover, which hangs from the field's
+               bottom-left with the toolbar on top. So PART_Popup stays empty, and the presenter
+               is in this popover, open whenever PART_Popup is, which the code cannot move. -->
+          <Popup x:Name="PART_Popup"
+                 IsLightDismissEnabled="False"
+                 PlacementTarget="{TemplateBinding}"
+                 WindowManagerAddShadowHint="False" />
+          <Popup x:Name="PART_Popover"
+                 IsOpen="{Binding IsOpen, ElementName=PART_Popup, Mode=TwoWay}"
+                 IsLightDismissEnabled="True"
+                 Placement="BottomEdgeAlignedLeft"
+                 PlacementTarget="{TemplateBinding}"
+                 WindowManagerAddShadowHint="False">
+            <TimePickerPresenter x:Name="PART_PickerPresenter" />
+          </Popup>
+        </Panel>
+      </ControlTemplate>
+    </Setter>
+
+    <!-- MudTimePicker's Editable: the time typed into the field, committed on Enter or when it
+         loses focus. -->
+    <Style Selector="^.editable /template/ TextBox#PART_TextBox">
+      <Setter Property="IsReadOnly" Value="False" />
+      <Setter Property="Cursor" Value="IBeam" />
+    </Style>
+  </ControlTheme>
+
+  <ControlTheme x:Key="FiliTimePickerPresenter" TargetType="TimePickerPresenter">
+    <!-- The shadow's room is the popover child's own margin, as the date picker's is: a popup
+         places its child's border box at the anchor and lets the margin hang outside it, so the
+         paper meets the field's bottom-left. On a part inside, the paper sat 8px off both ways. -->
+    <Setter Property="Margin" Value="8" />
+    <Setter Property="Width" Value="310" />
+    <Setter Property="FontFamily" Value="{DynamicResource FiliFontFamily}" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <theme:PartBorder x:Name="PART_PopupBorder"
+                Background="{DynamicResource FiliSurfaceBrush}"
+                CornerRadius="{DynamicResource FiliCornerRadius}"
+                BoxShadow="{DynamicResource FiliElevation8}">
+          <DockPanel>
+            <!-- MudTimePicker's toolbar: the hour and the minute, h2 light, and AM / PM. -->
+            <theme:PartBorder x:Name="PART_Toolbar"
+                    DockPanel.Dock="Top"
+                    Height="100"
+                    Padding="24,0"
+                    Background="{DynamicResource FiliPrimaryBrush}"
+                    TextElement.Foreground="{DynamicResource FiliPrimaryContrastTextBrush}"
+                    CornerRadius="{Binding CornerRadius, ElementName=PART_PopupBorder, Converter={x:Static theme:CalendarView.TopCorners}}">
+              <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <StackPanel.Styles>
+                  <Style Selector="TextBlock.time">
+                    <Setter Property="FontSize" Value="60" />
+                    <Setter Property="FontWeight" Value="Light" />
+                    <Setter Property="LineHeight" Value="60" />
+                    <Setter Property="LetterSpacing" Value="-0.5" />
+                    <Setter Property="VerticalAlignment" Value="Center" />
+                  </Style>
+                  <Style Selector="TextBlock.period">
+                    <Setter Property="FontSize" Value="18" />
+                    <Setter Property="LineHeight" Value="31.5" />
+                    <Setter Property="LetterSpacing" Value="0.17" />
+                    <Setter Property="Opacity" Value="0.54" />
+                  </Style>
+                  <Style Selector="TextBlock.period.chosen">
+                    <Setter Property="Opacity" Value="1" />
+                  </Style>
+                </StackPanel.Styles>
+                <TextBlock x:Name="PART_ToolbarHour" Classes="time"
+                           theme:TimeView.Follows="{Binding ElementName=PART_HourSelector}" />
+                <TextBlock Classes="time" Text=":" Margin="2,0,4,0" />
+                <TextBlock x:Name="PART_ToolbarMinute" Classes="time"
+                           theme:TimeView.Follows="{Binding ElementName=PART_MinuteSelector}" />
+                <TextBlock Classes="time" Text=":" Margin="2,0,4,0"
+                           IsVisible="{TemplateBinding UseSeconds}" />
+                <TextBlock Classes="time"
+                           IsVisible="{TemplateBinding UseSeconds}"
+                           theme:TimeView.Follows="{Binding ElementName=PART_SecondSelector}" />
+                <StackPanel x:Name="PART_ToolbarPeriod"
+                            Margin="20,0,-20,0"
+                            VerticalAlignment="Center"
+                            IsVisible="{Binding ClockIdentifier, RelativeSource={RelativeSource TemplatedParent}, Converter={x:Static theme:TimeView.IsTwelveHour}}">
+                  <TextBlock x:Name="PART_ToolbarAm" Classes="period"
+                             theme:TimeView.Period="0"
+                             theme:TimeView.Follows="{Binding ElementName=PART_PeriodSelector}"
+                             Text="{x:Static theme:TimeView.AmDesignator}" />
+                  <TextBlock x:Name="PART_ToolbarPm" Classes="period"
+                             theme:TimeView.Period="1"
+                             theme:TimeView.Follows="{Binding ElementName=PART_PeriodSelector}"
+                             Text="{x:Static theme:TimeView.PmDesignator}" />
+                </StackPanel>
+              </StackPanel>
+            </theme:PartBorder>
+
+            <!-- `.mud-picker-actions`: the end of the paper, 8px in. -->
+            <StackPanel DockPanel.Dock="Bottom"
+                        Orientation="Horizontal"
+                        HorizontalAlignment="Right"
+                        Margin="8">
+              <Button x:Name="PART_DismissButton" Classes="icon">
+                <PathIcon Data="{DynamicResource FiliCloseGeometry}" />
+              </Button>
+              <Button x:Name="PART_AcceptButton" Classes="icon primary">
+                <PathIcon Data="{DynamicResource FiliCheckGeometry}" />
+              </Button>
+            </StackPanel>
+
+            <Grid x:Name="PART_PickerContainer" Height="200" Margin="16,8,16,0">
+              <Grid.Styles>
+                <Style Selector="DateTimePickerPanel > ListBoxItem">
+                  <Setter Property="Theme" Value="{StaticResource FiliDateTimePickerItem}" />
+                </Style>
+              </Grid.Styles>
+              <!-- The chosen row's band, under the columns. -->
+              <theme:PartBorder x:Name="HighlightRect"
+                      Grid.Column="0"
+                      Grid.ColumnSpan="7"
+                      Height="40"
+                      VerticalAlignment="Center"
+                      CornerRadius="{DynamicResource FiliCornerRadius}"
+                      Background="{DynamicResource FiliPrimaryBrush}"
+                      ZIndex="-1" />
+              <Panel x:Name="PART_HourHost" Grid.Column="0">
+                <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Hidden">
+                  <DateTimePickerPanel x:Name="PART_HourSelector" ItemHeight="40" PanelType="Hour" ShouldLoop="True" />
+                </ScrollViewer>
+                <RepeatButton x:Name="PART_HourUpButton" Theme="{StaticResource FiliDateTimePickerUpButton}" />
+                <RepeatButton x:Name="PART_HourDownButton" Theme="{StaticResource FiliDateTimePickerDownButton}" />
+              </Panel>
+              <Panel x:Name="PART_MinuteHost" Grid.Column="2">
+                <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Hidden">
+                  <DateTimePickerPanel x:Name="PART_MinuteSelector" ItemHeight="40" PanelType="Minute" ShouldLoop="True" />
+                </ScrollViewer>
+                <RepeatButton x:Name="PART_MinuteUpButton" Theme="{StaticResource FiliDateTimePickerUpButton}" />
+                <RepeatButton x:Name="PART_MinuteDownButton" Theme="{StaticResource FiliDateTimePickerDownButton}" />
+              </Panel>
+              <Panel x:Name="PART_SecondHost" Grid.Column="4">
+                <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Hidden">
+                  <DateTimePickerPanel x:Name="PART_SecondSelector" ItemHeight="40" PanelType="Second" ShouldLoop="True" />
+                </ScrollViewer>
+                <RepeatButton x:Name="PART_SecondUpButton" Theme="{StaticResource FiliDateTimePickerUpButton}" />
+                <RepeatButton x:Name="PART_SecondDownButton" Theme="{StaticResource FiliDateTimePickerDownButton}" />
+              </Panel>
+              <Panel x:Name="PART_PeriodHost" Grid.Column="6">
+                <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Hidden">
+                  <DateTimePickerPanel x:Name="PART_PeriodSelector" ItemHeight="40" PanelType="TimePeriod" ShouldLoop="False" />
+                </ScrollViewer>
+                <RepeatButton x:Name="PART_PeriodUpButton" Theme="{StaticResource FiliDateTimePickerUpButton}" />
+                <RepeatButton x:Name="PART_PeriodDownButton" Theme="{StaticResource FiliDateTimePickerDownButton}" />
+              </Panel>
+              <!-- Avalonia sizes these as the columns' gaps; nothing is drawn in them. -->
+              <Rectangle x:Name="PART_FirstSpacer" Grid.Column="1" Width="8" />
+              <Rectangle x:Name="PART_SecondSpacer" Grid.Column="3" Width="8" />
+              <Rectangle x:Name="PART_ThirdSpacer" Grid.Column="5" Width="8" />
+            </Grid>
+          </DockPanel>
+        </theme:PartBorder>
+      </ControlTemplate>
+    </Setter>
+
+    <Style Selector="^ /template/ Panel:pointerover > RepeatButton">
+      <Setter Property="IsVisible" Value="True" />
+    </Style>
+  </ControlTheme>
+
+  <ControlTheme x:Key="{x:Type TimePicker}" TargetType="TimePicker" BasedOn="{StaticResource FiliTimePicker}" />
+  <ControlTheme x:Key="{x:Type TimePickerPresenter}" TargetType="TimePickerPresenter" BasedOn="{StaticResource FiliTimePickerPresenter}" />
+
+</ResourceDictionary>

@@ -6,6 +6,7 @@ What changed in each release of `Fili.Theme.MudAvalonia`, newest first. The pack
 
 | Version | |
 |---|---|
+| *(unreleased)* | Seven of Avalonia's controls in MudBlazor's look, where they wore the forked templates. `TimePicker` is MudTimePicker: the standard field with the `AccessTime` adornment, and the toolbar's popover over Avalonia's columns. `CommandBar` is MudToolBar of MudIconButtons with a `MoreVert` MudMenu. `TableView` is MudTable, as the data grid is. A `NavigationPage`'s bar is MudAppBar, a `TabbedPage` is MudTabs and a `ContentPage` sits on the background. `Carousel` and `CarouselPage` are MudCarousel, with `no-arrows` and `no-bullets`; a time picker with `editable` takes a typed time. A filled or outlined field's icon adornment is centred on the box, as `.mud-input` centres it, where it sat on the text line below the box's middle; a text adornment, such as a unit, stays on the text line beside the value it is read with. `FiliMoreVertGeometry`, `FiliAccessTimeGeometry`, `FiliCheckGeometry` and `FiliArrowBackGeometry` are new, and the published class list grows to 159. See [Upgrading from 0.15.0](#upgrading-from-0150). |
 | **0.15.0** | MudDatePicker on `CalendarDatePicker`: the standard field with the `Event` adornment, taking the field's classes, and MudPicker's popover - the primary toolbar with the year and the date over the calendar, a 36px day filled primary when selected and ringed when today. `FiliEventGeometry` is new. A button's label beside an icon is uppercase, as MudButton's is with a `StartIcon`: the case is inherited, as CSS's is, so a `TextBlock` in a button's content reads in capitals, with its `Text` left as the app wrote or bound it; `TextBlock.button` is uppercase too. See [Upgrading from 0.14.0](#upgrading-from-0140-to-0150). A select's closed box draws the selection with its `SelectionBoxItemTemplate`, as Avalonia's own select does, and with its `ItemTemplate` only when it has none. It always used the `ItemTemplate`, so a closed-box template was ignored and anything the list's template set, such as a colour meant for the popup, showed in the closed box too. An outlined or filled `NumericUpDown` or `AutoCompleteBox` draws its stroke or its fill, which a value inside their templates had kept them from drawing, and an outlined label on either, or on the date picker, is no longer cut off along its top edge. A select, a number field, an autocomplete and a date picker are each exactly a text field's height in every variant, so a row of them lines up: a standard select was 3px taller, and a number field was 56px in every variant, `dense` included. |
 | 0.14.0 | MudButtonGroup of any length is `button-group` on a `StackPanel` of buttons, across or down: one shape with the radius on its outer corners, shared lines and MudBlazor's separators. A disabled slider is MudSlider's: rail and thumb at .38 in their colour, the thumb ringed in white, where it was grey. A flyout has no padding of its own, as MudPopover has none. The published class list grows to 156. See [Upgrading from 0.13.0 to 0.14.0](#upgrading-from-0130-to-0140). |
 | 0.13.0 | A `paper` casts MudPaper's default elevation 1, as a `card` does; `elevation0` takes it away. Icons find their place in four more hosts: an icon marked `start-icon` or `end-icon` in a link is the link's font size and 4px from the text, in a tab header 24px and 8px from the text, and in a text field's adornment 24px; an adornment keeps 8px from the text; and a chip's `avatar` is MudChip's 24px (18 small, 32 large) with its margins. A `PathIcon` with no size class is 24px, MudIcon's default `Size.Medium`, where it was 20. MudOverlay is `overlay` on a Border, with `dark-background` and `light-background`: its content centred, its container's corners, and MudBlazor's .15s fade each time it shows. The published class list grows to 155. See [Upgrading from 0.12.0 to 0.13.0](#upgrading-from-0120-to-0130). |
@@ -31,6 +32,28 @@ What changed in each release of `Fili.Theme.MudAvalonia`, newest first. The pack
 Every version and its release notes are on the
 [releases page](https://github.com/FiliArrochada/Fili.Theme.MudAvalonia/releases); a version on
 nuget.org can be unlisted but never replaced.
+
+## Upgrading from 0.15.0
+
+Nothing needs a markup change; several things look different, each now in MudBlazor's shape.
+
+- **A `TimePicker` is MudTimePicker**: the standard text field with the clock icon button, where
+  it was a button of grey blocks. It has no `PlaceholderText`, so give it a label with
+  `AutomationProperties.Name`. Field classes (`outlined`, `filled`, `dense`...) apply when set on
+  the picker, and `editable` lets the time be typed.
+- **A `CommandBar` is a toolbar of icon buttons.** Its `DefaultLabelPosition` is `Collapsed` by
+  default here, where Avalonia's is `Bottom`: each command is an icon with its label as the
+  tooltip. Set `DefaultLabelPosition="Right"` for labelled buttons, or `Bottom` for Avalonia's
+  layout.
+- **A `TableView` is a paper at elevation 1** with MudTable's header, cells and rules.
+- **A `NavigationPage`'s bar is an app bar**: primary, 64px, with a shadow; `HasShadow="False"`
+  takes the shadow away. A `TabbedPage` has the theme's tabs.
+- **A filled or outlined field's icon adornment is centred on the box**, 6px higher in a filled
+  field's end and 2px in an outlined field's start or end, where it sat on the text line. A text
+  adornment, a string or a `TextBlock` such as a unit, does not move: it stays on the value's
+  line, where MudBlazor would lift it with the icons.
+- **A `Carousel` shows arrows and bullets**, as MudCarousel does by default. Add `no-arrows` or
+  `no-bullets` to keep one without them.
 
 ## Upgrading from 0.14.0 to 0.15.0
 

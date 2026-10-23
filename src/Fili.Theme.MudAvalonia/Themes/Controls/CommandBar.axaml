@@ -1,0 +1,434 @@
+<!--
+  CommandBar: MudToolBar holding MudIconButtons, with a MoreVert MudMenu for the rest. From
+  _toolbar.scss, _button.scss and _menu.scss.
+
+    the bar               .mud-toolbar: a row 64px high with 24px gutters and no ground of its
+                          own; `dense` is 48px, `Padding="0"` is Gutters="false". Inside an
+                          `appbar` its buttons take the bar's text colour, as Color.Inherit does.
+    DefaultLabelPosition  Collapsed by default here, where Avalonia's is Bottom: a MudToolBar holds
+                          MudIconButtons, 48px circles round a 24px icon in action-default, each
+                          label its tooltip. Right is a text MudButton with a StartIcon, the label
+                          uppercase. Bottom has no MudBlazor counterpart and keeps Avalonia's
+                          layout, the icon over a caption-size label, in this theme's colours.
+    toggle, checked       MudToggleIconButton, ToggledColor primary
+    separator             a vertical MudDivider, 1px in the divider colour, 12px clear of the
+                          bar's top and bottom
+    overflow button       a MudIconButton with Icons.Material.Filled.MoreVert (FiliMoreVertGeometry)
+    overflow              MudMenu's popover: surface, elevation 8, 4px top and bottom, 112px wide at
+                          least; each command a MudMenuItem row, 48px, the label body1 as written;
+                          a separator a 1px rule with 4px either side
+
+  ItemWidthCollapsed, ItemWidthRight and ItemWidthBottom are what dynamic overflow measures with,
+  so they are the buttons' widths here.
+-->
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:theme="using:Fili.Theme.MudAvalonia">
+
+  <ControlTheme x:Key="FiliCommandBarButton" TargetType="CommandBarButton">
+    <Setter Property="Background" Value="Transparent" />
+    <Setter Property="Foreground" Value="{DynamicResource FiliActionDefaultBrush}" />
+    <Setter Property="BorderThickness" Value="0" />
+    <Setter Property="Padding" Value="8,6" />
+    <Setter Property="Width" Value="72" />
+    <Setter Property="MinHeight" Value="48" />
+    <Setter Property="VerticalAlignment" Value="Center" />
+    <Setter Property="CornerRadius" Value="{DynamicResource FiliCornerRadius}" />
+    <Setter Property="FontFamily" Value="{DynamicResource FiliFontFamily}" />
+    <Setter Property="FontSize" Value="{DynamicResource FiliButtonFontSize}" />
+    <Setter Property="FontWeight" Value="Medium" />
+    <Setter Property="LetterSpacing" Value="{DynamicResource FiliButtonLetterSpacing}" />
+    <Setter Property="Cursor" Value="Hand" />
+    <Setter Property="theme:Ripple.Opacity" Value="{DynamicResource FiliRippleOpacity}" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <theme:PartBorder x:Name="PART_Root"
+                Background="{TemplateBinding Background}"
+                CornerRadius="{TemplateBinding CornerRadius}">
+          <Panel>
+            <theme:PartBorder x:Name="PART_StateLayer"
+                    CornerRadius="{TemplateBinding CornerRadius}"
+                    Background="Transparent" />
+            <theme:PartBorder x:Name="PART_Ripple"
+                    theme:Ripple.IsLayer="True"
+                    CornerRadius="{TemplateBinding CornerRadius}" />
+            <StackPanel x:Name="PART_LayoutRoot"
+                        Margin="{TemplateBinding Padding}"
+                        Spacing="4"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center">
+              <!-- The icon scaled to its box: 24px, 20px beside a label on the right. A theme
+                   cannot reach the PathIcon itself, which is the app's content. -->
+              <Viewbox x:Name="PART_IconBox"
+                       Width="24" Height="24"
+                       IsVisible="{TemplateBinding Icon, Converter={x:Static ObjectConverters.IsNotNull}}"
+                       HorizontalAlignment="Center"
+                       VerticalAlignment="Center">
+                <ContentPresenter x:Name="PART_IconPresenter"
+                                  Content="{TemplateBinding Icon}"
+                                  Foreground="{TemplateBinding Foreground}" />
+              </Viewbox>
+              <TextBlock x:Name="PART_Label"
+                         Text="{TemplateBinding Label}"
+                         Foreground="{TemplateBinding Foreground}"
+                         theme:TextTransform.Case="{DynamicResource FiliButtonTextTransform}"
+                         FontSize="{DynamicResource FiliCaptionFontSize}"
+                         HorizontalAlignment="Center"
+                         VerticalAlignment="Center"
+                         TextTrimming="CharacterEllipsis" />
+            </StackPanel>
+          </Panel>
+        </theme:PartBorder>
+      </ControlTemplate>
+    </Setter>
+
+    <Style Selector="^:pointerover /template/ theme|PartBorder#PART_StateLayer">
+      <Setter Property="Background" Value="{DynamicResource FiliActionDefaultHoverBrush}" />
+    </Style>
+    <Style Selector="^:focus-visible /template/ theme|PartBorder#PART_StateLayer">
+      <Setter Property="Background" Value="{DynamicResource FiliActionDefaultHoverBrush}" />
+    </Style>
+    <Style Selector="^:pressed /template/ theme|PartBorder#PART_StateLayer">
+      <Setter Property="Background" Value="{DynamicResource FiliActionDefaultHoverBrush}" />
+    </Style>
+
+    <!-- DefaultLabelPosition="Collapsed", the theme's default: MudIconButton, a 48px circle, 12px
+         round a 24px icon, the label as its tooltip. -->
+    <Style Selector="^[IsCompact=True]">
+      <Setter Property="Width" Value="48" />
+      <Setter Property="Height" Value="48" />
+      <Setter Property="Padding" Value="12" />
+      <Setter Property="CornerRadius" Value="999" />
+      <Setter Property="ToolTip.Tip" Value="{Binding Label, RelativeSource={RelativeSource Self}}" />
+    </Style>
+    <Style Selector="^[IsCompact=True] /template/ TextBlock#PART_Label">
+      <Setter Property="IsVisible" Value="False" />
+    </Style>
+
+    <!-- LabelPosition="Right": a text MudButton with a StartIcon - the label in button type, a
+         20px icon 8px before it and 4px into the padding (`.mud-button-icon-start`). -->
+    <Style Selector="^[LabelPosition=Right]">
+      <Setter Property="Width" Value="NaN" />
+      <Setter Property="MinWidth" Value="64" />
+      <Setter Property="MinHeight" Value="0" />
+    </Style>
+    <Style Selector="^[LabelPosition=Right] /template/ StackPanel#PART_LayoutRoot">
+      <Setter Property="Orientation" Value="Horizontal" />
+      <Setter Property="Spacing" Value="0" />
+    </Style>
+    <Style Selector="^[LabelPosition=Right] /template/ Viewbox#PART_IconBox">
+      <Setter Property="Width" Value="20" />
+      <Setter Property="Height" Value="20" />
+      <Setter Property="Margin" Value="-4,0,8,0" />
+    </Style>
+    <Style Selector="^[LabelPosition=Right] /template/ TextBlock#PART_Label">
+      <Setter Property="FontSize" Value="{DynamicResource FiliButtonFontSize}" />
+    </Style>
+
+    <!-- In the overflow: a MudMenuItem row - 48px, 8px 12px, a 24px action-default icon 12px
+         before body1 text in text-primary, in the case written (_menu.scss). -->
+    <Style Selector="^[IsInOverflow=True]">
+      <Setter Property="Width" Value="NaN" />
+      <Setter Property="Height" Value="NaN" />
+      <Setter Property="MinWidth" Value="0" />
+      <Setter Property="MinHeight" Value="48" />
+      <Setter Property="Padding" Value="12,8" />
+      <Setter Property="CornerRadius" Value="{DynamicResource FiliCornerRadius}" />
+      <Setter Property="HorizontalAlignment" Value="Stretch" />
+      <Setter Property="FontWeight" Value="Normal" />
+      <Setter Property="ToolTip.Tip" Value="{x:Null}" />
+    </Style>
+    <Style Selector="^[IsInOverflow=True] /template/ StackPanel#PART_LayoutRoot">
+      <Setter Property="Orientation" Value="Horizontal" />
+      <Setter Property="HorizontalAlignment" Value="Left" />
+      <Setter Property="Spacing" Value="0" />
+    </Style>
+    <Style Selector="^[IsInOverflow=True] /template/ Viewbox#PART_IconBox">
+      <Setter Property="Width" Value="24" />
+      <Setter Property="Height" Value="24" />
+      <Setter Property="Margin" Value="0,0,12,0" />
+    </Style>
+
+    <Style Selector="^[IsInOverflow=True] /template/ TextBlock#PART_Label">
+      <Setter Property="IsVisible" Value="True" />
+      <Setter Property="Margin" Value="0,4" />
+      <Setter Property="FontSize" Value="{DynamicResource FiliBody1FontSize}" />
+      <Setter Property="FontWeight" Value="Normal" />
+      <Setter Property="LetterSpacing" Value="0.15" />
+      <Setter Property="Foreground" Value="{DynamicResource FiliTextPrimaryBrush}" />
+      <Setter Property="theme:TextTransform.Case" Value="none" />
+    </Style>
+    <Style Selector="^[IsInOverflow=True]:pointerover /template/ theme|PartBorder#PART_StateLayer">
+      <Setter Property="Background" Value="{DynamicResource FiliOverlayHoverBrush}" />
+    </Style>
+
+    <Style Selector="^:disabled">
+      <Setter Property="Foreground" Value="{DynamicResource FiliActionDisabledBrush}" />
+      <Setter Property="Cursor" Value="Arrow" />
+    </Style>
+    <Style Selector="^:disabled /template/ TextBlock#PART_Label">
+      <Setter Property="Foreground" Value="{DynamicResource FiliActionDisabledBrush}" />
+    </Style>
+  </ControlTheme>
+
+  <ControlTheme x:Key="FiliCommandBarToggleButton" TargetType="CommandBarToggleButton">
+    <Setter Property="Background" Value="Transparent" />
+    <Setter Property="Foreground" Value="{DynamicResource FiliActionDefaultBrush}" />
+    <Setter Property="BorderThickness" Value="0" />
+    <Setter Property="Padding" Value="8,6" />
+    <Setter Property="Width" Value="72" />
+    <Setter Property="MinHeight" Value="48" />
+    <Setter Property="VerticalAlignment" Value="Center" />
+    <Setter Property="CornerRadius" Value="{DynamicResource FiliCornerRadius}" />
+    <Setter Property="FontFamily" Value="{DynamicResource FiliFontFamily}" />
+    <Setter Property="FontSize" Value="{DynamicResource FiliButtonFontSize}" />
+    <Setter Property="FontWeight" Value="Medium" />
+    <Setter Property="LetterSpacing" Value="{DynamicResource FiliButtonLetterSpacing}" />
+    <Setter Property="Cursor" Value="Hand" />
+    <Setter Property="theme:Ripple.Opacity" Value="{DynamicResource FiliRippleOpacity}" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <theme:PartBorder x:Name="PART_Root"
+                Background="{TemplateBinding Background}"
+                CornerRadius="{TemplateBinding CornerRadius}">
+          <Panel>
+            <theme:PartBorder x:Name="PART_StateLayer"
+                    CornerRadius="{TemplateBinding CornerRadius}"
+                    Background="Transparent" />
+            <theme:PartBorder x:Name="PART_Ripple"
+                    theme:Ripple.IsLayer="True"
+                    CornerRadius="{TemplateBinding CornerRadius}" />
+            <StackPanel x:Name="PART_LayoutRoot"
+                        Margin="{TemplateBinding Padding}"
+                        Spacing="4"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center">
+              <!-- The icon scaled to its box: 24px, 20px beside a label on the right. A theme
+                   cannot reach the PathIcon itself, which is the app's content. -->
+              <Viewbox x:Name="PART_IconBox"
+                       Width="24" Height="24"
+                       IsVisible="{TemplateBinding Icon, Converter={x:Static ObjectConverters.IsNotNull}}"
+                       HorizontalAlignment="Center"
+                       VerticalAlignment="Center">
+                <ContentPresenter x:Name="PART_IconPresenter"
+                                  Content="{TemplateBinding Icon}"
+                                  Foreground="{TemplateBinding Foreground}" />
+              </Viewbox>
+              <TextBlock x:Name="PART_Label"
+                         Text="{TemplateBinding Label}"
+                         Foreground="{TemplateBinding Foreground}"
+                         theme:TextTransform.Case="{DynamicResource FiliButtonTextTransform}"
+                         FontSize="{DynamicResource FiliCaptionFontSize}"
+                         HorizontalAlignment="Center"
+                         VerticalAlignment="Center"
+                         TextTrimming="CharacterEllipsis" />
+            </StackPanel>
+          </Panel>
+        </theme:PartBorder>
+      </ControlTemplate>
+    </Setter>
+
+    <Style Selector="^:pointerover /template/ theme|PartBorder#PART_StateLayer">
+      <Setter Property="Background" Value="{DynamicResource FiliActionDefaultHoverBrush}" />
+    </Style>
+    <Style Selector="^:focus-visible /template/ theme|PartBorder#PART_StateLayer">
+      <Setter Property="Background" Value="{DynamicResource FiliActionDefaultHoverBrush}" />
+    </Style>
+    <Style Selector="^:pressed /template/ theme|PartBorder#PART_StateLayer">
+      <Setter Property="Background" Value="{DynamicResource FiliActionDefaultHoverBrush}" />
+    </Style>
+
+    <!-- Checked: MudToggleIconButton with ToggledColor="Color.Primary"; with no ToggledIcon an
+         unchanged colour would not show the state at all. -->
+    <Style Selector="^:checked">
+      <Setter Property="Foreground" Value="{DynamicResource FiliPrimaryBrush}" />
+    </Style>
+    <Style Selector="^:checked:pointerover /template/ theme|PartBorder#PART_StateLayer">
+      <Setter Property="Background" Value="{DynamicResource FiliPrimaryHoverBrush}" />
+    </Style>
+
+    <!-- DefaultLabelPosition="Collapsed", the theme's default: MudIconButton, a 48px circle, 12px
+         round a 24px icon, the label as its tooltip. -->
+    <Style Selector="^[IsCompact=True]">
+      <Setter Property="Width" Value="48" />
+      <Setter Property="Height" Value="48" />
+      <Setter Property="Padding" Value="12" />
+      <Setter Property="CornerRadius" Value="999" />
+      <Setter Property="ToolTip.Tip" Value="{Binding Label, RelativeSource={RelativeSource Self}}" />
+    </Style>
+    <Style Selector="^[IsCompact=True] /template/ TextBlock#PART_Label">
+      <Setter Property="IsVisible" Value="False" />
+    </Style>
+
+    <!-- LabelPosition="Right": a text MudButton with a StartIcon - the label in button type, a
+         20px icon 8px before it and 4px into the padding (`.mud-button-icon-start`). -->
+    <Style Selector="^[LabelPosition=Right]">
+      <Setter Property="Width" Value="NaN" />
+      <Setter Property="MinWidth" Value="64" />
+      <Setter Property="MinHeight" Value="0" />
+    </Style>
+    <Style Selector="^[LabelPosition=Right] /template/ StackPanel#PART_LayoutRoot">
+      <Setter Property="Orientation" Value="Horizontal" />
+      <Setter Property="Spacing" Value="0" />
+    </Style>
+    <Style Selector="^[LabelPosition=Right] /template/ Viewbox#PART_IconBox">
+      <Setter Property="Width" Value="20" />
+      <Setter Property="Height" Value="20" />
+      <Setter Property="Margin" Value="-4,0,8,0" />
+    </Style>
+    <Style Selector="^[LabelPosition=Right] /template/ TextBlock#PART_Label">
+      <Setter Property="FontSize" Value="{DynamicResource FiliButtonFontSize}" />
+    </Style>
+
+    <!-- In the overflow: a MudMenuItem row - 48px, 8px 12px, a 24px action-default icon 12px
+         before body1 text in text-primary, in the case written (_menu.scss). -->
+    <Style Selector="^[IsInOverflow=True]">
+      <Setter Property="Width" Value="NaN" />
+      <Setter Property="Height" Value="NaN" />
+      <Setter Property="MinWidth" Value="0" />
+      <Setter Property="MinHeight" Value="48" />
+      <Setter Property="Padding" Value="12,8" />
+      <Setter Property="CornerRadius" Value="{DynamicResource FiliCornerRadius}" />
+      <Setter Property="HorizontalAlignment" Value="Stretch" />
+      <Setter Property="FontWeight" Value="Normal" />
+      <Setter Property="ToolTip.Tip" Value="{x:Null}" />
+    </Style>
+    <Style Selector="^[IsInOverflow=True] /template/ StackPanel#PART_LayoutRoot">
+      <Setter Property="Orientation" Value="Horizontal" />
+      <Setter Property="HorizontalAlignment" Value="Left" />
+      <Setter Property="Spacing" Value="0" />
+    </Style>
+    <Style Selector="^[IsInOverflow=True] /template/ Viewbox#PART_IconBox">
+      <Setter Property="Width" Value="24" />
+      <Setter Property="Height" Value="24" />
+      <Setter Property="Margin" Value="0,0,12,0" />
+    </Style>
+
+    <Style Selector="^[IsInOverflow=True] /template/ TextBlock#PART_Label">
+      <Setter Property="IsVisible" Value="True" />
+      <Setter Property="Margin" Value="0,4" />
+      <Setter Property="FontSize" Value="{DynamicResource FiliBody1FontSize}" />
+      <Setter Property="FontWeight" Value="Normal" />
+      <Setter Property="LetterSpacing" Value="0.15" />
+      <Setter Property="Foreground" Value="{DynamicResource FiliTextPrimaryBrush}" />
+      <Setter Property="theme:TextTransform.Case" Value="none" />
+    </Style>
+    <Style Selector="^[IsInOverflow=True]:pointerover /template/ theme|PartBorder#PART_StateLayer">
+      <Setter Property="Background" Value="{DynamicResource FiliOverlayHoverBrush}" />
+    </Style>
+
+    <Style Selector="^:disabled">
+      <Setter Property="Foreground" Value="{DynamicResource FiliActionDisabledBrush}" />
+      <Setter Property="Cursor" Value="Arrow" />
+    </Style>
+    <Style Selector="^:disabled /template/ TextBlock#PART_Label">
+      <Setter Property="Foreground" Value="{DynamicResource FiliActionDisabledBrush}" />
+    </Style>
+  </ControlTheme>
+
+  <ControlTheme x:Key="FiliCommandBarSeparator" TargetType="CommandBarSeparator">
+    <Setter Property="Width" Value="1" />
+    <Setter Property="Margin" Value="8,12" />
+    <Setter Property="VerticalAlignment" Value="Stretch" />
+    <Setter Property="Background" Value="{DynamicResource FiliDividerBrush}" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <theme:PartBorder Background="{TemplateBinding Background}" />
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^[IsInOverflow=True]">
+      <Setter Property="Width" Value="NaN" />
+      <Setter Property="Height" Value="1" />
+      <Setter Property="Margin" Value="0,4" />
+      <Setter Property="HorizontalAlignment" Value="Stretch" />
+    </Style>
+  </ControlTheme>
+
+  <ControlTheme x:Key="FiliCommandBar" TargetType="CommandBar">
+    <Setter Property="HorizontalAlignment" Value="Stretch" />
+    <Setter Property="Background" Value="Transparent" />
+    <Setter Property="BorderThickness" Value="0" />
+    <Setter Property="Height" Value="64" />
+    <Setter Property="Padding" Value="24,0" />
+    <Setter Property="DefaultLabelPosition" Value="Collapsed" />
+    <Setter Property="ItemWidthCollapsed" Value="48" />
+    <Setter Property="ItemWidthRight" Value="120" />
+    <Setter Property="ItemWidthBottom" Value="72" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <theme:PartBorder Background="{TemplateBinding Background}"
+                BorderBrush="{TemplateBinding BorderBrush}"
+                BorderThickness="{TemplateBinding BorderThickness}"
+                CornerRadius="{TemplateBinding CornerRadius}"
+                Padding="{TemplateBinding Padding}">
+          <Panel>
+            <DockPanel KeyboardNavigation.TabNavigation="Cycle">
+              <Button x:Name="PART_OverflowButton"
+                      DockPanel.Dock="Right"
+                      Classes="icon"
+                      VerticalAlignment="Center"
+                      IsVisible="{TemplateBinding IsOverflowButtonVisible}">
+                <Path Width="24" Height="24"
+                      Stretch="None"
+                      Data="{DynamicResource FiliMoreVertGeometry}"
+                      Fill="{Binding $parent[Button].Foreground}" />
+              </Button>
+
+              <ContentPresenter x:Name="PART_ContentPresenter"
+                                Content="{TemplateBinding Content}"
+                                DockPanel.Dock="Left"
+                                VerticalAlignment="Center" />
+
+              <ItemsControl x:Name="PART_PrimaryCommands"
+                            ItemsSource="{Binding VisiblePrimaryCommands, RelativeSource={RelativeSource TemplatedParent}}"
+                            HorizontalAlignment="Right"
+                            VerticalAlignment="Stretch"
+                            ClipToBounds="True">
+                <ItemsControl.ItemsPanel>
+                  <ItemsPanelTemplate>
+                    <StackPanel Orientation="Horizontal" />
+                  </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+              </ItemsControl>
+            </DockPanel>
+
+            <Popup x:Name="PART_OverflowPopup"
+                   IsOpen="{TemplateBinding IsOpen, Mode=TwoWay}"
+                   PlacementTarget="{Binding #PART_OverflowButton}"
+                   Placement="BottomEdgeAlignedRight"
+                   IsLightDismissEnabled="True"
+                   WindowManagerAddShadowHint="False">
+              <theme:PartBorder x:Name="PART_OverflowBorder"
+                      Background="{DynamicResource FiliSurfaceBrush}"
+                      CornerRadius="{DynamicResource FiliCornerRadius}"
+                      BoxShadow="{DynamicResource FiliElevation8}"
+                      Padding="0,4"
+                      MinWidth="112"
+                      Margin="8">
+                <ItemsControl x:Name="PART_OverflowPresenter"
+                              ItemsSource="{Binding OverflowItems, RelativeSource={RelativeSource TemplatedParent}}">
+                  <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                      <StackPanel />
+                    </ItemsPanelTemplate>
+                  </ItemsControl.ItemsPanel>
+                </ItemsControl>
+              </theme:PartBorder>
+            </Popup>
+          </Panel>
+        </theme:PartBorder>
+      </ControlTemplate>
+    </Setter>
+
+    <!-- .mud-toolbar-dense -->
+    <Style Selector="^.dense">
+      <Setter Property="Height" Value="48" />
+    </Style>
+  </ControlTheme>
+
+  <ControlTheme x:Key="{x:Type CommandBarButton}" TargetType="CommandBarButton" BasedOn="{StaticResource FiliCommandBarButton}" />
+  <ControlTheme x:Key="{x:Type CommandBarToggleButton}" TargetType="CommandBarToggleButton" BasedOn="{StaticResource FiliCommandBarToggleButton}" />
+  <ControlTheme x:Key="{x:Type CommandBarSeparator}" TargetType="CommandBarSeparator" BasedOn="{StaticResource FiliCommandBarSeparator}" />
+  <ControlTheme x:Key="{x:Type CommandBar}" TargetType="CommandBar" BasedOn="{StaticResource FiliCommandBar}" />
+
+</ResourceDictionary>

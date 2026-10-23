@@ -132,7 +132,7 @@ base became a fork of Simple that this repo owns, the hazard went with it: a `Te
 `Variant.Outlined`, `Variant.Text` and `Variant.Filled` — API familiarity is the point of this
 package, so they are not namespaced to `mud-primary` or hidden behind an attached property.
 
-**All 156 of them, which is the list to grep an app against before adopting:**
+**All 159 of them, which is the list to grep an app against before adopting:**
 
 | | |
 |---|---|
@@ -146,7 +146,7 @@ package, so they are not namespaced to `mud-primary` or hidden behind an attache
 | Component | `icon`, `button-group`, `chip`, `fab`, `extended`, `alert`, `avatar`, `badge`, `card`, `skeleton`, `circle`, `rectangle`, `counter`, `circular`, `nav`, `toolbar`, `drawer-header`, `normal`, `expansion-panels` |
 | Card parts | `card-header`, `card-header-avatar`, `card-header-content`, `card-header-actions`, `card-media`, `card-content`, `card-actions` |
 | Badge (`Origin`, `Dot`, `Bordered`, `Overlap`) | `top-left`, `top-center`, `center-left`, `center-center`, `center-right`, `bottom-left`, `bottom-center`, `bottom-right`, `dot`, `bordered`, `overlap` |
-| Behaviour | `arrow`, `dense-items`, `helper-on-focus`, `hide-close`, `hide-icon`, `hover`, `multi-expansion`, `multi-selection`, `no-animation`, `no-gutters`, `no-outline`, `required`, `shrink-label`, `value-label`, `striped`, `wave` |
+| Behaviour | `arrow`, `dense-items`, `editable`, `helper-on-focus`, `hide-close`, `hide-icon`, `hover`, `multi-expansion`, `multi-selection`, `no-animation`, `no-arrows`, `no-bullets`, `no-gutters`, `no-outline`, `required`, `shrink-label`, `value-label`, `striped`, `wave` |
 | Label placement (`LabelPlacement`) | `label-start`, `label-top`, `label-bottom` |
 | Icons in content | `start-icon`, `end-icon` |
 | Material, not MudBlazor | `material-fixed-tabs`, `material-elevation-overlay` |
@@ -265,7 +265,8 @@ clip, and `UnclassedTextKeepsItsNaturalLineHeight` keeps it that way.
 ### Every control
 
 [Controls](docs/controls.md) is the usage guide, one section per control: buttons, split and
-drop-down buttons, text fields, the date picker, selection controls, slider and tabs, progress, dividers, panels
+drop-down buttons, text fields, the date and time pickers, selection controls, slider and tabs,
+command bars, tables, the page types, the carousel, progress, dividers, panels
 and links, FABs, avatars, badges and cards, the data grid, the drawer, snackbars, right to left, high contrast,
 keyboard focus, the converters,
 lists and selects, scrolling and menus, and overlays.
@@ -291,7 +292,7 @@ Every token is asserted to resolve under **both** theme variants. Add a token, a
 | Elevation | `Themes/Elevation.axaml` | Levels 0–25 (25 is MudBlazor's softer last entry), three stacked shadow layers each — one hard ring each in high contrast. |
 | Typography | `Themes/Typography.axaml` | Roboto, embedded; base size **14px**, not 16. |
 | Controls | `Themes/ControlThemes.axaml` | Aggregator; one file per control under `Themes/Controls/`. Keyed by type. |
-| Icons | `Themes/Icons.axaml` | The twenty Material glyphs the templates draw, and the switch's empty thumb icon. Each is a key an app can set in a control's `Resources` to swap that control's glyph: MudBlazor's icon parameters. Not an icon set. |
+| Icons | `Themes/Icons.axaml` | The twenty-four Material glyphs the templates draw, and the switch's empty thumb icon. Each is a key an app can set in a control's `Resources` to swap that control's glyph: MudBlazor's icon parameters. Not an icon set. |
 | Geometry | `Themes/Geometry.axaml` | 4px radius, 4px spacing scale, appbar and drawer sizes, and `FiliInputMinWidth` — the floor that keeps an unstretched empty field from measuring to nothing. |
 
 Three things worth knowing before changing any of them:

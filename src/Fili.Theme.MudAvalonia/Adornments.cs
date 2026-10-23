@@ -18,6 +18,13 @@ namespace Fili.Theme.MudAvalonia;
 /// pseudo-class. An empty presenter takes no gap.
 /// </para>
 /// <para>
+/// A text adornment, a string or a <c>TextBlock</c> such as a unit, also gets
+/// <c>:start-text-adornment</c> or <c>:end-text-adornment</c>. <c>.mud-input</c> centres every
+/// adornment on a filled or outlined box, which lifts a unit above the value it is read with;
+/// the theme keeps text on the text line instead and centres only icons on the box, a deliberate
+/// departure from MudBlazor.
+/// </para>
+/// <para>
 /// Internal, like <see cref="MenuIconGutter"/>: a template needs it, a consumer does not.
 /// </para>
 /// </remarks>
@@ -25,6 +32,8 @@ internal sealed class Adornments
 {
     private const string Start = ":start-adornment";
     private const string End = ":end-adornment";
+    private const string StartText = ":start-text-adornment";
+    private const string EndText = ":end-text-adornment";
 
     private Adornments()
     {
@@ -49,5 +58,9 @@ internal sealed class Adornments
         var tracks = GetTracks(box);
         ((IPseudoClasses)box.Classes).Set(Start, tracks && box.InnerLeftContent is not null);
         ((IPseudoClasses)box.Classes).Set(End, tracks && box.InnerRightContent is not null);
+        ((IPseudoClasses)box.Classes).Set(StartText, tracks && IsText(box.InnerLeftContent));
+        ((IPseudoClasses)box.Classes).Set(EndText, tracks && IsText(box.InnerRightContent));
     }
+
+    private static bool IsText(object? content) => content is string or TextBlock;
 }

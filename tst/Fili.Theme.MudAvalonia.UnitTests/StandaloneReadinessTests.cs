@@ -64,13 +64,32 @@ public class StandaloneReadinessTests
         // MudDataGrid, on the Avalonia.Controls.DataGrid package's controls.
         "FiliDataGrid", "FiliDataGridCell", "FiliDataGridColumnHeader", "FiliDataGridRowHeader",
         "FiliDataGridRow", "FiliDataGridRowGroupHeader", "FiliDataGridGroupExpander",
+
+        // MudDatePicker on CalendarDatePicker, and the calendar inside it.
+        "FiliCalendarDatePicker", "FiliCalendar", "FiliCalendarItem", "FiliCalendarDayButton",
+        "FiliCalendarButton", "FiliCalendarNavButton", "FiliCalendarHeaderButton",
+
+        // MudTimePicker on TimePicker: the field and the popover, with Avalonia's columns.
+        "FiliTimePicker", "FiliTimePickerPresenter",
+        "FiliDateTimePickerItem", "FiliDateTimePickerStepButton", "FiliDateTimePickerUpButton",
+        "FiliDateTimePickerDownButton",
+
+        // MudToolBar of MudIconButtons, with a MudMenu for the overflow.
+        "FiliCommandBar", "FiliCommandBarButton", "FiliCommandBarToggleButton", "FiliCommandBarSeparator",
+
+        // MudTable on TableView. Its ScrollViewer theme is left out: ScrollViewer is classified
+        // below, and that theme is only the table's own header row round Avalonia's parts.
+        "FiliTableView", "FiliTableViewColumnHeader", "FiliTableViewCell", "FiliTableViewRow",
+
+        // MudBlazor's layout components on Avalonia's page types, and MudCarousel.
+        "FiliContentPage", "FiliNavigationPage", "FiliTabbedPage", "FiliCarousel", "FiliCarouselPage",
     ];
 
     /// <summary>
-    /// The other forty-eight, each with the reason it is still wearing a forked Simple template.
+    /// The other twenty-eight, each with the reason it is still wearing a forked Simple template.
     ///
     /// <para>
-    /// This list exists because "forty-eight still forked" reads like a backlog and is not one. Every
+    /// This list exists because "twenty-eight still forked" reads like a backlog and is not one. Every
     /// entry below was checked against MudBlazor rather than assumed, and the honest finding is
     /// that the control work is CLOSED: what remains is either framework plumbing with no design
     /// opinion to express, a bespoke MudBlazor component that would be a rewrite rather than a
@@ -108,33 +127,23 @@ public class StandaloneReadinessTests
                 "TextSelectionHandle", "Window", "WindowBase",
             ]),
 
-        // Avalonia's navigation shells. A design system has no opinion about a page host.
-        ("Shell page types",
-            ["CarouselPage", "ContentPage", "DrawerPage", "NavigationPage", "TabbedPage"]),
+        // DrawerPage keeps the fork's top bar and title; its drawer is the SplitView's MudDrawer,
+        // by styles in FiliTheme.axaml rather than a theme of its own.
+        ("Shell page styled over the fork", ["DrawerPage"]),
 
         // Structural rather than decorative: get a part name wrong and it lays out perfectly and
         // does not scroll. Written once while layering, deleted when the fork made it redundant.
         ("Deliberately deleted", ["ScrollViewer"]),
 
-        // Bespoke MudBlazor components. Matching MudDatePicker means a rewrite per template with
-        // no shortcut. TableView is Avalonia's newer table; MudDataGrid's look is on the
-        // DataGrid package's control, the one apps use.
-        ("Out of scope: a rewrite, not a restyle",
-            [
-                "Calendar", "CalendarButton", "CalendarDatePicker", "CalendarDayButton",
-                "CalendarItem", "DatePicker", "DatePickerPresenter", "TimePicker",
-                "TimePickerPresenter", "TableView", "TableViewCell", "TableViewColumnHeader",
-                "TableViewRow",
-            ]),
+        // The spinner date picker. MudDatePicker is CalendarDatePicker; a date in three turning
+        // columns has no MudBlazor counterpart to transcribe.
+        ("A second date picker, MudDatePicker being CalendarDatePicker",
+            ["DatePicker", "DatePickerPresenter"]),
 
-        // Nothing in MudBlazor to transcribe. Carousel's visible chrome is icon buttons and
-        // bullets, themed elsewhere; GroupBox's nearest relatives are MudCard and MudPaper, which
-        // are different shapes; a command bar and pull-to-refresh have no counterpart at all.
+        // Nothing in MudBlazor to transcribe. GroupBox's nearest relatives are MudCard and
+        // MudPaper, which are different shapes; pull-to-refresh has no counterpart at all.
         ("No MudBlazor counterpart",
-            [
-                "Carousel", "CommandBar", "CommandBarButton", "CommandBarSeparator",
-                "CommandBarToggleButton", "GroupBox", "RefreshContainer", "RefreshVisualizer",
-            ]),
+            ["GroupBox", "RefreshContainer", "RefreshVisualizer"]),
 
         // MudIcon is the counterpart and the only divergence is size - it defaults to Size.Medium,
         // 1.5rem, where Simple's IconElementTheme* keys are 20px. Not worth acting on: every
@@ -186,27 +195,32 @@ public class StandaloneReadinessTests
 
         Assert.Equal(
             [
-                "AutoCompleteBox", "Button", "ButtonSpinner", "CheckBox", "ComboBox",
-                "ComboBoxItem", "ContextMenu", "DataGrid", "DataGridCell", "DataGridColumnHeader",
+                "AutoCompleteBox", "Button", "ButtonSpinner", "Calendar", "CalendarButton",
+                "CalendarDatePicker", "CalendarDayButton", "CalendarItem", "Carousel",
+                "CarouselPage", "CheckBox", "ComboBox", "ComboBoxItem", "CommandBar",
+                "CommandBarButton", "CommandBarSeparator", "CommandBarToggleButton", "ContentPage",
+                "ContextMenu", "DataGrid", "DataGridCell", "DataGridColumnHeader",
                 "DataGridRow", "DataGridRowGroupHeader", "DataGridRowHeader",
                 "DataValidationErrors", "DropDownButton", "Expander",
                 "FlyoutPresenter", "HeaderedContentControl", "HyperlinkButton", "Label", "ListBox", "ListBoxItem", "Menu",
-                "MenuFlyoutPresenter", "MenuItem", "NotificationCard", "NumericUpDown",
+                "MenuFlyoutPresenter", "MenuItem", "NavigationPage", "NotificationCard", "NumericUpDown",
                 "PipsPager", "ProgressBar", "RadioButton", "RepeatButton", "ScrollBar",
-                "Separator", "Slider", "SplitButton", "SplitView", "TabControl", "TabItem", "TabStrip",
+                "Separator", "Slider", "SplitButton", "SplitView", "TabbedPage", "TabControl", "TabItem",
+                "TableView", "TableViewCell", "TableViewColumnHeader", "TableViewRow", "TabStrip",
                 "TabStripItem",
-                "TextBox", "ToggleButton", "ToggleSwitch", "ToolTip", "TreeView", "TreeViewItem",
+                "TextBox", "TimePicker", "TimePickerPresenter", "ToggleButton", "ToggleSwitch",
+                "ToolTip", "TreeView", "TreeViewItem",
                 "WindowNotificationManager",
             ],
             themed.Select(t => t.Name).ToArray());
 
-        // THE NUMBER THAT SAYS HOW MUCH OF THE FORK IS STILL DOING THE WORK. 47 of 95 templated
-        // control types are hand-written here; the other 48 are still wearing the forked Simple
+        // THE NUMBER THAT SAYS HOW MUCH OF THE FORK IS STILL DOING THE WORK. 67 of 95 templated
+        // control types are hand-written here; the other 28 are still wearing the forked Simple
         // templates from Themes/Base. Pinned rather than merely reported, so it cannot drift
         // unnoticed and so an Avalonia version that adds controls surfaces as a failure here.
         var templated = TemplatedControlTypes();
 
-        Assert.Equal(47, themed.Count);
+        Assert.Equal(67, themed.Count);
         Assert.Equal(95, templated.Count);
     });
 
@@ -214,8 +228,8 @@ public class StandaloneReadinessTests
     /// The inventory is complete and says each type once.
     ///
     /// <para>
-    /// This is what turns the coverage number from a claim into a fact. Without it, "47 of 95"
-    /// only says how many themes exist; with it, every one of the other forty-eight has a stated reason
+    /// This is what turns the coverage number from a claim into a fact. Without it, "67 of 95"
+    /// only says how many themes exist; with it, every one of the other twenty-eight has a stated reason
     /// for not being one, and a control type added by a future Avalonia fails here by name rather
     /// than by making 89 into 90.
     /// </para>

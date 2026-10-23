@@ -438,6 +438,32 @@
                    MaxWidth="760"
                    HorizontalAlignment="Left"
                    Text="A checkbox in a cell is MudBlazor's table checkbox, a 32px circle pulled in 4px, so a selection column keeps the rows at 53px. Text longer than its column is cut off where the column ends, as Avalonia draws it; an app that wants an ellipsis sets TextTrimming on DataGridCell TextBlock." />
+
+        <TextBlock Classes="overline" Text="TableView, striped and hover, a row selected" Margin="0,8,0,0" />
+        <TableView x:Name="ElementTable" Classes="striped hover" Width="640" Height="372" HorizontalAlignment="Left">
+          <TableView.Columns>
+            <TableViewColumn Header="Name" Width="*">
+              <TableViewColumn.CellTemplate>
+                <DataTemplate x:DataType="v:GalleryElement"><TextBlock Text="{Binding Name}" /></DataTemplate>
+              </TableViewColumn.CellTemplate>
+            </TableViewColumn>
+            <TableViewColumn Header="Sign" Width="96">
+              <TableViewColumn.CellTemplate>
+                <DataTemplate x:DataType="v:GalleryElement"><TextBlock Text="{Binding Sign}" /></DataTemplate>
+              </TableViewColumn.CellTemplate>
+            </TableViewColumn>
+            <TableViewColumn Header="Group" Width="200">
+              <TableViewColumn.CellTemplate>
+                <DataTemplate x:DataType="v:GalleryElement"><TextBlock Text="{Binding Group}" /></DataTemplate>
+              </TableViewColumn.CellTemplate>
+            </TableViewColumn>
+          </TableView.Columns>
+        </TableView>
+        <TextBlock Classes="caption"
+                   TextWrapping="Wrap"
+                   MaxWidth="760"
+                   HorizontalAlignment="Left"
+                   Text="Avalonia's own TableView wears the same MudTable look with no package to add: surface at elevation 1, subtitle2 headers, body2 cells 16px round and a table-lines rule under every row but the last. dense, striped, hover and outlined are the data grid's classes." />
       </StackPanel>
 
       <!-- Selection -->
@@ -691,6 +717,22 @@
                      VerticalAlignment="Top"
                      Text="A CalendarDatePicker is MudDatePicker: the standard field with the Event adornment, taking the field's classes, and a popover with the primary toolbar over the calendar. The calendar on its own is the static picker." />
         </StackPanel>
+
+        <TextBlock Classes="overline" Text="Time picker" Margin="0,8,0,0" />
+        <StackPanel Orientation="Horizontal" Spacing="24" VerticalAlignment="Top">
+          <TimePicker Width="220" AutomationProperties.Name="Starts at" SelectedTime="14:30" />
+          <TimePicker Width="220" Classes="outlined" AutomationProperties.Name="Alarm" SelectedTime="07:15" ClockIdentifier="12HourClock" />
+          <TimePicker Width="220" Classes="filled dense" AutomationProperties.Name="Ends at" />
+        </StackPanel>
+        <StackPanel Orientation="Horizontal" Spacing="24" VerticalAlignment="Top">
+          <TimePicker Width="220" Classes="editable" AutomationProperties.Name="Typed" SelectedTime="09:45" />
+          <TimePicker Width="220" Classes="outlined editable" AutomationProperties.Name="Typed, 12-hour" SelectedTime="18:20" ClockIdentifier="12HourClock" />
+        </StackPanel>
+        <TextBlock Classes="caption"
+                   TextWrapping="Wrap"
+                   MaxWidth="760"
+                   HorizontalAlignment="Left"
+                   Text="A TimePicker is MudTimePicker: the standard field holding the time as MudTimePicker writes it, HH:mm or hh:mm with the period, and the AccessTime adornment; AutomationProperties.Name is its label. A click on the field or its icon opens it; editable, the second row, is MudTimePicker's Editable, the time typed and taken on Enter or when the field loses focus. Open, the primary toolbar shows the time being picked over Avalonia's hour and minute columns, which stand in for MudBlazor's clock face." />
       </StackPanel>
 
       <!-- Range and progress -->
@@ -1354,6 +1396,79 @@
                    MaxWidth="760"
                    HorizontalAlignment="Left"
                    Text="MudTabs' defaults: a surface bar with no rule under it, tabs in text-primary and at least 160px wide. A colour class is MudTabs' Color, the bar in the colour and the tabs in its contrast text; border, outlined, rounded, centered and hide-indicator are its parameters of the same names, on a TabControl or a TabStrip; elevation4 and the like are Elevation, and indicator-warning and the like are SliderColor. Position is TabStripPlacement on a TabControl. material-fixed-tabs is Material's fixed tabs, which MudTabs does not offer: the tabs share the bar in equal parts, under the 160px minimum, and never scroll. An app bar is 64px with 24px gutters, dense is 48px, and a colour class is MudAppBar's Color. toolbar on a Border is MudToolBar's box, the same 64px and 24px without the colour; the heart in it is a PathIcon with small and primary, MudIcon's Size and Color." />
+
+        <TextBlock Classes="overline" Text="Command bar" Margin="0,8,0,0" />
+        <WrapPanel Orientation="Horizontal" ItemSpacing="24" LineSpacing="16">
+          <Border Classes="appbar" Width="480" Padding="0">
+            <CommandBar>
+              <CommandBar.Content>
+                <TextBlock Classes="h6" Text="Inbox" />
+              </CommandBar.Content>
+              <CommandBarButton Label="Menu"><CommandBarButton.Icon><PathIcon Data="{StaticResource GalleryMenuIcon}" /></CommandBarButton.Icon></CommandBarButton>
+              <CommandBarToggleButton Label="Favourite"><CommandBarToggleButton.Icon><PathIcon Data="{StaticResource GalleryFavoriteIcon}" /></CommandBarToggleButton.Icon></CommandBarToggleButton>
+              <CommandBar.SecondaryCommands>
+                <CommandBarButton Label="Settings" />
+              </CommandBar.SecondaryCommands>
+            </CommandBar>
+          </Border>
+          <Border Classes="paper" Width="480">
+            <CommandBar DefaultLabelPosition="Right">
+              <CommandBarButton Label="Menu"><CommandBarButton.Icon><PathIcon Data="{StaticResource GalleryMenuIcon}" /></CommandBarButton.Icon></CommandBarButton>
+              <CommandBarSeparator />
+              <CommandBarToggleButton Label="Favourite" IsChecked="True"><CommandBarToggleButton.Icon><PathIcon Data="{StaticResource GalleryFavoriteIcon}" /></CommandBarToggleButton.Icon></CommandBarToggleButton>
+              <CommandBar.SecondaryCommands>
+                <CommandBarButton Label="Settings" />
+              </CommandBar.SecondaryCommands>
+            </CommandBar>
+          </Border>
+        </WrapPanel>
+        <TextBlock Classes="caption"
+                   TextWrapping="Wrap"
+                   MaxWidth="760"
+                   HorizontalAlignment="Left"
+                   Text="A CommandBar is MudToolBar holding MudIconButtons, 64px with 24px gutters: each command a 48px circle with its label as the tooltip, and MoreVert for a MudMenu of the rest. On an app bar the commands take the bar's colour, as Color.Inherit does. DefaultLabelPosition Right makes each a text button with a start icon; a checked toggle is primary." />
+
+        <TextBlock Classes="overline" Text="Pages and carousel" Margin="0,8,0,0" />
+        <WrapPanel Orientation="Horizontal" ItemSpacing="24" LineSpacing="16">
+          <Border Classes="paper" Width="480" Height="220" ClipToBounds="True">
+            <NavigationPage>
+              <ContentPage Header="Inbox">
+                <NavigationPage.TopCommandBar>
+                  <CommandBar>
+                    <CommandBarButton Label="Favourite"><CommandBarButton.Icon><PathIcon Data="{StaticResource GalleryFavoriteIcon}" /></CommandBarButton.Icon></CommandBarButton>
+                  </CommandBar>
+                </NavigationPage.TopCommandBar>
+                <TextBlock Classes="body2" Margin="24" TextWrapping="Wrap" Text="A NavigationPage's bar is MudAppBar, the page's Header its h6 title and its TopCommandBar at the end." />
+              </ContentPage>
+            </NavigationPage>
+          </Border>
+          <Border Classes="paper" Width="480" Height="220" ClipToBounds="True">
+            <TabbedPage>
+              <ContentPage Header="Library">
+                <TextBlock Classes="body2" Margin="24" TextWrapping="Wrap" Text="A TabbedPage is MudTabs, the theme's own tabs." />
+              </ContentPage>
+              <ContentPage Header="Store" />
+            </TabbedPage>
+          </Border>
+          <Border Classes="paper" Width="480" Height="220" ClipToBounds="True">
+            <Carousel SelectedIndex="1">
+              <Border Background="{DynamicResource FiliPrimaryHoverBrush}">
+                <TextBlock Classes="h6" Text="One" HorizontalAlignment="Center" VerticalAlignment="Center" />
+              </Border>
+              <Border Background="{DynamicResource FiliSecondaryHoverBrush}">
+                <TextBlock Classes="h6" Text="Two" HorizontalAlignment="Center" VerticalAlignment="Center" />
+              </Border>
+              <Border Background="{DynamicResource FiliTertiaryHoverBrush}">
+                <TextBlock Classes="h6" Text="Three" HorizontalAlignment="Center" VerticalAlignment="Center" />
+              </Border>
+            </Carousel>
+          </Border>
+        </WrapPanel>
+        <TextBlock Classes="caption"
+                   TextWrapping="Wrap"
+                   MaxWidth="760"
+                   HorizontalAlignment="Left"
+                   Text="Avalonia's page types in MudBlazor's layout components: a NavigationPage's bar is MudAppBar with an ArrowBack MudIconButton once there is a page to go back to, a TabbedPage is MudTabs, and a ContentPage sits on the background. A Carousel, and a CarouselPage, is MudCarousel: NavigateBefore and NavigateNext at the sides and the bullets along the bottom, at .75; no-arrows and no-bullets turn them off." />
       </StackPanel>
 
       <!-- Right to left -->

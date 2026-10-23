@@ -523,8 +523,7 @@ BEFORE the control dictionaries, and in a merged `ResourceDictionary` the later 
 reach — a Style setting the property directly is the way.
 
 **Do not add a hand-written theme for a control MudBlazor has no counterpart for.** `PopupRoot`,
-`AdornerLayer`, `TextSelectionHandle`, `ManagedFileChooser`, `CommandBar`, the `*Page` shell types
-and roughly 25 others exist because Avalonia needs them, not because a design system has an
+`AdornerLayer`, `TextSelectionHandle`, `ManagedFileChooser` and roughly 20 others exist because Avalonia needs them, not because a design system has an
 opinion about them. They stay forked permanently, and that is the fork earning its keep rather
 than a gap to close.
 

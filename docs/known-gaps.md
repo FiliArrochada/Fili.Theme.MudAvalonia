@@ -8,8 +8,8 @@ What this theme does not do, and why. Per-parameter differences are in
 templates repaletted onto these tokens. Nothing is invisible and nothing external is required —
 the remaining gap is Material *shape*, not colour.
 
-**The control list is closed, and "forty-eight still forked" is not a backlog.** Every one of
-those forty-eight is classified with a reason in `StandaloneReadinessTests.Unthemed`, and the test asserts
+**The control list is closed, and "twenty-eight still forked" is not a backlog.** Every one of
+those twenty-eight is classified with a reason in `StandaloneReadinessTests.Unthemed`, and the test asserts
 that inventory is exhaustive and says each type once — so a future Avalonia that adds a control
 fails by name asking to be classified, rather than quietly making the coverage number mean less.
 What is left is framework plumbing with no design opinion to express, a bespoke MudBlazor
@@ -31,26 +31,24 @@ Two of those reasons were surprises worth recording:
 Controls MudBlazor has a counterpart for and this theme does not, roughly by how often an app
 hits them:
 
-- **`Carousel`, `CarouselPage` and `GroupBox` are deliberately left forked**, which closes the
-  list rather than leaving it open. `.mud-carousel` is `display: flex; position: relative;
-  overflow: hidden` plus transition keyframes — its visible chrome is icon buttons and bullets,
-  which are themed elsewhere, and the forked template is already a clipped `ScrollViewer` with no
-  decoration. `CarouselPage` is one of Avalonia's shell page types, like `NavigationPage` and
-  `TabbedPage`, and was never in scope. The one exception is `DrawerPage`'s drawer: its pane
-  toggles, which would otherwise draw a white icon on nothing, and its compact rail, which is a
-  mini drawer as a `SplitView`'s is. Its top bar and title keep the fork's look. `GroupBox` has no MudBlazor counterpart at all: the
-  nearest things are `MudCard` and `MudPaper`, which are different shapes, so theming it would be
+- **`GroupBox` is deliberately left forked.** It has no MudBlazor counterpart: the nearest
+  things are `MudCard` and `MudPaper`, which are different shapes, so theming it would be
   invention rather than transcription.
-- **The spinner pickers** (`DatePicker`, `TimePicker`) are out of 1.0, by decision. They wear
-  the forked Simple templates in this theme's palette, so they are legible in every variant, but
-  not MudBlazor's shape: `MudTimePicker` is a clock face, which is a control of its own rather
-  than a template. MudDatePicker is `CalendarDatePicker`; see [Date picker](controls.md#date-picker).
+- **`DrawerPage` keeps the fork's top bar and title.** Its drawer is themed - the pane toggles,
+  which would otherwise draw a white icon on nothing, and the compact rail, a mini drawer as a
+  `SplitView`'s is - by styles rather than a theme of its own.
+- **The spinner `DatePicker`** wears the forked Simple template in this theme's palette, legible
+  in every variant but not MudBlazor's shape. MudDatePicker is `CalendarDatePicker`; see
+  [Date picker](controls.md#date-picker).
+- **MudTimePicker's clock face is Avalonia's columns.** The field, the adornment, the toolbar and
+  the popover are MudTimePicker's; under the toolbar MudBlazor draws a clock face, which is a
+  control of its own rather than a template, so the hours and minutes turn in Avalonia's columns.
+  The toolbar's hour and minute are not buttons switching the view, since both columns show at
+  once, and AM and PM are not buttons either: the period column sets them.
 - **Two parts of MudDatePicker are Avalonia's.** The day names are the `CalendarItem`'s shortest
   names (S M T), where MudBlazor writes the abbreviated ones (Sun Mon Tue); and the year view is the
   `CalendarItem`'s decade, twelve years in a grid, where MudBlazor scrolls a list of every year.
   Months sit four to a row, where MudBlazor's sit three. The `CalendarItem` builds those itself.
-- **`TableView`**, Avalonia's newer table. MudDataGrid's look is on the `DataGrid` package's
-  control instead, the one apps use.
 - **What MudDataGrid does beyond its look.** No column options menu, no filter row, no pager:
   each is a control with behaviour of its own, which belongs in a separate package rather than
   a theme. Columns resize when `CanUserResizeColumns` is set, but without MudBlazor's 2px primary

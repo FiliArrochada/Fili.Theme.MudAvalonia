@@ -365,7 +365,9 @@ written).
 
 Every icon the theme draws. Set one in a control's `Resources`, or a parent's, to swap that control's glyph; see [MudBlazor parity](mudblazor-parity.md).
 
+- `FiliAccessTimeGeometry`
 - `FiliAlertSuccessGeometry`
+- `FiliArrowBackGeometry`
 - `FiliArrowDropDownGeometry`
 - `FiliArrowDropUpGeometry`
 - `FiliArrowRightGeometry`
@@ -373,6 +375,7 @@ Every icon the theme draws. Set one in a control's `Resources`, or a parent's, t
 - `FiliCheckBoxCheckedGeometry`
 - `FiliCheckBoxIndeterminateGeometry`
 - `FiliCheckBoxUncheckedGeometry`
+- `FiliCheckGeometry`
 - `FiliChevronRightGeometry`
 - `FiliCloseGeometry`
 - `FiliErrorOutlineGeometry`
@@ -382,6 +385,7 @@ Every icon the theme draws. Set one in a control's `Resources`, or a parent's, t
 - `FiliInfoOutlinedGeometry`
 - `FiliKeyboardArrowDownGeometry`
 - `FiliKeyboardArrowUpGeometry`
+- `FiliMoreVertGeometry`
 - `FiliNavigateBeforeGeometry`
 - `FiliRadioCheckedGeometry`
 - `FiliRadioUncheckedGeometry`

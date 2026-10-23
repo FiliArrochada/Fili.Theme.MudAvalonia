@@ -6,7 +6,7 @@ where the two differ. For side-by-side markup, see [Razor and AXAML](razor-vs-ax
 The rule behind every row: **a class only ever names a MudBlazor variant.** Every control the
 theme templates is keyed to its type, so an unclassed control is already the MudBlazor default.
 Class names are MudBlazor's own words (`primary`, `outlined`, `small`), deliberately not
-namespaced. `ClassVocabularyTests` pins the full list of 156. Two are not MudBlazor's, and their
+namespaced. `ClassVocabularyTests` pins the full list of 159. Two are not MudBlazor's, and their
 names say so: `material-fixed-tabs`, Material's fixed tabs, and `material-elevation-overlay`,
 Material's dark-theme elevation overlay. MudBlazor offers neither.
 
@@ -269,7 +269,7 @@ Put initials, a `PathIcon` or an `Image` inside: `<Border Classes="avatar primar
 | `Counter` | `counter` with `MaxLength` | ✅ `12 / 50` on the right; the length alone when `MaxLength` is 0, as `Counter="0"` |
 | `Margin.Dense` | `dense` | ✅ standard 3px shorter, filled 8px, outlined 16px, with the label resting and floating to match |
 | `Margin.Normal` | `Margin` | ≈ only an outer margin in MudBlazor; an ordinary Avalonia property |
-| `Adornment`, `AdornmentIcon`, `AdornmentText` | `InnerLeftContent` / `InnerRightContent` | ✅ 8px from the text, as `.mud-input-adornment-start` and `-end` are, beside a spin column too; an icon there marked `start-icon` or `end-icon` is MudIcon's 24px, in the field's text colour. A start adornment floats the label, as `Adornment.Start` does |
+| `Adornment`, `AdornmentIcon`, `AdornmentText` | `InnerLeftContent` / `InnerRightContent` | ✅ 8px from the text, as `.mud-input-adornment-start` and `-end` are, beside a spin column too; an icon there marked `start-icon` or `end-icon` is MudIcon's 24px, in the field's text colour. A start adornment floats the label, as `Adornment.Start` does. On a filled or outlined box an icon is centred on the box, as `.mud-input` centres it; a text adornment, unlike MudBlazor's, stays on the text line, so a unit is not lifted above the value it is read with |
 | `AdornmentColor`, `IconSize` | a colour class, or `Width` / `Height`, on the icon | ≈ ordinary Avalonia properties |
 | `Placeholder` | — | ❌ the placeholder slot is the floating label |
 | `Disabled` | `IsEnabled="False"` | ✅ text-disabled text, label and helper text; the line stays lines-inputs and turns dotted, 1px on and 1px off, on a text field and a select alike |
@@ -725,6 +725,62 @@ one with children:
 | `Dense` | `dense` | ✅ 48px |
 | `WrapContent` | a `WrapPanel` inside and `Height="NaN"` | ≈ |
 
+### MudDatePicker → `CalendarDatePicker`
+
+| MudBlazor | Here | |
+|---|---|---|
+| the component | `CalendarDatePicker` | ✅ the standard field with the `Event` adornment, and MudPicker's popover |
+| `Variant`, `Margin`, `Error`, `HelperText` | the field's classes on the picker | ✅ |
+| `Label` | `PlaceholderText` | ✅ the floating label |
+| `TitleDateFormat`, `Color` | `ddd, dd MMM`, primary | ✅ |
+| `PickerVariant.Static` | a `Calendar` on its own | ✅ |
+| the day names, the year list | Avalonia's | ≈ shortest names, a decade grid; see [Known gaps](known-gaps.md) |
+
+### MudTimePicker → `TimePicker`
+
+| MudBlazor | Here | |
+|---|---|---|
+| the component | `TimePicker` | ✅ the standard field with the `AccessTime` adornment, and the toolbar's popover |
+| `AmPm`, `TimeFormat` | `ClockIdentifier`, `UseSeconds` | ✅ `HH:mm` or `hh:mm tt` |
+| `Label` | `AutomationProperties.Name` | ✅ the floating label |
+| `Editable` | `editable` | ✅ taken on Enter or when the field loses focus |
+| the clock face | Avalonia's hour and minute columns | ≈ see [Known gaps](known-gaps.md) |
+
+### MudToolBar with MudIconButtons → `CommandBar`
+
+| MudBlazor | Here | |
+|---|---|---|
+| the bar | `CommandBar` | ✅ 64px, 24px gutters; `dense` 48px |
+| MudIconButton | `CommandBarButton` | ✅ a 48px circle, the label its tooltip (`DefaultLabelPosition="Collapsed"`, the default here) |
+| MudButton with a `StartIcon` | `DefaultLabelPosition="Right"` | ✅ |
+| MudToggleIconButton, `ToggledColor` | `CommandBarToggleButton` | ✅ primary when checked |
+| MudMenu with `MoreVert` | the overflow | ✅ 48px rows on the popover |
+| `Color.Inherit` on an app bar | inside an `appbar` | ✅ |
+
+### MudTable, MudSimpleTable → `TableView`
+
+| MudBlazor | Here | |
+|---|---|---|
+| the table | `TableView` | ✅ the data grid's `.mud-table` look |
+| `Dense`, `Striped`, `Hover`, `Outlined`, `Elevation` | `dense`, `striped`, `hover`, `outlined`, `elevation*` | ✅ |
+
+### MudLayout's app bar and tabs → the page types
+
+| MudBlazor | Here | |
+|---|---|---|
+| MudMainContent | `ContentPage` | ✅ text-primary on the background |
+| MudAppBar with a back MudIconButton and an h6 title | `NavigationPage` | ✅ `HasShadow` is Elevation 4 or 0 |
+| MudTabs | `TabbedPage` | ✅ the theme's tabs |
+
+### MudCarousel → `Carousel`, `CarouselPage`
+
+| MudBlazor | Here | |
+|---|---|---|
+| the arrows, `NavigateBefore` / `NavigateNext` | at the sides, centred, .75 | ✅ |
+| the bullets | a `PipsPager` along the bottom | ✅ |
+| `ShowArrows="false"`, `ShowBullets="false"` | `no-arrows`, `no-bullets` | ✅ |
+| `ArrowsPosition`, `BulletsPosition`, `AutoCycle` | — | ❌ the defaults, Center and Bottom; cycling is the app's |
+
 ### MudSplitPanel → `GridSplitter`
 
 | MudBlazor | Here | |
@@ -740,10 +796,7 @@ already does:
 
 | MudBlazor | Why not |
 |---|---|
-| MudTable, MudSimpleTable | MudDataGrid's look, above, is the same `.mud-table`; a static table is a `Grid` |
-| MudTimePicker | out of 1.0, by decision: a clock face, a control of its own; `TimePicker` keeps the forked template; see [Known gaps](known-gaps.md) |
 | MudColorPicker, MudChart, MudRating, MudPagination, MudStepper, MudTimeline, MudBreadcrumbs, MudFileUpload, MudDropZone, MudFabMenu, MudHighlighter, MudPageContentNavigation, MudScrollToTop | a control of its own, with behaviour beyond a look |
-| MudCarousel | left on the forked template; see [Known gaps](known-gaps.md) |
 | MudDialog, MudMessageBox | a dialog service, not a look |
 | MudLayout, MudMainContent, MudContainer, MudGrid, MudItem, MudStack, MudSpacer | layout, which Avalonia's panels do |
 | MudHidden, MudBreakpointProvider, MudFocusTrap, MudHotkey, MudForm, MudSwipeArea, MudVirtualize, MudElement, MudRender, MudExitPrompt | not visual |

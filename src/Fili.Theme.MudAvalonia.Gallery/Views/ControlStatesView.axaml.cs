@@ -74,6 +74,10 @@ public partial class ControlStatesView : UserControl
         // The data grid's last sample: a selection column, and tasks longer than their column.
         TaskGrid.ItemsSource = GalleryTask.Some;
 
+        // TableView, the same look on Avalonia's own table, a row selected.
+        ElementTable.ItemsSource = GalleryElement.FirstSix;
+        ElementTable.SelectedIndex = 1;
+
         // Keyboard focus, pinned so it shows up in a capture. NavigationMethod.Tab is what sets
         // :focus-visible; focusing with Pointer deliberately does not, which is the whole reason
         // the theme keys off :focus-visible rather than :focus.

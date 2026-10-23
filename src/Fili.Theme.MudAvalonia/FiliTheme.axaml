@@ -1139,6 +1139,22 @@
   <Style Selector="Border.appbar.dense">
     <Setter Property="Height" Value="48" />
   </Style>
+  <!-- A CommandBar on an app bar: its commands and its overflow button in the bar's text colour,
+       as MudBlazor's app bar examples give their icon buttons Color.Inherit. Not a command moved
+       into the overflow menu, which sits on the surface in text-primary. A checked toggle takes
+       it too, as ToggledColor.Inherit does: primary would vanish on a primary bar. -->
+  <Style Selector="Border.appbar CommandBarButton[IsInOverflow=False], Border.appbar CommandBarToggleButton[IsInOverflow=False]">
+    <Setter Property="Foreground" Value="{Binding $parent[CommandBar].Foreground}" />
+  </Style>
+  <!-- And on a NavigationPage's bar, whose own template gives the commands the bar's colour but
+       cannot reach into the CommandBar's template for its overflow button. `.icon` is named so the
+       selector has an activator: one without loses to the icon button's own `.icon` rule. -->
+  <Style Selector="Border.appbar CommandBar /template/ Button#PART_OverflowButton">
+    <Setter Property="Foreground" Value="{Binding $parent[CommandBar].Foreground}" />
+  </Style>
+  <Style Selector="NavigationPage CommandBar /template/ Button#PART_OverflowButton.icon">
+    <Setter Property="Foreground" Value="{Binding $parent[CommandBar].Foreground}" />
+  </Style>
 
   <!--
     MudToolBar: `<Border Classes="toolbar">`, from _toolbar.scss. A flex row, centred, 64px high
@@ -2709,8 +2725,30 @@
   <!-- END GENERATED -->
 
   <!--
-    The pickers, which are still wearing forked Simple templates. Type and radius are all a
-    blanket style can safely give a control it does not template.
+    MudTable's row states on a TableView, from _table.scss: here because a row's theme cannot see
+    its table's classes. A stripe on odd rows, then `hover` over it as `.mud-table-hover` is, then
+    the selection that Themes/Controls/TableView.axaml puts on the row itself; `dense` is
+    6px 24px 6px 16px a cell and the header, 16px on the right of the last.
+  -->
+  <Style Selector="TableView.striped TableViewRow:nth-child(odd)">
+    <Setter Property="Background" Value="{DynamicResource FiliTableStripedBrush}" />
+  </Style>
+  <Style Selector="TableView.hover TableViewRow:pointerover">
+    <Setter Property="Background" Value="{DynamicResource FiliTableHoverBrush}" />
+  </Style>
+  <Style Selector="TableView TableViewRow:selected">
+    <Setter Property="Background" Value="{DynamicResource FiliPrimaryHoverBrush}" />
+  </Style>
+  <Style Selector="TableView.dense TableViewCell, TableView.dense TableViewColumnHeader">
+    <Setter Property="Padding" Value="16,6,24,6" />
+  </Style>
+  <Style Selector="TableView.dense TableViewCell:nth-last-child(1), TableView.dense TableViewColumnHeader:nth-last-child(1)">
+    <Setter Property="Padding" Value="16,6,16,6" />
+  </Style>
+
+  <!--
+    The spinner DatePicker, which still wears the forked Simple template. Type and radius are all
+    a blanket style can safely give a control it does not template.
 
     Every other input used to be in this selector and has been taken out as it was templated,
     because A STYLE ALWAYS OUTRANKS A CONTROLTHEME SETTER. Left in, the CornerRadius below would
@@ -2718,7 +2756,7 @@
     same trap as the TextBlock Foreground one above, in a different costume. The rule to carry
     forward: when a control gets a ControlTheme, delete it from here.
   -->
-  <Style Selector="DatePicker, TimePicker">
+  <Style Selector="DatePicker">
     <Setter Property="FontFamily" Value="{DynamicResource FiliFontFamily}" />
     <Setter Property="FontSize" Value="{DynamicResource FiliBody1FontSize}" />
     <Setter Property="CornerRadius" Value="{DynamicResource FiliCornerRadius}" />

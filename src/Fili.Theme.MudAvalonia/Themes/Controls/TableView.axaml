@@ -1,0 +1,269 @@
+<!--
+  TableView: MudTable, from _table.scss - the same look the DataGrid wears in
+  Themes/Optional/DataGrid, on Avalonia's own table, which needs no package.
+
+    the table       .mud-table: text-primary on surface, the default radius, Elevation 1;
+                    `elevation0`...`elevation25`, and `outlined`, a 1px lines-default border and
+                    no elevation, as MudPaper adds none when it is outlined. Square is
+                    CornerRadius="0".
+    header          .mud-table-head .mud-table-cell: subtitle2, weight 500, 16px, its
+                    border-bottom 1px of table-lines
+    cell            .mud-table-body .mud-table-cell: body2, 16px, each row's border-bottom 1px of
+                    table-lines, none under the last row
+    dense           6px 24px 6px 16px a cell, the header too (FiliTheme.axaml)
+    striped, hover  table-striped on odd rows, table-hover under the pointer (FiliTheme.axaml)
+    selected        primary-hover: this theme's addition, as on the DataGrid; MudTable draws none
+
+  A row's classes cannot be seen by its table's theme, so the row states that answer a class on
+  the TableView are styles in FiliTheme.axaml, beside the theme's other class styles.
+-->
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:theme="using:Fili.Theme.MudAvalonia">
+
+  <ControlTheme x:Key="FiliTableViewScrollViewer" TargetType="ScrollViewer">
+    <Setter Property="Background" Value="Transparent" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Grid ColumnDefinitions="*,Auto" RowDefinitions="*,Auto">
+          <DockPanel x:Name="ContentPanel">
+            <theme:PartBorder x:Name="PART_HeaderRow"
+                    DockPanel.Dock="Top"
+                    BorderBrush="{DynamicResource FiliTableLinesBrush}"
+                    BorderThickness="0,0,0,1">
+              <TableViewColumnHeadersPresenter />
+            </theme:PartBorder>
+            <ScrollContentPresenter x:Name="PART_ContentPresenter"
+                                    Background="{TemplateBinding Background}"
+                                    HorizontalSnapPointsType="{TemplateBinding HorizontalSnapPointsType}"
+                                    VerticalSnapPointsType="{TemplateBinding VerticalSnapPointsType}"
+                                    HorizontalSnapPointsAlignment="{TemplateBinding HorizontalSnapPointsAlignment}"
+                                    VerticalSnapPointsAlignment="{TemplateBinding VerticalSnapPointsAlignment}"
+                                    Padding="{TemplateBinding Padding}"
+                                    ScrollViewer.IsScrollInertiaEnabled="{TemplateBinding IsScrollInertiaEnabled}">
+              <ScrollContentPresenter.GestureRecognizers>
+                <ScrollGestureRecognizer CanHorizontallyScroll="{Binding CanHorizontallyScroll, ElementName=PART_ContentPresenter}"
+                                         CanVerticallyScroll="{Binding CanVerticallyScroll, ElementName=PART_ContentPresenter}"
+                                         IsScrollInertiaEnabled="{Binding (ScrollViewer.IsScrollInertiaEnabled), ElementName=PART_ContentPresenter}" />
+              </ScrollContentPresenter.GestureRecognizers>
+            </ScrollContentPresenter>
+          </DockPanel>
+          <ScrollBar x:Name="PART_HorizontalScrollBar" Orientation="Horizontal" Grid.Row="1" />
+          <ScrollBar x:Name="PART_VerticalScrollBar" Orientation="Vertical" Grid.Column="1" />
+          <Panel x:Name="PART_ScrollBarsSeparator" Grid.Row="1" Grid.Column="1" />
+        </Grid>
+      </ControlTemplate>
+    </Setter>
+  </ControlTheme>
+
+  <ControlTheme x:Key="FiliTableView" TargetType="TableView">
+    <Setter Property="Background" Value="{DynamicResource FiliSurfaceBrush}" />
+    <Setter Property="Foreground" Value="{DynamicResource FiliTextPrimaryBrush}" />
+    <Setter Property="FontFamily" Value="{DynamicResource FiliFontFamily}" />
+    <Setter Property="FontSize" Value="{DynamicResource FiliBody2FontSize}" />
+    <Setter Property="LetterSpacing" Value="{DynamicResource FiliBody2LetterSpacing}" />
+    <Setter Property="CornerRadius" Value="{DynamicResource FiliCornerRadius}" />
+    <Setter Property="BorderBrush" Value="Transparent" />
+    <Setter Property="BorderThickness" Value="0" />
+    <!-- The elevation is drawn past the table's bounds. -->
+    <Setter Property="ClipToBounds" Value="False" />
+    <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Auto" />
+    <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto" />
+    <Setter Property="ScrollViewer.IsScrollChainingEnabled" Value="True" />
+    <Setter Property="ScrollViewer.IsScrollInertiaEnabled" Value="True" />
+    <Setter Property="TextBlock.TextTrimming" Value="{x:Static TextTrimming.CharacterEllipsis}" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <theme:PartBorder x:Name="PART_Border"
+                Background="{TemplateBinding Background}"
+                BorderBrush="{TemplateBinding BorderBrush}"
+                BorderThickness="{TemplateBinding BorderThickness}"
+                CornerRadius="{TemplateBinding CornerRadius}"
+                BoxShadow="{DynamicResource FiliElevation1}">
+          <ScrollViewer x:Name="PART_ScrollViewer"
+                        Theme="{StaticResource FiliTableViewScrollViewer}"
+                        ClipToBounds="True"
+                        VerticalSnapPointsType="{TemplateBinding (ScrollViewer.VerticalSnapPointsType)}"
+                        HorizontalSnapPointsType="{TemplateBinding (ScrollViewer.HorizontalSnapPointsType)}"
+                        HorizontalScrollBarVisibility="{TemplateBinding (ScrollViewer.HorizontalScrollBarVisibility)}"
+                        VerticalScrollBarVisibility="{TemplateBinding (ScrollViewer.VerticalScrollBarVisibility)}"
+                        IsScrollChainingEnabled="{TemplateBinding (ScrollViewer.IsScrollChainingEnabled)}"
+                        IsScrollInertiaEnabled="{TemplateBinding (ScrollViewer.IsScrollInertiaEnabled)}"
+                        IsDeferredScrollingEnabled="{TemplateBinding (ScrollViewer.IsDeferredScrollingEnabled)}"
+                        AllowAutoHide="{TemplateBinding (ScrollViewer.AllowAutoHide)}"
+                        BringIntoViewOnFocusChange="{TemplateBinding (ScrollViewer.BringIntoViewOnFocusChange)}">
+            <ItemsPresenter x:Name="PART_ItemsPresenter"
+                            ItemsPanel="{TemplateBinding ItemsPanel}"
+                            Margin="{TemplateBinding Padding}" />
+          </ScrollViewer>
+        </theme:PartBorder>
+      </ControlTemplate>
+    </Setter>
+
+    <Style Selector="^.elevation0 /template/ theme|PartBorder#PART_Border">
+      <Setter Property="BoxShadow" Value="{DynamicResource FiliElevation0}" />
+    </Style>
+    <Style Selector="^.elevation1 /template/ theme|PartBorder#PART_Border">
+      <Setter Property="BoxShadow" Value="{DynamicResource FiliElevation1}" />
+    </Style>
+    <Style Selector="^.elevation2 /template/ theme|PartBorder#PART_Border">
+      <Setter Property="BoxShadow" Value="{DynamicResource FiliElevation2}" />
+    </Style>
+    <Style Selector="^.elevation3 /template/ theme|PartBorder#PART_Border">
+      <Setter Property="BoxShadow" Value="{DynamicResource FiliElevation3}" />
+    </Style>
+    <Style Selector="^.elevation4 /template/ theme|PartBorder#PART_Border">
+      <Setter Property="BoxShadow" Value="{DynamicResource FiliElevation4}" />
+    </Style>
+    <Style Selector="^.elevation5 /template/ theme|PartBorder#PART_Border">
+      <Setter Property="BoxShadow" Value="{DynamicResource FiliElevation5}" />
+    </Style>
+    <Style Selector="^.elevation6 /template/ theme|PartBorder#PART_Border">
+      <Setter Property="BoxShadow" Value="{DynamicResource FiliElevation6}" />
+    </Style>
+    <Style Selector="^.elevation7 /template/ theme|PartBorder#PART_Border">
+      <Setter Property="BoxShadow" Value="{DynamicResource FiliElevation7}" />
+    </Style>
+    <Style Selector="^.elevation8 /template/ theme|PartBorder#PART_Border">
+      <Setter Property="BoxShadow" Value="{DynamicResource FiliElevation8}" />
+    </Style>
+    <Style Selector="^.elevation9 /template/ theme|PartBorder#PART_Border">
+      <Setter Property="BoxShadow" Value="{DynamicResource FiliElevation9}" />
+    </Style>
+    <Style Selector="^.elevation10 /template/ theme|PartBorder#PART_Border">
+      <Setter Property="BoxShadow" Value="{DynamicResource FiliElevation10}" />
+    </Style>
+    <Style Selector="^.elevation11 /template/ theme|PartBorder#PART_Border">
+      <Setter Property="BoxShadow" Value="{DynamicResource FiliElevation11}" />
+    </Style>
+    <Style Selector="^.elevation12 /template/ theme|PartBorder#PART_Border">
+      <Setter Property="BoxShadow" Value="{DynamicResource FiliElevation12}" />
+    </Style>
+    <Style Selector="^.elevation13 /template/ theme|PartBorder#PART_Border">
+      <Setter Property="BoxShadow" Value="{DynamicResource FiliElevation13}" />
+    </Style>
+    <Style Selector="^.elevation14 /template/ theme|PartBorder#PART_Border">
+      <Setter Property="BoxShadow" Value="{DynamicResource FiliElevation14}" />
+    </Style>
+    <Style Selector="^.elevation15 /template/ theme|PartBorder#PART_Border">
+      <Setter Property="BoxShadow" Value="{DynamicResource FiliElevation15}" />
+    </Style>
+    <Style Selector="^.elevation16 /template/ theme|PartBorder#PART_Border">
+      <Setter Property="BoxShadow" Value="{DynamicResource FiliElevation16}" />
+    </Style>
+    <Style Selector="^.elevation17 /template/ theme|PartBorder#PART_Border">
+      <Setter Property="BoxShadow" Value="{DynamicResource FiliElevation17}" />
+    </Style>
+    <Style Selector="^.elevation18 /template/ theme|PartBorder#PART_Border">
+      <Setter Property="BoxShadow" Value="{DynamicResource FiliElevation18}" />
+    </Style>
+    <Style Selector="^.elevation19 /template/ theme|PartBorder#PART_Border">
+      <Setter Property="BoxShadow" Value="{DynamicResource FiliElevation19}" />
+    </Style>
+    <Style Selector="^.elevation20 /template/ theme|PartBorder#PART_Border">
+      <Setter Property="BoxShadow" Value="{DynamicResource FiliElevation20}" />
+    </Style>
+    <Style Selector="^.elevation21 /template/ theme|PartBorder#PART_Border">
+      <Setter Property="BoxShadow" Value="{DynamicResource FiliElevation21}" />
+    </Style>
+    <Style Selector="^.elevation22 /template/ theme|PartBorder#PART_Border">
+      <Setter Property="BoxShadow" Value="{DynamicResource FiliElevation22}" />
+    </Style>
+    <Style Selector="^.elevation23 /template/ theme|PartBorder#PART_Border">
+      <Setter Property="BoxShadow" Value="{DynamicResource FiliElevation23}" />
+    </Style>
+    <Style Selector="^.elevation24 /template/ theme|PartBorder#PART_Border">
+      <Setter Property="BoxShadow" Value="{DynamicResource FiliElevation24}" />
+    </Style>
+    <Style Selector="^.elevation25 /template/ theme|PartBorder#PART_Border">
+      <Setter Property="BoxShadow" Value="{DynamicResource FiliElevation25}" />
+    </Style>
+    <!-- After the elevations: MudPaper adds none when it is outlined, whatever Elevation says. -->
+    <Style Selector="^.outlined">
+      <Setter Property="BorderBrush" Value="{DynamicResource FiliLinesDefaultBrush}" />
+      <Setter Property="BorderThickness" Value="1" />
+    </Style>
+    <Style Selector="^.outlined /template/ theme|PartBorder#PART_Border">
+      <Setter Property="BoxShadow" Value="{DynamicResource FiliElevation0}" />
+    </Style>
+  </ControlTheme>
+
+  <!-- The header cell: subtitle2 at 500, 16px round it. -->
+  <ControlTheme x:Key="FiliTableViewColumnHeader" TargetType="TableViewColumnHeader">
+    <Setter Property="Foreground" Value="{DynamicResource FiliTextPrimaryBrush}" />
+    <Setter Property="FontSize" Value="{DynamicResource FiliSubtitle2FontSize}" />
+    <Setter Property="FontWeight" Value="Medium" />
+    <Setter Property="LetterSpacing" Value="{DynamicResource FiliSubtitle2LetterSpacing}" />
+    <Setter Property="Padding" Value="16" />
+    <Setter Property="HorizontalContentAlignment" Value="Left" />
+    <Setter Property="VerticalContentAlignment" Value="Center" />
+    <Setter Property="ClipToBounds" Value="False" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Panel>
+          <ContentPresenter x:Name="PART_ContentPresenter"
+                            Background="{TemplateBinding Background}"
+                            ContentTemplate="{TemplateBinding ContentTemplate}"
+                            Content="{TemplateBinding Content}"
+                            Padding="{TemplateBinding Padding}"
+                            VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+                            HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}" />
+          <!-- Resizing has no line of its own in MudTable: an invisible 4px grip at the edge. -->
+          <Thumb x:Name="PART_Resizer"
+                 Width="4"
+                 HorizontalAlignment="Right"
+                 Cursor="SizeWestEast"
+                 Margin="0,0,-2,0"
+                 IsEnabled="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Column?.CanUserEffectivelyResize, FallbackValue=False}">
+            <Thumb.Template>
+              <ControlTemplate>
+                <theme:PartBorder Background="Transparent" />
+              </ControlTemplate>
+            </Thumb.Template>
+          </Thumb>
+        </Panel>
+      </ControlTemplate>
+    </Setter>
+  </ControlTheme>
+
+  <ControlTheme x:Key="FiliTableViewCell" TargetType="TableViewCell">
+    <Setter Property="Padding" Value="16" />
+  </ControlTheme>
+
+  <!-- A row: its border-bottom of table-lines, and the state layer the table's classes paint. -->
+  <ControlTheme x:Key="FiliTableViewRow" TargetType="TableViewRow">
+    <Setter Property="Background" Value="Transparent" />
+    <Setter Property="BorderBrush" Value="{DynamicResource FiliTableLinesBrush}" />
+    <Setter Property="BorderThickness" Value="0,0,0,1" />
+    <Setter Property="Padding" Value="0" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <theme:PartBorder x:Name="Border"
+                Background="{TemplateBinding Background}"
+                BorderBrush="{TemplateBinding BorderBrush}"
+                BorderThickness="{TemplateBinding BorderThickness}"
+                Padding="{TemplateBinding Padding}"
+                VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}">
+          <TableViewCellsPresenter x:Name="PART_CellsPresenter" />
+        </theme:PartBorder>
+      </ControlTemplate>
+    </Setter>
+    <!-- `.mud-table-root`: no border under the last row. -->
+    <Style Selector="^:nth-last-child(1)">
+      <Setter Property="BorderThickness" Value="0" />
+    </Style>
+    <Style Selector="^:selected">
+      <Setter Property="Background" Value="{DynamicResource FiliPrimaryHoverBrush}" />
+    </Style>
+    <Style Selector="^:disabled">
+      <Setter Property="Foreground" Value="{DynamicResource FiliTextDisabledBrush}" />
+    </Style>
+  </ControlTheme>
+
+  <ControlTheme x:Key="{x:Type TableView}" TargetType="TableView" BasedOn="{StaticResource FiliTableView}" />
+  <ControlTheme x:Key="{x:Type TableViewColumnHeader}" TargetType="TableViewColumnHeader" BasedOn="{StaticResource FiliTableViewColumnHeader}" />
+  <ControlTheme x:Key="{x:Type TableViewCell}" TargetType="TableViewCell" BasedOn="{StaticResource FiliTableViewCell}" />
+  <ControlTheme x:Key="{x:Type TableViewRow}" TargetType="TableViewRow" BasedOn="{StaticResource FiliTableViewRow}" />
+
+</ResourceDictionary>

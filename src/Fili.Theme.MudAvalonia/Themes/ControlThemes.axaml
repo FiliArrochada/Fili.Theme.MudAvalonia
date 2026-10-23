@@ -56,6 +56,10 @@
     <ResourceInclude Source="avares://Fili.Theme.MudAvalonia/Themes/Controls/Notifications.axaml" />
     <ResourceInclude Source="avares://Fili.Theme.MudAvalonia/Themes/Controls/Overlays.axaml" />
     <ResourceInclude Source="avares://Fili.Theme.MudAvalonia/Themes/Controls/SplitView.axaml" />
+    <ResourceInclude Source="avares://Fili.Theme.MudAvalonia/Themes/Controls/CommandBar.axaml" />
+    <ResourceInclude Source="avares://Fili.Theme.MudAvalonia/Themes/Controls/TimePicker.axaml" />
+    <ResourceInclude Source="avares://Fili.Theme.MudAvalonia/Themes/Controls/TableView.axaml" />
+    <ResourceInclude Source="avares://Fili.Theme.MudAvalonia/Themes/Controls/Pages.axaml" />
   </ResourceDictionary.MergedDictionaries>
 
 </ResourceDictionary>

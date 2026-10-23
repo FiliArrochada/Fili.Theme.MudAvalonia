@@ -249,6 +249,41 @@ A `Calendar` on its own is the static picker's calendar, without the toolbar or 
 Two parts are Avalonia's own: the day names are its shortest (S M T), and the years are a decade
 in a grid. See [Known gaps](known-gaps.md).
 
+## Time picker
+
+**`TimePicker` is MudTimePicker**, with nothing to opt into. Closed, it is the standard text field
+holding the time as MudTimePicker writes it - `14:30`, or `02:30 PM` on a 12-hour clock - with
+MudPicker's adornment, `AccessTime` in an icon button at the end. `TimePicker` has no
+`PlaceholderText`, so the label is `AutomationProperties.Name`, Avalonia's own property, which a
+screen reader announces too. A field's classes go on the picker, as a date picker's do. Read-only,
+as MudTimePicker is by default, a click on the field, or Enter, opens the picker; the icon button
+opens it too, with MudIconButton's hover. `editable` is MudTimePicker's `Editable`: the time is
+typed - `14:30`, `2:30 PM` - and taken on Enter or when the field loses focus, empty text clearing
+it and anything that is not a time going back to the time held.
+
+```xml
+<TimePicker AutomationProperties.Name="Starts at" SelectedTime="{Binding Start}" />
+<TimePicker Classes="editable" AutomationProperties.Name="Alarm" SelectedTime="{Binding Alarm}" />
+<TimePicker Classes="outlined dense" ClockIdentifier="12HourClock" AutomationProperties.Name="Alarm" />
+```
+
+Open, it is MudPicker's popover: a paper at elevation 8 and MudTimePicker's toolbar on primary -
+the hour and the minute at h2's 60px light, with AM and PM beside them on a 12-hour clock, the one
+not chosen at .54 - showing the time as it is picked. Under the toolbar MudBlazor draws a clock
+face, a control of its own; here are Avalonia's hour and minute columns, body1 rows with the
+chosen one on a primary band, as the clock's chosen number is. Avalonia's picker commits on
+accept, so the popover ends in Close and Check icon buttons. Where the culture has no AM and PM
+(pt-PT among them), the picker writes "AM" and "PM", as MudBlazor's toolbar does.
+
+| MudBlazor | Here |
+|---|---|
+| `AdornmentIcon` (`AccessTime`) | `FiliAccessTimeGeometry`, in the picker's `Resources` to swap it |
+| `AmPm` | `ClockIdentifier="12HourClock"` |
+| `TimeFormat` (`HH:mm`, `hh:mm tt`) | the same; `UseSeconds` adds `:ss` |
+| `Label` | `AutomationProperties.Name` |
+| `Editable` | `editable` |
+| the clock face | Avalonia's columns; see [Known gaps](known-gaps.md) |
+
 ## Selection controls
 
 ```xml
@@ -385,6 +420,21 @@ the pips are **the same two glyphs the radio button uses** — selecting one swa
 gaining a disc, rather than a dot changing colour. The 0.75 opacity on the row is transcribed from
 the inline style in that razor file. (`NavigateNext` turns out to be byte-identical to
 `ChevronRight`, so `Icons.axaml` carries one path under the name it was first needed for.)
+
+**`Carousel` is MudCarousel**, with `ShowArrows` and `ShowBullets` on, as MudBlazor's are by
+default: `NavigateBefore` and `NavigateNext` icon buttons at the sides, centred, and the bullets
+along the bottom - a `PipsPager`, drawn as above - all in the carousel's text colour at .75.
+`no-arrows` is `ShowArrows="false"` and `no-bullets` is `ShowBullets="false"`. The arrows are for
+the pointer; the carousel itself is the Tab stop. A `CarouselPage` is a carousel of pages, so it
+has the same arrows and bullets.
+
+```xml
+<Carousel>
+  <Image Source="/Assets/one.jpg" />
+  <Image Source="/Assets/two.jpg" />
+</Carousel>
+<Carousel Classes="no-arrows" ItemsSource="{Binding Slides}" />
+```
 
 ## Progress, dividers, panels and links
 
@@ -550,6 +600,19 @@ has no default theme, so the grid then needs the package's own theme included to
   level, and the data rows stay where they are. The grid's own `SublevelIndent` stays at 0,
   because it would move the rows as well.
 
+**`TableView` wears the same MudTable look**, on Avalonia's own table, with no package to add:
+surface at elevation 1, subtitle2 headers over a table-lines rule, body2 cells 16px round and a
+rule under every row but the last. `dense`, `striped`, `hover`, `outlined` and `elevation0` to
+`elevation25` are the data grid's classes, and a selected row is primary-hover, as on the grid.
+
+```xml
+<TableView Classes="striped hover" ItemsSource="{Binding Elements}">
+  <TableView.Columns>
+    <TableViewColumn Header="Name" Width="*" CellTemplate="{StaticResource NameCell}" />
+  </TableView.Columns>
+</TableView>
+```
+
 ## The drawer, and a third way to theme a control
 
 `SplitView` is MudDrawer, and nearly all of it is **styles rather than its `ControlTheme`**.
@@ -679,6 +742,37 @@ that control, and everything inside it, draws your glyph instead. This is how ev
 parameter maps across (`CheckedIcon`, `OpenIcon`, `ExpandIcon`, `PrevIcon`, `CloseIcon`, …);
 [MudBlazor parity](mudblazor-parity.md) has the table of keys. Paste a path from MudBlazor's
 `Icons.Material` as it is: it is drawn in a 24px box at its own size.
+
+## Command bars and pages
+
+**`CommandBar` is MudToolBar holding MudIconButtons**, with a MudMenu for the rest. The bar is
+the toolbar's 64px with 24px gutters and no ground of its own (`dense` is 48px, `Padding="0"`
+Gutters="false"). The theme's `DefaultLabelPosition` is `Collapsed`, where Avalonia's is `Bottom`,
+because a MudToolBar holds icon buttons: each command is a 48px circle round a 24px icon in
+action-default, its `Label` the tooltip. `Right` makes each a text MudButton with a start icon,
+the label uppercase. A checked `CommandBarToggleButton` is primary, MudToggleIconButton's
+`ToggledColor`. The overflow button is `MoreVert`, and the overflow MudMenu's popover, each
+command a 48px row with its label as written. On an `appbar` the commands take the bar's text
+colour, as MudBlazor's app bar examples give theirs `Color.Inherit`.
+
+```xml
+<Border Classes="appbar" Padding="0">
+  <CommandBar>
+    <CommandBar.Content><TextBlock Classes="h6" Text="Inbox" /></CommandBar.Content>
+    <CommandBarButton Label="Search"><CommandBarButton.Icon><PathIcon Data="{StaticResource Search}" /></CommandBarButton.Icon></CommandBarButton>
+    <CommandBar.SecondaryCommands>
+      <CommandBarButton Label="Settings" />
+    </CommandBar.SecondaryCommands>
+  </CommandBar>
+</Border>
+```
+
+**Avalonia's page types are MudBlazor's layout components.** A `ContentPage` is text-primary on
+the app's background. A `NavigationPage`'s bar is MudAppBar: the appbar colours, 64px, 24px
+gutters and elevation 4 (`HasShadow`, on by default here; `False` is 0), the page's `Header` in
+h6, an edge-start `ArrowBack` MudIconButton once there is a page to go back to, and the page's
+`NavigationPage.TopCommandBar` at the end, its commands in the bar's colour. A `TabbedPage` is
+MudTabs, the theme's own tabs. How pages slide, push and pop stays Avalonia's.
 
 ## Snackbars
 
@@ -919,11 +1013,16 @@ for something XAML cannot express on its own:
   binding cannot read a resource as a converter parameter.
 - **`Adornments`** marks a text field that has `InnerLeftContent` with `:start-adornment`, which
   floats its label, as MudInput's start adornment does, and one with `InnerRightContent` with
-  `:end-adornment`; each adornment then keeps 8px from the text. A selector cannot ask whether a
-  property is null.
+  `:end-adornment`; each adornment then keeps 8px from the text. A string or `TextBlock` there
+  also gets `:start-text-adornment` or `:end-text-adornment`, which keeps it on the text line where
+  an icon is centred on a filled or outlined box. A selector cannot ask whether a property is
+  null, or what type its value is.
 - **`CalendarView`** makes the date picker's toolbar buttons change the calendar's view - the
   year to the years, the date back to the selected month - and gives the toolbar the paper's top
   corners. A template cannot set another control's property on a click.
+- **`TimeView`** keeps the time picker's text: the field's value as MudTimePicker writes it, and
+  the toolbar's hour, minute and period following Avalonia's columns as they turn, before the time
+  is accepted. A column's selection is not a property a binding can watch.
 - **`TabBarScroll`** shows a tab bar's scroll buttons while its tabs overflow, disables each at
   its end, scrolls a bar's length per click, and brings the selected tab into view. Overflow is
   the scroller's extent against its viewport, which no binding compares.
