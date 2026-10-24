@@ -29,15 +29,17 @@ public class PopupFadeTests
     }
 
     /// <summary>
-    /// The host's presenter is seen part way in, a frame at a time over its first 120ms. Only that
-    /// the fade runs: the headless render timer ticks on its own thread and stalls an animation
-    /// sampled this way before its end, so where it ends is <see cref="TheFadeIsMudBlazorsAndEnds"/>'s.
+    /// The host's presenter is seen part way in, sampled a frame at a time until it is, for up to a
+    /// second. Only that the fade runs: the headless render timer ticks on its own thread and stalls
+    /// an animation sampled this way before its end, so where it ends is
+    /// <see cref="TheFadeIsMudBlazorsAndEnds"/>'s. Not a fixed window: on a loaded CI runner the
+    /// fade can start later than the first 120ms, and every sample in that window read 0.
     /// </summary>
     private static void AssertFadesIn(ContentPresenter presenter, string what)
     {
         var seen = new List<double> { presenter.Opacity };
         var elapsed = System.Diagnostics.Stopwatch.StartNew();
-        while (elapsed.ElapsedMilliseconds < 120)
+        while (elapsed.ElapsedMilliseconds < 1000 && !seen.Any(o => o is > 0 and < 0.9))
         {
             Thread.Sleep(10);
             AvaloniaHeadlessPlatform.ForceRenderTimerTick();
