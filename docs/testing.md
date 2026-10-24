@@ -10,7 +10,7 @@ those silent failures into red builds, because looking at the app cannot be reli
 
 | Project | What it does | Speed |
 |---|---|---|
-| `tst/Fili.Theme.MudAvalonia.UnitTests` | 1221 tests on a headless Avalonia session. They resolve resources, template controls, move a real pointer over them, and read back the values the theme applied. Nothing is rendered. | seconds |
+| `tst/Fili.Theme.MudAvalonia.UnitTests` | 1232 tests on a headless Avalonia session. They resolve resources, template controls, move a real pointer over them, and read back the values the theme applied. Nothing is rendered. | seconds |
 | `tst/Fili.Theme.MudAvalonia.NoDataGridTests` | 3 tests. The theme in an app that does not reference `Avalonia.Controls.DataGrid`: the assembly is really absent, `FiliTheme.axaml` loads and themes a button, and no DataGrid rule was loaded. | seconds |
 | `tst/Fili.Theme.MudAvalonia.PixelTests` | 58 tests. Twelve render one gallery frame each with Skia and compare it pixel by pixel with a PNG committed in `Baselines/`. Thirty-six, in `GalleryAuditTests`, run three of the unit suite's checks over each of those twelve pages instead of a list of bare controls - no binding error, every control one Tab stop at most, no presented text showing an access key's underscore - so every class, state and variant a sample shows is covered. Ten, in `GalleryPageTests`, check how the gallery behaves - that the controls page opens on its introduction and a loading card pinned over the page, fills in a few rows per dispatcher pass with the card in view however far it is scrolled (pausing while off screen, and loading the rest at once for an index row ahead of the load), that it opens at the top in a window shorter than its first screen, that keyboard focus still scrolls it, that each row of the index beside it lands on its section and the index follows the scroll, that every section fits beside the index in the desktop window and in a frame, and that the app bar shows the theme's version. | ~45 seconds |
 
@@ -27,7 +27,7 @@ needed a different platform.
 
 ## The unit tests
 
-1221 tests in 77 classes, grouped here by the failure each one exists to catch.
+1232 tests in 79 classes, grouped here by the failure each one exists to catch.
 
 ### Tokens: does every value exist, in every variant?
 
@@ -52,7 +52,7 @@ needed a different platform.
 | `AccessKeyTests` | 14 | "_Save" is Save with an access key on every control the base recognises one on - buttons, toggles, checkboxes, radios, switches, split and drop-down buttons, links, tabs, expanders - and on a menu bar's items and rows. | The hand-written templates had dropped what the forked base does, so the underscore showed and Alt did nothing. It renders fine either way to anyone who never types an underscore. |
 | `TextTransformTests` | 32 | A button's string label is uppercase - text, outlined and filled buttons, an extended FAB, a toggle item, split and drop-down buttons, a tab and a tab strip's item - while a chip, a link, a checkbox, a radio, a switch and a panel header keep their case; a label beside a `start-icon` is uppercase with its `Text` untouched, stays so when its text changes and follows the switch, while a chip's keeps its case and a `TextBlock` with runs of its own is left as written; `TextBlock.button` is uppercase; `_Save` keeps its access key as `_SAVE`; and `FiliButtonTextTransform` turns it off in a region, live, and takes CSS's other values. | MudBlazor's buttons are uppercase by its typography, and a label in the wrong case is the first thing a MudBlazor user notices. The switch is what an app that wants sentence case has, as MudBlazor's has `TextTransform`. |
 | `PackageReadmeTests` | 1 | Every relative link in the README names a file that exists. | The README is the package's page on nuget.org too. The pack rewrites its links to the commit and fails on a broken one; this catches a renamed doc on every build rather than at release. |
-| `ClassVocabularyTests` | 2 | The classes the theme's selectors use are exactly the 171 the README publishes, in both directions; and no class is one fixed value on its own control, which the property would say. | Class names are MudBlazor's ordinary words (`small`, `error`, `vertical`) and they collide with an app's own. An undeclared class is a collision nobody signed off on; a declared one nothing uses is a lie to adopters. |
+| `ClassVocabularyTests` | 2 | The classes the theme's selectors use are exactly the 172 the README publishes, in both directions; and no class is one fixed value on its own control, which the property would say. | Class names are MudBlazor's ordinary words (`small`, `error`, `vertical`) and they collide with an app's own. An undeclared class is a collision nobody signed off on; a declared one nothing uses is a lie to adopters. |
 | `GeneratedThemeTests` | 1 | `Button.axaml` and the marked regions in nineteen other files are exactly what `ThemeColourGenerator` writes from the one list of eight colours. | Hundreds of colour styles are generated so that no colour can differ from the others. Editing one block by hand fails the build. `FILI_REGENERATE=1` rewrites the files. |
 
 ### Controls: does each one look and behave as MudBlazor's does?
@@ -88,6 +88,8 @@ from MudBlazor's SCSS or the component's parameter defaults.
 | `InheritColourTests` | 13 | A type class with no colour of its own, a link's caption in the link's colour, `inherit` on a `TextBlock` over a colour class and following its surroundings; on a checkbox and a radio, the glyph in the surrounding colour with no halo, `unchecked-inherit` only while unchecked, and disabled still grey; `adornment-{colour}` and `adornment-inherit` on a select's arrow, text-disabled when disabled. |
 | `IconViewBoxTests` | 3 | A `PathIcon` draws its glyph in MudIcon's 24px viewBox, scaled with a size class and in an icon button, rather than stretching the glyph's bounds. |
 | `NoLabelFieldTests` | 9 | A field with no `PlaceholderText` has no label's room: standard 32 / 29 dense, filled and outlined their own heights, a filled field's text 9px higher, and the room back once a label is set. |
+| `PlaceholderFieldTests` | 7 | `placeholder`: the hint shows while empty and the label never, at .42; no label's room in every variant; the hint where the text goes, after a start adornment; and without the class `PlaceholderText` is still the label. |
+| `ReducedMotionTests` | 4 | `FiliReducedMotion` on a window: its popup at full opacity from the first frame, no ripple on a press, an expansion panel open at once; and motion on by default. |
 | `ListItemButtonTests` | 5 | `list-item` on a Button: 48 / 36px rows, full width, the label in its own case, the 16px gutter and `no-gutters`, the row's hover tint. |
 | `SnackbarOrderTests` | 5 | The newest snackbar at the bottom of the stack, anchored top or bottom, and at the top with `newest-on-top`. |
 | `StaticChipTests` | 13 | `chip` on a `ContentControl`: the default chip at rest, nothing under the pointer (no focus, no hand, the same fill), every variant in every colour, the small and large sizes, and a `Button.chip` still clickable. |

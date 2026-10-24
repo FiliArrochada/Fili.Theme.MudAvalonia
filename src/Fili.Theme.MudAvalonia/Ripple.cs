@@ -159,6 +159,7 @@ internal sealed class Ripple
             var size = _border.Bounds.Size;
             var opacity = GetOpacity(_border);
             if (ReferenceEquals(e, s_answered) || !point.Properties.IsLeftButtonPressed || opacity <= 0 ||
+                Motion.GetReduced(_border) ||
                 !_border.IsEffectivelyVisible || !new Rect(size).Contains(point.Position))
             {
                 return;

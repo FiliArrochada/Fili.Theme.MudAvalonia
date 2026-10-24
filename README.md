@@ -134,7 +134,7 @@ base became a fork of Simple that this repo owns, the hazard went with it: a `Te
 `Variant.Outlined`, `Variant.Text` and `Variant.Filled` — API familiarity is the point of this
 package, so they are not namespaced to `mud-primary` or hidden behind an attached property.
 
-**All 171 of them, which is the list to grep an app against before adopting:**
+**All 172 of them, which is the list to grep an app against before adopting:**
 
 | | |
 |---|---|
@@ -148,7 +148,7 @@ package, so they are not namespaced to `mud-primary` or hidden behind an attache
 | Component | `icon`, `button-group`, `chip`, `fab`, `extended`, `list-item`, `alert`, `avatar`, `badge`, `card`, `skeleton`, `circle`, `rectangle`, `counter`, `circular`, `nav`, `toolbar`, `drawer-header`, `normal`, `newest-on-top`, `expansion-panels` |
 | Card parts | `card-header`, `card-header-avatar`, `card-header-content`, `card-header-actions`, `card-media`, `card-content`, `card-actions` |
 | Badge (`Origin`, `Dot`, `Bordered`, `Overlap`) | `top-left`, `top-center`, `center-left`, `center-center`, `center-right`, `bottom-left`, `bottom-center`, `bottom-right`, `dot`, `bordered`, `overlap` |
-| Behaviour | `arrow`, `dense-items`, `editable`, `helper-on-focus`, `hide-close`, `hide-icon`, `hover`, `multi-expansion`, `multi-selection`, `no-animation`, `no-arrows`, `no-bullets`, `no-gutters`, `no-outline`, `required`, `shrink-label`, `value-label`, `striped`, `wave` |
+| Behaviour | `arrow`, `dense-items`, `editable`, `helper-on-focus`, `hide-close`, `hide-icon`, `hover`, `multi-expansion`, `multi-selection`, `no-animation`, `no-arrows`, `no-bullets`, `no-gutters`, `no-outline`, `placeholder`, `required`, `shrink-label`, `value-label`, `striped`, `wave` |
 | Label placement (`LabelPlacement`) | `label-start`, `label-top`, `label-bottom` |
 | Icons in content | `start-icon`, `end-icon` |
 | Material, not MudBlazor | `material-fixed-tabs`, `material-elevation-overlay` |
@@ -205,6 +205,11 @@ button's label as a `<Run>` instead ([Buttons](docs/controls.md)).
 buttons, chips, FABs, toggles, tabs and list, select, menu and tree rows, and in the halo of a
 checkbox, radio or switch. `Ripple="false"` is `FiliRippleOpacity` and `FiliRippleOpacitySecondary`
 set to `0` in a control's resources, or the application's.
+
+**Reduced motion is one key**, which MudBlazor does not have: `FiliReducedMotion` set to `True` in
+the application's resources stops everything the theme moves or fades on its own - the ripple,
+popup fades, skeletons, snackbar slides, expansion panels, overlays and the tab indicator - in
+every window and popup ([Reduced motion](docs/controls.md#reduced-motion)).
 
 The raised variants step elevation 2 → 4 → 8 across rest, hover and press, and drop to 0 when
 disabled. That step is the thing Fluent cannot express at all, because `Button` has no `BoxShadow`

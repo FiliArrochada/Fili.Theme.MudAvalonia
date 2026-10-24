@@ -264,6 +264,7 @@ Put initials, a `PathIcon` or an `Image` inside: `<Border Classes="avatar primar
 | `Variant.Text` (default) | no class | ✅ |
 | `Variant.Filled` / `Outlined` | `filled` / `outlined` | ✅ |
 | `Label` | `PlaceholderText` | ≈ **the placeholder is the floating label**, so there is no separate placeholder |
+| `Placeholder` | `placeholder`, and the text in `PlaceholderText` | ✅ the hint where the text goes, in its colour at .42, never floating; with no label, as a field has one or the other |
 | no `Label`, and `MudInput` | no `PlaceholderText` | ✅ no room for a label: a standard field is MudInput's 32px (29 dense), a filled one centres its text (`.mud-input-root-hidden-label`) |
 | `Error="true"` | `error` | ✅ |
 | validation | a binding's own validation error | ✅ message under the field at 12px, in the helper text's place |

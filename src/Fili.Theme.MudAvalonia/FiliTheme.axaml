@@ -73,6 +73,15 @@
   </Style>
 
   <!--
+    Reduced motion: every window and popup takes FiliReducedMotion and passes it down, inherited,
+    to the animations that read it (Motion.cs). A popup is a TopLevel of its own, and finds the
+    token through its parent; an overlay popup is in its window's tree and inherits it.
+  -->
+  <Style Selector=":is(TopLevel)">
+    <Setter Property="theme:Motion.Reduced" Value="{DynamicResource FiliReducedMotion}" />
+  </Style>
+
+  <!--
     A popup fades in, as every MudPopover does - a select's list, a menu, an autocomplete's list, a
     tooltip, a picker: _popover.scss takes `.mud-popover-open` from opacity 0 to 1 over
     PopoverOptions.Duration, 251ms after a Delay of 0, at CSS's default `ease`. MudTooltip's
@@ -82,7 +91,7 @@
     kept. A dense MudMenu opens with no transition; a host cannot see the menu's class, so it fades.
     The last frame is 1, the presenter's own opacity, so the fade ends where the popup rests.
   -->
-  <Style Selector="PopupRoot /template/ ContentPresenter#PART_ContentPresenter, OverlayPopupHost /template/ ContentPresenter#PART_ContentPresenter">
+  <Style Selector="PopupRoot[(theme|Motion.Reduced)=False] /template/ ContentPresenter#PART_ContentPresenter, OverlayPopupHost[(theme|Motion.Reduced)=False] /template/ ContentPresenter#PART_ContentPresenter">
     <Style.Animations>
       <Animation Duration="0:0:0.251" Easing="0.25,0.1,0.25,1">
         <KeyFrame Cue="0%">
@@ -1074,7 +1083,7 @@
     <Setter Property="RenderTransform" Value="scaleY(0.6)" />
   </Style>
   <!-- Animation.Pulse, the default; `no-animation` is Animation.False. -->
-  <Style Selector="Border.skeleton:not(.no-animation):not(.wave)">
+  <Style Selector="Border.skeleton[(theme|Motion.Reduced)=False]:not(.no-animation):not(.wave)">
     <Style.Animations>
       <Animation Duration="0:0:1.5" Delay="0:0:0.5" IterationCount="Infinite" Easing="0.42,0,0.58,1">
         <KeyFrame Cue="0%">
@@ -1109,6 +1118,8 @@
   -->
   <Style Selector="Border.skeleton.wave:not(.no-animation)">
     <Setter Property="Background" Value="{DynamicResource FiliSkeletonWaveStartBrush}" />
+  </Style>
+  <Style Selector="Border.skeleton.wave[(theme|Motion.Reduced)=False]:not(.no-animation)">
     <Style.Animations>
       <Animation Duration="0:0:1.6" Delay="0:0:0.5" IterationCount="Infinite">
         <KeyFrame Cue="0%">

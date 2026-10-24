@@ -68,7 +68,7 @@ internal sealed class SlidingIndicator
 
     private static void Slide(SelectingItemsControl control, int from, int to)
     {
-        if (from < 0 || to < 0 || from == to
+        if (from < 0 || to < 0 || from == to || Motion.GetReduced(control)
             || Indicator(control.ContainerFromIndex(from)) is not { } old
             || Indicator(control.ContainerFromIndex(to)) is not { } next
             || old.TranslatePoint(default, next) is not { } offset)

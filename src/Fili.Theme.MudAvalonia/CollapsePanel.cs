@@ -96,7 +96,15 @@ internal sealed class CollapsePanel : Decorator
 
         if (change.Property == IsOpenProperty)
         {
+            // Reduced motion: open or closed at once, the transition kept for the next change.
+            var transitions = Transitions;
+            if (Motion.GetReduced(this))
+            {
+                Transitions = null;
+            }
+
             Openness = IsOpen ? 1 : 0;
+            Transitions = transitions;
             ShowChild();
         }
         else if (change.Property == OpennessProperty || change.Property == ChildProperty)

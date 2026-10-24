@@ -119,8 +119,8 @@
       </ControlTemplate>
     </Setter>
 
-    <!-- Enter: Avalonia's, kept verbatim. -->
-    <Style Selector="^">
+    <!-- Enter: Avalonia's, kept verbatim. None of it with FiliReducedMotion (Motion.cs). -->
+    <Style Selector="^[(theme|Motion.Reduced)=False]">
       <Style.Animations>
         <Animation Easing="QuadraticEaseIn" FillMode="Forward" Duration="0:0:0.45">
           <KeyFrame Cue="0%">
@@ -142,7 +142,7 @@
       </Style.Animations>
     </Style>
 
-    <Style Selector="^[IsClosing=true] /template/ LayoutTransformControl#PART_LayoutTransformControl">
+    <Style Selector="^[IsClosing=true][(theme|Motion.Reduced)=False] /template/ LayoutTransformControl#PART_LayoutTransformControl">
       <Setter Property="RenderTransformOrigin" Value="50%,0%" />
       <Style.Animations>
         <Animation Easing="QuadraticEaseOut" FillMode="Forward" Duration="0:0:0.75">
@@ -162,10 +162,20 @@
       </Style.Animations>
     </Style>
 
-    <!-- LOAD-BEARING: this is what closes a card. Drop it and notifications never leave. -->
-    <Style Selector="^[IsClosing=true]">
+    <!-- LOAD-BEARING: this is what closes a card. Drop it and notifications never leave. With
+         reduced motion the card has no slide to wait for, and closes at once. -->
+    <Style Selector="^[IsClosing=true][(theme|Motion.Reduced)=False]">
       <Style.Animations>
         <Animation Easing="QuadraticEaseOut" FillMode="Forward" Duration="0:0:1.25">
+          <KeyFrame Cue="100%">
+            <Setter Property="IsClosed" Value="True" />
+          </KeyFrame>
+        </Animation>
+      </Style.Animations>
+    </Style>
+    <Style Selector="^[IsClosing=true][(theme|Motion.Reduced)=True]">
+      <Style.Animations>
+        <Animation FillMode="Forward" Duration="0:0:0.001">
           <KeyFrame Cue="100%">
             <Setter Property="IsClosed" Value="True" />
           </KeyFrame>

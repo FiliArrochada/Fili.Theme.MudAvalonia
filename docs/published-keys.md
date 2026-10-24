@@ -191,6 +191,13 @@ Its colour is the control's text. Set both to `0` to turn the ripple off.
 - `FiliRippleOpacity`
 - `FiliRippleOpacitySecondary`
 
+Reduced motion, a `Boolean` the same in every variant, `False` by default. `True` in an app's
+resources stops everything the theme moves or fades on its own: the ripple, the popup fade, the
+skeleton's pulse and wave, the snackbar's slide, an expansion panel's and an overlay's fade, and the
+tab indicator's slide. A progress indicator keeps moving. MudBlazor has no such switch.
+
+- `FiliReducedMotion`
+
 ## Elevation
 
 MudBlazor's 26 shadow levels as `BoxShadows`, 0 to 25. In high contrast each is a 1px ring instead, in

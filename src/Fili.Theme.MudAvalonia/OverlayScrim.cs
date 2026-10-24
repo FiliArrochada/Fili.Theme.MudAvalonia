@@ -96,7 +96,7 @@ internal sealed class OverlayScrim
         });
         Visual.IsVisibleProperty.Changed.AddClassHandler<Border>((border, e) =>
         {
-            if (GetIsOn(border) && e.GetNewValue<bool>() && border.IsAttachedToVisualTree())
+            if (GetIsOn(border) && e.GetNewValue<bool>() && border.IsAttachedToVisualTree() && !Motion.GetReduced(border))
             {
                 _ = Fade.RunAsync(border);
             }
@@ -114,7 +114,7 @@ internal sealed class OverlayScrim
     private static void Show(Border border)
     {
         TakeCorners(border);
-        if (border.IsVisible)
+        if (border.IsVisible && !Motion.GetReduced(border))
         {
             _ = Fade.RunAsync(border);
         }

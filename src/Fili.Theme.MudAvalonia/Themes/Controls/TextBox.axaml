@@ -42,7 +42,8 @@
 
   PlaceholderText DOUBLES AS THE LABEL. Avalonia's TextBox has no Label property, and adding an
   attached one would be the first real API in a package whose point is not having any. The cost
-  is that these variants have no separate placeholder.
+  is that a field has a label or a placeholder, not both: `placeholder` makes PlaceholderText
+  MudTextField's Placeholder, the hint in the empty field, with no label.
 -->
 <ResourceDictionary xmlns="https://github.com/avaloniaui"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -151,19 +152,33 @@
               <ScrollViewer x:Name="PART_ScrollViewer"
                             HorizontalScrollBarVisibility="{TemplateBinding (ScrollViewer.HorizontalScrollBarVisibility)}"
                             VerticalScrollBarVisibility="{TemplateBinding (ScrollViewer.VerticalScrollBarVisibility)}">
-                <TextPresenter x:Name="PART_TextPresenter"
-                               Text="{TemplateBinding Text, Mode=TwoWay}"
-                               CaretIndex="{TemplateBinding CaretIndex}"
-                               SelectionStart="{TemplateBinding SelectionStart}"
-                               SelectionEnd="{TemplateBinding SelectionEnd}"
-                               TextAlignment="{TemplateBinding TextAlignment}"
-                               TextWrapping="{TemplateBinding TextWrapping}"
-                               PasswordChar="{TemplateBinding PasswordChar}"
-                               RevealPassword="{TemplateBinding RevealPassword}"
-                               SelectionBrush="{TemplateBinding SelectionBrush}"
-                               SelectionForegroundBrush="{TemplateBinding SelectionForegroundBrush}"
-                               CaretBrush="{TemplateBinding CaretBrush}"
-                               VerticalAlignment="Center" />
+                <!-- MudTextField's Placeholder, with `placeholder`: the hint in the text's own place,
+                     so it starts where the text does, beside an adornment and on a multi-line
+                     field's first line, in `.mud-input-root::placeholder`'s currentColor at .42. -->
+                <Panel>
+                  <TextBlock x:Name="PART_Placeholder"
+                             Text="{TemplateBinding PlaceholderText}"
+                             IsVisible="False"
+                             IsHitTestVisible="False"
+                             Opacity="0.42"
+                             TextAlignment="{TemplateBinding TextAlignment}"
+                             TextWrapping="{TemplateBinding TextWrapping}"
+                             Margin="{Binding #PART_TextPresenter.Margin}"
+                             VerticalAlignment="{Binding #PART_TextPresenter.VerticalAlignment}" />
+                  <TextPresenter x:Name="PART_TextPresenter"
+                                 Text="{TemplateBinding Text, Mode=TwoWay}"
+                                 CaretIndex="{TemplateBinding CaretIndex}"
+                                 SelectionStart="{TemplateBinding SelectionStart}"
+                                 SelectionEnd="{TemplateBinding SelectionEnd}"
+                                 TextAlignment="{TemplateBinding TextAlignment}"
+                                 TextWrapping="{TemplateBinding TextWrapping}"
+                                 PasswordChar="{TemplateBinding PasswordChar}"
+                                 RevealPassword="{TemplateBinding RevealPassword}"
+                                 SelectionBrush="{TemplateBinding SelectionBrush}"
+                                 SelectionForegroundBrush="{TemplateBinding SelectionForegroundBrush}"
+                                 CaretBrush="{TemplateBinding CaretBrush}"
+                                 VerticalAlignment="Center" />
+                </Panel>
               </ScrollViewer>
             </DockPanel>
 
@@ -414,17 +429,27 @@
     <!-- No label, MudInput: no `mud-input-text-with-label`, so no 16px above the text - 6px and
          7px round a 21px line, 32px; dense, 3px above, 29px. Every variant derives from this one
          and so inherits these rules; each puts back its own below. -->
-    <Style Selector="^:no-label">
+    <Style Selector="^:no-label, ^.placeholder">
       <Setter Property="MinHeight" Value="32" />
     </Style>
-    <Style Selector="^:no-label /template/ DockPanel#PART_ContentArea">
+    <Style Selector="^:no-label /template/ DockPanel#PART_ContentArea, ^.placeholder /template/ DockPanel#PART_ContentArea">
       <Setter Property="Margin" Value="0,4,0,7" />
     </Style>
-    <Style Selector="^.dense:no-label">
+    <Style Selector="^.dense:no-label, ^.dense.placeholder">
       <Setter Property="MinHeight" Value="29" />
     </Style>
-    <Style Selector="^.dense:no-label /template/ DockPanel#PART_ContentArea">
+    <Style Selector="^.dense:no-label /template/ DockPanel#PART_ContentArea, ^.dense.placeholder /template/ DockPanel#PART_ContentArea">
       <Setter Property="Margin" Value="0,1,0,7" />
+    </Style>
+
+    <!-- `placeholder`: PlaceholderText is MudTextField's Placeholder rather than its Label. No
+         label and no room for one, as above; the hint shows while the field is empty, never
+         floats, and has no "*". -->
+    <Style Selector="^.placeholder /template/ TextBlock#PART_FloatingLabel">
+      <Setter Property="IsVisible" Value="False" />
+    </Style>
+    <Style Selector="^.placeholder:empty /template/ TextBlock#PART_Placeholder">
+      <Setter Property="IsVisible" Value="True" />
     </Style>
   </ControlTheme>
 
@@ -520,16 +545,16 @@
 
     <!-- No label: `.mud-input-root-hidden-label`, 18px above and 19px below in place of 27 and
          10, the text centred in the same 56px; dense, 10 and 11 in place of 23 and 6. -->
-    <Style Selector="^:no-label">
+    <Style Selector="^:no-label, ^.placeholder">
       <Setter Property="MinHeight" Value="56" />
     </Style>
-    <Style Selector="^:no-label /template/ DockPanel#PART_ContentArea">
+    <Style Selector="^:no-label /template/ DockPanel#PART_ContentArea, ^.placeholder /template/ DockPanel#PART_ContentArea">
       <Setter Property="Margin" Value="12,11,12,17" />
     </Style>
-    <Style Selector="^.dense:no-label">
+    <Style Selector="^.dense:no-label, ^.dense.placeholder">
       <Setter Property="MinHeight" Value="48" />
     </Style>
-    <Style Selector="^.dense:no-label /template/ DockPanel#PART_ContentArea">
+    <Style Selector="^.dense:no-label /template/ DockPanel#PART_ContentArea, ^.dense.placeholder /template/ DockPanel#PART_ContentArea">
       <Setter Property="Margin" Value="12,3,12,9" />
     </Style>
   </ControlTheme>
@@ -665,16 +690,16 @@
 
     <!-- No label: the box is the same, its label's room being the 8px MudBlazor puts outside it,
          which this theme leaves to the layout. Its own values again, over the standard field's. -->
-    <Style Selector="^:no-label">
+    <Style Selector="^:no-label, ^.placeholder">
       <Setter Property="MinHeight" Value="56" />
     </Style>
-    <Style Selector="^:no-label /template/ DockPanel#PART_ContentArea">
+    <Style Selector="^:no-label /template/ DockPanel#PART_ContentArea, ^.placeholder /template/ DockPanel#PART_ContentArea">
       <Setter Property="Margin" Value="14,16,14,12" />
     </Style>
-    <Style Selector="^.dense:no-label">
+    <Style Selector="^.dense:no-label, ^.dense.placeholder">
       <Setter Property="MinHeight" Value="40" />
     </Style>
-    <Style Selector="^.dense:no-label /template/ DockPanel#PART_ContentArea">
+    <Style Selector="^.dense:no-label /template/ DockPanel#PART_ContentArea, ^.dense.placeholder /template/ DockPanel#PART_ContentArea">
       <Setter Property="Margin" Value="14,8,14,4" />
     </Style>
   </ControlTheme>

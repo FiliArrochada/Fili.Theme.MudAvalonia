@@ -188,6 +188,16 @@ field is then MudInput, the bare input: 32px, 29 dense. A filled one centres its
 56px (`.mud-input-root-hidden-label`). An outlined one is the same box. Set `PlaceholderText`
 later and the label's room comes back.
 
+**`placeholder` makes `PlaceholderText` MudTextField's `Placeholder`** rather than its `Label`: the
+hint in the empty field, where the text goes - beside a start adornment, on a multi-line field's
+first line - in the text's colour at .42, as `.mud-input-root::placeholder` draws it. It never
+floats and has no "*", and the field has no label and no room for one. A field has a label or a
+placeholder, not both: that would take a second text property, which this package does not add.
+
+```xml
+<TextBox Classes="placeholder" PlaceholderText="Add a note" />
+```
+
 The label floats when the field is **focused or non-empty**, which is expressible as a selector
 only because Avalonia gives `TextBox` an `:empty` pseudo-class.
 
@@ -986,6 +996,25 @@ layer:
 The keys reach the control's content too, so a default button inside the card loses its hover as
 well. And hover is also MudBlazor's focus cue: a control that drops it needs its own for the
 keyboard.
+
+## Reduced motion
+
+MudBlazor has no switch for motion; this theme has one key. `FiliReducedMotion` set to `True` in
+the application's resources stops everything the theme moves or fades on its own:
+
+```xml
+<Application.Resources>
+  <x:Boolean x:Key="FiliReducedMotion">True</x:Boolean>
+</Application.Resources>
+```
+
+No ripple on a press; a popup, menu or tooltip at full opacity from its first frame; a skeleton
+still, without its pulse or wave; a snackbar with no slide in or out; an expansion panel and an
+overlay shown at once; a tab's indicator jumping to the new tab. A progress indicator keeps moving,
+as it is the only sign that work is going on, and so do the 150ms colour fades of hover and
+focus, which do not move anything. Set it from the app's own setting, or the system's, and change
+it at any time: every window and popup reads it as a resource. A window or region of its own can
+set it in its `Resources` too.
 
 ## Keyboard focus
 
