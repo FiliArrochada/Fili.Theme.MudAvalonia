@@ -39,9 +39,11 @@ nuget.org can be unlisted but never replaced.
 
 ## Upgrading from 0.19.0 to 0.20.0
 
-- **Icons are smaller.** A `PathIcon` keeps a Material glyph's padding, as MudIcon does. A glyph
-  you padded to 24×24 yourself draws as before, and the padding can go; one drawn in another box
-  needs scaling into 24.
+- **Icons are smaller.** A `PathIcon` keeps a Material glyph's padding, as MudIcon does. Padding
+  you added to make a glyph fill 24×24 can go: the glyph draws in a true 24px box now. A curved
+  glyph you padded with move commands comes out a little smaller than in 0.19.0, because a
+  curve's control points widened its bounds and 0.19.0 drew it about 10% too large. A glyph drawn
+  in another box needs scaling into 24.
 - **Captions and overlines are the colour round them**, not grey. Where you want grey supporting
   text, set `Foreground="{DynamicResource FiliTextSecondaryBrush}"`.
 - **An alert is taller**: 50px for one line, where it was 32.
