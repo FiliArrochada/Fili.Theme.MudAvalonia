@@ -107,7 +107,9 @@ Then use the tokens by key, and the type ramp by class:
 A colour class on a `TextBlock` is `MudText`'s `Color`: the palette colour, so `secondary` is the
 secondary colour. Grey supporting text is `text-secondary`, which MudBlazor reaches through its
 `mud-text-secondary` utility class rather than a `Color`; here it is
-`Foreground="{DynamicResource FiliTextSecondaryBrush}"`.
+`Foreground="{DynamicResource FiliTextSecondaryBrush}"`. `inherit` is `Color.Inherit`: the colour
+the text sits in, over a type class's own, so a `caption inherit` in an app bar is the bar's text
+colour rather than grey.
 
 Always `DynamicResource`, never `StaticResource` — see **The one rule** below.
 
@@ -132,7 +134,7 @@ base became a fork of Simple that this repo owns, the hazard went with it: a `Te
 `Variant.Outlined`, `Variant.Text` and `Variant.Filled` — API familiarity is the point of this
 package, so they are not namespaced to `mud-primary` or hidden behind an attached property.
 
-**All 159 of them, which is the list to grep an app against before adopting:**
+**All 169 of them, which is the list to grep an app against before adopting:**
 
 | | |
 |---|---|
@@ -151,7 +153,8 @@ package, so they are not namespaced to `mud-primary` or hidden behind an attache
 | Icons in content | `start-icon`, `end-icon` |
 | Material, not MudBlazor | `material-fixed-tabs`, `material-elevation-overlay` |
 | Tab indicator colour (`SliderColor`) | `indicator-primary`, `indicator-secondary`, `indicator-tertiary`, `indicator-info`, `indicator-success`, `indicator-warning`, `indicator-error`, `indicator-dark` |
-| Unchecked colour (`UncheckedColor`) | `unchecked-primary`, `unchecked-secondary`, `unchecked-tertiary`, `unchecked-info`, `unchecked-success`, `unchecked-warning`, `unchecked-error`, `unchecked-dark` |
+| Unchecked colour (`UncheckedColor`) | `unchecked-primary`, `unchecked-secondary`, `unchecked-tertiary`, `unchecked-info`, `unchecked-success`, `unchecked-warning`, `unchecked-error`, `unchecked-dark`, `unchecked-inherit` |
+| Select arrow colour (`AdornmentColor`) | `adornment-primary`, `adornment-secondary`, `adornment-tertiary`, `adornment-info`, `adornment-success`, `adornment-warning`, `adornment-error`, `adornment-dark`, `adornment-inherit` |
 | Switch thumb icon colour (`ThumbIconColor`) | `thumb-primary`, `thumb-secondary`, `thumb-tertiary`, `thumb-info`, `thumb-success`, `thumb-warning`, `thumb-error`, `thumb-dark` |
 
 `ClassVocabularyTests` asserts that list is exactly what the theme uses, in both directions — an
@@ -195,6 +198,9 @@ everywhere or in one region, set the switch MudBlazor's `TextTransform = "none"`
 <x:String x:Key="FiliButtonTextTransform">none</x:String>
 ```
 
+Not on a button with a flyout, which would take its menu's capitals away too: write that
+button's label as a `<Run>` instead ([Buttons](docs/controls.md)).
+
 **A press ripples**, as in MudBlazor: a circle grows from the pointer in the label's colour, on
 buttons, chips, FABs, toggles, tabs and list, select, menu and tree rows, and in the halo of a
 checkbox, radio or switch. `Ripple="false"` is `FiliRippleOpacity` and `FiliRippleOpacitySecondary`
@@ -212,6 +218,7 @@ button that stays at elevation 0 in every state.
 <Button Classes="icon primary small"><PathIcon Data="…" /></Button>
 <Button Classes="chip" Content="Default" />                                        grey, filled
 <ToggleButton Classes="chip primary" Content="Selected" IsChecked="True" />
+<ContentControl Classes="chip text success" Content="Installed" />                 nothing to click
 ```
 
 An unclassed icon button is `action-default` grey rather than text-primary, because
@@ -219,7 +226,9 @@ An unclassed icon button is `action-default` grey rather than text-primary, beca
 `PathIcon` is 24px (18 small, 36 large) and the package ships no icon set - the gallery's glyphs
 are its own. A chip is MudChip's `Variant.Filled` by default; on a `ToggleButton`, `IsChecked` is
 `MudChip.GetVariant`'s swap, so a selected filled chip draws as a text chip and a selected text
-chip as a filled one. Chip selection rules (`MudChipSet`) stay with the app.
+chip as a filled one. Chip selection rules (`MudChipSet`) stay with the app. A chip that only
+shows a value - a tag, a status - is `chip` on a `ContentControl`: MudChip with neither `OnClick`
+nor `Href`, the same variants, colours and sizes, with no hover, ripple or focus.
 
 **`alert` and `skeleton` are on a `Border`.** `<Border Classes="alert warning">` is a text-variant
 MudAlert: the colour at 6% behind text in the colour's *darken* shade, which is what `_alert.scss`

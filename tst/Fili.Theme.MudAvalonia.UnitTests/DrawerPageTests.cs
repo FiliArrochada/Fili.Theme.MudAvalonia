@@ -36,6 +36,33 @@ public class DrawerPageTests
         return value!;
     }
 
+    /// <summary>
+    /// The pane button is a MudIconButton's 48px circle, as in MudBlazor's dense app bar. The
+    /// fork's 48px bar with 5px round squeezed it to 48x38, and its round tint to a pill.
+    /// </summary>
+    [Fact]
+    public Task ThePaneButtonIsA48PxCircle() => UiThread.RunAsync(() =>
+    {
+        var button = Matrix.Part<ToggleButton>(Page(true), "PART_PaneButton");
+
+        Assert.Equal(48, button.Bounds.Width);
+        Assert.Equal(48, button.Bounds.Height);
+    });
+
+    /// <summary>
+    /// The spinner date picker's highlight follows the primary, as ThemeAccentBrush2 does: the
+    /// fork filled it from ThemeAccentColor, fixed per variant, so an app's primary never
+    /// reached it and it stayed MudBlazor's purple.
+    /// </summary>
+    [Fact]
+    public Task TheDatePickersHighlightFollowsThePrimary() => UiThread.RunAsync(() =>
+    {
+        var presenter = Matrix.Show(new DatePickerPresenter { Width = 300, Height = 300 });
+        var highlight = presenter.GetVisualDescendants().OfType<Avalonia.Controls.Shapes.Rectangle>().Single(r => r.Name == "HighlightRect");
+
+        Assert.Same(Resource("ThemeAccentBrush2"), highlight.Fill);
+    });
+
     [Theory]
     [InlineData(true)]
     [InlineData(false)]

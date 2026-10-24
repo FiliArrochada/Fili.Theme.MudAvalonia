@@ -6,6 +6,7 @@ What changed in each release of `Fili.Theme.MudAvalonia`, newest first. The pack
 
 | Version | |
 |---|---|
+| *(unreleased)* | A nav label with a type class (`caption`, `body2`...) keeps its class's line height, as `.mud-typography-*` overrides the line it would inherit from `.mud-nav-link`; the nav's 28px line was forced on it, so a caption under a title grew the row. Labels still wrap. The docs add `FiliActionDefaultHoverColor` to what overriding `FiliActionDefaultColor` needs, and warn that `FiliButtonTextTransform` set on a button reaches its flyout: a single label keeps its case as a run. A wrapped nav group keeps its arrow on the first line, as `.mud-nav-link`'s `align-items: flex-start` does. DrawerPage's pane toggles are MudIconButton's 48px circle, where the fork's bar squeezed them to a 48x38 pill. And the spinner `DatePicker`'s highlight follows `FiliPrimaryColor`, where it stayed MudBlazor's purple. `Color.Inherit` reaches three more controls: `inherit` on a `TextBlock` is the surrounding colour over a type class's own, and on a checkbox or radio the glyph's, with `unchecked-inherit` for `UncheckedColor`. MudSelect's `AdornmentColor` is `adornment-{colour}` and `adornment-inherit` on a `ComboBox`. A chip with nothing to click, MudChip with neither `OnClick` nor `Href`, is `chip` on a `ContentControl`: no hover, ripple or focus. The docs show how to change one control's hover and ripple through tokens in its `Resources`, rather than by reaching into its template. The published class list grows to 169. See [Upgrading from 0.18.0](#upgrading-from-0180). |
 | **0.18.0** | A nav label in a `DockPanel` or `Grid` written straight into a row's `Header` wraps, as 0.17.0 said it would; it ran on at one line, cut off at the drawer's edge. Only string headers and templated ones wrapped. The date picker's toolbar fits its 100px again: 0.17.0 gave its 34px date a button's 1.75 line, 72px, where `.mud-button-date` is on a 1.17 line, 52px, and the year and date overflowed the toolbar. A command bar button with its label on the right is a button's 36.5px, where it stayed 29. And the toggle icon buttons carry no label line box, which DrawerPage's pane toggles, wearing them without the `icon` class, had kept. A `ToggleButton`, MudToggleItem, is a MudButton's 36.5px too, where it was 32. The docs now say that overriding a colour means its hover, darken, lighten and contrast-text tokens as well. See [Upgrading from 0.17.0 to 0.18.0](#upgrading-from-0170-to-0180). |
 | 0.17.0 | An open drawer's nav menu never scrolls sideways, as MudDrawer does not: a label too long for it wraps, where it ran past the edge and the menu scrolled. A nav link is the drawer's text colour, as `.mud-nav-link` inherits it: on a coloured drawer the links were text-primary, dark on the colour; and every nav row is 44px, where one whose header was a control was 40. A button is MudButton's height, 36.5px (30.75 small, 42.25 large), where it was 29, as are a split and a drop-down button. A `TimePicker` stretches as the other fields do. See [Upgrading from 0.16.0 to 0.17.0](#upgrading-from-0160-to-0170). |
 | 0.16.0 | Seven of Avalonia's controls in MudBlazor's look, where they wore the forked templates. `TimePicker` is MudTimePicker: the standard field with the `AccessTime` adornment, and the toolbar's popover over Avalonia's columns. `CommandBar` is MudToolBar of MudIconButtons with a `MoreVert` MudMenu. `TableView` is MudTable, as the data grid is. A `NavigationPage`'s bar is MudAppBar, a `TabbedPage` is MudTabs and a `ContentPage` sits on the background. `Carousel` and `CarouselPage` are MudCarousel, with `no-arrows` and `no-bullets`; a time picker with `editable` takes a typed time. A filled or outlined field's icon adornment is centred on the box, as `.mud-input` centres it, where it sat on the text line below the box's middle; a text adornment, such as a unit, stays on the text line beside the value it is read with. `FiliMoreVertGeometry`, `FiliAccessTimeGeometry`, `FiliCheckGeometry` and `FiliArrowBackGeometry` are new, and the published class list grows to 159. See [Upgrading from 0.15.0 to 0.16.0](#upgrading-from-0150-to-0160). |
@@ -34,6 +35,19 @@ What changed in each release of `Fili.Theme.MudAvalonia`, newest first. The pack
 Every version and its release notes are on the
 [releases page](https://github.com/FiliArrochada/Fili.Theme.MudAvalonia/releases); a version on
 nuget.org can be unlisted but never replaced.
+
+## Upgrading from 0.18.0
+
+- **Ten new class names**: `unchecked-inherit`, and `adornment-primary` … `adornment-dark` with
+  `adornment-inherit`. Grep your app for them before upgrading, as for any published class.
+- **A `ContentControl` with the class `chip` is now a chip.** If your app styles its own
+  `ContentControl.chip`, the theme's chip look now applies to every property your style does not set.
+- **A nav label with a type class keeps that class's line height**, so a `caption` under a title
+  in a nav row is shorter than in 0.18.0.
+- **`DrawerPage`'s pane toggle is a 48px circle**, and its top and bottom bars lose their 5px
+  above and below.
+- **If a style of yours reaches a template part** to change a control's hover or ripple, it can
+  now be tokens in that control's `Resources` instead (see [What an adopting app has to do](controls.md#what-an-adopting-app-has-to-do)).
 
 ## Upgrading from 0.17.0 to 0.18.0
 

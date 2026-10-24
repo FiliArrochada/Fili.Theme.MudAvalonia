@@ -346,20 +346,26 @@
                                 LetterSpacing="0"
                                 VerticalAlignment="Center">
                 <ContentPresenter.Styles>
-                  <!-- `.mud-nav-link-text` wraps a label too long for the drawer. -->
+                  <!-- `.mud-nav-link-text` wraps a label too long for the drawer, on the
+                       link's 28px line, which a type class replaces with its own. -->
                   <Style Selector="TextBlock">
-                    <Setter Property="LineHeight" Value="28" />
                     <Setter Property="TextWrapping" Value="Wrap" />
+                  </Style>
+                  <Style Selector="TextBlock:not(.h1):not(.h2):not(.h3):not(.h4):not(.h5):not(.h6):not(.subtitle1):not(.subtitle2):not(.body1):not(.body2):not(.button):not(.caption):not(.overline)">
+                    <Setter Property="LineHeight" Value="28" />
                   </Style>
                 </ContentPresenter.Styles>
               </ContentPresenter>
+              <!-- `.mud-nav-link` is `align-items: flex-start`: on a label that wraps, the arrow
+                   stays on the first line, centred in its 28px. -->
               <Path x:Name="PART_ExpandIcon"
                     Grid.Column="2"
                     Width="24" Height="24"
+                    Margin="0,2,0,0"
                     Stretch="None"
                     Data="{DynamicResource FiliExpandMoreGeometry}"
                     Fill="{DynamicResource FiliDrawerIconBrush}"
-                    VerticalAlignment="Center"
+                    VerticalAlignment="Top"
                     RenderTransformOrigin="50%,50%"
                     RenderTransform="rotate(0deg)">
                 <Path.Transitions>

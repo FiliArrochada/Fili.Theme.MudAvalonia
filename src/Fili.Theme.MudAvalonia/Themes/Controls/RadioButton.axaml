@@ -291,6 +291,26 @@
       <Setter Property="theme:Ripple.Brush" Value="{DynamicResource FiliDarkBrush}" />
     </Style>
 
+    <!-- `inherit`: Color.Inherit, the colour round the control, and no halo. -->
+    <Style Selector="^.inherit">
+      <Setter Property="theme:InheritedColour.Brush" Value="{Binding $parent[Control].(TextElement.Foreground)}" />
+    </Style>
+    <Style Selector="^.inherit /template/ Path#PART_Unchecked">
+      <Setter Property="Fill" Value="{Binding $parent[RadioButton].(theme:InheritedColour.Brush)}" />
+    </Style>
+    <Style Selector="^.inherit /template/ Path#PART_Checked">
+      <Setter Property="Fill" Value="{Binding $parent[RadioButton].(theme:InheritedColour.Brush)}" />
+    </Style>
+    <Style Selector="^.inherit:pointerover /template/ Ellipse#PART_StateLayer">
+      <Setter Property="Fill" Value="Transparent" />
+    </Style>
+    <Style Selector="^.inherit:focus-visible /template/ Ellipse#PART_StateLayer">
+      <Setter Property="Fill" Value="Transparent" />
+    </Style>
+    <Style Selector="^.inherit:pressed /template/ Ellipse#PART_StateLayer">
+      <Setter Property="Fill" Value="Transparent" />
+    </Style>
+
     <!-- UncheckedColor: `unchecked-{colour}`, the colour of the glyph and its halo while NOT
          checked (MudCheckBox: false or null), in place of the colour class. -->
     <Style Selector="^.unchecked-primary /template/ Path#PART_Unchecked">
@@ -412,6 +432,23 @@
     </Style>
     <Style Selector="^.unchecked-dark:unchecked /template/ theme|PartBorder#PART_Ripple">
       <Setter Property="theme:Ripple.Brush" Value="{DynamicResource FiliDarkBrush}" />
+    </Style>
+
+    <!-- `unchecked-inherit`: Color.Inherit, the colour round the control, and no halo. -->
+    <Style Selector="^.unchecked-inherit">
+      <Setter Property="theme:InheritedColour.Brush" Value="{Binding $parent[Control].(TextElement.Foreground)}" />
+    </Style>
+    <Style Selector="^.unchecked-inherit /template/ Path#PART_Unchecked">
+      <Setter Property="Fill" Value="{Binding $parent[RadioButton].(theme:InheritedColour.Brush)}" />
+    </Style>
+    <Style Selector="^.unchecked-inherit:unchecked:pointerover /template/ Ellipse#PART_StateLayer">
+      <Setter Property="Fill" Value="Transparent" />
+    </Style>
+    <Style Selector="^.unchecked-inherit:unchecked:focus-visible /template/ Ellipse#PART_StateLayer">
+      <Setter Property="Fill" Value="Transparent" />
+    </Style>
+    <Style Selector="^.unchecked-inherit:unchecked:pressed /template/ Ellipse#PART_StateLayer">
+      <Setter Property="Fill" Value="Transparent" />
     </Style>
 
     <!-- `mud-icon-size-small` / `-large`: 1.25rem and 2.25rem against 1.5rem. -->

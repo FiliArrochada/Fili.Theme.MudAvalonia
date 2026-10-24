@@ -128,11 +128,12 @@ Put a `PathIcon` in `Content`: `<Button Classes="icon primary"><PathIcon Data="�
 | `ToggledSize`, `ToggledVariant` | the classes, bound to `IsChecked` | ≈ one size and one variant unless the app swaps them |
 | `Disabled` | `IsEnabled="False"` | ✅ action-disabled |
 
-### MudChip → `Button.chip`, `ToggleButton.chip`
+### MudChip → `Button.chip`, `ToggleButton.chip`, `ContentControl.chip`
 
 | MudBlazor | Here | |
 |---|---|---|
 | `Variant.Filled` (default) | `chip` | ✅ 32px pill, `action-disabled-background` grey, `action-disabled` on hover |
+| neither `OnClick` nor `Href` | `chip` on a `ContentControl` | ✅ no `mud-clickable`: each variant's look at rest, no hover, ripple, hand cursor or focus |
 | `Color.Default` (default) | no colour class | ✅ text-primary on that grey |
 | `Variant.Outlined` / `Text` | `chip outlined` / `chip text` | ✅ |
 | `Color.Primary` … `Color.Dark` | the colour classes | ✅ filled: colour, `{color}-darken` on hover; text: `{color}-hover` ground, 12% on hover |
@@ -218,6 +219,7 @@ Put initials, a `PathIcon` or an `Image` inside: `<Border Classes="avatar primar
 | `Typo.caption` / `overline` | `caption` / `overline` | ✅ |
 | `Typo.button` | `button` | ✅ 14px, 500, a 24px line, 0.4px tracking ≈ not uppercase: a `TextBlock`'s own `Text` cannot be transformed by a style, so write it in capitals |
 | `Color.Primary` … `Color.Dark` | `primary` `secondary` `tertiary` `info` `success` `warning` `error` `dark` | ✅ the palette colour; beats a type style's own colour |
+| `Color.Inherit` | `inherit` | ✅ the surrounding text colour, over a type style's own (`caption` and `overline` are text-secondary) |
 | `mud-text-secondary` (grey) | `Foreground="{DynamicResource FiliTextSecondaryBrush}"` | ≈ a utility class in MudBlazor, not a `Color` |
 | `Align`, `GutterBottom`, `Inline` | `TextAlignment`, `Margin` | ≈ ordinary Avalonia properties |
 
@@ -301,6 +303,7 @@ Put initials, a `PathIcon` or an `Image` inside: `<Border Classes="avatar primar
 | `MaxHeight` (default 300) on a select or an autocomplete | `MaxDropDownHeight` | ✅ 300, where Avalonia's default is 200 |
 | `Disabled` on a select | `IsEnabled="False"` | ≈ as a disabled text field, its arrow in text-disabled |
 | `OpenIcon` / `CloseIcon` (defaults) | the same | ✅ `ArrowDropDown`, turned to `ArrowDropUp` while the list is open |
+| `AdornmentColor` on a select | `adornment-primary` … `adornment-dark`, `adornment-inherit` | ✅ the arrow in the colour, or the colour round the select; text-disabled when disabled |
 | `OpenIcon` / `CloseIcon` set to other glyphs | `FiliArrowDropDownGeometry` / `FiliArrowDropUpGeometry` in the select's `Resources` | ✅ |
 | `Underline`, `Required`, `ShrinkLabel` on a select, an autocomplete or a numeric field | `no-underline`, `required`, `shrink-label` | ✅ as on a text field |
 | `Dense` on the items | `dense-items` on the select, or `dense` on one `ComboBoxItem` | ✅ 4px top and bottom, body2: 36px rows; `dense` on the select is its field's `Margin.Dense` |
@@ -323,6 +326,7 @@ Put initials, a `PathIcon` or an `Image` inside: `<Border Classes="avatar primar
 | `Color.Primary` … `Color.Dark` | `primary` … `dark` | ✅ every glyph and the halo; on a switch, thumb and track only when on |
 | `Size.Small` / `Large` | `small` / `large` | ✅ glyph 20 / 36px; switch 14 / 26px thumb on its own span |
 | `UncheckedColor` | `unchecked-primary` … `unchecked-dark` | ✅ on a checkbox or radio: the glyph and its halo while not checked (a checkbox's null too), in place of the colour class |
+| `Color.Inherit`, `UncheckedColor.Inherit` | `inherit`, `unchecked-inherit` | ✅ on a checkbox or radio: the glyph in the surrounding text colour, with no halo, as `hover:mud-inherit-hover` names no rule |
 | `MudSwitch.UncheckedColor` | `unchecked-primary` … `unchecked-dark` | ✅ the thumb and the track while off |
 | `Disabled` | `IsEnabled="False"` | ✅ the glyph and the label in text-disabled, `.mud-checkbox.mud-disabled *` |
 | `ReadOnly` | `IsHitTestVisible="False"` | ≈ looks the same, as in MudBlazor |

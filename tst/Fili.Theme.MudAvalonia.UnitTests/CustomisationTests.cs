@@ -264,4 +264,26 @@ public class CustomisationTests
         var close = Matrix.Part<Button>(card, "PART_CloseButton");
         Assert.Same(Heart, close.GetVisualDescendants().OfType<Path>().Single().Data);
     });
+
+    /// <summary>
+    /// One control's hover and ripple, through tokens rather than its template: the state layer
+    /// and ripple read DynamicResources, so keys in the button's own Resources reach only it.
+    /// </summary>
+    [Fact]
+    public Task AControlsHoverIsAKeyInItsOwnResources() => UiThread.RunAsync(() =>
+    {
+        var quiet = new Button { Content = "Poster" };
+        quiet.Resources["FiliActionDefaultHoverBrush"] = Brushes.Transparent;
+        quiet.Resources["FiliRippleOpacity"] = 0d;
+        var plain = new Button { Content = "Plain" };
+        Matrix.Show(new StackPanel { Children = { quiet, plain } });
+
+        Matrix.Hover(quiet);
+        Assert.Equal(Colors.Transparent, Matrix.Colour(Matrix.Part<Border>(quiet, "PART_StateLayer").Background));
+        var rippleOpacity = AvaloniaPropertyRegistry.Instance.GetRegisteredAttached(typeof(Button)).Single(p => p.OwnerType.Name == "Ripple" && p.Name == "Opacity");
+        Assert.Equal(0d, quiet.GetValue(rippleOpacity));
+
+        Matrix.Hover(plain);
+        Assert.Equal(Matrix.Token("FiliActionDefaultHoverColor"), Matrix.Colour(Matrix.Part<Border>(plain, "PART_StateLayer").Background));
+    });
 }

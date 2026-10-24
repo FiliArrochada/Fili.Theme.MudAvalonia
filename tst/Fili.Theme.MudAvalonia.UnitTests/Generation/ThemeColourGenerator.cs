@@ -29,6 +29,8 @@ public static class ThemeColourGenerator
     public const string ProgressLabel = "progress bar colours.";
     public const string CircularLabel = "circular progress colours.";
     public const string ChipLabel = "chip variants, colours, selection and sizes.";
+    public const string StaticChipLabel = "static chip variants, colours and sizes.";
+    public const string SelectAdornmentLabel = "select adornment colours.";
     public const string ToggleLabel = "toggle item colours, selection and sizes.";
     public const string LinkLabel = "link colours.";
     public const string ListLabel = "list selection colours.";
@@ -70,10 +72,10 @@ public static class ThemeColourGenerator
             (SplitButtonPath, SplitLabel, SplitRegion()),
             (SplitButtonPath, DropDownLabel, DropDownRegion()),
             (FiliThemePath, TextLabel, TextBlockRegion()),
-            (Controls("CheckBox.axaml"), CheckBoxLabel, GlyphRegion(
+            (Controls("CheckBox.axaml"), CheckBoxLabel, GlyphRegion("CheckBox",
                 ["PART_Unchecked", "PART_Checked", "PART_Indeterminate"],
                 ["PART_Unchecked", "PART_Indeterminate"], [":unchecked", ":indeterminate"])),
-            (Controls("RadioButton.axaml"), RadioLabel, GlyphRegion(
+            (Controls("RadioButton.axaml"), RadioLabel, GlyphRegion("RadioButton",
                 ["PART_Unchecked", "PART_Checked"],
                 ["PART_Unchecked"], [":unchecked"])),
             (Controls("ToggleSwitch.axaml"), SwitchLabel, SwitchRegion()),
@@ -81,6 +83,8 @@ public static class ThemeColourGenerator
             (Controls("ProgressBar.axaml"), ProgressLabel, ProgressRegion()),
             (Controls("ProgressCircular.axaml"), CircularLabel, CircularRegion()),
             (Controls("Chip.axaml"), ChipLabel, ChipRegion()),
+            (Controls("Chip.axaml"), StaticChipLabel, StaticChipRegion()),
+            (Controls("ComboBox.axaml"), SelectAdornmentLabel, SelectAdornmentRegion()),
             (Controls("ToggleButton.axaml"), ToggleLabel, ToggleRegion()),
             (Controls("HyperlinkButton.axaml"), LinkLabel, LinkRegion()),
             (FiliThemePath, ListLabel, SelectionRegion("ListBox", "ListBoxItem", "Border#PART_StateLayer", list: true)),
@@ -688,7 +692,7 @@ public static class ThemeColourGenerator
     // tint to the halo. Size is MudIcon's: 20 / 24 / 36px, scaled with its halo.
     // ---------------------------------------------------------------------------------------
 
-    private static string GlyphRegion(string[] glyphs, string[] uncheckedGlyphs, string[] uncheckedStates)
+    private static string GlyphRegion(string owner, string[] glyphs, string[] uncheckedGlyphs, string[] uncheckedStates)
     {
         var o = new StringBuilder();
         o.Append("    <!-- No colour: the action-default halo. -->\n");
@@ -703,6 +707,8 @@ public static class ThemeColourGenerator
             o.Append(string.Concat(States.Select(s => Style($"^.{cls}{s} /template/ Ellipse#PART_StateLayer", ("Fill", Res($"Fili{c}HoverBrush"))))));
             o.Append(Style($"^.{cls} /template/ Border#PART_Ripple", ("theme:Ripple.Brush", Res($"Fili{c}Brush"))));
         }
+
+        o.Append(InheritLook("inherit", owner, glyphs, [""]));
 
         // After the colours, so it wins where both are set: `primary unchecked-error` is
         // Color.Primary with UncheckedColor.Error, the unchecked glyph and its halo in error.
@@ -719,9 +725,28 @@ public static class ThemeColourGenerator
                 Style($"^.{cls}{u} /template/ Border#PART_Ripple", ("theme:Ripple.Brush", Res($"Fili{c}Brush"))))));
         }
 
+        o.Append(InheritLook("unchecked-inherit", owner, uncheckedGlyphs, uncheckedStates));
+
         o.Append("\n    <!-- `mud-icon-size-small` / `-large`: 1.25rem and 2.25rem against 1.5rem. -->\n");
         o.Append(Style("^.small /template/ LayoutTransformControl#PART_Scale", ("LayoutTransform", "scale(0.8333333)")));
         o.Append(Style("^.large /template/ LayoutTransformControl#PART_Scale", ("LayoutTransform", "scale(1.5)")));
+        return o.ToString();
+    }
+
+    /// <summary>
+    /// Color.Inherit, `.mud-inherit-text { color: inherit }`: the glyphs in the colour the control
+    /// sits in, and no halo, since `hover:mud-inherit-hover` names no rule. The ripple keeps the
+    /// control's own text-primary, as `mud-inherit-text` sets no ripple colour.
+    /// </summary>
+    private static string InheritLook(string cls, string owner, string[] glyphs, string[] states)
+    {
+        var o = new StringBuilder();
+        o.Append($"\n    <!-- `{cls}`: Color.Inherit, the colour round the control, and no halo. -->\n");
+        o.Append(Style($"^.{cls}", ("theme:InheritedColour.Brush", "{Binding $parent[Control].(TextElement.Foreground)}")));
+        o.Append(string.Concat(glyphs.Select(g =>
+            Style($"^.{cls} /template/ Path#{g}", ("Fill", $"{{Binding $parent[{owner}].(theme:InheritedColour.Brush)}}")))));
+        o.Append(string.Concat(states.SelectMany(u => States.Select(s =>
+            Style($"^.{cls}{u}{s} /template/ Ellipse#PART_StateLayer", ("Fill", "Transparent"))))));
         return o.ToString();
     }
 
@@ -1072,6 +1097,61 @@ public static class ThemeColourGenerator
         o.Append(IconSlots("chip"));
         o.Append("\n    <!-- `.mud-disabled`: half opacity. -->\n");
         o.Append(Style("^:disabled", ("Opacity", "0.5")));
+        return o.ToString();
+    }
+
+    /// <summary>
+    /// MudChip with neither OnClick nor Href: no `mud-clickable`, so no hover, focus, press or
+    /// ripple, only each variant's resting look. A ContentControl, which takes no focus.
+    /// </summary>
+    private static string StaticChipRegion()
+    {
+        var o = new StringBuilder();
+        o.Append("    <!-- Filled, the default: the colour with its contrast text. -->\n");
+        foreach (var c in Colours)
+        {
+            o.Append(Style($"^.{c.ToLowerInvariant()}", ("Background", Res($"Fili{c}Brush")), ("Foreground", Res($"Fili{c}ContrastTextBrush"))));
+        }
+
+        o.Append("\n    <!-- Outlined: lines-inputs or the colour as a 1px line. -->\n");
+        o.Append(Style("^.outlined", ("Background", "Transparent"), ("Foreground", Res("FiliTextPrimaryBrush")), ("BorderBrush", Res("FiliLinesInputsBrush")), ("BorderThickness", "1")));
+        foreach (var c in Colours)
+        {
+            var cls = c.ToLowerInvariant();
+            o.Append(Style($"^.outlined.{cls}", ("Background", "Transparent"), ("Foreground", Res($"Fili{c}Brush")), ("BorderBrush", Res($"Fili{c}Brush"))));
+        }
+
+        o.Append("\n    <!-- Text: the colour at 6% as fill and the colour as text. -->\n");
+        o.Append(Style("^.text", ("Background", Res("FiliActionDefaultHoverBrush")), ("Foreground", Res("FiliTextPrimaryBrush")), ("BorderThickness", "0")));
+        foreach (var c in Colours)
+        {
+            o.Append(Style($"^.text.{c.ToLowerInvariant()}", ("Background", Res($"Fili{c}HoverBrush")), ("Foreground", Res($"Fili{c}Brush")), ("BorderThickness", "0")));
+        }
+
+        o.Append("\n    <!-- `.mud-chip-size-small` / `-large`: 24px / 40px, radius half the height. -->\n");
+        o.Append(Style("^.small", ("Height", "24"), ("CornerRadius", "12"), ("FontSize", "12"), ("Padding", "8,0")));
+        o.Append(Style("^.large", ("Height", "40"), ("CornerRadius", "20"), ("FontSize", "16"), ("Padding", "16,0")));
+        o.Append(IconSlots("chip"));
+        o.Append("\n    <!-- `.mud-disabled`: half opacity. -->\n");
+        o.Append(Style("^:disabled", ("Opacity", "0.5")));
+        return o.ToString();
+    }
+
+    /// <summary>
+    /// MudSelect's AdornmentColor on its drop-down arrow, `mud-{color}-text` on the MudIcon: a
+    /// palette colour, or Color.Inherit, the colour round the field. Before the disabled rule, which
+    /// greys the arrow whatever its colour.
+    /// </summary>
+    private static string SelectAdornmentRegion()
+    {
+        var o = new StringBuilder();
+        foreach (var c in Colours)
+        {
+            o.Append(Style($"^.adornment-{c.ToLowerInvariant()} /template/ Path#PART_Chevron", ("Fill", Res($"Fili{c}Brush"))));
+        }
+
+        o.Append(Style("^.adornment-inherit", ("theme:InheritedColour.Brush", "{Binding $parent[Control].(TextElement.Foreground)}")));
+        o.Append(Style("^.adornment-inherit /template/ Path#PART_Chevron", ("Fill", "{Binding $parent[ComboBox].(theme:InheritedColour.Brush)}")));
         return o.ToString();
     }
 

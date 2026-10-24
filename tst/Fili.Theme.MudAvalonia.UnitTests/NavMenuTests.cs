@@ -147,6 +147,49 @@ public class NavMenuTests
         Assert.Equal(72, longRow.Bounds.Height);
     });
 
+    /// <summary>
+    /// The 28px line is `.mud-nav-link`'s, which CSS inherits: a TextBlock with a type class keeps
+    /// its class's own line, as `.mud-typography-caption` does. A caption under a title was given
+    /// 28px, in a panel header and in a templated one alike. A plain label keeps the link's 28.
+    /// </summary>
+    [Theory]
+    [InlineData(false)]
+    [InlineData(true)]
+    public Task ATypeClassKeepsItsOwnLine(bool templated) => UiThread.RunAsync(() =>
+    {
+        var title = new TextBlock { Text = "Title" };
+        var caption = new TextBlock { Text = "Subtitle", Classes = { "caption" } };
+        Grid.SetRow(caption, 1);
+        var header = new Grid { RowDefinitions = new RowDefinitions("Auto,Auto"), Children = { title, caption } };
+        var row = templated
+            ? new TreeViewItem { Header = "x", HeaderTemplate = new Avalonia.Controls.Templates.FuncDataTemplate<object>((_, _) => header) }
+            : new TreeViewItem { Header = header };
+        var tree = new TreeView { Width = 240, Items = { row } };
+        tree.Classes.Add("nav");
+        Matrix.Show(tree);
+
+        Assert.True(Application.Current!.TryGetResource("FiliCaptionLineHeight", Application.Current.ActualThemeVariant, out var line));
+        Assert.Equal((double)line!, caption.LineHeight);
+        Assert.Equal(28, title.LineHeight);
+    });
+
+    /// <summary>
+    /// A group whose label wraps keeps its arrow on the first line, centred in its 28px, as
+    /// `.mud-nav-link`'s `align-items: flex-start` does; it was centred on the whole label.
+    /// </summary>
+    [Fact]
+    public Task AWrappedGroupsArrowStaysOnTheFirstLine() => UiThread.RunAsync(() =>
+    {
+        var group = new TreeViewItem { Header = "A group label far too long to fit in the drawer", IsExpanded = false, Items = { new TreeViewItem { Header = "Child" } } };
+        var tree = new TreeView { Width = 240, Items = { group } };
+        tree.Classes.Add("nav");
+        Matrix.Show(tree);
+        var arrow = Matrix.Part<Path>(group, "PART_ExpandIcon");
+
+        Assert.True(group.Bounds.Height > 60, "The label did not wrap.");
+        Assert.Equal(8 + 2, arrow.TranslatePoint(default, group)!.Value.Y);
+    });
+
     [Fact]
     public Task ALinkIsBody1At8By16WithTheText12pxIn() => UiThread.RunAsync(() =>
     {

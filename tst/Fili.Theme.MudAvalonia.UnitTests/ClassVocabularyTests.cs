@@ -79,7 +79,7 @@ public class ClassVocabularyTests
         "material-elevation-overlay",
 
         // Components that are a class on an existing control: MudIconButton, MudChip and MudFab
-        // on a Button, MudAlert, MudAvatar, MudCard, MudSkeleton and MudToolBar on a Border, with
+        // on a Button (a MudChip with nothing to click on a ContentControl), MudAlert, MudAvatar, MudCard, MudSkeleton and MudToolBar on a Border, with
         // MudSkeleton's SkeletonType, MudProgressCircular on a ProgressBar, MudBadge on a
         // HeaderedContentControl, MudNavMenu on a TreeView and MudExpansionPanels on a StackPanel.
         "alert", "avatar", "badge", "card", "chip", "circle", "circular", "counter",
@@ -120,9 +120,13 @@ public class ClassVocabularyTests
         // LabelPlacement on MudCheckBox, MudRadio and MudSwitch; End is the default.
         "label-bottom", "label-start", "label-top",
 
-        // MudCheckBox's and MudRadio's UncheckedColor, one per palette colour.
-        "unchecked-dark", "unchecked-error", "unchecked-info", "unchecked-primary",
+        // MudCheckBox's and MudRadio's UncheckedColor, one per palette colour and Inherit.
+        "unchecked-dark", "unchecked-error", "unchecked-info", "unchecked-inherit", "unchecked-primary",
         "unchecked-secondary", "unchecked-success", "unchecked-tertiary", "unchecked-warning",
+
+        // MudSelect's AdornmentColor, one per palette colour and Inherit.
+        "adornment-dark", "adornment-error", "adornment-info", "adornment-inherit", "adornment-primary",
+        "adornment-secondary", "adornment-success", "adornment-tertiary", "adornment-warning",
 
         // MudSwitch's ThumbIconColor, one per palette colour.
         "thumb-dark", "thumb-error", "thumb-info", "thumb-primary",

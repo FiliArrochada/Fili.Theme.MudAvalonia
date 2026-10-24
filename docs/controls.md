@@ -42,8 +42,20 @@ CSS's words, as MudBlazor's typography setting is:
 `lowercase` and `capitalize` work too, and the key can go in any control's `Resources` to change
 one region. That region is often needed: in Avalonia a `Button` is also the usual clickable
 container - a poster card, a list row, a button showing a value such as the current sort - and
-its text reads in capitals like any button label. Set `none` on the card rail, the list or the
-button, as MudBlazor would never have put that text in a MudButton.
+its text reads in capitals like any button label. Set `none` on the card rail or the list, as
+MudBlazor would never have put that text in a MudButton.
+
+Not on a button with a `Flyout`: the flyout's content finds its resources through the button,
+so its action buttons would lose their capitals too, where MudBlazor's popover, rendered at the
+layout root, keeps them. For one button's own label, write the label as a run, which keeps the
+case written while everything else stays a button:
+
+```xml
+<Button>
+  <TextBlock><Run Text="{Binding PeriodLabel}" /></TextBlock>
+  <Button.Flyout>…</Button.Flyout>
+</Button>
+```
 
 **A press ripples.** As in MudBlazor, a circle grows from the pointer over .5s and fades once the
 button is released, in the label's colour at 10% - 20% on a filled button, a filled chip or a
@@ -209,7 +221,9 @@ as `.mud-shrink ~ label` and `:focus-within ~ label` colour it.
 A `ComboBox` takes the same: `filled`, `outlined`, `dense`, `error`, `required`, `shrink-label`,
 `no-underline` and helper text. A select used to have no error host at all, so a failing binding
 on one showed nothing. Its `ArrowDropDown` turns to `ArrowDropUp` while the list is open, as
-MudSelect's `OpenIcon`.
+MudSelect's `OpenIcon`. The arrow is `action-default`; `adornment-{colour}` is MudSelect's
+`AdornmentColor`, and `adornment-inherit` gives it the colour round the select. Disabled, it is
+text-disabled whatever its class.
 
 **Filled and outlined fields had no side padding until 0.2.0**, though the themes declared 12px
 and 14px. The template wrote the content margin inline, which binds at Template priority, and a
@@ -325,6 +339,16 @@ whole row: `.mud-icon-button`'s 12px round the 24px glyph, 44px small and 60px l
 round it when `dense`. Disabled, the glyph and the label are text-disabled, as
 `.mud-checkbox.mud-disabled *` colours every part. A disabled switch keeps its track's colour at
 12% under a gray-default thumb.
+
+**`inherit` is `Color.Inherit`**, on a checkbox or radio: the glyph in the colour the control
+sits in, as `.mud-inherit-text` is `color: inherit`, and no halo, since MudBlazor has no
+inherit-hover rule for it to light. The label keeps its text-primary. `unchecked-inherit` is
+`UncheckedColor.Inherit`, the same while not checked only:
+
+```xml
+<CheckBox Classes="inherit" />                        in an app bar, the bar's text colour
+<CheckBox Classes="primary unchecked-inherit" />      primary when checked, the surroundings when not
+```
 
 **`label-start`, `label-top` and `label-bottom` are `LabelPlacement`**, on a checkbox, radio or
 switch: the label before the glyph, above it or below it, the two centred when stacked. End, the
@@ -927,7 +951,31 @@ few, and `FiliPrimaryContrastTextColor` is the text on a fill. Leave one out and
 MudBlazor's own colour - a gold button that turns purple under the pointer. Override all five, in
 every variant you declare, for each colour you change; MudBlazor derives the darken and lighten
 shades from the colour (`ColorRgbDarken` and `ColorRgbLighten` in its `Palette.cs`), and this
-theme's own are that derivation's output.
+theme's own are that derivation's output. The same goes for a button with no colour class:
+overriding `FiliActionDefaultColor` means `FiliActionDefaultHoverColor` too, the colour at 6%,
+which its hover, focus and press paint. And a near-black colour darkens to black, as it does in
+MudBlazor, so a filled button in it barely changes under the pointer on a near-black page.
+
+**One control's states are tokens too, not its template.** A style that reaches a theme template
+part (`/template/ … #PART_StateLayer`) is reaching something that is not published, and a release
+may rename or redraw it (see [Compatibility](compatibility.md)). The parts paint `DynamicResource`
+tokens, and a resource lookup starts at the control, so a key in a control's own `Resources`
+changes that control alone. A poster card that shows its own hover rather than the grey state
+layer:
+
+```xml
+<Button Classes="poster">
+  <Button.Resources>
+    <SolidColorBrush x:Key="FiliActionDefaultHoverBrush" Color="Transparent" />   no state layer
+    <x:Double x:Key="FiliRippleOpacity">0</x:Double>                                no ripple
+  </Button.Resources>
+  …
+</Button>
+```
+
+The keys reach the control's content too, so a default button inside the card loses its hover as
+well. And hover is also MudBlazor's focus cue: a control that drops it needs its own for the
+keyboard.
 
 ## Keyboard focus
 
