@@ -78,18 +78,19 @@ public class ClassVocabularyTests
         // Material's dark-theme elevation overlay, which MudBlazor does not offer.
         "material-elevation-overlay",
 
-        // Components that are a class on an existing control: MudIconButton, MudChip and MudFab
-        // on a Button (a MudChip with nothing to click on a ContentControl), MudAlert, MudAvatar, MudCard, MudSkeleton and MudToolBar on a Border, with
+        // Components that are a class on an existing control: MudIconButton, MudChip, MudFab and
+        // a clickable MudListItem on a Button (a MudChip with nothing to click on a ContentControl), MudAlert, MudAvatar, MudCard, MudSkeleton and MudToolBar on a Border, with
         // MudSkeleton's SkeletonType, MudProgressCircular on a ProgressBar, MudBadge on a
         // HeaderedContentControl, MudNavMenu on a TreeView and MudExpansionPanels on a StackPanel.
         "alert", "avatar", "badge", "card", "chip", "circle", "circular", "counter",
-        "expansion-panels", "fab", "icon", "nav", "rectangle", "skeleton", "toolbar",
+        "expansion-panels", "fab", "icon", "list-item", "nav", "rectangle", "skeleton", "toolbar",
 
         // MudButtonGroup, on a StackPanel of buttons.
         "button-group",
 
-        // MudSnackbar's Severity.Normal, on a notification card.
-        "normal",
+        // MudSnackbar's Severity.Normal, on a notification card, and the provider's NewestOnTop,
+        // on the notification manager.
+        "newest-on-top", "normal",
 
         // MudDrawerHeader, after its CSS class.
         "drawer-header",

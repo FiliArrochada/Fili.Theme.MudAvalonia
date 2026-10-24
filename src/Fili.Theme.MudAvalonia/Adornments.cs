@@ -7,7 +7,8 @@ namespace Fili.Theme.MudAvalonia;
 /// Which of a text field's adornments are there: a text field with <c>InnerLeftContent</c> gets
 /// the <c>:start-adornment</c> pseudo-class, one with <c>InnerRightContent</c>
 /// <c>:end-adornment</c>. Set on every text field by its theme, which floats the label on the
-/// first and keeps each adornment 8px from the text.
+/// first and keeps each adornment 8px from the text. And whether it has a label at all: one with
+/// no <c>PlaceholderText</c>, which doubles as the label, gets <c>:no-label</c>.
 /// </summary>
 /// <remarks>
 /// <para>
@@ -25,6 +26,12 @@ namespace Fili.Theme.MudAvalonia;
 /// departure from MudBlazor.
 /// </para>
 /// <para>
+/// <c>MudInputCssHelper</c> adds <c>mud-input-{variant}-with-label</c> only when there is a
+/// Label, and only then does a standard field take the label's 16px above the text, or a filled
+/// one push its text down to 27px; with none it is MudInput, the bare input, 32px tall, and a
+/// filled field centres its text (<c>.mud-input-root-hidden-label</c>).
+/// </para>
+/// <para>
 /// Internal, like <see cref="MenuIconGutter"/>: a template needs it, a consumer does not.
 /// </para>
 /// </remarks>
@@ -34,6 +41,7 @@ internal sealed class Adornments
     private const string End = ":end-adornment";
     private const string StartText = ":start-text-adornment";
     private const string EndText = ":end-text-adornment";
+    private const string NoLabel = ":no-label";
 
     private Adornments()
     {
@@ -51,6 +59,7 @@ internal sealed class Adornments
         TracksProperty.Changed.AddClassHandler<TextBox>((box, _) => Refresh(box));
         TextBox.InnerLeftContentProperty.Changed.AddClassHandler<TextBox>((box, _) => Refresh(box));
         TextBox.InnerRightContentProperty.Changed.AddClassHandler<TextBox>((box, _) => Refresh(box));
+        TextBox.PlaceholderTextProperty.Changed.AddClassHandler<TextBox>((box, _) => Refresh(box));
     }
 
     private static void Refresh(TextBox box)
@@ -60,6 +69,7 @@ internal sealed class Adornments
         ((IPseudoClasses)box.Classes).Set(End, tracks && box.InnerRightContent is not null);
         ((IPseudoClasses)box.Classes).Set(StartText, tracks && IsText(box.InnerLeftContent));
         ((IPseudoClasses)box.Classes).Set(EndText, tracks && IsText(box.InnerRightContent));
+        ((IPseudoClasses)box.Classes).Set(NoLabel, tracks && string.IsNullOrEmpty(box.PlaceholderText));
     }
 
     private static bool IsText(object? content) => content is string or TextBlock;

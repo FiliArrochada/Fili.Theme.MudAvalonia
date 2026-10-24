@@ -313,6 +313,9 @@
       </ControlTemplate>
     </Setter>
 
+    <!-- MudSnackbarProvider lists its snackbars in the order shown, top to bottom, wherever it
+         is anchored: _snackbar.scss never reverses the column, and NewestOnTop defaults to false.
+         So the newest is at the bottom at every position, and `newest-on-top` is NewestOnTop. -->
     <Style Selector="^:topleft /template/ ReversibleStackPanel#PART_Items">
       <Setter Property="VerticalAlignment" Value="Top" />
       <Setter Property="HorizontalAlignment" Value="Left" />
@@ -326,19 +329,19 @@
       <Setter Property="HorizontalAlignment" Value="Center" />
     </Style>
     <Style Selector="^:bottomleft /template/ ReversibleStackPanel#PART_Items">
-      <Setter Property="ReverseOrder" Value="True" />
       <Setter Property="VerticalAlignment" Value="Bottom" />
       <Setter Property="HorizontalAlignment" Value="Left" />
     </Style>
     <Style Selector="^:bottomright /template/ ReversibleStackPanel#PART_Items">
-      <Setter Property="ReverseOrder" Value="True" />
       <Setter Property="VerticalAlignment" Value="Bottom" />
       <Setter Property="HorizontalAlignment" Value="Right" />
     </Style>
     <Style Selector="^:bottomcenter /template/ ReversibleStackPanel#PART_Items">
-      <Setter Property="ReverseOrder" Value="True" />
       <Setter Property="VerticalAlignment" Value="Bottom" />
       <Setter Property="HorizontalAlignment" Value="Center" />
+    </Style>
+    <Style Selector="^.newest-on-top /template/ ReversibleStackPanel#PART_Items">
+      <Setter Property="ReverseOrder" Value="True" />
     </Style>
   </ControlTheme>
 

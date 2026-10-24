@@ -216,10 +216,10 @@ Put initials, a `PathIcon` or an `Image` inside: `<Border Classes="avatar primar
 | `Typo.h1` … `Typo.h6` | `h1` … `h6` | ✅ size, weight, line height and letter spacing from `Typography.cs` |
 | `Typo.subtitle1` / `subtitle2` | `subtitle1` / `subtitle2` | ✅ |
 | `Typo.body1` / `body2` | `body1` / `body2` | ✅ body1 is also the default text |
-| `Typo.caption` / `overline` | `caption` / `overline` | ✅ |
+| `Typo.caption` / `overline` | `caption` / `overline` | ✅ no colour of their own, as `.mud-typography-*` sets none: the colour round them |
 | `Typo.button` | `button` | ✅ 14px, 500, a 24px line, 0.4px tracking ≈ not uppercase: a `TextBlock`'s own `Text` cannot be transformed by a style, so write it in capitals |
 | `Color.Primary` … `Color.Dark` | `primary` `secondary` `tertiary` `info` `success` `warning` `error` `dark` | ✅ the palette colour; beats a type style's own colour |
-| `Color.Inherit` | `inherit` | ✅ the surrounding text colour, over a type style's own (`caption` and `overline` are text-secondary) |
+| `Color.Inherit` | `inherit` | ✅ the surrounding text colour, over a colour class too |
 | `mud-text-secondary` (grey) | `Foreground="{DynamicResource FiliTextSecondaryBrush}"` | ≈ a utility class in MudBlazor, not a `Color` |
 | `Align`, `GutterBottom`, `Inline` | `TextAlignment`, `Margin` | ≈ ordinary Avalonia properties |
 
@@ -264,6 +264,7 @@ Put initials, a `PathIcon` or an `Image` inside: `<Border Classes="avatar primar
 | `Variant.Text` (default) | no class | ✅ |
 | `Variant.Filled` / `Outlined` | `filled` / `outlined` | ✅ |
 | `Label` | `PlaceholderText` | ≈ **the placeholder is the floating label**, so there is no separate placeholder |
+| no `Label`, and `MudInput` | no `PlaceholderText` | ✅ no room for a label: a standard field is MudInput's 32px (29 dense), a filled one centres its text (`.mud-input-root-hidden-label`) |
 | `Error="true"` | `error` | ✅ |
 | validation | a binding's own validation error | ✅ message under the field at 12px, in the helper text's place |
 | `HelperText` | `AutomationProperties.HelpText` | ✅ caption, text-secondary; inset 4px under filled, 8px under outlined; read by a screen reader too |
@@ -448,6 +449,7 @@ Put initials, a `PathIcon` or an `Image` inside: `<Border Classes="avatar primar
 
 | MudBlazor | Here | |
 |---|---|---|
+| a MudListItem with `OnClick` or `Href`, outside a selecting list | `Button.list-item` | ✅ the row's look and ripple, its label in its own case; `dense` and `no-gutters` |
 | selected item | the same | ✅ primary text over primary at 6%, never a filled bar |
 | `Dense` | `dense` on the `ListBox` or an item | ✅ 4px top and bottom, body2 |
 | the text | the same | ✅ body1, MudListItem's own; body2 when dense |
@@ -550,7 +552,8 @@ Put initials, a `PathIcon` or an `Image` inside: `<Border Classes="avatar primar
 | `CloseIcon` | `FiliCloseGeometry` on the `WindowNotificationManager` | ✅ |
 | `Action`, `ActionColor`, `ActionVariant` | a control as the notification's content | ≈ |
 | `PositionClass` | `WindowNotificationManager.Position` | ✅ every position, 24px from its edges |
-| `NewestOnTop`, `MaxDisplayedSnackbars` | `ReverseOrder`, `MaxItems` | ≈ |
+| `NewestOnTop` (default false) | no class; `newest-on-top` on the manager | ✅ the newest at the bottom of the stack wherever it is anchored, or at the top |
+| `MaxDisplayedSnackbars` | `MaxItems` | ≈ |
 | `MaximumOpacity`, `BackgroundBlurred`, the show and hide durations | — | ≈ fully opaque, unblurred, and Avalonia's own enter and exit animations |
 | `MudDrawer` | `SplitView` | ✅ 240px open, 56px mini, drawer-background and drawer-text, elevation 1 past the pane's edge |
 | `Elevation` (default 1) | no class, or `elevation0` … `elevation25` on the `SplitView` | ✅ none from a drawer closed to nothing, and none in high contrast, where the drawer's edge is its drawer-border line |
@@ -587,6 +590,7 @@ The message goes in the `Border`; an icon is a `PathIcon` inside it, and takes t
 | `Variant.Outlined` | `outlined` | ✅ a 1px line in the colour |
 | `Variant.Filled` | `filled` | ✅ the colour as ground, its contrast text at Medium weight |
 | `Dense` | `dense` | ✅ |
+| `.mud-alert-message`, `.mud-alert-icon` | the alert's padding, a `PathIcon` inside | ✅ 9px round the message inside the 6px, so one line is 50px (38 dense); the icon 22px, 12px before the message, on its first line at .9 opacity |
 | `ShowCloseIcon`, `CloseIcon`, `ContentAlignment` | — | ≈ put a button in the content; align with ordinary layout |
 | `Icon`, `NoIcon` | a `PathIcon` in the content, or none | ≈ there is no default icon per severity |
 | `Elevation` | the elevation classes | ✅ any `Border` takes them |
@@ -644,7 +648,7 @@ the app references it; this package does not depend on it.
 | `Color.Primary` … `Color.Dark` | `primary` … `dark` | ✅ and the icon's own class beats an alert's or a button's colour, as MudIcon's does |
 | `Color.Default` | — | ≈ no class names it: set `Foreground` to `FiliTextSecondaryBrush` |
 | `Disabled` | `IsEnabled="False"` | ≈ no look of its own |
-| `ViewBox` | the geometry's own coordinates | ≈ a `PathIcon` stretches the glyph's own bounds to its size; a `Path` at 24 with `Stretch="None"` draws the 24px viewBox, as the theme's own glyphs do |
+| `ViewBox` (default `0 0 24 24`) | the same | ✅ the glyph at its own coordinates in a 24px box, scaled to the icon's size; another box is scaled into 24 by the app |
 
 ### MudImage → `Image`
 

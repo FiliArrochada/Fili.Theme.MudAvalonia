@@ -1,0 +1,38 @@
+<!--
+  PathIcon: MudIcon, which draws its glyph in an svg with ViewBox="0 0 24 24", MudIcon.ViewBox's
+  default, and sizes the svg: a Material glyph keeps the padding round it, so a small glyph (Play,
+  a dot) stays small in its box and every glyph sits where Material placed it.
+
+  Avalonia's own template scales the path's BOUNDS to the box instead (a Viewbox round a Path at
+  Stretch="Uniform"), so the same glyph came out larger, by an amount that depends on the glyph:
+  Play filled the box its 11px of width should sit in. Here the path draws at its own coordinates
+  on a 24px canvas, and the canvas is what scales to Width and Height. A glyph drawn in another box
+  is scaled into 24 by the app (a Geometry Transform) before it is given here.
+-->
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:theme="using:Fili.Theme.MudAvalonia">
+
+  <ControlTheme x:Key="FiliPathIcon" TargetType="PathIcon">
+    <Setter Property="Background" Value="Transparent" />
+    <!-- MudIcon's default Size.Medium, 24px, the base's IconElementTheme* keys. -->
+    <Setter Property="Height" Value="{DynamicResource IconElementThemeHeight}" />
+    <Setter Property="Width" Value="{DynamicResource IconElementThemeWidth}" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <theme:PartBorder Background="{TemplateBinding Background}">
+          <Viewbox Stretch="Uniform">
+            <Canvas Width="24" Height="24">
+              <Path Data="{TemplateBinding Data}"
+                    Fill="{TemplateBinding Foreground}"
+                    Stretch="None" />
+            </Canvas>
+          </Viewbox>
+        </theme:PartBorder>
+      </ControlTemplate>
+    </Setter>
+  </ControlTheme>
+
+  <ControlTheme x:Key="{x:Type PathIcon}" TargetType="PathIcon" BasedOn="{StaticResource FiliPathIcon}" />
+
+</ResourceDictionary>

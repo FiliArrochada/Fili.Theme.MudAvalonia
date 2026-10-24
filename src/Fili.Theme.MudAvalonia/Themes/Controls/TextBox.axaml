@@ -410,6 +410,22 @@
     <Style Selector="^:spin-start:start-adornment /template/ ContentPresenter#PART_InnerLeftContent">
       <Setter Property="Margin" Value="24,0,8,0" />
     </Style>
+
+    <!-- No label, MudInput: no `mud-input-text-with-label`, so no 16px above the text - 6px and
+         7px round a 21px line, 32px; dense, 3px above, 29px. Every variant derives from this one
+         and so inherits these rules; each puts back its own below. -->
+    <Style Selector="^:no-label">
+      <Setter Property="MinHeight" Value="32" />
+    </Style>
+    <Style Selector="^:no-label /template/ DockPanel#PART_ContentArea">
+      <Setter Property="Margin" Value="0,4,0,7" />
+    </Style>
+    <Style Selector="^.dense:no-label">
+      <Setter Property="MinHeight" Value="29" />
+    </Style>
+    <Style Selector="^.dense:no-label /template/ DockPanel#PART_ContentArea">
+      <Setter Property="Margin" Value="0,1,0,7" />
+    </Style>
   </ControlTheme>
 
   <!-- Filled: the standard field on a tinted sheet, top corners only. -->
@@ -500,6 +516,21 @@
     </Style>
     <Style Selector="^:spin-end:end-text-adornment /template/ ContentPresenter#PART_InnerRightContent">
       <Setter Property="Margin" Value="8,0,12,0" />
+    </Style>
+
+    <!-- No label: `.mud-input-root-hidden-label`, 18px above and 19px below in place of 27 and
+         10, the text centred in the same 56px; dense, 10 and 11 in place of 23 and 6. -->
+    <Style Selector="^:no-label">
+      <Setter Property="MinHeight" Value="56" />
+    </Style>
+    <Style Selector="^:no-label /template/ DockPanel#PART_ContentArea">
+      <Setter Property="Margin" Value="12,11,12,17" />
+    </Style>
+    <Style Selector="^.dense:no-label">
+      <Setter Property="MinHeight" Value="48" />
+    </Style>
+    <Style Selector="^.dense:no-label /template/ DockPanel#PART_ContentArea">
+      <Setter Property="Margin" Value="12,3,12,9" />
     </Style>
   </ControlTheme>
 
@@ -630,6 +661,21 @@
     </Style>
     <Style Selector="^:spin-start:start-text-adornment /template/ ContentPresenter#PART_InnerLeftContent">
       <Setter Property="Margin" Value="10,0,8,0" />
+    </Style>
+
+    <!-- No label: the box is the same, its label's room being the 8px MudBlazor puts outside it,
+         which this theme leaves to the layout. Its own values again, over the standard field's. -->
+    <Style Selector="^:no-label">
+      <Setter Property="MinHeight" Value="56" />
+    </Style>
+    <Style Selector="^:no-label /template/ DockPanel#PART_ContentArea">
+      <Setter Property="Margin" Value="14,16,14,12" />
+    </Style>
+    <Style Selector="^.dense:no-label">
+      <Setter Property="MinHeight" Value="40" />
+    </Style>
+    <Style Selector="^.dense:no-label /template/ DockPanel#PART_ContentArea">
+      <Setter Property="Margin" Value="14,8,14,4" />
     </Style>
   </ControlTheme>
 

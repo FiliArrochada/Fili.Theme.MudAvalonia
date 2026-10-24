@@ -228,7 +228,39 @@ public class ComponentClassTests
 
         Assert.Equal(Matrix.Token("FiliDarkHoverColor"), Matrix.Colour(alert.Background));
         Assert.Equal(Matrix.Token("FiliTextPrimaryColor"), Matrix.Colour(text.Foreground));
-        Assert.Equal(new Thickness(16, 6), alert.Padding);
+        Assert.Equal(new Thickness(16, 15), alert.Padding);
+    });
+
+    /// <summary>
+    /// `.mud-alert`'s 6px round `.mud-alert-message`'s 9px: a one-line body2 alert is 50px, as
+    /// MudAlert is. The icon is `.mud-alert-icon`'s 22px, 12px before the text, on its first line
+    /// and 2px above it, its 7px padding against the message's 9.
+    /// </summary>
+    [Theory]
+    [InlineData(false, 50, 13)]
+    [InlineData(true, 38, 7)]
+    public Task AnAlertIsMudAlertsHeight(bool dense, double height, double iconTop) => UiThread.RunAsync(() =>
+    {
+        var icon = new PathIcon { Data = Geometry.Parse("M2 2h20v20H2z") };
+        var text = new TextBlock { Text = "Message", Classes = { "body2" } };
+        var alert = new Border
+        {
+            Classes = { "alert", "info" },
+            Width = 400,
+            Child = new StackPanel { Orientation = Avalonia.Layout.Orientation.Horizontal, Children = { icon, text } },
+        };
+        if (dense)
+        {
+            alert.Classes.Add("dense");
+        }
+
+        Matrix.Show(alert);
+
+        Assert.Equal(height, alert.Bounds.Height);
+        Assert.Equal(22, icon.Bounds.Width);
+        Assert.Equal(iconTop, icon.TranslatePoint(default, alert)!.Value.Y);
+        Assert.Equal(16 + 22 + 12 - (dense ? 4 : 0), text.TranslatePoint(default, alert)!.Value.X);
+        Assert.Equal(0.9, icon.Opacity);
     });
 
     // --------------------------------------------------------------------------------------

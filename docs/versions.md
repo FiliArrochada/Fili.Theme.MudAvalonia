@@ -6,6 +6,7 @@ What changed in each release of `Fili.Theme.MudAvalonia`, newest first. The pack
 
 | Version | |
 |---|---|
+| *(unreleased)* | Six gaps the apps found moving onto 0.19.0. A `PathIcon` draws its glyph as MudIcon does, in a 24px viewBox scaled to its size, where Avalonia's stretched the glyph's bounds to the box: icons are smaller and sit where Material put them, and an app no longer pads its glyphs. An alert holds `.mud-alert-message`'s 9px, so a one-line alert is MudAlert's 50px, and its icon is 22px, 12px before the message, on the first line. The newest snackbar is at the bottom of the stack wherever it is anchored, as MudBlazor's, where a bottom stack put it at the top; `newest-on-top` is `NewestOnTop`. A field with no `PlaceholderText` takes no room for a label: a standard field is MudInput's 32px. `list-item` on a Button is MudListItem with `OnClick`, a row that acts. And `caption` and `overline` have no colour of their own, as in MudBlazor: they were grey, which also turned a caption link grey. The published class list grows to 171. See [Upgrading from 0.19.0](#upgrading-from-0190). |
 | **0.19.0** | A nav label with a type class (`caption`, `body2`...) keeps its class's line height, as `.mud-typography-*` overrides the line it would inherit from `.mud-nav-link`; the nav's 28px line was forced on it, so a caption under a title grew the row. Labels still wrap. The docs add `FiliActionDefaultHoverColor` to what overriding `FiliActionDefaultColor` needs, and warn that `FiliButtonTextTransform` set on a button reaches its flyout: a single label keeps its case as a run. A wrapped nav group keeps its arrow on the first line, as `.mud-nav-link`'s `align-items: flex-start` does. DrawerPage's pane toggles are MudIconButton's 48px circle, where the fork's bar squeezed them to a 48x38 pill. And the spinner `DatePicker`'s highlight follows `FiliPrimaryColor`, where it stayed MudBlazor's purple. `Color.Inherit` reaches three more controls: `inherit` on a `TextBlock` is the surrounding colour over a type class's own, and on a checkbox or radio the glyph's, with `unchecked-inherit` for `UncheckedColor`. MudSelect's `AdornmentColor` is `adornment-{colour}` and `adornment-inherit` on a `ComboBox`. A chip with nothing to click, MudChip with neither `OnClick` nor `Href`, is `chip` on a `ContentControl`: no hover, ripple or focus. The docs show how to change one control's hover and ripple through tokens in its `Resources`, rather than by reaching into its template. The published class list grows to 169. See [Upgrading from 0.18.0 to 0.19.0](#upgrading-from-0180-to-0190). |
 | 0.18.0 | A nav label in a `DockPanel` or `Grid` written straight into a row's `Header` wraps, as 0.17.0 said it would; it ran on at one line, cut off at the drawer's edge. Only string headers and templated ones wrapped. The date picker's toolbar fits its 100px again: 0.17.0 gave its 34px date a button's 1.75 line, 72px, where `.mud-button-date` is on a 1.17 line, 52px, and the year and date overflowed the toolbar. A command bar button with its label on the right is a button's 36.5px, where it stayed 29. And the toggle icon buttons carry no label line box, which DrawerPage's pane toggles, wearing them without the `icon` class, had kept. A `ToggleButton`, MudToggleItem, is a MudButton's 36.5px too, where it was 32. The docs now say that overriding a colour means its hover, darken, lighten and contrast-text tokens as well. See [Upgrading from 0.17.0 to 0.18.0](#upgrading-from-0170-to-0180). |
 | 0.17.0 | An open drawer's nav menu never scrolls sideways, as MudDrawer does not: a label too long for it wraps, where it ran past the edge and the menu scrolled. A nav link is the drawer's text colour, as `.mud-nav-link` inherits it: on a coloured drawer the links were text-primary, dark on the colour; and every nav row is 44px, where one whose header was a control was 40. A button is MudButton's height, 36.5px (30.75 small, 42.25 large), where it was 29, as are a split and a drop-down button. A `TimePicker` stretches as the other fields do. See [Upgrading from 0.16.0 to 0.17.0](#upgrading-from-0160-to-0170). |
@@ -35,6 +36,20 @@ What changed in each release of `Fili.Theme.MudAvalonia`, newest first. The pack
 Every version and its release notes are on the
 [releases page](https://github.com/FiliArrochada/Fili.Theme.MudAvalonia/releases); a version on
 nuget.org can be unlisted but never replaced.
+
+## Upgrading from 0.19.0
+
+- **Icons are smaller.** A `PathIcon` keeps a Material glyph's padding, as MudIcon does. A glyph
+  you padded to 24×24 yourself draws as before, and the padding can go; one drawn in another box
+  needs scaling into 24.
+- **Captions and overlines are the colour round them**, not grey. Where you want grey supporting
+  text, set `Foreground="{DynamicResource FiliTextSecondaryBrush}"`.
+- **An alert is taller**: 50px for one line, where it was 32.
+- **A text field with no `PlaceholderText` is shorter**: a standard one is 32px, where it was 48.
+  Give it a label, or a `MinHeight`, to keep the old height.
+- **Snackbars at the bottom stack the other way**: the newest at the bottom. `newest-on-top` on
+  the manager puts it back on top.
+- **Two new class names**, `list-item` and `newest-on-top`: grep your app for them.
 
 ## Upgrading from 0.18.0 to 0.19.0
 

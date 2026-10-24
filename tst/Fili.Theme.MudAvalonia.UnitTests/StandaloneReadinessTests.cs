@@ -36,9 +36,10 @@ public class StandaloneReadinessTests
         "FiliStandardTextBox", "FiliFilledTextBox", "FiliOutlinedTextBox",
         "FiliCheckBox", "FiliRadioButton", "FiliToggleSwitch",
         "FiliToggleButton", "FiliRepeatButton", "FiliHyperlinkButton",
-        "FiliSplitButton", "FiliSplitButtonHalf", "FiliDropDownButton", "FiliChip", "FiliFab",
+        "FiliSplitButton", "FiliSplitButtonHalf", "FiliDropDownButton", "FiliChip", "FiliStaticChip", "FiliFab",
+        "FiliPathIcon",
         "FiliComboBox", "FiliFilledComboBox", "FiliOutlinedComboBox", "FiliComboBoxItem",
-        "FiliListBox", "FiliListBoxItem",
+        "FiliListBox", "FiliListBoxItem", "FiliListItemButton",
         "FiliTreeView", "FiliTreeViewItem", "FiliTreeViewChevron",
         "FiliNavMenu", "FiliNavItem", "FiliNavGroupToggle",
         "FiliNumericUpDown", "FiliButtonSpinner", "FiliSpinnerButton",
@@ -58,7 +59,8 @@ public class StandaloneReadinessTests
         "FiliSplitView",
 
         // MudBadge. Opt-in through the `badge` class: an unclassed HeaderedContentControl keeps
-        // the forked template, as an unclassed Button keeps the text one.
+        // the forked template, as an unclassed Button keeps the text one. A MudChip with nothing
+        // to click is opt-in the same way, through `chip` on a ContentControl.
         "FiliBadge",
 
         // MudDataGrid, on the Avalonia.Controls.DataGrid package's controls.
@@ -114,7 +116,7 @@ public class StandaloneReadinessTests
         // inventing a look for something that has never had one.
         ("Base and container types with nothing to paint",
             [
-                "ContentControl", "HeaderedItemsControl",
+                "HeaderedItemsControl",
                 "HeaderedSelectingItemsControl", "ItemsControl", "PageNavigationHost",
                 "SelectingItemsControl", "TemplatedControl", "Thumb",
                 "TransitioningContentControl", "UserControl",
@@ -144,12 +146,6 @@ public class StandaloneReadinessTests
         // MudPaper, which are different shapes; pull-to-refresh has no counterpart at all.
         ("No MudBlazor counterpart",
             ["GroupBox", "RefreshContainer", "RefreshVisualizer"]),
-
-        // MudIcon is the counterpart and the only divergence is size - it defaults to Size.Medium,
-        // 1.5rem, where Simple's IconElementTheme* keys are 20px. Not worth acting on: every
-        // template that uses PathIcon at the default size is itself permanently forked, so the
-        // change would be invisible everywhere this theme supports.
-        ("Counterpart exists, divergence not worth acting on", ["PathIcon"]),
 
         // MudSplitter's divider is TRANSPARENT: _splitpanel.scss gives it a cursor, a 12px
         // invisible hit area and a focus outline, and separation comes from the two panels having
@@ -198,13 +194,13 @@ public class StandaloneReadinessTests
                 "AutoCompleteBox", "Button", "ButtonSpinner", "Calendar", "CalendarButton",
                 "CalendarDatePicker", "CalendarDayButton", "CalendarItem", "Carousel",
                 "CarouselPage", "CheckBox", "ComboBox", "ComboBoxItem", "CommandBar",
-                "CommandBarButton", "CommandBarSeparator", "CommandBarToggleButton", "ContentPage",
+                "CommandBarButton", "CommandBarSeparator", "CommandBarToggleButton", "ContentControl", "ContentPage",
                 "ContextMenu", "DataGrid", "DataGridCell", "DataGridColumnHeader",
                 "DataGridRow", "DataGridRowGroupHeader", "DataGridRowHeader",
                 "DataValidationErrors", "DropDownButton", "Expander",
                 "FlyoutPresenter", "HeaderedContentControl", "HyperlinkButton", "Label", "ListBox", "ListBoxItem", "Menu",
                 "MenuFlyoutPresenter", "MenuItem", "NavigationPage", "NotificationCard", "NumericUpDown",
-                "PipsPager", "ProgressBar", "RadioButton", "RepeatButton", "ScrollBar",
+                "PathIcon", "PipsPager", "ProgressBar", "RadioButton", "RepeatButton", "ScrollBar",
                 "Separator", "Slider", "SplitButton", "SplitView", "TabbedPage", "TabControl", "TabItem",
                 "TableView", "TableViewCell", "TableViewColumnHeader", "TableViewRow", "TabStrip",
                 "TabStripItem",
@@ -214,13 +210,13 @@ public class StandaloneReadinessTests
             ],
             themed.Select(t => t.Name).ToArray());
 
-        // THE NUMBER THAT SAYS HOW MUCH OF THE FORK IS STILL DOING THE WORK. 67 of 95 templated
-        // control types are hand-written here; the other 28 are still wearing the forked Simple
+        // THE NUMBER THAT SAYS HOW MUCH OF THE FORK IS STILL DOING THE WORK. 69 of 95 templated
+        // control types are hand-written here; the other 26 are still wearing the forked Simple
         // templates from Themes/Base. Pinned rather than merely reported, so it cannot drift
         // unnoticed and so an Avalonia version that adds controls surfaces as a failure here.
         var templated = TemplatedControlTypes();
 
-        Assert.Equal(67, themed.Count);
+        Assert.Equal(69, themed.Count);
         Assert.Equal(95, templated.Count);
     });
 
@@ -228,8 +224,8 @@ public class StandaloneReadinessTests
     /// The inventory is complete and says each type once.
     ///
     /// <para>
-    /// This is what turns the coverage number from a claim into a fact. Without it, "67 of 95"
-    /// only says how many themes exist; with it, every one of the other twenty-eight has a stated reason
+    /// This is what turns the coverage number from a claim into a fact. Without it, "69 of 95"
+    /// only says how many themes exist; with it, every one of the other twenty-six has a stated reason
     /// for not being one, and a control type added by a future Avalonia fails here by name rather
     /// than by making 89 into 90.
     /// </para>

@@ -180,11 +180,13 @@ one.
 
 ## Templates and controls
 
-- **A `PathIcon` stretches a glyph's own bounds to its box.** A Material glyph lives in a 24px
-  viewBox with padding round it, which MudIcon draws as is; a `PathIcon` scales the path's bounds
-  to fill its `Width` and `Height`, so the same glyph comes out larger, and by how much depends
-  on the glyph. The snackbar's close X drew at 18px where MudBlazor's is 10.5. The theme's own
-  glyphs are a `Path` at 24 with `Stretch="None"`, inside a `Viewbox` when they must be smaller.
+- **Avalonia's `PathIcon` stretches a glyph's own bounds to its box.** A Material glyph lives in
+  a 24px viewBox with padding round it, which MudIcon draws as is; Avalonia's template scales the
+  path's bounds to fill its `Width` and `Height`, so the same glyph came out larger, by an amount
+  that depends on the glyph. The snackbar's close X drew at 18px where MudBlazor's is 10.5, and
+  every app padded its glyphs back to 24 by hand. The theme's `PathIcon` (Controls/PathIcon.axaml)
+  draws the path at its own coordinates on a 24px canvas that scales instead; `IconViewBoxTests`
+  pins it.
 - **A style cannot set a XAML list's `SelectionMode`.** A `SelectingItemsControl` writes
   `SelectionMode` as a LOCAL value the moment it creates its selection model, and one declared in
   XAML creates it at `EndInit`, before any style applies. `ListBox.multi-selection` setting

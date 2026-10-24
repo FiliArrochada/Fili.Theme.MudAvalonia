@@ -173,6 +173,79 @@
     </Style>
   </ControlTheme>
 
+  <!--
+    MudListItem with OnClick or Href, outside a selecting list: a row that does something rather
+    than one that is chosen. `list-item` on a Button. The row's look - body1 on 48px, 16px sides,
+    `.mud-list-item-text`'s 4px, the hover tint and the ripple - with no selected state, and the
+    label in its own case: a list item is not a MudButton, so no button typography.
+  -->
+  <ControlTheme x:Key="FiliListItemButton" TargetType="Button">
+    <Setter Property="theme:Ripple.Opacity" Value="{DynamicResource FiliRippleOpacity}" />
+    <Setter Property="Background" Value="Transparent" />
+    <Setter Property="Foreground" Value="{DynamicResource FiliTextPrimaryBrush}" />
+    <Setter Property="FontFamily" Value="{DynamicResource FiliFontFamily}" />
+    <Setter Property="FontSize" Value="{DynamicResource FiliBody1FontSize}" />
+    <Setter Property="FontWeight" Value="Normal" />
+    <Setter Property="Padding" Value="16,8" />
+    <Setter Property="MinHeight" Value="48" />
+    <Setter Property="HorizontalAlignment" Value="Stretch" />
+    <Setter Property="HorizontalContentAlignment" Value="Left" />
+    <Setter Property="VerticalContentAlignment" Value="Center" />
+    <Setter Property="Cursor" Value="Hand" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Panel Background="{TemplateBinding Background}">
+          <theme:PartBorder x:Name="PART_StateLayer" Background="Transparent">
+            <theme:PartBorder.Transitions>
+              <Transitions>
+                <BrushTransition Property="Background" Duration="0:0:0.15" />
+              </Transitions>
+            </theme:PartBorder.Transitions>
+          </theme:PartBorder>
+          <theme:PartBorder x:Name="PART_Ripple"
+                  theme:Ripple.IsLayer="True" />
+          <ContentPresenter x:Name="PART_ContentPresenter"
+                            Content="{TemplateBinding Content}"
+                            ContentTemplate="{TemplateBinding ContentTemplate}"
+                            Foreground="{TemplateBinding Foreground}"
+                            Margin="{TemplateBinding Padding}"
+                            Padding="0,4"
+                            HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                            VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" />
+        </Panel>
+      </ControlTemplate>
+    </Setter>
+
+    <Style Selector="^.dense">
+      <Setter Property="Padding" Value="16,4" />
+      <Setter Property="MinHeight" Value="36" />
+      <Setter Property="FontSize" Value="{DynamicResource FiliBody2FontSize}" />
+    </Style>
+    <Style Selector="^.no-gutters">
+      <Setter Property="Padding" Value="0,8" />
+    </Style>
+    <Style Selector="^.dense.no-gutters">
+      <Setter Property="Padding" Value="0,4" />
+    </Style>
+
+    <!-- `.mud-list-item-clickable`: the row's tint under the pointer, on keyboard focus and
+         while pressed. -->
+    <Style Selector="^:pointerover /template/ theme|PartBorder#PART_StateLayer">
+      <Setter Property="Background" Value="{DynamicResource FiliOverlayHoverBrush}" />
+    </Style>
+    <Style Selector="^:focus-visible /template/ theme|PartBorder#PART_StateLayer">
+      <Setter Property="Background" Value="{DynamicResource FiliOverlayHoverBrush}" />
+    </Style>
+    <Style Selector="^:pressed /template/ theme|PartBorder#PART_StateLayer">
+      <Setter Property="Background" Value="{DynamicResource FiliOverlayHoverBrush}" />
+    </Style>
+
+    <Style Selector="^:disabled">
+      <Setter Property="Foreground" Value="{DynamicResource FiliActionDisabledBrush}" />
+      <Setter Property="Cursor" Value="Arrow" />
+    </Style>
+  </ControlTheme>
+
   <ControlTheme x:Key="{x:Type ListBox}" TargetType="ListBox" BasedOn="{StaticResource FiliListBox}" />
   <ControlTheme x:Key="{x:Type ListBoxItem}" TargetType="ListBoxItem" BasedOn="{StaticResource FiliListBoxItem}" />
 

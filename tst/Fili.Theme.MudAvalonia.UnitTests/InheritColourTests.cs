@@ -22,13 +22,34 @@ public class InheritColourTests
         return control;
     }
 
-    /// <summary>Over a type class's own colour: a caption is text-secondary until told otherwise.</summary>
-    [Fact]
-    public Task TextTakesTheSurroundingColourOverItsTypeClass() => UiThread.RunAsync(() =>
+    /// <summary>`.mud-typography-*` sets no colour: a caption or an overline is the colour round it.</summary>
+    [Theory]
+    [InlineData("caption")]
+    [InlineData("overline")]
+    public Task ATypeClassHasNoColourOfItsOwn(string type) => UiThread.RunAsync(() =>
     {
-        var text = InHost(new TextBlock { Text = "Caption", Classes = { "caption", "inherit" } }, Brushes.OrangeRed);
+        var text = InHost(new TextBlock { Text = "Caption", Classes = { type } }, Brushes.OrangeRed);
 
         Assert.Equal(Colors.OrangeRed, Matrix.Colour(text.Foreground));
+    });
+
+    /// <summary>Over a colour class too: `inherit` is the last word on a TextBlock's colour.</summary>
+    [Fact]
+    public Task TextTakesTheSurroundingColourOverAColourClass() => UiThread.RunAsync(() =>
+    {
+        var text = InHost(new TextBlock { Text = "Caption", Classes = { "caption", "error", "inherit" } }, Brushes.OrangeRed);
+
+        Assert.Equal(Colors.OrangeRed, Matrix.Colour(text.Foreground));
+    });
+
+    /// <summary>A link's caption is the link's colour, as `mud-typography-caption` on a MudLink is.</summary>
+    [Fact]
+    public Task ALinksCaptionIsTheLinksColour() => UiThread.RunAsync(() =>
+    {
+        var text = new TextBlock { Text = "Terms", Classes = { "caption" } };
+        var link = Matrix.Show(new HyperlinkButton { Content = text });
+
+        Assert.Equal(Matrix.Token("FiliPrimaryColor"), Matrix.Colour(text.Foreground));
     });
 
     [Fact]

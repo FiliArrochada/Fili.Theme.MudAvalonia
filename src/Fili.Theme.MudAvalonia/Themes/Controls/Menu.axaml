@@ -78,9 +78,12 @@
 
               <!-- No converter on InputGesture: Avalonia 12 exposes no public KeyGesture
                    converter, and the binding stringifies the gesture on its own. -->
+              <!-- A shortcut has no MudMenuItem counterpart: caption type in text-secondary, the
+                   supporting text's colour, as a desktop menu's accelerator reads. -->
               <TextBlock x:Name="PART_GestureText"
                          Grid.Column="2"
                          Classes="caption"
+                         Foreground="{DynamicResource FiliTextSecondaryBrush}"
                          Margin="24,0,0,0"
                          Text="{TemplateBinding InputGesture}"
                          VerticalAlignment="Center" />

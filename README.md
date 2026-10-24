@@ -107,9 +107,9 @@ Then use the tokens by key, and the type ramp by class:
 A colour class on a `TextBlock` is `MudText`'s `Color`: the palette colour, so `secondary` is the
 secondary colour. Grey supporting text is `text-secondary`, which MudBlazor reaches through its
 `mud-text-secondary` utility class rather than a `Color`; here it is
-`Foreground="{DynamicResource FiliTextSecondaryBrush}"`. `inherit` is `Color.Inherit`: the colour
-the text sits in, over a type class's own, so a `caption inherit` in an app bar is the bar's text
-colour rather than grey.
+`Foreground="{DynamicResource FiliTextSecondaryBrush}"`. A type class sets no colour, as
+`.mud-typography-*` sets none, so a `caption` is the colour round it; `inherit` is `Color.Inherit`,
+the colour round it over a colour class too.
 
 Always `DynamicResource`, never `StaticResource` — see **The one rule** below.
 
@@ -134,7 +134,7 @@ base became a fork of Simple that this repo owns, the hazard went with it: a `Te
 `Variant.Outlined`, `Variant.Text` and `Variant.Filled` — API familiarity is the point of this
 package, so they are not namespaced to `mud-primary` or hidden behind an attached property.
 
-**All 169 of them, which is the list to grep an app against before adopting:**
+**All 171 of them, which is the list to grep an app against before adopting:**
 
 | | |
 |---|---|
@@ -145,7 +145,7 @@ package, so they are not namespaced to `mud-primary` or hidden behind an attache
 | Shape (`Variant`) | `text`, `filled`, `outlined`, `rounded`, `flat` |
 | Size (`Size`) | `small`, `medium`, `large`, `dense` |
 | Placement | `inset`, `middle`, `vertical`, `light`, `underline`, `no-underline`, `border`, `centered`, `hide-indicator` |
-| Component | `icon`, `button-group`, `chip`, `fab`, `extended`, `alert`, `avatar`, `badge`, `card`, `skeleton`, `circle`, `rectangle`, `counter`, `circular`, `nav`, `toolbar`, `drawer-header`, `normal`, `expansion-panels` |
+| Component | `icon`, `button-group`, `chip`, `fab`, `extended`, `list-item`, `alert`, `avatar`, `badge`, `card`, `skeleton`, `circle`, `rectangle`, `counter`, `circular`, `nav`, `toolbar`, `drawer-header`, `normal`, `newest-on-top`, `expansion-panels` |
 | Card parts | `card-header`, `card-header-avatar`, `card-header-content`, `card-header-actions`, `card-media`, `card-content`, `card-actions` |
 | Badge (`Origin`, `Dot`, `Bordered`, `Overlap`) | `top-left`, `top-center`, `center-left`, `center-center`, `center-right`, `bottom-left`, `bottom-center`, `bottom-right`, `dot`, `bordered`, `overlap` |
 | Behaviour | `arrow`, `dense-items`, `editable`, `helper-on-focus`, `hide-close`, `hide-icon`, `hover`, `multi-expansion`, `multi-selection`, `no-animation`, `no-arrows`, `no-bullets`, `no-gutters`, `no-outline`, `required`, `shrink-label`, `value-label`, `striped`, `wave` |
@@ -232,7 +232,9 @@ nor `Href`, the same variants, colours and sizes, with no hover, ripple or focus
 
 **`alert` and `skeleton` are on a `Border`.** `<Border Classes="alert warning">` is a text-variant
 MudAlert: the colour at 6% behind text in the colour's *darken* shade, which is what `_alert.scss`
-does and is easy to mistake for the colour itself; a `PathIcon` inside takes the colour.
+does and is easy to mistake for the colour itself; a `PathIcon` inside takes the colour, at
+`.mud-alert-icon`'s 22px, 12px before the message and on its first line. The padding holds
+`.mud-alert-message`'s 9px as well as the alert's 6px, so a one-line alert is MudAlert's 50px.
 `outlined`, `filled` and `dense` are MudAlert's own. `<Border Classes="skeleton" Width="200" />`
 pulses on MudSkeleton's timing, and `circle` / `rectangle` are its other two types;
 `no-animation` is `Animation.False` and `wave` is `Animation.Wave`. The pixel suite masks an

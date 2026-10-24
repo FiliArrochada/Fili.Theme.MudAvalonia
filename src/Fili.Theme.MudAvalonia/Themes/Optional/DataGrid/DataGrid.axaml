@@ -79,6 +79,11 @@
     <Style Selector="^ /template/ theme|PartBorder#PART_Underline">
       <Setter Property="IsVisible" Value="False" />
     </Style>
+    <!-- An edit box has no label, so it is MudInput's bare input; the standard field's 32px for
+         that is a style with an activator, which outranks the setter above. -->
+    <Style Selector="^:no-label">
+      <Setter Property="MinHeight" Value="0" />
+    </Style>
   </ControlTheme>
 
   <ControlTheme x:Key="FiliDataGridCell" TargetType="DataGridCell">

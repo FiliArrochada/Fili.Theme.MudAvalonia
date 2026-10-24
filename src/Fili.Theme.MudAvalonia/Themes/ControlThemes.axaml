@@ -25,6 +25,7 @@
   <ResourceDictionary.MergedDictionaries>
     <!-- First: CheckBox and RadioButton StaticResource these glyphs. -->
     <ResourceInclude Source="avares://Fili.Theme.MudAvalonia/Themes/Icons.axaml" />
+    <ResourceInclude Source="avares://Fili.Theme.MudAvalonia/Themes/Controls/PathIcon.axaml" />
     <ResourceInclude Source="avares://Fili.Theme.MudAvalonia/Themes/Controls/Button.axaml" />
     <ResourceInclude Source="avares://Fili.Theme.MudAvalonia/Themes/Controls/TextBox.axaml" />
     <ResourceInclude Source="avares://Fili.Theme.MudAvalonia/Themes/Controls/CheckBox.axaml" />

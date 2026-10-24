@@ -182,6 +182,12 @@ The cost: these variants have no separate placeholder — the label occupies tha
 floats. If both are ever needed, a `FiliTextField.Label` attached property is the follow-up, in a
 package that depends on this one.
 
+**A field with no `PlaceholderText` has no label, and no room for one**, as a MudTextField with
+no `Label` takes none (`mud-input-{variant}-with-label` is only added with a label). A standard
+field is then MudInput, the bare input: 32px, 29 dense. A filled one centres its text in the same
+56px (`.mud-input-root-hidden-label`). An outlined one is the same box. Set `PlaceholderText`
+later and the label's room comes back.
+
 The label floats when the field is **focused or non-empty**, which is expressible as a selector
 only because Avalonia gives `TextBox` an `:empty` pseudo-class.
 
@@ -762,9 +768,11 @@ is the app's own panel.
 
 **A `PathIcon` takes MudIcon's `Size` and `Color` as classes**: `small`, `medium` and `large` are
 20, 24 and 36px, and a colour class is the colour. An icon's own class beats one that colours it
-by where it sits, an alert's or a button's, as MudIcon's `Color` does. A `PathIcon` stretches a
-glyph's own bounds to its box; for MudIcon's exact drawing of a 24px viewBox, use a `Path` at 24
-with `Stretch="None"`, as the theme's own glyphs do.
+by where it sits, an alert's or a button's, as MudIcon's `Color` does. A `PathIcon` draws its
+glyph as MudIcon does, in a 24px viewBox scaled to its size: a Material glyph keeps the padding
+round it, so a small one such as Play stays small and every glyph sits where Material put it.
+Avalonia's own `PathIcon` stretches the glyph's bounds to the box instead. A glyph drawn in
+another box is scaled into 24 by the app before it is given here.
 
 **The glyphs the theme draws are replaceable, one control or one region at a time.** Each is a
 `DynamicResource` key in `Themes/Icons.axaml`; set the same key in a control's `Resources` and
@@ -808,7 +816,9 @@ MudTabs, the theme's own tabs. How pages slide, push and pop stays Avalonia's.
 
 `WindowNotificationManager` and the `NotificationCard`s it builds are MudSnackbar: 6px/16px
 padding, 288px minimum and 500px maximum width, 16px between stacked cards, and the manager 24px
-from whichever edges it is anchored to.
+from whichever edges it is anchored to. The newest is at the bottom of the stack wherever it is
+anchored, as MudSnackbarProvider lists its snackbars in the order shown; `newest-on-top` on the
+manager is `NewestOnTop`.
 
 Two things were read rather than chosen. The **elevation is 6** — `_snackbar.scss` spells out the
 same three shadow layers `FiliElevation6` carries, character for character, so the level is
@@ -1078,8 +1088,9 @@ for something XAML cannot express on its own:
   floats its label, as MudInput's start adornment does, and one with `InnerRightContent` with
   `:end-adornment`; each adornment then keeps 8px from the text. A string or `TextBlock` there
   also gets `:start-text-adornment` or `:end-text-adornment`, which keeps it on the text line where
-  an icon is centred on a filled or outlined box. A selector cannot ask whether a property is
-  null, or what type its value is.
+  an icon is centred on a filled or outlined box; and a field with no `PlaceholderText` gets
+  `:no-label`, which drops the label's room. A selector cannot ask whether a property is null, or
+  what type its value is.
 - **`CalendarView`** makes the date picker's toolbar buttons change the calendar's view - the
   year to the years, the date back to the selected month - and gives the toolbar the paper's top
   corners. A template cannot set another control's property on a click.
@@ -1114,6 +1125,14 @@ that the XAML route does not exist.
 <NumericUpDown Value="42" PlaceholderText="Quantity" />
 ```
 
+- **`list-item` on a `Button`** is MudListItem with `OnClick` or `Href`: a row that does
+  something rather than one that is chosen, outside a selecting list. The list row's look - body1
+  on 48px, 16px sides, the row's hover tint and the ripple - with the label in its own case, as a
+  list item is not a MudButton. `dense` and `no-gutters` are MudListItem's.
+
+  ```xml
+  <Button Classes="list-item" Command="{Binding OpenSettings}">Settings</Button>
+  ```
 - **ComboBox** — the finding in `_select.scss` is a *negative* one: `.mud-select` has no box model
   at all, and every visual comes from `.mud-select-input`, which is a `MudInput`. So a select
   **is** a text field with a drop-down adornment, and it wears the standard field's underline,
