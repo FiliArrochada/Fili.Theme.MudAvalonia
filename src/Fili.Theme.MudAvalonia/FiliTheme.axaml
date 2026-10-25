@@ -1187,7 +1187,7 @@
   <!--
     MudToolBar: `<Border Classes="toolbar">`, from _toolbar.scss. A flex row, centred, 64px high
     with 24px gutters from the sm breakpoint up (the desktop case); `dense` is 48px and
-    `no-gutters` is Gutters="false", which also works on an app bar. The row is the app's own
+    Gutters="false" is Padding="0", on an app bar too. The row is the app's own
     panel inside; its children are centred, as `align-items: center` centres them.
   -->
   <Style Selector="Border.toolbar">
@@ -1909,25 +1909,31 @@
     nothing cascades, so OverrideStyles is the app's to repeat on each. ButtonGroup.cs marks
     where each button sits; these styles ask only for those pseudo-classes, so no selector here
     reaches from the panel to its children.
+
+    The same on a StackPanel of ToggleButtons is MudToggleGroup, _togglegroup.scss: one shape
+    with the radius on its outer corners (`.mud-toggle-group > .mud-toggle-item { border-radius:
+    0 }` inside a rounded, clipped group), and outlined items 1px over each other, so the group's
+    line and the delimiters between items are one line each. Only the shape: a toggle group draws
+    no line between text or filled items, so the separator styles below stay on Button.
   -->
   <Style Selector="StackPanel.button-group">
     <Setter Property="theme:ButtonGroup.IsOn" Value="True" />
   </Style>
-  <Style Selector="Button:joined-next">
+  <Style Selector="Button:joined-next, ToggleButton:joined-next">
     <Setter Property="CornerRadius" Value="4,0,0,4" />
   </Style>
-  <Style Selector="Button:joined-previous">
+  <Style Selector="Button:joined-previous, ToggleButton:joined-previous">
     <Setter Property="CornerRadius" Value="0,4,4,0" />
     <Setter Property="Margin" Value="-1,0,0,0" />
   </Style>
-  <Style Selector="Button:joined-vertical:joined-next">
+  <Style Selector="Button:joined-vertical:joined-next, ToggleButton:joined-vertical:joined-next">
     <Setter Property="CornerRadius" Value="4,4,0,0" />
   </Style>
-  <Style Selector="Button:joined-vertical:joined-previous">
+  <Style Selector="Button:joined-vertical:joined-previous, ToggleButton:joined-vertical:joined-previous">
     <Setter Property="CornerRadius" Value="0,0,4,4" />
     <Setter Property="Margin" Value="0,-1,0,0" />
   </Style>
-  <Style Selector="Button:joined-previous:joined-next">
+  <Style Selector="Button:joined-previous:joined-next, ToggleButton:joined-previous:joined-next">
     <Setter Property="CornerRadius" Value="0" />
   </Style>
   <Style Selector="Button:joined-previous:not(.outlined):not(.filled)">

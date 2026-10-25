@@ -164,6 +164,17 @@
     <Setter Property="ItemContainerTheme" Value="{StaticResource FiliTabItem}" />
     <Setter Property="theme:SlidingIndicator.Slides" Value="True" />
     <Setter Property="theme:TabBarScroll.Scrolls" Value="True" />
+    <!-- An elevation class casts the bar's shadow past its edge, so the control does not clip;
+         the panel below the bar still clips its content. -->
+    <Setter Property="ClipToBounds" Value="False" />
+    <!-- The selected tab is scrolled into view in the bar only (TabBarScroll.cs): the control's
+         own BringIntoView scrolled every scroller round it, the page included. -->
+    <Setter Property="AutoScrollToSelectedItem" Value="False" />
+    <!-- A scroll button at its end is disabled, and its arrow action-disabled with it, as a
+         disabled MudIconButton's is: the arrow follows the button's Foreground. -->
+    <Style Selector="^ /template/ Button#PART_ScrollPrev:disabled, ^ /template/ Button#PART_ScrollNext:disabled">
+      <Setter Property="Foreground" Value="{DynamicResource FiliActionDisabledBrush}" />
+    </Style>
 
     <Setter Property="Template">
       <ControlTemplate>
@@ -196,6 +207,7 @@
             </theme:PartBorder>
 
             <ContentPresenter x:Name="PART_SelectedContentHost"
+                              ClipToBounds="True"
                               Content="{TemplateBinding SelectedContent}"
                               ContentTemplate="{TemplateBinding SelectedContentTemplate}"
                               Margin="{TemplateBinding Padding}" />

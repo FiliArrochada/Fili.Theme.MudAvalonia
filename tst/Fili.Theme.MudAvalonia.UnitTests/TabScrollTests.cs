@@ -234,4 +234,56 @@ public class TabScrollTests
         Assert.False(Next(strip).IsVisible);
         Assert.All(Headers(strip), h => Assert.Equal(40, h.Width, 0.5));
     });
+
+    /// <summary>
+    /// Only the bar scrolls to the selected tab, as MudTabs' ScrollToItem scrolls only the bar: a
+    /// tab bar low on a scrolled page leaves the page where it was.
+    /// </summary>
+    [Fact]
+    public Task SelectingATabDoesNotScrollThePage() => UiThread.RunAsync(() =>
+    {
+        var strip = new TabStrip { Width = 300 };
+        for (var i = 0; i < 8; i++)
+        {
+            strip.Items.Add(new TabStripItem { Content = $"Tab {i}" });
+        }
+
+        var page = new ScrollViewer
+        {
+            Height = 200,
+            Content = new StackPanel { Children = { new Border { Height = 600 }, strip } },
+        };
+        Matrix.Show(page);
+        Dispatcher.UIThread.RunJobs();
+
+        strip.SelectedIndex = 7;
+        Dispatcher.UIThread.RunJobs();
+
+        Assert.Equal(0, page.Offset.Y);
+        Assert.True(Scroller(strip).Offset.X > 0, "The bar scrolled to the selected tab.");
+    });
+
+    /// <summary>A scroll button at its end is disabled, and its arrow is action-disabled with it.</summary>
+    [Fact]
+    public Task ADisabledScrollButtonsArrowIsGrey() => UiThread.RunAsync(() =>
+    {
+        var tabs = Tabs(8, 500);
+        var arrow = Matrix.Part<Avalonia.Controls.Shapes.Path>(tabs, "PART_PrevIcon");
+
+        Assert.False(Prev(tabs).IsEnabled);
+        Assert.Equal(Matrix.Token("FiliActionDisabledColor"), Matrix.Colour(arrow.Fill));
+        Assert.Equal(Matrix.Token("FiliActionDefaultColor"), Matrix.Colour(Matrix.Part<Avalonia.Controls.Shapes.Path>(tabs, "PART_NextIcon").Fill));
+    });
+
+    /// <summary>An elevation class's shadow falls past the bar: neither tab control clips it.</summary>
+    [Fact]
+    public Task TheBarsShadowIsNotClipped() => UiThread.RunAsync(() =>
+    {
+        var strip = Matrix.Show(new TabStrip { Classes = { "elevation4" }, ItemsSource = new[] { "One", "Two" } });
+        var tabs = Tabs(2, 400);
+
+        Assert.False(strip.ClipToBounds);
+        Assert.False(tabs.ClipToBounds);
+        Assert.True(Matrix.Part<ContentPresenter>(tabs, "PART_SelectedContentHost").ClipToBounds, "A tab's content is still clipped.");
+    });
 }

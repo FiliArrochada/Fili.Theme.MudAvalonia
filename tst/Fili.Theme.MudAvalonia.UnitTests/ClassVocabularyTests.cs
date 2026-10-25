@@ -241,11 +241,13 @@ public class ClassVocabularyTests
 
     /// <summary>
     /// The words that must mean the same on every control that takes them: MudBlazor's Size and
-    /// Variant, and its components' parts, whose names are what a Razor page is ported from.
+    /// Variant, its Underline (`no-underline` on a field and a link alike, `underline` its pair on
+    /// a link), and its components' parts, whose names are what a Razor page is ported from.
     /// </summary>
     private static readonly HashSet<string> Families =
     [
         "small", "medium", "large", "dense", "text", "filled", "outlined",
+        "underline", "no-underline",
         "card-actions", "card-content", "card-header", "card-header-content",
     ];
 

@@ -275,7 +275,6 @@ Put initials, a `PathIcon` or an `Image` inside: `<Border Classes="avatar primar
 | `Margin.Normal` | `Margin` | ≈ only an outer margin in MudBlazor; an ordinary Avalonia property |
 | `Adornment`, `AdornmentIcon`, `AdornmentText` | `InnerLeftContent` / `InnerRightContent` | ✅ 8px from the text, as `.mud-input-adornment-start` and `-end` are, beside a spin column too; an icon there marked `start-icon` or `end-icon` is MudIcon's 24px, in the field's text colour. A start adornment floats the label, as `Adornment.Start` does. On a filled or outlined box an icon is centred on the box, as `.mud-input` centres it; a text adornment, unlike MudBlazor's, stays on the text line, so a unit is not lifted above the value it is read with |
 | `AdornmentColor`, `IconSize` | a colour class, or `Width` / `Height`, on the icon | ≈ ordinary Avalonia properties |
-| `Placeholder` | — | ❌ the placeholder slot is the floating label |
 | `Disabled` | `IsEnabled="False"` | ✅ text-disabled text, label and helper text; the line stays lines-inputs and turns dotted, 1px on and 1px off, on a text field and a select alike |
 | `ReadOnly` | `IsReadOnly` | ✅ looks the same, as in MudBlazor |
 | `Underline="false"` | `no-underline` | ✅ neither the resting nor the focus rule; an outlined field has none anyway |
@@ -311,7 +310,7 @@ Put initials, a `PathIcon` or an `Image` inside: `<Border Classes="avatar primar
 | `Dense` on the items | `dense-items` on the select, or `dense` on one `ComboBoxItem` | ✅ 4px top and bottom, body2: 36px rows; `dense` on the select is its field's `Margin.Dense` |
 | an option's height | the same | ✅ 48px, MudListItem's 8px and `.mud-list-item-text`'s 4px round a body1 line |
 | `MultiSelection`, `SelectAll` | — | ❌ a `ComboBox` holds one value |
-| `Clearable` | a button in `InnerRightContent` | ≈ the app clears the value |
+| `Clearable` | a button in `InnerRightContent` on an `AutoCompleteBox` or `NumericUpDown` | ≈ the app clears the value; a `ComboBox` has no `InnerRightContent` |
 | MudAutocomplete's drop-down arrow | an arrow in `InnerRightContent` | ≈ an `AutoCompleteBox` shows none of its own |
 | `ShowProgressIndicator`, `ProgressIndicatorColor` | a `ProgressBar.circular.small` in `InnerRightContent` | ≈ |
 | `HideSpinButtons` | `ShowButtonSpinner="False"` | ≈ |

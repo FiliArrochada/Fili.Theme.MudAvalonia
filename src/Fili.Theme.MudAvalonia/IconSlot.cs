@@ -77,12 +77,24 @@ internal sealed class IconSlot
 
     static IconSlot()
     {
-        StartSizeProperty.Changed.AddClassHandler<Control>((c, e) => Apply(c, StartIcon, e.GetNewValue<double?>(), Layoutable.WidthProperty, Layoutable.HeightProperty));
-        EndSizeProperty.Changed.AddClassHandler<Control>((c, e) => Apply(c, EndIcon, e.GetNewValue<double?>(), Layoutable.WidthProperty, Layoutable.HeightProperty));
+        StartSizeProperty.Changed.AddClassHandler<Control>((c, e) =>
+        {
+            Apply(c, StartIcon, e.GetNewValue<double?>(), Layoutable.WidthProperty, Layoutable.HeightProperty);
+            Centre(c, StartIcon, e.GetNewValue<double?>() is not null);
+        });
+        EndSizeProperty.Changed.AddClassHandler<Control>((c, e) =>
+        {
+            Apply(c, EndIcon, e.GetNewValue<double?>(), Layoutable.WidthProperty, Layoutable.HeightProperty);
+            Centre(c, EndIcon, e.GetNewValue<double?>() is not null);
+        });
         StartMarginProperty.Changed.AddClassHandler<Control>((c, e) => Apply(c, StartIcon, e.GetNewValue<Thickness?>(), Layoutable.MarginProperty));
         EndMarginProperty.Changed.AddClassHandler<Control>((c, e) => Apply(c, EndIcon, e.GetNewValue<Thickness?>(), Layoutable.MarginProperty));
         BrushProperty.Changed.AddClassHandler<Control>((c, e) => Apply(c, StartIcon, e.GetNewValue<IBrush?>(), TextElement.ForegroundProperty));
-        AvatarSizeProperty.Changed.AddClassHandler<Control>((c, e) => Apply(c, Avatar, e.GetNewValue<double?>(), Layoutable.WidthProperty, Layoutable.HeightProperty));
+        AvatarSizeProperty.Changed.AddClassHandler<Control>((c, e) =>
+        {
+            Apply(c, Avatar, e.GetNewValue<double?>(), Layoutable.WidthProperty, Layoutable.HeightProperty);
+            Centre(c, Avatar, e.GetNewValue<double?>() is not null);
+        });
         AvatarMarginProperty.Changed.AddClassHandler<Control>((c, e) => Apply(c, Avatar, e.GetNewValue<Thickness?>(), Layoutable.MarginProperty));
         AvatarFontSizeProperty.Changed.AddClassHandler<Control>((c, e) => Apply(c, Avatar, e.GetNewValue<double?>(), TextElement.FontSizeProperty));
     }
@@ -118,6 +130,33 @@ internal sealed class IconSlot
     public static IBrush? GetBrush(Control c) => c.GetValue(BrushProperty);
 
     public static void SetBrush(Control c, IBrush? value) => c.SetValue(BrushProperty, value);
+
+    /// <summary>
+    /// The row an icon or a chip's avatar sits in, centred: `.mud-button-label`, `.mud-chip-content`
+    /// and their kin are flex rows with
+    /// `align-items: center`, so the icon and the label beside it share a centre line. A TextBlock
+    /// left to stretch to the icon's 20px draws its text at the top of that box, 2px above the
+    /// icon's middle; centred, its own line box is centred on the row, as CSS's is. The icon and
+    /// every TextBlock beside it in its panel, at the same priority as the rest, so an app's own
+    /// alignment still wins; cleared again when the icon leaves its host.
+    /// </summary>
+    private static void Centre(Control control, string icon, bool hosted)
+    {
+        if (!control.Classes.Contains(icon))
+        {
+            return;
+        }
+
+        var value = hosted ? (object)VerticalAlignment.Center : AvaloniaProperty.UnsetValue;
+        control.SetValue(Layoutable.VerticalAlignmentProperty, value, BindingPriority.StyleTrigger);
+        if (control.Parent is Panel row)
+        {
+            foreach (var label in row.Children.OfType<TextBlock>())
+            {
+                label.SetValue(Layoutable.VerticalAlignmentProperty, value, BindingPriority.StyleTrigger);
+            }
+        }
+    }
 
     /// <summary>A value that has reached a control: set on it if it is that kind of icon, cleared if empty.</summary>
     private static void Apply(Control control, string icon, object? value, params AvaloniaProperty[] targets)

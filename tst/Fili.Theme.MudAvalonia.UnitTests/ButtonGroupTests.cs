@@ -1,5 +1,6 @@
 using Avalonia;
 using Avalonia.Controls;
+using Avalonia.Controls.Primitives;
 using Avalonia.Layout;
 using Avalonia.Media;
 using Xunit;
@@ -35,6 +36,30 @@ public class ButtonGroupTests
         Assert.Equal(new CornerRadius(4, 0, 0, 4), b[0].CornerRadius);
         Assert.Equal(new CornerRadius(0), b[1].CornerRadius);
         Assert.Equal(new CornerRadius(0, 4, 4, 0), b[2].CornerRadius);
+    });
+
+    /// <summary>
+    /// MudToggleGroup: toggle items in a group are one shape, the radius on the outer corners and
+    /// outlined items 1px over each other; and no separator line between them, which a toggle
+    /// group does not draw.
+    /// </summary>
+    [Fact]
+    public Task ToggleItemsJoinIntoOneShape() => UiThread.RunAsync(() =>
+    {
+        var items = new[] { new ToggleButton { Content = "A" }, new ToggleButton { Content = "B" }, new ToggleButton { Content = "C" } };
+        var group = new StackPanel { Orientation = Orientation.Horizontal, Classes = { "button-group" } };
+        foreach (var item in items)
+        {
+            group.Children.Add(item);
+        }
+
+        Matrix.Show(group);
+
+        Assert.Equal(new CornerRadius(4, 0, 0, 4), items[0].CornerRadius);
+        Assert.Equal(new CornerRadius(0), items[1].CornerRadius);
+        Assert.Equal(new CornerRadius(0, 4, 4, 0), items[2].CornerRadius);
+        Assert.Equal(-1, items[1].Margin.Left);
+        Assert.Equal(0, items[1].BorderThickness.Left);
     });
 
     /// <summary>`margin-left: -1px`: two outlined buttons share one line.</summary>

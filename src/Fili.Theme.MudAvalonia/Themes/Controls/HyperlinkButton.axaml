@@ -14,9 +14,11 @@
   is inherited from the surrounding text, which is why this theme sets no FontSize: a link inside
   body2 should be body2, and a link inside a heading should be the heading.
 
-  The underline is applied through a style that reaches the TextBlock a ContentPresenter makes
-  for string content. That is the same mechanism that once repainted button labels body-grey
-  (see docs/traps.md), used deliberately here and scoped to this template.
+  The underline is TextBlock.TextDecorations set on the link itself. It is an inherited
+  property, so it reaches the AccessText a string makes and any TextBlock the app puts in the
+  content alike. A style reaching into the template for a TextBlock reached neither: the string's
+  text is an AccessText, which a TextBlock type selector does not match, and the app's own text is
+  not a template part, so no link was ever underlined.
 -->
 <ResourceDictionary xmlns="https://github.com/avaloniaui"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -58,30 +60,30 @@
     <!-- Underline.Hover, the MudLink default. _link.scss puts :focus-visible and :active in the
          same rule as :hover, so a tabbed-to link underlines exactly like a hovered one - which is
          the only focus affordance a link gets, since _reset.scss drops the browser ring. -->
-    <Style Selector="^:pointerover /template/ ContentPresenter#PART_ContentPresenter TextBlock">
-      <Setter Property="TextDecorations" Value="Underline" />
+    <Style Selector="^:pointerover">
+      <Setter Property="TextBlock.TextDecorations" Value="Underline" />
     </Style>
-    <Style Selector="^:focus-visible /template/ ContentPresenter#PART_ContentPresenter TextBlock">
-      <Setter Property="TextDecorations" Value="Underline" />
+    <Style Selector="^:focus-visible">
+      <Setter Property="TextBlock.TextDecorations" Value="Underline" />
     </Style>
-    <Style Selector="^:pressed /template/ ContentPresenter#PART_ContentPresenter TextBlock">
-      <Setter Property="TextDecorations" Value="Underline" />
+    <Style Selector="^:pressed">
+      <Setter Property="TextBlock.TextDecorations" Value="Underline" />
     </Style>
 
     <!-- Underline.Always -->
-    <Style Selector="^.underline /template/ ContentPresenter#PART_ContentPresenter TextBlock">
-      <Setter Property="TextDecorations" Value="Underline" />
+    <Style Selector="^.underline">
+      <Setter Property="TextBlock.TextDecorations" Value="Underline" />
     </Style>
 
     <!-- Underline.None: still no underline when hovered. -->
-    <Style Selector="^.no-underline:pointerover /template/ ContentPresenter#PART_ContentPresenter TextBlock">
-      <Setter Property="TextDecorations" Value="{x:Null}" />
+    <Style Selector="^.no-underline:pointerover">
+      <Setter Property="TextBlock.TextDecorations" Value="{x:Null}" />
     </Style>
-    <Style Selector="^.no-underline:focus-visible /template/ ContentPresenter#PART_ContentPresenter TextBlock">
-      <Setter Property="TextDecorations" Value="{x:Null}" />
+    <Style Selector="^.no-underline:focus-visible">
+      <Setter Property="TextBlock.TextDecorations" Value="{x:Null}" />
     </Style>
-    <Style Selector="^.no-underline:pressed /template/ ContentPresenter#PART_ContentPresenter TextBlock">
-      <Setter Property="TextDecorations" Value="{x:Null}" />
+    <Style Selector="^.no-underline:pressed">
+      <Setter Property="TextBlock.TextDecorations" Value="{x:Null}" />
     </Style>
 
     <!-- MudLink's Color is `mud-{color}-text`: the palette colour as the text, primary by default. -->

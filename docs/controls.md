@@ -140,7 +140,7 @@ element between its halves, so there are no two borders to collapse. Same result
 route — which is the usual shape of transcribing CSS onto a templated control.
 
 **A group of any length is `button-group` on a `StackPanel` of buttons**, across or, with
-`Orientation="Vertical"`, down:
+`Orientation="Vertical"`, down: On a `StackPanel` of `ToggleButton`s it is MudToggleGroup's shape: the radius on the outer corners and outlined items sharing one line, with no separator between text or filled items.
 
 ```xml
 <StackPanel Classes="button-group" Orientation="Horizontal">
@@ -703,9 +703,8 @@ tab shows both states. Set `DrawerLayoutBehavior` rather than `DisplayMode`, whi
 works out for itself, and `DrawerBreakpointLength` if a narrow page should not fall back to an
 overlay.
 
-Not carried over: the pane's elevation-1 shadow. The pane root is a `Panel`, and only a `Border`
-can carry a `BoxShadow` — the same limitation that made `Button` need a template in the first
-place. Adding it means owning the template.
+Its pane casts MudDrawer's elevation 1 as any drawer does: the `SplitView` `DrawerPage` builds
+takes this theme's `SplitView` template, `PART_PaneShadow` and all.
 
 **The nav menu in the pane is `nav` on a `TreeView`**: MudNavMenu, MudNavLink and MudNavGroup.
 
@@ -1013,8 +1012,9 @@ still, without its pulse or wave; a snackbar with no slide in or out; an expansi
 overlay shown at once; a tab's indicator jumping to the new tab. A progress indicator keeps moving,
 as it is the only sign that work is going on, and so do the 150ms colour fades of hover and
 focus, which do not move anything. Set it from the app's own setting, or the system's, and change
-it at any time: every window and popup reads it as a resource. A window or region of its own can
-set it in its `Resources` too.
+it at any time: each window reads it, from its own resources or the application's, and passes it
+to everything inside it and to the popups it opens. A key in a panel's resources inside a window
+does nothing; a window of its own can set it in its `Resources`.
 
 ## Keyboard focus
 

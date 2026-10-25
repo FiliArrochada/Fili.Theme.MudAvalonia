@@ -3,6 +3,8 @@ using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.Primitives;
 using Avalonia.Interactivity;
+using Avalonia.Threading;
+using Avalonia.VisualTree;
 
 namespace Fili.Theme.MudAvalonia;
 
@@ -33,6 +35,10 @@ internal sealed class TabBarScroll
     public static readonly AttachedProperty<bool> ScrollsProperty =
         AvaloniaProperty.RegisterAttached<TabBarScroll, SelectingItemsControl, bool>("Scrolls");
 
+    /// <summary>The bar's own scroller, found when the template is applied.</summary>
+    private static readonly AttachedProperty<ScrollViewer?> ScrollerProperty =
+        AvaloniaProperty.RegisterAttached<TabBarScroll, SelectingItemsControl, ScrollViewer?>("Scroller");
+
     public static bool GetScrolls(SelectingItemsControl control) => control.GetValue(ScrollsProperty);
 
     public static void SetScrolls(SelectingItemsControl control, bool value) => control.SetValue(ScrollsProperty, value);
@@ -60,6 +66,9 @@ internal sealed class TabBarScroll
             return;
         }
 
+        var control = (SelectingItemsControl)sender!;
+        control.SetValue(ScrollerProperty, scroller);
+        Dispatcher.UIThread.Post(() => Reveal(control, scroller, control.SelectedIndex), DispatcherPriority.Loaded);
         prev.Click += (_, _) => Page(scroller, -1);
         next.Click += (_, _) => Page(scroller, 1);
         scroller.ScrollChanged += (_, _) => Update(scroller, prev, next);
@@ -73,14 +82,40 @@ internal sealed class TabBarScroll
         Update(scroller, prev, next);
     }
 
-    /// <summary>The selected tab is scrolled into view, as MudTabs' ScrollToItem does.</summary>
+    /// <summary>
+    /// The selected tab is scrolled into view in the bar, as MudTabs' ScrollToItem does. The bar's
+    /// own scroller only: BringIntoView asked every scroller round the bar as well, so a tab bar
+    /// low on a page scrolled the page to itself as soon as a tab was selected.
+    /// </summary>
     private static void OnPropertyChanged(object? sender, AvaloniaPropertyChangedEventArgs e)
     {
         if (sender is SelectingItemsControl control
             && e.Property == SelectingItemsControl.SelectedIndexProperty
-            && control.ContainerFromIndex(e.GetNewValue<int>()) is { } tab)
+            && control.GetValue(ScrollerProperty) is { } scroller)
         {
-            tab.BringIntoView();
+            var index = e.GetNewValue<int>();
+            Dispatcher.UIThread.Post(() => Reveal(control, scroller, index), DispatcherPriority.Loaded);
+        }
+    }
+
+    private static void Reveal(SelectingItemsControl control, ScrollViewer scroller, int index)
+    {
+        if (control.ContainerFromIndex(index) is not { } tab
+            || scroller.Content is not Visual row
+            || tab.TranslatePoint(default, row) is not { } start)
+        {
+            return;
+        }
+
+        if (Vertical(scroller))
+        {
+            var y = Math.Clamp(scroller.Offset.Y, Math.Min(start.Y, start.Y + tab.Bounds.Height - scroller.Viewport.Height), start.Y);
+            scroller.Offset = new Vector(scroller.Offset.X, Math.Max(0, y));
+        }
+        else
+        {
+            var x = Math.Clamp(scroller.Offset.X, Math.Min(start.X, start.X + tab.Bounds.Width - scroller.Viewport.Width), start.X);
+            scroller.Offset = new Vector(Math.Max(0, x), scroller.Offset.Y);
         }
     }
 
