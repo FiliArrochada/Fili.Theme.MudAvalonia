@@ -1,0 +1,15 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <StackPanel Spacing="16">
+    <WrapPanel ItemSpacing="16" LineSpacing="16">
+      <TimePicker Width="220" VerticalAlignment="Top" AutomationProperties.Name="Standard" />
+      <TimePicker Classes="filled" Width="220" VerticalAlignment="Top" AutomationProperties.Name="Filled" />
+      <TimePicker Classes="outlined" Width="220" VerticalAlignment="Top" AutomationProperties.Name="Outlined" />
+    </WrapPanel>
+    <WrapPanel ItemSpacing="16" LineSpacing="16">
+      <TimePicker Width="220" VerticalAlignment="Top" AutomationProperties.Name="Standard" SelectedTime="14:30" />
+      <TimePicker Classes="filled" Width="220" VerticalAlignment="Top" AutomationProperties.Name="Filled" SelectedTime="14:30" />
+      <TimePicker Classes="outlined" Width="220" VerticalAlignment="Top" AutomationProperties.Name="Outlined" SelectedTime="14:30" />
+    </WrapPanel>
+  </StackPanel>
+</UserControl>

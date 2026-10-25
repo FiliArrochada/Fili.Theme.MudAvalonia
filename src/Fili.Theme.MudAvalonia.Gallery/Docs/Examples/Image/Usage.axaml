@@ -1,0 +1,18 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <StackPanel HorizontalAlignment="Left">
+    <StackPanel.Resources>
+      <!-- A 300 x 200 DrawingImage stands in for a photo. -->
+      <DrawingImage x:Key="Landscape">
+        <DrawingGroup>
+          <GeometryDrawing Brush="#FF90CAF9" Geometry="M0,0 H300 V200 H0 Z" />
+          <GeometryDrawing Brush="#FFFFCA28" Geometry="M232,60 A22,22 0 1 1 188,60 A22,22 0 1 1 232,60 Z" />
+          <GeometryDrawing Brush="#FF5C6BC0" Geometry="M0,200 L0,130 L80,60 L170,150 L170,200 Z" />
+          <GeometryDrawing Brush="#FF3949AB" Geometry="M90,200 L190,90 L300,170 L300,200 Z" />
+          <GeometryDrawing Brush="#FF66BB6A" Geometry="M0,200 L0,170 Q150,140 300,175 L300,200 Z" />
+        </DrawingGroup>
+      </DrawingImage>
+    </StackPanel.Resources>
+    <Image Source="{DynamicResource Landscape}" Width="300" />
+  </StackPanel>
+</UserControl>

@@ -1,0 +1,38 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:v="using:Fili.Theme.MudAvalonia.Gallery.Views">
+  <!-- dense is MudTable's Dense: 6px 24px 6px 16px a cell and a header, 16px on the right of the
+       last column. -->
+  <Grid ColumnDefinitions="*,*" RowDefinitions="Auto,Auto" ColumnSpacing="24">
+    <TextBlock Classes="caption" Text="no class" Margin="0,0,0,8" />
+    <TextBlock Grid.Column="1" Classes="caption" Text="dense" Margin="0,0,0,8" />
+    <TableView Grid.Row="1" ItemsSource="{x:Static v:GalleryElement.FirstSix}" VerticalAlignment="Top">
+      <TableView.Columns>
+        <TableViewColumn Header="Name" Width="*">
+          <TableViewColumn.CellTemplate>
+            <DataTemplate x:DataType="v:GalleryElement"><TextBlock Text="{Binding Name}" /></DataTemplate>
+          </TableViewColumn.CellTemplate>
+        </TableViewColumn>
+        <TableViewColumn Header="Sign" Width="80">
+          <TableViewColumn.CellTemplate>
+            <DataTemplate x:DataType="v:GalleryElement"><TextBlock Text="{Binding Sign}" /></DataTemplate>
+          </TableViewColumn.CellTemplate>
+        </TableViewColumn>
+      </TableView.Columns>
+    </TableView>
+    <TableView Grid.Row="1" Grid.Column="1" Classes="dense" ItemsSource="{x:Static v:GalleryElement.FirstSix}" VerticalAlignment="Top">
+      <TableView.Columns>
+        <TableViewColumn Header="Name" Width="*">
+          <TableViewColumn.CellTemplate>
+            <DataTemplate x:DataType="v:GalleryElement"><TextBlock Text="{Binding Name}" /></DataTemplate>
+          </TableViewColumn.CellTemplate>
+        </TableViewColumn>
+        <TableViewColumn Header="Sign" Width="80">
+          <TableViewColumn.CellTemplate>
+            <DataTemplate x:DataType="v:GalleryElement"><TextBlock Text="{Binding Sign}" /></DataTemplate>
+          </TableViewColumn.CellTemplate>
+        </TableViewColumn>
+      </TableView.Columns>
+    </TableView>
+  </Grid>
+</UserControl>

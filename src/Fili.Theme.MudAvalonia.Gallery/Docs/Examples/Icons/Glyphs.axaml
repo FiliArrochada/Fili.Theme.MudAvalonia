@@ -1,0 +1,110 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <!-- Every glyph the theme's templates draw, by its resource key. -->
+  <WrapPanel Orientation="Horizontal" ItemWidth="300">
+    <StackPanel Orientation="Horizontal" Spacing="12" Margin="0,6">
+      <PathIcon Data="{DynamicResource FiliAccessTimeGeometry}" />
+      <TextBlock Classes="body2" Text="FiliAccessTimeGeometry" VerticalAlignment="Center" />
+    </StackPanel>
+    <StackPanel Orientation="Horizontal" Spacing="12" Margin="0,6">
+      <PathIcon Data="{DynamicResource FiliAlertSuccessGeometry}" />
+      <TextBlock Classes="body2" Text="FiliAlertSuccessGeometry" VerticalAlignment="Center" />
+    </StackPanel>
+    <StackPanel Orientation="Horizontal" Spacing="12" Margin="0,6">
+      <PathIcon Data="{DynamicResource FiliArrowBackGeometry}" />
+      <TextBlock Classes="body2" Text="FiliArrowBackGeometry" VerticalAlignment="Center" />
+    </StackPanel>
+    <StackPanel Orientation="Horizontal" Spacing="12" Margin="0,6">
+      <PathIcon Data="{DynamicResource FiliArrowDropDownGeometry}" />
+      <TextBlock Classes="body2" Text="FiliArrowDropDownGeometry" VerticalAlignment="Center" />
+    </StackPanel>
+    <StackPanel Orientation="Horizontal" Spacing="12" Margin="0,6">
+      <PathIcon Data="{DynamicResource FiliArrowDropUpGeometry}" />
+      <TextBlock Classes="body2" Text="FiliArrowDropUpGeometry" VerticalAlignment="Center" />
+    </StackPanel>
+    <StackPanel Orientation="Horizontal" Spacing="12" Margin="0,6">
+      <PathIcon Data="{DynamicResource FiliArrowRightGeometry}" />
+      <TextBlock Classes="body2" Text="FiliArrowRightGeometry" VerticalAlignment="Center" />
+    </StackPanel>
+    <StackPanel Orientation="Horizontal" Spacing="12" Margin="0,6">
+      <PathIcon Data="{DynamicResource FiliArrowUpwardGeometry}" />
+      <TextBlock Classes="body2" Text="FiliArrowUpwardGeometry" VerticalAlignment="Center" />
+    </StackPanel>
+    <StackPanel Orientation="Horizontal" Spacing="12" Margin="0,6">
+      <PathIcon Data="{DynamicResource FiliCheckBoxCheckedGeometry}" />
+      <TextBlock Classes="body2" Text="FiliCheckBoxCheckedGeometry" VerticalAlignment="Center" />
+    </StackPanel>
+    <StackPanel Orientation="Horizontal" Spacing="12" Margin="0,6">
+      <PathIcon Data="{DynamicResource FiliCheckBoxIndeterminateGeometry}" />
+      <TextBlock Classes="body2" Text="FiliCheckBoxIndeterminateGeometry" VerticalAlignment="Center" />
+    </StackPanel>
+    <StackPanel Orientation="Horizontal" Spacing="12" Margin="0,6">
+      <PathIcon Data="{DynamicResource FiliCheckBoxUncheckedGeometry}" />
+      <TextBlock Classes="body2" Text="FiliCheckBoxUncheckedGeometry" VerticalAlignment="Center" />
+    </StackPanel>
+    <StackPanel Orientation="Horizontal" Spacing="12" Margin="0,6">
+      <PathIcon Data="{DynamicResource FiliCheckGeometry}" />
+      <TextBlock Classes="body2" Text="FiliCheckGeometry" VerticalAlignment="Center" />
+    </StackPanel>
+    <StackPanel Orientation="Horizontal" Spacing="12" Margin="0,6">
+      <PathIcon Data="{DynamicResource FiliChevronRightGeometry}" />
+      <TextBlock Classes="body2" Text="FiliChevronRightGeometry" VerticalAlignment="Center" />
+    </StackPanel>
+    <StackPanel Orientation="Horizontal" Spacing="12" Margin="0,6">
+      <PathIcon Data="{DynamicResource FiliCloseGeometry}" />
+      <TextBlock Classes="body2" Text="FiliCloseGeometry" VerticalAlignment="Center" />
+    </StackPanel>
+    <StackPanel Orientation="Horizontal" Spacing="12" Margin="0,6">
+      <PathIcon Data="{DynamicResource FiliErrorOutlineGeometry}" />
+      <TextBlock Classes="body2" Text="FiliErrorOutlineGeometry" VerticalAlignment="Center" />
+    </StackPanel>
+    <StackPanel Orientation="Horizontal" Spacing="12" Margin="0,6">
+      <PathIcon Data="{DynamicResource FiliEventGeometry}" />
+      <TextBlock Classes="body2" Text="FiliEventGeometry" VerticalAlignment="Center" />
+    </StackPanel>
+    <StackPanel Orientation="Horizontal" Spacing="12" Margin="0,6">
+      <PathIcon Data="{DynamicResource FiliEventNoteGeometry}" />
+      <TextBlock Classes="body2" Text="FiliEventNoteGeometry" VerticalAlignment="Center" />
+    </StackPanel>
+    <StackPanel Orientation="Horizontal" Spacing="12" Margin="0,6">
+      <PathIcon Data="{DynamicResource FiliExpandMoreGeometry}" />
+      <TextBlock Classes="body2" Text="FiliExpandMoreGeometry" VerticalAlignment="Center" />
+    </StackPanel>
+    <StackPanel Orientation="Horizontal" Spacing="12" Margin="0,6">
+      <PathIcon Data="{DynamicResource FiliInfoOutlinedGeometry}" />
+      <TextBlock Classes="body2" Text="FiliInfoOutlinedGeometry" VerticalAlignment="Center" />
+    </StackPanel>
+    <StackPanel Orientation="Horizontal" Spacing="12" Margin="0,6">
+      <PathIcon Data="{DynamicResource FiliKeyboardArrowDownGeometry}" />
+      <TextBlock Classes="body2" Text="FiliKeyboardArrowDownGeometry" VerticalAlignment="Center" />
+    </StackPanel>
+    <StackPanel Orientation="Horizontal" Spacing="12" Margin="0,6">
+      <PathIcon Data="{DynamicResource FiliKeyboardArrowUpGeometry}" />
+      <TextBlock Classes="body2" Text="FiliKeyboardArrowUpGeometry" VerticalAlignment="Center" />
+    </StackPanel>
+    <StackPanel Orientation="Horizontal" Spacing="12" Margin="0,6">
+      <PathIcon Data="{DynamicResource FiliMoreVertGeometry}" />
+      <TextBlock Classes="body2" Text="FiliMoreVertGeometry" VerticalAlignment="Center" />
+    </StackPanel>
+    <StackPanel Orientation="Horizontal" Spacing="12" Margin="0,6">
+      <PathIcon Data="{DynamicResource FiliNavigateBeforeGeometry}" />
+      <TextBlock Classes="body2" Text="FiliNavigateBeforeGeometry" VerticalAlignment="Center" />
+    </StackPanel>
+    <StackPanel Orientation="Horizontal" Spacing="12" Margin="0,6">
+      <PathIcon Data="{DynamicResource FiliRadioCheckedGeometry}" />
+      <TextBlock Classes="body2" Text="FiliRadioCheckedGeometry" VerticalAlignment="Center" />
+    </StackPanel>
+    <StackPanel Orientation="Horizontal" Spacing="12" Margin="0,6">
+      <PathIcon Data="{DynamicResource FiliRadioUncheckedGeometry}" />
+      <TextBlock Classes="body2" Text="FiliRadioUncheckedGeometry" VerticalAlignment="Center" />
+    </StackPanel>
+    <StackPanel Orientation="Horizontal" Spacing="12" Margin="0,6">
+      <PathIcon Data="{DynamicResource FiliReportProblemGeometry}" />
+      <TextBlock Classes="body2" Text="FiliReportProblemGeometry" VerticalAlignment="Center" />
+    </StackPanel>
+    <StackPanel Orientation="Horizontal" Spacing="12" Margin="0,6">
+      <PathIcon Data="{DynamicResource FiliSwitchThumbIconGeometry}" />
+      <TextBlock Classes="body2" Text="FiliSwitchThumbIconGeometry" VerticalAlignment="Center" />
+    </StackPanel>
+  </WrapPanel>
+</UserControl>

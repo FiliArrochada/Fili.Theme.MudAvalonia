@@ -1,0 +1,14 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <!-- The picker's popover on its own: the presenter a TimePicker opens. -->
+  <WrapPanel ItemSpacing="16" LineSpacing="16">
+    <StackPanel Spacing="8">
+      <TextBlock Classes="caption" Text="24HourClock" Margin="8,0" />
+      <TimePickerPresenter Time="14:30" ClockIdentifier="24HourClock" />
+    </StackPanel>
+    <StackPanel Spacing="8">
+      <TextBlock Classes="caption" Text="12HourClock" Margin="8,0" />
+      <TimePickerPresenter Time="14:30" ClockIdentifier="12HourClock" />
+    </StackPanel>
+  </WrapPanel>
+</UserControl>

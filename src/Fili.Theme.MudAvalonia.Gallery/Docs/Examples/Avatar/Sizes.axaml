@@ -1,0 +1,12 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <!-- 24, 40 and 56px, with 12, 20 and 24px text. -->
+  <Grid ColumnDefinitions="120,120,120" RowDefinitions="64,Auto">
+    <Border Grid.Column="0" Classes="avatar primary small" HorizontalAlignment="Center" VerticalAlignment="Center"><TextBlock Text="S" /></Border>
+    <Border Grid.Column="1" Classes="avatar primary" HorizontalAlignment="Center" VerticalAlignment="Center"><TextBlock Text="M" /></Border>
+    <Border Grid.Column="2" Classes="avatar primary large" HorizontalAlignment="Center" VerticalAlignment="Center"><TextBlock Text="L" /></Border>
+    <TextBlock Grid.Row="1" Grid.Column="0" Classes="caption" Text="small" HorizontalAlignment="Center" Margin="0,8,0,0" />
+    <TextBlock Grid.Row="1" Grid.Column="1" Classes="caption" Text="no class (medium)" HorizontalAlignment="Center" Margin="0,8,0,0" />
+    <TextBlock Grid.Row="1" Grid.Column="2" Classes="caption" Text="large" HorizontalAlignment="Center" Margin="0,8,0,0" />
+  </Grid>
+</UserControl>

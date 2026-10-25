@@ -1,0 +1,24 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:sys="using:System">
+  <WrapPanel ItemSpacing="24" LineSpacing="16">
+    <StackPanel Spacing="8">
+      <TextBlock Classes="caption" Text="DisplayDateStart 5, DisplayDateEnd 24" />
+      <Calendar DisplayDate="2026-10-01" SelectedDate="2026-10-11" IsTodayHighlighted="False"
+                DisplayDateStart="2026-10-05" DisplayDateEnd="2026-10-24" />
+    </StackPanel>
+    <StackPanel Spacing="8">
+      <TextBlock Classes="caption" Text="BlackoutDates 19 to 23" />
+      <Calendar DisplayDate="2026-10-01" SelectedDate="2026-10-11" IsTodayHighlighted="False">
+        <Calendar.BlackoutDates>
+          <CalendarDateRange>
+            <x:Arguments>
+              <sys:DateTime>2026-10-19</sys:DateTime>
+              <sys:DateTime>2026-10-23</sys:DateTime>
+            </x:Arguments>
+          </CalendarDateRange>
+        </Calendar.BlackoutDates>
+      </Calendar>
+    </StackPanel>
+  </WrapPanel>
+</UserControl>

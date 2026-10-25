@@ -1,0 +1,8 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <WrapPanel ItemSpacing="16" LineSpacing="16">
+    <CalendarDatePicker Width="220" VerticalAlignment="Top" PlaceholderText="Disabled" IsEnabled="False" SelectedDate="2026-10-11" />
+    <CalendarDatePicker Classes="filled" Width="220" VerticalAlignment="Top" PlaceholderText="Disabled" IsEnabled="False" />
+    <CalendarDatePicker Classes="outlined" Width="220" VerticalAlignment="Top" PlaceholderText="Disabled" IsEnabled="False" SelectedDate="2026-10-11" />
+  </WrapPanel>
+</UserControl>

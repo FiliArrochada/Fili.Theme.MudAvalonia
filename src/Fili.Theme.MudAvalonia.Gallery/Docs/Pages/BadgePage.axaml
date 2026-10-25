@@ -1,0 +1,79 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:docs="using:Fili.Theme.MudAvalonia.Gallery.Docs"
+             x:Class="Fili.Theme.MudAvalonia.Gallery.Docs.Pages.BadgePage">
+  <StackPanel Classes="doc">
+    <docs:DocHeader Title="Badge"
+                    Summary="A badge is a small count or status mark on the corner of something else: badge on a HeaderedContentControl, drawn as MudBadge. Content is what it decorates and Header is the badge."
+                    MudBlazor="Badge"
+                    MudBlazorPath="components/badge" />
+
+    <TextBlock Classes="h5 section" Text="Usage" />
+    <docs:ExampleCard Title="Text, dot and icon"
+                      Description="Header is MudBadge's Content: a 20px pill at least 20px wide with 12px text. dot is a 9px circle with nothing in it; icon draws a PathIcon Header at 12px in a 20px circle."
+                      Source="Badge/Usage" />
+    <TextBlock Classes="body1 p">
+      <Run Text="A " />
+      <Run Classes="code" Text="null" />
+      <Run Text=" Header hides the badge, a dot's too: that is " />
+      <Run Classes="code" Text="Visible=&quot;false&quot;" />
+      <Run Text=" here. The badge hangs outside the control's bounds, so the theme turns off the clip every templated control has, and the badge still takes the pointer." />
+    </TextBlock>
+
+    <TextBlock Classes="h5 section" Text="Colours" />
+    <docs:ExampleCard Title="Every palette colour"
+                      Description="With no colour class the badge is Color.Default, text-primary on gray-light. A colour class paints the badge with its contrast text, never the content it decorates."
+                      Source="Badge/Colors" />
+
+    <TextBlock Classes="h5 section" Text="Origin" />
+    <docs:ExampleCard Title="Nine places"
+                      Description="Origin.TopRight is the default and takes no class: the badge sits 4px into the corner. The other eight are one class each."
+                      Source="Badge/Origins" />
+
+    <TextBlock Classes="h5 section" Text="Overlap and bordered" />
+    <docs:ExampleCard Title="overlap and bordered"
+                      Description="overlap moves the badge 12px into the corner, for a round thing such as an avatar; bordered rings it in 2px of surface."
+                      Source="Badge/OverlapBordered" />
+
+    <TextBlock Classes="h5 section" Text="Max" />
+    <docs:ExampleCard Title="Counts over 99"
+                      Description="MudBadge.Max is fixed at its default: an int Header over 99 reads 99+. An app that wants another cap formats the string itself."
+                      Source="Badge/Max" />
+
+    <TextBlock Classes="h5 section" Text="Elevation" />
+    <docs:ExampleCard Title="Elevation classes"
+                      Description="An elevation class on the control lifts the badge, not what it decorates."
+                      Source="Badge/Elevation" />
+    <StackPanel Orientation="Horizontal" Spacing="8" Margin="0,0,0,16">
+      <TextBlock Classes="body1" Text="See also:" VerticalAlignment="Center" />
+      <docs:DocLink Slug="avatar" Content="Avatar" />
+      <docs:DocLink Slug="icons" Content="Icons" />
+      <docs:DocLink Slug="tabs" Content="Tabs" />
+    </StackPanel>
+
+    <TextBlock Classes="h5 section" Text="MudBlazor parity" />
+    <TextBlock Classes="body1 p">
+      <Run Text="Every MudBadge parameter and what it is here. " />
+      <Run Classes="code" Text="Same" />
+      <Run Text=" is transcribed from MudBlazor's source; " />
+      <Run Classes="code" Text="Close" />
+      <Run Text=" gets the same result another way." />
+    </TextBlock>
+    <docs:ParityTable>
+      <docs:ParityRow MudBlazor="MudBadge" Here="badge on a HeaderedContentControl" Status="Same" Note="The root shrinks to its content, like the inline-block .mud-badge-root." />
+      <docs:ParityRow MudBlazor="Content" Here="Header" Status="Same" Note="A 20px pill, at least 20px wide, with 12px text." />
+      <docs:ParityRow MudBlazor="Max" Here="—" Status="Close" Note="Fixed at its default: an int over 99 reads 99+." />
+      <docs:ParityRow MudBlazor="Color.Default (default)" Here="no colour class" Status="Same" Note="Text-primary on gray-light." />
+      <docs:ParityRow MudBlazor="Color.Primary … Color.Dark" Here="the colour classes" Status="Same" Note="On the badge alone, not on what it decorates." />
+      <docs:ParityRow MudBlazor="Origin.TopRight (default)" Here="no class" Status="Same" Note="4px into the corner." />
+      <docs:ParityRow MudBlazor="the other Origins" Here="top-left, top-center, center-left, center-center, center-right, bottom-left, bottom-center, bottom-right" Status="Same" Note="One class for each." />
+      <docs:ParityRow MudBlazor="Overlap" Here="overlap" Status="Same" Note="12px into the corner." />
+      <docs:ParityRow MudBlazor="Dot" Here="dot" Status="Same" Note="A 9px circle with nothing in it." />
+      <docs:ParityRow MudBlazor="Bordered" Here="bordered" Status="Same" Note="A 2px surface ring." />
+      <docs:ParityRow MudBlazor="Icon" Here="icon, with a PathIcon as the Header" Status="Same" Note="12px in a 20px circle." />
+      <docs:ParityRow MudBlazor="Elevation" Here="the elevation classes" Status="Same" Note="On the badge." />
+      <docs:ParityRow MudBlazor="Visible" Here="a Header that is not null" Status="Close" Note="A null Header hides the badge, a dot's too." />
+      <docs:ParityRow MudBlazor="OnClick" Here="—" Status="Close" Note="The badge takes the pointer; put a control that handles the click in Header." />
+    </docs:ParityTable>
+  </StackPanel>
+</UserControl>

@@ -1,0 +1,16 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <!-- An avatar inside a HeaderedContentControl.badge: a number, a dot, and a bordered dot
+       overlapping the round avatar's corner. -->
+  <StackPanel Orientation="Horizontal" Spacing="32">
+    <HeaderedContentControl Classes="badge error" Header="4">
+      <Border Classes="avatar primary"><TextBlock Text="M" /></Border>
+    </HeaderedContentControl>
+    <HeaderedContentControl Classes="badge dot success" Header="">
+      <Border Classes="avatar secondary"><PathIcon Data="{DynamicResource GalleryPersonIcon}" /></Border>
+    </HeaderedContentControl>
+    <HeaderedContentControl Classes="badge dot bordered overlap bottom-right success" Header="">
+      <Border Classes="avatar large tertiary"><TextBlock Text="A" /></Border>
+    </HeaderedContentControl>
+  </StackPanel>
+</UserControl>

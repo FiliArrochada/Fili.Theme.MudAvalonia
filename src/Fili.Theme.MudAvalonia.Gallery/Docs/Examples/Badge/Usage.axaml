@@ -1,0 +1,23 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <!-- Content is what the badge decorates and Header is the badge: text, nothing for a dot, or a PathIcon with icon. -->
+  <Grid ColumnDefinitions="120,120,120,120" RowDefinitions="56,Auto">
+    <HeaderedContentControl Grid.Column="0" Classes="badge primary" Header="3" HorizontalAlignment="Center" VerticalAlignment="Center">
+      <PathIcon Data="{DynamicResource GalleryMailIcon}" />
+    </HeaderedContentControl>
+    <HeaderedContentControl Grid.Column="1" Classes="badge primary" Header="new" HorizontalAlignment="Center" VerticalAlignment="Center">
+      <PathIcon Data="{DynamicResource GalleryMailIcon}" />
+    </HeaderedContentControl>
+    <HeaderedContentControl Grid.Column="2" Classes="badge dot primary" Header="" HorizontalAlignment="Center" VerticalAlignment="Center">
+      <PathIcon Data="{DynamicResource GalleryMailIcon}" />
+    </HeaderedContentControl>
+    <HeaderedContentControl Grid.Column="3" Classes="badge icon primary" HorizontalAlignment="Center" VerticalAlignment="Center">
+      <HeaderedContentControl.Header><PathIcon Data="{DynamicResource GalleryDoneIcon}" /></HeaderedContentControl.Header>
+      <PathIcon Data="{DynamicResource GalleryMailIcon}" />
+    </HeaderedContentControl>
+    <TextBlock Grid.Row="1" Grid.Column="0" Classes="caption" Text="Header=&quot;3&quot;" HorizontalAlignment="Center" Margin="0,8,0,0" />
+    <TextBlock Grid.Row="1" Grid.Column="1" Classes="caption" Text="Header=&quot;new&quot;" HorizontalAlignment="Center" Margin="0,8,0,0" />
+    <TextBlock Grid.Row="1" Grid.Column="2" Classes="caption" Text="dot" HorizontalAlignment="Center" Margin="0,8,0,0" />
+    <TextBlock Grid.Row="1" Grid.Column="3" Classes="caption" Text="icon" HorizontalAlignment="Center" Margin="0,8,0,0" />
+  </Grid>
+</UserControl>

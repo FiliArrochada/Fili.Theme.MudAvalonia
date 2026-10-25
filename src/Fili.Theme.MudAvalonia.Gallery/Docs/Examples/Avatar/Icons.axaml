@@ -1,0 +1,11 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <!-- A PathIcon inside is MudIcon's 24px at every avatar size, in the avatar's text colour. -->
+  <WrapPanel Orientation="Horizontal">
+    <Border Classes="avatar" Margin="0,0,16,8"><PathIcon Data="{DynamicResource GalleryPersonIcon}" /></Border>
+    <Border Classes="avatar primary" Margin="0,0,16,8"><PathIcon Data="{DynamicResource GalleryFolderIcon}" /></Border>
+    <Border Classes="avatar secondary" Margin="0,0,16,8"><PathIcon Data="{DynamicResource GalleryMailIcon}" /></Border>
+    <Border Classes="avatar success" Margin="0,0,16,8"><PathIcon Data="{DynamicResource GalleryDoneIcon}" /></Border>
+    <Border Classes="avatar outlined error" Margin="0,0,16,8"><PathIcon Data="{DynamicResource GalleryFavoriteIcon}" /></Border>
+  </WrapPanel>
+</UserControl>

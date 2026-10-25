@@ -1,0 +1,17 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:v="using:Fili.Theme.MudAvalonia.Gallery.Views"
+             xmlns:docs="using:Fili.Theme.MudAvalonia.Gallery.Docs">
+  <!-- Groupable is a DataGridCollectionView with GroupDescriptions, here by group and then by
+       position: background-gray rows, "Title: Key" in bold, ExpandMore / ChevronRight. A nested
+       group's header steps in 48px per level; its rows do not. -->
+  <DataGrid Classes="dense" ItemsSource="{x:Static docs:SampleData.ElementsByGroupAndPosition}">
+    <DataGrid.Columns>
+      <DataGridTextColumn Header="Nr" Binding="{Binding Number}" x:DataType="v:GalleryElement" />
+      <DataGridTextColumn Header="Sign" Binding="{Binding Sign}" x:DataType="v:GalleryElement" />
+      <DataGridTextColumn Header="Name" Binding="{Binding Name}" x:DataType="v:GalleryElement" Width="*" />
+      <DataGridTextColumn Header="Position" Binding="{Binding Position}" x:DataType="v:GalleryElement" />
+      <DataGridTextColumn Header="Molar mass" Binding="{Binding Molar}" x:DataType="v:GalleryElement" />
+    </DataGrid.Columns>
+  </DataGrid>
+</UserControl>

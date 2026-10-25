@@ -1,0 +1,27 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <!-- With no class an icon inherits the text colour (Color.Inherit); Color.Default is
+       text-secondary, set as a Foreground; every other colour is a class. -->
+  <Grid ColumnDefinitions="88,88,88,88,88,88,88,88,88,88" RowDefinitions="40,Auto">
+    <PathIcon Grid.Column="0" Data="{DynamicResource GalleryFavoriteIcon}" HorizontalAlignment="Center" VerticalAlignment="Center" />
+    <PathIcon Grid.Column="1" Foreground="{DynamicResource FiliTextSecondaryBrush}" Data="{DynamicResource GalleryFavoriteIcon}" HorizontalAlignment="Center" VerticalAlignment="Center" />
+    <PathIcon Grid.Column="2" Classes="primary" Data="{DynamicResource GalleryFavoriteIcon}" HorizontalAlignment="Center" VerticalAlignment="Center" />
+    <PathIcon Grid.Column="3" Classes="secondary" Data="{DynamicResource GalleryFavoriteIcon}" HorizontalAlignment="Center" VerticalAlignment="Center" />
+    <PathIcon Grid.Column="4" Classes="tertiary" Data="{DynamicResource GalleryFavoriteIcon}" HorizontalAlignment="Center" VerticalAlignment="Center" />
+    <PathIcon Grid.Column="5" Classes="info" Data="{DynamicResource GalleryFavoriteIcon}" HorizontalAlignment="Center" VerticalAlignment="Center" />
+    <PathIcon Grid.Column="6" Classes="success" Data="{DynamicResource GalleryFavoriteIcon}" HorizontalAlignment="Center" VerticalAlignment="Center" />
+    <PathIcon Grid.Column="7" Classes="warning" Data="{DynamicResource GalleryFavoriteIcon}" HorizontalAlignment="Center" VerticalAlignment="Center" />
+    <PathIcon Grid.Column="8" Classes="error" Data="{DynamicResource GalleryFavoriteIcon}" HorizontalAlignment="Center" VerticalAlignment="Center" />
+    <PathIcon Grid.Column="9" Classes="dark" Data="{DynamicResource GalleryFavoriteIcon}" HorizontalAlignment="Center" VerticalAlignment="Center" />
+    <TextBlock Grid.Row="1" Grid.Column="0" Classes="caption" Text="no class" HorizontalAlignment="Center" Margin="0,4,0,0" />
+    <TextBlock Grid.Row="1" Grid.Column="1" Classes="caption" Text="text-secondary" HorizontalAlignment="Center" Margin="0,4,0,0" />
+    <TextBlock Grid.Row="1" Grid.Column="2" Classes="caption" Text="primary" HorizontalAlignment="Center" Margin="0,4,0,0" />
+    <TextBlock Grid.Row="1" Grid.Column="3" Classes="caption" Text="secondary" HorizontalAlignment="Center" Margin="0,4,0,0" />
+    <TextBlock Grid.Row="1" Grid.Column="4" Classes="caption" Text="tertiary" HorizontalAlignment="Center" Margin="0,4,0,0" />
+    <TextBlock Grid.Row="1" Grid.Column="5" Classes="caption" Text="info" HorizontalAlignment="Center" Margin="0,4,0,0" />
+    <TextBlock Grid.Row="1" Grid.Column="6" Classes="caption" Text="success" HorizontalAlignment="Center" Margin="0,4,0,0" />
+    <TextBlock Grid.Row="1" Grid.Column="7" Classes="caption" Text="warning" HorizontalAlignment="Center" Margin="0,4,0,0" />
+    <TextBlock Grid.Row="1" Grid.Column="8" Classes="caption" Text="error" HorizontalAlignment="Center" Margin="0,4,0,0" />
+    <TextBlock Grid.Row="1" Grid.Column="9" Classes="caption" Text="dark" HorizontalAlignment="Center" Margin="0,4,0,0" />
+  </Grid>
+</UserControl>

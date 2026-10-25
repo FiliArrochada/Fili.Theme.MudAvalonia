@@ -1,0 +1,16 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <!-- A fixed month, with today unmarked so the example is the same every day. -->
+  <WrapPanel ItemSpacing="24" LineSpacing="16">
+    <StackPanel Spacing="8">
+      <TextBlock Classes="caption" Text="Calendar" />
+      <Calendar DisplayDate="2026-10-01" SelectedDate="2026-10-11" IsTodayHighlighted="False" />
+    </StackPanel>
+    <StackPanel Spacing="8">
+      <TextBlock Classes="caption" Text="Calendar in a paper, elevation1" />
+      <Border Classes="paper elevation1">
+        <Calendar DisplayDate="2026-10-01" SelectedDate="2026-10-11" IsTodayHighlighted="False" />
+      </Border>
+    </StackPanel>
+  </WrapPanel>
+</UserControl>

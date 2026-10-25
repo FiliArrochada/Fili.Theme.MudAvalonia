@@ -1,0 +1,14 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <!-- MudIcon's Size: 20, 24 and 36px. A bare PathIcon is medium, as MudIcon is with no Size. -->
+  <Grid ColumnDefinitions="112,112,112,112" RowDefinitions="48,Auto">
+    <PathIcon Grid.Column="0" Classes="primary small" Data="{DynamicResource GalleryHomeIcon}" HorizontalAlignment="Center" VerticalAlignment="Center" />
+    <PathIcon Grid.Column="1" Classes="primary" Data="{DynamicResource GalleryHomeIcon}" HorizontalAlignment="Center" VerticalAlignment="Center" />
+    <PathIcon Grid.Column="2" Classes="primary medium" Data="{DynamicResource GalleryHomeIcon}" HorizontalAlignment="Center" VerticalAlignment="Center" />
+    <PathIcon Grid.Column="3" Classes="primary large" Data="{DynamicResource GalleryHomeIcon}" HorizontalAlignment="Center" VerticalAlignment="Center" />
+    <TextBlock Grid.Row="1" Grid.Column="0" Classes="caption" Text="small, 20px" HorizontalAlignment="Center" Margin="0,4,0,0" />
+    <TextBlock Grid.Row="1" Grid.Column="1" Classes="caption" Text="no class, 24px" HorizontalAlignment="Center" Margin="0,4,0,0" />
+    <TextBlock Grid.Row="1" Grid.Column="2" Classes="caption" Text="medium, 24px" HorizontalAlignment="Center" Margin="0,4,0,0" />
+    <TextBlock Grid.Row="1" Grid.Column="3" Classes="caption" Text="large, 36px" HorizontalAlignment="Center" Margin="0,4,0,0" />
+  </Grid>
+</UserControl>

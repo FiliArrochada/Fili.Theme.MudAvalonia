@@ -1,0 +1,60 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <!-- Origin.TopRight is the default, no class; the other eight are one class each. -->
+  <Grid ColumnDefinitions="140,140,140" RowDefinitions="Auto,Auto,Auto">
+    <StackPanel Grid.Row="0" Grid.Column="0" Spacing="24" Margin="0,16">
+      <HeaderedContentControl Classes="badge secondary top-left" Header="1" HorizontalAlignment="Center">
+        <Border Width="48" Height="48" CornerRadius="4" Background="{DynamicResource FiliLinesInputsBrush}" />
+      </HeaderedContentControl>
+      <TextBlock Classes="caption" Text="top-left" HorizontalAlignment="Center" />
+    </StackPanel>
+    <StackPanel Grid.Row="0" Grid.Column="1" Spacing="24" Margin="0,16">
+      <HeaderedContentControl Classes="badge secondary top-center" Header="1" HorizontalAlignment="Center">
+        <Border Width="48" Height="48" CornerRadius="4" Background="{DynamicResource FiliLinesInputsBrush}" />
+      </HeaderedContentControl>
+      <TextBlock Classes="caption" Text="top-center" HorizontalAlignment="Center" />
+    </StackPanel>
+    <StackPanel Grid.Row="0" Grid.Column="2" Spacing="24" Margin="0,16">
+      <HeaderedContentControl Classes="badge secondary" Header="1" HorizontalAlignment="Center">
+        <Border Width="48" Height="48" CornerRadius="4" Background="{DynamicResource FiliLinesInputsBrush}" />
+      </HeaderedContentControl>
+      <TextBlock Classes="caption" Text="no class (top-right)" HorizontalAlignment="Center" />
+    </StackPanel>
+    <StackPanel Grid.Row="1" Grid.Column="0" Spacing="24" Margin="0,16">
+      <HeaderedContentControl Classes="badge secondary center-left" Header="1" HorizontalAlignment="Center">
+        <Border Width="48" Height="48" CornerRadius="4" Background="{DynamicResource FiliLinesInputsBrush}" />
+      </HeaderedContentControl>
+      <TextBlock Classes="caption" Text="center-left" HorizontalAlignment="Center" />
+    </StackPanel>
+    <StackPanel Grid.Row="1" Grid.Column="1" Spacing="24" Margin="0,16">
+      <HeaderedContentControl Classes="badge secondary center-center" Header="1" HorizontalAlignment="Center">
+        <Border Width="48" Height="48" CornerRadius="4" Background="{DynamicResource FiliLinesInputsBrush}" />
+      </HeaderedContentControl>
+      <TextBlock Classes="caption" Text="center-center" HorizontalAlignment="Center" />
+    </StackPanel>
+    <StackPanel Grid.Row="1" Grid.Column="2" Spacing="24" Margin="0,16">
+      <HeaderedContentControl Classes="badge secondary center-right" Header="1" HorizontalAlignment="Center">
+        <Border Width="48" Height="48" CornerRadius="4" Background="{DynamicResource FiliLinesInputsBrush}" />
+      </HeaderedContentControl>
+      <TextBlock Classes="caption" Text="center-right" HorizontalAlignment="Center" />
+    </StackPanel>
+    <StackPanel Grid.Row="2" Grid.Column="0" Spacing="24" Margin="0,16">
+      <HeaderedContentControl Classes="badge secondary bottom-left" Header="1" HorizontalAlignment="Center">
+        <Border Width="48" Height="48" CornerRadius="4" Background="{DynamicResource FiliLinesInputsBrush}" />
+      </HeaderedContentControl>
+      <TextBlock Classes="caption" Text="bottom-left" HorizontalAlignment="Center" />
+    </StackPanel>
+    <StackPanel Grid.Row="2" Grid.Column="1" Spacing="24" Margin="0,16">
+      <HeaderedContentControl Classes="badge secondary bottom-center" Header="1" HorizontalAlignment="Center">
+        <Border Width="48" Height="48" CornerRadius="4" Background="{DynamicResource FiliLinesInputsBrush}" />
+      </HeaderedContentControl>
+      <TextBlock Classes="caption" Text="bottom-center" HorizontalAlignment="Center" />
+    </StackPanel>
+    <StackPanel Grid.Row="2" Grid.Column="2" Spacing="24" Margin="0,16">
+      <HeaderedContentControl Classes="badge secondary bottom-right" Header="1" HorizontalAlignment="Center">
+        <Border Width="48" Height="48" CornerRadius="4" Background="{DynamicResource FiliLinesInputsBrush}" />
+      </HeaderedContentControl>
+      <TextBlock Classes="caption" Text="bottom-right" HorizontalAlignment="Center" />
+    </StackPanel>
+  </Grid>
+</UserControl>

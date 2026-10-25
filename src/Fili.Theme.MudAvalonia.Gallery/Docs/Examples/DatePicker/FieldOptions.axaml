@@ -1,0 +1,12 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <WrapPanel ItemSpacing="16" LineSpacing="16">
+    <CalendarDatePicker Classes="filled" Width="220" VerticalAlignment="Top" PlaceholderText="Due date"
+                        AutomationProperties.HelpText="When the invoice is due" />
+    <CalendarDatePicker Classes="outlined required" Width="220" VerticalAlignment="Top" PlaceholderText="Start" />
+    <CalendarDatePicker Classes="outlined error" Width="220" VerticalAlignment="Top" PlaceholderText="End" SelectedDate="2026-10-11" />
+    <!-- dense is the field's Margin.Dense. -->
+    <CalendarDatePicker Classes="outlined dense" Width="220" VerticalAlignment="Top" PlaceholderText="Dense" SelectedDate="2026-10-11" />
+    <CalendarDatePicker Classes="shrink-label" Width="220" VerticalAlignment="Top" PlaceholderText="Shrink label" />
+  </WrapPanel>
+</UserControl>

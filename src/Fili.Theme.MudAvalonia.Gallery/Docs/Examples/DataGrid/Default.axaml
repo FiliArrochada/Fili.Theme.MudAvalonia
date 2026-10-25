@@ -1,0 +1,16 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:v="using:Fili.Theme.MudAvalonia.Gallery.Views">
+  <!-- MudDataGrid with no parameters is any DataGrid: surface at elevation 1, subtitle2 headers in
+       a 59px row, body2 cells 16px round, a table-lines rule under every row but the last. No
+       hover and no stripes, as both default to false. -->
+  <DataGrid ItemsSource="{x:Static v:GalleryElement.FirstSix}">
+    <DataGrid.Columns>
+      <DataGridTextColumn Header="Nr" Binding="{Binding Number}" x:DataType="v:GalleryElement" />
+      <DataGridTextColumn Header="Sign" Binding="{Binding Sign}" x:DataType="v:GalleryElement" />
+      <DataGridTextColumn Header="Name" Binding="{Binding Name}" x:DataType="v:GalleryElement" Width="*" />
+      <DataGridTextColumn Header="Position" Binding="{Binding Position}" x:DataType="v:GalleryElement" />
+      <DataGridTextColumn Header="Molar mass" Binding="{Binding Molar}" x:DataType="v:GalleryElement" />
+    </DataGrid.Columns>
+  </DataGrid>
+</UserControl>

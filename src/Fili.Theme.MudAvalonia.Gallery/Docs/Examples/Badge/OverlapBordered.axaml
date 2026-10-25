@@ -1,0 +1,22 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <!-- overlap sits 12px into the corner rather than 4px; bordered rings the badge in 2px of surface. -->
+  <Grid ColumnDefinitions="128,128,128,128" RowDefinitions="64,Auto">
+    <HeaderedContentControl Grid.Column="0" Classes="badge error" Header="8" HorizontalAlignment="Center" VerticalAlignment="Center">
+      <Border Classes="avatar primary"><PathIcon Data="{DynamicResource GalleryPersonIcon}" /></Border>
+    </HeaderedContentControl>
+    <HeaderedContentControl Grid.Column="1" Classes="badge error overlap" Header="8" HorizontalAlignment="Center" VerticalAlignment="Center">
+      <Border Classes="avatar primary"><PathIcon Data="{DynamicResource GalleryPersonIcon}" /></Border>
+    </HeaderedContentControl>
+    <HeaderedContentControl Grid.Column="2" Classes="badge error bordered" Header="8" HorizontalAlignment="Center" VerticalAlignment="Center">
+      <Border Classes="avatar primary"><PathIcon Data="{DynamicResource GalleryPersonIcon}" /></Border>
+    </HeaderedContentControl>
+    <HeaderedContentControl Grid.Column="3" Classes="badge error overlap bordered" Header="8" HorizontalAlignment="Center" VerticalAlignment="Center">
+      <Border Classes="avatar primary"><PathIcon Data="{DynamicResource GalleryPersonIcon}" /></Border>
+    </HeaderedContentControl>
+    <TextBlock Grid.Row="1" Grid.Column="0" Classes="caption" Text="no class" HorizontalAlignment="Center" Margin="0,8,0,0" />
+    <TextBlock Grid.Row="1" Grid.Column="1" Classes="caption" Text="overlap" HorizontalAlignment="Center" Margin="0,8,0,0" />
+    <TextBlock Grid.Row="1" Grid.Column="2" Classes="caption" Text="bordered" HorizontalAlignment="Center" Margin="0,8,0,0" />
+    <TextBlock Grid.Row="1" Grid.Column="3" Classes="caption" Text="overlap bordered" HorizontalAlignment="Center" Margin="0,8,0,0" />
+  </Grid>
+</UserControl>

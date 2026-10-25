@@ -1,0 +1,81 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:docs="using:Fili.Theme.MudAvalonia.Gallery.Docs"
+             x:Class="Fili.Theme.MudAvalonia.Gallery.Docs.Pages.TablePage">
+  <StackPanel Classes="doc">
+    <docs:DocHeader Title="Table"
+                    Summary="Avalonia's own TableView, drawn as MudTable and MudSimpleTable: surface at elevation 1, subtitle2 headers and body2 cells 16px round. It needs no package; the data grid wears the same look."
+                    MudBlazor="Table"
+                    MudBlazorPath="components/table" />
+
+    <TextBlock Classes="h5 section" Text="Default table" />
+    <docs:ExampleCard Title="A TableView with no class"
+                      Description="Surface at elevation 1 and the default radius, subtitle2 headers at weight 500 over a table-lines rule, body2 cells 16px round, and a rule under every row but the last."
+                      Source="Table/Default" />
+    <TextBlock Classes="body1 p">
+      <Run Text="The rows are the app's: an " />
+      <Run Classes="code" Text="ItemsSource" />
+      <Run Text=" and a " />
+      <Run Classes="code" Text="CellTemplate" />
+      <Run Text=" per " />
+      <Run Classes="code" Text="TableViewColumn" />
+      <Run Text=". MudSimpleTable, a table written out row by row, is the same control with the same classes: both MudBlazor components map here. Left to size itself, a table is as tall as its rows; given a Height, it scrolls inside it." />
+    </TextBlock>
+
+    <TextBlock Classes="h5 section" Text="Dense" />
+    <docs:ExampleCard Title="dense"
+                      Description="MudTable's Dense: 6px 24px 6px 16px a cell and a header, and 16px on the right of the last column."
+                      Source="Table/Dense" />
+
+    <TextBlock Classes="h5 section" Text="Striped and hover" />
+    <docs:ExampleCard Title="striped and hover"
+                      Description="striped is Striped, table-striped on the 1st, 3rd, 5th row; hover is Hover, table-hover under the pointer, over the stripe. Both are off by default, as in MudBlazor."
+                      Source="Table/StripedHover" />
+
+    <TextBlock Classes="h5 section" Text="Selected row" />
+    <docs:ExampleCard Title="A row selected"
+                      Description="MudTable draws no selected row. Here a selected row is primary-hover, the primary at 6%, as on the data grid, so selection is visible."
+                      Source="Table/Selection" />
+
+    <TextBlock Classes="h5 section" Text="Elevation, outlined and square" />
+    <docs:ExampleCard Title="elevation0 to elevation25, outlined, CornerRadius 0"
+                      Description="An elevation class replaces the default 1. outlined is a 1px lines-default border and no elevation, as MudPaper adds none when it is outlined. CornerRadius=&quot;0&quot; is Square."
+                      Source="Table/Elevation" />
+    <TextBlock Classes="body1 p">
+      <Run Text="The colours are tokens: " />
+      <Run Classes="code" Text="FiliTableLinesColor" />
+      <Run Text=", " />
+      <Run Classes="code" Text="FiliTableStripedColor" />
+      <Run Text=" and " />
+      <Run Classes="code" Text="FiliTableHoverColor" />
+      <Run Text=", MudBlazor's TableLines, TableStriped and TableHover. Sorting, grouping, editing and a checkbox column are the data grid's." />
+    </TextBlock>
+    <StackPanel Orientation="Horizontal" Spacing="8" Margin="0,0,0,16">
+      <TextBlock Classes="body1" Text="See also:" VerticalAlignment="Center" />
+      <docs:DocLink Slug="data-grid" Content="Data grid" />
+    </StackPanel>
+
+    <TextBlock Classes="h5 section" Text="MudBlazor parity" />
+    <TextBlock Classes="body1 p">
+      <Run Text="Every MudTable and MudSimpleTable parameter the theme draws, and what it is here. " />
+      <Run Classes="code" Text="Same" />
+      <Run Text=" is transcribed from MudBlazor's source; " />
+      <Run Classes="code" Text="Close" />
+      <Run Text=" gets the same result another way." />
+    </TextBlock>
+    <docs:ParityTable>
+      <docs:ParityRow MudBlazor="MudTable, MudSimpleTable" Here="TableView" Status="Same" Note="The data grid's .mud-table look: text-primary on surface, the default radius." />
+      <docs:ParityRow MudBlazor="the header row" Here="the column headers" Status="Same" Note="Subtitle2 at weight 500, 16px round, over a 1px table-lines rule." />
+      <docs:ParityRow MudBlazor="a body row" Here="the rows" Status="Same" Note="Body2, 16px round, a table-lines rule under every row but the last." />
+      <docs:ParityRow MudBlazor="Dense" Here="dense" Status="Same" Note="6px 24px 6px 16px a cell and the header, 16px on the right of the last." />
+      <docs:ParityRow MudBlazor="Striped" Here="striped" Status="Same" Note="Table-striped on odd rows." />
+      <docs:ParityRow MudBlazor="Hover" Here="hover" Status="Same" Note="Table-hover under the pointer, over the stripe." />
+      <docs:ParityRow MudBlazor="Outlined" Here="outlined" Status="Same" Note="A 1px lines-default border and no elevation." />
+      <docs:ParityRow MudBlazor="Elevation (default 1)" Here="no class, or elevation0 … elevation25" Status="Same" />
+      <docs:ParityRow MudBlazor="Bordered" Here="—" Status="Missing" Note="No lines between a table's columns; a data grid draws them with GridLinesVisibility=&quot;All&quot;." />
+      <docs:ParityRow MudBlazor="Square" Here="CornerRadius=&quot;0&quot;" Status="Same" />
+      <docs:ParityRow MudBlazor="TableLines, TableStriped, TableHover" Here="FiliTableLinesColor, FiliTableStripedColor, FiliTableHoverColor" Status="Same" Note="Palette tokens, each with its brush." />
+      <docs:ParityRow MudBlazor="a selected row" Here="SelectedItem" Status="Close" Note="MudTable draws none; here primary-hover, as on the data grid, so selection is visible." />
+    </docs:ParityTable>
+  </StackPanel>
+</UserControl>

@@ -1,0 +1,14 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <!-- The avatar never clips itself, so its shadow survives. -->
+  <Grid ColumnDefinitions="120,120,120,120" RowDefinitions="88,Auto">
+    <Border Grid.Column="0" Classes="avatar large" HorizontalAlignment="Center" VerticalAlignment="Center"><TextBlock Text="0" /></Border>
+    <Border Grid.Column="1" Classes="avatar large elevation2" HorizontalAlignment="Center" VerticalAlignment="Center"><TextBlock Text="2" /></Border>
+    <Border Grid.Column="2" Classes="avatar large elevation6" HorizontalAlignment="Center" VerticalAlignment="Center"><TextBlock Text="6" /></Border>
+    <Border Grid.Column="3" Classes="avatar large elevation12" HorizontalAlignment="Center" VerticalAlignment="Center"><TextBlock Text="12" /></Border>
+    <TextBlock Grid.Row="1" Grid.Column="0" Classes="caption" Text="no class" HorizontalAlignment="Center" Margin="0,8,0,0" />
+    <TextBlock Grid.Row="1" Grid.Column="1" Classes="caption" Text="elevation2" HorizontalAlignment="Center" Margin="0,8,0,0" />
+    <TextBlock Grid.Row="1" Grid.Column="2" Classes="caption" Text="elevation6" HorizontalAlignment="Center" Margin="0,8,0,0" />
+    <TextBlock Grid.Row="1" Grid.Column="3" Classes="caption" Text="elevation12" HorizontalAlignment="Center" Margin="0,8,0,0" />
+  </Grid>
+</UserControl>

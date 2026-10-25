@@ -24,7 +24,9 @@ public static class DocCatalog
     public const string Inputs = "Form & inputs";
     public const string Navigation = "Navigation";
     public const string Surfaces = "Surfaces & lists";
+    public const string Pickers = "Pickers";
     public const string Feedback = "Feedback";
+    public const string DataDisplay = "Data display";
     public const string Showcase = "Showcase";
 
     public static IReadOnlyList<DocPage> Pages { get; } =
@@ -56,6 +58,9 @@ public static class DocCatalog
         new(Inputs, "Slider", "slider", () => new SliderPage()),
         new(Inputs, "Toggle group", "toggle-group", () => new ToggleGroupPage()),
 
+        new(Pickers, "Date picker", "date-picker", () => new DatePickerPage()),
+        new(Pickers, "Time picker", "time-picker", () => new TimePickerPage()),
+
         new(Navigation, "App bar", "app-bar", () => new AppBarPage()),
         new(Navigation, "Drawer", "drawer", () => new DrawerDocPage()),
         new(Navigation, "Nav menu", "nav-menu", () => new NavMenuPage()),
@@ -79,6 +84,13 @@ public static class DocCatalog
         new(Feedback, "Progress", "progress", () => new ProgressPage()),
         new(Feedback, "Skeleton", "skeleton", () => new SkeletonPage()),
         new(Feedback, "Overlay", "overlay", () => new OverlayPage()),
+
+        new(DataDisplay, "Table", "table", () => new TablePage()),
+        new(DataDisplay, "Data grid", "data-grid", () => new DataGridPage()),
+        new(DataDisplay, "Avatar", "avatar", () => new AvatarPage()),
+        new(DataDisplay, "Badge", "badge", () => new BadgePage()),
+        new(DataDisplay, "Icons", "icons", () => new IconsPage()),
+        new(DataDisplay, "Image", "image", () => new ImagePage()),
 
         new(Showcase, "Control states", "control-states", () => new ControlStatesView(), Scrolls: true),
         new(Showcase, "Custom styles", "custom-styles", () => new CustomStylesView(), Scrolls: true),

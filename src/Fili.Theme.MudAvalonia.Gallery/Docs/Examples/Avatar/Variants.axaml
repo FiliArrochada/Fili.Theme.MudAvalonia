@@ -1,0 +1,37 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <!-- One row per variant, one column per colour. -->
+  <Grid ColumnDefinitions="Auto,64,64,64,64,64,64,64,64,64" RowDefinitions="Auto,Auto,Auto">
+    <TextBlock Grid.Column="1" Classes="caption" Text="default" HorizontalAlignment="Center" />
+    <TextBlock Grid.Column="2" Classes="caption" Text="primary" HorizontalAlignment="Center" />
+    <TextBlock Grid.Column="3" Classes="caption" Text="secondary" HorizontalAlignment="Center" />
+    <TextBlock Grid.Column="4" Classes="caption" Text="tertiary" HorizontalAlignment="Center" />
+    <TextBlock Grid.Column="5" Classes="caption" Text="info" HorizontalAlignment="Center" />
+    <TextBlock Grid.Column="6" Classes="caption" Text="success" HorizontalAlignment="Center" />
+    <TextBlock Grid.Column="7" Classes="caption" Text="warning" HorizontalAlignment="Center" />
+    <TextBlock Grid.Column="8" Classes="caption" Text="error" HorizontalAlignment="Center" />
+    <TextBlock Grid.Column="9" Classes="caption" Text="dark" HorizontalAlignment="Center" />
+
+    <TextBlock Grid.Row="1" Classes="caption" Text="filled" VerticalAlignment="Center" Margin="0,0,16,0" />
+    <Border Grid.Row="1" Grid.Column="1" Classes="avatar" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,8"><TextBlock Text="D" /></Border>
+    <Border Grid.Row="1" Grid.Column="2" Classes="avatar primary" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,8"><TextBlock Text="P" /></Border>
+    <Border Grid.Row="1" Grid.Column="3" Classes="avatar secondary" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,8"><TextBlock Text="S" /></Border>
+    <Border Grid.Row="1" Grid.Column="4" Classes="avatar tertiary" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,8"><TextBlock Text="T" /></Border>
+    <Border Grid.Row="1" Grid.Column="5" Classes="avatar info" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,8"><TextBlock Text="I" /></Border>
+    <Border Grid.Row="1" Grid.Column="6" Classes="avatar success" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,8"><TextBlock Text="S" /></Border>
+    <Border Grid.Row="1" Grid.Column="7" Classes="avatar warning" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,8"><TextBlock Text="W" /></Border>
+    <Border Grid.Row="1" Grid.Column="8" Classes="avatar error" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,8"><TextBlock Text="E" /></Border>
+    <Border Grid.Row="1" Grid.Column="9" Classes="avatar dark" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,8"><TextBlock Text="D" /></Border>
+
+    <TextBlock Grid.Row="2" Classes="caption" Text="outlined" VerticalAlignment="Center" Margin="0,0,16,0" />
+    <Border Grid.Row="2" Grid.Column="1" Classes="avatar outlined" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,8"><TextBlock Text="D" /></Border>
+    <Border Grid.Row="2" Grid.Column="2" Classes="avatar outlined primary" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,8"><TextBlock Text="P" /></Border>
+    <Border Grid.Row="2" Grid.Column="3" Classes="avatar outlined secondary" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,8"><TextBlock Text="S" /></Border>
+    <Border Grid.Row="2" Grid.Column="4" Classes="avatar outlined tertiary" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,8"><TextBlock Text="T" /></Border>
+    <Border Grid.Row="2" Grid.Column="5" Classes="avatar outlined info" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,8"><TextBlock Text="I" /></Border>
+    <Border Grid.Row="2" Grid.Column="6" Classes="avatar outlined success" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,8"><TextBlock Text="S" /></Border>
+    <Border Grid.Row="2" Grid.Column="7" Classes="avatar outlined warning" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,8"><TextBlock Text="W" /></Border>
+    <Border Grid.Row="2" Grid.Column="8" Classes="avatar outlined error" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,8"><TextBlock Text="E" /></Border>
+    <Border Grid.Row="2" Grid.Column="9" Classes="avatar outlined dark" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,8"><TextBlock Text="D" /></Border>
+  </Grid>
+</UserControl>

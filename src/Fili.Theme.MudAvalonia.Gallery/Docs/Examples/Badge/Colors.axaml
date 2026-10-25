@@ -1,0 +1,42 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <!-- A colour class paints the badge, never what it decorates. -->
+  <Grid ColumnDefinitions="72,72,72,72,72,72,72,72,72" RowDefinitions="56,Auto">
+    <HeaderedContentControl Grid.Column="0" Classes="badge" Header="5" HorizontalAlignment="Center" VerticalAlignment="Center">
+      <PathIcon Data="{DynamicResource GalleryNotificationsIcon}" />
+    </HeaderedContentControl>
+    <HeaderedContentControl Grid.Column="1" Classes="badge primary" Header="5" HorizontalAlignment="Center" VerticalAlignment="Center">
+      <PathIcon Data="{DynamicResource GalleryNotificationsIcon}" />
+    </HeaderedContentControl>
+    <HeaderedContentControl Grid.Column="2" Classes="badge secondary" Header="5" HorizontalAlignment="Center" VerticalAlignment="Center">
+      <PathIcon Data="{DynamicResource GalleryNotificationsIcon}" />
+    </HeaderedContentControl>
+    <HeaderedContentControl Grid.Column="3" Classes="badge tertiary" Header="5" HorizontalAlignment="Center" VerticalAlignment="Center">
+      <PathIcon Data="{DynamicResource GalleryNotificationsIcon}" />
+    </HeaderedContentControl>
+    <HeaderedContentControl Grid.Column="4" Classes="badge info" Header="5" HorizontalAlignment="Center" VerticalAlignment="Center">
+      <PathIcon Data="{DynamicResource GalleryNotificationsIcon}" />
+    </HeaderedContentControl>
+    <HeaderedContentControl Grid.Column="5" Classes="badge success" Header="5" HorizontalAlignment="Center" VerticalAlignment="Center">
+      <PathIcon Data="{DynamicResource GalleryNotificationsIcon}" />
+    </HeaderedContentControl>
+    <HeaderedContentControl Grid.Column="6" Classes="badge warning" Header="5" HorizontalAlignment="Center" VerticalAlignment="Center">
+      <PathIcon Data="{DynamicResource GalleryNotificationsIcon}" />
+    </HeaderedContentControl>
+    <HeaderedContentControl Grid.Column="7" Classes="badge error" Header="5" HorizontalAlignment="Center" VerticalAlignment="Center">
+      <PathIcon Data="{DynamicResource GalleryNotificationsIcon}" />
+    </HeaderedContentControl>
+    <HeaderedContentControl Grid.Column="8" Classes="badge dark" Header="5" HorizontalAlignment="Center" VerticalAlignment="Center">
+      <PathIcon Data="{DynamicResource GalleryNotificationsIcon}" />
+    </HeaderedContentControl>
+    <TextBlock Grid.Row="1" Grid.Column="0" Classes="caption" Text="default" HorizontalAlignment="Center" Margin="0,8,0,0" />
+    <TextBlock Grid.Row="1" Grid.Column="1" Classes="caption" Text="primary" HorizontalAlignment="Center" Margin="0,8,0,0" />
+    <TextBlock Grid.Row="1" Grid.Column="2" Classes="caption" Text="secondary" HorizontalAlignment="Center" Margin="0,8,0,0" />
+    <TextBlock Grid.Row="1" Grid.Column="3" Classes="caption" Text="tertiary" HorizontalAlignment="Center" Margin="0,8,0,0" />
+    <TextBlock Grid.Row="1" Grid.Column="4" Classes="caption" Text="info" HorizontalAlignment="Center" Margin="0,8,0,0" />
+    <TextBlock Grid.Row="1" Grid.Column="5" Classes="caption" Text="success" HorizontalAlignment="Center" Margin="0,8,0,0" />
+    <TextBlock Grid.Row="1" Grid.Column="6" Classes="caption" Text="warning" HorizontalAlignment="Center" Margin="0,8,0,0" />
+    <TextBlock Grid.Row="1" Grid.Column="7" Classes="caption" Text="error" HorizontalAlignment="Center" Margin="0,8,0,0" />
+    <TextBlock Grid.Row="1" Grid.Column="8" Classes="caption" Text="dark" HorizontalAlignment="Center" Margin="0,8,0,0" />
+  </Grid>
+</UserControl>

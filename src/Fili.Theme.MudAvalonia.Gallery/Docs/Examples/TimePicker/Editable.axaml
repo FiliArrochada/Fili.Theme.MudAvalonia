@@ -1,0 +1,11 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <WrapPanel ItemSpacing="16" LineSpacing="16">
+    <!-- Read-only by default: a click on the field opens the picker. -->
+    <TimePicker Classes="outlined" Width="220" VerticalAlignment="Top" AutomationProperties.Name="Read-only (default)" SelectedTime="09:45" />
+    <!-- editable: the time is typed, and taken on Enter or when the field loses focus. -->
+    <TimePicker Classes="outlined editable" Width="220" VerticalAlignment="Top" AutomationProperties.Name="Editable" SelectedTime="09:45" />
+    <TimePicker Classes="outlined editable" Width="220" VerticalAlignment="Top" AutomationProperties.Name="Editable, 12-hour"
+                SelectedTime="18:20" ClockIdentifier="12HourClock" />
+  </WrapPanel>
+</UserControl>

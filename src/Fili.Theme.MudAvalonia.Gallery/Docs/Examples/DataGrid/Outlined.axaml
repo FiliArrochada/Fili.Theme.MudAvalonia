@@ -1,0 +1,22 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:v="using:Fili.Theme.MudAvalonia.Gallery.Views">
+  <!-- outlined is a 1px lines-default border and no elevation; the elevation classes replace the
+       default 1; CornerRadius="0" is Square. -->
+  <Grid ColumnDefinitions="*,*" RowDefinitions="Auto,Auto" ColumnSpacing="24">
+    <TextBlock Classes="caption" Text="outlined" Margin="0,0,0,8" />
+    <TextBlock Grid.Column="1" Classes="caption" Text="elevation4, CornerRadius 0" Margin="0,0,0,8" />
+    <DataGrid Grid.Row="1" Classes="outlined" ItemsSource="{x:Static v:GalleryElement.FirstSix}">
+      <DataGrid.Columns>
+        <DataGridTextColumn Header="Name" Binding="{Binding Name}" x:DataType="v:GalleryElement" Width="*" />
+        <DataGridTextColumn Header="Sign" Binding="{Binding Sign}" x:DataType="v:GalleryElement" />
+      </DataGrid.Columns>
+    </DataGrid>
+    <DataGrid Grid.Row="1" Grid.Column="1" Classes="elevation4" CornerRadius="0" ItemsSource="{x:Static v:GalleryElement.FirstSix}">
+      <DataGrid.Columns>
+        <DataGridTextColumn Header="Name" Binding="{Binding Name}" x:DataType="v:GalleryElement" Width="*" />
+        <DataGridTextColumn Header="Sign" Binding="{Binding Sign}" x:DataType="v:GalleryElement" />
+      </DataGrid.Columns>
+    </DataGrid>
+  </Grid>
+</UserControl>

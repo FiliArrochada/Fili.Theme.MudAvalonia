@@ -1,0 +1,12 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <!-- MinuteIncrement: the minute column in steps. -->
+  <WrapPanel ItemSpacing="16" LineSpacing="16">
+    <TimePicker Classes="outlined" Width="220" VerticalAlignment="Top" AutomationProperties.Name="Every 15 minutes"
+                SelectedTime="14:30" MinuteIncrement="15" />
+    <StackPanel Spacing="8">
+      <TextBlock Classes="caption" Text="Its picker: MinuteIncrement=&quot;15&quot;" Margin="8,0" />
+      <TimePickerPresenter Time="14:30" MinuteIncrement="15" />
+    </StackPanel>
+  </WrapPanel>
+</UserControl>

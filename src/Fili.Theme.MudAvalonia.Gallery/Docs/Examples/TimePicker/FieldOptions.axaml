@@ -1,0 +1,12 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <WrapPanel ItemSpacing="16" LineSpacing="16">
+    <TimePicker Classes="filled" Width="220" VerticalAlignment="Top" AutomationProperties.Name="Starts at"
+                AutomationProperties.HelpText="When the meeting starts" />
+    <TimePicker Classes="outlined required" Width="220" VerticalAlignment="Top" AutomationProperties.Name="Alarm" />
+    <TimePicker Classes="outlined error" Width="220" VerticalAlignment="Top" AutomationProperties.Name="Ends at" SelectedTime="17:00" />
+    <!-- dense is the field's Margin.Dense. -->
+    <TimePicker Classes="outlined dense" Width="220" VerticalAlignment="Top" AutomationProperties.Name="Dense" SelectedTime="07:15" />
+    <TimePicker Classes="shrink-label" Width="220" VerticalAlignment="Top" AutomationProperties.Name="Shrink label" />
+  </WrapPanel>
+</UserControl>

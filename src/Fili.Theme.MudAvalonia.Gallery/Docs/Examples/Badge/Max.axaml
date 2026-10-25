@@ -1,0 +1,27 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:sys="using:System">
+  <!-- MudBadge.Max is fixed at its default: an int Header over 99 reads 99+. A string is shown as written. -->
+  <Grid ColumnDefinitions="96,96,96,96" RowDefinitions="56,Auto">
+    <HeaderedContentControl Grid.Column="0" Classes="badge info" HorizontalAlignment="Center" VerticalAlignment="Center">
+      <HeaderedContentControl.Header><sys:Int32>9</sys:Int32></HeaderedContentControl.Header>
+      <PathIcon Data="{DynamicResource GalleryMailIcon}" />
+    </HeaderedContentControl>
+    <HeaderedContentControl Grid.Column="1" Classes="badge info" HorizontalAlignment="Center" VerticalAlignment="Center">
+      <HeaderedContentControl.Header><sys:Int32>99</sys:Int32></HeaderedContentControl.Header>
+      <PathIcon Data="{DynamicResource GalleryMailIcon}" />
+    </HeaderedContentControl>
+    <HeaderedContentControl Grid.Column="2" Classes="badge info" HorizontalAlignment="Center" VerticalAlignment="Center">
+      <HeaderedContentControl.Header><sys:Int32>100</sys:Int32></HeaderedContentControl.Header>
+      <PathIcon Data="{DynamicResource GalleryMailIcon}" />
+    </HeaderedContentControl>
+    <HeaderedContentControl Grid.Column="3" Classes="badge info" HorizontalAlignment="Center" VerticalAlignment="Center">
+      <HeaderedContentControl.Header><sys:Int32>1000</sys:Int32></HeaderedContentControl.Header>
+      <PathIcon Data="{DynamicResource GalleryMailIcon}" />
+    </HeaderedContentControl>
+    <TextBlock Grid.Row="1" Grid.Column="0" Classes="caption" Text="int 9" HorizontalAlignment="Center" Margin="0,8,0,0" />
+    <TextBlock Grid.Row="1" Grid.Column="1" Classes="caption" Text="int 99" HorizontalAlignment="Center" Margin="0,8,0,0" />
+    <TextBlock Grid.Row="1" Grid.Column="2" Classes="caption" Text="int 100" HorizontalAlignment="Center" Margin="0,8,0,0" />
+    <TextBlock Grid.Row="1" Grid.Column="3" Classes="caption" Text="int 1000" HorizontalAlignment="Center" Margin="0,8,0,0" />
+  </Grid>
+</UserControl>

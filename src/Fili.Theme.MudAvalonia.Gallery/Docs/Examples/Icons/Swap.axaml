@@ -1,0 +1,32 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <StackPanel Spacing="24">
+    <!-- One control: the select's OpenIcon and CloseIcon as Filled.KeyboardArrowDown and Up. -->
+    <WrapPanel ItemSpacing="16" LineSpacing="16">
+      <ComboBox Width="220" PlaceholderText="Theme's arrow">
+        <ComboBoxItem>Apple</ComboBoxItem>
+        <ComboBoxItem>Pear</ComboBoxItem>
+      </ComboBox>
+      <ComboBox Width="220" PlaceholderText="Swapped arrow">
+        <ComboBox.Resources>
+          <StreamGeometry x:Key="FiliArrowDropDownGeometry">M7.41 8.59 12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z</StreamGeometry>
+          <StreamGeometry x:Key="FiliArrowDropUpGeometry">M7.41 15.41 12 10.83l4.59 4.58L18 14l-6-6-6 6z</StreamGeometry>
+        </ComboBox.Resources>
+        <ComboBoxItem>Apple</ComboBoxItem>
+        <ComboBoxItem>Pear</ComboBoxItem>
+      </ComboBox>
+    </WrapPanel>
+    <!-- A region: the key on a parent reaches every expander inside it (Filled.ArrowDownward). -->
+    <StackPanel Classes="expansion-panels" Width="400" HorizontalAlignment="Left">
+      <StackPanel.Resources>
+        <StreamGeometry x:Key="FiliExpandMoreGeometry">M20 12l-1.41-1.41L13 16.17V4h-2v12.17l-5.58-5.59L4 12l8 8 8-8z</StreamGeometry>
+      </StackPanel.Resources>
+      <Expander Header="First panel">
+        <TextBlock Text="Panel content" />
+      </Expander>
+      <Expander Header="Second panel">
+        <TextBlock Text="Panel content" />
+      </Expander>
+    </StackPanel>
+  </StackPanel>
+</UserControl>

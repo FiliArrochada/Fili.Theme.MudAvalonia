@@ -1,0 +1,38 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <!-- PathIcon draws a glyph at its own coordinates in a 24px box, as MudIcon's ViewBox does, so a
+       Material glyph keeps the room round it. A Path of your own does the same on a 24x24 Canvas
+       with Stretch="None"; Stretch="Uniform" stretches the glyph's bounds to the box instead.
+       Each cell is 48px, its box shaded. -->
+  <Grid ColumnDefinitions="Auto,170,170,170" RowDefinitions="Auto,Auto,Auto">
+    <TextBlock Grid.Column="1" Classes="caption" Text="PathIcon" HorizontalAlignment="Center" />
+    <TextBlock Grid.Column="2" Classes="caption" Text="Path, 24x24, Stretch=None" HorizontalAlignment="Center" />
+    <TextBlock Grid.Column="3" Classes="caption" Text="Path, Stretch=Uniform" HorizontalAlignment="Center" />
+
+    <TextBlock Grid.Row="1" Classes="caption" Text="PlayArrow" VerticalAlignment="Center" Margin="0,0,16,0" />
+    <PathIcon Grid.Row="1" Grid.Column="1" Width="48" Height="48" Margin="0,8"
+              Background="{DynamicResource FiliActionDefaultHoverBrush}"
+              Data="{DynamicResource GalleryPlayArrowIcon}" />
+    <Viewbox Grid.Row="1" Grid.Column="2" Width="48" Height="48" Margin="0,8">
+      <Canvas Width="24" Height="24" Background="{DynamicResource FiliActionDefaultHoverBrush}">
+        <Path Data="{DynamicResource GalleryPlayArrowIcon}" Fill="{DynamicResource FiliTextPrimaryBrush}" Stretch="None" />
+      </Canvas>
+    </Viewbox>
+    <Border Grid.Row="1" Grid.Column="3" Width="48" Height="48" Margin="0,8" Background="{DynamicResource FiliActionDefaultHoverBrush}">
+      <Path Data="{DynamicResource GalleryPlayArrowIcon}" Fill="{DynamicResource FiliTextPrimaryBrush}" Stretch="Uniform" />
+    </Border>
+
+    <TextBlock Grid.Row="2" Classes="caption" Text="Add" VerticalAlignment="Center" Margin="0,0,16,0" />
+    <PathIcon Grid.Row="2" Grid.Column="1" Width="48" Height="48" Margin="0,8"
+              Background="{DynamicResource FiliActionDefaultHoverBrush}"
+              Data="{DynamicResource GalleryAddIcon}" />
+    <Viewbox Grid.Row="2" Grid.Column="2" Width="48" Height="48" Margin="0,8">
+      <Canvas Width="24" Height="24" Background="{DynamicResource FiliActionDefaultHoverBrush}">
+        <Path Data="{DynamicResource GalleryAddIcon}" Fill="{DynamicResource FiliTextPrimaryBrush}" Stretch="None" />
+      </Canvas>
+    </Viewbox>
+    <Border Grid.Row="2" Grid.Column="3" Width="48" Height="48" Margin="0,8" Background="{DynamicResource FiliActionDefaultHoverBrush}">
+      <Path Data="{DynamicResource GalleryAddIcon}" Fill="{DynamicResource FiliTextPrimaryBrush}" Stretch="Uniform" />
+    </Border>
+  </Grid>
+</UserControl>

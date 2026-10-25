@@ -1,0 +1,36 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:v="using:Fili.Theme.MudAvalonia.Gallery.Views">
+  <!-- MudTable with no parameters: surface at elevation 1, subtitle2 headers over a table-lines
+       rule, body2 cells 16px round, and a rule under every row but the last. The rows are the
+       app's: ItemsSource and a CellTemplate per column. -->
+  <TableView ItemsSource="{x:Static v:GalleryElement.FirstSix}">
+    <TableView.Columns>
+      <TableViewColumn Header="Nr" Width="64">
+        <TableViewColumn.CellTemplate>
+          <DataTemplate x:DataType="v:GalleryElement"><TextBlock Text="{Binding Number}" /></DataTemplate>
+        </TableViewColumn.CellTemplate>
+      </TableViewColumn>
+      <TableViewColumn Header="Sign" Width="80">
+        <TableViewColumn.CellTemplate>
+          <DataTemplate x:DataType="v:GalleryElement"><TextBlock Text="{Binding Sign}" /></DataTemplate>
+        </TableViewColumn.CellTemplate>
+      </TableViewColumn>
+      <TableViewColumn Header="Name" Width="*">
+        <TableViewColumn.CellTemplate>
+          <DataTemplate x:DataType="v:GalleryElement"><TextBlock Text="{Binding Name}" /></DataTemplate>
+        </TableViewColumn.CellTemplate>
+      </TableViewColumn>
+      <TableViewColumn Header="Position" Width="96">
+        <TableViewColumn.CellTemplate>
+          <DataTemplate x:DataType="v:GalleryElement"><TextBlock Text="{Binding Position}" /></DataTemplate>
+        </TableViewColumn.CellTemplate>
+      </TableViewColumn>
+      <TableViewColumn Header="Molar mass" Width="120">
+        <TableViewColumn.CellTemplate>
+          <DataTemplate x:DataType="v:GalleryElement"><TextBlock Text="{Binding Molar}" /></DataTemplate>
+        </TableViewColumn.CellTemplate>
+      </TableViewColumn>
+    </TableView.Columns>
+  </TableView>
+</UserControl>

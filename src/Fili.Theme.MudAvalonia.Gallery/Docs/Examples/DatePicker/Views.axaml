@@ -1,0 +1,18 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <!-- DisplayMode picks the view: the days, the months or the years. -->
+  <WrapPanel ItemSpacing="24" LineSpacing="16">
+    <StackPanel Spacing="8">
+      <TextBlock Classes="caption" Text="DisplayMode=&quot;Month&quot;: the days" />
+      <Calendar DisplayMode="Month" DisplayDate="2026-10-01" SelectedDate="2026-10-11" IsTodayHighlighted="False" />
+    </StackPanel>
+    <StackPanel Spacing="8">
+      <TextBlock Classes="caption" Text="DisplayMode=&quot;Year&quot;: the months" />
+      <Calendar DisplayMode="Year" DisplayDate="2026-10-01" SelectedDate="2026-10-11" IsTodayHighlighted="False" />
+    </StackPanel>
+    <StackPanel Spacing="8">
+      <TextBlock Classes="caption" Text="DisplayMode=&quot;Decade&quot;: the years" />
+      <Calendar DisplayMode="Decade" DisplayDate="2026-10-01" SelectedDate="2026-10-11" IsTodayHighlighted="False" />
+    </StackPanel>
+  </WrapPanel>
+</UserControl>

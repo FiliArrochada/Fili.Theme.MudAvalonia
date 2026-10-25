@@ -1,0 +1,62 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:docs="using:Fili.Theme.MudAvalonia.Gallery.Docs"
+             x:Class="Fili.Theme.MudAvalonia.Gallery.Docs.Pages.ImagePage">
+  <StackPanel Classes="doc">
+    <docs:DocHeader Title="Image"
+                    Summary="Images are Avalonia's own Image, which the theme leaves as it is: MudImage's parameters are its ordinary properties. A shadow or rounded corners come from a Border round it."
+                    MudBlazor="Image"
+                    MudBlazorPath="components/image" />
+
+    <TextBlock Classes="h5 section" Text="Usage" />
+    <docs:ExampleCard Title="An Image"
+                      Description="Source is MudImage's Src. A DrawingImage built in XAML stands in for a photo on this page."
+                      Source="Image/Usage" />
+
+    <TextBlock Classes="h5 section" Text="Size" />
+    <docs:ExampleCard Title="Width and height"
+                      Description="Width and Height are MudImage's own. With only one set, the other follows the picture's ratio."
+                      Source="Image/Size" />
+
+    <TextBlock Classes="h5 section" Text="Responsive images" />
+    <docs:ExampleCard Title="Filling the width"
+                      Description="MudImage's Fluid is MaxWidth here. At Stretch=&quot;Uniform&quot;, Avalonia's default, an Image fills the width it is given and keeps the ratio."
+                      Source="Image/Responsive" />
+
+    <TextBlock Classes="h5 section" Text="Image fit" />
+    <docs:ExampleCard Title="Stretch"
+                      Description="ObjectFit is Stretch: None, Fill, Uniform (contain) and UniformToFill (cover); scale-down is Uniform with StretchDirection=&quot;DownOnly&quot;. Each caption names the CSS value in brackets."
+                      Source="Image/Fit" />
+
+    <TextBlock Classes="h5 section" Text="Image position" />
+    <docs:ExampleCard Title="Alignment"
+                      Description="ObjectPosition is the Image's alignment in the space it is given."
+                      Source="Image/Position" />
+
+    <TextBlock Classes="h5 section" Text="Elevation" />
+    <docs:ExampleCard Title="In a Border"
+                      Description="An Image has no shadow: put it in a Border with an elevation class. For rounded corners, clip the Image to the Border's radius, since the compositor clips to a rectangle."
+                      Source="Image/Elevation" />
+    <StackPanel Orientation="Horizontal" Spacing="8" Margin="0,0,0,16">
+      <TextBlock Classes="body1" Text="See also:" VerticalAlignment="Center" />
+      <docs:DocLink Slug="avatar" Content="Avatar" />
+      <docs:DocLink Slug="card" Content="Card" />
+      <docs:DocLink Slug="elevation" Content="Elevation" />
+    </StackPanel>
+
+    <TextBlock Classes="h5 section" Text="MudBlazor parity" />
+    <TextBlock Classes="body1 p">
+      <Run Text="Every MudImage parameter and what it is here. " />
+      <Run Classes="code" Text="Close" />
+      <Run Text=" gets the same result another way; " />
+      <Run Classes="code" Text="Missing" />
+      <Run Text=" is not here." />
+    </TextBlock>
+    <docs:ParityTable>
+      <docs:ParityRow MudBlazor="Src, Width, Height" Here="Source, Width, Height" Status="Close" Note="Ordinary Avalonia properties." />
+      <docs:ParityRow MudBlazor="ObjectFit, ObjectPosition, Fluid" Here="Stretch, alignment, MaxWidth" Status="Close" Note="Ordinary Avalonia properties." />
+      <docs:ParityRow MudBlazor="Elevation" Here="a Border with an elevation class and the image inside" Status="Close" Note="An Image has no shadow." />
+      <docs:ParityRow MudBlazor="FallbackSrc" Here="—" Status="Missing" Note="It is behaviour, not a look." />
+    </docs:ParityTable>
+  </StackPanel>
+</UserControl>

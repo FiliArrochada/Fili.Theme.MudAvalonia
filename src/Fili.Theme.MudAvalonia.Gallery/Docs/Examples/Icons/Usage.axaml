@@ -1,0 +1,11 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <!-- A PathIcon is MudIcon: Data is the glyph, 24px and in the surrounding text colour by default. -->
+  <StackPanel Orientation="Horizontal" Spacing="16">
+    <PathIcon Data="{DynamicResource GalleryHomeIcon}" />
+    <PathIcon Data="{DynamicResource GalleryFavoriteIcon}" />
+    <PathIcon Data="{DynamicResource GallerySettingsIcon}" />
+    <PathIcon Data="{DynamicResource GalleryDeleteIcon}" />
+    <PathIcon Data="{DynamicResource GalleryShareIcon}" />
+  </StackPanel>
+</UserControl>

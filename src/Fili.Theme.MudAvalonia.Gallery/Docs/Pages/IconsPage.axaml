@@ -1,0 +1,88 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:docs="using:Fili.Theme.MudAvalonia.Gallery.Docs"
+             x:Class="Fili.Theme.MudAvalonia.Gallery.Docs.Pages.IconsPage">
+  <StackPanel Classes="doc">
+    <docs:DocHeader Title="Icons"
+                    Summary="Icons are Avalonia's PathIcon, drawn as MudIcon: a Material glyph in a 24px box. Size and colour are one class each, and every glyph the theme draws is a resource key you can swap."
+                    MudBlazor="Icons"
+                    MudBlazorPath="components/icons" />
+
+    <TextBlock Classes="h5 section" Text="Usage" />
+    <docs:ExampleCard Title="A PathIcon"
+                      Description="Data is MudIcon's Icon. A bare PathIcon is 24px, as MudIcon is with no Size, in the surrounding text colour."
+                      Source="Icons/Usage" />
+    <TextBlock Classes="body1 p">
+      <Run Text="The theme ships no icon set: paste a path from MudBlazor's " />
+      <Run Classes="code" Text="Icons.Material" />
+      <Run Text=" as it is, dropping the transparent " />
+      <Run Classes="code" Text="M0 0h24v24H0z" />
+      <Run Text=" spacer, which a filled geometry would paint as a square. The glyphs on these pages are the gallery's own, transcribed from MudBlazor's Material icons." />
+    </TextBlock>
+
+    <TextBlock Classes="h5 section" Text="Colour" />
+    <docs:ExampleCard Title="Every palette colour"
+                      Description="With no class an icon inherits the text colour, Color.Inherit, MudIcon's default. Color.Default has no class: set Foreground to FiliTextSecondaryBrush. An icon's own class beats an alert's or a button's colour."
+                      Source="Icons/Colors" />
+
+    <TextBlock Classes="h5 section" Text="Size" />
+    <docs:ExampleCard Title="Small, medium and large"
+                      Description="small, medium and large are 20, 24 and 36px; with no class an icon is medium."
+                      Source="Icons/Sizes" />
+
+    <TextBlock Classes="h5 section" Text="The 24px box" />
+    <docs:ExampleCard Title="A glyph at its own coordinates"
+                      Description="PathIcon draws a glyph in a 24px box scaled to its size, as MudIcon's ViewBox does, so a small glyph such as PlayArrow stays where Material put it. A Path of your own does the same on a 24 by 24 Canvas with Stretch=&quot;None&quot;; Stretch=&quot;Uniform&quot;, Avalonia's own PathIcon, stretches the glyph's bounds instead."
+                      Source="Icons/Box" />
+    <TextBlock Classes="body1 p">
+      <Run Text="A glyph drawn in another box is scaled into 24 by the app, with a " />
+      <Run Classes="code" Text="Transform" />
+      <Run Text=" on the geometry, before it is given to a PathIcon." />
+    </TextBlock>
+
+    <TextBlock Classes="h5 section" Text="The theme's glyphs" />
+    <docs:ExampleCard Title="Every glyph key"
+                      Description="Every icon the theme's templates draw is a DynamicResource under one of these keys, each a Material glyph. FiliSwitchThumbIconGeometry is empty, as MudSwitch has no thumb icon by default."
+                      Source="Icons/Glyphs" />
+
+    <TextBlock Classes="h5 section" Text="Swapping a glyph" />
+    <docs:ExampleCard Title="One control, or a region"
+                      Description="A MudBlazor icon parameter is a resource key: set the same key in a control's Resources and that control draws your glyph. Set on a parent, it reaches every control inside it."
+                      Source="Icons/Swap" />
+    <TextBlock Classes="body1 p">
+      <Run Text="The keys stand for MudCheckBox's " />
+      <Run Classes="code" Text="CheckedIcon" />
+      <Run Text=", MudSelect's " />
+      <Run Classes="code" Text="OpenIcon" />
+      <Run Text=", MudExpansionPanel's " />
+      <Run Classes="code" Text="Icon" />
+      <Run Text=", MudTabs' " />
+      <Run Classes="code" Text="PrevIcon" />
+      <Run Text=" and the rest; the parity page has the table of which key is which parameter." />
+    </TextBlock>
+    <StackPanel Orientation="Horizontal" Spacing="8" Margin="0,0,0,16">
+      <TextBlock Classes="body1" Text="See also:" VerticalAlignment="Center" />
+      <docs:DocLink Slug="parity" Content="Parity" />
+      <docs:DocLink Slug="icon-button" Content="Icon button" />
+      <docs:DocLink Slug="checkbox" Content="Checkbox" />
+    </StackPanel>
+
+    <TextBlock Classes="h5 section" Text="MudBlazor parity" />
+    <TextBlock Classes="body1 p">
+      <Run Text="Every MudIcon parameter and what it is here. " />
+      <Run Classes="code" Text="Same" />
+      <Run Text=" is transcribed from MudBlazor's source; " />
+      <Run Classes="code" Text="Close" />
+      <Run Text=" gets the same result another way." />
+    </TextBlock>
+    <docs:ParityTable>
+      <docs:ParityRow MudBlazor="Icon" Here="Data" Status="Close" Note="The gallery carries a few Material glyphs; the theme ships no icon set." />
+      <docs:ParityRow MudBlazor="Size.Small / Medium (default) / Large" Here="small / medium (or no class) / large" Status="Same" Note="20 / 24 / 36px; a bare PathIcon is 24px, as MudIcon is with no Size." />
+      <docs:ParityRow MudBlazor="Color.Inherit (default)" Here="no class" Status="Same" Note="The surrounding text colour." />
+      <docs:ParityRow MudBlazor="Color.Primary … Color.Dark" Here="primary … dark" Status="Same" Note="The icon's own class beats an alert's or a button's colour, as MudIcon's does." />
+      <docs:ParityRow MudBlazor="Color.Default" Here="Foreground set to FiliTextSecondaryBrush" Status="Close" Note="No class names it." />
+      <docs:ParityRow MudBlazor="Disabled" Here="IsEnabled=&quot;False&quot;" Status="Close" Note="No look of its own." />
+      <docs:ParityRow MudBlazor="ViewBox (default 0 0 24 24)" Here="the same" Status="Same" Note="The glyph at its own coordinates in a 24px box, scaled to the icon's size; another box is scaled into 24 by the app." />
+    </docs:ParityTable>
+  </StackPanel>
+</UserControl>

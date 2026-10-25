@@ -1,0 +1,116 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:docs="using:Fili.Theme.MudAvalonia.Gallery.Docs"
+             x:Class="Fili.Theme.MudAvalonia.Gallery.Docs.Pages.AvatarPage">
+  <StackPanel Classes="doc">
+    <docs:DocHeader Title="Avatar"
+                    Summary="Avatars show a person or a thing as initials, an icon or a picture: avatar on a Border, drawn as MudAvatar. Variant, colour, size and shape are one class each."
+                    MudBlazor="Avatar"
+                    MudBlazorPath="components/avatar" />
+
+    <TextBlock Classes="h5 section" Text="Usage" />
+    <docs:ExampleCard Title="Filled and outlined, in every colour"
+                      Description="Variant.Filled is the default: with no colour class, text-primary on lines-inputs; a colour class is the colour with its contrast text. outlined is the colour as text and a 1px line on no ground."
+                      Source="Avatar/Variants" />
+    <TextBlock Classes="body1 p">
+      <Run Text="Put initials, a " />
+      <Run Classes="code" Text="PathIcon" />
+      <Run Text=" or an " />
+      <Run Classes="code" Text="Image" />
+      <Run Text=" inside the " />
+      <Run Classes="code" Text="Border" />
+      <Run Text=": the theme centres it, as " />
+      <Run Classes="code" Text=".mud-avatar" />
+      <Run Text=" does." />
+    </TextBlock>
+
+    <TextBlock Classes="h5 section" Text="Text" />
+    <docs:ExampleCard Title="The text variant"
+                      Description="text is the bare .mud-avatar: white on gray-light whatever the colour, since MudBlazor's avatar styles have no rule for the text variant."
+                      Source="Avatar/Text" />
+
+    <TextBlock Classes="h5 section" Text="Icons" />
+    <docs:ExampleCard Title="An icon inside"
+                      Description="A PathIcon inside is MudIcon's default 24px at every avatar size, in the avatar's text colour."
+                      Source="Avatar/Icons" />
+
+    <TextBlock Classes="h5 section" Text="Images" />
+    <docs:ExampleCard Title="A picture inside"
+                      Description="An Image inside covers the avatar and is clipped to its shape, inside the line when outlined. A DrawingImage stands in for a photo here."
+                      Source="Avatar/Images" />
+    <TextBlock Classes="body1 p">
+      <Run Text="The avatar never clips itself, because clipping a " />
+      <Run Classes="code" Text="Border" />
+      <Run Text=" would clip its own elevation shadow too. The theme clips the " />
+      <Run Classes="code" Text="Image" />
+      <Run Text=" at the three sizes; an avatar of a size of your own needs a " />
+      <Run Classes="code" Text="CornerRadius" />
+      <Run Text=" of half of it, and an Image in it a " />
+      <Run Classes="code" Text="Clip" />
+      <Run Text=" of your own. An " />
+      <Run Classes="code" Text="ImageBrush" />
+      <Run Text=" as the Background is painted inside the Border's own outline and needs no clip at any size." />
+    </TextBlock>
+
+    <TextBlock Classes="h5 section" Text="Sizes" />
+    <docs:ExampleCard Title="Small, medium and large"
+                      Description="24, 40 and 56px, with 12, 20 and 24px text. Size.Medium is the default."
+                      Source="Avatar/Sizes" />
+
+    <TextBlock Classes="h5 section" Text="Shapes" />
+    <docs:ExampleCard Title="Circle, rounded and square"
+                      Description="Round by default; rounded is the default 4px radius and square no radius."
+                      Source="Avatar/Shapes" />
+
+    <TextBlock Classes="h5 section" Text="Elevation" />
+    <docs:ExampleCard Title="Elevation classes"
+                      Description="The elevation classes lift the avatar like any Border; it never clips itself, so its shadow survives."
+                      Source="Avatar/Elevation" />
+
+    <TextBlock Classes="h5 section" Text="Groups" />
+    <docs:ExampleCard Title="Overlapping avatars"
+                      Description="MudAvatarGroup is a StackPanel with a negative Spacing. Its Outlined ring is BorderThickness=&quot;2&quot; and a BorderBrush on each avatar: surface above, error below."
+                      Source="Avatar/Groups" />
+    <TextBlock Classes="body1 p">
+      <Run Text="MudAvatarGroup's " />
+      <Run Classes="code" Text="Max" />
+      <Run Text=" and its &quot;+n&quot; avatar are not here: counting the avatars is the app's code." />
+    </TextBlock>
+
+    <TextBlock Classes="h5 section" Text="Badges" />
+    <docs:ExampleCard Title="An avatar with a badge"
+                      Description="A HeaderedContentControl.badge round the avatar: a count, a dot, and a bordered dot overlapping a large avatar's lower corner."
+                      Source="Avatar/Badges" />
+    <StackPanel Orientation="Horizontal" Spacing="8" Margin="0,0,0,16">
+      <TextBlock Classes="body1" Text="See also:" VerticalAlignment="Center" />
+      <docs:DocLink Slug="badge" Content="Badge" />
+      <docs:DocLink Slug="chips" Content="Chips" />
+      <docs:DocLink Slug="card" Content="Card" />
+      <docs:DocLink Slug="image" Content="Image" />
+    </StackPanel>
+
+    <TextBlock Classes="h5 section" Text="MudBlazor parity" />
+    <TextBlock Classes="body1 p">
+      <Run Text="Every MudAvatar and MudAvatarGroup parameter and what it is here. " />
+      <Run Classes="code" Text="Same" />
+      <Run Text=" is transcribed from MudBlazor's source; " />
+      <Run Classes="code" Text="Close" />
+      <Run Text=" gets the same result another way; " />
+      <Run Classes="code" Text="Missing" />
+      <Run Text=" is not here." />
+    </TextBlock>
+    <docs:ParityTable>
+      <docs:ParityRow MudBlazor="MudAvatar" Here="avatar on a Border" Status="Same" Note="Its content centred." />
+      <docs:ParityRow MudBlazor="Variant.Filled (default) / Outlined / Text" Here="no class / outlined / text" Status="Same" Note="Filled is text-primary on lines-inputs; outlined a 1px line on no ground; text is white on gray-light whatever the colour." />
+      <docs:ParityRow MudBlazor="Color.Primary … Color.Dark" Here="the colour classes" Status="Same" Note="Filled is the colour with its contrast text; outlined is the colour as text and line." />
+      <docs:ParityRow MudBlazor="Size.Medium (default) / Small / Large" Here="no class / small / large" Status="Same" Note="40 / 24 / 56px, with 20 / 12 / 24px text." />
+      <docs:ParityRow MudBlazor="Rounded / Square" Here="rounded / square" Status="Same" Note="A 4px radius, or none." />
+      <docs:ParityRow MudBlazor="Elevation" Here="the elevation classes" Status="Same" Note="The avatar never clips itself, so its shadow survives." />
+      <docs:ParityRow MudBlazor="a MudImage child" Here="an Image inside, or an ImageBrush as Background" Status="Same" Note="Covers the avatar and is clipped to its shape; an ImageBrush needs nothing more at a size of your own." />
+      <docs:ParityRow MudBlazor="a MudIcon child" Here="a PathIcon inside" Status="Same" Note="24px, MudIcon's default size." />
+      <docs:ParityRow MudBlazor="MudAvatarGroup Spacing" Here="a StackPanel with a negative Spacing" Status="Close" />
+      <docs:ParityRow MudBlazor="MudAvatarGroup Outlined, OutlineColor" Here="BorderThickness=&quot;2&quot; and a BorderBrush on each avatar" Status="Close" Note="The 2px ring is two ordinary properties." />
+      <docs:ParityRow MudBlazor="MudAvatarGroup Max, the &quot;+n&quot; avatar" Here="—" Status="Missing" Note="Counting the avatars is code." />
+    </docs:ParityTable>
+  </StackPanel>
+</UserControl>

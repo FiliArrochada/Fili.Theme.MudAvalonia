@@ -1,0 +1,88 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:docs="using:Fili.Theme.MudAvalonia.Gallery.Docs"
+             x:Class="Fili.Theme.MudAvalonia.Gallery.Docs.Pages.TimePickerPage">
+  <StackPanel Classes="doc">
+    <docs:DocHeader Title="Time picker"
+                    Summary="A time picker is a text field that opens an hour and minute picker: Avalonia's TimePicker, drawn as MudTimePicker, with nothing to opt into. Under the toolbar are Avalonia's scrolling columns, not MudBlazor's clock face."
+                    MudBlazor="TimePicker"
+                    MudBlazorPath="components/timepicker" />
+
+    <TextBlock Classes="h5 section" Text="Basic usage" />
+    <docs:ExampleCard Title="Standard, filled and outlined"
+                      Description="Closed, the picker is the standard text field holding the time as MudTimePicker writes it, with MudPicker's adornment, the AccessTime icon in an icon button at the end. filled and outlined are the text field's own variants, set on the picker."
+                      Source="TimePicker/Variants" />
+    <TextBlock Classes="body1 p">
+      <Run Text="TimePicker has no " />
+      <Run Classes="code" Text="PlaceholderText" />
+      <Run Text=", so the floating label is " />
+      <Run Classes="code" Text="AutomationProperties.Name" />
+      <Run Text=", Avalonia's own property, which a screen reader announces too. Like a field, the picker stretches to the width it is given." />
+    </TextBlock>
+    <StackPanel Orientation="Horizontal" Spacing="8" Margin="0,0,0,16">
+      <TextBlock Classes="body1" Text="See also:" VerticalAlignment="Center" />
+      <docs:DocLink Slug="text-field" Content="Text field" />
+    </StackPanel>
+
+    <TextBlock Classes="h5 section" Text="12 and 24 hours" />
+    <docs:ExampleCard Title="ClockIdentifier and UseSeconds"
+                      Description="MudTimePicker's AmPm is ClockIdentifier=&quot;12HourClock&quot;: the time as hh:mm tt rather than HH:mm. UseSeconds adds the seconds, and a column for them."
+                      Source="TimePicker/Clock" />
+    <TextBlock Classes="body1 p">
+      <Run Text="Where the culture has no AM and PM, the picker writes &quot;AM&quot; and &quot;PM&quot;, as MudBlazor's toolbar does." />
+    </TextBlock>
+
+    <TextBlock Classes="h5 section" Text="Edit mode" />
+    <docs:ExampleCard Title="Read-only and editable"
+                      Description="Read-only, as MudTimePicker is by default, a click on the field, or Enter, opens the picker. editable is MudTimePicker's Editable: the time is typed, as 14:30 or 2:30 PM."
+                      Source="TimePicker/Editable" />
+    <TextBlock Classes="body1 p">
+      <Run Text="Typed text is taken on Enter or when the field loses focus; empty text clears the time, and anything that is not a time goes back to the time held." />
+    </TextBlock>
+
+    <TextBlock Classes="h5 section" Text="Field options" />
+    <docs:ExampleCard Title="Helper text, required, error, dense and the label"
+                      Description="A field's classes go on the picker and reach the text field inside it, as a date picker's do: AutomationProperties.HelpText, required, error, dense and shrink-label."
+                      Source="TimePicker/FieldOptions" />
+
+    <TextBlock Classes="h5 section" Text="Disabled" />
+    <docs:ExampleCard Title="Disabled"
+                      Description="IsEnabled=&quot;False&quot;: a disabled text field, and its icon button with it."
+                      Source="TimePicker/Disabled" />
+
+    <TextBlock Classes="h5 section" Text="Adornment icon" />
+    <docs:ExampleCard Title="AdornmentIcon"
+                      Description="The icon is FiliAccessTimeGeometry. Another glyph under that key in the picker's Resources replaces it for that picker, as MudPicker's AdornmentIcon does."
+                      Source="TimePicker/AdornmentIcon" />
+
+    <TextBlock Classes="h5 section" Text="The picker" />
+    <docs:ExampleCard Title="The popover, in the page"
+                      Description="What the field opens is a TimePickerPresenter, and the theme draws it on its own too: a paper at elevation 8, the primary toolbar with the time being picked, the hour and minute columns, and Close and Check."
+                      Source="TimePicker/Presenter" />
+    <TextBlock Classes="body1 p">
+      <Run Text="The toolbar is MudTimePicker's: the hour and the minute at h2's 60px light, with AM and PM beside them on a 12-hour clock, the one not chosen at .54. Under it MudBlazor draws a clock face, a control of its own; here are Avalonia's columns, which loop as they scroll: body1 rows 40px high, the chosen one on a primary band, as the clock's chosen number is, and an up and a down arrow while a column is hovered. Avalonia's picker commits on accept, so the popover ends in Close and Check icon buttons. The colour is always primary: the picker takes no colour class." />
+    </TextBlock>
+
+    <TextBlock Classes="h5 section" Text="Minute steps" />
+    <docs:ExampleCard Title="MinuteIncrement"
+                      Description="Avalonia's MinuteIncrement fills the minute column in steps, as MudTimePicker's MinuteSelectionStep moves its hand."
+                      Source="TimePicker/MinuteIncrement" />
+
+    <TextBlock Classes="h5 section" Text="MudBlazor parity" />
+    <TextBlock Classes="body1 p">
+      <Run Text="Every MudTimePicker parameter the theme carries and what it is here. " />
+      <Run Classes="code" Text="Same" />
+      <Run Text=" is transcribed from MudBlazor's source; " />
+      <Run Classes="code" Text="Close" />
+      <Run Text=" gets the same result another way." />
+    </TextBlock>
+    <docs:ParityTable>
+      <docs:ParityRow MudBlazor="MudTimePicker" Here="TimePicker" Status="Same" Note="The standard field with the AccessTime adornment, full width as a field is, and the toolbar's popover." />
+      <docs:ParityRow MudBlazor="AmPm, TimeFormat" Here="ClockIdentifier, UseSeconds" Status="Same" Note="HH:mm or hh:mm tt; UseSeconds adds :ss." />
+      <docs:ParityRow MudBlazor="Label" Here="AutomationProperties.Name" Status="Same" Note="The floating label." />
+      <docs:ParityRow MudBlazor="Editable" Here="editable" Status="Same" Note="Taken on Enter or when the field loses focus." />
+      <docs:ParityRow MudBlazor="the clock face" Here="Avalonia's hour and minute columns" Status="Close" Note="Looping columns with the chosen row on a primary band, under MudTimePicker's toolbar." />
+      <docs:ParityRow MudBlazor="AdornmentIcon (AccessTime)" Here="FiliAccessTimeGeometry" Status="Same" Note="In the picker's Resources to swap it." />
+    </docs:ParityTable>
+  </StackPanel>
+</UserControl>

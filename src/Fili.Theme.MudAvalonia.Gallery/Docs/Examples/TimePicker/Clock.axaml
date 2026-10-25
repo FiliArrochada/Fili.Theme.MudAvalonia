@@ -1,0 +1,13 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <WrapPanel ItemSpacing="16" LineSpacing="16">
+    <!-- The default: MudTimePicker's HH:mm. -->
+    <TimePicker Classes="outlined" Width="220" VerticalAlignment="Top" AutomationProperties.Name="24-hour clock"
+                SelectedTime="14:30" ClockIdentifier="24HourClock" />
+    <!-- AmPm: hh:mm tt. -->
+    <TimePicker Classes="outlined" Width="220" VerticalAlignment="Top" AutomationProperties.Name="12-hour clock"
+                SelectedTime="14:30" ClockIdentifier="12HourClock" />
+    <TimePicker Classes="outlined" Width="220" VerticalAlignment="Top" AutomationProperties.Name="With seconds"
+                SelectedTime="14:30:15" UseSeconds="True" />
+  </WrapPanel>
+</UserControl>

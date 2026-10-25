@@ -1,0 +1,23 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:v="using:Fili.Theme.MudAvalonia.Gallery.Views">
+  <!-- MudDataGrid draws no selected row; here a selected row is primary-hover, as a selected list
+       row is in MudBlazor. SelectionMode="Extended" is MultiSelection: Ctrl and Shift add rows.
+       A DataGrid drops a SelectedIndex set in markup before its rows exist, so an app selects in
+       code; this example selects the second row from a style, which applies once the grid is in
+       the tree. -->
+  <DataGrid Classes="hover" SelectionMode="Extended" ItemsSource="{x:Static v:GalleryElement.FirstSix}">
+    <DataGrid.Styles>
+      <Style Selector="DataGrid">
+        <Setter Property="SelectedIndex" Value="1" />
+      </Style>
+    </DataGrid.Styles>
+    <DataGrid.Columns>
+      <DataGridTextColumn Header="Nr" Binding="{Binding Number}" x:DataType="v:GalleryElement" />
+      <DataGridTextColumn Header="Sign" Binding="{Binding Sign}" x:DataType="v:GalleryElement" />
+      <DataGridTextColumn Header="Name" Binding="{Binding Name}" x:DataType="v:GalleryElement" Width="*" />
+      <DataGridTextColumn Header="Position" Binding="{Binding Position}" x:DataType="v:GalleryElement" />
+      <DataGridTextColumn Header="Molar mass" Binding="{Binding Molar}" x:DataType="v:GalleryElement" />
+    </DataGrid.Columns>
+  </DataGrid>
+</UserControl>

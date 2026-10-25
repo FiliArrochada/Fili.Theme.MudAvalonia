@@ -1,0 +1,18 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <!-- An elevation class lifts the badge, not what it decorates. -->
+  <Grid ColumnDefinitions="120,120,120" RowDefinitions="72,Auto">
+    <HeaderedContentControl Grid.Column="0" Classes="badge warning" Header="2" HorizontalAlignment="Center" VerticalAlignment="Center">
+      <Border Width="48" Height="48" CornerRadius="4" Background="{DynamicResource FiliLinesInputsBrush}" />
+    </HeaderedContentControl>
+    <HeaderedContentControl Grid.Column="1" Classes="badge warning elevation2" Header="2" HorizontalAlignment="Center" VerticalAlignment="Center">
+      <Border Width="48" Height="48" CornerRadius="4" Background="{DynamicResource FiliLinesInputsBrush}" />
+    </HeaderedContentControl>
+    <HeaderedContentControl Grid.Column="2" Classes="badge warning elevation6" Header="2" HorizontalAlignment="Center" VerticalAlignment="Center">
+      <Border Width="48" Height="48" CornerRadius="4" Background="{DynamicResource FiliLinesInputsBrush}" />
+    </HeaderedContentControl>
+    <TextBlock Grid.Row="1" Grid.Column="0" Classes="caption" Text="no class" HorizontalAlignment="Center" Margin="0,8,0,0" />
+    <TextBlock Grid.Row="1" Grid.Column="1" Classes="caption" Text="elevation2" HorizontalAlignment="Center" Margin="0,8,0,0" />
+    <TextBlock Grid.Row="1" Grid.Column="2" Classes="caption" Text="elevation6" HorizontalAlignment="Center" Margin="0,8,0,0" />
+  </Grid>
+</UserControl>

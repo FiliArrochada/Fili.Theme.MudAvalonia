@@ -1,0 +1,12 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <!-- text is the bare .mud-avatar: white on gray-light, whatever colour class it also carries. -->
+  <Grid ColumnDefinitions="96,96,96" RowDefinitions="Auto,Auto">
+    <Border Classes="avatar text" HorizontalAlignment="Center"><TextBlock Text="T" /></Border>
+    <Border Grid.Column="1" Classes="avatar text primary" HorizontalAlignment="Center"><TextBlock Text="T" /></Border>
+    <Border Grid.Column="2" Classes="avatar text error" HorizontalAlignment="Center"><TextBlock Text="T" /></Border>
+    <TextBlock Grid.Row="1" Classes="caption" Text="text" HorizontalAlignment="Center" Margin="0,8,0,0" />
+    <TextBlock Grid.Row="1" Grid.Column="1" Classes="caption" Text="text primary" HorizontalAlignment="Center" Margin="0,8,0,0" />
+    <TextBlock Grid.Row="1" Grid.Column="2" Classes="caption" Text="text error" HorizontalAlignment="Center" Margin="0,8,0,0" />
+  </Grid>
+</UserControl>

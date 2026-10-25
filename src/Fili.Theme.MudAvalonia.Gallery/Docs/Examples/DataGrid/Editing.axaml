@@ -1,0 +1,14 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:v="using:Fili.Theme.MudAvalonia.Gallery.Views">
+  <!-- IsReadOnly="False" (the default) is edit mode: double-click a cell, or press F2, to edit it.
+       The field loses its resting line and keeps its focused one; Enter commits, Escape cancels.
+       A column with IsReadOnly="True" stays as text. -->
+  <DataGrid IsReadOnly="False" ItemsSource="{x:Static v:GalleryElement.FirstSix}">
+    <DataGrid.Columns>
+      <DataGridTextColumn Header="Nr" Binding="{Binding Number}" x:DataType="v:GalleryElement" IsReadOnly="True" />
+      <DataGridTextColumn Header="Name" Binding="{Binding Name}" x:DataType="v:GalleryElement" Width="*" />
+      <DataGridTextColumn Header="Group" Binding="{Binding Group}" x:DataType="v:GalleryElement" Width="200" />
+    </DataGrid.Columns>
+  </DataGrid>
+</UserControl>

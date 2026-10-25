@@ -1,0 +1,17 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:v="using:Fili.Theme.MudAvalonia.Gallery.Views"
+             xmlns:docs="using:Fili.Theme.MudAvalonia.Gallery.Docs">
+  <!-- A sorted column shows MudDataGrid's ArrowUpward at the far end of its header, turned for
+       descending; an unsorted one shows nothing until it is sorted. Click a header to sort by it.
+       The sort is the collection view's: here Molar mass, largest first. -->
+  <DataGrid ItemsSource="{x:Static docs:SampleData.ElementsByMolarDescending}">
+    <DataGrid.Columns>
+      <DataGridTextColumn Header="Nr" Binding="{Binding Number}" x:DataType="v:GalleryElement" />
+      <DataGridTextColumn Header="Sign" Binding="{Binding Sign}" x:DataType="v:GalleryElement" />
+      <DataGridTextColumn Header="Name" Binding="{Binding Name}" x:DataType="v:GalleryElement" Width="*" />
+      <DataGridTextColumn Header="Position" Binding="{Binding Position}" x:DataType="v:GalleryElement" />
+      <DataGridTextColumn Header="Molar mass" Binding="{Binding Molar}" x:DataType="v:GalleryElement" />
+    </DataGrid.Columns>
+  </DataGrid>
+</UserControl>

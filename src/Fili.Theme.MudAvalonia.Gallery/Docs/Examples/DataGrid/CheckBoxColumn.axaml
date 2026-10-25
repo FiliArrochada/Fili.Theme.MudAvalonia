@@ -1,0 +1,14 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:v="using:Fili.Theme.MudAvalonia.Gallery.Views">
+  <!-- A CheckBox in a cell is MudBlazor's table checkbox: the dense 32px circle pulled in 4px, so
+       the row stays 57px. A DataGridCheckBoxColumn's box is action-default in every row. -->
+  <DataGrid ItemsSource="{x:Static v:GalleryTask.Some}">
+    <DataGrid.Columns>
+      <DataGridCheckBoxColumn Header="Done" Binding="{Binding Done}" x:DataType="v:GalleryTask" />
+      <DataGridTextColumn Header="Task" Binding="{Binding Title}" x:DataType="v:GalleryTask" Width="*" />
+      <DataGridTextColumn Header="Area" Binding="{Binding Owner}" x:DataType="v:GalleryTask" Width="120" />
+      <DataGridTextColumn Header="Due" Binding="{Binding Due}" x:DataType="v:GalleryTask" Width="104" />
+    </DataGrid.Columns>
+  </DataGrid>
+</UserControl>
