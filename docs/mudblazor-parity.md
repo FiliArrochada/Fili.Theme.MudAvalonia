@@ -536,10 +536,11 @@ Put initials, a `PathIcon` or an `Image` inside: `<Border Classes="avatar primar
 | MudBlazor | Here | |
 |---|---|---|
 | `MudTooltip` | `ToolTip.Tip` | ✅ a solid `gray-darker` chip in light, dark and high contrast, 12px at weight 500, 4px 8px; no width of its own, so it wraps only at the screen's edge, or the page's in a browser |
-| `Placement`, `Delay` | `ToolTip.Placement`, `ToolTip.ShowDelay` | ≈ |
+| `Placement` | `ToolTip.Placement` | ✅ `Top`, `Bottom`, `Left` and `Right` centred on that side, 10px from the target: the theme sets Avalonia's `ToolTip.VerticalOffset`, 20 for `Pointer`, to 0 for these four, below an app's own |
+| `Delay` | `ToolTip.ShowDelay` | ✅ |
 | `Duration` (251ms) | the same | ✅ the tooltip fades in as every popup does (see MudPopover) |
 | `Color` (default `Default`) | a `ToolTip` as the `Tip`, with `primary` … `dark` | ✅ `.mud-theme-{color}`: the colour and its contrast text. `ToolTip.Tip` uses a `ToolTip` as it is, so its classes survive |
-| `Arrow` | `arrow` on that `ToolTip` | ✅ a 6px triangle in the chip's colour on the side facing the target, for `Placement` `Top`, `Bottom`, `Left` and `Right`; ≈ none for `Pointer`, Avalonia's default and no MudBlazor placement; the offset from the target is `ToolTip.VerticalOffset`'s |
+| `Arrow` | `arrow` on that `ToolTip` | ✅ a 6px triangle in the chip's colour on the side facing the target, for `Placement` `Top`, `Bottom`, `Left` and `Right`; ≈ none for `Pointer`, Avalonia's default and no MudBlazor placement; without `arrow` its place is still the 10px gap |
 | `ISnackbar.Add(msg, Severity.X)` | `WindowNotificationManager.Show(…)` with `NotificationType.X` | ✅ a filled alert at elevation 6, 288 to 500px wide, 6px 16px |
 | a card's classes | `WindowNotificationManager.Show(content, type, …, classes)` | ≈ the variants below are classes on the card; `Show(INotification)` takes none |
 | `Severity.Normal` | `normal` | ✅ filled `dark` with its contrast text; text-primary on a text or outlined card |

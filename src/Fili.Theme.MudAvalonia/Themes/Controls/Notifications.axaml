@@ -69,7 +69,9 @@
 
     <Setter Property="Template">
       <ControlTemplate>
-        <LayoutTransformControl x:Name="PART_LayoutTransformControl" UseRenderTransform="True">
+        <!-- Not clipped: the card's elevation 6 is a shadow past its edge, which MudSnackbar shows.
+             Closing scales the card, so nothing of it spills out. -->
+        <LayoutTransformControl x:Name="PART_LayoutTransformControl" UseRenderTransform="True" ClipToBounds="False">
           <theme:PartBorder x:Name="PART_Card"
                   Background="{TemplateBinding Background}"
                   BorderBrush="{TemplateBinding BorderBrush}"

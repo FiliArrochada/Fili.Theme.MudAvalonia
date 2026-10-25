@@ -693,7 +693,7 @@
   <Style Selector="Border.alert.dense">
     <Setter Property="Padding" Value="12,9" />
   </Style>
-  <Style Selector="Border.alert PathIcon">
+  <Style Selector="Border.alert > PathIcon, Border.alert > :is(Panel) > PathIcon">
     <Setter Property="Width" Value="22" />
     <Setter Property="Height" Value="22" />
     <Setter Property="Margin" Value="0,-2,12,-2" />
@@ -715,56 +715,56 @@
     <Setter Property="Background" Value="{DynamicResource FiliPrimaryHoverBrush}" />
     <Setter Property="TextElement.Foreground" Value="{DynamicResource FiliPrimaryDarkenBrush}" />
   </Style>
-  <Style Selector="Border.alert.primary PathIcon">
+  <Style Selector="Border.alert.primary > PathIcon, Border.alert.primary > :is(Panel) > PathIcon">
     <Setter Property="Foreground" Value="{DynamicResource FiliPrimaryBrush}" />
   </Style>
   <Style Selector="Border.alert.secondary">
     <Setter Property="Background" Value="{DynamicResource FiliSecondaryHoverBrush}" />
     <Setter Property="TextElement.Foreground" Value="{DynamicResource FiliSecondaryDarkenBrush}" />
   </Style>
-  <Style Selector="Border.alert.secondary PathIcon">
+  <Style Selector="Border.alert.secondary > PathIcon, Border.alert.secondary > :is(Panel) > PathIcon">
     <Setter Property="Foreground" Value="{DynamicResource FiliSecondaryBrush}" />
   </Style>
   <Style Selector="Border.alert.tertiary">
     <Setter Property="Background" Value="{DynamicResource FiliTertiaryHoverBrush}" />
     <Setter Property="TextElement.Foreground" Value="{DynamicResource FiliTertiaryDarkenBrush}" />
   </Style>
-  <Style Selector="Border.alert.tertiary PathIcon">
+  <Style Selector="Border.alert.tertiary > PathIcon, Border.alert.tertiary > :is(Panel) > PathIcon">
     <Setter Property="Foreground" Value="{DynamicResource FiliTertiaryBrush}" />
   </Style>
   <Style Selector="Border.alert.info">
     <Setter Property="Background" Value="{DynamicResource FiliInfoHoverBrush}" />
     <Setter Property="TextElement.Foreground" Value="{DynamicResource FiliInfoDarkenBrush}" />
   </Style>
-  <Style Selector="Border.alert.info PathIcon">
+  <Style Selector="Border.alert.info > PathIcon, Border.alert.info > :is(Panel) > PathIcon">
     <Setter Property="Foreground" Value="{DynamicResource FiliInfoBrush}" />
   </Style>
   <Style Selector="Border.alert.success">
     <Setter Property="Background" Value="{DynamicResource FiliSuccessHoverBrush}" />
     <Setter Property="TextElement.Foreground" Value="{DynamicResource FiliSuccessDarkenBrush}" />
   </Style>
-  <Style Selector="Border.alert.success PathIcon">
+  <Style Selector="Border.alert.success > PathIcon, Border.alert.success > :is(Panel) > PathIcon">
     <Setter Property="Foreground" Value="{DynamicResource FiliSuccessBrush}" />
   </Style>
   <Style Selector="Border.alert.warning">
     <Setter Property="Background" Value="{DynamicResource FiliWarningHoverBrush}" />
     <Setter Property="TextElement.Foreground" Value="{DynamicResource FiliWarningDarkenBrush}" />
   </Style>
-  <Style Selector="Border.alert.warning PathIcon">
+  <Style Selector="Border.alert.warning > PathIcon, Border.alert.warning > :is(Panel) > PathIcon">
     <Setter Property="Foreground" Value="{DynamicResource FiliWarningBrush}" />
   </Style>
   <Style Selector="Border.alert.error">
     <Setter Property="Background" Value="{DynamicResource FiliErrorHoverBrush}" />
     <Setter Property="TextElement.Foreground" Value="{DynamicResource FiliErrorDarkenBrush}" />
   </Style>
-  <Style Selector="Border.alert.error PathIcon">
+  <Style Selector="Border.alert.error > PathIcon, Border.alert.error > :is(Panel) > PathIcon">
     <Setter Property="Foreground" Value="{DynamicResource FiliErrorBrush}" />
   </Style>
   <Style Selector="Border.alert.dark">
     <Setter Property="Background" Value="{DynamicResource FiliDarkHoverBrush}" />
     <Setter Property="TextElement.Foreground" Value="{DynamicResource FiliDarkDarkenBrush}" />
   </Style>
-  <Style Selector="Border.alert.dark PathIcon">
+  <Style Selector="Border.alert.dark > PathIcon, Border.alert.dark > :is(Panel) > PathIcon">
     <Setter Property="Foreground" Value="{DynamicResource FiliDarkBrush}" />
   </Style>
   <Style Selector="Border.alert.outlined.primary">
@@ -803,56 +803,56 @@
     <Setter Property="Background" Value="{DynamicResource FiliPrimaryBrush}" />
     <Setter Property="TextElement.Foreground" Value="{DynamicResource FiliPrimaryContrastTextBrush}" />
   </Style>
-  <Style Selector="Border.alert.filled.primary PathIcon">
+  <Style Selector="Border.alert.filled.primary > PathIcon, Border.alert.filled.primary > :is(Panel) > PathIcon">
     <Setter Property="Foreground" Value="{DynamicResource FiliPrimaryContrastTextBrush}" />
   </Style>
   <Style Selector="Border.alert.filled.secondary">
     <Setter Property="Background" Value="{DynamicResource FiliSecondaryBrush}" />
     <Setter Property="TextElement.Foreground" Value="{DynamicResource FiliSecondaryContrastTextBrush}" />
   </Style>
-  <Style Selector="Border.alert.filled.secondary PathIcon">
+  <Style Selector="Border.alert.filled.secondary > PathIcon, Border.alert.filled.secondary > :is(Panel) > PathIcon">
     <Setter Property="Foreground" Value="{DynamicResource FiliSecondaryContrastTextBrush}" />
   </Style>
   <Style Selector="Border.alert.filled.tertiary">
     <Setter Property="Background" Value="{DynamicResource FiliTertiaryBrush}" />
     <Setter Property="TextElement.Foreground" Value="{DynamicResource FiliTertiaryContrastTextBrush}" />
   </Style>
-  <Style Selector="Border.alert.filled.tertiary PathIcon">
+  <Style Selector="Border.alert.filled.tertiary > PathIcon, Border.alert.filled.tertiary > :is(Panel) > PathIcon">
     <Setter Property="Foreground" Value="{DynamicResource FiliTertiaryContrastTextBrush}" />
   </Style>
   <Style Selector="Border.alert.filled.info">
     <Setter Property="Background" Value="{DynamicResource FiliInfoBrush}" />
     <Setter Property="TextElement.Foreground" Value="{DynamicResource FiliInfoContrastTextBrush}" />
   </Style>
-  <Style Selector="Border.alert.filled.info PathIcon">
+  <Style Selector="Border.alert.filled.info > PathIcon, Border.alert.filled.info > :is(Panel) > PathIcon">
     <Setter Property="Foreground" Value="{DynamicResource FiliInfoContrastTextBrush}" />
   </Style>
   <Style Selector="Border.alert.filled.success">
     <Setter Property="Background" Value="{DynamicResource FiliSuccessBrush}" />
     <Setter Property="TextElement.Foreground" Value="{DynamicResource FiliSuccessContrastTextBrush}" />
   </Style>
-  <Style Selector="Border.alert.filled.success PathIcon">
+  <Style Selector="Border.alert.filled.success > PathIcon, Border.alert.filled.success > :is(Panel) > PathIcon">
     <Setter Property="Foreground" Value="{DynamicResource FiliSuccessContrastTextBrush}" />
   </Style>
   <Style Selector="Border.alert.filled.warning">
     <Setter Property="Background" Value="{DynamicResource FiliWarningBrush}" />
     <Setter Property="TextElement.Foreground" Value="{DynamicResource FiliWarningContrastTextBrush}" />
   </Style>
-  <Style Selector="Border.alert.filled.warning PathIcon">
+  <Style Selector="Border.alert.filled.warning > PathIcon, Border.alert.filled.warning > :is(Panel) > PathIcon">
     <Setter Property="Foreground" Value="{DynamicResource FiliWarningContrastTextBrush}" />
   </Style>
   <Style Selector="Border.alert.filled.error">
     <Setter Property="Background" Value="{DynamicResource FiliErrorBrush}" />
     <Setter Property="TextElement.Foreground" Value="{DynamicResource FiliErrorContrastTextBrush}" />
   </Style>
-  <Style Selector="Border.alert.filled.error PathIcon">
+  <Style Selector="Border.alert.filled.error > PathIcon, Border.alert.filled.error > :is(Panel) > PathIcon">
     <Setter Property="Foreground" Value="{DynamicResource FiliErrorContrastTextBrush}" />
   </Style>
   <Style Selector="Border.alert.filled.dark">
     <Setter Property="Background" Value="{DynamicResource FiliDarkBrush}" />
     <Setter Property="TextElement.Foreground" Value="{DynamicResource FiliDarkContrastTextBrush}" />
   </Style>
-  <Style Selector="Border.alert.filled.dark PathIcon">
+  <Style Selector="Border.alert.filled.dark > PathIcon, Border.alert.filled.dark > :is(Panel) > PathIcon">
     <Setter Property="Foreground" Value="{DynamicResource FiliDarkContrastTextBrush}" />
   </Style>
   <!-- END GENERATED -->
@@ -2184,21 +2184,23 @@
   <!-- MudDrawer's Color is .mud-theme-{color}: the pane in the colour, its content in the
        contrast text. -->
   <!--
-    MudTooltip's Arrow, on a ToolTip with `arrow`. The ToolTip's logical parent is its Popup, so the
-    placement picks the side: Top puts the arrow under the chip pointing down, Bottom over it
-    pointing up, Left at its right pointing right, Right at its left pointing left - the four
-    `.mud-tooltip-{placement}.mud-tooltip-arrow::after` rules. Pointer, MudBlazor's lack, draws none.
+    MudTooltip's placements and Arrow. The ToolTip's logical parent is its Popup, so the placement
+    picks the side: Top puts the arrow under the chip pointing down, Bottom over it pointing up,
+    Left at its right pointing right, Right at its left pointing left - the four
+    `.mud-tooltip-{placement}.mud-tooltip-arrow::after` rules. The arrow and the 4px beyond it are
+    the 10px gap `.mud-tooltip-{placement}` translates the chip by, so every tooltip on a side has
+    it, drawn only with `arrow` (Overlays.axaml). Pointer, MudBlazor's lack, has neither.
   -->
-  <Style Selector="Popup[Placement=Top] > ToolTip.arrow /template/ Path#PART_Arrow">
+  <Style Selector="Popup[Placement=Top] > ToolTip /template/ Path#PART_Arrow">
     <Setter Property="IsVisible" Value="True" />
   </Style>
-  <Style Selector="Popup[Placement=Bottom] > ToolTip.arrow /template/ Path#PART_Arrow">
+  <Style Selector="Popup[Placement=Bottom] > ToolTip /template/ Path#PART_Arrow">
     <Setter Property="IsVisible" Value="True" />
     <Setter Property="DockPanel.Dock" Value="Top" />
     <Setter Property="Margin" Value="0,4,0,0" />
     <Setter Property="Data" Value="M0,6 L12,6 L6,0 Z" />
   </Style>
-  <Style Selector="Popup[Placement=Left] > ToolTip.arrow /template/ Path#PART_Arrow">
+  <Style Selector="Popup[Placement=Left] > ToolTip /template/ Path#PART_Arrow">
     <Setter Property="IsVisible" Value="True" />
     <Setter Property="DockPanel.Dock" Value="Right" />
     <Setter Property="Width" Value="6" />
@@ -2206,7 +2208,7 @@
     <Setter Property="Margin" Value="0,0,4,0" />
     <Setter Property="Data" Value="M0,0 L6,6 L0,12 Z" />
   </Style>
-  <Style Selector="Popup[Placement=Right] > ToolTip.arrow /template/ Path#PART_Arrow">
+  <Style Selector="Popup[Placement=Right] > ToolTip /template/ Path#PART_Arrow">
     <Setter Property="IsVisible" Value="True" />
     <Setter Property="DockPanel.Dock" Value="Left" />
     <Setter Property="Width" Value="6" />

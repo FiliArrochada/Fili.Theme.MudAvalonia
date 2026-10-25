@@ -1,5 +1,6 @@
 using Avalonia;
 using Avalonia.Controls;
+using Avalonia.VisualTree;
 using Avalonia.Controls.Notifications;
 using Avalonia.Media;
 using Avalonia.Threading;
@@ -109,5 +110,15 @@ public class SnackbarTests
 
         Assert.Equal(Matrix.Token("FiliInfoColor"), Matrix.Colour(card.Background));
         Assert.Equal(FontWeight.Medium, card.FontWeight);
+    });
+
+    /// <summary>The card's elevation 6 shadow falls past its edge: nothing round the card clips it.</summary>
+    [Fact]
+    public Task TheCardsShadowIsNotClipped() => UiThread.RunAsync(() =>
+    {
+        var card = Card(NotificationType.Information);
+
+        Assert.All(card.GetVisualDescendants().OfType<Control>().TakeWhile(c => c.Name != "PART_Card"),
+            c => Assert.False(c.ClipToBounds, $"{c.GetType().Name}#{c.Name} clips the card's shadow."));
     });
 }

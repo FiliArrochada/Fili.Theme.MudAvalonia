@@ -46,7 +46,7 @@ classes, `ControlTheme`s where a Material look cannot be faked without one, and 
   `end-icon`, and a chip gives an `avatar`; `OverlayScrim`, an `overlay`'s centring, corners and
   fade; `ButtonGroup`, where each button of a `button-group` sits; `MenuIconGutter`, a menu's shared icon
   column; `Adornments`, a text field's `:start-adornment` and `:end-adornment`; `TabBarScroll`, the tab bar's
-  scroll buttons; `CalendarView`, the date picker's toolbar buttons changing the calendar's view and
+  scroll buttons; `TooltipPlacement`, a side-placed tooltip's offset; `CalendarView`, the date picker's toolbar buttons changing the calendar's view and
   its toolbar's top corners; `TimeView`, the time picker's field text and its toolbar following the
   columns; and `DataGridLastColumn` and
   `GroupIndentConverter`,

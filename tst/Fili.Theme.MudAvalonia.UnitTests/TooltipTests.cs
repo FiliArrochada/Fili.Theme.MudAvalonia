@@ -3,6 +3,7 @@ using Avalonia.Controls;
 using Avalonia.Controls.Primitives;
 using Avalonia.LogicalTree;
 using Avalonia.Threading;
+using Avalonia.VisualTree;
 using Xunit;
 using Path = Avalonia.Controls.Shapes.Path;
 
@@ -41,12 +42,13 @@ public class TooltipTests
         Assert.Equal(double.PositiveInfinity, tip.MaxWidth);
     });
 
+    /// <summary>Without `arrow` the arrow's place is kept, as the gap, but nothing is drawn in it.</summary>
     [Fact]
     public Task NoArrowByDefault() => UiThread.RunAsync(() =>
     {
         var tip = Open(PlacementMode.Bottom);
 
-        Assert.False(Arrow(tip).IsVisible);
+        Assert.Equal(0, Arrow(tip).Opacity);
         Assert.Equal(Matrix.Token("FiliTooltipBackgroundColor"), Matrix.Colour(tip.Background));
     });
 
@@ -73,6 +75,7 @@ public class TooltipTests
         var arrow = Arrow(tip);
 
         Assert.True(arrow.IsVisible);
+        Assert.Equal(1, arrow.Opacity);
         Assert.Equal(side, DockPanel.GetDock(arrow));
         Assert.Equal(width, arrow.Width);
         Assert.Equal(height, arrow.Height);
@@ -84,4 +87,116 @@ public class TooltipTests
     {
         Assert.False(Arrow(Open(PlacementMode.Pointer, "arrow")).IsVisible);
     });
+
+    /// <summary>
+    /// `.mud-tooltip-{placement}`: centred on that side of the target, 10px off, with or without
+    /// the arrow - not Avalonia's ToolTip.VerticalOffset of 20 down, which put a Top tooltip over
+    /// its target and Left and Right ones 20px low.
+    /// </summary>
+    [Theory]
+    [InlineData(PlacementMode.Top, false)]
+    [InlineData(PlacementMode.Bottom, false)]
+    [InlineData(PlacementMode.Left, false)]
+    [InlineData(PlacementMode.Right, false)]
+    [InlineData(PlacementMode.Top, true)]
+    [InlineData(PlacementMode.Bottom, true)]
+    [InlineData(PlacementMode.Left, true)]
+    [InlineData(PlacementMode.Right, true)]
+    public Task ATooltipSitsCentredTenPixelsOffItsSide(PlacementMode placement, bool arrow) => UiThread.RunAsync(() =>
+    {
+        var (target, tip) = OpenInRoom(placement, arrow ? ["arrow"] : []);
+        var t = new Rect(target.PointToScreen(default).ToPoint(1), target.Bounds.Size);
+        var chip = Chip(tip);
+
+        switch (placement)
+        {
+            case PlacementMode.Top:
+                Assert.Equal(t.Top - 10, chip.Bottom, 0.5);
+                break;
+            case PlacementMode.Bottom:
+                Assert.Equal(t.Bottom + 10, chip.Top, 0.5);
+                break;
+            case PlacementMode.Left:
+                Assert.Equal(t.Left - 10, chip.Right, 0.5);
+                break;
+            default:
+                Assert.Equal(t.Right + 10, chip.Left, 0.5);
+                break;
+        }
+
+        if (placement is PlacementMode.Top or PlacementMode.Bottom)
+        {
+            Assert.Equal(t.Center.X, chip.Center.X, 1.0);
+        }
+        else
+        {
+            Assert.Equal(t.Center.Y, chip.Center.Y, 1.0);
+        }
+    });
+
+    /// <summary>Pointer, Avalonia's default and not MudBlazor's, keeps Avalonia's 20px under the pointer.</summary>
+    [Fact]
+    public Task APointerPlacedTipKeepsAvaloniasOffset() => UiThread.RunAsync(() =>
+    {
+        var (target, _) = OpenInRoom(PlacementMode.Pointer, []);
+
+        Assert.Equal(20, ToolTip.GetVerticalOffset(target));
+    });
+
+    /// <summary>The placement's offset is set where a style would set it: an app's own wins.</summary>
+    [Fact]
+    public Task AnAppsOwnOffsetWins() => UiThread.RunAsync(() =>
+    {
+        var target = new Button { Content = "Target" };
+        ToolTip.SetVerticalOffset(target, 6);
+        var (_, tip) = OpenInRoom(PlacementMode.Bottom, [], target);
+
+        Assert.Equal(6, ToolTip.GetVerticalOffset(target));
+        Assert.Equal(target.PointToScreen(new Point(0, target.Bounds.Height)).Y + 16, Chip(tip).Top, 0.5);
+    });
+
+    /// <summary>A target moved back to Pointer gets Avalonia's offset back the next time it opens.</summary>
+    [Fact]
+    public Task BackOnPointerTheOffsetReturns() => UiThread.RunAsync(() =>
+    {
+        var (target, _) = OpenInRoom(PlacementMode.Top, []);
+        Assert.Equal(0, ToolTip.GetVerticalOffset(target));
+
+        ToolTip.SetIsOpen(target, false);
+        ToolTip.SetPlacement(target, PlacementMode.Pointer);
+        ToolTip.SetIsOpen(target, true);
+        Dispatcher.UIThread.RunJobs();
+
+        Assert.Equal(20, ToolTip.GetVerticalOffset(target));
+    });
+
+    /// <summary>A target in the middle of a window, so no placement has to flip at its edge.</summary>
+    private static (Button Target, ToolTip Tip) OpenInRoom(PlacementMode placement, string[] classes, Button? target = null)
+    {
+        target ??= new Button { Content = "Target" };
+        var tip = new ToolTip { Content = "Delete" };
+        tip.Classes.AddRange(classes);
+        ToolTip.SetTip(target, tip);
+        ToolTip.SetPlacement(target, placement);
+        var window = new Window
+        {
+            Content = new Border { Padding = new Thickness(200), Child = target },
+            Width = 600,
+            Height = 600,
+            Position = new PixelPoint(100, 100),
+        };
+        window.Show();
+        Dispatcher.UIThread.RunJobs();
+
+        ToolTip.SetIsOpen(target, true);
+        Dispatcher.UIThread.RunJobs();
+        return (target, tip);
+    }
+
+    /// <summary>The chip itself, on screen: the tooltip less the arrow's side.</summary>
+    private static Rect Chip(ToolTip tip)
+    {
+        var chip = tip.GetVisualDescendants().OfType<Border>().Single();
+        return new Rect(chip.PointToScreen(default).ToPoint(1), chip.Bounds.Size);
+    }
 }

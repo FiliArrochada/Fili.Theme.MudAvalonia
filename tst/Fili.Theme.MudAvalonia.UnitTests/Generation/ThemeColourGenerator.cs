@@ -1419,6 +1419,12 @@ public static class ThemeColourGenerator
         + string.Concat(setters.Select(s => $"    <Setter Property=\"{s.Property}\" Value=\"{s.Value}\" />\n"))
         + "  </Style>\n";
 
+    /// <summary>
+    /// The alert's own icon: `.mud-alert-icon` is a child of the alert's row, so a PathIcon in the
+    /// alert or in the panel that is its content, never one inside a button there (a close X).
+    /// </summary>
+    private static string AlertIcon(string alert) => $"{alert} > PathIcon, {alert} > :is(Panel) > PathIcon";
+
     private static string AlertRegion()
     {
         var o = new StringBuilder();
@@ -1426,7 +1432,7 @@ public static class ThemeColourGenerator
         {
             var cls = c.ToLowerInvariant();
             o.Append(TopStyle($"Border.alert.{cls}", ("Background", Res($"Fili{c}HoverBrush")), ("TextElement.Foreground", Res($"Fili{c}DarkenBrush"))));
-            o.Append(TopStyle($"Border.alert.{cls} PathIcon", ("Foreground", Res($"Fili{c}Brush"))));
+            o.Append(TopStyle(AlertIcon($"Border.alert.{cls}"), ("Foreground", Res($"Fili{c}Brush"))));
         }
 
         foreach (var c in Colours)
@@ -1438,7 +1444,7 @@ public static class ThemeColourGenerator
         {
             var cls = c.ToLowerInvariant();
             o.Append(TopStyle($"Border.alert.filled.{cls}", ("Background", Res($"Fili{c}Brush")), ("TextElement.Foreground", Res($"Fili{c}ContrastTextBrush"))));
-            o.Append(TopStyle($"Border.alert.filled.{cls} PathIcon", ("Foreground", Res($"Fili{c}ContrastTextBrush"))));
+            o.Append(TopStyle(AlertIcon($"Border.alert.filled.{cls}"), ("Foreground", Res($"Fili{c}ContrastTextBrush"))));
         }
 
         return o.ToString();

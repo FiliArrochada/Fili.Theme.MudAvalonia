@@ -287,4 +287,29 @@ public class ComponentClassTests
 
         Assert.Equal(Matrix.Token("FiliDividerLightColor"), Matrix.Colour(separator.Background));
     });
+
+    /// <summary>
+    /// `.mud-alert-icon` is the alert's own icon only: a close button's X in the alert keeps its
+    /// icon button's size and colour, not the alert icon's 22px, gap and severity colour.
+    /// </summary>
+    [Fact]
+    public Task AnAlertsCloseButtonIsNotItsIcon() => UiThread.RunAsync(() =>
+    {
+        var icon = new PathIcon { Data = Geometry.Parse("M2 2h20v20H2z") };
+        var close = new PathIcon { Data = Geometry.Parse("M2 2h20v20H2z") };
+        var button = new Button { Classes = { "icon", "small" }, Content = close };
+        var alert = new Border
+        {
+            Classes = { "alert", "error" },
+            Width = 400,
+            Child = new DockPanel { Children = { icon, button, new TextBlock { Text = "Message" } } },
+        };
+        DockPanel.SetDock(button, Dock.Right);
+        Matrix.Show(alert);
+
+        Assert.Equal(22, icon.Bounds.Width);
+        Assert.Equal(Matrix.Token("FiliErrorColor"), Matrix.Colour(icon.Foreground));
+        Assert.NotEqual(22, close.Bounds.Width);
+        Assert.Equal(0, close.Margin.Right);
+    });
 }

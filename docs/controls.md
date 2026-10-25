@@ -1129,6 +1129,10 @@ for something XAML cannot express on its own:
 - **`TabBarScroll`** shows a tab bar's scroll buttons while its tabs overflow, disables each at
   its end, scrolls a bar's length per click, and brings the selected tab into view. Overflow is
   the scroller's extent against its viewport, which no binding compares.
+- **`TooltipPlacement`** sets a target's `ToolTip.VerticalOffset` to 0 when its tooltip opens
+  `Top`, `Bottom`, `Left` or `Right`, below the app's own value. Avalonia's default of 20 is the
+  distance under the pointer, applied whatever the placement, and the offset is read from the
+  target, which no style on the tooltip can reach.
 - **`DataGridLastColumn`** marks the cells and header of a grid's last visible column, for
   `dense`'s 16px on the right. The grid knows which column is last, but tells no one.
 - **`GroupIndentConverter`** indents a nested group's header 48px per level. A header's level is
@@ -1271,6 +1275,12 @@ or the page in a browser, stops it.
 wrapping it, so one built in markup keeps its classes: a colour class is MudTooltip's `Color`, and
 `arrow` its `Arrow`, a 6px triangle in the chip's colour on the side that faces the target for
 `Placement` `Top`, `Bottom`, `Left` and `Right`.
+
+**A tooltip on a side sits centred on it, 10px off**, as MudTooltip's does: the arrow and the 4px
+beyond it are that gap, kept transparent without `arrow`. Avalonia moves every tooltip 20px down
+(`ToolTip.VerticalOffset`), which is right only under the pointer, so for these four placements
+the theme sets it to 0; an offset the app sets still applies, from there. `Pointer`, the default,
+keeps Avalonia's 20.
 
 ```xml
 <Button Content="Delete" ToolTip.Placement="Bottom">
