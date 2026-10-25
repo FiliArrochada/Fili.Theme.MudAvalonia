@@ -1,0 +1,12 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <!-- small 24, no class 40, large 56px; the stroke scales with the ring. -->
+  <Grid ColumnDefinitions="88,88,88" RowDefinitions="Auto,Auto">
+    <ProgressBar Grid.Column="0" Classes="circular primary small" Value="70" HorizontalAlignment="Center" />
+    <ProgressBar Grid.Column="1" Classes="circular primary" Value="70" HorizontalAlignment="Center" />
+    <ProgressBar Grid.Column="2" Classes="circular primary large" Value="70" HorizontalAlignment="Center" />
+    <TextBlock Grid.Row="1" Grid.Column="0" Classes="caption" Text="small" HorizontalAlignment="Center" Margin="0,8,0,0" />
+    <TextBlock Grid.Row="1" Grid.Column="1" Classes="caption" Text="no class" HorizontalAlignment="Center" Margin="0,8,0,0" />
+    <TextBlock Grid.Row="1" Grid.Column="2" Classes="caption" Text="large" HorizontalAlignment="Center" Margin="0,8,0,0" />
+  </Grid>
+</UserControl>

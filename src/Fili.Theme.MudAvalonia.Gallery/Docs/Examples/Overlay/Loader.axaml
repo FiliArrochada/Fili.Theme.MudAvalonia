@@ -1,0 +1,16 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <!-- The overlay's child is centred: a progress ring makes it a loader. -->
+  <Border Classes="card" Width="300" HorizontalAlignment="Left">
+    <Panel>
+      <StackPanel Classes="card-content" Spacing="8">
+        <TextBlock Classes="h6" Text="Recent orders" />
+        <TextBlock Classes="body2" TextWrapping="Wrap"
+                   Text="Three orders are on their way and one is waiting for payment." />
+      </StackPanel>
+      <Border Classes="overlay dark-background">
+        <ProgressBar Classes="circular secondary" IsIndeterminate="True" />
+      </Border>
+    </Panel>
+  </Border>
+</UserControl>

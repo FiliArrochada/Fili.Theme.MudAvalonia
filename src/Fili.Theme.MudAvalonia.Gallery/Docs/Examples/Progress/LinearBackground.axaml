@@ -1,0 +1,10 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <!-- ShowBackground="false" is Background="Transparent": the bar with no track. -->
+  <Grid ColumnDefinitions="Auto,*" RowDefinitions="Auto,Auto">
+    <TextBlock Grid.Row="0" Classes="caption" Text="primary medium" VerticalAlignment="Center" Margin="0,0,16,0" />
+    <ProgressBar Grid.Row="0" Grid.Column="1" Classes="primary medium" Value="45" VerticalAlignment="Center" Margin="0,12" />
+    <TextBlock Grid.Row="1" Classes="caption" Text="Background Transparent" VerticalAlignment="Center" Margin="0,0,16,0" />
+    <ProgressBar Grid.Row="1" Grid.Column="1" Classes="primary medium" Value="45" Background="Transparent" VerticalAlignment="Center" Margin="0,12" />
+  </Grid>
+</UserControl>

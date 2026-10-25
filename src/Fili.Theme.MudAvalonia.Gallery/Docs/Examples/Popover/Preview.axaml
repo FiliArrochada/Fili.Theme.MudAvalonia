@@ -1,0 +1,11 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <!-- A FlyoutPresenter placed in the page, as a flyout looks once open: the surface, the
+       default radius and elevation 8. -->
+  <FlyoutPresenter HorizontalAlignment="Left">
+    <StackPanel Margin="16" Spacing="4">
+      <TextBlock Classes="subtitle1" Text="Popover" />
+      <TextBlock Classes="body2" Text="The surface at elevation 8, with no padding of its own." />
+    </StackPanel>
+  </FlyoutPresenter>
+</UserControl>

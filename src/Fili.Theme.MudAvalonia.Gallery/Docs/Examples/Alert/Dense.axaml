@@ -1,0 +1,24 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <!-- dense is MudAlert's Dense: 0 12px instead of 6px 16px. -->
+  <StackPanel Spacing="8">
+    <Border Classes="alert dense info">
+      <DockPanel>
+        <PathIcon DockPanel.Dock="Left" Data="{DynamicResource FiliInfoOutlinedGeometry}" />
+        <TextBlock Text="Dense text alert" TextWrapping="Wrap" />
+      </DockPanel>
+    </Border>
+    <Border Classes="alert dense outlined success">
+      <DockPanel>
+        <PathIcon DockPanel.Dock="Left" Data="{DynamicResource FiliAlertSuccessGeometry}" />
+        <TextBlock Text="Dense outlined alert" TextWrapping="Wrap" />
+      </DockPanel>
+    </Border>
+    <Border Classes="alert dense filled warning">
+      <DockPanel>
+        <PathIcon DockPanel.Dock="Left" Data="{DynamicResource FiliReportProblemGeometry}" />
+        <TextBlock Text="Dense filled alert" TextWrapping="Wrap" />
+      </DockPanel>
+    </Border>
+  </StackPanel>
+</UserControl>

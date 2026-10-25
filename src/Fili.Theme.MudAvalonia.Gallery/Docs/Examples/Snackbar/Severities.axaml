@@ -1,0 +1,22 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <!-- NotificationCards as WindowNotificationManager stacks them. The NotificationType is the
+       severity; Severity.Normal, which NotificationType lacks, is the normal class. -->
+  <WrapPanel Orientation="Horizontal" ItemSpacing="16">
+    <NotificationCard NotificationType="Information">
+      <TextBlock Text="Information" Margin="0,8" TextWrapping="Wrap" LineHeight="20" />
+    </NotificationCard>
+    <NotificationCard NotificationType="Success">
+      <TextBlock Text="Success" Margin="0,8" TextWrapping="Wrap" LineHeight="20" />
+    </NotificationCard>
+    <NotificationCard NotificationType="Warning">
+      <TextBlock Text="Warning" Margin="0,8" TextWrapping="Wrap" LineHeight="20" />
+    </NotificationCard>
+    <NotificationCard NotificationType="Error">
+      <TextBlock Text="Error" Margin="0,8" TextWrapping="Wrap" LineHeight="20" />
+    </NotificationCard>
+    <NotificationCard NotificationType="Information" Classes="normal">
+      <TextBlock Text="Normal" Margin="0,8" TextWrapping="Wrap" LineHeight="20" />
+    </NotificationCard>
+  </WrapPanel>
+</UserControl>

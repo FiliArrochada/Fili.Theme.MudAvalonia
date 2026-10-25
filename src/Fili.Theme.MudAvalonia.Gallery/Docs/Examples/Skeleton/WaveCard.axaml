@@ -1,0 +1,52 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <!-- The same idea with wave on every skeleton: header, media, content and actions. -->
+  <Border Background="{DynamicResource FiliBackgroundGrayBrush}" Padding="24">
+    <WrapPanel Orientation="Horizontal">
+      <StackPanel Spacing="8" Margin="0,0,24,0">
+        <TextBlock Classes="caption" Text="loading" />
+        <Border Classes="card" Width="300">
+          <StackPanel>
+            <DockPanel Classes="card-header">
+              <Border Classes="skeleton circle wave card-header-avatar" Width="40" Height="40" />
+              <StackPanel Classes="card-header-content">
+                <Border Classes="skeleton wave" Width="85" HorizontalAlignment="Left" />
+                <Border Classes="skeleton wave" Width="127" HorizontalAlignment="Left" />
+              </StackPanel>
+            </DockPanel>
+            <Border Classes="skeleton rectangle wave" Height="250" />
+            <StackPanel Classes="card-content">
+              <Border Classes="skeleton wave" />
+            </StackPanel>
+            <StackPanel Classes="card-actions">
+              <Border Classes="skeleton circle wave" Width="30" Height="30" Margin="8,0,0,8" />
+              <Border Classes="skeleton circle wave" Width="30" Height="30" Margin="12,0,0,8" />
+            </StackPanel>
+          </StackPanel>
+        </Border>
+      </StackPanel>
+      <StackPanel Spacing="8">
+        <TextBlock Classes="caption" Text="loaded" />
+        <Border Classes="card" Width="300">
+          <StackPanel>
+            <DockPanel Classes="card-header">
+              <Border Classes="avatar secondary card-header-avatar"><TextBlock Text="I" /></Border>
+              <Button Classes="icon card-header-actions"><PathIcon Data="{DynamicResource GallerySettingsIcon}" /></Button>
+              <StackPanel Classes="card-header-content">
+                <TextBlock Classes="body1" Text="Istra Croatia" />
+                <TextBlock Classes="body2" Text="Peninsula in Europe" />
+              </StackPanel>
+            </DockPanel>
+            <Border Classes="card-media" Height="250" Background="{DynamicResource FiliSuccessLightenBrush}" />
+            <TextBlock Classes="card-content body2" TextWrapping="Wrap"
+                       Text="This photo was taken in a small village in Istra Croatia." />
+            <StackPanel Classes="card-actions">
+              <Button Classes="icon"><PathIcon Data="{DynamicResource GalleryFavoriteIcon}" /></Button>
+              <Button Classes="icon"><PathIcon Data="{DynamicResource GalleryShareIcon}" /></Button>
+            </StackPanel>
+          </StackPanel>
+        </Border>
+      </StackPanel>
+    </WrapPanel>
+  </Border>
+</UserControl>

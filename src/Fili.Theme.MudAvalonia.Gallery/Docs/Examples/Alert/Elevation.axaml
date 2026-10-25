@@ -1,0 +1,30 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <!-- Any Border takes the elevation classes, an alert too. -->
+  <StackPanel Spacing="16">
+    <Border Classes="alert elevation1">
+      <DockPanel>
+        <PathIcon DockPanel.Dock="Left" Data="{DynamicResource FiliEventNoteGeometry}" />
+        <TextBlock Text="elevation1" TextWrapping="Wrap" />
+      </DockPanel>
+    </Border>
+    <Border Classes="alert info elevation4">
+      <DockPanel>
+        <PathIcon DockPanel.Dock="Left" Data="{DynamicResource FiliInfoOutlinedGeometry}" />
+        <TextBlock Text="elevation4" TextWrapping="Wrap" />
+      </DockPanel>
+    </Border>
+    <Border Classes="alert outlined success elevation8">
+      <DockPanel>
+        <PathIcon DockPanel.Dock="Left" Data="{DynamicResource FiliAlertSuccessGeometry}" />
+        <TextBlock Text="elevation8" TextWrapping="Wrap" />
+      </DockPanel>
+    </Border>
+    <Border Classes="alert filled error elevation12">
+      <DockPanel>
+        <PathIcon DockPanel.Dock="Left" Data="{DynamicResource FiliErrorOutlineGeometry}" />
+        <TextBlock Text="elevation12" TextWrapping="Wrap" />
+      </DockPanel>
+    </Border>
+  </StackPanel>
+</UserControl>

@@ -1,0 +1,17 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <!-- Anything can sit in a flyout; it pads itself, as <MudPaper Class="pa-4"> does in a
+       popover. Click the button. -->
+  <Button Classes="outlined" Content="Filters" HorizontalAlignment="Left">
+    <Button.Flyout>
+      <Flyout Placement="BottomEdgeAlignedLeft">
+        <StackPanel Margin="16" Spacing="8" Width="240">
+          <TextBlock Classes="subtitle1" Text="Filters" />
+          <TextBox Classes="outlined dense" PlaceholderText="Search" />
+          <CheckBox Classes="primary" Content="Only unread" />
+          <CheckBox Classes="primary" Content="Only starred" />
+        </StackPanel>
+      </Flyout>
+    </Button.Flyout>
+  </Button>
+</UserControl>

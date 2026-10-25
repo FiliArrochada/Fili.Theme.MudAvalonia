@@ -1,0 +1,12 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <!-- IsIndeterminate is MudBlazor's two-bar sweep, key frame for key frame. -->
+  <Grid ColumnDefinitions="Auto,*" RowDefinitions="Auto,Auto,Auto">
+    <TextBlock Grid.Row="0" Classes="caption" Text="no class" VerticalAlignment="Center" Margin="0,0,16,0" />
+    <ProgressBar Grid.Row="0" Grid.Column="1" IsIndeterminate="True" VerticalAlignment="Center" Margin="0,12" />
+    <TextBlock Grid.Row="1" Classes="caption" Text="primary" VerticalAlignment="Center" Margin="0,0,16,0" />
+    <ProgressBar Grid.Row="1" Grid.Column="1" Classes="primary" IsIndeterminate="True" VerticalAlignment="Center" Margin="0,12" />
+    <TextBlock Grid.Row="2" Classes="caption" Text="secondary" VerticalAlignment="Center" Margin="0,0,16,0" />
+    <ProgressBar Grid.Row="2" Grid.Column="1" Classes="secondary" IsIndeterminate="True" VerticalAlignment="Center" Margin="0,12" />
+  </Grid>
+</UserControl>

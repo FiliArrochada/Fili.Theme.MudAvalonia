@@ -1,0 +1,15 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <!-- No PathIcon, no icon: there is no default icon per severity. -->
+  <StackPanel Spacing="8">
+    <Border Classes="alert info">
+      <TextBlock Text="An alert with no icon" TextWrapping="Wrap" />
+    </Border>
+    <Border Classes="alert outlined success">
+      <TextBlock Text="An outlined alert with no icon" TextWrapping="Wrap" />
+    </Border>
+    <Border Classes="alert filled error">
+      <TextBlock Text="A filled alert with no icon" TextWrapping="Wrap" />
+    </Border>
+  </StackPanel>
+</UserControl>

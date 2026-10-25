@@ -1,0 +1,48 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <!-- MudPopover's AnchorOrigin and TransformOrigin are the flyout's Placement. Click a button. -->
+  <WrapPanel Orientation="Horizontal">
+    <Button Classes="outlined" Content="Top" Margin="0,0,8,8">
+      <Button.Flyout>
+        <Flyout Placement="Top">
+          <TextBlock Classes="body2" Margin="16" Text="Placement Top" />
+        </Flyout>
+      </Button.Flyout>
+    </Button>
+    <Button Classes="outlined" Content="Bottom" Margin="0,0,8,8">
+      <Button.Flyout>
+        <Flyout Placement="Bottom">
+          <TextBlock Classes="body2" Margin="16" Text="Placement Bottom" />
+        </Flyout>
+      </Button.Flyout>
+    </Button>
+    <Button Classes="outlined" Content="Left" Margin="0,0,8,8">
+      <Button.Flyout>
+        <Flyout Placement="Left">
+          <TextBlock Classes="body2" Margin="16" Text="Placement Left" />
+        </Flyout>
+      </Button.Flyout>
+    </Button>
+    <Button Classes="outlined" Content="Right" Margin="0,0,8,8">
+      <Button.Flyout>
+        <Flyout Placement="Right">
+          <TextBlock Classes="body2" Margin="16" Text="Placement Right" />
+        </Flyout>
+      </Button.Flyout>
+    </Button>
+    <Button Classes="outlined" Content="Bottom left" Margin="0,0,8,8">
+      <Button.Flyout>
+        <Flyout Placement="BottomEdgeAlignedLeft">
+          <TextBlock Classes="body2" Margin="16" Text="Placement BottomEdgeAlignedLeft" />
+        </Flyout>
+      </Button.Flyout>
+    </Button>
+    <Button Classes="outlined" Content="Bottom right" Margin="0,0,8,8">
+      <Button.Flyout>
+        <Flyout Placement="BottomEdgeAlignedRight">
+          <TextBlock Classes="body2" Margin="16" Text="Placement BottomEdgeAlignedRight" />
+        </Flyout>
+      </Button.Flyout>
+    </Button>
+  </WrapPanel>
+</UserControl>

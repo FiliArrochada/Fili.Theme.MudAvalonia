@@ -1,0 +1,12 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <!-- IsIndeterminate spins the ring: circular-rotate and circular-dash, as MudBlazor's. -->
+  <Grid ColumnDefinitions="88,88,88" RowDefinitions="Auto,Auto">
+    <ProgressBar Grid.Column="0" Classes="circular" IsIndeterminate="True" HorizontalAlignment="Center" />
+    <ProgressBar Grid.Column="1" Classes="circular primary" IsIndeterminate="True" HorizontalAlignment="Center" />
+    <ProgressBar Grid.Column="2" Classes="circular secondary" IsIndeterminate="True" HorizontalAlignment="Center" />
+    <TextBlock Grid.Row="1" Grid.Column="0" Classes="caption" Text="no class" HorizontalAlignment="Center" Margin="0,8,0,0" />
+    <TextBlock Grid.Row="1" Grid.Column="1" Classes="caption" Text="primary" HorizontalAlignment="Center" Margin="0,8,0,0" />
+    <TextBlock Grid.Row="1" Grid.Column="2" Classes="caption" Text="secondary" HorizontalAlignment="Center" Margin="0,8,0,0" />
+  </Grid>
+</UserControl>

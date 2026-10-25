@@ -1,0 +1,10 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <!-- MudTooltip's Delay is ToolTip.ShowDelay, in milliseconds. -->
+  <WrapPanel Orientation="Horizontal">
+    <Button Classes="outlined" Content="No delay" Margin="0,0,8,8"
+            ToolTip.Tip="Shown at once" ToolTip.ShowDelay="0" />
+    <Button Classes="outlined" Content="One second" Margin="0,0,8,8"
+            ToolTip.Tip="Shown after a second" ToolTip.ShowDelay="1000" />
+  </WrapPanel>
+</UserControl>

@@ -1,0 +1,12 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <!-- A Flyout is MudPopover's paper. It has no padding: the content brings its own. Click
+       the button to open it. -->
+  <Button Classes="filled primary" Content="Open popover" HorizontalAlignment="Left">
+    <Button.Flyout>
+      <Flyout>
+        <TextBlock Classes="body2" Margin="16" Text="Content of the popover" />
+      </Flyout>
+    </Button.Flyout>
+  </Button>
+</UserControl>

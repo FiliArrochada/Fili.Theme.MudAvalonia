@@ -1,0 +1,87 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:docs="using:Fili.Theme.MudAvalonia.Gallery.Docs"
+             x:Class="Fili.Theme.MudAvalonia.Gallery.Docs.Pages.OverlayPage">
+  <StackPanel Classes="doc">
+    <docs:DocHeader Title="Overlay"
+                    Summary="An overlay covers content to block it or show that it is busy: overlay on Avalonia's Border, drawn as MudOverlay. It sits over the content it covers, in a Panel with it, and the app shows and hides it."
+                    MudBlazor="Overlay"
+                    MudBlazorPath="components/overlay" />
+
+    <TextBlock Classes="h5 section" Text="Usage" />
+    <docs:ExampleCard Title="Shown and hidden"
+                      Description="The overlay shares a Panel with the content it covers, so it lies over that content alone, as MudOverlay's Absolute does. Here a ToggleButton's IsChecked is bound to its IsVisible."
+                      Source="Overlay/Toggle" />
+    <TextBlock Classes="body1 p">
+      <Run Text="It fades in over .15s each time it is shown, MudBlazor's " />
+      <Run Classes="code" Text="mud-animation-fadein" />
+      <Run Text=": the whole overlay, content included, where MudBlazor fades the scrim and shows the content at once. With " />
+      <Run Classes="code" Text="FiliReducedMotion" />
+      <Run Text=" set it is shown at once. To cover the whole page rather than one container, put the overlay in a " />
+      <Run Classes="code" Text="Panel" />
+      <Run Text=" with the window's content." />
+    </TextBlock>
+
+    <TextBlock Classes="h5 section" Text="Colour" />
+    <docs:ExampleCard Title="Transparent, dark and light"
+                      Description="With no other class the overlay is transparent and still takes the pointer, as a modal MudOverlay does. dark-background and light-background are DarkBackground and LightBackground, the palette's OverlayDark and OverlayLight. Its corners are those of the container above it, as border-radius: inherit makes them."
+                      Source="Overlay/Colors" />
+
+    <TextBlock Classes="h5 section" Text="Content as a loader" />
+    <docs:ExampleCard Title="A progress ring in the overlay"
+                      Description="The overlay's child is centred, as MudOverlay's align-items and justify-content are; an alignment the app sets on it wins."
+                      Source="Overlay/Loader" />
+
+    <TextBlock Classes="h5 section" Text="Non-modal" />
+    <docs:ExampleCard Title="Letting clicks through"
+                      Description="MudBlazor's Modal=&quot;false&quot; is IsHitTestVisible=&quot;False&quot;: the overlay still shows, and the content beneath it still takes the pointer."
+                      Source="Overlay/NonModal" />
+
+    <TextBlock Classes="h5 section" Text="Z-index and closing" />
+    <TextBlock Classes="body1 p">
+      <Run Classes="code" Text="ZIndex" />
+      <Run Text=" is the ordinary Avalonia property; in a " />
+      <Run Classes="code" Text="Panel" />
+      <Run Text=" a later child is drawn over an earlier one anyway. MudBlazor's " />
+      <Run Classes="code" Text="AutoClose" />
+      <Run Text=", " />
+      <Run Classes="code" Text="OnClick" />
+      <Run Text=" and " />
+      <Run Classes="code" Text="LockScroll" />
+      <Run Text=" are behaviour, and have no counterpart: closing on a click and locking scroll are the app's." />
+    </TextBlock>
+    <StackPanel Orientation="Horizontal" Spacing="8" Margin="0,0,0,16">
+      <TextBlock Classes="body1" Text="See also:" VerticalAlignment="Center" />
+      <docs:DocLink Slug="progress" Content="Progress" />
+      <docs:DocLink Slug="drawer" Content="Drawer" />
+      <docs:DocLink Slug="reduced-motion" Content="Reduced motion" />
+    </StackPanel>
+
+    <TextBlock Classes="h5 section" Text="MudBlazor parity" />
+    <TextBlock Classes="body1 p">
+      <Run Text="Every MudOverlay parameter and what it is here. " />
+      <Run Classes="code" Text="Same" />
+      <Run Text=" is transcribed from MudBlazor's source; " />
+      <Run Classes="code" Text="Close" />
+      <Run Text=" gets the same result another way; " />
+      <Run Classes="code" Text="Missing" />
+      <Run Text=" has no counterpart; " />
+      <Run Classes="code" Text="Extra" />
+      <Run Text=" is beyond MudBlazor." />
+    </TextBlock>
+    <docs:ParityTable>
+      <docs:ParityRow MudBlazor="MudOverlay" Here="overlay on a Border" Status="Same" Note="Transparent, and it still takes the pointer, as a modal MudOverlay does." />
+      <docs:ParityRow MudBlazor="DarkBackground, LightBackground" Here="dark-background, light-background" Status="Same" Note="The palette's OverlayDark and OverlayLight." />
+      <docs:ParityRow MudBlazor="the content, centred" Here="the Border's child" Status="Same" Note="Centred; an alignment the app sets on it wins." />
+      <docs:ParityRow MudBlazor="border-radius: inherit" Here="the same" Status="Same" Note="The corners of the nearest Border, ContentPresenter or templated control above, past a Panel; a CornerRadius the app sets wins." />
+      <docs:ParityRow MudBlazor="the scrim's 0.15s fade-in" Here="the same, each time it is shown" Status="Close" Note="The whole overlay fades, content included, where MudBlazor fades the scrim alone." />
+      <docs:ParityRow MudBlazor="Modal=&quot;false&quot;" Here="IsHitTestVisible=&quot;False&quot;" Status="Close" Note="An ordinary Avalonia property." />
+      <docs:ParityRow MudBlazor="Absolute / fixed" Here="the overlay in a Panel with the container's content, or the window's" Status="Close" Note="Layout." />
+      <docs:ParityRow MudBlazor="ZIndex (5)" Here="ZIndex" Status="Close" Note="An ordinary Avalonia property." />
+      <docs:ParityRow MudBlazor="DarkBackground on a temporary drawer's scrim" Here="the light-dismiss layer behind an overlay SplitView pane" Status="Same" Note="FiliOverlayDarkBrush." />
+      <docs:ParityRow MudBlazor="AutoClose, OnClick, LockScroll" Here="(none)" Status="Missing" Note="Behaviour: closing on a click and locking scroll are the app's." />
+      <docs:ParityRow MudBlazor="Palette OverlayDark / OverlayLight" Here="FiliOverlayDarkColor / FiliOverlayLightColor" Status="Same" Note="The two scrim colours, with their paired brushes." />
+      <docs:ParityRow MudBlazor="(none: reduced motion)" Here="FiliReducedMotion" Status="Extra" Note="The overlay is shown at once, without its fade." />
+    </docs:ParityTable>
+  </StackPanel>
+</UserControl>

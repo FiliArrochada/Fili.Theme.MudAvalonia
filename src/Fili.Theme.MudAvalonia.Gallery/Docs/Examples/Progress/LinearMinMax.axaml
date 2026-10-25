@@ -1,0 +1,10 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <!-- Minimum, Maximum and Value are MudBlazor's Min, Max and Value: 150 of 100 to 200 is half. -->
+  <Grid ColumnDefinitions="Auto,*" RowDefinitions="Auto,Auto">
+    <TextBlock Grid.Row="0" Classes="caption" Text="0 to 100, Value 50" VerticalAlignment="Center" Margin="0,0,16,0" />
+    <ProgressBar Grid.Row="0" Grid.Column="1" Classes="info large" Value="50" VerticalAlignment="Center" Margin="0,12" />
+    <TextBlock Grid.Row="1" Classes="caption" Text="100 to 200, Value 150" VerticalAlignment="Center" Margin="0,0,16,0" />
+    <ProgressBar Grid.Row="1" Grid.Column="1" Classes="info large" Minimum="100" Maximum="200" Value="150" VerticalAlignment="Center" Margin="0,12" />
+  </Grid>
+</UserControl>

@@ -1,0 +1,81 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:docs="using:Fili.Theme.MudAvalonia.Gallery.Docs"
+             x:Class="Fili.Theme.MudAvalonia.Gallery.Docs.Pages.PopoverPage">
+  <StackPanel Classes="doc">
+    <docs:DocHeader Title="Popover"
+                    Summary="Content floating above the page, anchored to a control: Avalonia's Flyout, MenuFlyout and ContextMenu, drawn as MudPopover's paper. Click the triggers in the examples to open them."
+                    MudBlazor="Popover"
+                    MudBlazorPath="components/popover" />
+
+    <TextBlock Classes="h5 section" Text="Simple popover" />
+    <docs:ExampleCard Title="A button with a Flyout"
+                      Description="A Flyout is MudPopover: the surface, the theme's default radius and elevation 8. Like MudPopover it has no padding, so the content brings its own."
+                      Source="Popover/Simple" />
+    <TextBlock Classes="body1 p">
+      <Run Text="The framework builds a flyout's presenter, so " />
+      <Run Classes="code" Text="FlyoutPresenter" />
+      <Run Text=" and " />
+      <Run Classes="code" Text="MenuFlyoutPresenter" />
+      <Run Text=" are themed by type, with nothing to opt into. Set Padding on the content, as these examples do, or on the presenter through " />
+      <Run Classes="code" Text="FlyoutPresenterClasses" />
+      <Run Text="." />
+    </TextBlock>
+
+    <TextBlock Classes="h5 section" Text="How a popover looks" />
+    <docs:ExampleCard Title="An open flyout"
+                      Description="A FlyoutPresenter placed in the page, as a flyout looks once open."
+                      Source="Popover/Preview" />
+
+    <TextBlock Classes="h5 section" Text="Direction and location" />
+    <docs:ExampleCard Title="Placement"
+                      Description="MudPopover's AnchorOrigin and TransformOrigin are the flyout's Placement: beside the target on any side, or along its edge."
+                      Source="Popover/Placement" />
+
+    <TextBlock Classes="h5 section" Text="Complex content" />
+    <docs:ExampleCard Title="A form in a flyout"
+                      Description="Anything can sit in a flyout, padded by itself as MudPaper Class=&quot;pa-4&quot; is in a popover."
+                      Source="Popover/Complex" />
+
+    <TextBlock Classes="h5 section" Text="Menus and context menus" />
+    <docs:ExampleCard Title="MenuFlyout and ContextMenu"
+                      Description="A MenuFlyout and a ContextMenu are the same paper, surface at elevation 8, with MudMenu's list on it."
+                      Source="Popover/Menus" />
+    <StackPanel Orientation="Horizontal" Spacing="8" Margin="0,0,0,16">
+      <TextBlock Classes="body1" Text="See also:" VerticalAlignment="Center" />
+      <docs:DocLink Slug="menu" Content="Menu" />
+      <docs:DocLink Slug="tooltip" Content="Tooltip" />
+    </StackPanel>
+
+    <TextBlock Classes="h5 section" Text="Opening fade" />
+    <TextBlock Classes="body1 p">
+      <Run Text="Every popup fades in, as every MudPopover does: opacity 0 to 1 over PopoverOptions.Duration's 251ms at CSS's ease, after MudPopover's Delay of 0, and closes at once. A select's list, a menu, an autocomplete's list, a flyout and a tooltip alike. A dense MudMenu opens without it; here it fades too. Neither duration nor delay can be set per popup. With " />
+      <Run Classes="code" Text="FiliReducedMotion" />
+      <Run Text=" on, every popup appears at once." />
+    </TextBlock>
+    <StackPanel Orientation="Horizontal" Spacing="8" Margin="0,0,0,16">
+      <TextBlock Classes="body1" Text="See also:" VerticalAlignment="Center" />
+      <docs:DocLink Slug="reduced-motion" Content="Reduced motion" />
+    </StackPanel>
+
+    <TextBlock Classes="h5 section" Text="MudBlazor parity" />
+    <TextBlock Classes="body1 p">
+      <Run Text="Every MudPopover parameter and what it is here. " />
+      <Run Classes="code" Text="Same" />
+      <Run Text=" is transcribed from MudBlazor's source; " />
+      <Run Classes="code" Text="Close" />
+      <Run Text=" gets the same result another way; " />
+      <Run Classes="code" Text="Missing" />
+      <Run Text=" has no counterpart." />
+    </TextBlock>
+    <docs:ParityTable>
+      <docs:ParityRow MudBlazor="the paper" Here="FlyoutPresenter, MenuFlyoutPresenter, ContextMenu" Status="Same" Note="The surface, the default radius, elevation 8." />
+      <docs:ParityRow MudBlazor="padding" Here="none" Status="Same" Note="The content brings its own, as MudPaper Class=&quot;pa-4&quot; does in a popover." />
+      <docs:ParityRow MudBlazor="Elevation, Square, Paper=&quot;false&quot;, DropShadow=&quot;false&quot;" Here="—" Status="Missing" Note="A presenter takes no elevation or shape class." />
+      <docs:ParityRow MudBlazor="AnchorOrigin, TransformOrigin" Here="Placement" Status="Close" />
+      <docs:ParityRow MudBlazor="MaxHeight" Here="MaxHeight" Status="Close" />
+      <docs:ParityRow MudBlazor="the opening fade, Duration (251ms), Delay (0)" Here="the same, on every popup" Status="Same" Note="Opacity 0 to 1 over 251ms at CSS's ease, closing at once. A dense MudMenu opens without it and here fades too; the two cannot be set per popup." />
+      <docs:ParityRow MudBlazor="RelativeWidth" Here="—" Status="Missing" Note="Its width relative to the anchor is the app's to bind." />
+    </docs:ParityTable>
+  </StackPanel>
+</UserControl>

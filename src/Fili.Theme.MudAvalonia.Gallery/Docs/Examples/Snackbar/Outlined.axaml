@@ -1,0 +1,21 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <!-- outlined is SnackbarVariant.Outlined: text, with a 1px line in the colour. -->
+  <WrapPanel Orientation="Horizontal" ItemSpacing="16">
+    <NotificationCard NotificationType="Information" Classes="outlined">
+      <TextBlock Text="Information" Margin="0,8" TextWrapping="Wrap" LineHeight="20" />
+    </NotificationCard>
+    <NotificationCard NotificationType="Success" Classes="outlined">
+      <TextBlock Text="Success" Margin="0,8" TextWrapping="Wrap" LineHeight="20" />
+    </NotificationCard>
+    <NotificationCard NotificationType="Warning" Classes="outlined">
+      <TextBlock Text="Warning" Margin="0,8" TextWrapping="Wrap" LineHeight="20" />
+    </NotificationCard>
+    <NotificationCard NotificationType="Error" Classes="outlined">
+      <TextBlock Text="Error" Margin="0,8" TextWrapping="Wrap" LineHeight="20" />
+    </NotificationCard>
+    <NotificationCard NotificationType="Information" Classes="outlined normal">
+      <TextBlock Text="Normal" Margin="0,8" TextWrapping="Wrap" LineHeight="20" />
+    </NotificationCard>
+  </WrapPanel>
+</UserControl>

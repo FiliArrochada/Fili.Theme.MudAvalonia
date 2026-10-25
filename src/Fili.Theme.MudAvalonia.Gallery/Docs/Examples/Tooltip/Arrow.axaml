@@ -1,0 +1,27 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <!-- arrow on a ToolTip used as the Tip is MudTooltip's Arrow: a 6px triangle on the side
+       that faces the target. Hover a button. -->
+  <WrapPanel Orientation="Horizontal">
+    <Button Classes="outlined" Content="Top" Margin="0,0,8,8" ToolTip.Placement="Top">
+      <ToolTip.Tip>
+        <ToolTip Classes="arrow" Content="Arrow, Top" />
+      </ToolTip.Tip>
+    </Button>
+    <Button Classes="outlined" Content="Bottom" Margin="0,0,8,8" ToolTip.Placement="Bottom">
+      <ToolTip.Tip>
+        <ToolTip Classes="arrow" Content="Arrow, Bottom" />
+      </ToolTip.Tip>
+    </Button>
+    <Button Classes="outlined" Content="Left" Margin="0,0,8,8" ToolTip.Placement="Left">
+      <ToolTip.Tip>
+        <ToolTip Classes="arrow" Content="Arrow, Left" />
+      </ToolTip.Tip>
+    </Button>
+    <Button Classes="outlined" Content="Right" Margin="0,0,8,8" ToolTip.Placement="Right">
+      <ToolTip.Tip>
+        <ToolTip Classes="arrow" Content="Arrow, Right" />
+      </ToolTip.Tip>
+    </Button>
+  </WrapPanel>
+</UserControl>

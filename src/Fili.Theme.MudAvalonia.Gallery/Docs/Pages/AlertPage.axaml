@@ -1,0 +1,95 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:docs="using:Fili.Theme.MudAvalonia.Gallery.Docs"
+             x:Class="Fili.Theme.MudAvalonia.Gallery.Docs.Pages.AlertPage">
+  <StackPanel Classes="doc">
+    <docs:DocHeader Title="Alert"
+                    Summary="A short message that stands out from the page: alert on a Border, drawn as MudAlert. Severity, variant and density are one class each; the message and an icon go inside."
+                    MudBlazor="Alert"
+                    MudBlazorPath="components/alert" />
+
+    <TextBlock Classes="h5 section" Text="Simple alerts" />
+    <docs:ExampleCard Title="Severities"
+                      Description="A colour class is the Severity: info, success, warning, error. With no colour class it is Severity.Normal, text-primary on dark-hover. The text variant is the colour at 6% behind text in the colour's darken shade; only the icon is the colour itself."
+                      Source="Alert/Simple" />
+    <TextBlock Classes="body1 p">
+      <Run Text="An icon is a " />
+      <Run Classes="code" Text="PathIcon" />
+      <Run Text=" inside the alert. The theme draws it as " />
+      <Run Classes="code" Text=".mud-alert-icon" />
+      <Run Text=": 22px at .9 opacity, 12px before the message and on its first line. There is no default icon per severity; these examples use the theme's own glyphs, " />
+      <Run Classes="code" Text="FiliEventNoteGeometry" />
+      <Run Text=", " />
+      <Run Classes="code" Text="FiliInfoOutlinedGeometry" />
+      <Run Text=", " />
+      <Run Classes="code" Text="FiliAlertSuccessGeometry" />
+      <Run Text=", " />
+      <Run Classes="code" Text="FiliReportProblemGeometry" />
+      <Run Text=" and " />
+      <Run Classes="code" Text="FiliErrorOutlineGeometry" />
+      <Run Text=", which are MudBlazor's. The padding holds the message's 9px inside the alert's 6px, so a one-line alert is MudAlert's 50px." />
+    </TextBlock>
+
+    <TextBlock Classes="h5 section" Text="Variants" />
+    <docs:ExampleCard Title="Outlined and filled"
+                      Description="MudAlert.Variant defaults to Text. outlined adds a 1px line in the colour; filled is the colour as ground with its contrast text at Medium weight."
+                      Source="Alert/Variants" />
+
+    <TextBlock Classes="h5 section" Text="Colours" />
+    <docs:ExampleCard Title="Any palette colour"
+                      Description="Any of the eight colour classes works on an alert, not only the four severities."
+                      Source="Alert/Colors" />
+
+    <TextBlock Classes="h5 section" Text="Dense" />
+    <docs:ExampleCard Title="dense"
+                      Description="dense is MudAlert's Dense: a one-line alert is 38px instead of 50."
+                      Source="Alert/Dense" />
+
+    <TextBlock Classes="h5 section" Text="No icons" />
+    <docs:ExampleCard Title="Without an icon"
+                      Description="MudAlert's NoIcon is no PathIcon in the content."
+                      Source="Alert/NoIcon" />
+
+    <TextBlock Classes="h5 section" Text="Rounded and square" />
+    <docs:ExampleCard Title="CornerRadius"
+                      Description="An alert has the theme's default radius. MudAlert's Square is CornerRadius=&quot;0&quot;."
+                      Source="Alert/Square" />
+
+    <TextBlock Classes="h5 section" Text="Elevation" />
+    <docs:ExampleCard Title="Elevation classes"
+                      Description="Any Border takes the elevation classes, an alert too."
+                      Source="Alert/Elevation" />
+
+    <TextBlock Classes="h5 section" Text="Close icon" />
+    <docs:ExampleCard Title="A close button in the content"
+                      Description="MudAlert's ShowCloseIcon is a button you put in the content; an inherit icon button takes the alert's colour. Closing the alert is the app's."
+                      Source="Alert/Close" />
+    <TextBlock Classes="body1 p">
+      <Run Text="MudAlert's " />
+      <Run Classes="code" Text="ContentAlignment" />
+      <Run Text=" has no class either: align the content with ordinary layout." />
+    </TextBlock>
+
+    <TextBlock Classes="h5 section" Text="MudBlazor parity" />
+    <TextBlock Classes="body1 p">
+      <Run Text="Every MudAlert parameter and what it is here. " />
+      <Run Classes="code" Text="Same" />
+      <Run Text=" is transcribed from MudBlazor's source; " />
+      <Run Classes="code" Text="Close" />
+      <Run Text=" gets the same result another way." />
+    </TextBlock>
+    <docs:ParityTable>
+      <docs:ParityRow MudBlazor="Severity.Normal (default)" Here="alert" Status="Same" Note="Text-primary on dark-hover." />
+      <docs:ParityRow MudBlazor="Severity.Info / Success / Warning / Error" Here="info / success / warning / error" Status="Same" Note="Any of the eight colour classes works." />
+      <docs:ParityRow MudBlazor="Variant.Text (default)" Here="no class" Status="Same" Note="The colour's hover ground, its darken text, and the colour on the icon." />
+      <docs:ParityRow MudBlazor="Variant.Outlined" Here="outlined" Status="Same" Note="A 1px line in the colour." />
+      <docs:ParityRow MudBlazor="Variant.Filled" Here="filled" Status="Same" Note="The colour as ground, its contrast text at Medium weight." />
+      <docs:ParityRow MudBlazor="Dense" Here="dense" Status="Same" />
+      <docs:ParityRow MudBlazor=".mud-alert-message, .mud-alert-icon" Here="the alert's padding, a PathIcon inside" Status="Same" Note="9px round the message inside the 6px, so one line is 50px (38 dense); the icon 22px, 12px before the message, on its first line at .9 opacity." />
+      <docs:ParityRow MudBlazor="ShowCloseIcon, CloseIcon, ContentAlignment" Here="a button in the content; ordinary layout" Status="Close" Note="Put a button in the content and align with ordinary layout." />
+      <docs:ParityRow MudBlazor="Icon, NoIcon" Here="a PathIcon in the content, or none" Status="Close" Note="There is no default icon per severity." />
+      <docs:ParityRow MudBlazor="Elevation" Here="the elevation classes" Status="Same" Note="Any Border takes them." />
+      <docs:ParityRow MudBlazor="Square" Here="CornerRadius=&quot;0&quot;" Status="Same" Note="No radius." />
+    </docs:ParityTable>
+  </StackPanel>
+</UserControl>

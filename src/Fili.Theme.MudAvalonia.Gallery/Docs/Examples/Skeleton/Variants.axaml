@@ -1,0 +1,13 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <!-- No type class is SkeletonType.Text: a 20px line drawn as a 12px bar, 60% of it from 60% down.
+       circle and rectangle are the other two types. -->
+  <Grid ColumnDefinitions="Auto,*" RowDefinitions="Auto,Auto,Auto">
+    <TextBlock Grid.Row="0" Classes="caption" Text="skeleton" VerticalAlignment="Center" Margin="0,0,16,0" />
+    <Border Grid.Row="0" Grid.Column="1" Classes="skeleton" Width="200" HorizontalAlignment="Left" Margin="0,8" />
+    <TextBlock Grid.Row="1" Classes="caption" Text="skeleton circle" VerticalAlignment="Center" Margin="0,0,16,0" />
+    <Border Grid.Row="1" Grid.Column="1" Classes="skeleton circle" Width="50" Height="50" HorizontalAlignment="Left" Margin="0,8" />
+    <TextBlock Grid.Row="2" Classes="caption" Text="skeleton rectangle" VerticalAlignment="Center" Margin="0,0,16,0" />
+    <Border Grid.Row="2" Grid.Column="1" Classes="skeleton rectangle" Width="200" Height="110" HorizontalAlignment="Left" Margin="0,8" />
+  </Grid>
+</UserControl>

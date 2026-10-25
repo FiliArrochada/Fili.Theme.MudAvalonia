@@ -1,0 +1,16 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <!-- A ToolTip placed in the page, to show how one looks once open: the default chip and each
+       colour class. Out of a popup it has no placement, so it draws no arrow. -->
+  <WrapPanel Orientation="Horizontal" ItemSpacing="8" LineSpacing="8">
+    <ToolTip Content="Default" />
+    <ToolTip Classes="primary" Content="primary" />
+    <ToolTip Classes="secondary" Content="secondary" />
+    <ToolTip Classes="tertiary" Content="tertiary" />
+    <ToolTip Classes="info" Content="info" />
+    <ToolTip Classes="success" Content="success" />
+    <ToolTip Classes="warning" Content="warning" />
+    <ToolTip Classes="error" Content="error" />
+    <ToolTip Classes="dark" Content="dark" />
+  </WrapPanel>
+</UserControl>

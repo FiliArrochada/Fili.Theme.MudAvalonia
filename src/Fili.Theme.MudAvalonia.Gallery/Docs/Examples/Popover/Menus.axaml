@@ -1,0 +1,24 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <!-- A MenuFlyout and a ContextMenu are the same paper with a list on it. Click the button,
+       or right-click the panel. -->
+  <WrapPanel Orientation="Horizontal">
+    <DropDownButton Classes="outlined" Content="Menu flyout" Margin="0,0,16,8" VerticalAlignment="Center">
+      <DropDownButton.Flyout>
+        <MenuFlyout>
+          <MenuItem Header="Profile" />
+          <MenuItem Header="Sign out" />
+        </MenuFlyout>
+      </DropDownButton.Flyout>
+    </DropDownButton>
+    <Border Classes="paper outlined" Padding="24,12" Margin="0,0,0,8" VerticalAlignment="Center">
+      <Border.ContextMenu>
+        <ContextMenu>
+          <MenuItem Header="Copy" />
+          <MenuItem Header="Paste" />
+        </ContextMenu>
+      </Border.ContextMenu>
+      <TextBlock Classes="body2" Text="Right-click here" />
+    </Border>
+  </WrapPanel>
+</UserControl>

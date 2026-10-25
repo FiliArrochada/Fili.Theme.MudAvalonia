@@ -1,0 +1,25 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <!-- MudAlert's close icon is a button in the content: an inherit icon button takes the
+       alert's colour. Closing the alert is the app's, on the button's Click. -->
+  <StackPanel Spacing="8">
+    <Border Classes="alert info">
+      <DockPanel>
+        <PathIcon DockPanel.Dock="Left" Data="{DynamicResource FiliInfoOutlinedGeometry}" />
+        <Button DockPanel.Dock="Right" Classes="icon small inherit">
+          <PathIcon Data="{DynamicResource FiliCloseGeometry}" />
+        </Button>
+        <TextBlock Text="A text alert with a close button" TextWrapping="Wrap" />
+      </DockPanel>
+    </Border>
+    <Border Classes="alert filled success">
+      <DockPanel>
+        <PathIcon DockPanel.Dock="Left" Data="{DynamicResource FiliAlertSuccessGeometry}" />
+        <Button DockPanel.Dock="Right" Classes="icon small inherit">
+          <PathIcon Data="{DynamicResource FiliCloseGeometry}" />
+        </Button>
+        <TextBlock Text="A filled alert with a close button" TextWrapping="Wrap" />
+      </DockPanel>
+    </Border>
+  </StackPanel>
+</UserControl>

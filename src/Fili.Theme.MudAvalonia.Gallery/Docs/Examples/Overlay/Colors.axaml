@@ -1,0 +1,43 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <!-- With no other class the overlay is transparent and still takes the pointer. Its corners
+       are the paper's, as border-radius: inherit makes them. -->
+  <WrapPanel Orientation="Horizontal" ItemSpacing="24" LineSpacing="16">
+    <StackPanel Spacing="8">
+      <Border Classes="paper" Width="200" Height="120">
+        <Panel>
+          <StackPanel Margin="16" Spacing="8">
+            <TextBlock Classes="body2" Text="Content beneath" />
+            <Button Classes="outlined" Content="Action" HorizontalAlignment="Left" />
+          </StackPanel>
+          <Border Classes="overlay" />
+        </Panel>
+      </Border>
+      <TextBlock Classes="caption" Text="overlay (transparent)" HorizontalAlignment="Center" />
+    </StackPanel>
+    <StackPanel Spacing="8">
+      <Border Classes="paper" Width="200" Height="120">
+        <Panel>
+          <StackPanel Margin="16" Spacing="8">
+            <TextBlock Classes="body2" Text="Content beneath" />
+            <Button Classes="outlined" Content="Action" HorizontalAlignment="Left" />
+          </StackPanel>
+          <Border Classes="overlay dark-background" />
+        </Panel>
+      </Border>
+      <TextBlock Classes="caption" Text="overlay dark-background" HorizontalAlignment="Center" />
+    </StackPanel>
+    <StackPanel Spacing="8">
+      <Border Classes="paper" Width="200" Height="120">
+        <Panel>
+          <StackPanel Margin="16" Spacing="8">
+            <TextBlock Classes="body2" Text="Content beneath" />
+            <Button Classes="outlined" Content="Action" HorizontalAlignment="Left" />
+          </StackPanel>
+          <Border Classes="overlay light-background" />
+        </Panel>
+      </Border>
+      <TextBlock Classes="caption" Text="overlay light-background" HorizontalAlignment="Center" />
+    </StackPanel>
+  </WrapPanel>
+</UserControl>

@@ -1,0 +1,37 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <!-- A colour class is the Severity; no colour is Severity.Normal. The icon is a PathIcon
+       docked first, and takes the colour. -->
+  <StackPanel Spacing="8">
+    <Border Classes="alert">
+      <DockPanel>
+        <PathIcon DockPanel.Dock="Left" Data="{DynamicResource FiliEventNoteGeometry}" />
+        <TextBlock Text="The reactor type is RBMK-1000" TextWrapping="Wrap" />
+      </DockPanel>
+    </Border>
+    <Border Classes="alert info">
+      <DockPanel>
+        <PathIcon DockPanel.Dock="Left" Data="{DynamicResource FiliInfoOutlinedGeometry}" />
+        <TextBlock Text="The reactor was fired up successfully" TextWrapping="Wrap" />
+      </DockPanel>
+    </Border>
+    <Border Classes="alert success">
+      <DockPanel>
+        <PathIcon DockPanel.Dock="Left" Data="{DynamicResource FiliAlertSuccessGeometry}" />
+        <TextBlock Text="The reactor is running at optimum temperature" TextWrapping="Wrap" />
+      </DockPanel>
+    </Border>
+    <Border Classes="alert warning">
+      <DockPanel>
+        <PathIcon DockPanel.Dock="Left" Data="{DynamicResource FiliReportProblemGeometry}" />
+        <TextBlock Text="The reactor temperature exceeds the optimal range" TextWrapping="Wrap" />
+      </DockPanel>
+    </Border>
+    <Border Classes="alert error">
+      <DockPanel>
+        <PathIcon DockPanel.Dock="Left" Data="{DynamicResource FiliErrorOutlineGeometry}" />
+        <TextBlock Text="Meltdown is imminent" TextWrapping="Wrap" />
+      </DockPanel>
+    </Border>
+  </StackPanel>
+</UserControl>

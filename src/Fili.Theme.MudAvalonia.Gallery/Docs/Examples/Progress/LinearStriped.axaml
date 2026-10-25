@@ -1,0 +1,14 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <!-- 25% white bands at 135 degrees, 40px apart, sliding along the bar. -->
+  <Grid ColumnDefinitions="Auto,*" RowDefinitions="Auto,Auto,Auto,Auto">
+    <TextBlock Grid.Row="0" Classes="caption" Text="primary" VerticalAlignment="Center" Margin="0,0,16,0" />
+    <ProgressBar Grid.Row="0" Grid.Column="1" Classes="primary large rounded striped" Value="70" VerticalAlignment="Center" Margin="0,12" />
+    <TextBlock Grid.Row="1" Classes="caption" Text="success" VerticalAlignment="Center" Margin="0,0,16,0" />
+    <ProgressBar Grid.Row="1" Grid.Column="1" Classes="success large rounded striped" Value="55" VerticalAlignment="Center" Margin="0,12" />
+    <TextBlock Grid.Row="2" Classes="caption" Text="warning" VerticalAlignment="Center" Margin="0,0,16,0" />
+    <ProgressBar Grid.Row="2" Grid.Column="1" Classes="warning large rounded striped" Value="40" VerticalAlignment="Center" Margin="0,12" />
+    <TextBlock Grid.Row="3" Classes="caption" Text="error" VerticalAlignment="Center" Margin="0,0,16,0" />
+    <ProgressBar Grid.Row="3" Grid.Column="1" Classes="error large rounded striped" Value="25" VerticalAlignment="Center" Margin="0,12" />
+  </Grid>
+</UserControl>

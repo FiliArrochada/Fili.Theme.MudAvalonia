@@ -1,0 +1,10 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <!-- rounded is stroke-linecap: round; the ends are square otherwise. -->
+  <Grid ColumnDefinitions="88,88" RowDefinitions="Auto,Auto">
+    <ProgressBar Grid.Column="0" Classes="circular secondary large" Value="65" HorizontalAlignment="Center" />
+    <ProgressBar Grid.Column="1" Classes="circular secondary large rounded" Value="65" HorizontalAlignment="Center" />
+    <TextBlock Grid.Row="1" Grid.Column="0" Classes="caption" Text="no class" HorizontalAlignment="Center" Margin="0,8,0,0" />
+    <TextBlock Grid.Row="1" Grid.Column="1" Classes="caption" Text="rounded" HorizontalAlignment="Center" Margin="0,8,0,0" />
+  </Grid>
+</UserControl>

@@ -1,0 +1,124 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:docs="using:Fili.Theme.MudAvalonia.Gallery.Docs"
+             x:Class="Fili.Theme.MudAvalonia.Gallery.Docs.Pages.SnackbarPage">
+  <StackPanel Classes="doc">
+    <docs:DocHeader Title="Snackbar"
+                    Summary="Brief messages at the edge of the window: Avalonia's WindowNotificationManager and the NotificationCards it shows, drawn as MudSnackbar. The examples below are cards placed in the page, drawn as the manager shows them."
+                    MudBlazor="Snackbar"
+                    MudBlazorPath="components/snackbar" />
+
+    <TextBlock Classes="h5 section" Text="Usage" />
+    <TextBlock Classes="body1 p">
+      <Run Text="Create a " />
+      <Run Classes="code" Text="WindowNotificationManager" />
+      <Run Text=" for the window and call " />
+      <Run Classes="code" Text="Show" />
+      <Run Text=": each message is a " />
+      <Run Classes="code" Text="NotificationCard" />
+      <Run Text=" at elevation 6, 288 to 500px wide, padded 6px 16px, 16px from the card above it and 24px from the edges it is anchored to. The card's variant classes go in Show's last argument." />
+    </TextBlock>
+    <docs:CodeBlock Code="var manager = new WindowNotificationManager(TopLevel.GetTopLevel(this))&#10;{&#10;    Position = NotificationPosition.BottomRight,&#10;    MaxItems = 3,&#10;};&#10;&#10;manager.Show(&quot;Saved&quot;, NotificationType.Success);&#10;manager.Show(&quot;Saved&quot;, NotificationType.Success, classes: [&quot;outlined&quot;]);&#10;manager.Show(&quot;Settings saved&quot;, NotificationType.Information, classes: [&quot;normal&quot;, &quot;hide-close&quot;]);"
+                    Margin="0,0,0,16" />
+    <TextBlock Classes="body1 p">
+      <Run Text="Show(INotification) takes no classes, so a card made that way is filled, with its icon and close button. A notification's Title and Message are shown as a Medium title over the message." />
+    </TextBlock>
+
+    <TextBlock Classes="h5 section" Text="Alerts and severity" />
+    <docs:ExampleCard Title="Severities"
+                      Description="A snackbar is a filled alert: the palette colour as ground, its contrast text at Medium weight, and the severity's icon at 24px and .9 opacity. NotificationType is the severity; Severity.Normal, which NotificationType lacks, is normal: filled dark with the EventNote icon."
+                      Source="Snackbar/Severities" />
+    <TextBlock Classes="body1 p">
+      <Run Text="These cards sit in the page rather than in a manager; the manager puts the message in a TextBlock with 8px above and below it, as the examples do. A card's close button closes it." />
+    </TextBlock>
+
+    <TextBlock Classes="h5 section" Text="Variants" />
+    <docs:ExampleCard Title="Text"
+                      Description="text is SnackbarVariant.Text: the surface, the text in the colour's darken shade at 400, and the close button in action-default."
+                      Source="Snackbar/Text" />
+    <docs:ExampleCard Title="Outlined"
+                      Description="outlined is SnackbarVariant.Outlined: the text variant with a 1px line in the colour."
+                      Source="Snackbar/Outlined" />
+
+    <TextBlock Classes="h5 section" Text="No icon, no close button" />
+    <docs:ExampleCard Title="hide-icon and hide-close"
+                      Description="hide-icon is HideIcon. The close button is Filled.Close in a small icon button at the card's end; hide-close is ShowCloseIcon=&quot;false&quot;."
+                      Source="Snackbar/HideIcon" />
+
+    <TextBlock Classes="h5 section" Text="Action" />
+    <docs:ExampleCard Title="A control in the content"
+                      Description="MudSnackbar's Action, ActionColor and ActionVariant are a control in the notification's content, with the classes it wants."
+                      Source="Snackbar/Action" />
+
+    <TextBlock Classes="h5 section" Text="Position and order" />
+    <TextBlock Classes="body1 p">
+      <Run Text="MudSnackbar's PositionClass is the manager's " />
+      <Run Classes="code" Text="Position" />
+      <Run Text=": every position, 24px from its edges. The newest card is at the bottom of the stack wherever it is anchored, as MudSnackbarProvider lists its snackbars in the order shown; " />
+      <Run Classes="code" Text="newest-on-top" />
+      <Run Text=" on the manager is NewestOnTop. MaxDisplayedSnackbars is " />
+      <Run Classes="code" Text="MaxItems" />
+      <Run Text="." />
+    </TextBlock>
+    <docs:CodeBlock Code="var manager = new WindowNotificationManager(TopLevel.GetTopLevel(this))&#10;{&#10;    Position = NotificationPosition.TopCenter,&#10;    MaxItems = 5,&#10;};&#10;manager.Classes.Add(&quot;newest-on-top&quot;);"
+                    Margin="0,0,0,16" />
+
+    <TextBlock Classes="h5 section" Text="Custom icons" />
+    <TextBlock Classes="body1 p">
+      <Run Text="The icons are CommonSnackbarOptions', set once for every card: put " />
+      <Run Classes="code" Text="FiliCloseGeometry" />
+      <Run Text=", " />
+      <Run Classes="code" Text="FiliInfoOutlinedGeometry" />
+      <Run Text=", " />
+      <Run Classes="code" Text="FiliAlertSuccessGeometry" />
+      <Run Text=", " />
+      <Run Classes="code" Text="FiliReportProblemGeometry" />
+      <Run Text=", " />
+      <Run Classes="code" Text="FiliErrorOutlineGeometry" />
+      <Run Text=" or " />
+      <Run Classes="code" Text="FiliEventNoteGeometry" />
+      <Run Text=" in the manager's Resources. One message cannot have an icon of its own: Show has nowhere to pass one." />
+    </TextBlock>
+    <docs:CodeBlock Code="manager.Resources[&quot;FiliAlertSuccessGeometry&quot;] =&#10;    StreamGeometry.Parse(&quot;M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z&quot;);"
+                    Margin="0,0,0,16" />
+
+    <TextBlock Classes="h5 section" Text="Motion" />
+    <TextBlock Classes="body1 p">
+      <Run Text="A card slides in and out with Avalonia's own enter and exit animations, not MudBlazor's; with FiliReducedMotion on, it appears and closes at once." />
+    </TextBlock>
+    <StackPanel Orientation="Horizontal" Spacing="8" Margin="0,0,0,16">
+      <TextBlock Classes="body1" Text="See also:" VerticalAlignment="Center" />
+      <docs:DocLink Slug="reduced-motion" Content="Reduced motion" />
+      <docs:DocLink Slug="alert" Content="Alert" />
+    </StackPanel>
+
+    <TextBlock Classes="h5 section" Text="MudBlazor parity" />
+    <TextBlock Classes="body1 p">
+      <Run Text="Every MudSnackbar parameter and what it is here. " />
+      <Run Classes="code" Text="Same" />
+      <Run Text=" is transcribed from MudBlazor's source; " />
+      <Run Classes="code" Text="Close" />
+      <Run Text=" gets the same result another way; " />
+      <Run Classes="code" Text="Missing" />
+      <Run Text=" has no counterpart." />
+    </TextBlock>
+    <docs:ParityTable>
+      <docs:ParityRow MudBlazor="ISnackbar.Add(msg, Severity.X)" Here="WindowNotificationManager.Show(…) with NotificationType.X" Status="Same" Note="A filled alert at elevation 6, 288 to 500px wide, 6px 16px." />
+      <docs:ParityRow MudBlazor="a card's classes" Here="WindowNotificationManager.Show(content, type, …, classes)" Status="Close" Note="The variants are classes on the card; Show(INotification) takes none." />
+      <docs:ParityRow MudBlazor="Severity.Normal" Here="normal" Status="Same" Note="Filled dark with its contrast text; text-primary on a text or outlined card." />
+      <docs:ParityRow MudBlazor="SnackbarVariant.Filled (default)" Here="no class" Status="Same" />
+      <docs:ParityRow MudBlazor="SnackbarVariant.Text / Outlined" Here="text / outlined" Status="Same" Note="The surface and the text in the colour's darken shade at 400; outlined adds a 1px line in the colour." />
+      <docs:ParityRow MudBlazor="the severity icon" Here="the same" Status="Same" Note="CommonSnackbarOptions' severity icons, 24px at .9 opacity, 12px before the message." />
+      <docs:ParityRow MudBlazor="HideIcon" Here="hide-icon" Status="Same" />
+      <docs:ParityRow MudBlazor="CommonSnackbarOptions' severity icons" Here="the icon keys on the WindowNotificationManager" Status="Same" Note="FiliInfoOutlinedGeometry, FiliAlertSuccessGeometry, FiliReportProblemGeometry, FiliErrorOutlineGeometry and FiliEventNoteGeometry." />
+      <docs:ParityRow MudBlazor="Icon, IconColor, IconSize on one message" Here="—" Status="Missing" Note="The icon is the severity's: Show has no slot for them." />
+      <docs:ParityRow MudBlazor="ShowCloseIcon (default true)" Here="the same; hide-close for false" Status="Same" Note="Filled.Close in a small icon button at the card's end, in the card's colour when filled and action-default otherwise; it closes the card." />
+      <docs:ParityRow MudBlazor="CloseIcon" Here="FiliCloseGeometry on the WindowNotificationManager" Status="Same" />
+      <docs:ParityRow MudBlazor="Action, ActionColor, ActionVariant" Here="a control as the notification's content" Status="Close" />
+      <docs:ParityRow MudBlazor="PositionClass" Here="WindowNotificationManager.Position" Status="Same" Note="Every position, 24px from its edges." />
+      <docs:ParityRow MudBlazor="NewestOnTop (default false)" Here="no class; newest-on-top on the manager" Status="Same" Note="The newest at the bottom of the stack wherever it is anchored, or at the top." />
+      <docs:ParityRow MudBlazor="MaxDisplayedSnackbars" Here="MaxItems" Status="Close" />
+      <docs:ParityRow MudBlazor="MaximumOpacity, BackgroundBlurred, the show and hide durations" Here="—" Status="Close" Note="Fully opaque, unblurred, and Avalonia's own enter and exit animations." />
+    </docs:ParityTable>
+  </StackPanel>
+</UserControl>

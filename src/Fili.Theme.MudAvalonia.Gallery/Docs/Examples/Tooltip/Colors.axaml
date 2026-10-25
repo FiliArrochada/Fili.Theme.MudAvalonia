@@ -1,0 +1,47 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <!-- A colour class on the ToolTip is MudTooltip's Color: the colour and its contrast text.
+       Hover a button. -->
+  <WrapPanel Orientation="Horizontal">
+    <Button Classes="outlined" Content="primary" Margin="0,0,8,8">
+      <ToolTip.Tip>
+        <ToolTip Classes="primary" Content="A primary tooltip" />
+      </ToolTip.Tip>
+    </Button>
+    <Button Classes="outlined" Content="secondary" Margin="0,0,8,8">
+      <ToolTip.Tip>
+        <ToolTip Classes="secondary" Content="A secondary tooltip" />
+      </ToolTip.Tip>
+    </Button>
+    <Button Classes="outlined" Content="tertiary" Margin="0,0,8,8">
+      <ToolTip.Tip>
+        <ToolTip Classes="tertiary" Content="A tertiary tooltip" />
+      </ToolTip.Tip>
+    </Button>
+    <Button Classes="outlined" Content="info" Margin="0,0,8,8">
+      <ToolTip.Tip>
+        <ToolTip Classes="info" Content="A info tooltip" />
+      </ToolTip.Tip>
+    </Button>
+    <Button Classes="outlined" Content="success" Margin="0,0,8,8">
+      <ToolTip.Tip>
+        <ToolTip Classes="success" Content="A success tooltip" />
+      </ToolTip.Tip>
+    </Button>
+    <Button Classes="outlined" Content="warning" Margin="0,0,8,8">
+      <ToolTip.Tip>
+        <ToolTip Classes="warning" Content="A warning tooltip" />
+      </ToolTip.Tip>
+    </Button>
+    <Button Classes="outlined" Content="error" Margin="0,0,8,8">
+      <ToolTip.Tip>
+        <ToolTip Classes="error" Content="A error tooltip" />
+      </ToolTip.Tip>
+    </Button>
+    <Button Classes="outlined" Content="dark" Margin="0,0,8,8">
+      <ToolTip.Tip>
+        <ToolTip Classes="dark" Content="A dark tooltip" />
+      </ToolTip.Tip>
+    </Button>
+  </WrapPanel>
+</UserControl>

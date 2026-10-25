@@ -1,0 +1,19 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <!-- Width and Height are MudSkeleton's. A text skeleton still draws 60% of its Height;
+       circle and rectangle are 16.8px high unless sized. -->
+  <Grid ColumnDefinitions="Auto,*" RowDefinitions="Auto,Auto,Auto,Auto">
+    <TextBlock Grid.Row="0" Classes="caption" Text="Width 120" VerticalAlignment="Center" Margin="0,0,16,0" />
+    <Border Grid.Row="0" Grid.Column="1" Classes="skeleton" Width="120" HorizontalAlignment="Left" Margin="0,8" />
+    <TextBlock Grid.Row="1" Classes="caption" Text="Width 240, Height 40" VerticalAlignment="Center" Margin="0,0,16,0" />
+    <Border Grid.Row="1" Grid.Column="1" Classes="skeleton" Width="240" Height="40" HorizontalAlignment="Left" Margin="0,8" />
+    <TextBlock Grid.Row="2" Classes="caption" Text="circle, 24 / 40 / 56" VerticalAlignment="Center" Margin="0,0,16,0" />
+    <StackPanel Grid.Row="2" Grid.Column="1" Orientation="Horizontal" Spacing="16" Margin="0,8">
+      <Border Classes="skeleton circle" Width="24" Height="24" VerticalAlignment="Center" />
+      <Border Classes="skeleton circle" Width="40" Height="40" VerticalAlignment="Center" />
+      <Border Classes="skeleton circle" Width="56" Height="56" VerticalAlignment="Center" />
+    </StackPanel>
+    <TextBlock Grid.Row="3" Classes="caption" Text="rectangle, no Height" VerticalAlignment="Center" Margin="0,0,16,0" />
+    <Border Grid.Row="3" Grid.Column="1" Classes="skeleton rectangle" Width="240" HorizontalAlignment="Left" Margin="0,8" />
+  </Grid>
+</UserControl>

@@ -24,6 +24,7 @@ public static class DocCatalog
     public const string Inputs = "Form & inputs";
     public const string Navigation = "Navigation";
     public const string Surfaces = "Surfaces & lists";
+    public const string Feedback = "Feedback";
     public const string Showcase = "Showcase";
 
     public static IReadOnlyList<DocPage> Pages { get; } =
@@ -70,6 +71,14 @@ public static class DocCatalog
         new(Surfaces, "List", "list", () => new ListPage()),
         new(Surfaces, "Tree view", "tree-view", () => new TreeViewPage()),
         new(Surfaces, "Carousel", "carousel", () => new CarouselDocPage()),
+
+        new(Feedback, "Alert", "alert", () => new AlertPage()),
+        new(Feedback, "Snackbar", "snackbar", () => new SnackbarPage()),
+        new(Feedback, "Tooltip", "tooltip", () => new TooltipPage()),
+        new(Feedback, "Popover", "popover", () => new PopoverPage()),
+        new(Feedback, "Progress", "progress", () => new ProgressPage()),
+        new(Feedback, "Skeleton", "skeleton", () => new SkeletonPage()),
+        new(Feedback, "Overlay", "overlay", () => new OverlayPage()),
 
         new(Showcase, "Control states", "control-states", () => new ControlStatesView(), Scrolls: true),
         new(Showcase, "Custom styles", "custom-styles", () => new CustomStylesView(), Scrolls: true),

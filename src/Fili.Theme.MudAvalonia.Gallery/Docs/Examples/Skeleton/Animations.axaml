@@ -1,0 +1,12 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <!-- Pulse is the default; wave sweeps a band across; no-animation holds still. -->
+  <Grid ColumnDefinitions="Auto,*" RowDefinitions="Auto,Auto,Auto">
+    <TextBlock Grid.Row="0" Classes="caption" Text="no class (pulse)" VerticalAlignment="Center" Margin="0,0,16,0" />
+    <Border Grid.Row="0" Grid.Column="1" Classes="skeleton" Width="300" HorizontalAlignment="Left" Margin="0,8" />
+    <TextBlock Grid.Row="1" Classes="caption" Text="wave" VerticalAlignment="Center" Margin="0,0,16,0" />
+    <Border Grid.Row="1" Grid.Column="1" Classes="skeleton wave" Width="300" HorizontalAlignment="Left" Margin="0,8" />
+    <TextBlock Grid.Row="2" Classes="caption" Text="no-animation" VerticalAlignment="Center" Margin="0,0,16,0" />
+    <Border Grid.Row="2" Grid.Column="1" Classes="skeleton no-animation" Width="300" HorizontalAlignment="Left" Margin="0,8" />
+  </Grid>
+</UserControl>

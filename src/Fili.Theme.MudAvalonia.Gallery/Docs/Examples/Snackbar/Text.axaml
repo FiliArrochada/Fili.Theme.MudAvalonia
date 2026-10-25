@@ -1,0 +1,21 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <!-- text is SnackbarVariant.Text: the surface, the text in the colour's darken shade. -->
+  <WrapPanel Orientation="Horizontal" ItemSpacing="16">
+    <NotificationCard NotificationType="Information" Classes="text">
+      <TextBlock Text="Information" Margin="0,8" TextWrapping="Wrap" LineHeight="20" />
+    </NotificationCard>
+    <NotificationCard NotificationType="Success" Classes="text">
+      <TextBlock Text="Success" Margin="0,8" TextWrapping="Wrap" LineHeight="20" />
+    </NotificationCard>
+    <NotificationCard NotificationType="Warning" Classes="text">
+      <TextBlock Text="Warning" Margin="0,8" TextWrapping="Wrap" LineHeight="20" />
+    </NotificationCard>
+    <NotificationCard NotificationType="Error" Classes="text">
+      <TextBlock Text="Error" Margin="0,8" TextWrapping="Wrap" LineHeight="20" />
+    </NotificationCard>
+    <NotificationCard NotificationType="Information" Classes="text normal">
+      <TextBlock Text="Normal" Margin="0,8" TextWrapping="Wrap" LineHeight="20" />
+    </NotificationCard>
+  </WrapPanel>
+</UserControl>

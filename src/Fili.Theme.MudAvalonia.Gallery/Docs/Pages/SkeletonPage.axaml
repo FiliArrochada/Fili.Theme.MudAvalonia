@@ -1,0 +1,68 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:docs="using:Fili.Theme.MudAvalonia.Gallery.Docs"
+             x:Class="Fili.Theme.MudAvalonia.Gallery.Docs.Pages.SkeletonPage">
+  <StackPanel Classes="doc">
+    <docs:DocHeader Title="Skeleton"
+                    Summary="A skeleton holds the place of content that is still loading: skeleton on Avalonia's Border, drawn as MudSkeleton. It pulses on MudSkeleton's timing."
+                    MudBlazor="Skeleton"
+                    MudBlazorPath="components/skeleton" />
+
+    <TextBlock Classes="h5 section" Text="Variants" />
+    <docs:ExampleCard Title="Text, circle and rectangle"
+                      Description="No type class is SkeletonType.Text: a 4px-rounded bar drawn at 60% of its height from 60% down, so the 20px line shows a 12px bar. circle and rectangle are the other two types, 16.8px high unless sized."
+                      Source="Skeleton/Variants" />
+
+    <TextBlock Classes="h5 section" Text="Animations" />
+    <docs:ExampleCard Title="Pulse, wave and none"
+                      Description="Pulse is the default: opacity 1 to 0.4 and back over 1.5s, ease-in-out, after a 0.5s delay. wave is Animation.Wave and no-animation is Animation.False."
+                      Source="Skeleton/Animations" />
+    <TextBlock Classes="body1 p">
+      <Run Text="MudBlazor slides a separate layer across a wave skeleton; a " />
+      <Run Classes="code" Text="Border" />
+      <Run Text=" has no such layer, so the band is drawn into the background: 1.6s linear after 0.5s, the 4% band crossing in the first 60%. With " />
+      <Run Classes="code" Text="FiliReducedMotion" />
+      <Run Text=" set, a skeleton is still, without its pulse or wave." />
+    </TextBlock>
+
+    <TextBlock Classes="h5 section" Text="Sizes" />
+    <docs:ExampleCard Title="Width and Height"
+                      Description="Width and Height are MudSkeleton's own. A text skeleton still draws 60% of its Height."
+                      Source="Skeleton/Sizes" />
+
+    <TextBlock Classes="h5 section" Text="Pulsate example" />
+    <docs:ExampleCard Title="A card that is loading"
+                      Description="Skeletons laid out in a card as its content will be, beside the card once loaded. A coloured block stands in for the photo."
+                      Source="Skeleton/PulseCard" />
+
+    <TextBlock Classes="h5 section" Text="Wave example" />
+    <docs:ExampleCard Title="A card that is loading, with wave"
+                      Description="The same with wave on every skeleton, the header's avatar a circle."
+                      Source="Skeleton/WaveCard" />
+    <StackPanel Orientation="Horizontal" Spacing="8" Margin="0,0,0,16">
+      <TextBlock Classes="body1" Text="See also:" VerticalAlignment="Center" />
+      <docs:DocLink Slug="card" Content="Card" />
+      <docs:DocLink Slug="progress" Content="Progress" />
+      <docs:DocLink Slug="reduced-motion" Content="Reduced motion" />
+    </StackPanel>
+
+    <TextBlock Classes="h5 section" Text="MudBlazor parity" />
+    <TextBlock Classes="body1 p">
+      <Run Text="Every MudSkeleton parameter and what it is here. " />
+      <Run Classes="code" Text="Same" />
+      <Run Text=" is transcribed from MudBlazor's source; " />
+      <Run Classes="code" Text="Extra" />
+      <Run Text=" is beyond MudBlazor." />
+    </TextBlock>
+    <docs:ParityTable>
+      <docs:ParityRow MudBlazor="SkeletonType.Text (default)" Here="skeleton on a Border" Status="Same" Note="The skeleton colour, 20px scaled to 60% as _skeleton.scss does." />
+      <docs:ParityRow MudBlazor="SkeletonType.Circle / Rectangle" Here="circle / rectangle" Status="Same" Note="A round and a square shape, 16.8px high unless sized." />
+      <docs:ParityRow MudBlazor="Animation.Pulse (default)" Here="no class" Status="Same" Note="1.5s ease-in-out after a 0.5s delay, opacity 1 to 0.4 to 1." />
+      <docs:ParityRow MudBlazor="Animation.False" Here="no-animation" Status="Same" Note="The skeleton holds still." />
+      <docs:ParityRow MudBlazor="Animation.Wave" Here="wave" Status="Same" Note="1.6s linear after 0.5s, the 4% band crossing in the first 60%, drawn into the background since a Border has no second layer." />
+      <docs:ParityRow MudBlazor="Width, Height" Here="Width, Height" Status="Same" Note="A text skeleton still draws 60% of its Height." />
+      <docs:ParityRow MudBlazor="Palette Skeleton" Here="FiliSkeletonColor" Status="Same" Note="The skeleton colour, with its paired brush." />
+      <docs:ParityRow MudBlazor="(none: reduced motion)" Here="FiliReducedMotion" Status="Extra" Note="A skeleton is still, without its pulse or wave." />
+    </docs:ParityTable>
+  </StackPanel>
+</UserControl>

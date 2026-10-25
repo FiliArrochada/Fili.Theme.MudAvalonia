@@ -1,0 +1,23 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <!-- Value fills from the start; the track is the bar's own colour at 20%. With no class the
+       track is action-disabled and the bar action-default. -->
+  <Grid ColumnDefinitions="Auto,*" RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto">
+    <TextBlock Grid.Row="0" Classes="caption" Text="no class" VerticalAlignment="Center" Margin="0,0,16,0" />
+    <ProgressBar Grid.Row="0" Grid.Column="1" Value="30" VerticalAlignment="Center" Margin="0,12" />
+    <TextBlock Grid.Row="1" Classes="caption" Text="primary" VerticalAlignment="Center" Margin="0,0,16,0" />
+    <ProgressBar Grid.Row="1" Grid.Column="1" Classes="primary" Value="38" VerticalAlignment="Center" Margin="0,12" />
+    <TextBlock Grid.Row="2" Classes="caption" Text="secondary" VerticalAlignment="Center" Margin="0,0,16,0" />
+    <ProgressBar Grid.Row="2" Grid.Column="1" Classes="secondary" Value="46" VerticalAlignment="Center" Margin="0,12" />
+    <TextBlock Grid.Row="3" Classes="caption" Text="tertiary" VerticalAlignment="Center" Margin="0,0,16,0" />
+    <ProgressBar Grid.Row="3" Grid.Column="1" Classes="tertiary" Value="54" VerticalAlignment="Center" Margin="0,12" />
+    <TextBlock Grid.Row="4" Classes="caption" Text="info" VerticalAlignment="Center" Margin="0,0,16,0" />
+    <ProgressBar Grid.Row="4" Grid.Column="1" Classes="info" Value="62" VerticalAlignment="Center" Margin="0,12" />
+    <TextBlock Grid.Row="5" Classes="caption" Text="success" VerticalAlignment="Center" Margin="0,0,16,0" />
+    <ProgressBar Grid.Row="5" Grid.Column="1" Classes="success" Value="70" VerticalAlignment="Center" Margin="0,12" />
+    <TextBlock Grid.Row="6" Classes="caption" Text="warning" VerticalAlignment="Center" Margin="0,0,16,0" />
+    <ProgressBar Grid.Row="6" Grid.Column="1" Classes="warning" Value="78" VerticalAlignment="Center" Margin="0,12" />
+    <TextBlock Grid.Row="7" Classes="caption" Text="error" VerticalAlignment="Center" Margin="0,0,16,0" />
+    <ProgressBar Grid.Row="7" Grid.Column="1" Classes="error" Value="86" VerticalAlignment="Center" Margin="0,12" />
+  </Grid>
+</UserControl>

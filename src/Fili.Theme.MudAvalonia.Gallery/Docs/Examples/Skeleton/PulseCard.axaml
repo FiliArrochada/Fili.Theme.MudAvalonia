@@ -1,0 +1,42 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <!-- Skeletons laid out as the card will be once it loads: media, content and actions. -->
+  <Border Background="{DynamicResource FiliBackgroundGrayBrush}" Padding="24">
+    <WrapPanel Orientation="Horizontal">
+      <StackPanel Spacing="8" Margin="0,0,24,0">
+        <TextBlock Classes="caption" Text="loading" />
+        <Border Classes="card" Width="300">
+          <StackPanel>
+            <Border Classes="skeleton rectangle" Height="200" />
+            <StackPanel Classes="card-content">
+              <Border Classes="skeleton" Width="90" Height="42" HorizontalAlignment="Left" />
+              <Border Classes="skeleton" Width="214" HorizontalAlignment="Left" />
+              <Border Classes="skeleton" />
+            </StackPanel>
+            <StackPanel Classes="card-actions">
+              <Border Classes="skeleton" Width="64" Height="40" Margin="8,0,0,0" />
+              <Border Classes="skeleton" Width="105" Height="40" Margin="12,0,0,0" />
+            </StackPanel>
+          </StackPanel>
+        </Border>
+      </StackPanel>
+      <StackPanel Spacing="8">
+        <TextBlock Classes="caption" Text="loaded" />
+        <Border Classes="card" Width="300">
+          <StackPanel>
+            <Border Classes="card-media" Height="200" Background="{DynamicResource FiliInfoLightenBrush}" />
+            <StackPanel Classes="card-content">
+              <TextBlock Classes="h5" Text="Old Paint" />
+              <TextBlock Classes="body2" TextWrapping="Wrap" Text="Old paint found on a stone house door." />
+              <TextBlock Classes="body2" TextWrapping="Wrap" Text="This photo was taken in a small village in Istra Croatia." />
+            </StackPanel>
+            <StackPanel Classes="card-actions">
+              <Button Classes="primary" Content="Share" />
+              <Button Classes="primary" Content="Learn more" />
+            </StackPanel>
+          </StackPanel>
+        </Border>
+      </StackPanel>
+    </WrapPanel>
+  </Border>
+</UserControl>

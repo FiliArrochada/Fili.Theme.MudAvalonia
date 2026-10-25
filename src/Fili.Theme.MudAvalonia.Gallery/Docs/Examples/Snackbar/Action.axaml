@@ -1,0 +1,19 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <!-- MudSnackbar's Action is a control in the notification's content, 16px after the message
+       as .mud-snackbar-content-action is. -->
+  <WrapPanel Orientation="Horizontal" ItemSpacing="16">
+    <NotificationCard NotificationType="Success">
+      <DockPanel>
+        <Button DockPanel.Dock="Right" Classes="inherit small" Content="Undo" Margin="16,0,0,0" />
+        <TextBlock Text="Message archived" Margin="0,8" TextWrapping="Wrap" LineHeight="20" />
+      </DockPanel>
+    </NotificationCard>
+    <NotificationCard NotificationType="Information" Classes="outlined">
+      <DockPanel>
+        <Button DockPanel.Dock="Right" Classes="primary small" Content="Retry" Margin="16,0,0,0" />
+        <TextBlock Text="Sync paused" Margin="0,8" TextWrapping="Wrap" LineHeight="20" />
+      </DockPanel>
+    </NotificationCard>
+  </WrapPanel>
+</UserControl>

@@ -1,0 +1,20 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <!-- The overlay shares a Panel with the content it covers; the app shows and hides it. -->
+  <StackPanel Spacing="16" HorizontalAlignment="Left">
+    <ToggleButton x:Name="ShowOverlay" Classes="outlined primary" Content="Show overlay" IsChecked="True" HorizontalAlignment="Left" />
+    <Border Classes="paper" Width="360" Height="200">
+      <Panel>
+        <StackPanel Margin="16" Spacing="8">
+          <TextBlock Classes="h6" Text="Monthly report" />
+          <TextBlock Classes="body2" TextWrapping="Wrap"
+                     Text="The figures underneath stay where they are while the overlay covers them." />
+          <Button Classes="primary" Content="Download" HorizontalAlignment="Left" />
+        </StackPanel>
+        <Border Classes="overlay dark-background" IsVisible="{Binding #ShowOverlay.IsChecked}">
+          <ProgressBar Classes="circular primary" IsIndeterminate="True" />
+        </Border>
+      </Panel>
+    </Border>
+  </StackPanel>
+</UserControl>

@@ -1,0 +1,68 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <!-- outlined and filled are MudAlert's other two variants. -->
+  <StackPanel Spacing="8">
+    <TextBlock Classes="caption" Text="outlined" />
+    <Border Classes="alert outlined">
+      <DockPanel>
+        <PathIcon DockPanel.Dock="Left" Data="{DynamicResource FiliEventNoteGeometry}" />
+        <TextBlock Text="The reactor type is RBMK-1000" TextWrapping="Wrap" />
+      </DockPanel>
+    </Border>
+    <Border Classes="alert outlined info">
+      <DockPanel>
+        <PathIcon DockPanel.Dock="Left" Data="{DynamicResource FiliInfoOutlinedGeometry}" />
+        <TextBlock Text="The reactor was fired up successfully" TextWrapping="Wrap" />
+      </DockPanel>
+    </Border>
+    <Border Classes="alert outlined success">
+      <DockPanel>
+        <PathIcon DockPanel.Dock="Left" Data="{DynamicResource FiliAlertSuccessGeometry}" />
+        <TextBlock Text="The reactor is running at optimum temperature" TextWrapping="Wrap" />
+      </DockPanel>
+    </Border>
+    <Border Classes="alert outlined warning">
+      <DockPanel>
+        <PathIcon DockPanel.Dock="Left" Data="{DynamicResource FiliReportProblemGeometry}" />
+        <TextBlock Text="The reactor temperature exceeds the optimal range" TextWrapping="Wrap" />
+      </DockPanel>
+    </Border>
+    <Border Classes="alert outlined error">
+      <DockPanel>
+        <PathIcon DockPanel.Dock="Left" Data="{DynamicResource FiliErrorOutlineGeometry}" />
+        <TextBlock Text="Meltdown is imminent" TextWrapping="Wrap" />
+      </DockPanel>
+    </Border>
+    <TextBlock Classes="caption" Text="filled" Margin="0,8,0,0" />
+    <Border Classes="alert filled">
+      <DockPanel>
+        <PathIcon DockPanel.Dock="Left" Data="{DynamicResource FiliEventNoteGeometry}" />
+        <TextBlock Text="The reactor type is RBMK-1000" TextWrapping="Wrap" />
+      </DockPanel>
+    </Border>
+    <Border Classes="alert filled info">
+      <DockPanel>
+        <PathIcon DockPanel.Dock="Left" Data="{DynamicResource FiliInfoOutlinedGeometry}" />
+        <TextBlock Text="The reactor was fired up successfully" TextWrapping="Wrap" />
+      </DockPanel>
+    </Border>
+    <Border Classes="alert filled success">
+      <DockPanel>
+        <PathIcon DockPanel.Dock="Left" Data="{DynamicResource FiliAlertSuccessGeometry}" />
+        <TextBlock Text="The reactor is running at optimum temperature" TextWrapping="Wrap" />
+      </DockPanel>
+    </Border>
+    <Border Classes="alert filled warning">
+      <DockPanel>
+        <PathIcon DockPanel.Dock="Left" Data="{DynamicResource FiliReportProblemGeometry}" />
+        <TextBlock Text="The reactor temperature exceeds the optimal range" TextWrapping="Wrap" />
+      </DockPanel>
+    </Border>
+    <Border Classes="alert filled error">
+      <DockPanel>
+        <PathIcon DockPanel.Dock="Left" Data="{DynamicResource FiliErrorOutlineGeometry}" />
+        <TextBlock Text="Meltdown is imminent" TextWrapping="Wrap" />
+      </DockPanel>
+    </Border>
+  </StackPanel>
+</UserControl>

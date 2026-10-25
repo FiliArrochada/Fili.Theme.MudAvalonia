@@ -1,0 +1,30 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <!-- Any of the eight colour classes works, not only the four severities. -->
+  <StackPanel Spacing="8">
+    <Border Classes="alert primary">
+      <DockPanel>
+        <PathIcon DockPanel.Dock="Left" Data="{DynamicResource GalleryInfoIcon}" />
+        <TextBlock Text="primary, as a text alert" TextWrapping="Wrap" />
+      </DockPanel>
+    </Border>
+    <Border Classes="alert outlined secondary">
+      <DockPanel>
+        <PathIcon DockPanel.Dock="Left" Data="{DynamicResource GalleryFavoriteIcon}" />
+        <TextBlock Text="secondary, outlined" TextWrapping="Wrap" />
+      </DockPanel>
+    </Border>
+    <Border Classes="alert filled tertiary">
+      <DockPanel>
+        <PathIcon DockPanel.Dock="Left" Data="{DynamicResource GalleryStarRateIcon}" />
+        <TextBlock Text="tertiary, filled" TextWrapping="Wrap" />
+      </DockPanel>
+    </Border>
+    <Border Classes="alert filled dark">
+      <DockPanel>
+        <PathIcon DockPanel.Dock="Left" Data="{DynamicResource GalleryNotificationsIcon}" />
+        <TextBlock Text="dark, filled" TextWrapping="Wrap" />
+      </DockPanel>
+    </Border>
+  </StackPanel>
+</UserControl>

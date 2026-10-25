@@ -1,0 +1,18 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <!-- Square is CornerRadius="0". -->
+  <Grid ColumnDefinitions="*,16,*">
+    <Border Classes="alert filled info">
+      <DockPanel>
+        <PathIcon DockPanel.Dock="Left" Data="{DynamicResource FiliInfoOutlinedGeometry}" />
+        <TextBlock Text="Rounded, the theme's default radius" TextWrapping="Wrap" />
+      </DockPanel>
+    </Border>
+    <Border Grid.Column="2" Classes="alert filled info" CornerRadius="0">
+      <DockPanel>
+        <PathIcon DockPanel.Dock="Left" Data="{DynamicResource FiliInfoOutlinedGeometry}" />
+        <TextBlock Text="Square" TextWrapping="Wrap" />
+      </DockPanel>
+    </Border>
+  </Grid>
+</UserControl>

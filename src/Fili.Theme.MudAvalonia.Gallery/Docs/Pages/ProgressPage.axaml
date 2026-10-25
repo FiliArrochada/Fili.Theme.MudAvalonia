@@ -1,0 +1,167 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:docs="using:Fili.Theme.MudAvalonia.Gallery.Docs"
+             x:Class="Fili.Theme.MudAvalonia.Gallery.Docs.Pages.ProgressPage">
+  <StackPanel Classes="doc">
+    <docs:DocHeader Title="Progress"
+                    Summary="Progress shows that work is under way, and how far it has got: Avalonia's ProgressBar, drawn as MudProgressLinear, and as MudProgressCircular with the circular class."
+                    MudBlazor="Progress"
+                    MudBlazorPath="components/progress" />
+
+    <TextBlock Classes="h4 section" Text="Circular progress" />
+    <TextBlock Classes="body1 p">
+      <Run Classes="code" Text="circular" />
+      <Run Text=" is a theme the same " />
+      <Run Classes="code" Text="ProgressBar" />
+      <Run Text=" takes, as " />
+      <Run Classes="code" Text="chip" />
+      <Run Text=" is one a Button takes, so " />
+      <Run Classes="code" Text="Value" />
+      <Run Text=", " />
+      <Run Classes="code" Text="Minimum" />
+      <Run Text=", " />
+      <Run Classes="code" Text="Maximum" />
+      <Run Text=" and " />
+      <Run Classes="code" Text="IsIndeterminate" />
+      <Run Text=" all carry over. It is grey with no colour: its default is text-secondary, not primary, and there is no track." />
+    </TextBlock>
+
+    <TextBlock Classes="h5 section" Text="Indeterminate" />
+    <docs:ExampleCard Title="Indeterminate"
+                      Description="IsIndeterminate spins the ring: circular-rotate and circular-dash, key frame for key frame, eased per segment."
+                      Source="Progress/CircularIndeterminate" />
+
+    <TextBlock Classes="h5 section" Text="Determinate" />
+    <docs:ExampleCard Title="Determinate"
+                      Description="The ring starts at twelve o'clock and fills clockwise, a ring drawn with an Arc. A new Value eases in over 300ms."
+                      Source="Progress/CircularDeterminate" />
+    <docs:ExampleCard Title="Colours"
+                      Description="No class is text-secondary; primary to error are the palette colour. There is no track."
+                      Source="Progress/CircularColors" />
+
+    <TextBlock Classes="h5 section" Text="Custom content" />
+    <docs:ExampleCard Title="ShowProgressText"
+                      Description="ShowProgressText puts the formatted value in the middle, in the ring's colour, which is where MudBlazor puts its ChildContent. ProgressTextFormat sets the text; it is not arbitrary content."
+                      Source="Progress/CircularText" />
+
+    <TextBlock Classes="h5 section" Text="Sizes" />
+    <docs:ExampleCard Title="Small, medium and large"
+                      Description="24, 40 and 56px. The stroke is MudBlazor's default StrokeWidth of 3, scaled with the ring as the SVG viewBox scales it."
+                      Source="Progress/CircularSizes" />
+
+    <TextBlock Classes="h5 section" Text="Rounded" />
+    <docs:ExampleCard Title="Rounded"
+                      Description="rounded rounds the line caps; the ends are square otherwise."
+                      Source="Progress/CircularRounded" />
+
+    <TextBlock Classes="h4 section" Text="Linear progress" />
+    <TextBlock Classes="body1 p">
+      <Run Text="A bare " />
+      <Run Classes="code" Text="ProgressBar" />
+      <Run Text=" is a 4px square hairline: MudProgressLinear's Size defaults to Small and Rounded to false. The track is always the bar's own colour at 20%; only the default colour splits them, track action-disabled and bar action-default, which is why " />
+      <Run Classes="code" Text="Background" />
+      <Run Text=" and " />
+      <Run Classes="code" Text="Foreground" />
+      <Run Text=" are the two knobs." />
+    </TextBlock>
+
+    <TextBlock Classes="h5 section" Text="Indeterminate" />
+    <docs:ExampleCard Title="Indeterminate"
+                      Description="IsIndeterminate is MudBlazor's two-bar animation: two bars sweep across the track, so a still frame catches them part way."
+                      Source="Progress/LinearIndeterminate" />
+
+    <TextBlock Classes="h5 section" Text="Determinate" />
+    <docs:ExampleCard Title="Every palette colour"
+                      Description="A colour class sets the track and the bar to the same colour, the track at 20% of it. With no class the track is action-disabled and the bar action-default."
+                      Source="Progress/LinearColors" />
+
+    <TextBlock Classes="h5 section" Text="Sizes" />
+    <docs:ExampleCard Title="Small, medium and large"
+                      Description="No class is Size.Small, 4px; medium and large are 8 and 12px."
+                      Source="Progress/LinearSizes" />
+
+    <TextBlock Classes="h5 section" Text="Min Max" />
+    <docs:ExampleCard Title="Minimum and Maximum"
+                      Description="Minimum, Maximum and Value are MudBlazor's Min, Max and Value: 150 between 100 and 200 is half way."
+                      Source="Progress/LinearMinMax" />
+
+    <TextBlock Classes="h5 section" Text="Buffer" />
+    <TextBlock Classes="body1 p">
+      <Run Text="MudBlazor's " />
+      <Run Classes="code" Text="Buffer" />
+      <Run Text=" and " />
+      <Run Classes="code" Text="BufferValue" />
+      <Run Text=" have no counterpart: a buffer needs a second value, which " />
+      <Run Classes="code" Text="ProgressBar" />
+      <Run Text=" does not have." />
+    </TextBlock>
+
+    <TextBlock Classes="h5 section" Text="Rounded" />
+    <docs:ExampleCard Title="Rounded"
+                      Description="rounded sets the default border radius on the bar; it is square otherwise."
+                      Source="Progress/LinearRounded" />
+
+    <TextBlock Classes="h5 section" Text="Striped" />
+    <docs:ExampleCard Title="Striped"
+                      Description="striped lays 25% white bands at 135 degrees over the bar, 40px apart, sliding as MudBlazor's do."
+                      Source="Progress/LinearStriped" />
+
+    <TextBlock Classes="h5 section" Text="Background" />
+    <docs:ExampleCard Title="No track"
+                      Description="MudBlazor's ShowBackground=&quot;false&quot; is Background=&quot;Transparent&quot;: the bar with no track behind it."
+                      Source="Progress/LinearBackground" />
+
+    <TextBlock Classes="h5 section" Text="Labels" />
+    <docs:ExampleCard Title="ShowProgressText"
+                      Description="ShowProgressText centres the formatted value over the bar, whole however thin the bar is. ProgressTextFormat sets the text; it is not arbitrary content, as MudBlazor's ChildContent is."
+                      Source="Progress/LinearLabels" />
+
+    <TextBlock Classes="h5 section" Text="Vertical" />
+    <docs:ExampleCard Title="Vertical"
+                      Description="Orientation=&quot;Vertical&quot; is MudBlazor's Vertical, in every size."
+                      Source="Progress/LinearVertical" />
+    <StackPanel Orientation="Horizontal" Spacing="8" Margin="0,0,0,16">
+      <TextBlock Classes="body1" Text="See also:" VerticalAlignment="Center" />
+      <docs:DocLink Slug="skeleton" Content="Skeleton" />
+      <docs:DocLink Slug="overlay" Content="Overlay" />
+      <docs:DocLink Slug="reduced-motion" Content="Reduced motion" />
+    </StackPanel>
+    <TextBlock Classes="body1 p">
+      <Run Text="A progress indicator keeps moving with " />
+      <Run Classes="code" Text="FiliReducedMotion" />
+      <Run Text=" set, as it is the only sign that work is going on." />
+    </TextBlock>
+
+    <TextBlock Classes="h5 section" Text="MudBlazor parity" />
+    <TextBlock Classes="body1 p">
+      <Run Text="Every MudProgressLinear and MudProgressCircular parameter and what it is here. " />
+      <Run Classes="code" Text="Same" />
+      <Run Text=" is transcribed from MudBlazor's source; " />
+      <Run Classes="code" Text="Close" />
+      <Run Text=" gets the same result another way; " />
+      <Run Classes="code" Text="Missing" />
+      <Run Text=" has no counterpart." />
+    </TextBlock>
+    <docs:ParityTable>
+      <docs:ParityRow MudBlazor="MudProgressLinear Size.Small (default)" Here="ProgressBar, no class" Status="Same" Note="A 4px square hairline." />
+      <docs:ParityRow MudBlazor="MudProgressLinear Size.Medium / Large" Here="medium / large" Status="Same" Note="8 and 12px." />
+      <docs:ParityRow MudBlazor="MudProgressLinear Rounded" Here="rounded" Status="Same" Note="The default border radius; the bar is square otherwise." />
+      <docs:ParityRow MudBlazor="MudProgressLinear Indeterminate" Here="IsIndeterminate" Status="Same" Note="MudBlazor's two-bar animation." />
+      <docs:ParityRow MudBlazor="MudProgressLinear Color" Here="primary … dark" Status="Same" Note="Every palette colour, the track at 20% of it." />
+      <docs:ParityRow MudBlazor="MudProgressLinear Striped" Here="striped" Status="Same" Note="25% white bands at 135 degrees, 40px apart, sliding as MudBlazor's do." />
+      <docs:ParityRow MudBlazor="MudProgressLinear Buffer, BufferValue" Here="(none)" Status="Missing" Note="A buffer needs a second value, which ProgressBar does not have." />
+      <docs:ParityRow MudBlazor="MudProgressLinear Vertical" Here="Orientation=&quot;Vertical&quot;" Status="Same" Note="Every size." />
+      <docs:ParityRow MudBlazor="MudProgressLinear Min, Max, Value" Here="Minimum, Maximum, Value" Status="Same" Note="The same three values under Avalonia's names." />
+      <docs:ParityRow MudBlazor="MudProgressLinear ShowBackground=&quot;false&quot;" Here="Background=&quot;Transparent&quot;" Status="Close" Note="The bar with no track behind it." />
+      <docs:ParityRow MudBlazor="MudProgressLinear ChildContent" Here="ShowProgressText" Status="Close" Note="The formatted value centred over the bar, whole however thin the bar; not arbitrary content." />
+      <docs:ParityRow MudBlazor="MudProgressCircular" Here="circular on a ProgressBar" Status="Same" Note="A ring drawn with an Arc, from 12 o'clock clockwise." />
+      <docs:ParityRow MudBlazor="MudProgressCircular Size.Medium (default) / Small / Large" Here="no class / small / large" Status="Same" Note="40, 24 and 56px." />
+      <docs:ParityRow MudBlazor="MudProgressCircular StrokeWidth" Here="(none)" Status="Close" Note="Fixed at MudBlazor's default 3, scaled with the ring as the SVG viewBox scales it." />
+      <docs:ParityRow MudBlazor="MudProgressCircular Color" Here="no class, primary … dark" Status="Same" Note="Text-secondary by default, with no track." />
+      <docs:ParityRow MudBlazor="MudProgressCircular Rounded" Here="rounded" Status="Same" Note="Round line caps." />
+      <docs:ParityRow MudBlazor="MudProgressCircular Indeterminate" Here="IsIndeterminate" Status="Same" Note="Circular-rotate and circular-dash, key frame for key frame, eased per segment." />
+      <docs:ParityRow MudBlazor="MudProgressCircular Min, Max, Value" Here="Minimum, Maximum, Value" Status="Same" Note="With the 300ms ease on a value change." />
+      <docs:ParityRow MudBlazor="MudProgressCircular ChildContent" Here="ShowProgressText" Status="Close" Note="The formatted value in the middle, in the ring's colour; not arbitrary content." />
+    </docs:ParityTable>
+  </StackPanel>
+</UserControl>

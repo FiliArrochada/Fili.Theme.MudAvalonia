@@ -1,0 +1,24 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <!-- A modal overlay takes every click; IsHitTestVisible="False" lets them through. -->
+  <WrapPanel Orientation="Horizontal" ItemSpacing="24" LineSpacing="16">
+    <StackPanel Spacing="8">
+      <Border Classes="paper" Width="200" Height="120">
+        <Panel>
+          <Button Classes="filled primary" Content="Blocked" HorizontalAlignment="Center" VerticalAlignment="Center" />
+          <Border Classes="overlay light-background" />
+        </Panel>
+      </Border>
+      <TextBlock Classes="caption" Text="overlay light-background" HorizontalAlignment="Center" />
+    </StackPanel>
+    <StackPanel Spacing="8">
+      <Border Classes="paper" Width="200" Height="120">
+        <Panel>
+          <Button Classes="filled primary" Content="Clickable" HorizontalAlignment="Center" VerticalAlignment="Center" />
+          <Border Classes="overlay light-background" IsHitTestVisible="False" />
+        </Panel>
+      </Border>
+      <TextBlock Classes="caption" Text="the same, IsHitTestVisible False" HorizontalAlignment="Center" />
+    </StackPanel>
+  </WrapPanel>
+</UserControl>
