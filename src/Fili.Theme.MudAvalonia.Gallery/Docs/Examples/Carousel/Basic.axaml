@@ -1,0 +1,20 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <!-- Arrows and bullets are on by default, as MudCarousel's are: NavigateBefore and NavigateNext
+       at the sides, centred, in the carousel's text colour at .75, and a PipsPager along the
+       bottom. The carousel needs a height; SelectedIndex is the slide it shows. -->
+  <Carousel Height="240" SelectedIndex="0">
+    <Border Background="{DynamicResource FiliSecondaryHoverBrush}">
+      <TextBlock Classes="h4 secondary" Text="One"
+                 HorizontalAlignment="Center" VerticalAlignment="Center" />
+    </Border>
+    <Border Background="{DynamicResource FiliTertiaryHoverBrush}">
+      <TextBlock Classes="h4 tertiary" Text="Two"
+                 HorizontalAlignment="Center" VerticalAlignment="Center" />
+    </Border>
+    <Border Background="{DynamicResource FiliWarningHoverBrush}">
+      <TextBlock Classes="h4 warning" Text="Three"
+                 HorizontalAlignment="Center" VerticalAlignment="Center" />
+    </Border>
+  </Carousel>
+</UserControl>

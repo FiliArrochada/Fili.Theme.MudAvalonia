@@ -1,0 +1,83 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:docs="using:Fili.Theme.MudAvalonia.Gallery.Docs"
+             x:Class="Fili.Theme.MudAvalonia.Gallery.Docs.Pages.CardPage">
+  <StackPanel Classes="doc">
+    <docs:DocHeader Title="Card"
+                    Summary="A card holds content and actions about one subject: card on Avalonia's Border, drawn as MudCard. Its parts are classes on whatever lays the card out."
+                    MudBlazor="Card"
+                    MudBlazorPath="components/card" />
+
+    <TextBlock Classes="h5 section" Text="Simple card" />
+    <docs:ExampleCard Title="Content and actions"
+                      Description="card is a paper at elevation 1 in text-primary. card-content is 16px round; card-actions on a StackPanel is a row, 8px round, its items centred."
+                      Source="Card/Simple" />
+    <TextBlock Classes="body1 p">
+      <Run Text="The parts' paddings are margins here, since a " />
+      <Run Classes="code" Text="Panel" />
+      <Run Text=" has none; nothing paints behind them, so they look the same. MudCardContent's " />
+      <Run Classes="code" Text="ContentPadding=&quot;false&quot;" />
+      <Run Text=" is " />
+      <Run Classes="code" Text="Margin=&quot;0&quot;" />
+      <Run Text=" on the part." />
+    </TextBlock>
+
+    <TextBlock Classes="h5 section" Text="Outlined" />
+    <docs:ExampleCard Title="Outlined"
+                      Description="outlined is a 1px lines-default line and drops the shadow, whatever elevation class the card also carries, as MudPaper does."
+                      Source="Card/Outlined" />
+
+    <TextBlock Classes="h5 section" Text="Header" />
+    <docs:ExampleCard Title="card-header"
+                      Description="card-header belongs on a DockPanel, 16px round. card-header-actions docks at the end, pulled 8px up and out; card-header-content fills the rest, so it goes last."
+                      Source="Card/Header" />
+
+    <TextBlock Classes="h5 section" Text="Media" />
+    <docs:ExampleCard Title="card-media"
+                      Description="card-media on a Border is 300px high unless it says otherwise. An Image inside covers it, or an ImageBrush as its Background; a colour stands in for the photo here. Coming first, it takes the card's top corners."
+                      Source="Card/Media" />
+
+    <TextBlock Classes="h5 section" Text="Combined" />
+    <docs:ExampleCard Title="Header, media, content and actions"
+                      Description="card-header-avatar docks at the start, 16px from the content. After a header the media's corners stay square."
+                      Source="Card/Combined" />
+
+    <TextBlock Classes="h5 section" Text="Elevation and square" />
+    <docs:ExampleCard Title="Elevation, square and outlined"
+                      Description="An elevation class replaces the card's 1. square takes the radius off the card and its media; outlined beats any elevation class."
+                      Source="Card/ElevationSquare" />
+    <StackPanel Orientation="Horizontal" Spacing="8" Margin="0,0,0,16">
+      <TextBlock Classes="body1" Text="See also:" VerticalAlignment="Center" />
+      <docs:DocLink Slug="paper" Content="Paper" />
+      <docs:DocLink Slug="elevation" Content="Elevation" />
+    </StackPanel>
+
+    <TextBlock Classes="h5 section" Text="MudBlazor parity" />
+    <TextBlock Classes="body1 p">
+      <Run Text="Every MudCard parameter and part and what it is here. " />
+      <Run Classes="code" Text="Same" />
+      <Run Text=" is transcribed from MudBlazor's source; " />
+      <Run Classes="code" Text="Close" />
+      <Run Text=" gets the same result another way; " />
+      <Run Classes="code" Text="Extra" />
+      <Run Text=" is Material's own, beyond MudBlazor." />
+    </TextBlock>
+    <docs:ParityTable>
+      <docs:ParityRow MudBlazor="MudCard" Here="Border.card" Status="Same" Note="A paper at elevation 1 in text-primary." />
+      <docs:ParityRow MudBlazor="Elevation" Here="elevation0 … elevation25" Status="Same" Note="An elevation class replaces the default 1." />
+      <docs:ParityRow MudBlazor="Outlined" Here="outlined" Status="Same" Note="A 1px lines-default line, and no shadow whatever elevation class is on it, as MudPaper does." />
+      <docs:ParityRow MudBlazor="Square" Here="square" Status="Same" Note="No radius, and the media squares with it." />
+      <docs:ParityRow MudBlazor="MudCardHeader" Here="card-header, on a DockPanel" Status="Same" Note="16px round." />
+      <docs:ParityRow MudBlazor="CardHeaderAvatar" Here="card-header-avatar" Status="Same" Note="Docked at the start, 16px from the content." />
+      <docs:ParityRow MudBlazor="CardHeaderContent" Here="card-header-content" Status="Same" Note="Fills the rest, so it goes last in the DockPanel." />
+      <docs:ParityRow MudBlazor="CardHeaderActions" Here="card-header-actions" Status="Same" Note="Docked at the end, pulled 8px up and out." />
+      <docs:ParityRow MudBlazor="MudCardMedia" Here="card-media, on a Border" Status="Same" Note="300px high; an Image inside covers it; it takes the card's top corners when it comes first." />
+      <docs:ParityRow MudBlazor="MudCardMedia Height, Image" Here="Height; an Image inside, or an ImageBrush as Background" Status="Close" Note="The picture is content here rather than a URL parameter." />
+      <docs:ParityRow MudBlazor="MudCardContent" Here="card-content" Status="Same" Note="16px round." />
+      <docs:ParityRow MudBlazor="MudCardActions" Here="card-actions, on a StackPanel" Status="Same" Note="A row, 8px round, its items centred." />
+      <docs:ParityRow MudBlazor="ContentPadding=&quot;false&quot;" Here="Margin=&quot;0&quot; on the part" Status="Close" Note="The paddings are margins here, since a panel has none." />
+      <docs:ParityRow MudBlazor="Width, Height, MinWidth, MaxWidth, MinHeight, MaxHeight" Here="the same" Status="Close" Note="Ordinary Avalonia properties." />
+      <docs:ParityRow MudBlazor="(none: Material's dark-theme overlay)" Here="material-elevation-overlay on a window or container" Status="Extra" Note="In dark, a card is lightened by white at its level's opacity, as a paper is." />
+    </docs:ParityTable>
+  </StackPanel>
+</UserControl>

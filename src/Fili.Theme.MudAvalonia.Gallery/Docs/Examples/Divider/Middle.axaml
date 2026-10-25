@@ -1,0 +1,27 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <Border Background="{DynamicResource FiliBackgroundGrayBrush}" Padding="24">
+    <Border Classes="card" Width="400" HorizontalAlignment="Left">
+      <StackPanel>
+        <TextBlock Classes="h5 card-header" Text="Uranium-235" />
+        <StackPanel Classes="card-content">
+          <TextBlock Classes="body1" TextWrapping="Wrap" Text="This is the type of uranium used in the RBMK reactors." />
+          <!-- middle is 16px in from both sides. Its margin is the class's, so the space above
+               and below comes from a Panel round it. -->
+          <Panel Margin="0,24">
+            <Separator Classes="middle" />
+          </Panel>
+          <TextBlock Classes="body1" Text="Select Reactor Type" Margin="0,0,0,8" />
+          <WrapPanel Orientation="Horizontal">
+            <ContentControl Classes="chip secondary" Content="RBMK-1000" Margin="0,0,4,4" />
+            <ContentControl Classes="chip" Content="RBMK-1500" Margin="0,0,4,4" />
+            <ContentControl Classes="chip" Content="RBMKP-2400" Margin="0,0,4,4" />
+          </WrapPanel>
+        </StackPanel>
+        <StackPanel Classes="card-actions">
+          <Button Classes="primary" Content="Read more" />
+        </StackPanel>
+      </StackPanel>
+    </Border>
+  </Border>
+</UserControl>

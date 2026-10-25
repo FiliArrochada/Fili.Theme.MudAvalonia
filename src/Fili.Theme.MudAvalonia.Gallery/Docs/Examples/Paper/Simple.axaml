@@ -1,0 +1,17 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <!-- The grey ground is only there so the surface shows, as mudblazor.com darkens it. -->
+  <Border Background="{DynamicResource FiliBackgroundGrayBrush}" Padding="24">
+    <WrapPanel Orientation="Horizontal">
+      <!-- A paper is a surface: no padding of its own, so the content brings it. -->
+      <Border Classes="paper" Width="128" Height="128" Margin="0,0,24,0" />
+      <Border Classes="paper" Width="240" Padding="16">
+        <StackPanel Spacing="4">
+          <TextBlock Classes="h6" Text="On a paper" />
+          <TextBlock Classes="body2" TextWrapping="Wrap"
+                     Text="The surface colour, the default radius and text-primary, at elevation 1." />
+        </StackPanel>
+      </Border>
+    </WrapPanel>
+  </Border>
+</UserControl>

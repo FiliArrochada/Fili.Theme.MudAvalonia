@@ -1,0 +1,26 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <!-- list-item on a Button is a MudListItem with OnClick or Href: the row's look, hover tint and
+       ripple, with nothing to select. Give it a Command or a Click handler. -->
+  <Border Classes="paper" Width="360" HorizontalAlignment="Left" Padding="0,8">
+    <StackPanel>
+      <Button Classes="list-item">
+        <StackPanel Orientation="Horizontal">
+          <PathIcon Classes="start-icon" Data="{DynamicResource GallerySettingsIcon}" />
+          <TextBlock Text="Settings" />
+        </StackPanel>
+      </Button>
+      <Button Classes="list-item">
+        <StackPanel Orientation="Horizontal">
+          <PathIcon Classes="start-icon" Data="{DynamicResource GalleryShareIcon}" />
+          <TextBlock Text="Share" />
+        </StackPanel>
+      </Button>
+      <Button Classes="list-item" Content="Sign out" />
+      <Button Classes="list-item" Content="Delete account (disabled)" IsEnabled="False" />
+      <Separator />
+      <Button Classes="list-item dense" Content="A dense row" />
+      <Button Classes="list-item no-gutters" Content="A row without gutters" />
+    </StackPanel>
+  </Border>
+</UserControl>

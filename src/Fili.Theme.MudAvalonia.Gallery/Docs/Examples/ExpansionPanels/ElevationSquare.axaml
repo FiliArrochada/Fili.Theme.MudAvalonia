@@ -1,0 +1,23 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <Grid ColumnDefinitions="*,24,*">
+    <!-- An elevation class on each panel replaces the default 1. -->
+    <StackPanel Grid.Column="0" Classes="expansion-panels">
+      <Expander Classes="elevation4" Header="elevation4">
+        <TextBlock Text="Panel One Content" />
+      </Expander>
+      <Expander Classes="elevation4" Header="elevation4">
+        <TextBlock Text="Panel Two Content" />
+      </Expander>
+    </StackPanel>
+    <!-- square on the group squares every panel. -->
+    <StackPanel Grid.Column="2" Classes="expansion-panels square">
+      <Expander Header="square">
+        <TextBlock Text="Panel One Content" />
+      </Expander>
+      <Expander Header="square">
+        <TextBlock Text="Panel Two Content" />
+      </Expander>
+    </StackPanel>
+  </Grid>
+</UserControl>

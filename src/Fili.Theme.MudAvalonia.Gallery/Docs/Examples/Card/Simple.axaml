@@ -1,0 +1,16 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <Border Background="{DynamicResource FiliBackgroundGrayBrush}" Padding="24">
+    <Border Classes="card" Width="345" HorizontalAlignment="Left">
+      <StackPanel>
+        <StackPanel Classes="card-content" Spacing="4">
+          <TextBlock Classes="body1" Text="Story of the day" />
+          <TextBlock Classes="body2" Text="The quick, brown fox jumps over a lazy dog." />
+        </StackPanel>
+        <StackPanel Classes="card-actions">
+          <Button Classes="primary" Content="Learn more" />
+        </StackPanel>
+      </StackPanel>
+    </Border>
+  </Border>
+</UserControl>

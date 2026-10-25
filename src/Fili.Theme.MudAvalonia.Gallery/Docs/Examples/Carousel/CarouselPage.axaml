@@ -1,0 +1,18 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <!-- A CarouselPage is a carousel of pages: the same arrows and bullets, with each ContentPage
+       on the app's background. -->
+  <Border Classes="paper outlined" Height="220" ClipToBounds="True">
+    <CarouselPage>
+      <ContentPage Header="Welcome">
+        <TextBlock Classes="h5" Text="Welcome" HorizontalAlignment="Center" VerticalAlignment="Center" />
+      </ContentPage>
+      <ContentPage Header="Sign in">
+        <TextBlock Classes="h5" Text="Sign in" HorizontalAlignment="Center" VerticalAlignment="Center" />
+      </ContentPage>
+      <ContentPage Header="Done">
+        <TextBlock Classes="h5" Text="All set" HorizontalAlignment="Center" VerticalAlignment="Center" />
+      </ContentPage>
+    </CarouselPage>
+  </Border>
+</UserControl>

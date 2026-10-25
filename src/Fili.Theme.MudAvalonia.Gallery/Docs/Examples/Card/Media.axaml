@@ -1,0 +1,21 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <Border Background="{DynamicResource FiliBackgroundGrayBrush}" Padding="24">
+    <Border Classes="card" Width="345" HorizontalAlignment="Left">
+      <StackPanel>
+        <!-- card-media first takes the card's top corners. An Image inside covers it; a colour
+             stands in for the photo here. -->
+        <Border Classes="card-media" Height="200" Background="{DynamicResource FiliInfoLightenBrush}" />
+        <StackPanel Classes="card-content" Spacing="4">
+          <TextBlock Classes="h5" Text="Old Paint" />
+          <TextBlock Classes="body2" TextWrapping="Wrap" Text="Old paint found on a stone house door." />
+          <TextBlock Classes="body2" TextWrapping="Wrap" Text="This photo was taken in a small village in Istra Croatia." />
+        </StackPanel>
+        <StackPanel Classes="card-actions" Spacing="8">
+          <Button Classes="primary" Content="Share" />
+          <Button Classes="primary" Content="Learn more" />
+        </StackPanel>
+      </StackPanel>
+    </Border>
+  </Border>
+</UserControl>

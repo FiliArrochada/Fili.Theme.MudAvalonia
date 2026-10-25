@@ -1,0 +1,21 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <!-- multi-selection is the look and SelectionMode="Multiple, Toggle" the behaviour: a XAML list
+       pins its SelectionMode before any style applies. The checkbox is grey with no class
+       (CheckBoxColor's default), or the list's colour class. -->
+  <Grid ColumnDefinitions="Auto,Auto" RowDefinitions="Auto,Auto">
+    <TextBlock Classes="caption" Text="no class" Margin="0,0,0,8" />
+    <TextBlock Grid.Column="1" Classes="caption" Text="primary" Margin="24,0,0,8" />
+
+    <ListBox Grid.Row="1" Classes="paper multi-selection" SelectionMode="Multiple, Toggle" Width="260">
+      <ListBoxItem IsSelected="True">Milk</ListBoxItem>
+      <ListBoxItem>Eggs</ListBoxItem>
+      <ListBoxItem IsSelected="True">Bread</ListBoxItem>
+    </ListBox>
+    <ListBox Grid.Row="1" Grid.Column="1" Classes="paper multi-selection primary" SelectionMode="Multiple, Toggle" Width="260" Margin="24,0,0,0">
+      <ListBoxItem IsSelected="True">Milk</ListBoxItem>
+      <ListBoxItem>Eggs</ListBoxItem>
+      <ListBoxItem IsSelected="True">Bread</ListBoxItem>
+    </ListBox>
+  </Grid>
+</UserControl>

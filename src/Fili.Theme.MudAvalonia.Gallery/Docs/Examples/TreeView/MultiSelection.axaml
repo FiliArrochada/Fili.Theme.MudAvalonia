@@ -1,0 +1,25 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <!-- multi-selection is the look and SelectionMode="Multiple, Toggle" the behaviour. Each row gets
+       a checkbox after the arrow, checked while it is selected; a branch's box is its own
+       selection, never indeterminate from its children. -->
+  <Grid ColumnDefinitions="Auto,Auto" RowDefinitions="Auto,Auto">
+    <TextBlock Classes="caption" Text="no class" Margin="0,0,0,8" />
+    <TextBlock Grid.Column="1" Classes="caption" Text="primary dense" Margin="24,0,0,8" />
+
+    <TreeView Grid.Row="1" Classes="paper multi-selection" SelectionMode="Multiple, Toggle" Width="260" VerticalAlignment="Top">
+      <TreeViewItem Header="Fruit" IsExpanded="True">
+        <TreeViewItem Header="Apples" IsSelected="True" />
+        <TreeViewItem Header="Pears" />
+      </TreeViewItem>
+      <TreeViewItem Header="Bread" IsSelected="True" />
+    </TreeView>
+    <TreeView Grid.Row="1" Grid.Column="1" Classes="paper multi-selection primary dense" SelectionMode="Multiple, Toggle" Width="260" Margin="24,0,0,0" VerticalAlignment="Top">
+      <TreeViewItem Header="Fruit" IsExpanded="True">
+        <TreeViewItem Header="Apples" IsSelected="True" />
+        <TreeViewItem Header="Pears" />
+      </TreeViewItem>
+      <TreeViewItem Header="Bread" IsSelected="True" />
+    </TreeView>
+  </Grid>
+</UserControl>

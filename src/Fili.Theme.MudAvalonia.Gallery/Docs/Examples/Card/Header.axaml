@@ -1,0 +1,21 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <Border Background="{DynamicResource FiliBackgroundGrayBrush}" Padding="24">
+    <Border Classes="card" Width="345" HorizontalAlignment="Left">
+      <StackPanel>
+        <!-- A DockPanel: the actions dock to the end, and the content goes LAST so it fills. -->
+        <DockPanel Classes="card-header">
+          <Button Classes="icon card-header-actions"><PathIcon Data="{DynamicResource GallerySettingsIcon}" /></Button>
+          <TextBlock Classes="h6 card-header-content" Text="The Story Book" />
+        </DockPanel>
+        <StackPanel Classes="card-content" Spacing="4">
+          <TextBlock Classes="body1" Text="This day everything happened." />
+          <TextBlock Classes="body2" Text="The quick, brown fox jumps over a lazy dog." />
+        </StackPanel>
+        <StackPanel Classes="card-actions">
+          <Button Classes="primary" Content="Read more" />
+        </StackPanel>
+      </StackPanel>
+    </Border>
+  </Border>
+</UserControl>

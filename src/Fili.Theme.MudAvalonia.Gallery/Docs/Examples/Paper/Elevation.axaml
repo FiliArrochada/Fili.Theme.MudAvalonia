@@ -1,0 +1,26 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <Border Background="{DynamicResource FiliBackgroundGrayBrush}" Padding="24,24,0,0">
+    <WrapPanel Orientation="Horizontal">
+      <!-- No class is MudPaper's default Elevation 1; an elevation class replaces it. -->
+      <Border Classes="paper elevation0" Width="96" Height="96" Margin="0,0,24,24">
+        <TextBlock Classes="caption" Text="elevation0" HorizontalAlignment="Center" VerticalAlignment="Center" />
+      </Border>
+      <Border Classes="paper" Width="96" Height="96" Margin="0,0,24,24">
+        <TextBlock Classes="caption" Text="no class (1)" HorizontalAlignment="Center" VerticalAlignment="Center" />
+      </Border>
+      <Border Classes="paper elevation3" Width="96" Height="96" Margin="0,0,24,24">
+        <TextBlock Classes="caption" Text="elevation3" HorizontalAlignment="Center" VerticalAlignment="Center" />
+      </Border>
+      <Border Classes="paper elevation6" Width="96" Height="96" Margin="0,0,24,24">
+        <TextBlock Classes="caption" Text="elevation6" HorizontalAlignment="Center" VerticalAlignment="Center" />
+      </Border>
+      <Border Classes="paper elevation12" Width="96" Height="96" Margin="0,0,24,24">
+        <TextBlock Classes="caption" Text="elevation12" HorizontalAlignment="Center" VerticalAlignment="Center" />
+      </Border>
+      <Border Classes="paper elevation25" Width="96" Height="96" Margin="0,0,24,24">
+        <TextBlock Classes="caption" Text="elevation25" HorizontalAlignment="Center" VerticalAlignment="Center" />
+      </Border>
+    </WrapPanel>
+  </Border>
+</UserControl>

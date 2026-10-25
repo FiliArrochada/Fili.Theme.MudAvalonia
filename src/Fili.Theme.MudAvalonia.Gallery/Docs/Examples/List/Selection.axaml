@@ -1,0 +1,26 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <!-- The selected row is the colour as text over its hover tint: primary with no class, or the
+       list's colour class. -->
+  <Grid ColumnDefinitions="Auto,Auto,Auto" RowDefinitions="Auto,Auto">
+    <TextBlock Classes="caption" Text="no class (primary)" Margin="0,0,0,8" />
+    <TextBlock Grid.Column="1" Classes="caption" Text="secondary" Margin="24,0,0,8" />
+    <TextBlock Grid.Column="2" Classes="caption" Text="success" Margin="24,0,0,8" />
+
+    <ListBox Grid.Row="1" Classes="paper" Width="220" SelectedIndex="1">
+      <ListBoxItem>Brunch</ListBoxItem>
+      <ListBoxItem>Lunch</ListBoxItem>
+      <ListBoxItem>Dinner</ListBoxItem>
+    </ListBox>
+    <ListBox Grid.Row="1" Grid.Column="1" Classes="paper secondary" Width="220" Margin="24,0,0,0" SelectedIndex="1">
+      <ListBoxItem>Brunch</ListBoxItem>
+      <ListBoxItem>Lunch</ListBoxItem>
+      <ListBoxItem>Dinner</ListBoxItem>
+    </ListBox>
+    <ListBox Grid.Row="1" Grid.Column="2" Classes="paper success" Width="220" Margin="24,0,0,0" SelectedIndex="1">
+      <ListBoxItem>Brunch</ListBoxItem>
+      <ListBoxItem>Lunch</ListBoxItem>
+      <ListBoxItem>Dinner</ListBoxItem>
+    </ListBox>
+  </Grid>
+</UserControl>

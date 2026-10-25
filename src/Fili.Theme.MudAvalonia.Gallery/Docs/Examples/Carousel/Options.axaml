@@ -1,0 +1,32 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <!-- no-arrows is ShowArrows="false" and no-bullets ShowBullets="false". Without arrows the
+       carousel turns with its keys or the bullets; without bullets, with the arrows. -->
+  <Grid ColumnDefinitions="*,24,*" RowDefinitions="Auto,Auto">
+    <TextBlock Classes="caption" Text="no-arrows" Margin="0,0,0,8" />
+    <TextBlock Grid.Column="2" Classes="caption" Text="no-bullets" Margin="0,0,0,8" />
+
+    <Carousel Grid.Row="1" Classes="no-arrows" Height="180">
+      <Border Classes="paper outlined">
+        <TextBlock Classes="h5" Text="Slide one" HorizontalAlignment="Center" VerticalAlignment="Center" />
+      </Border>
+      <Border Classes="paper outlined">
+        <TextBlock Classes="h5" Text="Slide two" HorizontalAlignment="Center" VerticalAlignment="Center" />
+      </Border>
+      <Border Classes="paper outlined">
+        <TextBlock Classes="h5" Text="Slide three" HorizontalAlignment="Center" VerticalAlignment="Center" />
+      </Border>
+    </Carousel>
+    <Carousel Grid.Row="1" Grid.Column="2" Classes="no-bullets" Height="180">
+      <Border Classes="paper outlined">
+        <TextBlock Classes="h5" Text="Slide one" HorizontalAlignment="Center" VerticalAlignment="Center" />
+      </Border>
+      <Border Classes="paper outlined">
+        <TextBlock Classes="h5" Text="Slide two" HorizontalAlignment="Center" VerticalAlignment="Center" />
+      </Border>
+      <Border Classes="paper outlined">
+        <TextBlock Classes="h5" Text="Slide three" HorizontalAlignment="Center" VerticalAlignment="Center" />
+      </Border>
+    </Carousel>
+  </Grid>
+</UserControl>

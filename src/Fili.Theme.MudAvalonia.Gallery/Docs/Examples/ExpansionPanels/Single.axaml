@@ -1,0 +1,13 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <!-- An Expander on its own is one MudExpansionPanel: a surface at elevation 1 with the default
+       radius. Square on one panel is CornerRadius="0". -->
+  <StackPanel Spacing="16">
+    <Expander Header="A panel on its own">
+      <TextBlock Text="Panel Content" />
+    </Expander>
+    <Expander Header="CornerRadius=&quot;0&quot;" CornerRadius="0">
+      <TextBlock Text="Panel Content" />
+    </Expander>
+  </StackPanel>
+</UserControl>

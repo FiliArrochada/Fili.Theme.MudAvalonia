@@ -1,0 +1,31 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <Border Background="{DynamicResource FiliBackgroundGrayBrush}" Padding="24">
+    <Grid ColumnDefinitions="Auto,72,72,72,72" RowDefinitions="Auto,Auto,Auto">
+      <TextBlock Grid.Column="1" Classes="caption" Text="1" HorizontalAlignment="Center" />
+      <TextBlock Grid.Column="2" Classes="caption" Text="4" HorizontalAlignment="Center" />
+      <TextBlock Grid.Column="3" Classes="caption" Text="8" HorizontalAlignment="Center" />
+      <TextBlock Grid.Column="4" Classes="caption" Text="24" HorizontalAlignment="Center" />
+
+      <!-- Shadows only: MudBlazor's dark theme. -->
+      <TextBlock Grid.Row="1" Classes="caption" Text="no class" VerticalAlignment="Center" Margin="0,0,16,0" />
+      <StackPanel Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="4" Orientation="Horizontal">
+        <Border Classes="paper" Width="48" Height="48" Margin="12" />
+        <Border Classes="paper elevation4" Width="48" Height="48" Margin="12" />
+        <Border Classes="paper elevation8" Width="48" Height="48" Margin="12" />
+        <Border Classes="paper elevation24" Width="48" Height="48" Margin="12" />
+      </StackPanel>
+
+      <!-- On a window or any container: in dark, each raised surface inside is lightened by
+           white at its level's opacity. Light and high contrast are unchanged. -->
+      <TextBlock Grid.Row="2" Classes="caption" Text="material-elevation-overlay" VerticalAlignment="Center" Margin="0,0,16,0" />
+      <StackPanel Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="4" Orientation="Horizontal"
+                  Classes="material-elevation-overlay">
+        <Border Classes="paper" Width="48" Height="48" Margin="12" />
+        <Border Classes="paper elevation4" Width="48" Height="48" Margin="12" />
+        <Border Classes="paper elevation8" Width="48" Height="48" Margin="12" />
+        <Border Classes="paper elevation24" Width="48" Height="48" Margin="12" />
+      </StackPanel>
+    </Grid>
+  </Border>
+</UserControl>

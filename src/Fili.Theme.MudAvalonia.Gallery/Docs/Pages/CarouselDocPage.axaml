@@ -1,0 +1,60 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:docs="using:Fili.Theme.MudAvalonia.Gallery.Docs"
+             x:Class="Fili.Theme.MudAvalonia.Gallery.Docs.Pages.CarouselDocPage">
+  <StackPanel Classes="doc">
+    <docs:DocHeader Title="Carousel"
+                    Summary="Avalonia's Carousel, drawn as MudCarousel: arrows at the sides and bullets along the bottom, on by default. A CarouselPage is a carousel of pages, with the same arrows and bullets."
+                    MudBlazor="Carousel"
+                    MudBlazorPath="components/carousel" />
+
+    <TextBlock Classes="h5 section" Text="Example" />
+    <docs:ExampleCard Title="Arrows and bullets"
+                      Description="NavigateBefore and NavigateNext icon buttons at the sides, centred, in the carousel's text colour at .75, and the bullets along the bottom at .75. SelectedIndex is the slide shown."
+                      Source="Carousel/Basic" />
+    <TextBlock Classes="body1 p">
+      <Run Text="The bullets are a " />
+      <Run Classes="code" Text="PipsPager" />
+      <Run Text=", drawn with the radio button's two glyphs: the current slide's bullet is " />
+      <Run Classes="code" Text="RadioButtonChecked" />
+      <Run Text=", the others " />
+      <Run Classes="code" Text="RadioButtonUnchecked" />
+      <Run Text=". The arrows are for the pointer; the carousel itself is the Tab stop, and its keys turn it. Bind " />
+      <Run Classes="code" Text="ItemsSource" />
+      <Run Text=" and " />
+      <Run Classes="code" Text="SelectedIndex" />
+      <Run Text=" for MudCarousel's data binding." />
+    </TextBlock>
+
+    <TextBlock Classes="h5 section" Text="Arrows and bullets" />
+    <docs:ExampleCard Title="no-arrows and no-bullets"
+                      Description="no-arrows is ShowArrows=&quot;false&quot; and no-bullets is ShowBullets=&quot;false&quot;."
+                      Source="Carousel/Options" />
+
+    <TextBlock Classes="h5 section" Text="Transitions" />
+    <docs:ExampleCard Title="PageSlide and CrossFade"
+                      Description="How a slide moves is Avalonia's PageTransition, behaviour rather than a look: set any transition on the carousel."
+                      Source="Carousel/Transitions" />
+
+    <TextBlock Classes="h5 section" Text="Carousel page" />
+    <docs:ExampleCard Title="CarouselPage"
+                      Description="A carousel of ContentPages, each on the app's background, with the same arrows and bullets."
+                      Source="Carousel/CarouselPage" />
+
+    <TextBlock Classes="h5 section" Text="MudBlazor parity" />
+    <TextBlock Classes="body1 p">
+      <Run Text="Every MudCarousel parameter that changes how it looks and what it is here. " />
+      <Run Classes="code" Text="Same" />
+      <Run Text=" is transcribed from MudBlazor's source; " />
+      <Run Classes="code" Text="Missing" />
+      <Run Text=" is not available." />
+    </TextBlock>
+    <docs:ParityTable>
+      <docs:ParityRow MudBlazor="the arrows, NavigateBefore / NavigateNext" Here="at the sides, centred, .75" Status="Same" Note="Icon buttons in the carousel's text colour, for the pointer; the carousel itself is the Tab stop." />
+      <docs:ParityRow MudBlazor="the bullets" Here="a PipsPager along the bottom" Status="Same" Note="RadioButtonChecked for the current slide, RadioButtonUnchecked for the rest, all in the carousel's text colour (Color.Inherit)." />
+      <docs:ParityRow MudBlazor="ArrowsColor, BulletsColor" Here="Foreground on the carousel" Status="Close" Note="One colour for the arrows and the bullets together." />
+      <docs:ParityRow MudBlazor="ShowArrows=&quot;false&quot;, ShowBullets=&quot;false&quot;" Here="no-arrows, no-bullets" Status="Same" Note="Each class hides its part." />
+      <docs:ParityRow MudBlazor="ArrowsPosition, BulletsPosition, AutoCycle" Here="—" Status="Missing" Note="The defaults, Center and Bottom; cycling is the app's." />
+    </docs:ParityTable>
+  </StackPanel>
+</UserControl>

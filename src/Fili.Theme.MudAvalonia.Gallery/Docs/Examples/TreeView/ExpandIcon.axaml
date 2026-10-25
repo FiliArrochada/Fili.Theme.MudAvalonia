@@ -1,0 +1,18 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <!-- MudTreeView's ExpandButtonIcon is the FiliChevronRightGeometry key: set it in the tree's
+       Resources and every arrow in that tree draws the new glyph, turning as before. This one is
+       Material's Filled.ArrowRight. -->
+  <TreeView Classes="paper" Width="360" HorizontalAlignment="Left">
+    <TreeView.Resources>
+      <StreamGeometry x:Key="FiliChevronRightGeometry">M10 17l5-5-5-5v10z</StreamGeometry>
+    </TreeView.Resources>
+    <TreeViewItem Header="Planets" IsExpanded="True">
+      <TreeViewItem Header="Earth" />
+      <TreeViewItem Header="Mars" />
+    </TreeViewItem>
+    <TreeViewItem Header="Moons">
+      <TreeViewItem Header="Phobos" />
+    </TreeViewItem>
+  </TreeView>
+</UserControl>

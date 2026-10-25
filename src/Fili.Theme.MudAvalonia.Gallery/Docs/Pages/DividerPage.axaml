@@ -1,0 +1,68 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:docs="using:Fili.Theme.MudAvalonia.Gallery.Docs"
+             x:Class="Fili.Theme.MudAvalonia.Gallery.Docs.Pages.DividerPage">
+  <StackPanel Classes="doc">
+    <docs:DocHeader Title="Divider"
+                    Summary="A divider is a thin rule that groups content in lists and layouts: Avalonia's Separator, drawn as MudDivider. A 1px line in the divider colour, with no margin."
+                    MudBlazor="Divider"
+                    MudBlazorPath="components/divider" />
+
+    <TextBlock Classes="h5 section" Text="List dividers" />
+    <docs:ExampleCard Title="Between rows"
+                      Description="A bare Separator is 1px of the divider colour, edge to edge."
+                      Source="Divider/List" />
+    <TextBlock Classes="body1 p">
+      <Run Text="A " />
+      <Run Classes="code" Text="Separator" />
+      <Run Text=" has " />
+      <Run Classes="code" Text="margin: 0" />
+      <Run Text=", as .mud-divider does. Avalonia's own template indents every divider 29px, as if it sat in a menu; the theme drops that, so a divider is a hairline at the edge of its container unless a class says otherwise." />
+    </TextBlock>
+
+    <TextBlock Classes="h5 section" Text="Light" />
+    <docs:ExampleCard Title="Light"
+                      Description="light is MudDivider's Light: the divider-light colour, fainter than the divider one."
+                      Source="Divider/Light" />
+
+    <TextBlock Classes="h5 section" Text="Inset dividers" />
+    <docs:ExampleCard Title="Inset"
+                      Description="inset is DividerType.Inset: a 72px margin at the start, to clear a list's icon or avatar column."
+                      Source="Divider/Inset" />
+
+    <TextBlock Classes="h5 section" Text="Middle dividers" />
+    <docs:ExampleCard Title="Middle"
+                      Description="middle is DividerType.Middle: a 16px margin on both sides."
+                      Source="Divider/Middle" />
+
+    <TextBlock Classes="h5 section" Text="Vertical dividers" />
+    <docs:ExampleCard Title="Vertical"
+                      Description="vertical turns the rule upright: 1px wide, stretched to its parent's height. In a horizontal StackPanel it takes the row's height, which is what MudDivider's FlexItem does in a flex row."
+                      Source="Divider/Vertical" />
+    <TextBlock Classes="body1 p">
+      <Run Text="On a vertical divider, " />
+      <Run Classes="code" Text="inset" />
+      <Run Text=" and " />
+      <Run Classes="code" Text="middle" />
+      <Run Text=" move to the top: 72px above, or 16px above and below. That is why they are classes rather than a " />
+      <Run Classes="code" Text="Margin" />
+      <Run Text=": they turn with the rule." />
+    </TextBlock>
+
+    <TextBlock Classes="h5 section" Text="MudBlazor parity" />
+    <TextBlock Classes="body1 p">
+      <Run Text="Every MudDivider parameter and what it is here. " />
+      <Run Classes="code" Text="Same" />
+      <Run Text=" is transcribed from MudBlazor's source; " />
+      <Run Classes="code" Text="Close" />
+      <Run Text=" gets the same result another way." />
+    </TextBlock>
+    <docs:ParityTable>
+      <docs:ParityRow MudBlazor="MudDivider (default)" Here="Separator, no class" Status="Same" Note="1px, no margin." />
+      <docs:ParityRow MudBlazor="DividerType.Inset / Middle" Here="inset / middle" Status="Same" Note="72px at the start / 16px either side." />
+      <docs:ParityRow MudBlazor="Vertical" Here="vertical" Status="Same" Note="1px wide, stretched to its parent's height." />
+      <docs:ParityRow MudBlazor="Light" Here="light" Status="Same" Note="The divider-light colour." />
+      <docs:ParityRow MudBlazor="Absolute, FlexItem" Here="a Panel overlay; alignment" Status="Close" Note="Layout, which Avalonia's panels already do." />
+    </docs:ParityTable>
+  </StackPanel>
+</UserControl>

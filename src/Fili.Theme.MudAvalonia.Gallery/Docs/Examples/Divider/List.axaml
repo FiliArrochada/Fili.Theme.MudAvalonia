@@ -1,0 +1,17 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <Border Background="{DynamicResource FiliBackgroundGrayBrush}" Padding="24">
+    <!-- A Separator is a 1px rule in the divider colour, edge to edge: no margin. -->
+    <Border Classes="paper" CornerRadius="0" Width="300" HorizontalAlignment="Left">
+      <StackPanel Margin="0,8">
+        <TextBlock Classes="body1" Text="Inbox" Margin="16,8" />
+        <Separator />
+        <TextBlock Classes="body1" Text="Sent" Margin="16,8" />
+        <Separator />
+        <TextBlock Classes="body1" Text="Drafts" Margin="16,8" />
+        <Separator />
+        <TextBlock Classes="body1" Text="Spam" Margin="16,8" />
+      </StackPanel>
+    </Border>
+  </Border>
+</UserControl>

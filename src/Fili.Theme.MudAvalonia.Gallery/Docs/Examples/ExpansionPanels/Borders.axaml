@@ -1,0 +1,16 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <!-- no-outline on the group is Outlined="false": no rule between the panels. Elevation is on
+       each panel, so elevation0 goes on every Expander. -->
+  <StackPanel Classes="expansion-panels no-outline">
+    <Expander Classes="elevation0" Header="Panel One">
+      <TextBlock Text="Panel One Content" />
+    </Expander>
+    <Expander Classes="elevation0" Header="Panel Two">
+      <TextBlock Text="Panel Two Content" />
+    </Expander>
+    <Expander Classes="elevation0" Header="Panel Three">
+      <TextBlock Text="Panel Three Content" />
+    </Expander>
+  </StackPanel>
+</UserControl>

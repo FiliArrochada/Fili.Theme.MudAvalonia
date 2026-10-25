@@ -1,0 +1,127 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:docs="using:Fili.Theme.MudAvalonia.Gallery.Docs"
+             x:Class="Fili.Theme.MudAvalonia.Gallery.Docs.Pages.ListPage">
+  <StackPanel Classes="doc">
+    <docs:DocHeader Title="List"
+                    Summary="Avalonia's ListBox, drawn as MudList: body1 rows of 48px with 16px sides, and a selected row that is a tint, never a filled bar. list-item on a Button is a MudListItem that does something rather than one that is chosen."
+                    MudBlazor="List"
+                    MudBlazorPath="components/list" />
+
+    <TextBlock Classes="h5 section" Text="Simple list" />
+    <docs:ExampleCard Title="Rows, icons and text"
+                      Description="Each row is body1 on 48px: 8px above and below, and the text's own 4px. A ListBox has no ground of its own; paper gives it the surface and the corner radius."
+                      Source="List/Simple" />
+    <TextBlock Classes="body1 p">
+      <Run Text="A row holds whatever content the app gives it. A PathIcon in it marked " />
+      <Run Classes="code" Text="start-icon" />
+      <Run Text=" is MudListItem's " />
+      <Run Classes="code" Text="Icon" />
+      <Run Text=": 24px in a 56px column, action-default, with the text centred beside it. " />
+      <Run Classes="code" Text="SecondaryText" />
+      <Run Text=" and " />
+      <Run Classes="code" Text="AvatarContent" />
+      <Run Text=" are laid out in the item, here in a horizontal " />
+      <Run Classes="code" Text="StackPanel" />
+      <Run Text="." />
+    </TextBlock>
+
+    <TextBlock Classes="h5 section" Text="Selection" />
+    <docs:ExampleCard Title="Single selection and colours"
+                      Description="MudList marks the chosen row with primary text over primary at 6%, so it stays as readable as the rows round it. A colour class on the ListBox is MudList's Color, the selected row's colour."
+                      Source="List/Selection" />
+
+    <TextBlock Classes="h5 section" Text="Multiselection" />
+    <docs:ExampleCard Title="multi-selection"
+                      Description="Each row gets a checkbox, checked while it is selected, and no row is marked selected. The checkbox is grey with no class, CheckBoxColor's default, or the list's colour class."
+                      Source="List/MultiSelection" />
+    <TextBlock Classes="body1 p">
+      <Run Text="The class is the look; " />
+      <Run Classes="code" Text="SelectionMode=&quot;Multiple, Toggle&quot;" />
+      <Run Text=" is the behaviour, and the app sets it. A list declared in XAML pins its " />
+      <Run Classes="code" Text="SelectionMode" />
+      <Run Text=" as a local value before any style applies, so the class cannot set it." />
+    </TextBlock>
+
+    <TextBlock Classes="h5 section" Text="Dense and gutters" />
+    <docs:ExampleCard Title="dense and no-gutters"
+                      Description="dense is MudList's Dense: 36px rows in body2. no-gutters is Gutters=&quot;false&quot;, no 16px sides. Either goes on the ListBox or on one row."
+                      Source="List/Dense" />
+    <TextBlock Classes="body1 p">
+      <Run Text="A select's options are the same rows. On a " />
+      <Run Classes="code" Text="ComboBox" />
+      <Run Text=", " />
+      <Run Classes="code" Text="dense-items" />
+      <Run Text=" (or " />
+      <Run Classes="code" Text="dense" />
+      <Run Text=" on one option) is MudSelect's Dense, since " />
+      <Run Classes="code" Text="dense" />
+      <Run Text=" on the select is its field's Margin.Dense." />
+    </TextBlock>
+    <StackPanel Orientation="Horizontal" Spacing="8" Margin="0,0,0,16">
+      <TextBlock Classes="body1" Text="See also:" VerticalAlignment="Center" />
+      <docs:DocLink Slug="select" Content="Select" />
+    </StackPanel>
+
+    <TextBlock Classes="h5 section" Text="Avatars" />
+    <docs:ExampleCard Title="Avatars and secondary text"
+                      Description="A Border.avatar before the text is AvatarContent; a body2 line in text-secondary under it is SecondaryText."
+                      Source="List/Avatars" />
+
+    <TextBlock Classes="h5 section" Text="Subheaders and disabled rows" />
+    <docs:ExampleCard Title="Subheaders, dividers and Disabled"
+                      Description="A subheader is a TextBlock with a Margin, outside the ListBox so it is not a row that can be chosen. IsEnabled=&quot;False&quot; is Disabled, in action-disabled."
+                      Source="List/Subheaders" />
+
+    <TextBlock Classes="h5 section" Text="Clickable rows" />
+    <docs:ExampleCard Title="list-item on a Button"
+                      Description="MudListItem with OnClick or Href, outside a selecting list: the row's look, its hover tint and ripple, with the label in its own case, as a list item is not a MudButton. dense and no-gutters are MudListItem's."
+                      Source="List/Clickable" />
+
+    <TextBlock Classes="h5 section" Text="Nested lists" />
+    <TextBlock Classes="body1 p">
+      <Run Text="A " />
+      <Run Classes="code" Text="ListBox" />
+      <Run Text=" is flat. MudList's " />
+      <Run Classes="code" Text="NestedList" />
+      <Run Text=" and " />
+      <Run Classes="code" Text="Expanded" />
+      <Run Text=" are a " />
+      <Run Classes="code" Text="TreeView" />
+      <Run Text=", which nests." />
+    </TextBlock>
+    <StackPanel Orientation="Horizontal" Spacing="8" Margin="0,0,0,16">
+      <TextBlock Classes="body1" Text="See also:" VerticalAlignment="Center" />
+      <docs:DocLink Slug="tree-view" Content="Tree view" />
+    </StackPanel>
+
+    <TextBlock Classes="h5 section" Text="MudBlazor parity" />
+    <TextBlock Classes="body1 p">
+      <Run Text="Every MudList and MudListItem parameter and what it is here. " />
+      <Run Classes="code" Text="Same" />
+      <Run Text=" is transcribed from MudBlazor's source; " />
+      <Run Classes="code" Text="Close" />
+      <Run Text=" gets the same result another way." />
+    </TextBlock>
+    <docs:ParityTable>
+      <docs:ParityRow MudBlazor="MudListItem with OnClick or Href, outside a selecting list" Here="Button.list-item" Status="Same" Note="The row's look and ripple, its label in its own case; dense and no-gutters as on a row." />
+      <docs:ParityRow MudBlazor="selected item" Here="the same" Status="Same" Note="Primary text over primary at 6%, never a filled bar." />
+      <docs:ParityRow MudBlazor="Dense" Here="dense on the ListBox or an item" Status="Same" Note="4px top and bottom, body2." />
+      <docs:ParityRow MudBlazor="the text" Here="the same" Status="Same" Note="Body1, MudListItem's own; body2 when dense." />
+      <docs:ParityRow MudBlazor="a row's height" Here="the same" Status="Same" Note="48px, 36 dense: the row's 8px (4px) and the text's 4px round the line." />
+      <docs:ParityRow MudBlazor="on a paper" Here="ListBox.paper" Status="Same" Note="The surface and the corner radius; a list has no ground without it." />
+      <docs:ParityRow MudBlazor="Disabled" Here="IsEnabled=&quot;False&quot;" Status="Same" Note="Action-disabled." />
+      <docs:ParityRow MudBlazor="Color (the selection, default Primary)" Here="primary … dark on the ListBox" Status="Same" Note="The colour as the text over its hover tint." />
+      <docs:ParityRow MudBlazor="Gutters (default true)" Here="no-gutters on the ListBox or an item" Status="Same" Note="No 16px sides." />
+      <docs:ParityRow MudBlazor="Padding (default true)" Here="Padding=&quot;0&quot;" Status="Close" Note="An ordinary Avalonia property." />
+      <docs:ParityRow MudBlazor="Icon" Here="a PathIcon in the content marked start-icon" Status="Same" Note="24px in a 56px column, action-default (action-disabled on a disabled row), the text centred beside it." />
+      <docs:ParityRow MudBlazor="IconColor, AvatarContent, SecondaryText, Inset" Here="content in the item" Status="Close" Note="The app lays out the row." />
+      <docs:ParityRow MudBlazor="NestedList, Expanded, ExpandMoreIcon, ExpandLessIcon" Here="TreeView" Status="Close" Note="A ListBox is flat; a tree nests." />
+      <docs:ParityRow MudBlazor="SelectionMode.MultiSelection" Here="multi-selection and SelectionMode=&quot;Multiple, Toggle&quot;" Status="Close" Note="A 48px checkbox on each row, 8px into the gutter, checked while the row is selected; two settings for one parameter, as a XAML list pins SelectionMode before any style can set it." />
+      <docs:ParityRow MudBlazor="CheckBoxColor (default Default)" Here="no class, or primary … dark on the list while multi-selection is on" Status="Close" Note="Both glyphs and the halo; the list's Color class doubles as it, the selection colour being unused while selecting many." />
+      <docs:ParityRow MudBlazor="CheckedIcon, UncheckedIcon, IndeterminateIcon" Here="FiliCheckBoxCheckedGeometry, FiliCheckBoxUncheckedGeometry, FiliCheckBoxIndeterminateGeometry" Status="Same" Note="Resource keys set in the list's Resources, as on a checkbox." />
+      <docs:ParityRow MudBlazor="MudListSubheader" Here="a TextBlock with Margin" Status="Close" Note="Outside the ListBox, so it is not a row that can be chosen." />
+      <docs:ParityRow MudBlazor="Ripple (default true)" Here="on" Status="Same" Note="On every row, and on a select's options, which are MudListItems." />
+    </docs:ParityTable>
+  </StackPanel>
+</UserControl>

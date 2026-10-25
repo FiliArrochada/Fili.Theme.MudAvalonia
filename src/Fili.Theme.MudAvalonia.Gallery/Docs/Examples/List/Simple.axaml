@@ -1,0 +1,27 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <!-- paper gives the list a surface, as a MudPaper round a MudList does. A start-icon in a row
+       is MudListItem's Icon: 24px in a 56px column, action-default, centred on the text. -->
+  <ListBox Classes="paper" Width="360" HorizontalAlignment="Left">
+    <ListBoxItem>
+      <StackPanel Orientation="Horizontal">
+        <PathIcon Classes="start-icon" Data="{DynamicResource GalleryInboxIcon}" />
+        <TextBlock Text="Inbox" />
+      </StackPanel>
+    </ListBoxItem>
+    <ListBoxItem>
+      <StackPanel Orientation="Horizontal">
+        <PathIcon Classes="start-icon" Data="{DynamicResource GallerySendIcon}" />
+        <TextBlock Text="Sent" />
+      </StackPanel>
+    </ListBoxItem>
+    <ListBoxItem>
+      <StackPanel Orientation="Horizontal">
+        <PathIcon Classes="start-icon" Data="{DynamicResource GalleryDraftsIcon}" />
+        <TextBlock Text="Drafts" />
+      </StackPanel>
+    </ListBoxItem>
+    <ListBoxItem>Trash</ListBoxItem>
+    <ListBoxItem>Spam</ListBoxItem>
+  </ListBox>
+</UserControl>

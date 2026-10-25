@@ -1,0 +1,22 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <Border Background="{DynamicResource FiliBackgroundGrayBrush}" Padding="24,24,0,0">
+    <WrapPanel Orientation="Horizontal">
+      <!-- An elevation class replaces the card's default 1. -->
+      <Border Classes="card elevation6" Width="220" VerticalAlignment="Top" Margin="0,0,24,24">
+        <TextBlock Classes="card-content body2" Text="elevation6" />
+      </Border>
+      <!-- square: no radius, and none on its media either. -->
+      <Border Classes="card square" Width="220" VerticalAlignment="Top" Margin="0,0,24,24">
+        <StackPanel>
+          <Border Classes="card-media" Height="80" Background="{DynamicResource FiliPrimaryLightenBrush}" />
+          <TextBlock Classes="card-content body2" Text="square" />
+        </StackPanel>
+      </Border>
+      <!-- outlined wins over an elevation class: still no shadow. -->
+      <Border Classes="card outlined elevation6" Width="220" VerticalAlignment="Top" Margin="0,0,24,24">
+        <TextBlock Classes="card-content body2" Text="outlined elevation6" />
+      </Border>
+    </WrapPanel>
+  </Border>
+</UserControl>

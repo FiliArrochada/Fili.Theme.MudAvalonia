@@ -1,0 +1,29 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <!-- A colour class on the TreeView is MudTreeView's Color: the selected row's text in the
+       colour over its hover tint. Primary with no class. -->
+  <Grid ColumnDefinitions="Auto,Auto,Auto" RowDefinitions="Auto,Auto">
+    <TextBlock Classes="caption" Text="no class (primary)" Margin="0,0,0,8" />
+    <TextBlock Grid.Column="1" Classes="caption" Text="secondary" Margin="24,0,0,8" />
+    <TextBlock Grid.Column="2" Classes="caption" Text="success" Margin="24,0,0,8" />
+
+    <TreeView Grid.Row="1" Classes="paper" Width="220">
+      <TreeViewItem Header="Music" IsExpanded="True">
+        <TreeViewItem Header="Jazz" IsSelected="True" />
+        <TreeViewItem Header="Rock" />
+      </TreeViewItem>
+    </TreeView>
+    <TreeView Grid.Row="1" Grid.Column="1" Classes="paper secondary" Width="220" Margin="24,0,0,0">
+      <TreeViewItem Header="Music" IsExpanded="True">
+        <TreeViewItem Header="Jazz" IsSelected="True" />
+        <TreeViewItem Header="Rock" />
+      </TreeViewItem>
+    </TreeView>
+    <TreeView Grid.Row="1" Grid.Column="2" Classes="paper success" Width="220" Margin="24,0,0,0">
+      <TreeViewItem Header="Music" IsExpanded="True">
+        <TreeViewItem Header="Jazz" IsSelected="True" />
+        <TreeViewItem Header="Rock" />
+      </TreeViewItem>
+    </TreeView>
+  </Grid>
+</UserControl>

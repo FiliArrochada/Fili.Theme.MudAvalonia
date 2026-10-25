@@ -23,6 +23,7 @@ public static class DocCatalog
     public const string Buttons = "Buttons";
     public const string Inputs = "Form & inputs";
     public const string Navigation = "Navigation";
+    public const string Surfaces = "Surfaces & lists";
     public const string Showcase = "Showcase";
 
     public static IReadOnlyList<DocPage> Pages { get; } =
@@ -61,6 +62,14 @@ public static class DocCatalog
         new(Navigation, "Menu", "menu", () => new MenuPage()),
         new(Navigation, "Tool bar", "tool-bar", () => new ToolBarPage()),
         new(Navigation, "Link", "link", () => new LinkPage()),
+
+        new(Surfaces, "Paper", "paper", () => new PaperPage()),
+        new(Surfaces, "Card", "card", () => new CardPage()),
+        new(Surfaces, "Divider", "divider", () => new DividerPage()),
+        new(Surfaces, "Expansion panels", "expansion-panels", () => new ExpansionPanelsPage()),
+        new(Surfaces, "List", "list", () => new ListPage()),
+        new(Surfaces, "Tree view", "tree-view", () => new TreeViewPage()),
+        new(Surfaces, "Carousel", "carousel", () => new CarouselDocPage()),
 
         new(Showcase, "Control states", "control-states", () => new ControlStatesView(), Scrolls: true),
         new(Showcase, "Custom styles", "custom-styles", () => new CustomStylesView(), Scrolls: true),

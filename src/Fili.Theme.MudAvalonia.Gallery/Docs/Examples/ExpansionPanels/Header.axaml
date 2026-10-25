@@ -1,0 +1,26 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <StackPanel Classes="expansion-panels" Width="400" HorizontalAlignment="Left">
+    <!-- The header is any content: MudExpansionPanel's TitleContent, here a 24px icon and body1 text on its 24px line. -->
+    <Expander>
+      <Expander.Header>
+        <StackPanel Orientation="Horizontal" Spacing="12">
+          <PathIcon Data="{DynamicResource GalleryInfoIcon}" Width="24" Height="24" />
+          <TextBlock Classes="body1"><Run Text="Panel header as " /><Run FontWeight="Bold" Text="content" /></TextBlock>
+        </StackPanel>
+      </Expander.Header>
+      <TextBlock Text="Panel Content" />
+    </Expander>
+    <!-- hide-icon is HideIcon: no chevron. -->
+    <Expander Classes="hide-icon" Header="The icon of this panel is hidden">
+      <TextBlock Text="Panel Content" />
+    </Expander>
+    <!-- Icon is FiliExpandMoreGeometry in the panel's Resources: here Filled.Add. -->
+    <Expander Header="A panel with its own icon">
+      <Expander.Resources>
+        <StreamGeometry x:Key="FiliExpandMoreGeometry">M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z</StreamGeometry>
+      </Expander.Resources>
+      <TextBlock Text="Panel Content" />
+    </Expander>
+  </StackPanel>
+</UserControl>

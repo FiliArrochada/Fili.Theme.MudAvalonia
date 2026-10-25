@@ -1,0 +1,24 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <Border Background="{DynamicResource FiliBackgroundGrayBrush}" Padding="24">
+    <!-- inset is 72px in from the start: past a 16px gutter and a 56px icon column. -->
+    <Border Classes="paper" CornerRadius="0" Width="300" HorizontalAlignment="Left">
+      <StackPanel Margin="0,8">
+        <DockPanel Margin="16,8">
+          <PathIcon Data="{DynamicResource GalleryTrendingUpIcon}" Width="24" Height="24" Margin="0,0,32,0" />
+          <TextBlock Classes="body1" Text="Trending" />
+        </DockPanel>
+        <Separator Classes="inset" />
+        <DockPanel Margin="16,8">
+          <PathIcon Data="{DynamicResource GalleryStarRateIcon}" Width="24" Height="24" Margin="0,0,32,0" />
+          <TextBlock Classes="body1" Text="Most Stars" />
+        </DockPanel>
+        <Separator Classes="inset" />
+        <DockPanel Margin="16,8">
+          <PathIcon Data="{DynamicResource GalleryHistoryIcon}" Width="24" Height="24" Margin="0,0,32,0" />
+          <TextBlock Classes="body1" Text="History" />
+        </DockPanel>
+      </StackPanel>
+    </Border>
+  </Border>
+</UserControl>

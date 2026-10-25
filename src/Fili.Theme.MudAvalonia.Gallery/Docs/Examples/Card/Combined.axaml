@@ -1,0 +1,25 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <Border Background="{DynamicResource FiliBackgroundGrayBrush}" Padding="24">
+    <Border Classes="card" Width="345" HorizontalAlignment="Left">
+      <StackPanel>
+        <DockPanel Classes="card-header">
+          <Border Classes="avatar secondary card-header-avatar"><TextBlock Text="I" /></Border>
+          <Button Classes="icon card-header-actions"><PathIcon Data="{DynamicResource GallerySettingsIcon}" /></Button>
+          <StackPanel Classes="card-header-content">
+            <TextBlock Classes="body1" Text="Istra Croatia" />
+            <TextBlock Classes="body2" Text="Peninsula in Europe" />
+          </StackPanel>
+        </DockPanel>
+        <!-- After a header, the media keeps square corners. -->
+        <Border Classes="card-media" Height="250" Background="{DynamicResource FiliSuccessLightenBrush}" />
+        <TextBlock Classes="card-content body2" TextWrapping="Wrap"
+                   Text="This photo was taken in a small village in Istra Croatia." />
+        <StackPanel Classes="card-actions">
+          <Button Classes="icon"><PathIcon Data="{DynamicResource GalleryFavoriteIcon}" /></Button>
+          <Button Classes="icon"><PathIcon Data="{DynamicResource GalleryShareIcon}" /></Button>
+        </StackPanel>
+      </StackPanel>
+    </Border>
+  </Border>
+</UserControl>

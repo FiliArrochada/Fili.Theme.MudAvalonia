@@ -1,0 +1,16 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <Border Background="{DynamicResource FiliBackgroundGrayBrush}" Padding="24">
+    <Grid ColumnDefinitions="Auto,Auto,Auto" RowDefinitions="Auto,Auto">
+      <!-- outlined: a 1px lines-default line and no shadow, whatever the elevation. -->
+      <Border Grid.Column="0" Classes="paper outlined" Width="128" Height="128" Margin="0,0,24,0" />
+      <!-- Square is one property, so it is CornerRadius="0", not a class. -->
+      <Border Grid.Column="1" Classes="paper outlined" CornerRadius="0" Width="128" Height="128" Margin="0,0,24,0" />
+      <Border Grid.Column="2" Classes="paper" CornerRadius="0" Width="128" Height="128" />
+
+      <TextBlock Grid.Row="1" Grid.Column="0" Classes="caption" Text="outlined" HorizontalAlignment="Center" Margin="0,8,24,0" />
+      <TextBlock Grid.Row="1" Grid.Column="1" Classes="caption" Text="outlined, square" HorizontalAlignment="Center" Margin="0,8,24,0" />
+      <TextBlock Grid.Row="1" Grid.Column="2" Classes="caption" Text="square" HorizontalAlignment="Center" Margin="0,8,0,0" />
+    </Grid>
+  </Border>
+</UserControl>

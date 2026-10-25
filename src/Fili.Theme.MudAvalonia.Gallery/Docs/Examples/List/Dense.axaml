@@ -1,0 +1,26 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <!-- dense is MudList's Dense: 36px rows in body2. no-gutters is Gutters="false": no 16px
+       sides on the rows. Both go on the ListBox, or on one ListBoxItem. -->
+  <Grid ColumnDefinitions="Auto,Auto,Auto" RowDefinitions="Auto,Auto">
+    <TextBlock Classes="caption" Text="default" Margin="0,0,0,8" />
+    <TextBlock Grid.Column="1" Classes="caption" Text="dense" Margin="24,0,0,8" />
+    <TextBlock Grid.Column="2" Classes="caption" Text="no-gutters" Margin="24,0,0,8" />
+
+    <ListBox Grid.Row="1" Classes="paper" Width="200" VerticalAlignment="Top" SelectedIndex="0">
+      <ListBoxItem>Apples</ListBoxItem>
+      <ListBoxItem>Pears</ListBoxItem>
+      <ListBoxItem>Plums</ListBoxItem>
+    </ListBox>
+    <ListBox Grid.Row="1" Grid.Column="1" Classes="paper dense" Width="200" Margin="24,0,0,0" VerticalAlignment="Top" SelectedIndex="0">
+      <ListBoxItem>Apples</ListBoxItem>
+      <ListBoxItem>Pears</ListBoxItem>
+      <ListBoxItem>Plums</ListBoxItem>
+    </ListBox>
+    <ListBox Grid.Row="1" Grid.Column="2" Classes="paper no-gutters" Width="200" Margin="24,0,0,0" VerticalAlignment="Top" SelectedIndex="0">
+      <ListBoxItem>Apples</ListBoxItem>
+      <ListBoxItem>Pears</ListBoxItem>
+      <ListBoxItem>Plums</ListBoxItem>
+    </ListBox>
+  </Grid>
+</UserControl>

@@ -1,0 +1,18 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <!-- expansion-panels on the StackPanel is MudExpansionPanels: the panels become one shape. -->
+  <StackPanel Classes="expansion-panels">
+    <Expander Header="Panel One" IsExpanded="True">
+      <TextBlock Text="Panel One Content" />
+    </Expander>
+    <Expander Header="Panel Two">
+      <TextBlock Text="Panel Two Content" />
+    </Expander>
+    <Expander Header="Panel Three">
+      <TextBlock Text="Panel Three Content" />
+    </Expander>
+    <Expander Header="Panel Four">
+      <TextBlock Text="Panel Four Content" />
+    </Expander>
+  </StackPanel>
+</UserControl>

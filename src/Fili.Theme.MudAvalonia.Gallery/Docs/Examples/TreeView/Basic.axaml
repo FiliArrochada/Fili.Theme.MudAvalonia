@@ -1,0 +1,20 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <!-- 32px rows, 17px of indent per level, and ChevronRight turning 90 degrees on a branch. A leaf
+       keeps the arrow's empty slot, so its text lines up with a branch's. paper gives the tree a
+       surface. -->
+  <TreeView Classes="paper" Width="360" HorizontalAlignment="Left">
+    <TreeViewItem Header="content" IsExpanded="True">
+      <TreeViewItem Header="logo.png" />
+      <TreeViewItem Header="cover.jpg" IsSelected="True" />
+    </TreeViewItem>
+    <TreeViewItem Header="src" IsExpanded="True">
+      <TreeViewItem Header="components" IsExpanded="True">
+        <TreeViewItem Header="List.razor" />
+        <TreeViewItem Header="Tree.razor" />
+      </TreeViewItem>
+      <TreeViewItem Header="App.razor" />
+    </TreeViewItem>
+    <TreeViewItem Header="README.md" />
+  </TreeView>
+</UserControl>

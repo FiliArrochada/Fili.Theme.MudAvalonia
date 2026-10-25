@@ -1,0 +1,24 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <!-- dense and no-gutters go on each panel. -->
+  <StackPanel Spacing="24">
+    <StackPanel Classes="expansion-panels">
+      <Expander Header="Panel with gutters" IsExpanded="True">
+        <TextBlock TextWrapping="Wrap" Text="Both header and content have 24px horizontal padding (gutters)." />
+      </Expander>
+    </StackPanel>
+    <StackPanel Classes="expansion-panels">
+      <Expander Classes="no-gutters" Header="Panel without gutters" IsExpanded="True">
+        <TextBlock TextWrapping="Wrap" Text="Both header and content have no horizontal padding." />
+      </Expander>
+    </StackPanel>
+    <StackPanel Classes="expansion-panels multi-expansion">
+      <Expander Classes="dense" Header="Dense with gutters" IsExpanded="True">
+        <TextBlock TextWrapping="Wrap" Text="Dense removes vertical padding from content while keeping horizontal gutters." />
+      </Expander>
+      <Expander Classes="dense no-gutters" Header="Dense without gutters" IsExpanded="True">
+        <TextBlock TextWrapping="Wrap" Text="Dense with no gutters - minimal padding on all sides." />
+      </Expander>
+    </StackPanel>
+  </StackPanel>
+</UserControl>

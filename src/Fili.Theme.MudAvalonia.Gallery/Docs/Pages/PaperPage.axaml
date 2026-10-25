@@ -1,0 +1,59 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:docs="using:Fili.Theme.MudAvalonia.Gallery.Docs"
+             x:Class="Fili.Theme.MudAvalonia.Gallery.Docs.Pages.PaperPage">
+  <StackPanel Classes="doc">
+    <docs:DocHeader Title="Paper"
+                    Summary="A paper is a surface to put things on: paper on Avalonia's Border, drawn as MudPaper. Elevation and outlined are classes; square is CornerRadius=&quot;0&quot;."
+                    MudBlazor="Paper"
+                    MudBlazorPath="components/paper" />
+
+    <TextBlock Classes="h5 section" Text="Component" />
+    <docs:ExampleCard Title="A surface"
+                      Description="The surface colour, the default radius and text-primary, at MudPaper's default elevation 1. A paper has no padding of its own: the content brings it, as a MudPaper with a pa-4 class does. The grey ground behind is only there so the surface shows."
+                      Source="Paper/Simple" />
+
+    <TextBlock Classes="h5 section" Text="Elevation" />
+    <docs:ExampleCard Title="elevation0 to elevation25"
+                      Description="Every level _elevation.scss has, three shadow layers each from Shadow.cs. With no class a paper is at 1; an elevation class replaces it."
+                      Source="Paper/Elevation" />
+    <StackPanel Orientation="Horizontal" Spacing="8" Margin="0,0,0,16">
+      <TextBlock Classes="body1" Text="Every level side by side:" VerticalAlignment="Center" />
+      <docs:DocLink Slug="elevation" Content="Elevation" />
+    </StackPanel>
+
+    <TextBlock Classes="h5 section" Text="Variants" />
+    <docs:ExampleCard Title="Outlined and square"
+                      Description="outlined is a 1px lines-default line and no shadow, whatever elevation class the paper also carries, as MudPaper adds its elevation only when it is not outlined. Square is one property, so it is CornerRadius=&quot;0&quot; rather than a class."
+                      Source="Paper/Variants" />
+
+    <TextBlock Classes="h5 section" Text="Elevation in dark" />
+    <docs:ExampleCard Title="material-elevation-overlay"
+                      Description="A black shadow barely shows on a dark ground, in MudBlazor as here. On a window or any container, this class opts into Material's dark-theme overlay: each raised surface inside is lightened by white at its level's opacity, 5% at 1, 9% at 4, 12% at 8 and 16% at 24. Switch to dark to see it; light and high contrast are unchanged."
+                      Source="Paper/Overlay" />
+    <TextBlock Classes="body1 p">
+      <Run Text="MudBlazor does not offer this, so its name says it is Material's: " />
+      <Run Classes="code" Text="material-elevation-overlay" />
+      <Run Text=". It is an inset shadow over the surface's own background, so it follows a custom surface colour and the corner radius. Papers, cards, panels, grids and the menus, selects and flyouts take it; coloured app bars, buttons and badges keep their colour. Most apps set it once, on the window." />
+    </TextBlock>
+
+    <TextBlock Classes="h5 section" Text="MudBlazor parity" />
+    <TextBlock Classes="body1 p">
+      <Run Text="Every MudPaper parameter and what it is here. " />
+      <Run Classes="code" Text="Same" />
+      <Run Text=" is transcribed from MudBlazor's source; " />
+      <Run Classes="code" Text="Close" />
+      <Run Text=" gets the same result another way; " />
+      <Run Classes="code" Text="Extra" />
+      <Run Text=" is Material's own, beyond MudBlazor." />
+    </TextBlock>
+    <docs:ParityTable>
+      <docs:ParityRow MudBlazor="MudPaper" Here="Border.paper" Status="Same" Note="The surface, the default radius and text-primary, at MudPaper's default elevation 1; an elevation class replaces it." />
+      <docs:ParityRow MudBlazor="Elevation=&quot;0…25&quot;" Here="elevation0 … elevation25" Status="Same" Note="Every level _elevation.scss has, three shadow layers each from Shadow.cs." />
+      <docs:ParityRow MudBlazor="Outlined" Here="outlined" Status="Same" Note="A 1px lines-default line and no shadow, whatever the elevation." />
+      <docs:ParityRow MudBlazor="Square" Here="CornerRadius=&quot;0&quot;" Status="Same" Note="No radius." />
+      <docs:ParityRow MudBlazor="Width, Height, MinWidth, MaxWidth, MinHeight, MaxHeight" Here="the same" Status="Close" Note="Ordinary Avalonia properties." />
+      <docs:ParityRow MudBlazor="(none: Material's dark-theme overlay)" Here="material-elevation-overlay on a window or container" Status="Extra" Note="In dark, each raised surface inside is lightened by white at its level's opacity, 5% at 1 to 16% at 24; light and high contrast are unchanged." />
+    </docs:ParityTable>
+  </StackPanel>
+</UserControl>

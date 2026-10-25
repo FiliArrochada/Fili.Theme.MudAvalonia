@@ -1,0 +1,15 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <StackPanel Classes="expansion-panels">
+    <Expander Header="Panel One">
+      <TextBlock Text="Panel One Content" />
+    </Expander>
+    <!-- A text-disabled header and an action-disabled chevron. -->
+    <Expander Header="Panel Two" IsEnabled="False">
+      <TextBlock Text="Panel Two Content" />
+    </Expander>
+    <Expander Header="Panel Three">
+      <TextBlock Text="Panel Three Content" />
+    </Expander>
+  </StackPanel>
+</UserControl>

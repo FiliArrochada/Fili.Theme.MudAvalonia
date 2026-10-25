@@ -1,0 +1,18 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <Border Background="{DynamicResource FiliBackgroundGrayBrush}" Padding="24">
+    <Border Classes="paper" CornerRadius="0" HorizontalAlignment="Left">
+      <!-- In a horizontal StackPanel a vertical divider stretches to the row's height, which is
+           what FlexItem does in a flex row. -->
+      <StackPanel Orientation="Horizontal">
+        <Button Classes="icon" CornerRadius="0"><PathIcon Data="{DynamicResource GalleryFormatAlignRightIcon}" /></Button>
+        <Button Classes="icon" CornerRadius="0"><PathIcon Data="{DynamicResource GalleryFormatAlignCenterIcon}" /></Button>
+        <Button Classes="icon" CornerRadius="0"><PathIcon Data="{DynamicResource GalleryFormatAlignLeftIcon}" /></Button>
+        <Separator Classes="vertical" />
+        <Button Classes="icon" CornerRadius="0"><PathIcon Data="{DynamicResource GalleryFormatBoldIcon}" /></Button>
+        <Button Classes="icon" CornerRadius="0"><PathIcon Data="{DynamicResource GalleryFormatItalicIcon}" /></Button>
+        <Button Classes="icon" CornerRadius="0"><PathIcon Data="{DynamicResource GalleryFormatUnderlinedIcon}" /></Button>
+      </StackPanel>
+    </Border>
+  </Border>
+</UserControl>

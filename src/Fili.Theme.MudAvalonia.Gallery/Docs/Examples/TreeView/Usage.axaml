@@ -1,0 +1,33 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <!-- hover is MudTreeView's Hover, off by default: only a hover tree tints the row under the
+       pointer. dense is Dense: no 32px minimum, rows padded 1px 4px. IsEnabled="False" on the
+       tree or a row is Disabled. -->
+  <Grid ColumnDefinitions="Auto,Auto,Auto" RowDefinitions="Auto,Auto">
+    <TextBlock Classes="caption" Text="hover" Margin="0,0,0,8" />
+    <TextBlock Grid.Column="1" Classes="caption" Text="dense" Margin="24,0,0,8" />
+    <TextBlock Grid.Column="2" Classes="caption" Text="disabled" Margin="24,0,0,8" />
+
+    <TreeView Grid.Row="1" Classes="paper hover" Width="220" VerticalAlignment="Top">
+      <TreeViewItem Header="Music" IsExpanded="True">
+        <TreeViewItem Header="Jazz" IsSelected="True" />
+        <TreeViewItem Header="Rock" />
+      </TreeViewItem>
+      <TreeViewItem Header="Videos" />
+    </TreeView>
+    <TreeView Grid.Row="1" Grid.Column="1" Classes="paper dense" Width="220" Margin="24,0,0,0" VerticalAlignment="Top">
+      <TreeViewItem Header="Music" IsExpanded="True">
+        <TreeViewItem Header="Jazz" IsSelected="True" />
+        <TreeViewItem Header="Rock" />
+      </TreeViewItem>
+      <TreeViewItem Header="Videos" />
+    </TreeView>
+    <TreeView Grid.Row="1" Grid.Column="2" Classes="paper" Width="220" Margin="24,0,0,0" VerticalAlignment="Top">
+      <TreeViewItem Header="Music" IsExpanded="True">
+        <TreeViewItem Header="Jazz" IsSelected="True" />
+        <TreeViewItem Header="Rock (disabled)" IsEnabled="False" />
+      </TreeViewItem>
+      <TreeViewItem Header="Videos (disabled)" IsEnabled="False" />
+    </TreeView>
+  </Grid>
+</UserControl>

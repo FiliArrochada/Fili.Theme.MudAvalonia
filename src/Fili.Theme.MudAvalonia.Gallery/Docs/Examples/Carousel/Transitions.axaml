@@ -1,0 +1,32 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <!-- How a slide moves is Avalonia's PageTransition, not a look: PageSlide slides the next slide
+       in, CrossFade fades between the two. Turn each to see it. -->
+  <Grid ColumnDefinitions="*,24,*" RowDefinitions="Auto,Auto">
+    <TextBlock Classes="caption" Text="PageSlide" Margin="0,0,0,8" />
+    <TextBlock Grid.Column="2" Classes="caption" Text="CrossFade" Margin="0,0,0,8" />
+
+    <Carousel Grid.Row="1" Height="180">
+      <Carousel.PageTransition>
+        <PageSlide Duration="0:0:0.3" Orientation="Horizontal" />
+      </Carousel.PageTransition>
+      <Border Background="{DynamicResource FiliSecondaryHoverBrush}">
+        <TextBlock Classes="h5 secondary" Text="One" HorizontalAlignment="Center" VerticalAlignment="Center" />
+      </Border>
+      <Border Background="{DynamicResource FiliTertiaryHoverBrush}">
+        <TextBlock Classes="h5 tertiary" Text="Two" HorizontalAlignment="Center" VerticalAlignment="Center" />
+      </Border>
+    </Carousel>
+    <Carousel Grid.Row="1" Grid.Column="2" Height="180">
+      <Carousel.PageTransition>
+        <CrossFade Duration="0:0:0.3" />
+      </Carousel.PageTransition>
+      <Border Background="{DynamicResource FiliSecondaryHoverBrush}">
+        <TextBlock Classes="h5 secondary" Text="One" HorizontalAlignment="Center" VerticalAlignment="Center" />
+      </Border>
+      <Border Background="{DynamicResource FiliTertiaryHoverBrush}">
+        <TextBlock Classes="h5 tertiary" Text="Two" HorizontalAlignment="Center" VerticalAlignment="Center" />
+      </Border>
+    </Carousel>
+  </Grid>
+</UserControl>
