@@ -228,7 +228,7 @@ button that stays at elevation 0 in every state.
 
 An unclassed icon button is `action-default` grey rather than text-primary, because
 `.mud-icon-button` comes after `.mud-button` in MudBlazor's bundle; a colour class beats it. The
-`PathIcon` is 24px (18 small, 36 large) and the package ships no icon set - the gallery's glyphs
+`PathIcon` is 24px (20 small, 36 large) and the package ships no icon set - the gallery's glyphs
 are its own. A chip is MudChip's `Variant.Filled` by default; on a `ToggleButton`, `IsChecked` is
 `MudChip.GetVariant`'s swap, so a selected filled chip draws as a text chip and a selected text
 chip as a filled one. Chip selection rules (`MudChipSet`) stay with the app. A chip that only

@@ -773,6 +773,7 @@ one with children:
 |---|---|---|
 | the table | `TableView` | ✅ the data grid's `.mud-table` look |
 | `Dense`, `Striped`, `Hover`, `Outlined`, `Elevation` | `dense`, `striped`, `hover`, `outlined`, `elevation*` | ✅ |
+| `Bordered` | — | ❌ no lines between a table's columns; the data grid's `GridLinesVisibility="All"` draws them |
 
 ### MudLayout's app bar and tabs → the page types
 

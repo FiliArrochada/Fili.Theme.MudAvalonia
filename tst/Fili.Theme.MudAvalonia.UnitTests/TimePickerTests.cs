@@ -215,6 +215,20 @@ public class TimePickerTests
         Assert.Equal("45", Text(popover, "PART_ToolbarMinute"));
     });
 
+    /// <summary>
+    /// The paper's elevation 8 shadow falls in the presenter's margin: neither the presenter nor
+    /// anything between it and the paper clips it.
+    /// </summary>
+    [Fact]
+    public Task ThePapersShadowIsNotClipped() => UiThread.RunAsync(() =>
+    {
+        var popover = Open(Show(new TimeSpan(14, 30, 0)));
+
+        Assert.False(popover.ClipToBounds, "The presenter clips the paper's shadow.");
+        Assert.All(popover.GetVisualDescendants().OfType<Control>().TakeWhile(c => c.Name != "PART_PopupBorder"),
+            c => Assert.False(c.ClipToBounds, $"{c.GetType().Name}#{c.Name} clips the paper's shadow."));
+    });
+
     /// <summary>On a 12-hour clock the toolbar shows AM and PM, the one not chosen at .54.</summary>
     [Fact]
     public Task TheToolbarGreysThePeriodNotChosen() => UiThread.RunAsync(() =>

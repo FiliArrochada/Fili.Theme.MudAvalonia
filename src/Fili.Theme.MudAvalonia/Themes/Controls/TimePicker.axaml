@@ -188,6 +188,8 @@
          places its child's border box at the anchor and lets the margin hang outside it, so the
          paper meets the field's bottom-left. On a part inside, the paper sat 8px off both ways. -->
     <Setter Property="Margin" Value="8" />
+    <!-- A templated control clips to its bounds, which leave the margin out: the shadow falls there. -->
+    <Setter Property="ClipToBounds" Value="False" />
     <Setter Property="Width" Value="310" />
     <Setter Property="FontFamily" Value="{DynamicResource FiliFontFamily}" />
     <Setter Property="Template">
