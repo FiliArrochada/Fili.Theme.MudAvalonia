@@ -97,7 +97,7 @@
                             Width="24" Height="24"
                             Stretch="None"
                             Data="{DynamicResource FiliRadioUncheckedGeometry}"
-                            Fill="{DynamicResource FiliActionDefaultBrush}">
+                            Fill="{Binding $parent[PipsPager].Foreground}">
                         <Path.Transitions>
                           <Transitions>
                             <BrushTransition Property="Fill" Duration="0:0:0.1" />
@@ -109,16 +109,12 @@
                 </Setter>
               </Style>
 
-              <Style Selector="ListBoxItem:pointerover /template/ Path#Pip">
-                <Setter Property="Fill" Value="{DynamicResource FiliTextPrimaryBrush}" />
-              </Style>
-
-              <!-- Selected swaps the GLYPH, not just the colour: MudCarousel switches between
-                   RadioButtonUnchecked and RadioButtonChecked, which is a ring becoming a ring
-                   with a disc in it rather than a dot changing colour. -->
+              <!-- Selected swaps the GLYPH and only the glyph: MudCarousel switches between
+                   RadioButtonUnchecked and RadioButtonChecked, a ring becoming a ring with a disc
+                   in it, and every bullet is Color.Inherit - the pager's Foreground, which a
+                   carousel binds to its own text colour, so the current one shows on any slide. -->
               <Style Selector="ListBoxItem:selected /template/ Path#Pip">
                 <Setter Property="Data" Value="{DynamicResource FiliRadioCheckedGeometry}" />
-                <Setter Property="Fill" Value="{DynamicResource FiliPrimaryBrush}" />
               </Style>
             </ListBox.Styles>
           </ListBox>

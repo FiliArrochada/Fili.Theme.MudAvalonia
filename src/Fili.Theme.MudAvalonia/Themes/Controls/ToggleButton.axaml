@@ -371,6 +371,7 @@
       <Setter Property="theme:IconSlot.StartMargin" Value="-4,0,8,0" />
       <Setter Property="theme:IconSlot.EndSize" Value="20" />
       <Setter Property="theme:IconSlot.EndMargin" Value="8,0,-4,0" />
+      <Setter Property="theme:IconSlot.Brush" Value="{x:Null}" />
     </Style>
     <Style Selector="^.small">
       <Setter Property="theme:IconSlot.StartSize" Value="18" />
@@ -753,6 +754,7 @@
       <Setter Property="theme:IconSlot.StartMargin" Value="-4,0,8,0" />
       <Setter Property="theme:IconSlot.EndSize" Value="20" />
       <Setter Property="theme:IconSlot.EndMargin" Value="8,0,-4,0" />
+      <Setter Property="theme:IconSlot.Brush" Value="{x:Null}" />
     </Style>
     <Style Selector="^.small">
       <Setter Property="theme:IconSlot.StartSize" Value="18" />
@@ -859,6 +861,7 @@
       <Setter Property="theme:IconSlot.StartMargin" Value="-4,0,8,0" />
       <Setter Property="theme:IconSlot.EndSize" Value="20" />
       <Setter Property="theme:IconSlot.EndMargin" Value="8,0,-4,0" />
+      <Setter Property="theme:IconSlot.Brush" Value="{x:Null}" />
     </Style>
     <Style Selector="^.small">
       <Setter Property="theme:IconSlot.StartSize" Value="18" />
@@ -1208,6 +1211,7 @@
       <Setter Property="theme:IconSlot.StartMargin" Value="-4,0,8,0" />
       <Setter Property="theme:IconSlot.EndSize" Value="20" />
       <Setter Property="theme:IconSlot.EndMargin" Value="8,0,-4,0" />
+      <Setter Property="theme:IconSlot.Brush" Value="{x:Null}" />
     </Style>
     <Style Selector="^.small">
       <Setter Property="theme:IconSlot.StartSize" Value="18" />

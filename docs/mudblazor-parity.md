@@ -231,7 +231,6 @@ Put initials, a `PathIcon` or an `Image` inside: `<Border Classes="avatar primar
 | `Outlined` | `outlined` | ✅ a 1px line in lines-default and no shadow, whatever the elevation, as MudPaper adds `mud-elevation-{n}` only when not outlined |
 | `Elevation="0…25"` | `elevation0` … `elevation25` | ✅ every level `_elevation.scss` has; three shadow layers each, from `Shadow.cs` |
 | (none: Material's dark-theme overlay) | `material-elevation-overlay` on a window or container | ➕ in dark, each raised surface inside lightened by white at its level's opacity, 5% at 1 to 16% at 24: papers, cards, panels, grids, menus, selects and flyouts. Light and high contrast unchanged |
-| `Outlined` | `outlined` | ✅ 1px `lines-default` |
 | `Square` | `CornerRadius="0"` on a paper; `square` on a card | ✅ no radius; a card's media squares with it |
 | `MudCard` | `Border.card` | ✅ a paper at elevation 1 in text-primary; `outlined` drops the shadow whatever elevation class is on it, as MudPaper does |
 | `MudCardHeader` | `card-header`, on a `DockPanel` | ✅ 16px round |
@@ -459,7 +458,8 @@ Put initials, a `PathIcon` or an `Image` inside: `<Border Classes="avatar primar
 | `Color` (the selection, default `Primary`) | `primary` … `dark` on the `ListBox` | ✅ the colour as the text over its hover tint |
 | `Gutters` (default true) | `no-gutters` on the `ListBox` or an item | ✅ no 16px sides |
 | `Padding` (default true) | `Padding="0"` | ≈ |
-| `Icon`, `IconColor`, `AvatarContent`, `SecondaryText`, `Inset` | content in the item | ≈ the app lays out the row |
+| `Icon` | a `PathIcon` in the content marked `start-icon` | ✅ `.mud-list-item-icon`: 24px in a 56px column, action-default (action-disabled on a disabled row), the text centred beside it; on a list row and a `list-item` |
+| `IconColor`, `AvatarContent`, `SecondaryText`, `Inset` | content in the item | ≈ the app lays out the row |
 | `NestedList`, `Expanded`, `ExpandMoreIcon`, `ExpandLessIcon` | `TreeView` | ≈ a `ListBox` is flat; a tree nests |
 | `SelectionMode.MultiSelection` | `multi-selection` and `SelectionMode="Multiple, Toggle"` | ✅ a 48px checkbox on each row, 8px into the gutter, checked while the row is selected; no row is marked selected. ≈ two settings for one parameter: a XAML list pins `SelectionMode` before any style can set it |
 | `CheckBoxColor` (default `Default`) | no class, or `primary` … `dark` on the list while `multi-selection` is on | ✅ both glyphs and the halo; ≈ the list's `Color` class doubles as it, the selection colour being unused while selecting many |
@@ -477,6 +477,7 @@ Put initials, a `PathIcon` or an `Image` inside: `<Border Classes="avatar primar
 | `Square` | `CornerRadius="0"` | ✅ no radius |
 | `Dense` | `dense` | ✅ the content loses its 16px top and bottom |
 | `Gutters` (default true) | `no-gutters` for false | ✅ the header and the content lose their 24px sides |
+| `Dense`, `Gutters` on MudExpansionPanels | `dense`, `no-gutters` on each panel | ≈ the group's values do not cascade: the classes go on every panel |
 | `Outlined` (default true) | in a group, on; `no-outline` on the group for false | ✅ a 1px lines-default rule under each panel but the last, and under none that is expanded or comes before one; `no-outline` rules none |
 | an expanded panel | in a group | ✅ 16px from its neighbours (none above the first or below the last) over .3s, every corner rounded; the panel before it takes the bottom corners and the one after it the top |
 | `Square` on the group | `square` on the group | ✅ no radius on any panel |
@@ -785,7 +786,8 @@ one with children:
 | MudBlazor | Here | |
 |---|---|---|
 | the arrows, `NavigateBefore` / `NavigateNext` | at the sides, centred, .75 | ✅ |
-| the bullets | a `PipsPager` along the bottom | ✅ |
+| the bullets | a `PipsPager` along the bottom | ✅ `Color.Inherit`, the carousel's text colour, the current one told apart by its glyph |
+| `ArrowsColor`, `BulletsColor` | `Foreground` on the carousel | ≈ one colour for the arrows and the bullets together |
 | `ShowArrows="false"`, `ShowBullets="false"` | `no-arrows`, `no-bullets` | ✅ |
 | `ArrowsPosition`, `BulletsPosition`, `AutoCycle` | — | ❌ the defaults, Center and Bottom; cycling is the app's |
 

@@ -214,14 +214,18 @@ public static class ThemeColourGenerator
         static (string, string) AvatarGap(string margin) => ("theme:IconSlot.AvatarMargin", margin);
         static (string, string) AvatarText(string size) => ("theme:IconSlot.AvatarFontSize", size);
 
+        // No colour of its own: a list row's or a nav row's icon colour, inherited, stops here,
+        // so this host's icons are its text colour wherever it sits.
+        static (string, string) OwnColour() => ("theme:IconSlot.Brush", "{x:Null}");
+
         return kind switch
         {
-            "chip" => Style("^", Start("20"), StartGap("-4,0,4,0"), End("18"), EndGap("6,0,-4,0"), Avatar("24"), AvatarGap("-8,0,8,0"), AvatarText("12"))
+            "chip" => Style("^", Start("20"), StartGap("-4,0,4,0"), End("18"), EndGap("6,0,-4,0"), Avatar("24"), AvatarGap("-8,0,8,0"), AvatarText("12"), OwnColour())
                 + Style("^.small", Start("18"), Avatar("18"), AvatarGap("-4,0,4,0"), AvatarText("10"))
                 + Style("^.large", Start("24"), StartGap("-6,0,6,0"), Avatar("32"), AvatarGap("-12,0,8,0"), AvatarText("16")),
-            "fab" => Style("^", Start("24"), StartGap("0,0,8,0"), End("24"), EndGap("8,0,0,0"))
+            "fab" => Style("^", Start("24"), StartGap("0,0,8,0"), End("24"), EndGap("8,0,0,0"), OwnColour())
                 + Style("^.small", StartGap("0,0,4,0"), EndGap("4,0,0,0")),
-            _ => Style("^", Start("20"), StartGap("-4,0,8,0"), End("20"), EndGap("8,0,-4,0"))
+            _ => Style("^", Start("20"), StartGap("-4,0,8,0"), End("20"), EndGap("8,0,-4,0"), OwnColour())
                 + Style("^.small", Start("18"), StartGap("-2,0,8,0"), End("18"), EndGap("8,0,-2,0"))
                 + Style("^.large", Start("22"), End("22")),
         };

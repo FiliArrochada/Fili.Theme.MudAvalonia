@@ -1325,6 +1325,7 @@
       <Setter Property="theme:IconSlot.AvatarSize" Value="24" />
       <Setter Property="theme:IconSlot.AvatarMargin" Value="-8,0,8,0" />
       <Setter Property="theme:IconSlot.AvatarFontSize" Value="12" />
+      <Setter Property="theme:IconSlot.Brush" Value="{x:Null}" />
     </Style>
     <Style Selector="^.small">
       <Setter Property="theme:IconSlot.StartSize" Value="18" />
@@ -1533,6 +1534,7 @@
       <Setter Property="theme:IconSlot.AvatarSize" Value="24" />
       <Setter Property="theme:IconSlot.AvatarMargin" Value="-8,0,8,0" />
       <Setter Property="theme:IconSlot.AvatarFontSize" Value="12" />
+      <Setter Property="theme:IconSlot.Brush" Value="{x:Null}" />
     </Style>
     <Style Selector="^.small">
       <Setter Property="theme:IconSlot.StartSize" Value="18" />

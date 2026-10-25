@@ -17,11 +17,12 @@
   its own. It is written as a literal here for that reason, not pulled from the type scale.
 
   The panel carries the surface and the elevation because each MudExpansionPanel does: a bare
-  expander on a page ground would otherwise have nothing to sit on. What is NOT carried over is
-  the group behaviour - the 1px separators between stacked panels (Outlined, on by default) and
-  the 16px margin an expanded one grows - because those are relationships between siblings, and
-  an Avalonia Expander has no group to be a sibling in. The options that act on one panel are
-  classes, at the foot of the theme.
+  expander on a page ground would otherwise have nothing to sit on. The group behaviour - the 1px
+  separators between stacked panels (Outlined, on by default), the 16px margin an expanded one
+  grows, single expansion - is `expansion-panels` on the panel that holds them (FiliTheme.axaml,
+  ExpansionPanels.cs), since an Expander alone has no siblings to know about. The options that
+  act on one panel are classes, at the foot of the theme; the group's Dense and Gutters do not
+  cascade, so they go on each panel.
 
   All four ExpandDirections are templated. MudBlazor only expands downward, so Up/Left/Right are
   the same parts rearranged rather than anything transcribed; templating them is what stops an

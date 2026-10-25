@@ -1,3 +1,4 @@
+using System.Runtime.CompilerServices;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.Documents;
@@ -147,16 +148,24 @@ internal sealed class IconSlot
             return;
         }
 
-        var value = hosted ? (object)VerticalAlignment.Center : AvaloniaProperty.UnsetValue;
-        control.SetValue(Layoutable.VerticalAlignmentProperty, value, BindingPriority.StyleTrigger);
+        var value = hosted ? (object)VerticalAlignment.Center : null;
+        Write(control, Layoutable.VerticalAlignmentProperty, value);
         if (control.Parent is Panel row)
         {
             foreach (var label in row.Children.OfType<TextBlock>())
             {
-                label.SetValue(Layoutable.VerticalAlignmentProperty, value, BindingPriority.StyleTrigger);
+                Write(label, Layoutable.VerticalAlignmentProperty, value);
             }
         }
     }
+
+    /// <summary>
+    /// What this set on each control, by property: a value set below LocalValue priority is an
+    /// entry of its own, which a second SetValue - an UnsetValue included - adds to rather than
+    /// replaces, so the earlier one is disposed first. Without that, an icon that once took a list
+    /// row's colour kept it after a button round it cleared the colour.
+    /// </summary>
+    private static readonly ConditionalWeakTable<Control, Dictionary<AvaloniaProperty, IDisposable>> Set = new();
 
     /// <summary>A value that has reached a control: set on it if it is that kind of icon, cleared if empty.</summary>
     private static void Apply(Control control, string icon, object? value, params AvaloniaProperty[] targets)
@@ -168,7 +177,21 @@ internal sealed class IconSlot
 
         foreach (var target in targets)
         {
-            control.SetValue(target, value ?? AvaloniaProperty.UnsetValue, BindingPriority.StyleTrigger);
+            Write(control, target, value);
+        }
+    }
+
+    private static void Write(Control control, AvaloniaProperty target, object? value)
+    {
+        var set = Set.GetOrCreateValue(control);
+        if (set.Remove(target, out var previous))
+        {
+            previous.Dispose();
+        }
+
+        if (value is not null && control.SetValue(target, value, BindingPriority.StyleTrigger) is { } entry)
+        {
+            set[target] = entry;
         }
     }
 }

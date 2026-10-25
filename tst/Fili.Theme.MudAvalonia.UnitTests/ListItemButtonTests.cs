@@ -67,4 +67,48 @@ public class ListItemButtonTests
 
         Assert.Equal(Matrix.Token("FiliOverlayHoverColor"), Matrix.Colour(Matrix.Part<Border>(row, "PART_StateLayer").Background));
     });
+
+    /// <summary>
+    /// `.mud-list-item-icon`, MudListItem's Icon: a start-icon is 24px in a 56px column, in
+    /// action-default, and the text beside it is centred on it - in a list row and a list-item.
+    /// </summary>
+    [Theory]
+    [InlineData(false)]
+    [InlineData(true)]
+    public Task ARowsIconIsMudListItemsIcon(bool clickable) => UiThread.RunAsync(() =>
+    {
+        var icon = new PathIcon { Classes = { "start-icon" }, Data = Avalonia.Media.Geometry.Parse("M2 2h20v20H2z") };
+        var label = new TextBlock { Text = "Inbox" };
+        var content = new StackPanel { Orientation = Avalonia.Layout.Orientation.Horizontal, Children = { icon, label } };
+        Control row = clickable ? new Button { Classes = { "list-item" }, Content = content } : new ListBoxItem { Content = content };
+        Matrix.Show(new StackPanel { Width = 300, Children = { clickable ? row : new ListBox { Items = { row } } } });
+
+        double Middle(Control c) => c.TranslatePoint(new Point(0, c.Bounds.Height / 2), row)!.Value.Y;
+
+        Assert.Equal(24, icon.Bounds.Width);
+        Assert.Equal(56, label.TranslatePoint(default, icon)!.Value.X);
+        Assert.Equal(Matrix.Token("FiliActionDefaultColor"), Matrix.Colour(icon.Foreground));
+        Assert.Equal(Middle(icon), Middle(label), 0.5);
+    });
+
+    [Fact]
+    public Task ADisabledRowsIconIsActionDisabled() => UiThread.RunAsync(() =>
+    {
+        var icon = new PathIcon { Classes = { "start-icon" }, Data = Avalonia.Media.Geometry.Parse("M2 2h20v20H2z") };
+        var row = new Button { Classes = { "list-item" }, IsEnabled = false, Content = new StackPanel { Orientation = Avalonia.Layout.Orientation.Horizontal, Children = { icon, new TextBlock { Text = "Off" } } } };
+        Matrix.Show(row);
+
+        Assert.Equal(Matrix.Token("FiliActionDisabledColor"), Matrix.Colour(icon.Foreground));
+    });
+
+    /// <summary>A button in a row keeps its own icon colour: the row's grey stops at the button.</summary>
+    [Fact]
+    public Task AButtonInARowKeepsItsIconColour() => UiThread.RunAsync(() =>
+    {
+        var icon = new PathIcon { Classes = { "start-icon" }, Data = Avalonia.Media.Geometry.Parse("M2 2h20v20H2z") };
+        var button = new Button { Classes = { "filled", "primary" }, Content = new StackPanel { Orientation = Avalonia.Layout.Orientation.Horizontal, Children = { icon, new TextBlock { Text = "Save" } } } };
+        Matrix.Show(new ListBox { Width = 300, Items = { new ListBoxItem { Content = button } } });
+
+        Assert.Equal(Matrix.Token("FiliPrimaryContrastTextColor"), Matrix.Colour(icon.Foreground));
+    });
 }

@@ -77,6 +77,8 @@
     <!-- MudInput's AdornmentIcon is a MudIcon at IconSize Medium, 24px: an icon in
          InnerLeftContent marked `start-icon`, or in InnerRightContent marked `end-icon`, takes it
          (IconSlot). Its colour is the field's text, as MudBlazor's is. -->
+    <!-- No icon colour of its own: a list row's or a nav row's, inherited, stops here. -->
+    <Setter Property="theme:IconSlot.Brush" Value="{x:Null}" />
     <Setter Property="theme:IconSlot.StartSize" Value="24" />
     <Setter Property="theme:IconSlot.EndSize" Value="24" />
 

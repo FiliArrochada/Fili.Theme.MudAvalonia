@@ -151,6 +151,22 @@ public class PageTests
         Assert.Equal(2, carousel.SelectedIndex);
     });
 
+    /// <summary>
+    /// The bullets are Color.Inherit, as MudCarousel's are: every bullet in the carousel's text
+    /// colour, the current one told apart by its glyph alone, so it shows on a coloured slide.
+    /// </summary>
+    [Fact]
+    public Task TheBulletsAreTheCarouselsTextColour() => UiThread.RunAsync(() =>
+    {
+        var carousel = Matrix.Show(new Carousel { Width = 400, Height = 240, Foreground = Brushes.OrangeRed, ItemsSource = new[] { "One", "Two", "Three" } });
+        var pips = Part<PipsPager>(carousel, "PART_Bullets").GetVisualDescendants().OfType<Path>().Where(p => p.Name == "Pip").ToList();
+
+        Assert.Equal(3, pips.Count);
+        Assert.All(pips, pip => Assert.Equal(Colors.OrangeRed, Matrix.Colour(pip.Fill)));
+        Assert.Same(Application.Current!.FindResource("FiliRadioCheckedGeometry"), pips[0].Data);
+        Assert.Same(Application.Current!.FindResource("FiliRadioUncheckedGeometry"), pips[1].Data);
+    });
+
     /// <summary>ShowArrows="false" is `no-arrows`, ShowBullets="false" `no-bullets`.</summary>
     [Fact]
     public Task TheArrowsAndBulletsTurnOff() => UiThread.RunAsync(() =>

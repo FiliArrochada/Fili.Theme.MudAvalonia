@@ -39,6 +39,8 @@
     <!-- MudLink's StartIcon and EndIcon, _link.scss: `.mud-link-icon-start` / `-end` at the
          link's own font size (font-size: inherit) and 4px from the text. An icon in the content
          marked `start-icon` or `end-icon` takes them (IconSlot). -->
+    <!-- No icon colour of its own: a list row's or a nav row's, inherited, stops here. -->
+    <Setter Property="theme:IconSlot.Brush" Value="{x:Null}" />
     <Setter Property="theme:IconSlot.StartSize" Value="{Binding $self.FontSize}" />
     <Setter Property="theme:IconSlot.StartMargin" Value="0,0,4,0" />
     <Setter Property="theme:IconSlot.EndSize" Value="{Binding $self.FontSize}" />
