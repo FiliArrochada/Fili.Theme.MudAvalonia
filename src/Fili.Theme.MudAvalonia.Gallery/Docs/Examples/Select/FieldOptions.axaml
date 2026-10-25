@@ -1,0 +1,26 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <WrapPanel ItemSpacing="16" LineSpacing="16">
+    <ComboBox Classes="filled" Width="220" VerticalAlignment="Top" PlaceholderText="Library"
+              AutomationProperties.HelpText="Where new files go">
+      <ComboBoxItem>Manga</ComboBoxItem>
+      <ComboBoxItem>Comics</ComboBoxItem>
+    </ComboBox>
+    <ComboBox Classes="outlined required" Width="220" VerticalAlignment="Top" PlaceholderText="Library">
+      <ComboBoxItem>Manga</ComboBoxItem>
+      <ComboBoxItem>Comics</ComboBoxItem>
+    </ComboBox>
+    <ComboBox Classes="outlined error" Width="220" VerticalAlignment="Top" PlaceholderText="Library" SelectedIndex="0">
+      <ComboBoxItem>Manga</ComboBoxItem>
+      <ComboBoxItem>Comics</ComboBoxItem>
+    </ComboBox>
+    <ComboBox Classes="shrink-label" Width="220" VerticalAlignment="Top" PlaceholderText="Shrink label">
+      <ComboBoxItem>Manga</ComboBoxItem>
+      <ComboBoxItem>Comics</ComboBoxItem>
+    </ComboBox>
+    <ComboBox Classes="filled no-underline" Width="220" VerticalAlignment="Top" PlaceholderText="No underline" SelectedIndex="1">
+      <ComboBoxItem>Manga</ComboBoxItem>
+      <ComboBoxItem>Comics</ComboBoxItem>
+    </ComboBox>
+  </WrapPanel>
+</UserControl>

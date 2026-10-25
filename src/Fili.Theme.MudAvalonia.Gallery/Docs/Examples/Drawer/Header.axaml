@@ -1,0 +1,39 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <!-- drawer-header on a Border at the top of the pane is MudDrawerHeader: at least 64px tall,
+       12px 24px round its content; dense is 48px and 8px 24px. -->
+  <Grid ColumnDefinitions="*,16,*" RowDefinitions="Auto,Auto">
+    <TextBlock Grid.Column="0" Classes="caption" Text="drawer-header" HorizontalAlignment="Center" Margin="0,0,0,8" />
+    <TextBlock Grid.Column="2" Classes="caption" Text="drawer-header dense" HorizontalAlignment="Center" Margin="0,0,0,8" />
+    <Border Grid.Row="1" Grid.Column="0" BorderBrush="{DynamicResource FiliLinesDefaultBrush}" BorderThickness="1" Height="200" ClipToBounds="True">
+      <SplitView DisplayMode="Inline" IsPaneOpen="True">
+        <SplitView.Pane>
+          <DockPanel>
+            <Border DockPanel.Dock="Top" Classes="drawer-header">
+              <TextBlock Classes="h6" Text="Mail" VerticalAlignment="Center" />
+            </Border>
+            <TreeView Classes="nav">
+              <TreeViewItem Header="Inbox" IsSelected="True" />
+              <TreeViewItem Header="Sent" />
+            </TreeView>
+          </DockPanel>
+        </SplitView.Pane>
+      </SplitView>
+    </Border>
+    <Border Grid.Row="1" Grid.Column="2" BorderBrush="{DynamicResource FiliLinesDefaultBrush}" BorderThickness="1" Height="200" ClipToBounds="True">
+      <SplitView DisplayMode="Inline" IsPaneOpen="True">
+        <SplitView.Pane>
+          <DockPanel>
+            <Border DockPanel.Dock="Top" Classes="drawer-header dense">
+              <TextBlock Classes="h6" Text="Mail" VerticalAlignment="Center" />
+            </Border>
+            <TreeView Classes="nav">
+              <TreeViewItem Header="Inbox" IsSelected="True" />
+              <TreeViewItem Header="Sent" />
+            </TreeView>
+          </DockPanel>
+        </SplitView.Pane>
+      </SplitView>
+    </Border>
+  </Grid>
+</UserControl>

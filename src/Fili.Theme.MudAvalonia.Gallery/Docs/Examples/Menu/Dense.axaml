@@ -1,0 +1,13 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <!-- dense on the flyout's presenter is MudMenu's Dense: 2px 12px rows in body2. -->
+  <DropDownButton Classes="outlined" Content="Sort" HorizontalAlignment="Left">
+    <DropDownButton.Flyout>
+      <MenuFlyout FlyoutPresenterClasses="dense">
+        <MenuItem Header="By name" />
+        <MenuItem Header="By date" />
+        <MenuItem Header="By size" />
+      </MenuFlyout>
+    </DropDownButton.Flyout>
+  </DropDownButton>
+</UserControl>

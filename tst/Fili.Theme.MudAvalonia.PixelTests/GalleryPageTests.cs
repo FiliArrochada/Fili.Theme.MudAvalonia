@@ -125,8 +125,7 @@ public class GalleryPageTests
     {
         var window = new MainWindow();
         window.Show();
-        var tabs = window.GetVisualDescendants().OfType<TabControl>().First();
-        tabs.SelectedIndex = tabs.Items.OfType<TabItem>().ToList().FindIndex(t => (string?)t.Header == "Control states");
+        window.GetVisualDescendants().OfType<MainView>().Single().Navigate("control-states");
         Dispatcher.UIThread.RunJobs();
         AssertSectionsFit(window.GetVisualDescendants().OfType<ControlStatesView>().Single(), "the desktop window");
         window.Close();

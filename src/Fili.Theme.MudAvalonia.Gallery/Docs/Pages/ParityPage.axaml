@@ -1,0 +1,66 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:docs="using:Fili.Theme.MudAvalonia.Gallery.Docs"
+             x:Class="Fili.Theme.MudAvalonia.Gallery.Docs.Pages.ParityPage">
+  <StackPanel Classes="doc">
+    <docs:DocHeader Title="MudBlazor parity"
+                    Summary="Every MudBlazor component, what draws it here, and how close it comes. Each component's own page has the same, parameter by parameter." />
+
+    <TextBlock Classes="body1 p">
+      <Run Classes="code" Text="Same" />
+      <Run Text=" is transcribed from MudBlazor's source. " />
+      <Run Classes="code" Text="Close" />
+      <Run Text=" gets the result another way, or nearly. " />
+      <Run Classes="code" Text="Missing" />
+      <Run Text=" needs a control of its own, is behaviour rather than a look, or is layout Avalonia's panels already do. " />
+      <Run Classes="code" Text="Extra" />
+      <Run Text=" on a component's page is Material's own, beyond MudBlazor, and named so." />
+    </TextBlock>
+
+    <Border Classes="paper elevation0"
+            BorderBrush="{DynamicResource FiliLinesDefaultBrush}"
+            BorderThickness="1">
+      <StackPanel>
+        <Grid ColumnDefinitions="2*,3*,96,2*" Margin="16,12">
+          <TextBlock Grid.Column="0" Classes="subtitle2" Text="MudBlazor" />
+          <TextBlock Grid.Column="1" Classes="subtitle2" Text="Here" />
+          <TextBlock Grid.Column="2" Classes="subtitle2" Text="Parity" />
+          <TextBlock Grid.Column="3" Classes="subtitle2" Text="Pages" />
+        </Grid>
+        <Separator />
+        <ItemsControl x:Name="Rows">
+          <ItemsControl.ItemTemplate>
+            <DataTemplate DataType="docs:ComponentEntry">
+              <Border BorderBrush="{DynamicResource FiliTableLinesBrush}" BorderThickness="0,0,0,1">
+                <Grid ColumnDefinitions="2*,3*,96,2*" Margin="16,8">
+                  <TextBlock Grid.Column="0" Classes="body2" VerticalAlignment="Center">
+                    <Run Text="Mud" /><Run Text="{Binding Name}" />
+                  </TextBlock>
+                  <TextBlock Grid.Column="1" Classes="body2" Text="{Binding Here}" TextWrapping="Wrap"
+                             VerticalAlignment="Center" Margin="0,0,12,0" />
+                  <Panel Grid.Column="2" VerticalAlignment="Center">
+                    <ContentControl Classes="chip small text success" Content="Same" Margin="0"
+                                    IsVisible="{Binding Status, Converter={x:Static docs:ParityConverters.IsSame}}" />
+                    <ContentControl Classes="chip small text warning" Content="Close" Margin="0"
+                                    IsVisible="{Binding Status, Converter={x:Static docs:ParityConverters.IsClose}}" />
+                    <ContentControl Classes="chip small text error" Content="Missing" Margin="0"
+                                    IsVisible="{Binding Status, Converter={x:Static docs:ParityConverters.IsMissing}}" />
+                  </Panel>
+                  <StackPanel Grid.Column="3" Orientation="Horizontal" Spacing="16" VerticalAlignment="Center">
+                    <docs:DocLink Classes="body2" Content="Here" Slug="{Binding Slug}" IsVisible="{Binding HasPage}" />
+                    <HyperlinkButton Classes="body2" NavigateUri="{Binding MudBlazorUri}">
+                      <StackPanel Orientation="Horizontal" Spacing="4">
+                        <TextBlock Text="MudBlazor" />
+                        <PathIcon Classes="small" Data="{DynamicResource DocsOpenInNewIcon}" />
+                      </StackPanel>
+                    </HyperlinkButton>
+                  </StackPanel>
+                </Grid>
+              </Border>
+            </DataTemplate>
+          </ItemsControl.ItemTemplate>
+        </ItemsControl>
+      </StackPanel>
+    </Border>
+  </StackPanel>
+</UserControl>

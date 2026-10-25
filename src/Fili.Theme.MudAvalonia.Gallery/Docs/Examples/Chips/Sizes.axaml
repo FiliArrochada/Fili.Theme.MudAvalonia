@@ -1,0 +1,26 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <WrapPanel Orientation="Horizontal">
+    <Button Classes="chip primary small" Content="Small" Margin="0,0,8,8" VerticalAlignment="Center" />
+    <Button Classes="chip primary" Content="Medium" Margin="0,0,8,8" VerticalAlignment="Center" />
+    <Button Classes="chip primary large" Content="Large" Margin="0,0,8,8" VerticalAlignment="Center" />
+    <Button Classes="chip outlined small" Margin="0,0,8,8" VerticalAlignment="Center">
+      <StackPanel Orientation="Horizontal">
+        <PathIcon Classes="start-icon" Data="{DynamicResource GalleryFavoriteIcon}" />
+        <TextBlock Text="Small" />
+      </StackPanel>
+    </Button>
+    <Button Classes="chip outlined" Margin="0,0,8,8" VerticalAlignment="Center">
+      <StackPanel Orientation="Horizontal">
+        <PathIcon Classes="start-icon" Data="{DynamicResource GalleryFavoriteIcon}" />
+        <TextBlock Text="Medium" />
+      </StackPanel>
+    </Button>
+    <Button Classes="chip outlined large" Margin="0,0,8,8" VerticalAlignment="Center">
+      <StackPanel Orientation="Horizontal">
+        <PathIcon Classes="start-icon" Data="{DynamicResource GalleryFavoriteIcon}" />
+        <TextBlock Text="Large" />
+      </StackPanel>
+    </Button>
+  </WrapPanel>
+</UserControl>

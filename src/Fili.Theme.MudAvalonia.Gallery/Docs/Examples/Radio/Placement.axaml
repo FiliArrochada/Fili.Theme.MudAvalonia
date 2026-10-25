@@ -1,0 +1,9 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <StackPanel Orientation="Horizontal" Spacing="24">
+    <RadioButton Classes="primary" GroupName="docs-radio-placement" Content="End" IsChecked="True" />
+    <RadioButton Classes="primary label-start" GroupName="docs-radio-placement" Content="Start" />
+    <RadioButton Classes="primary label-top" GroupName="docs-radio-placement" Content="Top" />
+    <RadioButton Classes="primary label-bottom" GroupName="docs-radio-placement" Content="Bottom" />
+  </StackPanel>
+</UserControl>

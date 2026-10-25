@@ -1,0 +1,35 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <WrapPanel ItemSpacing="16" LineSpacing="16">
+    <!-- 300 by default, MudSelect's MaxHeight; the list scrolls past it. -->
+    <ComboBox Classes="outlined" Width="220" VerticalAlignment="Top" PlaceholderText="Month">
+      <ComboBoxItem>January</ComboBoxItem>
+      <ComboBoxItem>February</ComboBoxItem>
+      <ComboBoxItem>March</ComboBoxItem>
+      <ComboBoxItem>April</ComboBoxItem>
+      <ComboBoxItem>May</ComboBoxItem>
+      <ComboBoxItem>June</ComboBoxItem>
+      <ComboBoxItem>July</ComboBoxItem>
+      <ComboBoxItem>August</ComboBoxItem>
+      <ComboBoxItem>September</ComboBoxItem>
+      <ComboBoxItem>October</ComboBoxItem>
+      <ComboBoxItem>November</ComboBoxItem>
+      <ComboBoxItem>December</ComboBoxItem>
+    </ComboBox>
+    <ComboBox Classes="outlined dense-items" Width="220" VerticalAlignment="Top" PlaceholderText="Month, shorter list"
+              MaxDropDownHeight="160">
+      <ComboBoxItem>January</ComboBoxItem>
+      <ComboBoxItem>February</ComboBoxItem>
+      <ComboBoxItem>March</ComboBoxItem>
+      <ComboBoxItem>April</ComboBoxItem>
+      <ComboBoxItem>May</ComboBoxItem>
+      <ComboBoxItem>June</ComboBoxItem>
+      <ComboBoxItem>July</ComboBoxItem>
+      <ComboBoxItem>August</ComboBoxItem>
+      <ComboBoxItem>September</ComboBoxItem>
+      <ComboBoxItem>October</ComboBoxItem>
+      <ComboBoxItem>November</ComboBoxItem>
+      <ComboBoxItem>December</ComboBoxItem>
+    </ComboBox>
+  </WrapPanel>
+</UserControl>

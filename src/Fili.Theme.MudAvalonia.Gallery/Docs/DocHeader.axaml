@@ -1,0 +1,17 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             x:Class="Fili.Theme.MudAvalonia.Gallery.Docs.DocHeader">
+  <!-- A page's heading, as mudblazor.com opens each page: its title, what it is, and for a
+       component the MudBlazor page it mirrors. -->
+  <StackPanel Spacing="8" Margin="0,0,0,32">
+    <TextBlock x:Name="TitleText" Classes="h3" />
+    <TextBlock x:Name="SummaryText" Classes="body1" TextWrapping="Wrap"
+               Foreground="{DynamicResource FiliTextSecondaryBrush}" />
+    <HyperlinkButton x:Name="MudBlazorLink" Margin="0,8,0,0" IsVisible="False">
+      <StackPanel Orientation="Horizontal" Spacing="4">
+        <TextBlock x:Name="MudBlazorText" Classes="body2" />
+        <PathIcon Classes="small" Data="{DynamicResource DocsOpenInNewIcon}" />
+      </StackPanel>
+    </HyperlinkButton>
+  </StackPanel>
+</UserControl>

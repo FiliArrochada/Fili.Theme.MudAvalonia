@@ -1,0 +1,11 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <WrapPanel ItemSpacing="16" LineSpacing="16">
+    <TextBox Width="220" VerticalAlignment="Top" AcceptsReturn="True" TextWrapping="Wrap"
+             PlaceholderText="Notes" Text="Bring the receipts.&#10;Ask about the second invoice.&#10;File both by Friday." />
+    <TextBox Classes="filled" Width="220" VerticalAlignment="Top" AcceptsReturn="True" TextWrapping="Wrap"
+             MinLines="3" PlaceholderText="Message" Text="A short message." />
+    <TextBox Classes="outlined" Width="220" VerticalAlignment="Top" AcceptsReturn="True" TextWrapping="Wrap"
+             MinLines="3" PlaceholderText="Description" />
+  </WrapPanel>
+</UserControl>

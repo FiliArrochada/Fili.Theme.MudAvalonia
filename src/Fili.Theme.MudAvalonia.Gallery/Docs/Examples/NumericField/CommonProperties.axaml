@@ -1,0 +1,12 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <WrapPanel ItemSpacing="16" LineSpacing="16">
+    <NumericUpDown Classes="filled" Width="220" VerticalAlignment="Top" PlaceholderText="Quantity" Value="3"
+                   AutomationProperties.HelpText="Up to 10 per order" />
+    <NumericUpDown Classes="outlined dense" Width="220" VerticalAlignment="Top" PlaceholderText="Dense" Value="3" />
+    <NumericUpDown Classes="required" Width="220" VerticalAlignment="Top" PlaceholderText="Required" />
+    <NumericUpDown Classes="filled shrink-label" Width="220" VerticalAlignment="Top" PlaceholderText="Shrink label" />
+    <NumericUpDown Classes="outlined error" Width="220" VerticalAlignment="Top" PlaceholderText="Error" Value="11" />
+    <NumericUpDown Classes="filled no-underline" Width="220" VerticalAlignment="Top" PlaceholderText="No underline" Value="3" />
+  </WrapPanel>
+</UserControl>

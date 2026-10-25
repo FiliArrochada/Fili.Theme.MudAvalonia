@@ -1,0 +1,15 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <StackPanel Orientation="Horizontal" Spacing="32">
+    <StackPanel Width="120">
+      <ToggleButton Content="Inbox" IsChecked="True" HorizontalAlignment="Stretch" />
+      <ToggleButton Content="Sent" HorizontalAlignment="Stretch" />
+      <ToggleButton Content="Drafts" HorizontalAlignment="Stretch" />
+    </StackPanel>
+    <StackPanel Width="120" Classes="button-group">
+      <ToggleButton Classes="outlined tertiary" Content="Inbox" HorizontalAlignment="Stretch" />
+      <ToggleButton Classes="outlined tertiary" Content="Sent" IsChecked="True" HorizontalAlignment="Stretch" />
+      <ToggleButton Classes="outlined tertiary" Content="Drafts" HorizontalAlignment="Stretch" />
+    </StackPanel>
+  </StackPanel>
+</UserControl>

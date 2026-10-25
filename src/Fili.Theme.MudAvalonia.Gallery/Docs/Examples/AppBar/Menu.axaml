@@ -1,0 +1,22 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <!-- A CommandBar on the bar: each command a MudIconButton, the rest behind MoreVert's MudMenu.
+       The bar's Padding="0" because the CommandBar brings its own 24px gutters. -->
+  <Border Classes="appbar primary" Padding="0">
+    <CommandBar>
+      <CommandBar.Content>
+        <TextBlock Classes="h6" Text="Inbox" />
+      </CommandBar.Content>
+      <CommandBarButton Label="Search">
+        <CommandBarButton.Icon><PathIcon Data="{DynamicResource GallerySearchIcon}" /></CommandBarButton.Icon>
+      </CommandBarButton>
+      <CommandBarButton Label="Notifications">
+        <CommandBarButton.Icon><PathIcon Data="{DynamicResource GalleryNotificationsIcon}" /></CommandBarButton.Icon>
+      </CommandBarButton>
+      <CommandBar.SecondaryCommands>
+        <CommandBarButton Label="Settings" />
+        <CommandBarButton Label="Sign out" />
+      </CommandBar.SecondaryCommands>
+    </CommandBar>
+  </Border>
+</UserControl>

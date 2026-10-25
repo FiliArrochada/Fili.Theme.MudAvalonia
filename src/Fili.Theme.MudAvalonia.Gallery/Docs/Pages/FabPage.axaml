@@ -1,0 +1,70 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:docs="using:Fili.Theme.MudAvalonia.Gallery.Docs"
+             x:Class="Fili.Theme.MudAvalonia.Gallery.Docs.Pages.FabPage">
+  <StackPanel Classes="doc">
+    <docs:DocHeader Title="FAB"
+                    Summary="A floating action button for a screen's main action: fab on Avalonia's Button, drawn as MudFab. Unlike a button it is filled, grey and large by default, and extended gives it a label."
+                    MudBlazor="Fab"
+                    MudBlazorPath="components/buttonfab" />
+
+    <TextBlock Classes="h5 section" Text="Simple FAB" />
+    <docs:ExampleCard Title="The defaults"
+                      Description="MudFab.Variant defaults to Filled and Size to Large: 56px of action-default-hover grey at elevation 6, lifting to 8 on hover and focus and 12 on press. extended is the pill MudFab draws when it has a Label."
+                      Source="Fab/Simple" />
+
+    <TextBlock Classes="h5 section" Text="Filled FAB" />
+    <docs:ExampleCard Title="Every palette colour"
+                      Description="A colour class fills the FAB with the colour and its darken shade on hover. The icon is 24px at every size, 8px from the label."
+                      Source="Fab/Filled" />
+
+    <TextBlock Classes="h5 section" Text="Text FAB" />
+    <docs:ExampleCard Title="Text"
+                      Description="text has no ground, line or shadow: the colour is the icon and label, with its hover tint under the pointer."
+                      Source="Fab/Text" />
+
+    <TextBlock Classes="h5 section" Text="Outlined FAB" />
+    <docs:ExampleCard Title="Outlined"
+                      Description="outlined is a text FAB with a 1px line in the colour, and never casts a shadow either."
+                      Source="Fab/Outlined" />
+
+    <TextBlock Classes="h5 section" Text="Size" />
+    <docs:ExampleCard Title="Large, medium and small"
+                      Description="No class is Size.Large, 56px; medium is 48 and small 40. An extended FAB is 48, 40 and 34px high, 16, 16 and 12px a side, its icon 4px from the label when small."
+                      Source="Fab/Sizes" />
+
+    <TextBlock Classes="h5 section" Text="Drop shadow" />
+    <docs:ExampleCard Title="Flat"
+                      Description="flat is DropShadow=&quot;false&quot;: a filled FAB that stays at elevation 0 in every state."
+                      Source="Fab/DropShadow" />
+
+    <TextBlock Classes="h5 section" Text="Disabled" />
+    <docs:ExampleCard Title="Disabled"
+                      Description="IsEnabled=&quot;False&quot;: action-disabled on action-disabled-background, flat; outlined and text keep no ground."
+                      Source="Fab/Disabled" />
+
+    <TextBlock Classes="h5 section" Text="MudBlazor parity" />
+    <TextBlock Classes="body1 p">
+      <Run Text="Every MudFab parameter and what it is here. " />
+      <Run Classes="code" Text="Same" />
+      <Run Text=" is transcribed from MudBlazor's source; " />
+      <Run Classes="code" Text="Close" />
+      <Run Text=" gets the same result another way." />
+    </TextBlock>
+    <docs:ParityTable>
+      <docs:ParityRow MudBlazor="the component" Here="fab on a Button" Status="Same" Note="Round, at elevation 6, lifting to 8 on hover and focus and 12 on press." />
+      <docs:ParityRow MudBlazor="Variant.Filled (default) / Outlined / Text" Here="no class / outlined / text" Status="Same" Note="Filled is grey action-default-hover; outlined and text never cast a shadow." />
+      <docs:ParityRow MudBlazor="Color.Default (default)" Here="no colour class" Status="Same" Note="Text-primary." />
+      <docs:ParityRow MudBlazor="Color.Primary … Color.Dark" Here="the colour classes" Status="Same" Note="Filled: the colour, its darken shade on hover; outlined and text: the colour as content, its hover tint on hover." />
+      <docs:ParityRow MudBlazor="Color.Inherit" Here="—" Status="Same" Note="Draws as Color.Default, because _fab.scss has no rule for it." />
+      <docs:ParityRow MudBlazor="Size.Large (default) / Medium / Small" Here="no class / medium / small" Status="Same" Note="56 / 48 / 40px." />
+      <docs:ParityRow MudBlazor="Label" Here="extended, the label in Content" Status="Same" Note="A pill 48 / 40 / 34px high and 16 / 16 / 12px a side." />
+      <docs:ParityRow MudBlazor="StartIcon, EndIcon" Here="an icon in Content with start-icon / end-icon" Status="Same" Note="24px, IconSize's default; 8px from the label (4px small)." />
+      <docs:ParityRow MudBlazor="IconSize, IconColor" Here="the icon's own Width, Height, Foreground" Status="Close" Note="Ordinary Avalonia properties." />
+      <docs:ParityRow MudBlazor="DropShadow=&quot;false&quot;" Here="flat" Status="Same" />
+      <docs:ParityRow MudBlazor="Disabled" Here="IsEnabled=&quot;False&quot;" Status="Same" Note="Action-disabled on action-disabled-background, flat; outlined and text keep no ground." />
+      <docs:ParityRow MudBlazor="uppercase label" Here="the same" Status="Same" Note="As on every button." />
+      <docs:ParityRow MudBlazor="Ripple (default true)" Here="on" Status="Same" Note="0.2 on a coloured FAB, 0.1 on the default, text and outlined ones." />
+    </docs:ParityTable>
+  </StackPanel>
+</UserControl>

@@ -1,0 +1,40 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <StackPanel Spacing="8">
+    <!-- Nothing cascades: each button carries the group's variant, colour and size. -->
+    <WrapPanel Orientation="Horizontal">
+      <StackPanel Classes="button-group" Orientation="Horizontal" Margin="0,0,16,8" VerticalAlignment="Center">
+        <Button Classes="outlined secondary small" Content="One" />
+        <Button Classes="outlined secondary small" Content="Two" />
+        <Button Classes="outlined secondary small" Content="Three" />
+      </StackPanel>
+      <StackPanel Classes="button-group" Orientation="Horizontal" Margin="0,0,16,8" VerticalAlignment="Center">
+        <Button Classes="outlined info" Content="One" />
+        <Button Classes="outlined info" Content="Two" />
+        <Button Classes="outlined info" Content="Three" />
+      </StackPanel>
+      <StackPanel Classes="button-group" Orientation="Horizontal" Margin="0,0,16,8" VerticalAlignment="Center">
+        <Button Classes="outlined error large" Content="One" />
+        <Button Classes="outlined error large" Content="Two" />
+        <Button Classes="outlined error large" Content="Three" />
+      </StackPanel>
+    </WrapPanel>
+    <WrapPanel Orientation="Horizontal">
+      <StackPanel Classes="button-group" Orientation="Horizontal" Margin="0,0,16,8" VerticalAlignment="Center">
+        <Button Classes="filled success small" Content="One" />
+        <Button Classes="filled success small" Content="Two" />
+        <Button Classes="filled success small" Content="Three" />
+      </StackPanel>
+      <StackPanel Classes="button-group" Orientation="Horizontal" Margin="0,0,16,8" VerticalAlignment="Center">
+        <Button Classes="filled warning" Content="One" />
+        <Button Classes="filled warning" Content="Two" />
+        <Button Classes="filled warning" Content="Three" />
+      </StackPanel>
+      <StackPanel Classes="button-group" Orientation="Horizontal" Margin="0,0,16,8" VerticalAlignment="Center">
+        <Button Classes="filled" Content="One" />
+        <Button Classes="filled" Content="Two" />
+        <Button Classes="filled" Content="Three" />
+      </StackPanel>
+    </WrapPanel>
+  </StackPanel>
+</UserControl>

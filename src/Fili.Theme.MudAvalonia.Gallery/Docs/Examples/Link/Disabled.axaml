@@ -1,0 +1,8 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <!-- IsEnabled="False" is MudLink's Disabled: action-disabled, and no underline on hover. -->
+  <WrapPanel Orientation="Horizontal">
+    <HyperlinkButton Content="Disabled" IsEnabled="False" Margin="0,0,24,8" />
+    <HyperlinkButton Classes="underline" Content="Disabled, always underlined" IsEnabled="False" Margin="0,0,24,8" />
+  </WrapPanel>
+</UserControl>

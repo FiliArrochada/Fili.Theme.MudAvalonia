@@ -1,0 +1,12 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <WrapPanel Orientation="Horizontal">
+    <Button Classes="outlined" Content="Quiet" Margin="0,0,8,8">
+      <Button.Resources>
+        <SolidColorBrush x:Key="FiliActionDefaultHoverBrush" Color="Transparent" />
+        <x:Double x:Key="FiliRippleOpacity">0</x:Double>
+      </Button.Resources>
+    </Button>
+    <Button Classes="outlined" Content="Default" Margin="0,0,8,8" />
+  </WrapPanel>
+</UserControl>

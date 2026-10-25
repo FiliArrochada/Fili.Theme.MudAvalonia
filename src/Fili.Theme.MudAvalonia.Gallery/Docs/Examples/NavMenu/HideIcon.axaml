@@ -1,0 +1,15 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <!-- hide-icon on a group's row is MudNavGroup's HideExpandIcon. The group still opens on a
+       click anywhere on its row. -->
+  <Border BorderBrush="{DynamicResource FiliLinesDefaultBrush}" BorderThickness="1" Width="260" HorizontalAlignment="Left" Padding="0,8">
+    <TreeView Classes="nav">
+      <TreeViewItem Header="With its arrow" IsExpanded="True">
+        <TreeViewItem Header="Link" />
+      </TreeViewItem>
+      <TreeViewItem Classes="hide-icon" Header="hide-icon" IsExpanded="True">
+        <TreeViewItem Header="Link" />
+      </TreeViewItem>
+    </TreeView>
+  </Border>
+</UserControl>

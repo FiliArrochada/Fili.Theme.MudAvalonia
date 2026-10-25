@@ -1,0 +1,14 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <StackPanel Orientation="Horizontal" Spacing="16">
+    <ToggleButton x:Name="Like" Classes="icon error">
+      <Panel>
+        <PathIcon Data="{DynamicResource GalleryFavoriteBorderIcon}" />
+        <PathIcon Data="{DynamicResource GalleryFavoriteIcon}" />
+      </Panel>
+    </ToggleButton>
+    <!-- IsChecked is Toggled: bind it like any other property. -->
+    <TextBlock Classes="body1" VerticalAlignment="Center"
+               Text="{Binding #Like.IsChecked, StringFormat='IsChecked: {0}'}" />
+  </StackPanel>
+</UserControl>

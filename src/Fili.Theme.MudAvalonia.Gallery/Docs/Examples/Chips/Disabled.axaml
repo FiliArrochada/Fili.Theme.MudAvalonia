@@ -1,0 +1,10 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <WrapPanel Orientation="Horizontal">
+    <!-- A disabled chip is half opacity, as .mud-disabled is. -->
+    <Button Classes="chip" Content="Default" IsEnabled="False" Margin="0,0,8,8" />
+    <Button Classes="chip primary" Content="Primary" IsEnabled="False" Margin="0,0,8,8" />
+    <Button Classes="chip outlined secondary" Content="Outlined" IsEnabled="False" Margin="0,0,8,8" />
+    <Button Classes="chip text error" Content="Text" IsEnabled="False" Margin="0,0,8,8" />
+  </WrapPanel>
+</UserControl>

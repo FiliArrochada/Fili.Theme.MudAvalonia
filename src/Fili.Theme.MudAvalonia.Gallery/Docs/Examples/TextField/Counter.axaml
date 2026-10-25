@@ -1,0 +1,12 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <WrapPanel ItemSpacing="16" LineSpacing="16">
+    <TextBox Classes="counter" Width="220" VerticalAlignment="Top" PlaceholderText="Title"
+             MaxLength="40" Text="A short title" />
+    <TextBox Classes="outlined counter" Width="220" VerticalAlignment="Top" PlaceholderText="Title"
+             MaxLength="40" Text="A short title"
+             AutomationProperties.HelpText="Shown on the card" />
+    <TextBox Classes="filled counter" Width="220" VerticalAlignment="Top" PlaceholderText="Notes"
+             Text="No limit" />
+  </WrapPanel>
+</UserControl>

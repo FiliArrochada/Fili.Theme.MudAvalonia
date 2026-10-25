@@ -1,0 +1,26 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:docs="using:Fili.Theme.MudAvalonia.Gallery.Docs"
+             x:Class="Fili.Theme.MudAvalonia.Gallery.Docs.Pages.ReducedMotionPage">
+  <StackPanel Classes="doc">
+    <docs:DocHeader Title="Reduced motion"
+                    Summary="One key stops everything the theme moves or fades on its own, for people whose system or settings ask for less motion. MudBlazor has no such switch." />
+
+    <TextBlock Classes="body1 p">
+      <Run Text="Set " />
+      <Run Classes="code" Text="FiliReducedMotion" />
+      <Run Text=" to True in the application's resources, from your app's own setting or the system's. It can change at any time, and reaches every window and popup." />
+    </TextBlock>
+    <docs:CodeBlock Code="&lt;Application.Resources&gt;&#10;  &lt;x:Boolean x:Key=&quot;FiliReducedMotion&quot;&gt;True&lt;/x:Boolean&gt;&#10;&lt;/Application.Resources&gt;"
+                    Margin="0,0,0,16" />
+
+    <TextBlock Classes="h5 section" Text="What stops" />
+    <TextBlock Classes="body1 p" Text="The ripple on a press. The fade of a popup, a menu and a tooltip. A skeleton's pulse and wave. A snackbar's slide in and out. An expansion panel's grow and an overlay's fade, which show at once. A tab indicator's slide, which jumps to the new tab." />
+
+    <TextBlock Classes="h5 section" Text="What keeps moving" />
+    <TextBlock Classes="body1 p" Text="A progress indicator, the only sign that work is going on, and the 150ms colour fades of hover and focus, which move nothing." />
+
+    <TextBlock Classes="h5 section" Text="Where it is read" />
+    <TextBlock Classes="body1 p" Text="Each window reads the key once, from its own resources or the application's, and passes it to everything inside it and to the popups it opens. A key in a panel's resources inside a window does nothing: set it on the application, or on a window of its own." />
+  </StackPanel>
+</UserControl>

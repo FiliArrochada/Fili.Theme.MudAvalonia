@@ -1,0 +1,29 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <!-- TabStripPlacement is MudTabs' Position; border draws its rule on the content side. -->
+  <Grid ColumnDefinitions="*,24,*" RowDefinitions="Auto,Auto,24,Auto,Auto">
+    <TextBlock Classes="caption" Text="Top" Margin="0,0,0,4" />
+    <TabControl Grid.Row="1" Classes="border" TabStripPlacement="Top" Height="160">
+      <TabItem Header="One"><TextBlock Classes="body2" Margin="16" Text="Content" /></TabItem>
+      <TabItem Header="Two" />
+    </TabControl>
+
+    <TextBlock Grid.Column="2" Classes="caption" Text="Bottom" Margin="0,0,0,4" />
+    <TabControl Grid.Row="1" Grid.Column="2" Classes="border" TabStripPlacement="Bottom" Height="160">
+      <TabItem Header="One"><TextBlock Classes="body2" Margin="16" Text="Content" /></TabItem>
+      <TabItem Header="Two" />
+    </TabControl>
+
+    <TextBlock Grid.Row="3" Classes="caption" Text="Left" Margin="0,0,0,4" />
+    <TabControl Grid.Row="4" Classes="border" TabStripPlacement="Left" Height="160">
+      <TabItem Header="One"><TextBlock Classes="body2" Margin="16" Text="Content" /></TabItem>
+      <TabItem Header="Two" />
+    </TabControl>
+
+    <TextBlock Grid.Row="3" Grid.Column="2" Classes="caption" Text="Right" Margin="0,0,0,4" />
+    <TabControl Grid.Row="4" Grid.Column="2" Classes="border" TabStripPlacement="Right" Height="160">
+      <TabItem Header="One"><TextBlock Classes="body2" Margin="16" Text="Content" /></TabItem>
+      <TabItem Header="Two" />
+    </TabControl>
+  </Grid>
+</UserControl>

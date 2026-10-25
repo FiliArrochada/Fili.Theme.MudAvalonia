@@ -1,0 +1,20 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <WrapPanel ItemSpacing="16" LineSpacing="16">
+    <TextBox Width="220" VerticalAlignment="Top" PlaceholderText="Search">
+      <TextBox.InnerLeftContent>
+        <PathIcon Classes="start-icon" Data="{DynamicResource GallerySearchIcon}" />
+      </TextBox.InnerLeftContent>
+    </TextBox>
+    <TextBox Classes="filled" Width="220" VerticalAlignment="Top" PlaceholderText="Email">
+      <TextBox.InnerRightContent>
+        <PathIcon Classes="end-icon" Data="{DynamicResource GalleryMailIcon}" />
+      </TextBox.InnerRightContent>
+    </TextBox>
+    <TextBox Classes="outlined" Width="220" VerticalAlignment="Top" PlaceholderText="Account">
+      <TextBox.InnerLeftContent>
+        <PathIcon Classes="start-icon" Data="{DynamicResource GalleryPersonIcon}" />
+      </TextBox.InnerLeftContent>
+    </TextBox>
+  </WrapPanel>
+</UserControl>

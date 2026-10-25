@@ -1,0 +1,9 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <WrapPanel Orientation="Horizontal">
+    <CheckBox Classes="primary unchecked-error" Content="Unchecked: error" Margin="0,0,16,0" />
+    <CheckBox Classes="primary unchecked-error" Content="Checked: primary" IsChecked="True" Margin="0,0,16,0" />
+    <CheckBox Classes="success unchecked-warning" Content="Indeterminate: warning"
+              IsThreeState="True" IsChecked="{x:Null}" Margin="0,0,16,0" />
+  </WrapPanel>
+</UserControl>

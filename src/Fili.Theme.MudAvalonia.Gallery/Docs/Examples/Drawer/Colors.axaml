@@ -1,0 +1,40 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <!-- A colour class on the SplitView is MudDrawer's Color: the pane in the colour, its content
+       in the contrast text. -->
+  <Grid ColumnDefinitions="*,16,*,16,*" RowDefinitions="Auto,Auto">
+    <TextBlock Grid.Column="0" Classes="caption" Text="primary" HorizontalAlignment="Center" Margin="0,0,0,8" />
+    <TextBlock Grid.Column="2" Classes="caption" Text="secondary" HorizontalAlignment="Center" Margin="0,0,0,8" />
+    <TextBlock Grid.Column="4" Classes="caption" Text="tertiary" HorizontalAlignment="Center" Margin="0,0,0,8" />
+    <Border Grid.Row="1" Grid.Column="0" BorderBrush="{DynamicResource FiliLinesDefaultBrush}" BorderThickness="1" Height="140" ClipToBounds="True">
+      <SplitView Classes="primary" DisplayMode="Inline" IsPaneOpen="True" OpenPaneLength="160">
+        <SplitView.Pane>
+          <TreeView Classes="nav" Margin="0,8">
+            <TreeViewItem Header="Inbox" />
+            <TreeViewItem Header="Sent" />
+          </TreeView>
+        </SplitView.Pane>
+      </SplitView>
+    </Border>
+    <Border Grid.Row="1" Grid.Column="2" BorderBrush="{DynamicResource FiliLinesDefaultBrush}" BorderThickness="1" Height="140" ClipToBounds="True">
+      <SplitView Classes="secondary" DisplayMode="Inline" IsPaneOpen="True" OpenPaneLength="160">
+        <SplitView.Pane>
+          <TreeView Classes="nav" Margin="0,8">
+            <TreeViewItem Header="Inbox" />
+            <TreeViewItem Header="Sent" />
+          </TreeView>
+        </SplitView.Pane>
+      </SplitView>
+    </Border>
+    <Border Grid.Row="1" Grid.Column="4" BorderBrush="{DynamicResource FiliLinesDefaultBrush}" BorderThickness="1" Height="140" ClipToBounds="True">
+      <SplitView Classes="tertiary" DisplayMode="Inline" IsPaneOpen="True" OpenPaneLength="160">
+        <SplitView.Pane>
+          <TreeView Classes="nav" Margin="0,8">
+            <TreeViewItem Header="Inbox" />
+            <TreeViewItem Header="Sent" />
+          </TreeView>
+        </SplitView.Pane>
+      </SplitView>
+    </Border>
+  </Grid>
+</UserControl>

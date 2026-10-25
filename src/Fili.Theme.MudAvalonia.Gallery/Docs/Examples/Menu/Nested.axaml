@@ -1,0 +1,20 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <!-- A row with children opens a submenu and ends in ArrowRight; hide-icon on it is
+       HideSubMenuArrow. -->
+  <DropDownButton Classes="outlined" Content="Nested" HorizontalAlignment="Left">
+    <DropDownButton.Flyout>
+      <MenuFlyout>
+        <MenuItem Header="Recent">
+          <MenuItem Header="Report.pdf" />
+          <MenuItem Header="Notes.txt" />
+        </MenuItem>
+        <MenuItem Header="Export, no arrow" Classes="hide-icon">
+          <MenuItem Header="As PDF" />
+          <MenuItem Header="As CSV" />
+        </MenuItem>
+        <MenuItem Header="Close" />
+      </MenuFlyout>
+    </DropDownButton.Flyout>
+  </DropDownButton>
+</UserControl>

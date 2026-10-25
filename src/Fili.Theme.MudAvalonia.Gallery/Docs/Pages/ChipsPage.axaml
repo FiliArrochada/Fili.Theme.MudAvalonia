@@ -1,0 +1,102 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:docs="using:Fili.Theme.MudAvalonia.Gallery.Docs"
+             x:Class="Fili.Theme.MudAvalonia.Gallery.Docs.Pages.ChipsPage">
+  <StackPanel Classes="doc">
+    <docs:DocHeader Title="Chips"
+                    Summary="Compact pills for a tag, a filter or a choice: chip on a Button, a ToggleButton or a ContentControl, drawn as MudChip. A panel of selectable chips is a MudChipSet."
+                    MudBlazor="Chip"
+                    MudBlazorPath="components/chips" />
+
+    <TextBlock Classes="h5 section" Text="Filled chips" />
+    <docs:ExampleCard Title="Filled, the default"
+                      Description="MudChip.Variant defaults to Filled: a 32px pill. With no colour class it is text-primary on action-disabled-background grey; a colour class fills it with the colour, its darken shade on hover."
+                      Source="Chips/Filled" />
+
+    <TextBlock Classes="h5 section" Text="Text chips" />
+    <docs:ExampleCard Title="Text"
+                      Description="text is the colour at 6% behind text in the colour, 12% on hover: a tinted ground rather than none."
+                      Source="Chips/Text" />
+
+    <TextBlock Classes="h5 section" Text="Outlined chips" />
+    <docs:ExampleCard Title="Outlined"
+                      Description="outlined is a 1px line in lines-inputs or the colour, with the colour's tint on hover."
+                      Source="Chips/Outlined" />
+
+    <TextBlock Classes="h5 section" Text="Closable" />
+    <docs:ExampleCard Title="Close icon"
+                      Description="A close icon is an icon or button in the content marked end-icon, at the close button's 18px and spacing. Closing the chip is the app's."
+                      Source="Chips/Closable" />
+
+    <TextBlock Classes="h5 section" Text="Clickable" />
+    <docs:ExampleCard Title="Clickable and static"
+                      Description="chip on a Button is a clickable MudChip: hover, ripple, hand cursor and focus. chip on a ContentControl is MudChip with neither OnClick nor Href: the same variants, colours and sizes at rest, with nothing to click."
+                      Source="Chips/Clickable" />
+
+    <TextBlock Classes="h5 section" Text="Icons" />
+    <docs:ExampleCard Title="Start icons"
+                      Description="MudChip's Icon is a PathIcon in the content marked start-icon: 20px (18 small, 24 large), 4px out and 4px from the label."
+                      Source="Chips/Icons" />
+
+    <TextBlock Classes="h5 section" Text="Avatars" />
+    <docs:ExampleCard Title="Avatar"
+                      Description="MudChip's Avatar is a Border.avatar in the content: 24px with 12px text, 8px out and 8px from the label; 18px on a small chip and 32px on a large one."
+                      Source="Chips/Avatars" />
+
+    <TextBlock Classes="h5 section" Text="Label" />
+    <docs:ExampleCard Title="Label chips"
+                      Description="MudChip's Label is CornerRadius=&quot;4&quot;: the default border radius in place of the pill."
+                      Source="Chips/Label" />
+
+    <TextBlock Classes="h5 section" Text="Sizes" />
+    <docs:ExampleCard Title="Small, medium and large"
+                      Description="small and large are 24 and 40px high, with 12 and 16px text."
+                      Source="Chips/Sizes" />
+
+    <TextBlock Classes="h5 section" Text="Disabled" />
+    <docs:ExampleCard Title="Disabled"
+                      Description="IsEnabled=&quot;False&quot;: as in MudBlazor, a disabled chip is drawn at half opacity rather than in the disabled colours."
+                      Source="Chips/Disabled" />
+
+    <TextBlock Classes="h5 section" Text="Chip set" />
+    <docs:ExampleCard Title="Selected chips"
+                      Description="chip on a ToggleButton is a chip in a MudChipSet, and IsChecked is selected. A selected filled chip draws as text and a selected text chip as filled; an outlined one keeps its line and gains the tint. A check mark is an icon the app shows while IsChecked."
+                      Source="Chips/Selection" />
+    <TextBlock Classes="body1 p">
+      <Run Text="A chip set is a panel of chips, and nothing cascades: put the variant, colour and size on each chip, or one " />
+      <Run Classes="code" Text="Style" />
+      <Run Text=" over the container. Single or multiple selection is the app's, through " />
+      <Run Classes="code" Text="IsChecked" />
+      <Run Text=" bindings." />
+    </TextBlock>
+
+    <TextBlock Classes="h5 section" Text="MudBlazor parity" />
+    <TextBlock Classes="body1 p">
+      <Run Text="Every MudChip and MudChipSet parameter and what it is here. " />
+      <Run Classes="code" Text="Same" />
+      <Run Text=" is transcribed from MudBlazor's source; " />
+      <Run Classes="code" Text="Close" />
+      <Run Text=" gets the same result another way." />
+    </TextBlock>
+    <docs:ParityTable>
+      <docs:ParityRow MudBlazor="Variant.Filled (default)" Here="chip" Status="Same" Note="A 32px pill in action-disabled-background grey, action-disabled on hover." />
+      <docs:ParityRow MudBlazor="neither OnClick nor Href" Here="chip on a ContentControl" Status="Same" Note="Each variant's look at rest, with no hover, ripple, hand cursor or focus." />
+      <docs:ParityRow MudBlazor="Color.Default (default)" Here="no colour class" Status="Same" Note="Text-primary on that grey." />
+      <docs:ParityRow MudBlazor="Variant.Outlined / Text" Here="chip outlined / chip text" Status="Same" />
+      <docs:ParityRow MudBlazor="Color.Primary … Color.Dark" Here="the colour classes" Status="Same" Note="Filled: the colour, its darken shade on hover; text: its hover tint as ground, 12% on hover." />
+      <docs:ParityRow MudBlazor="Size.Small / Large" Here="small / large" Status="Same" Note="24 / 40px high, 12 / 16px text." />
+      <docs:ParityRow MudBlazor="selected (in a MudChipSet)" Here="IsChecked on a ToggleButton.chip" Status="Same" Note="MudChip.GetVariant's swap: a selected filled chip draws as text, a selected text chip as filled." />
+      <docs:ParityRow MudBlazor="Disabled" Here="IsEnabled=&quot;False&quot;" Status="Same" />
+      <docs:ParityRow MudBlazor="Icon" Here="an icon in Content with start-icon" Status="Same" Note="20px (18 small, 24 large), 4px out and 4px in (6px on a large chip)." />
+      <docs:ParityRow MudBlazor="close icon" Here="an icon or button in Content with end-icon" Status="Close" Note="The close button's 18px and spacing; closing is the app's." />
+      <docs:ParityRow MudBlazor="Avatar" Here="a Border.avatar in Content" Status="Same" Note="24px, 8px out and in, 12px text; 18px on a small chip, 32px on a large one." />
+      <docs:ParityRow MudBlazor="MudChipSet selection rules" Here="—" Status="Missing" Note="Single or multiple selection is the app's, through IsChecked bindings." />
+      <docs:ParityRow MudBlazor="Label" Here="CornerRadius=&quot;4&quot;" Status="Close" Note="The chip label's default radius in place of the pill." />
+      <docs:ParityRow MudBlazor="SelectedColor" Here="a colour class the app sets while IsChecked" Status="Close" />
+      <docs:ParityRow MudBlazor="IconColor" Here="the icon's Foreground" Status="Close" />
+      <docs:ParityRow MudBlazor="CheckedIcon, MudChipSet.CheckMark" Here="an icon in Content" Status="Close" Note="Shown by the app while IsChecked." />
+      <docs:ParityRow MudBlazor="MudChipSet's Variant, Color, Size, Label, CloseIcon, AllClosable, Disabled" Here="the classes on each chip, or one Style over the container" Status="Close" Note="A chip set is a panel of chips; nothing cascades." />
+      <docs:ParityRow MudBlazor="Ripple (default true)" Here="on" Status="Same" Note="0.2 on a filled chip, 0.1 on outlined and text; a selected chip keeps its variant's." />
+    </docs:ParityTable>
+  </StackPanel>
+</UserControl>

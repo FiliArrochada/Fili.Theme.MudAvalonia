@@ -1,0 +1,16 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <!-- The bar is a Border; the row inside is the app's own panel. Icon buttons on a bar take its
+       text colour with inherit, MudIconButton's Color.Inherit. -->
+  <Border Classes="appbar">
+    <DockPanel>
+      <Button DockPanel.Dock="Left" Classes="icon inherit" Margin="-12,0,8,0" VerticalAlignment="Center">
+        <PathIcon Data="{DynamicResource GalleryMenuIcon}" />
+      </Button>
+      <Button DockPanel.Dock="Right" Classes="icon inherit" Margin="0,0,-12,0" VerticalAlignment="Center">
+        <PathIcon Data="{DynamicResource GalleryNotificationsIcon}" />
+      </Button>
+      <TextBlock Classes="h6" Text="Title" VerticalAlignment="Center" />
+    </DockPanel>
+  </Border>
+</UserControl>

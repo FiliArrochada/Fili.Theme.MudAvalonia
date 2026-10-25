@@ -1,0 +1,14 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <WrapPanel Orientation="Horizontal">
+    <Button Classes="fab primary" Margin="0,0,16,16" VerticalAlignment="Center"><PathIcon Data="{DynamicResource GalleryAddIcon}" /></Button>
+    <!-- flat is DropShadow="false". -->
+    <Button Classes="fab primary flat" Margin="0,0,16,16" VerticalAlignment="Center"><PathIcon Data="{DynamicResource GalleryAddIcon}" /></Button>
+    <Button Classes="fab extended primary flat" Margin="0,0,16,16" VerticalAlignment="Center">
+      <StackPanel Orientation="Horizontal">
+        <PathIcon Classes="start-icon" Data="{DynamicResource GalleryEditIcon}" />
+        <TextBlock Text="Flat" />
+      </StackPanel>
+    </Button>
+  </WrapPanel>
+</UserControl>

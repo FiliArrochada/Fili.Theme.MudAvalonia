@@ -1,0 +1,23 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <WrapPanel Orientation="Horizontal">
+    <Button Classes="filled primary" Margin="0,0,8,8">
+      <StackPanel Orientation="Horizontal">
+        <PathIcon Classes="start-icon" Data="{DynamicResource GalleryAddIcon}" />
+        <TextBlock Text="Add" />
+      </StackPanel>
+    </Button>
+    <Button Classes="outlined error" Margin="0,0,8,8">
+      <StackPanel Orientation="Horizontal">
+        <PathIcon Classes="start-icon" Data="{DynamicResource GalleryDeleteIcon}" />
+        <TextBlock Text="Delete" />
+      </StackPanel>
+    </Button>
+    <Button Classes="secondary" Margin="0,0,8,8">
+      <StackPanel Orientation="Horizontal">
+        <TextBlock Text="Send" />
+        <PathIcon Classes="end-icon" Data="{DynamicResource GallerySendIcon}" />
+      </StackPanel>
+    </Button>
+  </WrapPanel>
+</UserControl>

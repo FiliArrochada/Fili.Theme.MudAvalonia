@@ -1,0 +1,14 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <StackPanel Spacing="16">
+    <StackPanel>
+      <TextBlock Classes="body1" Text="Steps of 10" />
+      <Slider TickFrequency="10" IsSnapToTickEnabled="True" Value="50" />
+    </StackPanel>
+    <StackPanel>
+      <!-- Minimum and Maximum are MudSlider's Min and Max. -->
+      <TextBlock Classes="body1" Text="From -5 to 5" />
+      <Slider Minimum="-5" Maximum="5" TickFrequency="1" IsSnapToTickEnabled="True" Value="2" />
+    </StackPanel>
+  </StackPanel>
+</UserControl>

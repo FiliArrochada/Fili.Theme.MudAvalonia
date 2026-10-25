@@ -1,89 +1,93 @@
 <UserControl xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:views="clr-namespace:Fili.Theme.MudAvalonia.Gallery.Views"
              x:Class="Fili.Theme.MudAvalonia.Gallery.MainView"
-             Background="{DynamicResource FiliBackgroundGrayBrush}">
+             Background="{DynamicResource FiliBackgroundBrush}">
 
   <!--
-    The whole gallery, hosted by MainWindow on desktop and directly by the page in the browser,
-    which has no windows. The background is set here rather than on the window so the browser
-    build paints the same page ground.
+    The docs site, laid out as mudblazor.com is: an app bar, a drawer of pages with a search, and
+    the page. Hosted by MainWindow on desktop and directly by the page in the browser, which has no
+    windows. Built with the theme it documents, as mudblazor.com is built with MudBlazor.
   -->
   <DockPanel>
 
-    <!-- App bar. Primary in light, near-black in dark - that is the MudBlazor behaviour. -->
     <Border Classes="appbar" DockPanel.Dock="Top">
-      <Grid ColumnDefinitions="Auto,*,Auto" Margin="24,0">
-        <TextBlock Grid.Column="0"
+      <Grid ColumnDefinitions="Auto,Auto,Auto,*,Auto" Margin="8,0,16,0">
+        <Button x:Name="MenuButton"
+                Grid.Column="0"
+                Classes="icon inherit"
+                ToolTip.Tip="Menu"
+                VerticalAlignment="Center"
+                Click="OnMenu">
+          <PathIcon Data="{DynamicResource GalleryMenuIcon}" />
+        </Button>
+        <TextBlock Grid.Column="1"
                    Classes="h6"
+                   Margin="12,0,16,0"
                    VerticalAlignment="Center"
-                   Text="Fili - Theme MudAvalonia" />
-        <StackPanel Grid.Column="1" Orientation="Horizontal" Spacing="16" Margin="16,0,0,0" VerticalAlignment="Center">
-          <!-- The theme's own version, read from its assembly in code-behind: what the gallery
-               actually renders, not a number typed here that could drift from it. -->
-          <Border x:Name="ThemeVersionChip"
-                  Padding="8,2"
-                  CornerRadius="10"
-                  VerticalAlignment="Center"
-                  BorderBrush="{DynamicResource FiliAppbarTextBrush}"
-                  BorderThickness="1">
-            <TextBlock x:Name="ThemeVersion"
-                       Classes="caption"
-                       VerticalAlignment="Center"
-                       Foreground="{DynamicResource FiliAppbarTextBrush}" />
-          </Border>
-          <TextBlock Classes="caption"
-                     VerticalAlignment="Center"
-                     Foreground="{DynamicResource FiliAppbarTextBrush}"
-                     Text="design tokens on Avalonia 12" />
-        </StackPanel>
-        <StackPanel Grid.Column="2" Orientation="Horizontal" Spacing="16" VerticalAlignment="Center">
-          <StackPanel Orientation="Horizontal" Spacing="8" VerticalAlignment="Center">
-            <TextBlock Classes="caption"
-                       VerticalAlignment="Center"
-                       Foreground="{DynamicResource FiliAppbarTextBrush}"
-                       Text="Variant" />
-            <!-- A selector rather than the light/dark switch it replaces, because there are three
-                 variants now and high contrast is the one worth being able to reach in one click:
-                 it is the only variant whose tokens are derived rather than transcribed. -->
-            <!-- Foreground in the bar's colour on purpose. The bar's colour is inherited and an
-                 input keeps its own text-primary, as in MudBlazor, which would be dark on the
-                 purple bar. Set on the select only: its dropdown items keep their own colour. -->
-            <ComboBox x:Name="VariantSelector"
-                      Width="140"
-                      Foreground="{DynamicResource FiliAppbarTextBrush}"
-                      SelectedIndex="0"
-                      VerticalAlignment="Center"
-                      SelectionChanged="OnVariantChanged">
-              <ComboBoxItem>Light</ComboBoxItem>
-              <ComboBoxItem>Dark</ComboBoxItem>
-              <ComboBoxItem>High contrast</ComboBoxItem>
-            </ComboBox>
-          </StackPanel>
+                   Text="Fili MudAvalonia" />
+        <!-- The theme's own version, read from its assembly in code-behind: what the site
+             actually renders, not a number typed here that could drift from it. -->
+        <Border x:Name="ThemeVersionChip"
+                Grid.Column="2"
+                Padding="8,2"
+                CornerRadius="10"
+                VerticalAlignment="Center"
+                BorderBrush="{DynamicResource FiliAppbarTextBrush}"
+                BorderThickness="1">
+          <TextBlock x:Name="ThemeVersion"
+                     Classes="caption"
+                     VerticalAlignment="Center" />
+        </Border>
+        <StackPanel Grid.Column="4" Orientation="Horizontal" Spacing="8" VerticalAlignment="Center">
+          <!-- Three variants rather than a light/dark switch: high contrast is the one worth
+               reaching in one click, the only variant whose tokens are derived. The select's
+               text and arrow take the bar's colour; its list keeps its own. -->
+          <ComboBox x:Name="VariantSelector"
+                    Classes="placeholder adornment-inherit"
+                    Width="150"
+                    Foreground="{DynamicResource FiliAppbarTextBrush}"
+                    SelectedIndex="0"
+                    VerticalAlignment="Center"
+                    SelectionChanged="OnVariantChanged">
+            <ComboBoxItem>Light</ComboBoxItem>
+            <ComboBoxItem>Dark</ComboBoxItem>
+            <ComboBoxItem>High contrast</ComboBoxItem>
+          </ComboBox>
+          <ToggleButton x:Name="RightToLeft"
+                        Classes="icon inherit"
+                        ToolTip.Tip="Right to left"
+                        VerticalAlignment="Center"
+                        IsCheckedChanged="OnRightToLeft">
+            <PathIcon Data="{DynamicResource DocsRightToLeftIcon}" />
+          </ToggleButton>
         </StackPanel>
       </Grid>
     </Border>
 
-    <TabControl Margin="16" SelectionChanged="OnTabChanged">
-      <TabItem Header="Palette">
-        <views:PaletteView />
-      </TabItem>
-      <TabItem Header="Elevation">
-        <views:ElevationView />
-      </TabItem>
-      <TabItem Header="Typography">
-        <views:TypographyView />
-      </TabItem>
-      <!-- Built the first time the tab is chosen, in MainView.axaml.cs: it is the largest page by
-           far, and every other tab would wait for it at startup. -->
-      <TabItem x:Name="ControlStatesTab" Header="Control states" />
-      <TabItem Header="Sample screen">
-        <views:SampleScreenView />
-      </TabItem>
-      <TabItem Header="Custom styles">
-        <views:CustomStylesView />
-      </TabItem>
-    </TabControl>
+    <SplitView x:Name="Drawer"
+               DisplayMode="Inline"
+               IsPaneOpen="True"
+               OpenPaneLength="260">
+      <SplitView.Pane>
+        <DockPanel>
+          <TextBox x:Name="Filter"
+                   DockPanel.Dock="Top"
+                   Classes="outlined dense placeholder"
+                   PlaceholderText="Search pages"
+                   Margin="16,16,16,8"
+                   TextChanged="OnFilter">
+            <TextBox.InnerLeftContent>
+              <PathIcon Classes="start-icon" Data="{DynamicResource DocsSearchIcon}" />
+            </TextBox.InnerLeftContent>
+          </TextBox>
+          <TreeView x:Name="Nav" Classes="nav" SelectionChanged="OnNav" />
+        </DockPanel>
+      </SplitView.Pane>
+
+      <ContentControl x:Name="PageHost"
+                      HorizontalContentAlignment="Stretch"
+                      VerticalContentAlignment="Stretch" />
+    </SplitView>
 
   </DockPanel>
 

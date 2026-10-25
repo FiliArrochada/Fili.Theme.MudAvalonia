@@ -1,0 +1,91 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:docs="using:Fili.Theme.MudAvalonia.Gallery.Docs">
+
+  <!-- An example: a paper with a hairline, the example on the surface, its code under a toggle. -->
+  <ControlTheme x:Key="{x:Type docs:ExampleCard}" TargetType="docs:ExampleCard">
+    <Setter Property="Margin" Value="0,0,0,24" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Border Classes="paper elevation0"
+                BorderBrush="{DynamicResource FiliLinesDefaultBrush}"
+                BorderThickness="1">
+          <StackPanel>
+            <!-- The heading, and the code toggle beside it, as mudblazor.com places it. -->
+            <Grid ColumnDefinitions="*,Auto" Margin="16,12,8,0">
+              <StackPanel Spacing="4" Margin="0,4,0,0">
+                <TextBlock Classes="h6" Text="{TemplateBinding Title}" />
+                <TextBlock Classes="body2"
+                           TextWrapping="Wrap"
+                           Foreground="{DynamicResource FiliTextSecondaryBrush}"
+                           Text="{TemplateBinding Description}"
+                           IsVisible="{TemplateBinding Description, Converter={x:Static ObjectConverters.IsNotNull}}" />
+              </StackPanel>
+              <ToggleButton x:Name="PART_ShowCode"
+                            Grid.Column="1"
+                            Classes="icon"
+                            VerticalAlignment="Top"
+                            ToolTip.Tip="Show code"
+                            IsVisible="{TemplateBinding Code, Converter={x:Static ObjectConverters.IsNotNull}}">
+                <PathIcon Data="{DynamicResource DocsCodeIcon}" />
+              </ToggleButton>
+            </Grid>
+            <ContentPresenter Margin="24"
+                              Content="{TemplateBinding Content}"
+                              ContentTemplate="{TemplateBinding ContentTemplate}" />
+            <docs:CodeBlock Code="{TemplateBinding Code}"
+                            Margin="16,0,16,16"
+                            IsVisible="{Binding #PART_ShowCode.IsChecked}" />
+          </StackPanel>
+        </Border>
+      </ControlTemplate>
+    </Setter>
+  </ControlTheme>
+
+  <!-- A parity table: a header, then one row per parameter, its status as a static chip. -->
+  <ControlTheme x:Key="{x:Type docs:ParityTable}" TargetType="docs:ParityTable">
+    <Setter Property="Margin" Value="0,0,0,32" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Border Classes="paper elevation0"
+                BorderBrush="{DynamicResource FiliLinesDefaultBrush}"
+                BorderThickness="1">
+          <StackPanel>
+            <Grid ColumnDefinitions="2*,2*,96,3*" Margin="16,12">
+              <TextBlock Grid.Column="0" Classes="subtitle2" Text="MudBlazor" />
+              <TextBlock Grid.Column="1" Classes="subtitle2" Text="Here" />
+              <TextBlock Grid.Column="2" Classes="subtitle2" Text="Parity" />
+              <TextBlock Grid.Column="3" Classes="subtitle2" Text="Notes" />
+            </Grid>
+            <Separator />
+            <ItemsPresenter ItemsPanel="{TemplateBinding ItemsPanel}" />
+          </StackPanel>
+        </Border>
+      </ControlTemplate>
+    </Setter>
+    <Setter Property="ItemTemplate">
+      <DataTemplate DataType="docs:ParityRow">
+        <Border BorderBrush="{DynamicResource FiliTableLinesBrush}" BorderThickness="0,0,0,1">
+          <Grid ColumnDefinitions="2*,2*,96,3*" Margin="16,10">
+            <SelectableTextBlock Grid.Column="0" Text="{Binding MudBlazor}" TextWrapping="Wrap" Margin="0,0,12,0"
+                                 FontFamily="avares://Fili.Theme.MudAvalonia.Gallery/Assets/Fonts#JetBrains Mono" FontSize="13" />
+            <SelectableTextBlock Grid.Column="1" Text="{Binding Here}" TextWrapping="Wrap" Margin="0,0,12,0"
+                                 FontFamily="avares://Fili.Theme.MudAvalonia.Gallery/Assets/Fonts#JetBrains Mono" FontSize="13" />
+            <Panel Grid.Column="2" VerticalAlignment="Top">
+              <ContentControl Classes="chip small text success" Content="Same" Margin="0"
+                              IsVisible="{Binding Status, Converter={x:Static docs:ParityConverters.IsSame}}" />
+              <ContentControl Classes="chip small text warning" Content="Close" Margin="0"
+                              IsVisible="{Binding Status, Converter={x:Static docs:ParityConverters.IsClose}}" />
+              <ContentControl Classes="chip small text error" Content="Missing" Margin="0"
+                              IsVisible="{Binding Status, Converter={x:Static docs:ParityConverters.IsMissing}}" />
+              <ContentControl Classes="chip small text info" Content="Extra" Margin="0"
+                              IsVisible="{Binding Status, Converter={x:Static docs:ParityConverters.IsExtra}}" />
+            </Panel>
+            <SelectableTextBlock Grid.Column="3" Classes="body2" Text="{Binding Note}" TextWrapping="Wrap" />
+          </Grid>
+        </Border>
+      </DataTemplate>
+    </Setter>
+  </ControlTheme>
+
+</ResourceDictionary>

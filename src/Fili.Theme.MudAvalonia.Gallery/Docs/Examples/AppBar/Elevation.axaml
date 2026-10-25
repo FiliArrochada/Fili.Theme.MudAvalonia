@@ -1,0 +1,15 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <!-- Elevation 4 with no class; an elevation class replaces it. Padding="0" is Gutters="false". -->
+  <StackPanel Spacing="16">
+    <Border Classes="appbar">
+      <TextBlock Classes="h6" Text="Elevation 4, the default" VerticalAlignment="Center" />
+    </Border>
+    <Border Classes="appbar elevation0">
+      <TextBlock Classes="h6" Text="elevation0" VerticalAlignment="Center" />
+    </Border>
+    <Border Classes="appbar" Padding="0">
+      <TextBlock Classes="h6" Text="Padding=&quot;0&quot;: no gutters" VerticalAlignment="Center" />
+    </Border>
+  </StackPanel>
+</UserControl>

@@ -1,0 +1,28 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <!-- Overlay is MudDrawer's Temporary variant: the pane opens over the content, with the
+       overlay-dark scrim behind it; a click on the scrim closes it. -->
+  <Border BorderBrush="{DynamicResource FiliLinesDefaultBrush}" BorderThickness="1" Height="300" ClipToBounds="True">
+    <DockPanel>
+      <Border DockPanel.Dock="Top" Classes="appbar elevation0">
+        <StackPanel Orientation="Horizontal" Spacing="8" VerticalAlignment="Center">
+          <ToggleButton x:Name="TemporaryToggle" Classes="icon inherit" IsChecked="True" Margin="-12,0,0,0">
+            <PathIcon Data="{DynamicResource GalleryMenuIcon}" />
+          </ToggleButton>
+          <TextBlock Classes="h6" Text="Temporary" VerticalAlignment="Center" />
+        </StackPanel>
+      </Border>
+      <SplitView DisplayMode="Overlay" IsPaneOpen="{Binding #TemporaryToggle.IsChecked}">
+        <SplitView.Pane>
+          <TreeView Classes="nav" Margin="0,8">
+            <TreeViewItem Header="Inbox" IsSelected="True" />
+            <TreeViewItem Header="Sent" />
+            <TreeViewItem Header="Favourites" />
+          </TreeView>
+        </SplitView.Pane>
+        <TextBlock Classes="body2" Margin="16" TextWrapping="Wrap"
+                   Text="The pane opens over this content; a click beside it closes it." />
+      </SplitView>
+    </DockPanel>
+  </Border>
+</UserControl>

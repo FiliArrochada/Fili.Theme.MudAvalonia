@@ -1,0 +1,18 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <!-- MudToolBar's WrapContent: a WrapPanel inside, and Height="NaN" so the bar grows past its
+       64px as the row wraps. The narrow box makes it wrap. -->
+  <Border Classes="toolbar" Height="NaN" Width="280" HorizontalAlignment="Left"
+          BorderBrush="{DynamicResource FiliLinesDefaultBrush}" BorderThickness="1">
+    <WrapPanel Orientation="Horizontal">
+      <Button Classes="icon"><PathIcon Data="{DynamicResource GalleryMenuIcon}" /></Button>
+      <Button Classes="icon"><PathIcon Data="{DynamicResource GalleryAddIcon}" /></Button>
+      <Button Classes="icon"><PathIcon Data="{DynamicResource GalleryEditIcon}" /></Button>
+      <Button Classes="icon"><PathIcon Data="{DynamicResource GalleryDeleteIcon}" /></Button>
+      <Button Classes="icon"><PathIcon Data="{DynamicResource GalleryShareIcon}" /></Button>
+      <Button Classes="icon"><PathIcon Data="{DynamicResource GallerySearchIcon}" /></Button>
+      <Button Classes="icon"><PathIcon Data="{DynamicResource GalleryFavoriteIcon}" /></Button>
+      <Button Classes="icon"><PathIcon Data="{DynamicResource GalleryMoreVertIcon}" /></Button>
+    </WrapPanel>
+  </Border>
+</UserControl>

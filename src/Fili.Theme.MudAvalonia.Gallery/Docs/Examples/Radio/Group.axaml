@@ -1,0 +1,9 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <!-- One GroupName makes a group: checking one unchecks the rest. -->
+  <StackPanel Orientation="Horizontal" Spacing="16">
+    <RadioButton Classes="primary" GroupName="docs-radio-cadence" Content="Daily" />
+    <RadioButton Classes="primary" GroupName="docs-radio-cadence" Content="Weekly" IsChecked="True" />
+    <RadioButton Classes="primary" GroupName="docs-radio-cadence" Content="Monthly" />
+  </StackPanel>
+</UserControl>

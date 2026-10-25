@@ -1,0 +1,29 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <WrapPanel Orientation="Horizontal">
+    <SplitButton Content="Reply" Margin="0,0,16,16">
+      <SplitButton.Flyout>
+        <MenuFlyout>
+          <MenuItem Header="Reply all" />
+          <MenuItem Header="Forward" />
+        </MenuFlyout>
+      </SplitButton.Flyout>
+    </SplitButton>
+    <SplitButton Classes="outlined primary" Content="Export" Margin="0,0,16,16">
+      <SplitButton.Flyout>
+        <MenuFlyout>
+          <MenuItem Header="As PDF" />
+          <MenuItem Header="As CSV" />
+        </MenuFlyout>
+      </SplitButton.Flyout>
+    </SplitButton>
+    <SplitButton Classes="filled secondary" Content="Deploy" Margin="0,0,16,16">
+      <SplitButton.Flyout>
+        <MenuFlyout>
+          <MenuItem Header="To staging" />
+          <MenuItem Header="To production" />
+        </MenuFlyout>
+      </SplitButton.Flyout>
+    </SplitButton>
+  </WrapPanel>
+</UserControl>

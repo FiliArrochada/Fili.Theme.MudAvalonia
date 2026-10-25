@@ -1,0 +1,13 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <!-- Six 160px tabs do not fit 560px: the row scrolls between ChevronLeft and ChevronRight
+       icon buttons, shown only while it overflows and disabled at its ends. -->
+  <TabControl Classes="border" Width="560" HorizontalAlignment="Left">
+    <TabItem Header="One" />
+    <TabItem Header="Two" />
+    <TabItem Header="Three" />
+    <TabItem Header="Four" />
+    <TabItem Header="Five" />
+    <TabItem Header="Six" />
+  </TabControl>
+</UserControl>

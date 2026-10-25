@@ -1,0 +1,8 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <WrapPanel Orientation="Horizontal">
+    <Button Classes="icon secondary small" Margin="0,0,8,8" VerticalAlignment="Center"><PathIcon Data="{DynamicResource GalleryFavoriteIcon}" /></Button>
+    <Button Classes="icon secondary" Margin="0,0,8,8" VerticalAlignment="Center"><PathIcon Data="{DynamicResource GalleryFavoriteIcon}" /></Button>
+    <Button Classes="icon secondary large" Margin="0,0,8,8" VerticalAlignment="Center"><PathIcon Data="{DynamicResource GalleryFavoriteIcon}" /></Button>
+  </WrapPanel>
+</UserControl>

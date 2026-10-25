@@ -1,0 +1,20 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <StackPanel>
+    <WrapPanel Orientation="Horizontal">
+      <ToggleSwitch Content="Default" IsChecked="True" Margin="0,0,24,0" />
+      <ToggleSwitch Classes="primary" Content="Primary" IsChecked="True" Margin="0,0,24,0" />
+      <ToggleSwitch Classes="secondary" Content="Secondary" IsChecked="True" Margin="0,0,24,0" />
+      <ToggleSwitch Classes="tertiary" Content="Tertiary" IsChecked="True" Margin="0,0,24,0" />
+      <ToggleSwitch Classes="info" Content="Info" IsChecked="True" Margin="0,0,24,0" />
+    </WrapPanel>
+    <WrapPanel Orientation="Horizontal">
+      <ToggleSwitch Classes="success" Content="Success" IsChecked="True" Margin="0,0,24,0" />
+      <ToggleSwitch Classes="warning" Content="Warning" IsChecked="True" Margin="0,0,24,0" />
+      <ToggleSwitch Classes="error" Content="Error" IsChecked="True" Margin="0,0,24,0" />
+      <ToggleSwitch Classes="dark" Content="Dark" IsChecked="True" Margin="0,0,24,0" />
+      <!-- Off, a colour class changes nothing. -->
+      <ToggleSwitch Classes="error" Content="Error, off" Margin="0,0,24,0" />
+    </WrapPanel>
+  </StackPanel>
+</UserControl>

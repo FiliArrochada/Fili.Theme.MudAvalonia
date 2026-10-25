@@ -1,0 +1,14 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <!-- MudLink is primary by default; a colour class is the text's colour. -->
+  <WrapPanel Orientation="Horizontal">
+    <HyperlinkButton Content="Default" Margin="0,0,24,8" />
+    <HyperlinkButton Classes="secondary" Content="Secondary" Margin="0,0,24,8" />
+    <HyperlinkButton Classes="tertiary" Content="Tertiary" Margin="0,0,24,8" />
+    <HyperlinkButton Classes="info" Content="Info" Margin="0,0,24,8" />
+    <HyperlinkButton Classes="success" Content="Success" Margin="0,0,24,8" />
+    <HyperlinkButton Classes="warning" Content="Warning" Margin="0,0,24,8" />
+    <HyperlinkButton Classes="error" Content="Error" Margin="0,0,24,8" />
+    <HyperlinkButton Classes="dark" Content="Dark" Margin="0,0,24,8" />
+  </WrapPanel>
+</UserControl>

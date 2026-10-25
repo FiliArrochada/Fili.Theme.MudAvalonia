@@ -1,0 +1,32 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <WrapPanel Orientation="Horizontal">
+    <!-- A DropDownButton takes Button's classes: variant, colour and size. -->
+    <DropDownButton Classes="outlined primary" Content="Outlined" Margin="0,0,8,8" VerticalAlignment="Center">
+      <DropDownButton.Flyout>
+        <MenuFlyout>
+          <MenuItem Header="One" />
+          <MenuItem Header="Two" />
+        </MenuFlyout>
+      </DropDownButton.Flyout>
+    </DropDownButton>
+    <DropDownButton Classes="filled secondary" Content="Filled" Margin="0,0,8,8" VerticalAlignment="Center">
+      <DropDownButton.Flyout>
+        <MenuFlyout>
+          <MenuItem Header="One" />
+          <MenuItem Header="Two" />
+        </MenuFlyout>
+      </DropDownButton.Flyout>
+    </DropDownButton>
+    <!-- MudMenu's Icon activator: an icon button with a MenuFlyout. -->
+    <Button Classes="icon" Margin="0,0,8,8" VerticalAlignment="Center" ToolTip.Tip="More">
+      <PathIcon Data="{DynamicResource GalleryMoreVertIcon}" />
+      <Button.Flyout>
+        <MenuFlyout>
+          <MenuItem Header="Share" />
+          <MenuItem Header="Rename" />
+        </MenuFlyout>
+      </Button.Flyout>
+    </Button>
+  </WrapPanel>
+</UserControl>

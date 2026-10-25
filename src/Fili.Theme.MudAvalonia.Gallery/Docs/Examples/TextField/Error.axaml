@@ -1,0 +1,9 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <WrapPanel ItemSpacing="16" LineSpacing="16">
+    <TextBox Classes="error" Width="220" VerticalAlignment="Top" PlaceholderText="Email" Text="nope" />
+    <TextBox Classes="filled error" Width="220" VerticalAlignment="Top" PlaceholderText="Email" Text="nope" />
+    <TextBox Classes="outlined error counter" Width="220" VerticalAlignment="Top" PlaceholderText="Code"
+             MaxLength="6" Text="12345" />
+  </WrapPanel>
+</UserControl>

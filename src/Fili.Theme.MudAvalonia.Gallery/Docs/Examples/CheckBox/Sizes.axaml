@@ -1,0 +1,8 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <WrapPanel Orientation="Horizontal">
+    <CheckBox Classes="primary small" Content="Small" IsChecked="True" Margin="0,0,16,0" VerticalAlignment="Center" />
+    <CheckBox Classes="primary" Content="Medium" IsChecked="True" Margin="0,0,16,0" VerticalAlignment="Center" />
+    <CheckBox Classes="primary large" Content="Large" IsChecked="True" Margin="0,0,16,0" VerticalAlignment="Center" />
+  </WrapPanel>
+</UserControl>

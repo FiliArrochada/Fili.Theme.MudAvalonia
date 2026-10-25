@@ -1,0 +1,16 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <StackPanel Spacing="16">
+    <StackPanel Orientation="Horizontal" Spacing="8">
+      <ToggleButton Classes="outlined" Content="Day" />
+      <ToggleButton Classes="outlined" Content="Week" IsChecked="True" />
+      <ToggleButton Classes="outlined" Content="Month" />
+    </StackPanel>
+    <!-- button-group joins them, as MudToggleGroup is: one line between items, the radius outside. -->
+    <StackPanel Orientation="Horizontal" Classes="button-group">
+      <ToggleButton Classes="outlined" Content="Day" />
+      <ToggleButton Classes="outlined" Content="Week" IsChecked="True" />
+      <ToggleButton Classes="outlined" Content="Month" />
+    </StackPanel>
+  </StackPanel>
+</UserControl>

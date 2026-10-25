@@ -1,0 +1,8 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <WrapPanel Orientation="Horizontal">
+    <ToggleButton Classes="icon error" IsEnabled="False" Margin="0,0,8,8"><PathIcon Data="{DynamicResource GalleryFavoriteIcon}" /></ToggleButton>
+    <ToggleButton Classes="icon outlined primary" IsChecked="True" IsEnabled="False" Margin="0,0,8,8"><PathIcon Data="{DynamicResource GalleryEditIcon}" /></ToggleButton>
+    <ToggleButton Classes="icon filled primary" IsChecked="True" IsEnabled="False" Margin="0,0,8,8"><PathIcon Data="{DynamicResource GalleryEditIcon}" /></ToggleButton>
+  </WrapPanel>
+</UserControl>

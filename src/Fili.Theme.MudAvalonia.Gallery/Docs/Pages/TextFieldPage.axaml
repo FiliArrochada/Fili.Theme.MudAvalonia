@@ -1,0 +1,124 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:docs="using:Fili.Theme.MudAvalonia.Gallery.Docs"
+             x:Class="Fili.Theme.MudAvalonia.Gallery.Docs.Pages.TextFieldPage">
+  <StackPanel Classes="doc">
+    <docs:DocHeader Title="Text field"
+                    Summary="Text fields let people type a value: Avalonia's TextBox, drawn as MudTextField. PlaceholderText is its floating label, and its variant, density and state are one class each."
+                    MudBlazor="TextField"
+                    MudBlazorPath="components/textfield" />
+
+    <TextBlock Classes="h5 section" Text="Variants" />
+    <docs:ExampleCard Title="Standard, filled and outlined"
+                      Description="MudTextField.Variant defaults to Text, so a TextBox with no class is the standard field: no box, just the rule. filled puts it on a tinted sheet, outlined in a box whose label floats onto the stroke."
+                      Source="TextField/Variants" />
+
+    <TextBlock Classes="h5 section" Text="Label and placeholder" />
+    <docs:ExampleCard Title="Label, placeholder, or neither"
+                      Description="PlaceholderText doubles as the floating label: it rests in the field and floats when the field is focused or holds text. placeholder makes it MudTextField's Placeholder, the hint where the text goes, in the text's colour at .42, never floating. With no PlaceholderText there is no label and no room for one: MudInput, 32px."
+                      Source="TextField/Label" />
+    <TextBlock Classes="body1 p">
+      <Run Text="A field has a label or a placeholder, not both: that would take a second text property, which this package does not add. A floated label is text-primary once its text holds it up, and primary while the field has focus." />
+    </TextBlock>
+    <docs:ExampleCard Title="Required, shrink label and no underline"
+                      Description="required is Required: an asterisk straight after the label. shrink-label is ShrinkLabel: the label floated with nothing typed. no-underline is Underline=&quot;false&quot;: neither the resting rule nor the focus one."
+                      Source="TextField/LabelOptions" />
+
+    <TextBlock Classes="h5 section" Text="Helper text" />
+    <docs:ExampleCard Title="Helper text"
+                      Description="Helper text is AutomationProperties.HelpText: a caption in text-secondary under the field, which a screen reader announces too. helper-on-focus is HelperTextOnFocus: the help keeps its room and shows while the field has focus."
+                      Source="TextField/HelperText" />
+
+    <TextBlock Classes="h5 section" Text="Character counter" />
+    <docs:ExampleCard Title="Counter"
+                      Description="counter is MudTextField's Counter over MaxLength: the length and the limit on the right of the helper line, or the length alone when MaxLength is 0, as Counter=&quot;0&quot;."
+                      Source="TextField/Counter" />
+
+    <TextBlock Classes="h5 section" Text="Dense" />
+    <docs:ExampleCard Title="Margin.Dense"
+                      Description="dense is Margin.Dense: 3px off a standard field, 8px off a filled one and 16px off an outlined one, with the label resting and floating to match."
+                      Source="TextField/Dense" />
+
+    <TextBlock Classes="h5 section" Text="Errors and validation" />
+    <docs:ExampleCard Title="Error"
+                      Description="error is MudTextField's Error: the rule, the label and the helper line in the error colour. A counter turns red with the field."
+                      Source="TextField/Error" />
+    <TextBlock Classes="body1 p">
+      <Run Text="The other way to be invalid fires on its own: when a binding fails validation, Avalonia sets " />
+      <Run Classes="code" Text="DataValidationErrors.HasErrors" />
+      <Run Text=" and the field paints as " />
+      <Run Classes="code" Text="error" />
+      <Run Text=" does, with the message under the field at 12px in the helper text's place. A field can fail two rules at once, and both messages show." />
+    </TextBlock>
+    <docs:CodeBlock Code="&lt;!-- Email's setter throws, or the view model implements INotifyDataErrorInfo --&gt;&#10;&lt;TextBox Classes=&quot;outlined&quot; PlaceholderText=&quot;Email&quot; Text=&quot;{Binding Email}&quot; /&gt;"
+                    Margin="0,0,0,16" />
+
+    <TextBlock Classes="h5 section" Text="Adornments" />
+    <docs:ExampleCard Title="Icon adornments"
+                      Description="MudTextField's Adornment is InnerLeftContent or InnerRightContent, 8px from the text. An icon there marked start-icon or end-icon is MudIcon's 24px, in the field's text colour. A start adornment floats the label, as Adornment.Start does."
+                      Source="TextField/Adornments" />
+    <docs:ExampleCard Title="Text adornments"
+                      Description="AdornmentText is a string in the same slot. Unlike MudBlazor's, a text adornment on a filled or outlined field stays on the text line, so a unit is not lifted above the value it is read with."
+                      Source="TextField/TextAdornments" />
+    <TextBlock Classes="body1 p">
+      <Run Text="MudTextField's " />
+      <Run Classes="code" Text="Clearable" />
+      <Run Text=" is a button in " />
+      <Run Classes="code" Text="InnerRightContent" />
+      <Run Text=" whose click clears the text: the clearing is the app's." />
+    </TextBlock>
+
+    <TextBlock Classes="h5 section" Text="Multiline" />
+    <docs:ExampleCard Title="Several lines"
+                      Description="Lines and AutoGrow are AcceptsReturn, TextWrapping, MinLines and MaxLines: the text starts at the top and the label sits above it, as a textarea's do."
+                      Source="TextField/Multiline" />
+
+    <TextBlock Classes="h5 section" Text="Disabled and read-only" />
+    <docs:ExampleCard Title="Disabled and read-only"
+                      Description="IsEnabled=&quot;False&quot;: text-disabled text, label and helper text, and the line turns dotted, 1px on and 1px off. IsReadOnly looks the same as an editable field, as in MudBlazor."
+                      Source="TextField/Disabled" />
+
+    <TextBlock Classes="h5 section" Text="Input types and masking" />
+    <docs:ExampleCard Title="Password and mask"
+                      Description="InputType.Password is PasswordChar. MudMask is Avalonia's MaskedTextBox, which is a TextBox to the theme, so every class on this page applies to it."
+                      Source="TextField/InputTypes" />
+
+    <TextBlock Classes="h5 section" Text="MudBlazor parity" />
+    <TextBlock Classes="body1 p">
+      <Run Text="Every MudTextField parameter and what it is here. " />
+      <Run Classes="code" Text="Same" />
+      <Run Text=" is transcribed from MudBlazor's source; " />
+      <Run Classes="code" Text="Close" />
+      <Run Text=" gets the same result another way." />
+    </TextBlock>
+    <docs:ParityTable>
+      <docs:ParityRow MudBlazor="Variant.Text (default)" Here="no class" Status="Same" />
+      <docs:ParityRow MudBlazor="Variant.Filled / Outlined" Here="filled / outlined" Status="Same" />
+      <docs:ParityRow MudBlazor="Label" Here="PlaceholderText" Status="Close" Note="The placeholder is the floating label, so a field has no separate placeholder." />
+      <docs:ParityRow MudBlazor="Placeholder" Here="placeholder, and the text in PlaceholderText" Status="Same" Note="The hint where the text goes, in its colour at .42, never floating; a field has a label or a placeholder, not both." />
+      <docs:ParityRow MudBlazor="no Label, and MudInput" Here="no PlaceholderText" Status="Same" Note="No room for a label: a standard field is MudInput's 32px (29 dense), and a filled one centres its text." />
+      <docs:ParityRow MudBlazor="Error=&quot;true&quot;" Here="error" Status="Same" />
+      <docs:ParityRow MudBlazor="validation" Here="a binding's own validation error" Status="Same" Note="The message under the field at 12px, in the helper text's place." />
+      <docs:ParityRow MudBlazor="HelperText" Here="AutomationProperties.HelpText" Status="Same" Note="Caption in text-secondary, inset 4px under filled and 8px under outlined, and read by a screen reader too." />
+      <docs:ParityRow MudBlazor="HelperTextOnFocus" Here="helper-on-focus" Status="Same" Note="The help keeps its room and shows while the field has focus." />
+      <docs:ParityRow MudBlazor="Counter" Here="counter with MaxLength" Status="Same" Note="12 / 50 on the right, or the length alone when MaxLength is 0, as Counter=&quot;0&quot;." />
+      <docs:ParityRow MudBlazor="Margin.Dense" Here="dense" Status="Same" Note="Standard 3px shorter, filled 8px, outlined 16px, with the label resting and floating to match." />
+      <docs:ParityRow MudBlazor="Margin.Normal" Here="Margin" Status="Close" Note="Only an outer margin in MudBlazor, and an ordinary Avalonia property here." />
+      <docs:ParityRow MudBlazor="Adornment, AdornmentIcon, AdornmentText" Here="InnerLeftContent / InnerRightContent" Status="Same" Note="8px from the text; an icon marked start-icon or end-icon is MudIcon's 24px in the text colour, and a text adornment stays on the text line." />
+      <docs:ParityRow MudBlazor="AdornmentColor, IconSize" Here="a colour class, or Width / Height, on the icon" Status="Close" Note="Ordinary Avalonia properties." />
+      <docs:ParityRow MudBlazor="Disabled" Here="IsEnabled=&quot;False&quot;" Status="Same" Note="Text-disabled text, label and helper text; the line turns dotted, 1px on and 1px off." />
+      <docs:ParityRow MudBlazor="ReadOnly" Here="IsReadOnly" Status="Same" Note="Looks the same, as in MudBlazor." />
+      <docs:ParityRow MudBlazor="Underline=&quot;false&quot;" Here="no-underline" Status="Same" Note="Neither the resting nor the focus rule; an outlined field has none anyway." />
+      <docs:ParityRow MudBlazor="Required" Here="required" Status="Same" Note="An asterisk straight after the label." />
+      <docs:ParityRow MudBlazor="ShrinkLabel" Here="shrink-label" Status="Same" Note="The label floated with nothing typed, in text-primary." />
+      <docs:ParityRow MudBlazor="the label over text" Here="the same" Status="Same" Note="Text-primary once floated by its text, primary while focused." />
+      <docs:ParityRow MudBlazor="Lines, AutoGrow, MaxLines" Here="AcceptsReturn, TextWrapping, MinLines, MaxLines" Status="Close" Note="Ordinary Avalonia properties; the text starts at the top and the label sits above it." />
+      <docs:ParityRow MudBlazor="Clearable" Here="a button in InnerRightContent" Status="Close" Note="The app clears the text." />
+      <docs:ParityRow MudBlazor="Typo" Here="FontSize, LineHeight from the Fili{Style} tokens" Status="Close" />
+      <docs:ParityRow MudBlazor="FullWidth" Here="HorizontalAlignment=&quot;Stretch&quot;" Status="Close" />
+      <docs:ParityRow MudBlazor="InputType.Password" Here="PasswordChar" Status="Close" />
+      <docs:ParityRow MudBlazor="MudMask" Here="MaskedTextBox" Status="Same" Note="A TextBox to the theme, so every row above applies." />
+      <docs:ParityRow MudBlazor="MudField" Here="a Label over any content" Status="Close" Note="There is no input box without an input." />
+    </docs:ParityTable>
+  </StackPanel>
+</UserControl>

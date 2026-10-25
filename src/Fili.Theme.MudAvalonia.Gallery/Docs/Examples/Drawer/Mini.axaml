@@ -1,0 +1,49 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <!-- CompactInline is MudDrawer's Mini variant: closed, a 56px rail of the links' icons; open,
+       the full 240px. The icon and text go in each item's Header. -->
+  <Border BorderBrush="{DynamicResource FiliLinesDefaultBrush}" BorderThickness="1" Height="300" ClipToBounds="True">
+    <DockPanel>
+      <Border DockPanel.Dock="Top" Classes="appbar elevation0">
+        <StackPanel Orientation="Horizontal" Spacing="8" VerticalAlignment="Center">
+          <ToggleButton x:Name="MiniToggle" Classes="icon inherit" Margin="-12,0,0,0">
+            <PathIcon Data="{DynamicResource GalleryMenuIcon}" />
+          </ToggleButton>
+          <TextBlock Classes="h6" Text="Mini" VerticalAlignment="Center" />
+        </StackPanel>
+      </Border>
+      <SplitView DisplayMode="CompactInline" IsPaneOpen="{Binding #MiniToggle.IsChecked}">
+        <SplitView.Pane>
+          <TreeView Classes="nav" Margin="0,8">
+            <TreeViewItem IsSelected="True">
+              <TreeViewItem.Header>
+                <StackPanel Orientation="Horizontal">
+                  <PathIcon Classes="start-icon" Data="{DynamicResource GalleryInboxIcon}" />
+                  <TextBlock Text="Inbox" />
+                </StackPanel>
+              </TreeViewItem.Header>
+            </TreeViewItem>
+            <TreeViewItem>
+              <TreeViewItem.Header>
+                <StackPanel Orientation="Horizontal">
+                  <PathIcon Classes="start-icon" Data="{DynamicResource GallerySendIcon}" />
+                  <TextBlock Text="Sent" />
+                </StackPanel>
+              </TreeViewItem.Header>
+            </TreeViewItem>
+            <TreeViewItem>
+              <TreeViewItem.Header>
+                <StackPanel Orientation="Horizontal">
+                  <PathIcon Classes="start-icon" Data="{DynamicResource GalleryFavoriteIcon}" />
+                  <TextBlock Text="Favourites" />
+                </StackPanel>
+              </TreeViewItem.Header>
+            </TreeViewItem>
+          </TreeView>
+        </SplitView.Pane>
+        <TextBlock Classes="body2" Margin="16" TextWrapping="Wrap"
+                   Text="Closed, the rail shows only the icons; the toggle opens the full drawer." />
+      </SplitView>
+    </DockPanel>
+  </Border>
+</UserControl>

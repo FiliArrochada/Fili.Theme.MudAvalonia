@@ -1,0 +1,31 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <StackPanel Spacing="8">
+    <!-- A selected filled chip draws as text, a selected text chip as filled. -->
+    <WrapPanel Orientation="Horizontal">
+      <ToggleButton Classes="chip primary" Content="Milk" IsChecked="True" Margin="0,0,8,8" />
+      <ToggleButton Classes="chip primary" Content="Eggs" Margin="0,0,8,8" />
+      <ToggleButton Classes="chip text secondary" Content="Bread" IsChecked="True" Margin="0,0,8,8" />
+      <ToggleButton Classes="chip text secondary" Content="Butter" Margin="0,0,8,8" />
+      <ToggleButton Classes="chip outlined success" Content="Rice" IsChecked="True" Margin="0,0,8,8" />
+      <ToggleButton Classes="chip outlined success" Content="Pasta" Margin="0,0,8,8" />
+    </WrapPanel>
+    <!-- CheckMark: an icon the app shows while IsChecked. -->
+    <WrapPanel Orientation="Horizontal">
+      <ToggleButton Classes="chip primary" IsChecked="True" Margin="0,0,8,8">
+        <StackPanel Orientation="Horizontal">
+          <PathIcon Classes="start-icon" Data="{DynamicResource GalleryDoneIcon}"
+                    IsVisible="{Binding $parent[ToggleButton].IsChecked}" />
+          <TextBlock Text="Checked" />
+        </StackPanel>
+      </ToggleButton>
+      <ToggleButton Classes="chip primary" Margin="0,0,8,8">
+        <StackPanel Orientation="Horizontal">
+          <PathIcon Classes="start-icon" Data="{DynamicResource GalleryDoneIcon}"
+                    IsVisible="{Binding $parent[ToggleButton].IsChecked}" />
+          <TextBlock Text="Unchecked" />
+        </StackPanel>
+      </ToggleButton>
+    </WrapPanel>
+  </StackPanel>
+</UserControl>

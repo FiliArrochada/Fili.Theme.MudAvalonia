@@ -1,0 +1,49 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <!-- A nav menu in a closed compact SplitView is a mini drawer's nav: the text beside each
+       start-icon is hidden, so the 56px rail shows the icons. The toggle opens the drawer. -->
+  <Border BorderBrush="{DynamicResource FiliLinesDefaultBrush}" BorderThickness="1" Height="260" ClipToBounds="True">
+    <DockPanel>
+      <Border DockPanel.Dock="Top" Classes="appbar elevation0">
+        <StackPanel Orientation="Horizontal" Spacing="8" VerticalAlignment="Center">
+          <ToggleButton x:Name="RailToggle" Classes="icon inherit" Margin="-12,0,0,0">
+            <PathIcon Data="{DynamicResource GalleryMenuIcon}" />
+          </ToggleButton>
+          <TextBlock Classes="h6" Text="Mini rail" VerticalAlignment="Center" />
+        </StackPanel>
+      </Border>
+      <SplitView DisplayMode="CompactInline" IsPaneOpen="{Binding #RailToggle.IsChecked}">
+        <SplitView.Pane>
+          <TreeView Classes="nav" Margin="0,8">
+            <TreeViewItem IsSelected="True">
+              <TreeViewItem.Header>
+                <StackPanel Orientation="Horizontal">
+                  <PathIcon Classes="start-icon" Data="{DynamicResource GalleryHomeIcon}" />
+                  <TextBlock Text="Home" />
+                </StackPanel>
+              </TreeViewItem.Header>
+            </TreeViewItem>
+            <TreeViewItem>
+              <TreeViewItem.Header>
+                <StackPanel Orientation="Horizontal">
+                  <PathIcon Classes="start-icon" Data="{DynamicResource GalleryDashboardIcon}" />
+                  <TextBlock Text="Dashboard" />
+                </StackPanel>
+              </TreeViewItem.Header>
+            </TreeViewItem>
+            <TreeViewItem>
+              <TreeViewItem.Header>
+                <StackPanel Orientation="Horizontal">
+                  <PathIcon Classes="start-icon" Data="{DynamicResource GallerySettingsIcon}" />
+                  <TextBlock Text="Settings" />
+                </StackPanel>
+              </TreeViewItem.Header>
+            </TreeViewItem>
+          </TreeView>
+        </SplitView.Pane>
+        <TextBlock Classes="body2" Margin="16" TextWrapping="Wrap"
+                   Text="Closed, only the icons; open, the icons and their text." />
+      </SplitView>
+    </DockPanel>
+  </Border>
+</UserControl>

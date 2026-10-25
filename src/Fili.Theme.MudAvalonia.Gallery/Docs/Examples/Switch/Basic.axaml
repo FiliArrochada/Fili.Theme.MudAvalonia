@@ -1,0 +1,8 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <WrapPanel Orientation="Horizontal">
+    <ToggleSwitch Content="Off" Margin="0,0,24,0" />
+    <ToggleSwitch Content="On" IsChecked="True" Margin="0,0,24,0" />
+    <ToggleSwitch Classes="primary" Content="Primary" IsChecked="True" Margin="0,0,24,0" />
+  </WrapPanel>
+</UserControl>

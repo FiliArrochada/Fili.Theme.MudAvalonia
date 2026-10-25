@@ -1,0 +1,16 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <WrapPanel ItemSpacing="16" LineSpacing="16">
+    <ComboBox Classes="adornment-primary" Width="220" VerticalAlignment="Top" PlaceholderText="Primary arrow">
+      <ComboBoxItem>Apple</ComboBoxItem>
+    </ComboBox>
+    <ComboBox Classes="filled adornment-secondary" Width="220" VerticalAlignment="Top" PlaceholderText="Secondary arrow">
+      <ComboBoxItem>Apple</ComboBoxItem>
+    </ComboBox>
+    <!-- adornment-inherit: the arrow in the colour round the select. -->
+    <ComboBox Classes="placeholder adornment-inherit" Width="220" VerticalAlignment="Top"
+              Foreground="{DynamicResource FiliPrimaryBrush}" SelectedIndex="0">
+      <ComboBoxItem>Inherited colour</ComboBoxItem>
+    </ComboBox>
+  </WrapPanel>
+</UserControl>

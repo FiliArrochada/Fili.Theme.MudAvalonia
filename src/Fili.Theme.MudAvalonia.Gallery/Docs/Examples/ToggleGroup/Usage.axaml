@@ -1,0 +1,11 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <!-- A group is a panel of toggles, joined into one shape by button-group; which may be
+       checked together is the app's. -->
+  <StackPanel Orientation="Horizontal" Classes="button-group">
+    <ToggleButton Content="Day" />
+    <ToggleButton Content="Week" IsChecked="True" />
+    <ToggleButton Content="Month" />
+    <ToggleButton Content="Year" />
+  </StackPanel>
+</UserControl>

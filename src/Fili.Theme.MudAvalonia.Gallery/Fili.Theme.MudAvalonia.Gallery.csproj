@@ -23,8 +23,19 @@
       Static Regular and Medium rather than the variable file, for the same reason the theme
       embeds static Roboto: Avalonia picks a face per weight instead of setting an axis.
       SIL Open Font License 1.1; the licence travels with the files in Assets/Fonts/OFL.txt.
+      JetBrains Mono Regular is the docs' code font, for the same reason: a browser has no
+      monospace face of its own to fall back on. Also OFL 1.1, in Assets/Fonts/OFL-JetBrainsMono.txt.
     -->
     <AvaloniaResource Include="Assets\Fonts\*.ttf" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <!--
+      The docs show each example's own XAML beside it: the file that renders the example is also
+      embedded as text, so the code on the page cannot drift from what runs. ExampleCard finds it
+      by its path under Docs/Examples.
+    -->
+    <EmbeddedResource Include="Docs\Examples\**\*.axaml" LogicalName="Examples/%(RecursiveDir)%(Filename)%(Extension)" />
   </ItemGroup>
 
   <ItemGroup>

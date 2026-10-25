@@ -1,0 +1,21 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <WrapPanel Orientation="Horizontal">
+    <!-- Orientation="Vertical" is MudButtonGroup's Vertical. -->
+    <StackPanel Classes="button-group" Orientation="Vertical" Margin="0,0,16,16" VerticalAlignment="Top">
+      <Button Classes="primary" Content="One" />
+      <Button Classes="primary" Content="Two" />
+      <Button Classes="primary" Content="Three" />
+    </StackPanel>
+    <StackPanel Classes="button-group" Orientation="Vertical" Margin="0,0,16,16" VerticalAlignment="Top">
+      <Button Classes="outlined secondary" Content="One" />
+      <Button Classes="outlined secondary" Content="Two" />
+      <Button Classes="outlined secondary" Content="Three" />
+    </StackPanel>
+    <StackPanel Classes="button-group" Orientation="Vertical" Margin="0,0,16,16" VerticalAlignment="Top">
+      <Button Classes="filled tertiary" Content="One" />
+      <Button Classes="filled tertiary" Content="Two" />
+      <Button Classes="filled tertiary" Content="Three" />
+    </StackPanel>
+  </WrapPanel>
+</UserControl>

@@ -1,31 +1,49 @@
 using System.Reflection;
 using Avalonia;
 using Avalonia.Controls;
+using Avalonia.Controls.Primitives;
+using Avalonia.Interactivity;
 using Avalonia.Markup.Xaml;
+using Avalonia.Media;
 using Avalonia.Styling;
 using Fili.Theme.MudAvalonia;
-using Fili.Theme.MudAvalonia.Gallery.Views;
+using Fili.Theme.MudAvalonia.Gallery.Docs;
 
 namespace Fili.Theme.MudAvalonia.Gallery;
 
-/// <summary>
-/// The gallery itself: the app bar with its variant selector, and the tabs.
-/// Desktop hosts it in <see cref="MainWindow"/>; the browser build sets it as the single view.
-/// </summary>
 public partial class MainView : UserControl
 {
+    /// <summary>Below this width the drawer overlays the page and closes once a page is chosen.</summary>
+    private const double NarrowWidth = 960;
+
+    private readonly Dictionary<string, Control> _built = [];
+    private readonly Dictionary<string, TreeViewItem> _links = [];
+    private readonly SplitView _drawer;
+    private readonly TreeView _nav;
+    private readonly ContentControl _host;
+    private readonly bool _ready;
+
     public MainView()
     {
         AvaloniaXamlLoader.Load(this);
         this.FindControl<TextBlock>("ThemeVersion")!.Text = ThemeVersionText();
+        _drawer = this.FindControl<SplitView>("Drawer")!;
+        _nav = this.FindControl<TreeView>("Nav")!;
+        _host = this.FindControl<ContentControl>("PageHost")!;
+
+        // The selector starts on the variant the app is in, rather than setting Light over it.
+        var variant = Application.Current?.RequestedThemeVariant;
+        this.FindControl<ComboBox>("VariantSelector")!.SelectedIndex =
+            variant == ThemeVariant.Dark ? 1 : variant == FiliThemeVariants.HighContrast ? 2 : 0;
+        _ready = true;
+
+        BuildNav(string.Empty);
+        Navigate("overview");
     }
 
-    /// <summary>
-    /// "v0.4.0", or "v0.4.0 · 6d8ed36" for a build the SDK could stamp with its commit - which
-    /// is every build from a clone, the published gallery included. It reads the THEME's
-    /// assembly, not the gallery's, so it names the package the page is showing; between
-    /// releases the commit is what tells two builds of the same version apart.
-    /// </summary>
+    /// <summary>The slug of the page on show.</summary>
+    public string? Current { get; private set; }
+
     internal static string ThemeVersionText()
     {
         var assembly = typeof(FiliThemeVariants).Assembly;
@@ -46,38 +64,98 @@ public partial class MainView : UserControl
         return $"v{informational[..plus]} · {commit[..System.Math.Min(7, commit.Length)]}";
     }
 
-    /// <summary>
-    /// Builds the controls page the first time its tab is chosen. Built with the window, its
-    /// thousands of controls were created before the first tab could show, though most readers
-    /// never open it; and once opened it fills itself in a few rows at a time.
-    /// </summary>
-    /// <remarks>
-    /// Read from the event rather than by name: the first tab is selected while the XAML is still
-    /// loading, before there is a name scope, and a list or select inside a page raises the same
-    /// event on its way up.
-    /// </remarks>
-    private void OnTabChanged(object? sender, SelectionChangedEventArgs e)
+    /// <summary>Shows the page with this slug, building it the first time.</summary>
+    public void Navigate(string slug)
     {
-        if (e.Source == sender && sender is TabControl { SelectedItem: TabItem { Name: "ControlStatesTab", Content: null } tab })
+        if (DocCatalog.Find(slug) is not { } page)
         {
-            tab.Content = new ControlStatesView();
+            return;
+        }
+
+        if (!_built.TryGetValue(slug, out var view))
+        {
+            var content = page.Create();
+            view = page.Scrolls ? content : new ScrollViewer { Content = content };
+            _built[slug] = view;
+        }
+
+        Current = slug;
+        _host.Content = view;
+        if (_links.TryGetValue(slug, out var link) && !ReferenceEquals(_nav.SelectedItem, link))
+        {
+            _nav.SelectedItem = link;
+        }
+
+        if (_drawer.DisplayMode == SplitViewDisplayMode.Overlay)
+        {
+            _drawer.IsPaneOpen = false;
         }
     }
 
     /// <summary>
-    /// Switches the application theme variant at runtime. This is the single most useful thing
-    /// the gallery does: every token that was wired with StaticResource instead of
-    /// DynamicResource stops following the theme here, visibly, in one click.
+    /// The drawer's menu: a group per section, open, and a link per page whose title matches the
+    /// search. A section with no match is left out.
     /// </summary>
-    /// <remarks>
-    /// The variant goes on the APPLICATION and not on the window, and that is not a shortcut.
-    /// Every brush in the theme is one shared application-level object whose Color is a
-    /// DynamicResource, so a window asking for a different variant gets the same brush instance
-    /// and therefore the same colour.
-    /// </remarks>
+    private void BuildNav(string filter)
+    {
+        _links.Clear();
+        var groups = new List<TreeViewItem>();
+        foreach (var section in DocCatalog.Sections)
+        {
+            var pages = DocCatalog.Pages
+                .Where(p => p.Section == section && p.Title.Contains(filter, StringComparison.OrdinalIgnoreCase))
+                .ToList();
+            if (pages.Count == 0)
+            {
+                continue;
+            }
+
+            var group = new TreeViewItem { Header = section, IsExpanded = true };
+            foreach (var page in pages)
+            {
+                var link = new TreeViewItem { Header = page.Title, Tag = page.Slug };
+                _links[page.Slug] = link;
+                group.Items.Add(link);
+            }
+
+            groups.Add(group);
+        }
+
+        _nav.ItemsSource = groups;
+        if (Current is { } current && _links.TryGetValue(current, out var selected))
+        {
+            _nav.SelectedItem = selected;
+        }
+    }
+
+    private void OnNav(object? sender, SelectionChangedEventArgs e)
+    {
+        if (_nav.SelectedItem is TreeViewItem { Tag: string slug } && slug != Current)
+        {
+            Navigate(slug);
+        }
+    }
+
+    private void OnFilter(object? sender, TextChangedEventArgs e) =>
+        BuildNav((sender as TextBox)?.Text?.Trim() ?? string.Empty);
+
+    private void OnMenu(object? sender, RoutedEventArgs e) => _drawer.IsPaneOpen = !_drawer.IsPaneOpen;
+
+    protected override void OnSizeChanged(SizeChangedEventArgs e)
+    {
+        base.OnSizeChanged(e);
+        var narrow = e.NewSize.Width < NarrowWidth;
+        var mode = narrow ? SplitViewDisplayMode.Overlay : SplitViewDisplayMode.Inline;
+        if (_drawer.DisplayMode != mode)
+        {
+            _drawer.DisplayMode = mode;
+            _drawer.IsPaneOpen = !narrow;
+        }
+    }
+
     private void OnVariantChanged(object? sender, SelectionChangedEventArgs e)
     {
-        if (Application.Current is null || sender is not ComboBox selector)
+        if (!_ready || Application.Current is null || sender is not ComboBox selector)
         {
             return;
         }
@@ -89,4 +167,7 @@ public partial class MainView : UserControl
             _ => ThemeVariant.Light,
         };
     }
+
+    private void OnRightToLeft(object? sender, RoutedEventArgs e) =>
+        _host.FlowDirection = (sender as ToggleButton)?.IsChecked == true ? FlowDirection.RightToLeft : FlowDirection.LeftToRight;
 }

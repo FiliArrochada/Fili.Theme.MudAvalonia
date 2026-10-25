@@ -1,0 +1,9 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <WrapPanel ItemSpacing="16" LineSpacing="16">
+    <NumericUpDown Classes="filled" Width="220" VerticalAlignment="Top" PlaceholderText="0 to 10, step 2"
+                   Minimum="0" Maximum="10" Increment="2" Value="4" />
+    <NumericUpDown Classes="filled" Width="220" VerticalAlignment="Top" PlaceholderText="Two decimals"
+                   Increment="0.25" FormatString="0.00" Value="1.5" />
+  </WrapPanel>
+</UserControl>

@@ -1,0 +1,13 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <StackPanel>
+    <WrapPanel Orientation="Horizontal">
+      <ToggleSwitch Content="Disabled" IsEnabled="False" Margin="0,0,24,0" />
+      <ToggleSwitch Classes="primary" Content="Disabled, on" IsChecked="True" IsEnabled="False" Margin="0,0,24,0" />
+    </WrapPanel>
+    <!-- ReadOnly: looks the same, and takes no input. -->
+    <WrapPanel Orientation="Horizontal">
+      <ToggleSwitch Classes="primary" Content="Read-only" IsChecked="True" IsHitTestVisible="False" Margin="0,0,24,0" />
+    </WrapPanel>
+  </StackPanel>
+</UserControl>

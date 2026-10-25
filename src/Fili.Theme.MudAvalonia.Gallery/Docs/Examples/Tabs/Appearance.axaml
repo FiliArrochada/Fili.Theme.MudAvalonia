@@ -1,0 +1,22 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <StackPanel Spacing="16">
+    <!-- border: a lines-default rule under the bar. -->
+    <TabControl Classes="border">
+      <TabItem Header="Border" />
+      <TabItem Header="Two" />
+    </TabControl>
+    <!-- outlined: a ring round the bar; rounded: the default radius on it. -->
+    <TabControl Classes="outlined rounded">
+      <TabItem Header="Outlined" />
+      <TabItem Header="Two" />
+    </TabControl>
+    <!-- elevation0 ... elevation25: the shadow under the bar. -->
+    <TabControl Classes="elevation4 rounded">
+      <TabItem Header="Elevation 4">
+        <TextBlock Classes="body2" Margin="16" Text="Content below the raised bar." />
+      </TabItem>
+      <TabItem Header="Two" />
+    </TabControl>
+  </StackPanel>
+</UserControl>

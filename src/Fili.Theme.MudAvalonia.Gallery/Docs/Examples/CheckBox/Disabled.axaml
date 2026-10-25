@@ -1,0 +1,14 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <StackPanel>
+    <WrapPanel Orientation="Horizontal">
+      <CheckBox Content="Disabled" IsEnabled="False" Margin="0,0,16,0" />
+      <CheckBox Classes="primary" Content="Checked" IsChecked="True" IsEnabled="False" Margin="0,0,16,0" />
+      <CheckBox Classes="secondary" Content="Indeterminate" IsThreeState="True" IsChecked="{x:Null}" IsEnabled="False" Margin="0,0,16,0" />
+    </WrapPanel>
+    <!-- ReadOnly: looks the same, and takes no input. -->
+    <WrapPanel Orientation="Horizontal">
+      <CheckBox Classes="primary" Content="Read-only" IsChecked="True" IsHitTestVisible="False" Margin="0,0,16,0" />
+    </WrapPanel>
+  </StackPanel>
+</UserControl>

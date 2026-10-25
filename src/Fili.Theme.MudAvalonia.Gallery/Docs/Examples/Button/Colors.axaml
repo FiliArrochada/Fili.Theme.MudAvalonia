@@ -1,0 +1,24 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <StackPanel Spacing="8">
+    <WrapPanel Orientation="Horizontal">
+      <Button Classes="filled" Content="Default" Margin="0,0,8,8" />
+      <Button Classes="filled primary" Content="Primary" Margin="0,0,8,8" />
+      <Button Classes="filled secondary" Content="Secondary" Margin="0,0,8,8" />
+      <Button Classes="filled tertiary" Content="Tertiary" Margin="0,0,8,8" />
+      <Button Classes="filled info" Content="Info" Margin="0,0,8,8" />
+      <Button Classes="filled success" Content="Success" Margin="0,0,8,8" />
+      <Button Classes="filled warning" Content="Warning" Margin="0,0,8,8" />
+      <Button Classes="filled error" Content="Error" Margin="0,0,8,8" />
+      <Button Classes="filled dark" Content="Dark" Margin="0,0,8,8" />
+    </WrapPanel>
+    <WrapPanel Orientation="Horizontal">
+      <Button Classes="outlined primary" Content="Primary" Margin="0,0,8,8" />
+      <Button Classes="outlined secondary" Content="Secondary" Margin="0,0,8,8" />
+      <Button Classes="outlined success" Content="Success" Margin="0,0,8,8" />
+      <Button Classes="outlined error" Content="Error" Margin="0,0,8,8" />
+      <Button Classes="primary" Content="Primary" Margin="0,0,8,8" />
+      <Button Classes="error" Content="Error" Margin="0,0,8,8" />
+    </WrapPanel>
+  </StackPanel>
+</UserControl>

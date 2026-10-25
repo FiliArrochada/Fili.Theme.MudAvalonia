@@ -1,0 +1,8 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <WrapPanel ItemSpacing="16" LineSpacing="16">
+    <NumericUpDown Width="220" VerticalAlignment="Top" PlaceholderText="Disabled" Value="42" IsEnabled="False" />
+    <NumericUpDown Classes="filled" Width="220" VerticalAlignment="Top" PlaceholderText="Disabled" Value="42" IsEnabled="False" />
+    <NumericUpDown Classes="outlined" Width="220" VerticalAlignment="Top" PlaceholderText="Read-only" Value="42" IsReadOnly="True" />
+  </WrapPanel>
+</UserControl>

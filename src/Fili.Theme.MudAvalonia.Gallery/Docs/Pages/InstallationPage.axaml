@@ -1,0 +1,47 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:docs="using:Fili.Theme.MudAvalonia.Gallery.Docs"
+             x:Class="Fili.Theme.MudAvalonia.Gallery.Docs.Pages.InstallationPage">
+  <StackPanel Classes="doc">
+    <docs:DocHeader Title="Installation"
+                    Summary="One package, two includes, and no other theme." />
+
+    <TextBlock Classes="h5 section" Text="Add the package" />
+    <TextBlock Classes="body1 p">
+      <Run Text="The package id is " />
+      <Run Classes="code" Text="Fili.MudAvalonia.Theme" />
+      <Run Text=" on nuget.org. It targets net10.0 and depends on Avalonia 12.1.3 or later and nothing else." />
+    </TextBlock>
+    <docs:CodeBlock Code="dotnet add package Fili.MudAvalonia.Theme" Margin="0,0,0,16" />
+    <TextBlock Classes="body1 p">
+      <Run Text="Under Central Package Management the version goes in " />
+      <Run Classes="code" Text="Directory.Packages.props" />
+      <Run Text=" and the reference stays version-less." />
+    </TextBlock>
+
+    <TextBlock Classes="h5 section" Text="Include the theme" />
+    <TextBlock Classes="body1 p">
+      <Run Text="Two includes in " />
+      <Run Classes="code" Text="App.axaml" />
+      <Run Text=", the base first: later styles win. No FluentTheme or SimpleTheme, and no other Avalonia.Themes package." />
+    </TextBlock>
+    <docs:CodeBlock Code="&lt;Application.Styles&gt;&#10;  &lt;StyleInclude Source=&quot;avares://Fili.Theme.MudAvalonia/Themes/Base/FiliBaseTheme.axaml&quot; /&gt;&#10;  &lt;StyleInclude Source=&quot;avares://Fili.Theme.MudAvalonia/FiliTheme.axaml&quot; /&gt;&#10;&lt;/Application.Styles&gt;"
+                    Margin="0,0,0,16" />
+
+    <TextBlock Classes="h5 section" Text="Use the tokens" />
+    <TextBlock Classes="body1 p">
+      <Run Text="Reach a colour or a shadow by its key, always as a " />
+      <Run Classes="code" Text="DynamicResource" />
+      <Run Text=": a StaticResource freezes the value of whichever variant was active when it loaded." />
+    </TextBlock>
+    <docs:CodeBlock Code="&lt;Border Classes=&quot;paper elevation4&quot; Padding=&quot;16&quot;&gt;&#10;  &lt;TextBlock Classes=&quot;h6&quot; Text=&quot;Section&quot; /&gt;&#10;&lt;/Border&gt;&#10;&#10;&lt;Border Background=&quot;{DynamicResource FiliPrimaryBrush}&quot; /&gt;"
+                    Margin="0,0,0,16" />
+
+    <TextBlock Classes="h5 section" Text="The DataGrid" />
+    <TextBlock Classes="body1 p">
+      <Run Text="The theme builds against " />
+      <Run Classes="code" Text="Avalonia.Controls.DataGrid" />
+      <Run Text=" without depending on it: reference the package in your app and the data grid is MudDataGrid; leave it out and nothing breaks." />
+    </TextBlock>
+  </StackPanel>
+</UserControl>

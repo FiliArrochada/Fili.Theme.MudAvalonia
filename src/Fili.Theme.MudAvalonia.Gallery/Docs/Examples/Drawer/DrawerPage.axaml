@@ -1,0 +1,50 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <!-- Avalonia's DrawerPage builds its own SplitView; its pane toggle is MudLayout's drawer
+       button, a MudIconButton, the same open or closed. Closed and compact, it is a mini drawer.
+       Set DrawerLayoutBehavior rather than DisplayMode, which DrawerPage works out itself. -->
+  <Grid ColumnDefinitions="3*,16,2*" RowDefinitions="Auto,Auto">
+    <TextBlock Grid.Column="0" Classes="caption" Text="open, Split" HorizontalAlignment="Center" Margin="0,0,0,8" />
+    <TextBlock Grid.Column="2" Classes="caption" Text="closed, CompactInline" HorizontalAlignment="Center" Margin="0,0,0,8" />
+    <Border Grid.Row="1" Grid.Column="0" BorderBrush="{DynamicResource FiliLinesDefaultBrush}" BorderThickness="1" Height="220" ClipToBounds="True">
+      <DrawerPage Header="Library" IsOpen="True" DrawerLayoutBehavior="Split" DrawerBreakpointLength="0" DrawerLength="200">
+        <DrawerPage.Drawer>
+          <TreeView Classes="nav" Margin="0,8">
+            <TreeViewItem Header="Installed" IsSelected="True" />
+            <TreeViewItem Header="Collections" />
+          </TreeView>
+        </DrawerPage.Drawer>
+        <ContentPage>
+          <TextBlock Classes="body2" Margin="16" TextWrapping="Wrap" Text="The page's content." />
+        </ContentPage>
+      </DrawerPage>
+    </Border>
+    <Border Grid.Row="1" Grid.Column="2" BorderBrush="{DynamicResource FiliLinesDefaultBrush}" BorderThickness="1" Height="220" ClipToBounds="True">
+      <DrawerPage Header="Library" IsOpen="False" DrawerLayoutBehavior="CompactInline" DrawerBreakpointLength="0">
+        <DrawerPage.Drawer>
+          <TreeView Classes="nav" Margin="0,8">
+            <TreeViewItem IsSelected="True">
+              <TreeViewItem.Header>
+                <StackPanel Orientation="Horizontal">
+                  <PathIcon Classes="start-icon" Data="{DynamicResource GalleryInboxIcon}" />
+                  <TextBlock Text="Inbox" />
+                </StackPanel>
+              </TreeViewItem.Header>
+            </TreeViewItem>
+            <TreeViewItem>
+              <TreeViewItem.Header>
+                <StackPanel Orientation="Horizontal">
+                  <PathIcon Classes="start-icon" Data="{DynamicResource GallerySendIcon}" />
+                  <TextBlock Text="Sent" />
+                </StackPanel>
+              </TreeViewItem.Header>
+            </TreeViewItem>
+          </TreeView>
+        </DrawerPage.Drawer>
+        <ContentPage>
+          <TextBlock Classes="body2" Margin="16" TextWrapping="Wrap" Text="A 56px rail of icons." />
+        </ContentPage>
+      </DrawerPage>
+    </Border>
+  </Grid>
+</UserControl>

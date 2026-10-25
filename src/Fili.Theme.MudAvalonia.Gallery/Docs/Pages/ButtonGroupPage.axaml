@@ -1,0 +1,69 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:docs="using:Fili.Theme.MudAvalonia.Gallery.Docs"
+             x:Class="Fili.Theme.MudAvalonia.Gallery.Docs.Pages.ButtonGroupPage">
+  <StackPanel Classes="doc">
+    <docs:DocHeader Title="Button group"
+                    Summary="A row or column of buttons joined into one shape: button-group on a StackPanel of buttons, as MudButtonGroup draws them. A two-part group with a menu is Avalonia's SplitButton."
+                    MudBlazor="ButtonGroup"
+                    MudBlazorPath="components/buttongroup" />
+
+    <TextBlock Classes="h5 section" Text="Basic button group" />
+    <docs:ExampleCard Title="Text, outlined and filled"
+                      Description="The radius stays on the outer corners only. Each button after the first is pulled back 1px so two outlined lines are one; a text group draws a 1px line in its colour between buttons, a filled group its lighten shade."
+                      Source="ButtonGroup/Basic" />
+    <TextBlock Classes="body1 p">
+      <Run Text="Each button keeps its own classes: MudButtonGroup's " />
+      <Run Classes="code" Text="OverrideStyles" />
+      <Run Text=" hands the group's variant, colour and size down, and nothing cascades here, so put them on each button. The buttons take the same classes as a " />
+      <Run Classes="code" Text="Button" />
+      <Run Text=" anywhere else." />
+    </TextBlock>
+    <StackPanel Orientation="Horizontal" Spacing="8" Margin="0,0,0,16">
+      <TextBlock Classes="body1" Text="See also:" VerticalAlignment="Center" />
+      <docs:DocLink Slug="button" Content="Button" />
+      <docs:DocLink Slug="toggle-group" Content="Toggle group" />
+    </StackPanel>
+
+    <TextBlock Classes="h5 section" Text="Vertical orientation" />
+    <docs:ExampleCard Title="Vertical"
+                      Description="Orientation=&quot;Vertical&quot; on the StackPanel is MudButtonGroup's Vertical: the same joins, top to bottom."
+                      Source="ButtonGroup/Vertical" />
+
+    <TextBlock Classes="h5 section" Text="Sizes and colours" />
+    <docs:ExampleCard Title="Any variant, colour and size"
+                      Description="small and large, and every palette colour. A filled group with no colour draws the divider colour between its buttons."
+                      Source="ButtonGroup/SizesColors" />
+
+    <TextBlock Classes="h5 section" Text="Split button" />
+    <docs:ExampleCard Title="SplitButton"
+                      Description="Avalonia's SplitButton is a two-part MudButtonGroup whose second part opens a menu. It takes Button's classes: text by default, outlined, filled, any colour, small and large."
+                      Source="ButtonGroup/Split" />
+
+    <TextBlock Classes="h5 section" Text="Drop shadow" />
+    <docs:ExampleCard Title="Flat"
+                      Description="flat is DropShadow=&quot;false&quot;: a filled split button that stays at elevation 0. Filled buttons in a button-group already rest flat and lift to 4."
+                      Source="ButtonGroup/DropShadow" />
+
+    <TextBlock Classes="h5 section" Text="MudBlazor parity" />
+    <TextBlock Classes="body1 p">
+      <Run Text="Every MudButtonGroup parameter and what it is here. " />
+      <Run Classes="code" Text="Same" />
+      <Run Text=" is transcribed from MudBlazor's source; " />
+      <Run Classes="code" Text="Close" />
+      <Run Text=" gets the same result another way." />
+    </TextBlock>
+    <docs:ParityTable>
+      <docs:ParityRow MudBlazor="a MudButtonGroup of three or more" Here="button-group on a StackPanel of buttons" Status="Same" Note="Outer corners rounded, outlined lines shared, a line between text and filled buttons; a hidden button leaves the group." />
+      <docs:ParityRow MudBlazor="MudButtonGroup Vertical" Here="Orientation=&quot;Vertical&quot; on the StackPanel" Status="Same" Note="The same joins, top to bottom." />
+      <docs:ParityRow MudBlazor="MudButtonGroup Variant.Filled's elevation" Here="—" Status="Close" Note="Each filled button rests flat and lifts to 4; the group's own elevation 2 is the app's, as a StackPanel has no shadow." />
+      <docs:ParityRow MudBlazor="MudButtonGroup FullWidth" Here="HorizontalAlignment=&quot;Stretch&quot;" Status="Close" />
+      <docs:ParityRow MudBlazor="MudButtonGroup OverrideStyles" Here="—" Status="Missing" Note="Nothing cascades; put the classes on each button." />
+      <docs:ParityRow MudBlazor="a two-part MudButtonGroup" Here="SplitButton" Status="Same" Note="Button's classes: outlined or filled, any colour, small or large." />
+      <docs:ParityRow MudBlazor="group separator" Here="the same" Status="Same" Note="Text-primary or the colour; divider when filled; the lighten shade between filled coloured segments." />
+      <docs:ParityRow MudBlazor="DropShadow=&quot;false&quot;" Here="filled flat" Status="Same" Note="On SplitButton and DropDownButton alike." />
+      <docs:ParityRow MudBlazor="Vertical (split button)" Here="—" Status="Close" Note="Not applicable: a SplitButton is two halves side by side; a vertical group is a StackPanel of buttons." />
+      <docs:ParityRow MudBlazor="Ripple (default true)" Here="on" Status="Same" Note="On both halves of a split button, 0.2 when filled." />
+    </docs:ParityTable>
+  </StackPanel>
+</UserControl>

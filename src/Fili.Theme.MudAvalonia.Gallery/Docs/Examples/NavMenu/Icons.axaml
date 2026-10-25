@@ -1,0 +1,49 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <!-- A PathIcon with start-icon in the Header is MudNavLink's Icon: 24px in drawer-icon, 12px
+       before the text, in the menu's colour on the active link. -->
+  <Border BorderBrush="{DynamicResource FiliLinesDefaultBrush}" BorderThickness="1" Width="260" HorizontalAlignment="Left" Padding="0,8">
+    <TreeView Classes="nav">
+      <TreeViewItem IsSelected="True">
+        <TreeViewItem.Header>
+          <StackPanel Orientation="Horizontal">
+            <PathIcon Classes="start-icon" Data="{DynamicResource GalleryHomeIcon}" />
+            <TextBlock Text="Home" />
+          </StackPanel>
+        </TreeViewItem.Header>
+      </TreeViewItem>
+      <TreeViewItem>
+        <TreeViewItem.Header>
+          <StackPanel Orientation="Horizontal">
+            <PathIcon Classes="start-icon" Data="{DynamicResource GalleryDashboardIcon}" />
+            <TextBlock Text="Dashboard" />
+          </StackPanel>
+        </TreeViewItem.Header>
+      </TreeViewItem>
+      <TreeViewItem IsExpanded="True">
+        <TreeViewItem.Header>
+          <StackPanel Orientation="Horizontal">
+            <PathIcon Classes="start-icon" Data="{DynamicResource GallerySettingsIcon}" />
+            <TextBlock Text="Settings" />
+          </StackPanel>
+        </TreeViewItem.Header>
+        <TreeViewItem>
+          <TreeViewItem.Header>
+            <StackPanel Orientation="Horizontal">
+              <PathIcon Classes="start-icon" Data="{DynamicResource GalleryPeopleIcon}" />
+              <TextBlock Text="Users" />
+            </StackPanel>
+          </TreeViewItem.Header>
+        </TreeViewItem>
+        <TreeViewItem>
+          <TreeViewItem.Header>
+            <StackPanel Orientation="Horizontal">
+              <PathIcon Classes="start-icon" Data="{DynamicResource GalleryNotificationsIcon}" />
+              <TextBlock Text="Notifications" />
+            </StackPanel>
+          </TreeViewItem.Header>
+        </TreeViewItem>
+      </TreeViewItem>
+    </TreeView>
+  </Border>
+</UserControl>

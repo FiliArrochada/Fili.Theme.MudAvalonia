@@ -1,0 +1,12 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <WrapPanel Orientation="Horizontal">
+    <!-- A Button chip is MudChip with OnClick: hover, ripple, hand cursor and focus. -->
+    <Button Classes="chip primary" Content="Clickable" Margin="0,0,8,8" />
+    <Button Classes="chip outlined primary" Content="Clickable" Margin="0,0,8,8" />
+    <!-- A ContentControl chip has nothing to click: a tag or a status. -->
+    <ContentControl Classes="chip primary" Content="Static" Margin="0,0,8,8" />
+    <ContentControl Classes="chip outlined primary" Content="Static" Margin="0,0,8,8" />
+    <ContentControl Classes="chip text success" Content="Installed" Margin="0,0,8,8" />
+  </WrapPanel>
+</UserControl>

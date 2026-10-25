@@ -1,0 +1,17 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <!-- PanePlacement is MudDrawer's Anchor: Right puts the drawer at the end. -->
+  <Border BorderBrush="{DynamicResource FiliLinesDefaultBrush}" BorderThickness="1" Height="200" ClipToBounds="True">
+    <SplitView DisplayMode="Inline" PanePlacement="Right" IsPaneOpen="True">
+      <SplitView.Pane>
+        <TreeView Classes="nav" Margin="0,8">
+          <TreeViewItem Header="Details" IsSelected="True" />
+          <TreeViewItem Header="Activity" />
+          <TreeViewItem Header="Sharing" />
+        </TreeView>
+      </SplitView.Pane>
+      <TextBlock Classes="body2" Margin="16" TextWrapping="Wrap"
+                 Text="The drawer anchored at the end." />
+    </SplitView>
+  </Border>
+</UserControl>

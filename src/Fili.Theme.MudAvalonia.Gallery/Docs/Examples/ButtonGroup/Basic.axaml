@@ -1,0 +1,20 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <WrapPanel Orientation="Horizontal">
+    <StackPanel Classes="button-group" Orientation="Horizontal" Margin="0,0,16,16">
+      <Button Classes="primary" Content="One" />
+      <Button Classes="primary" Content="Two" />
+      <Button Classes="primary" Content="Three" />
+    </StackPanel>
+    <StackPanel Classes="button-group" Orientation="Horizontal" Margin="0,0,16,16">
+      <Button Classes="outlined primary" Content="One" />
+      <Button Classes="outlined primary" Content="Two" />
+      <Button Classes="outlined primary" Content="Three" />
+    </StackPanel>
+    <StackPanel Classes="button-group" Orientation="Horizontal" Margin="0,0,16,16">
+      <Button Classes="filled primary" Content="One" />
+      <Button Classes="filled primary" Content="Two" />
+      <Button Classes="filled primary" Content="Three" />
+    </StackPanel>
+  </WrapPanel>
+</UserControl>

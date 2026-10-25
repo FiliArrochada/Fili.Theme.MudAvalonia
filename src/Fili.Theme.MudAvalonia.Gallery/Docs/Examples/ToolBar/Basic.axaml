@@ -1,0 +1,19 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <!-- toolbar on a Border is MudToolBar: 64px with 24px gutters, its children centred. The row
+       inside is the app's own panel; a DockPanel stands in for MudSpacer. -->
+  <Border Classes="toolbar" BorderBrush="{DynamicResource FiliLinesDefaultBrush}" BorderThickness="1">
+    <DockPanel>
+      <StackPanel DockPanel.Dock="Left" Orientation="Horizontal" Spacing="4">
+        <Button Classes="icon"><PathIcon Data="{DynamicResource GalleryMenuIcon}" /></Button>
+        <Button Classes="icon"><PathIcon Data="{DynamicResource GalleryAddIcon}" /></Button>
+        <Button Classes="icon"><PathIcon Data="{DynamicResource GalleryEditIcon}" /></Button>
+      </StackPanel>
+      <StackPanel DockPanel.Dock="Right" Orientation="Horizontal" Spacing="4">
+        <Button Classes="icon"><PathIcon Data="{DynamicResource GallerySearchIcon}" /></Button>
+        <Button Classes="icon"><PathIcon Data="{DynamicResource GalleryMoreVertIcon}" /></Button>
+      </StackPanel>
+      <Panel />
+    </DockPanel>
+  </Border>
+</UserControl>

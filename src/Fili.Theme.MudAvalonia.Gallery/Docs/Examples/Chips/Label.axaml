@@ -1,0 +1,10 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <WrapPanel Orientation="Horizontal">
+    <!-- CornerRadius="4" is Label: the default border radius in place of the pill. -->
+    <Button Classes="chip" Content="Label" CornerRadius="4" Margin="0,0,8,8" />
+    <Button Classes="chip primary" Content="Primary" CornerRadius="4" Margin="0,0,8,8" />
+    <Button Classes="chip outlined secondary" Content="Outlined" CornerRadius="4" Margin="0,0,8,8" />
+    <Button Classes="chip text info" Content="Text" CornerRadius="4" Margin="0,0,8,8" />
+  </WrapPanel>
+</UserControl>

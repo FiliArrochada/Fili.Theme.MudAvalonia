@@ -1,0 +1,14 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <!-- A TabStrip is the header row alone: the app shows what it selects. -->
+  <StackPanel Spacing="8">
+    <TabStrip x:Name="Strip" Classes="border" SelectedIndex="0">
+      <TabStripItem>Library</TabStripItem>
+      <TabStripItem>Store</TabStripItem>
+      <TabStripItem IsEnabled="False">Disabled</TabStripItem>
+    </TabStrip>
+    <TextBlock Classes="body2" Margin="16,8">
+      <Run Text="Selected index: " /><Run Text="{Binding #Strip.SelectedIndex}" />
+    </TextBlock>
+  </StackPanel>
+</UserControl>

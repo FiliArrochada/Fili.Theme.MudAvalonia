@@ -1,0 +1,8 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <WrapPanel Orientation="Horizontal">
+    <Button Classes="filled primary small" Content="Small" Margin="0,0,8,8" VerticalAlignment="Center" />
+    <Button Classes="filled primary" Content="Medium" Margin="0,0,8,8" VerticalAlignment="Center" />
+    <Button Classes="filled primary large" Content="Large" Margin="0,0,8,8" VerticalAlignment="Center" />
+  </WrapPanel>
+</UserControl>

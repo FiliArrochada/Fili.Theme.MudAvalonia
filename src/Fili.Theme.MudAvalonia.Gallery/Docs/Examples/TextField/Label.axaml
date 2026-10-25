@@ -1,0 +1,11 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <WrapPanel ItemSpacing="16" LineSpacing="16">
+    <!-- A label: PlaceholderText, floating once the field has focus or text. -->
+    <TextBox Width="220" VerticalAlignment="Top" PlaceholderText="Label" />
+    <!-- A placeholder: the hint where the text goes, never floating. -->
+    <TextBox Classes="placeholder" Width="220" VerticalAlignment="Top" PlaceholderText="Placeholder" />
+    <!-- Neither: MudInput, the bare 32px input. -->
+    <TextBox Width="220" VerticalAlignment="Top" Text="No label" />
+  </WrapPanel>
+</UserControl>

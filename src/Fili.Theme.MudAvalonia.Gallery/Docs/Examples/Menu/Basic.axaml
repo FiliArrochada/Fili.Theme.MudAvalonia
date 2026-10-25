@@ -1,0 +1,15 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <!-- MudMenu with a button activator: a DropDownButton whose Flyout is a MenuFlyout. -->
+  <WrapPanel Orientation="Horizontal">
+    <DropDownButton Content="Options" Margin="0,0,8,8">
+      <DropDownButton.Flyout>
+        <MenuFlyout>
+          <MenuItem Header="Profile" />
+          <MenuItem Header="My account" />
+          <MenuItem Header="Sign out" />
+        </MenuFlyout>
+      </DropDownButton.Flyout>
+    </DropDownButton>
+  </WrapPanel>
+</UserControl>

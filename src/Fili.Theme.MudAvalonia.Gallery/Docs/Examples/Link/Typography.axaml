@@ -1,0 +1,9 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <!-- MudLink's Typo: a type class on a TextBlock inside the link. -->
+  <StackPanel Spacing="8">
+    <HyperlinkButton Classes="underline"><TextBlock Classes="h5" Text="An h5 link" /></HyperlinkButton>
+    <HyperlinkButton Classes="underline"><TextBlock Classes="body1" Text="A body1 link" /></HyperlinkButton>
+    <HyperlinkButton Classes="underline"><TextBlock Classes="caption" Text="A caption link" /></HyperlinkButton>
+  </StackPanel>
+</UserControl>

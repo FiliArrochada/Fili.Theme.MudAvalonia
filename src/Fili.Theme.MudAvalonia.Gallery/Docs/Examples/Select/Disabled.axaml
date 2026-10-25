@@ -1,0 +1,14 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <WrapPanel ItemSpacing="16" LineSpacing="16">
+    <ComboBox Width="220" VerticalAlignment="Top" PlaceholderText="Disabled" IsEnabled="False" SelectedIndex="0">
+      <ComboBoxItem>Apple</ComboBoxItem>
+    </ComboBox>
+    <ComboBox Classes="filled" Width="220" VerticalAlignment="Top" PlaceholderText="Disabled" IsEnabled="False">
+      <ComboBoxItem>Apple</ComboBoxItem>
+    </ComboBox>
+    <ComboBox Classes="outlined adornment-primary" Width="220" VerticalAlignment="Top" PlaceholderText="Disabled" IsEnabled="False" SelectedIndex="0">
+      <ComboBoxItem>Apple</ComboBoxItem>
+    </ComboBox>
+  </WrapPanel>
+</UserControl>

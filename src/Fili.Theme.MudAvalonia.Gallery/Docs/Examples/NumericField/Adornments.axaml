@@ -1,0 +1,13 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <WrapPanel ItemSpacing="16" LineSpacing="16">
+    <NumericUpDown Width="220" VerticalAlignment="Top" PlaceholderText="Weight" Value="72" InnerRightContent="kg" />
+    <NumericUpDown Classes="filled" Width="220" VerticalAlignment="Top" PlaceholderText="Price" Value="9.99"
+                   FormatString="0.00" InnerLeftContent="€" />
+    <NumericUpDown Classes="outlined" Width="220" VerticalAlignment="Top" PlaceholderText="Guests" Value="4">
+      <NumericUpDown.InnerLeftContent>
+        <PathIcon Classes="start-icon" Data="{DynamicResource GalleryPersonIcon}" />
+      </NumericUpDown.InnerLeftContent>
+    </NumericUpDown>
+  </WrapPanel>
+</UserControl>

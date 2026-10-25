@@ -1,0 +1,9 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <StackPanel Orientation="Horizontal" Spacing="32" Height="200">
+    <Slider Orientation="Vertical" Value="40" />
+    <Slider Classes="filled secondary" Orientation="Vertical" Value="60" />
+    <Slider Classes="filled medium success" Orientation="Vertical" Value="80" />
+    <Slider Classes="large warning" Orientation="Vertical" TickPlacement="BottomRight" TickFrequency="20" Value="20" />
+  </StackPanel>
+</UserControl>

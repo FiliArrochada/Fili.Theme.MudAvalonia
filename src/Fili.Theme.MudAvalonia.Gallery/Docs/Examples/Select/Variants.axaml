@@ -1,0 +1,39 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <StackPanel Spacing="16">
+    <WrapPanel ItemSpacing="16" LineSpacing="16">
+      <ComboBox Width="220" VerticalAlignment="Top" PlaceholderText="Standard">
+        <ComboBoxItem>Apple</ComboBoxItem>
+        <ComboBoxItem>Orange</ComboBoxItem>
+        <ComboBoxItem>Pear</ComboBoxItem>
+      </ComboBox>
+      <ComboBox Classes="filled" Width="220" VerticalAlignment="Top" PlaceholderText="Filled">
+        <ComboBoxItem>Apple</ComboBoxItem>
+        <ComboBoxItem>Orange</ComboBoxItem>
+        <ComboBoxItem>Pear</ComboBoxItem>
+      </ComboBox>
+      <ComboBox Classes="outlined" Width="220" VerticalAlignment="Top" PlaceholderText="Outlined">
+        <ComboBoxItem>Apple</ComboBoxItem>
+        <ComboBoxItem>Orange</ComboBoxItem>
+        <ComboBoxItem>Pear</ComboBoxItem>
+      </ComboBox>
+    </WrapPanel>
+    <WrapPanel ItemSpacing="16" LineSpacing="16">
+      <ComboBox Width="220" VerticalAlignment="Top" PlaceholderText="Standard" SelectedIndex="0">
+        <ComboBoxItem>Apple</ComboBoxItem>
+        <ComboBoxItem>Orange</ComboBoxItem>
+        <ComboBoxItem>Pear</ComboBoxItem>
+      </ComboBox>
+      <ComboBox Classes="filled" Width="220" VerticalAlignment="Top" PlaceholderText="Filled" SelectedIndex="1">
+        <ComboBoxItem>Apple</ComboBoxItem>
+        <ComboBoxItem>Orange</ComboBoxItem>
+        <ComboBoxItem>Pear</ComboBoxItem>
+      </ComboBox>
+      <ComboBox Classes="outlined" Width="220" VerticalAlignment="Top" PlaceholderText="Outlined" SelectedIndex="2">
+        <ComboBoxItem>Apple</ComboBoxItem>
+        <ComboBoxItem>Orange</ComboBoxItem>
+        <ComboBoxItem>Pear</ComboBoxItem>
+      </ComboBox>
+    </WrapPanel>
+  </StackPanel>
+</UserControl>

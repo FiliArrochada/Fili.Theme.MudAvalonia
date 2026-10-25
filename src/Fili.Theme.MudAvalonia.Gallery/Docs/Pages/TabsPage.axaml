@@ -1,0 +1,135 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:docs="using:Fili.Theme.MudAvalonia.Gallery.Docs"
+             x:Class="Fili.Theme.MudAvalonia.Gallery.Docs.Pages.TabsPage">
+  <StackPanel Classes="doc">
+    <docs:DocHeader Title="Tabs"
+                    Summary="Tabs switch between views at the same level: Avalonia's TabControl and TabStrip, drawn as MudTabs. A 48px bar with a 2px indicator that slides to the selected tab."
+                    MudBlazor="Tabs"
+                    MudBlazorPath="components/tabs" />
+
+    <TextBlock Classes="h5 section" Text="Simple tabs" />
+    <docs:ExampleCard Title="TabControl"
+                      Description="The bar is the surface colour with no rule under it, as MudTabs' Border defaults to false. Tabs are at least 160px, MudTabs' MinimumTabWidth, in text-primary with uppercase labels; the selected one is primary, a disabled one text-disabled."
+                      Source="Tabs/Simple" />
+    <TextBlock Classes="body1 p">
+      <Run Text="The theme sets the TabControl's " />
+      <Run Classes="code" Text="ItemContainerTheme" />
+      <Run Text=", which is what carries the header look down to a bare " />
+      <Run Classes="code" Text="TabItem" />
+      <Run Text=". A string header is uppercase; " />
+      <Run Classes="code" Text="FiliButtonTextTransform" />
+      <Run Text=" is the switch, as it is for buttons." />
+    </TextBlock>
+
+    <TextBlock Classes="h5 section" Text="TabStrip" />
+    <docs:ExampleCard Title="The header row alone"
+                      Description="Avalonia splits the header row and the tab control into two types, and MudBlazor does not, so TabStrip carries the same metrics and classes as TabControl without the content area. The examples below use TabControl; every class works on both."
+                      Source="Tabs/TabStrip" />
+
+    <TextBlock Classes="h5 section" Text="Icon tabs" />
+    <docs:ExampleCard Title="Icons in headers"
+                      Description="MudTabPanel's Icon is a PathIcon in the header marked start-icon: MudIcon's 24px, 8px from the text, in the tab's colour. An icon alone is simply the whole header."
+                      Source="Tabs/Icons" />
+
+    <TextBlock Classes="h5 section" Text="Colours" />
+    <docs:ExampleCard Title="Bar colour"
+                      Description="A colour class on the TabControl or TabStrip is MudTabs' Color, the colour of the bar: the tabs and the indicator take its contrast text, and the active tab's hover is the colour's lighten shade."
+                      Source="Tabs/Colors" />
+    <docs:ExampleCard Title="Indicator colour"
+                      Description="indicator-primary through indicator-dark is MudTabs' SliderColor: the indicator alone, over any bar colour."
+                      Source="Tabs/IndicatorColors" />
+
+    <TextBlock Classes="h5 section" Text="Tabs position" />
+    <docs:ExampleCard Title="TabStripPlacement"
+                      Description="MudTabs' Position is the TabControl's TabStripPlacement: Top, Bottom, Left or Right. The bar docks to that edge, border draws its rule on the content side, the tabs stack for Left and Right, and the indicator follows."
+                      Source="Tabs/Position" />
+    <TextBlock Classes="body1 p">
+      <Run Text="A " />
+      <Run Classes="code" Text="TabStrip" />
+      <Run Text=" has no " />
+      <Run Classes="code" Text="TabStripPlacement" />
+      <Run Text="; place it with ordinary layout." />
+    </TextBlock>
+
+    <TextBlock Classes="h5 section" Text="Centered and fixed tabs" />
+    <docs:ExampleCard Title="centered and material-fixed-tabs"
+                      Description="centered is MudTabs' Centered: the tab row in the middle of the bar. material-fixed-tabs is Material's fixed tabs, which MudTabs does not offer: the tabs share the bar in equal parts and never scroll."
+                      Source="Tabs/Centered" />
+
+    <TextBlock Classes="h5 section" Text="Border, outline and elevation" />
+    <docs:ExampleCard Title="border, outlined, rounded and elevation"
+                      Description="border is a lines-default rule under the bar, outlined a ring round it, and rounded the default radius. elevation0 through elevation25 put a shadow under the bar, outside rounded's clip."
+                      Source="Tabs/Appearance" />
+
+    <TextBlock Classes="h5 section" Text="Indicator" />
+    <docs:ExampleCard Title="hide-indicator and no-animation"
+                      Description="The indicator slides between tabs over .3s on cubic-bezier(.64,.09,.08,1), its width jumping to the new tab's. hide-indicator is HideSlider; no-animation is SliderAnimation=&quot;false&quot;, the new tab's indicator under it at once. Click a tab to see the difference."
+                      Source="Tabs/Indicator" />
+
+    <TextBlock Classes="h5 section" Text="Scrolling tabs" />
+    <docs:ExampleCard Title="Scroll buttons"
+                      Description="Tabs that do not fit the bar scroll, as MudTabs' do: ChevronLeft and ChevronRight icon buttons show at the bar's ends only while the row overflows, each disabled at its end and scrolling a bar's length per click. The selected tab is scrolled into view."
+                      Source="Tabs/Scrolling" />
+    <TextBlock Classes="body1 p">
+      <Run Text="On a bar at the left or right the buttons sit above and below, the bar's width and 32px high, the chevrons turned a quarter. MudTabs' " />
+      <Run Classes="code" Text="PrevIcon" />
+      <Run Text=" and " />
+      <Run Classes="code" Text="NextIcon" />
+      <Run Text=" are " />
+      <Run Classes="code" Text="FiliNavigateBeforeGeometry" />
+      <Run Text=" and " />
+      <Run Classes="code" Text="FiliChevronRightGeometry" />
+      <Run Text=" in the tabs' Resources." />
+    </TextBlock>
+
+    <TextBlock Classes="h5 section" Text="Badges and tooltips" />
+    <docs:ExampleCard Title="A badge as the header"
+                      Description="MudTabPanel's BadgeData and BadgeDot are a badge HeaderedContentControl as the header, and its ToolTip is ToolTip.Tip on the item."
+                      Source="Tabs/Badges" />
+
+    <TextBlock Classes="h5 section" Text="Tabbed page" />
+    <docs:ExampleCard Title="TabbedPage"
+                      Description="Avalonia's TabbedPage is MudTabs: its pages' headers are the theme's own tabs, sliding indicator and all. How pages switch stays Avalonia's."
+                      Source="Tabs/TabbedPage" />
+
+    <TextBlock Classes="h5 section" Text="MudBlazor parity" />
+    <TextBlock Classes="body1 p">
+      <Run Text="Every MudTabs parameter and what it is here, with the page type that draws tabs. " />
+      <Run Classes="code" Text="Same" />
+      <Run Text=" is transcribed from MudBlazor's source; " />
+      <Run Classes="code" Text="Close" />
+      <Run Text=" gets the same result another way." />
+    </TextBlock>
+    <docs:ParityTable>
+      <docs:ParityRow MudBlazor="48px strip, 2px indicator" Here="the same" Status="Same" />
+      <docs:ParityRow MudBlazor="tab bar" Here="the same" Status="Same" Note="The surface colour, with no rule under it until border." />
+      <docs:ParityRow MudBlazor="tab text" Here="the same" Status="Same" Note="Text-primary, primary when active, text-disabled when disabled." />
+      <docs:ParityRow MudBlazor="hover" Here="the same" Status="Same" Note="Action-default-hover, and primary-hover on the active tab." />
+      <docs:ParityRow MudBlazor="MinimumTabWidth (160px)" Here="the same" Status="Same" />
+      <docs:ParityRow MudBlazor="Color" Here="a colour class on the TabControl or TabStrip" Status="Same" Note="The bar in the colour, tabs and indicator in its contrast text, and the colour's lighten shade on the active tab's hover." />
+      <docs:ParityRow MudBlazor="Border / Outlined" Here="border / outlined" Status="Same" Note="A lines-default rule under the bar, or round it." />
+      <docs:ParityRow MudBlazor="Rounded / Centered" Here="rounded / centered" Status="Same" />
+      <docs:ParityRow MudBlazor="(none: Material's fixed tabs)" Here="material-fixed-tabs" Status="Extra" Note="Material's own, beyond MudBlazor: the tabs share the bar in equal parts under MinimumTabWidth and never scroll." />
+      <docs:ParityRow MudBlazor="HideSlider" Here="hide-indicator" Status="Same" />
+      <docs:ParityRow MudBlazor="Position" Here="TabStripPlacement on a TabControl" Status="Same" Note="Top, Bottom, Left and Right: the bar docks there, border draws its rule on the content side, and the indicator follows." />
+      <docs:ParityRow MudBlazor="Elevation" Here="elevation0 … elevation25" Status="Same" Note="On the bar, outside rounded's clip." />
+      <docs:ParityRow MudBlazor="SliderColor" Here="indicator-primary … indicator-dark" Status="Same" Note="The indicator alone, over any bar colour." />
+      <docs:ParityRow MudBlazor="sliding indicator, SliderAnimation (default true)" Here="the indicator slides; no-animation for false" Status="Same" Note=".3s on cubic-bezier(.64,.09,.08,1) with the width jumping; no-animation puts the new tab's indicator under it at once." />
+      <docs:ParityRow MudBlazor="uppercase tab text (.mud-tab)" Here="the same" Status="Same" Note="A string Header is uppercase; FiliButtonTextTransform is the switch, as for buttons." />
+      <docs:ParityRow MudBlazor="Disabled on the tabs" Here="IsEnabled=&quot;False&quot;" Status="Same" Note="Text-disabled." />
+      <docs:ParityRow MudBlazor="MudTabPanel.Icon, IconColor" Here="an icon in the Header marked start-icon" Status="Same" Note="MudIcon's 24px, 8px from the text, in the tab's colour unless set." />
+      <docs:ParityRow MudBlazor="BadgeData, BadgeDot, BadgeColor, BadgeMax" Here="a HeaderedContentControl.badge as the Header" Status="Close" />
+      <docs:ParityRow MudBlazor="ToolTip" Here="ToolTip.Tip on the TabItem" Status="Close" />
+      <docs:ParityRow MudBlazor="scroll buttons" Here="the same" Status="Same" Note="ChevronLeft and ChevronRight icon buttons while the tabs overflow, each disabled at its end, a bar's length per click; the selected tab scrolls into view; on a side bar, 32px high and turned." />
+      <docs:ParityRow MudBlazor="PrevIcon, NextIcon" Here="FiliNavigateBeforeGeometry, FiliChevronRightGeometry in the tabs' Resources" Status="Same" Note="Drawn at their own size in the 24px box." />
+      <docs:ParityRow MudBlazor="AlwaysShowScrollButtons, ScrollIconColor" Here="—" Status="Missing" Note="The buttons are action-default, and only shown on overflow." />
+      <docs:ParityRow MudBlazor="ShowCloseIcon" Here="a button in the Header" Status="Close" Note="Closing a tab is the app's." />
+      <docs:ParityRow MudBlazor="Header, HeaderPosition, TabPanelHeader" Here="HeaderTemplate, or content beside the bar" Status="Close" />
+      <docs:ParityRow MudBlazor="MaxHeight" Here="MaxHeight" Status="Close" />
+      <docs:ParityRow MudBlazor="ApplyEffectsToContainer" Here="a Border.paper with an elevation class round the control" Status="Close" />
+      <docs:ParityRow MudBlazor="Ripple (default true)" Here="on" Status="Same" Note="In the tab's text colour." />
+      <docs:ParityRow MudBlazor="MudTabs in a layout" Here="TabbedPage" Status="Same" Note="The theme's own tabs." />
+    </docs:ParityTable>
+  </StackPanel>
+</UserControl>

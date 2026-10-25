@@ -1,0 +1,24 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <WrapPanel Orientation="Horizontal">
+    <!-- The close icon is an end-icon; closing is the app's, on the chip's Click. -->
+    <Button Classes="chip" Margin="0,0,8,8">
+      <StackPanel Orientation="Horizontal">
+        <TextBlock Text="Closable" />
+        <PathIcon Classes="end-icon" Data="{DynamicResource GalleryCancelIcon}" />
+      </StackPanel>
+    </Button>
+    <Button Classes="chip outlined primary" Margin="0,0,8,8">
+      <StackPanel Orientation="Horizontal">
+        <TextBlock Text="Outlined" />
+        <PathIcon Classes="end-icon" Data="{DynamicResource GalleryCancelIcon}" />
+      </StackPanel>
+    </Button>
+    <Button Classes="chip text secondary" Margin="0,0,8,8">
+      <StackPanel Orientation="Horizontal">
+        <TextBlock Text="Text" />
+        <PathIcon Classes="end-icon" Data="{DynamicResource GalleryCancelIcon}" />
+      </StackPanel>
+    </Button>
+  </WrapPanel>
+</UserControl>

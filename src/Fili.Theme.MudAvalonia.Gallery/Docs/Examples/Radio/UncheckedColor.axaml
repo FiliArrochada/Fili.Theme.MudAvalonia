@@ -1,0 +1,7 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <WrapPanel Orientation="Horizontal">
+    <RadioButton Classes="secondary unchecked-success" GroupName="docs-radio-unchecked" Content="Checked: secondary" IsChecked="True" Margin="0,0,16,0" />
+    <RadioButton Classes="secondary unchecked-success" GroupName="docs-radio-unchecked" Content="Unchecked: success" Margin="0,0,16,0" />
+  </WrapPanel>
+</UserControl>

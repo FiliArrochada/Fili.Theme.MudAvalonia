@@ -1,0 +1,19 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <!-- DefaultLabelPosition="Right" makes each command a text MudButton with a start icon, the
+       label uppercase; dense is the 48px bar. -->
+  <Border BorderBrush="{DynamicResource FiliLinesDefaultBrush}" BorderThickness="1">
+    <CommandBar Classes="dense" DefaultLabelPosition="Right">
+      <CommandBarButton Label="Reply">
+        <CommandBarButton.Icon><PathIcon Data="{DynamicResource GallerySendIcon}" /></CommandBarButton.Icon>
+      </CommandBarButton>
+      <CommandBarSeparator />
+      <CommandBarToggleButton Label="Favourite" IsChecked="True">
+        <CommandBarToggleButton.Icon><PathIcon Data="{DynamicResource GalleryFavoriteIcon}" /></CommandBarToggleButton.Icon>
+      </CommandBarToggleButton>
+      <CommandBar.SecondaryCommands>
+        <CommandBarButton Label="Settings" />
+      </CommandBar.SecondaryCommands>
+    </CommandBar>
+  </Border>
+</UserControl>

@@ -1,0 +1,17 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <!-- A row without children is a MudNavLink, and the selected one is the active link; a row
+       with children is a MudNavGroup. The box stands in for the drawer it would sit in. -->
+  <Border BorderBrush="{DynamicResource FiliLinesDefaultBrush}" BorderThickness="1" Width="260" HorizontalAlignment="Left" Padding="0,8">
+    <TreeView Classes="nav">
+      <TreeViewItem Header="Dashboard" IsSelected="True" />
+      <TreeViewItem Header="Servers" />
+      <TreeViewItem Header="Billing" IsEnabled="False" />
+      <TreeViewItem Header="Settings" IsExpanded="True">
+        <TreeViewItem Header="Users" />
+        <TreeViewItem Header="Security" />
+      </TreeViewItem>
+      <TreeViewItem Header="About" />
+    </TreeView>
+  </Border>
+</UserControl>

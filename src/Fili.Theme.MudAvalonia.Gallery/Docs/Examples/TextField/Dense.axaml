@@ -1,0 +1,8 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <WrapPanel ItemSpacing="16" LineSpacing="16">
+    <TextBox Classes="dense" Width="220" VerticalAlignment="Top" PlaceholderText="Standard dense" Text="Text" />
+    <TextBox Classes="filled dense" Width="220" VerticalAlignment="Top" PlaceholderText="Filled dense" Text="Text" />
+    <TextBox Classes="outlined dense" Width="220" VerticalAlignment="Top" PlaceholderText="Outlined dense" Text="Text" />
+  </WrapPanel>
+</UserControl>

@@ -1,0 +1,41 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:generic="using:System.Collections.Generic">
+  <WrapPanel ItemSpacing="16" LineSpacing="16">
+    <AutoCompleteBox Classes="filled dense" Width="220" VerticalAlignment="Top" PlaceholderText="Dense">
+      <AutoCompleteBox.ItemsSource>
+        <generic:List x:TypeArguments="x:String">
+          <x:String>Alabama</x:String>
+          <x:String>Alaska</x:String>
+          <x:String>Arizona</x:String>
+          <x:String>Arkansas</x:String>
+          <x:String>California</x:String>
+        </generic:List>
+      </AutoCompleteBox.ItemsSource>
+    </AutoCompleteBox>
+    <AutoCompleteBox Classes="outlined required" Width="220" VerticalAlignment="Top" PlaceholderText="Required"
+                     AutomationProperties.HelpText="Where you live">
+      <AutoCompleteBox.ItemsSource>
+        <generic:List x:TypeArguments="x:String">
+          <x:String>Alabama</x:String>
+          <x:String>Alaska</x:String>
+          <x:String>Arizona</x:String>
+          <x:String>Arkansas</x:String>
+          <x:String>California</x:String>
+        </generic:List>
+      </AutoCompleteBox.ItemsSource>
+    </AutoCompleteBox>
+    <AutoCompleteBox Classes="counter helper-on-focus" Width="220" VerticalAlignment="Top" PlaceholderText="Counter"
+                     MaxLength="20" AutomationProperties.HelpText="Shown while focused">
+      <AutoCompleteBox.ItemsSource>
+        <generic:List x:TypeArguments="x:String">
+          <x:String>Alabama</x:String>
+          <x:String>Alaska</x:String>
+          <x:String>Arizona</x:String>
+          <x:String>Arkansas</x:String>
+          <x:String>California</x:String>
+        </generic:List>
+      </AutoCompleteBox.ItemsSource>
+    </AutoCompleteBox>
+  </WrapPanel>
+</UserControl>

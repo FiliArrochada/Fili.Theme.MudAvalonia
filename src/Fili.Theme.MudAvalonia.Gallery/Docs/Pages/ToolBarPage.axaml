@@ -1,0 +1,69 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:docs="using:Fili.Theme.MudAvalonia.Gallery.Docs"
+             x:Class="Fili.Theme.MudAvalonia.Gallery.Docs.Pages.ToolBarPage">
+  <StackPanel Classes="doc">
+    <docs:DocHeader Title="Tool bar"
+                    Summary="A row of actions: toolbar on a Border, drawn as MudToolBar, 64px with 24px gutters. Avalonia's CommandBar is MudToolBar holding MudIconButtons, with a MudMenu for the rest."
+                    MudBlazor="ToolBar"
+                    MudBlazorPath="components/toolbar" />
+
+    <TextBlock Classes="h5 section" Text="Tool bar" />
+    <docs:ExampleCard Title="Icon buttons in a tool bar"
+                      Description="64px high with 24px gutters and its children centred, with no ground of its own. The row inside is the app's own panel: a DockPanel stands in for MudSpacer."
+                      Source="ToolBar/Basic" />
+
+    <TextBlock Classes="h5 section" Text="Dense and gutters" />
+    <docs:ExampleCard Title="Dense and no gutters"
+                      Description="dense is 48px. Padding=&quot;0&quot; is Gutters=&quot;false&quot;, on an app bar too. Below the sm breakpoint MudBlazor's bar is 56px; that is the app's to set."
+                      Source="ToolBar/DenseGutters" />
+
+    <TextBlock Classes="h5 section" Text="Wrap content" />
+    <docs:ExampleCard Title="WrapContent"
+                      Description="A WrapPanel inside and Height=&quot;NaN&quot;: the row wraps and the bar grows past its 64px."
+                      Source="ToolBar/Wrap" />
+
+    <TextBlock Classes="h5 section" Text="Command bar" />
+    <docs:ExampleCard Title="CommandBar"
+                      Description="The toolbar's 64px with 24px gutters and no ground. DefaultLabelPosition is Collapsed here, where Avalonia's is Bottom: each command a 48px circle round a 24px icon in action-default, its Label the tooltip. A checked CommandBarToggleButton is primary, MudToggleIconButton's ToggledColor. MoreVert opens MudMenu's popover, each command a 48px row with its label as written."
+                      Source="ToolBar/CommandBar" />
+    <docs:ExampleCard Title="Labels and dense"
+                      Description="DefaultLabelPosition=&quot;Right&quot; makes each command a text MudButton with a start icon, the label uppercase. dense is the 48px bar; a CommandBarSeparator is a vertical MudDivider."
+                      Source="ToolBar/Labels" />
+    <TextBlock Classes="body1 p">
+      <Run Text="On an " />
+      <Run Classes="code" Text="appbar" />
+      <Run Text=" the commands take the bar's text colour, as MudBlazor's app bar examples give theirs " />
+      <Run Classes="code" Text="Color.Inherit" />
+      <Run Text="; give the app bar " />
+      <Run Classes="code" Text="Padding=&quot;0&quot;" />
+      <Run Text=", as the CommandBar brings its own gutters." />
+    </TextBlock>
+    <StackPanel Orientation="Horizontal" Spacing="8" Margin="0,0,0,16">
+      <TextBlock Classes="body1" Text="See also:" VerticalAlignment="Center" />
+      <docs:DocLink Slug="app-bar" Content="App bar" />
+      <docs:DocLink Slug="icon-button" Content="Icon button" />
+    </StackPanel>
+
+    <TextBlock Classes="h5 section" Text="MudBlazor parity" />
+    <TextBlock Classes="body1 p">
+      <Run Text="Every MudToolBar parameter, and MudToolBar with MudIconButtons as a CommandBar, and what each is here. " />
+      <Run Classes="code" Text="Same" />
+      <Run Text=" is transcribed from MudBlazor's source; " />
+      <Run Classes="code" Text="Close" />
+      <Run Text=" gets the same result another way." />
+    </TextBlock>
+    <docs:ParityTable>
+      <docs:ParityRow MudBlazor="the component" Here="toolbar on a Border" Status="Same" Note="64px, the children centred; 56px below the sm breakpoint is the app's to set." />
+      <docs:ParityRow MudBlazor="Gutters (default true)" Here="Padding=&quot;0&quot; for false" Status="Same" Note="24px a side, or none." />
+      <docs:ParityRow MudBlazor="Dense" Here="dense" Status="Same" Note="48px." />
+      <docs:ParityRow MudBlazor="WrapContent" Here="a WrapPanel inside and Height=&quot;NaN&quot;" Status="Close" />
+      <docs:ParityRow MudBlazor="the bar, holding MudIconButtons" Here="CommandBar" Status="Same" Note="64px, 24px gutters; dense 48px." />
+      <docs:ParityRow MudBlazor="MudIconButton" Here="CommandBarButton" Status="Same" Note="A 48px circle, the label its tooltip, with DefaultLabelPosition Collapsed, the default here." />
+      <docs:ParityRow MudBlazor="MudButton with a StartIcon" Here="DefaultLabelPosition=&quot;Right&quot;" Status="Same" />
+      <docs:ParityRow MudBlazor="MudToggleIconButton, ToggledColor" Here="CommandBarToggleButton" Status="Same" Note="Primary when checked." />
+      <docs:ParityRow MudBlazor="MudMenu with MoreVert" Here="the overflow" Status="Same" Note="48px rows on the popover." />
+      <docs:ParityRow MudBlazor="Color.Inherit on an app bar" Here="inside an appbar" Status="Same" Note="The commands take the bar's text colour." />
+    </docs:ParityTable>
+  </StackPanel>
+</UserControl>

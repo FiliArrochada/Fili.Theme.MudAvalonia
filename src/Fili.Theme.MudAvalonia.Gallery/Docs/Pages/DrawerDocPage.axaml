@@ -1,0 +1,94 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:docs="using:Fili.Theme.MudAvalonia.Gallery.Docs"
+             x:Class="Fili.Theme.MudAvalonia.Gallery.Docs.Pages.DrawerDocPage">
+  <StackPanel Classes="doc">
+    <docs:DocHeader Title="Drawer"
+                    Summary="A side panel for navigation: Avalonia's SplitView, drawn as MudDrawer. 240px open, 56px mini, in the drawer colours at elevation 1, with nothing to opt into."
+                    MudBlazor="Drawer"
+                    MudBlazorPath="components/drawer" />
+
+    <TextBlock Classes="body1 p">
+      <Run Text="MudDrawer's " />
+      <Run Classes="code" Text="Variant" />
+      <Run Text=" is the SplitView's " />
+      <Run Classes="code" Text="DisplayMode" />
+      <Run Text=": Inline is Persistent, Overlay is Temporary, CompactInline and CompactOverlay are Mini. Responsive's breakpoints are the app's. Open and close it through " />
+      <Run Classes="code" Text="IsPaneOpen" />
+      <Run Text="; the examples bind it to the app bar's toggle." />
+    </TextBlock>
+
+    <TextBlock Classes="h5 section" Text="Persistent" />
+    <docs:ExampleCard Title="Inline"
+                      Description="The pane sits beside the content and pushes it over as it opens: 240px in drawer-background and drawer-text, elevation 1 past its edge."
+                      Source="Drawer/Persistent" />
+
+    <TextBlock Classes="h5 section" Text="Temporary" />
+    <docs:ExampleCard Title="Overlay"
+                      Description="The pane opens over the content with MudOverlay's overlay-dark scrim behind it; a click on the scrim closes it."
+                      Source="Drawer/Temporary" />
+
+    <TextBlock Classes="h5 section" Text="Mini" />
+    <docs:ExampleCard Title="CompactInline"
+                      Description="Closed, a 56px rail: a nav link's text beside its start-icon is hidden and every row drops its indent, so the rail shows the icons. Open, the full drawer."
+                      Source="Drawer/Mini" />
+    <TextBlock Classes="body1 p">
+      <Run Text="The icon and text go in the item's " />
+      <Run Classes="code" Text="Header" />
+      <Run Text=": a panel written straight inside a " />
+      <Run Classes="code" Text="TreeViewItem" />
+      <Run Text=" is a child item, so the rail would show a group's arrow instead of the icon. MudDrawer's OpenMiniOnHover is behaviour, and not here." />
+    </TextBlock>
+
+    <TextBlock Classes="h5 section" Text="Anchor" />
+    <docs:ExampleCard Title="At the end"
+                      Description="PanePlacement is MudDrawer's Anchor; OpenPaneLength and CompactPaneLength are Width and MiniWidth."
+                      Source="Drawer/Anchor" />
+
+    <TextBlock Classes="h5 section" Text="Drawer header" />
+    <docs:ExampleCard Title="MudDrawerHeader"
+                      Description="drawer-header on a Border at the top of the pane: at least the app bar's 64px, 12px 24px round its content; dense is 48px and 8px 24px. A floor, so a taller header grows."
+                      Source="Drawer/Header" />
+
+    <TextBlock Classes="h5 section" Text="Colours" />
+    <docs:ExampleCard Title="Colour classes"
+                      Description="A colour class on the SplitView is MudDrawer's Color, .mud-theme-{color}: the pane in the colour and its content in the contrast text."
+                      Source="Drawer/Colors" />
+
+    <TextBlock Classes="h5 section" Text="Elevation" />
+    <docs:ExampleCard Title="Elevation classes"
+                      Description="MudDrawer.Elevation is 1 by default; elevation0 through elevation25 on the SplitView change the shadow. A drawer closed to nothing casts none, and high contrast draws its drawer-border line instead."
+                      Source="Drawer/Elevation" />
+
+    <TextBlock Classes="h5 section" Text="Drawer page" />
+    <docs:ExampleCard Title="DrawerPage"
+                      Description="Avalonia's DrawerPage builds its own SplitView. Its pane toggle is MudLayout's drawer button, an action-default MudIconButton, the same open or closed; closed and compact, its drawer is a 56px mini drawer. Its top bar and title keep the fork's look."
+                      Source="Drawer/DrawerPage" />
+    <StackPanel Orientation="Horizontal" Spacing="8" Margin="0,0,0,16">
+      <TextBlock Classes="body1" Text="See also:" VerticalAlignment="Center" />
+      <docs:DocLink Slug="nav-menu" Content="Nav menu" />
+      <docs:DocLink Slug="app-bar" Content="App bar" />
+    </StackPanel>
+
+    <TextBlock Classes="h5 section" Text="MudBlazor parity" />
+    <TextBlock Classes="body1 p">
+      <Run Text="Every MudDrawer and MudDrawerHeader parameter and what it is here. " />
+      <Run Classes="code" Text="Same" />
+      <Run Text=" is transcribed from MudBlazor's source; " />
+      <Run Classes="code" Text="Close" />
+      <Run Text=" gets the same result another way." />
+    </TextBlock>
+    <docs:ParityTable>
+      <docs:ParityRow MudBlazor="MudDrawer" Here="SplitView" Status="Same" Note="240px open, 56px mini, drawer-background and drawer-text, elevation 1 past the pane's edge." />
+      <docs:ParityRow MudBlazor="Elevation (default 1)" Here="no class, or elevation0 … elevation25 on the SplitView" Status="Same" Note="None from a drawer closed to nothing, and none in high contrast, where the edge is the drawer-border line." />
+      <docs:ParityRow MudBlazor="Anchor" Here="PanePlacement" Status="Close" />
+      <docs:ParityRow MudBlazor="Width, MiniWidth, Height" Here="OpenPaneLength, CompactPaneLength, Height" Status="Close" />
+      <docs:ParityRow MudBlazor="Variant (Temporary, Persistent, Mini, Responsive)" Here="DisplayMode (Overlay, Inline, CompactInline, CompactOverlay)" Status="Close" Note="Responsive's breakpoints are the app's." />
+      <docs:ParityRow MudBlazor="Overlay" Here="the scrim behind an overlay pane" Status="Same" Note="overlay-dark." />
+      <docs:ParityRow MudBlazor="ClipMode, Fixed" Here="the app's layout" Status="Close" Note="Layout." />
+      <docs:ParityRow MudBlazor="Color" Here="primary … dark on the SplitView" Status="Same" Note="The pane in the colour, its content in the contrast text." />
+      <docs:ParityRow MudBlazor="OpenMiniOnHover" Here="none" Status="Missing" Note="Behaviour." />
+      <docs:ParityRow MudBlazor="MudDrawerHeader" Here="drawer-header on a Border at the pane's top" Status="Same" Note="At least the app bar's 64px, 12px 24px round it; dense 48px and 8px 24px." />
+    </docs:ParityTable>
+  </StackPanel>
+</UserControl>

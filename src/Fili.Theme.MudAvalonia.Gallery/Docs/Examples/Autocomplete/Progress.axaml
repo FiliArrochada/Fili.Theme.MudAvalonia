@@ -1,0 +1,20 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:generic="using:System.Collections.Generic">
+  <WrapPanel ItemSpacing="16" LineSpacing="16">
+    <AutoCompleteBox Width="220" VerticalAlignment="Top" PlaceholderText="Loading" Text="Ari">
+      <AutoCompleteBox.ItemsSource>
+        <generic:List x:TypeArguments="x:String">
+          <x:String>Alabama</x:String>
+          <x:String>Alaska</x:String>
+          <x:String>Arizona</x:String>
+          <x:String>Arkansas</x:String>
+          <x:String>California</x:String>
+        </generic:List>
+      </AutoCompleteBox.ItemsSource>
+      <AutoCompleteBox.InnerRightContent>
+        <ProgressBar Classes="circular small primary" IsIndeterminate="True" />
+      </AutoCompleteBox.InnerRightContent>
+    </AutoCompleteBox>
+  </WrapPanel>
+</UserControl>

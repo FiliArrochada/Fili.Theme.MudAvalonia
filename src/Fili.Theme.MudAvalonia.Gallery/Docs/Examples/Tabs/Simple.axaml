@@ -1,0 +1,17 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <!-- The theme's ItemContainerTheme carries the header look down to each bare TabItem. -->
+  <TabControl>
+    <TabItem Header="Tab one">
+      <TextBlock Classes="body2" Margin="16" TextWrapping="Wrap"
+                 Text="Content of the first tab. The bar is the surface colour, with no rule under it." />
+    </TabItem>
+    <TabItem Header="Tab two">
+      <TextBlock Classes="body2" Margin="16" Text="Content of the second tab." />
+    </TabItem>
+    <TabItem Header="Tab three">
+      <TextBlock Classes="body2" Margin="16" Text="Content of the third tab." />
+    </TabItem>
+    <TabItem Header="Disabled" IsEnabled="False" />
+  </TabControl>
+</UserControl>

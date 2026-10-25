@@ -1,0 +1,10 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <!-- inherit is Color.Inherit: the link takes the surrounding text colour. -->
+  <StackPanel Orientation="Horizontal" Spacing="4"
+              TextElement.Foreground="{DynamicResource FiliTextSecondaryBrush}">
+    <TextBlock Text="Secondary text with an" />
+    <HyperlinkButton Classes="inherit underline" Content="inherited link" />
+    <TextBlock Text="in it." />
+  </StackPanel>
+</UserControl>

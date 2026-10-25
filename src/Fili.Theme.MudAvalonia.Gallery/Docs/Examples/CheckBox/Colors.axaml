@@ -1,0 +1,26 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <StackPanel>
+    <WrapPanel Orientation="Horizontal">
+      <CheckBox Content="Default" IsChecked="True" Margin="0,0,16,0" />
+      <CheckBox Classes="primary" Content="Primary" IsChecked="True" Margin="0,0,16,0" />
+      <CheckBox Classes="secondary" Content="Secondary" IsChecked="True" Margin="0,0,16,0" />
+      <CheckBox Classes="tertiary" Content="Tertiary" IsChecked="True" Margin="0,0,16,0" />
+      <CheckBox Classes="info" Content="Info" IsChecked="True" Margin="0,0,16,0" />
+    </WrapPanel>
+    <WrapPanel Orientation="Horizontal">
+      <CheckBox Classes="success" Content="Success" IsChecked="True" Margin="0,0,16,0" />
+      <CheckBox Classes="warning" Content="Warning" IsChecked="True" Margin="0,0,16,0" />
+      <CheckBox Classes="error" Content="Error" IsChecked="True" Margin="0,0,16,0" />
+      <CheckBox Classes="dark" Content="Dark" IsChecked="True" Margin="0,0,16,0" />
+    </WrapPanel>
+    <!-- A colour class paints the glyph in every state, unchecked too. -->
+    <WrapPanel Orientation="Horizontal">
+      <CheckBox Content="Default" Margin="0,0,16,0" />
+      <CheckBox Classes="primary" Content="Primary" Margin="0,0,16,0" />
+      <CheckBox Classes="secondary" Content="Secondary" Margin="0,0,16,0" />
+      <CheckBox Classes="success" Content="Success" Margin="0,0,16,0" />
+      <CheckBox Classes="error" Content="Error" Margin="0,0,16,0" />
+    </WrapPanel>
+  </StackPanel>
+</UserControl>

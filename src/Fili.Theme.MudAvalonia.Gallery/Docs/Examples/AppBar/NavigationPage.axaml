@@ -1,0 +1,20 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <!-- A NavigationPage's bar is MudAppBar: the page's Header in h6, its TopCommandBar at the end,
+       and a back button once there is a page to go back to. A fixed box keeps the page in it. -->
+  <Border BorderBrush="{DynamicResource FiliLinesDefaultBrush}" BorderThickness="1" Height="220">
+    <NavigationPage>
+      <ContentPage Header="Inbox">
+        <NavigationPage.TopCommandBar>
+          <CommandBar>
+            <CommandBarButton Label="Favourite">
+              <CommandBarButton.Icon><PathIcon Data="{DynamicResource GalleryFavoriteIcon}" /></CommandBarButton.Icon>
+            </CommandBarButton>
+          </CommandBar>
+        </NavigationPage.TopCommandBar>
+        <TextBlock Classes="body2" Margin="24" TextWrapping="Wrap"
+                   Text="The page's content, on the app's background." />
+      </ContentPage>
+    </NavigationPage>
+  </Border>
+</UserControl>

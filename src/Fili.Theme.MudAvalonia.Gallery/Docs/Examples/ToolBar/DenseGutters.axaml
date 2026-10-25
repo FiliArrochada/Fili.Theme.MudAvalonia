@@ -1,0 +1,27 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <!-- dense is MudToolBar's Dense, 48px; Padding="0" is Gutters="false". -->
+  <Grid ColumnDefinitions="Auto,*" RowDefinitions="Auto,16,Auto,16,Auto">
+    <TextBlock Grid.Row="0" Classes="caption" Text="no class" VerticalAlignment="Center" Margin="0,0,16,0" />
+    <Border Grid.Row="0" Grid.Column="1" Classes="toolbar" BorderBrush="{DynamicResource FiliLinesDefaultBrush}" BorderThickness="1">
+      <StackPanel Orientation="Horizontal" Spacing="8">
+        <Button Classes="icon"><PathIcon Data="{DynamicResource GalleryMenuIcon}" /></Button>
+        <TextBlock Classes="subtitle1" Text="Library" />
+      </StackPanel>
+    </Border>
+    <TextBlock Grid.Row="2" Classes="caption" Text="dense" VerticalAlignment="Center" Margin="0,0,16,0" />
+    <Border Grid.Row="2" Grid.Column="1" Classes="toolbar dense" BorderBrush="{DynamicResource FiliLinesDefaultBrush}" BorderThickness="1">
+      <StackPanel Orientation="Horizontal" Spacing="8">
+        <Button Classes="icon"><PathIcon Data="{DynamicResource GalleryMenuIcon}" /></Button>
+        <TextBlock Classes="subtitle1" Text="Library" />
+      </StackPanel>
+    </Border>
+    <TextBlock Grid.Row="4" Classes="caption" Text="Padding=&quot;0&quot;" VerticalAlignment="Center" Margin="0,0,16,0" />
+    <Border Grid.Row="4" Grid.Column="1" Classes="toolbar" Padding="0" BorderBrush="{DynamicResource FiliLinesDefaultBrush}" BorderThickness="1">
+      <StackPanel Orientation="Horizontal" Spacing="8">
+        <Button Classes="icon"><PathIcon Data="{DynamicResource GalleryMenuIcon}" /></Button>
+        <TextBlock Classes="subtitle1" Text="Library" />
+      </StackPanel>
+    </Border>
+  </Grid>
+</UserControl>

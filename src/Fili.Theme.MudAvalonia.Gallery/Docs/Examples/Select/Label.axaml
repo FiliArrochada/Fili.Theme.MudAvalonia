@@ -1,0 +1,17 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <WrapPanel ItemSpacing="16" LineSpacing="16">
+    <ComboBox Width="220" VerticalAlignment="Top" PlaceholderText="Label">
+      <ComboBoxItem>Light</ComboBoxItem>
+      <ComboBoxItem>Dark</ComboBoxItem>
+    </ComboBox>
+    <ComboBox Classes="placeholder" Width="220" VerticalAlignment="Top" PlaceholderText="Placeholder">
+      <ComboBoxItem>Light</ComboBoxItem>
+      <ComboBoxItem>Dark</ComboBoxItem>
+    </ComboBox>
+    <ComboBox Width="220" VerticalAlignment="Top" SelectedIndex="0">
+      <ComboBoxItem>No label</ComboBoxItem>
+      <ComboBoxItem>Dark</ComboBoxItem>
+    </ComboBox>
+  </WrapPanel>
+</UserControl>

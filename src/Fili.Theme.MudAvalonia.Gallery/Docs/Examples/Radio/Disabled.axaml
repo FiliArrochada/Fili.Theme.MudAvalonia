@@ -1,0 +1,14 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <StackPanel>
+    <WrapPanel Orientation="Horizontal">
+      <RadioButton Classes="primary" GroupName="docs-radio-disabled" Content="Disabled" IsEnabled="False" Margin="0,0,16,0" />
+      <RadioButton Classes="primary" GroupName="docs-radio-disabled" Content="Checked" IsChecked="True" IsEnabled="False" Margin="0,0,16,0" />
+    </WrapPanel>
+    <!-- ReadOnly: looks the same, and takes no input. -->
+    <WrapPanel Orientation="Horizontal">
+      <RadioButton Classes="primary" GroupName="docs-radio-readonly" Content="Read-only" IsChecked="True" IsHitTestVisible="False" Margin="0,0,16,0" />
+      <RadioButton Classes="primary" GroupName="docs-radio-readonly" Content="Read-only" IsHitTestVisible="False" Margin="0,0,16,0" />
+    </WrapPanel>
+  </StackPanel>
+</UserControl>

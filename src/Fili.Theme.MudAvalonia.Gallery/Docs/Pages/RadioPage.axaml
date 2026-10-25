@@ -1,0 +1,83 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:docs="using:Fili.Theme.MudAvalonia.Gallery.Docs"
+             x:Class="Fili.Theme.MudAvalonia.Gallery.Docs.Pages.RadioPage">
+  <StackPanel Classes="doc">
+    <docs:DocHeader Title="Radio"
+                    Summary="Radio buttons let people pick one option from a set: Avalonia's RadioButton, drawn as MudRadio. Checked grows an inner disc inside the ring rather than filling it."
+                    MudBlazor="Radio"
+                    MudBlazorPath="components/radio" />
+
+    <TextBlock Classes="h5 section" Text="Radio group" />
+    <docs:ExampleCard Title="A group"
+                      Description="MudRadioGroup is a panel of RadioButtons with one GroupName. It has no look of its own."
+                      Source="Radio/Group" />
+
+    <TextBlock Classes="h5 section" Text="Colours" />
+    <docs:ExampleCard Title="Every palette colour"
+                      Description="MudRadio defaults to Color.Default, which is grey, not primary: with no class the glyph is action-default, checked or not. A colour class paints the glyph in every state, and the halo round it."
+                      Source="Radio/Colors" />
+    <docs:ExampleCard Title="Unchecked colour"
+                      Description="unchecked-primary … unchecked-dark is UncheckedColor: the glyph and its halo while not checked, in place of the colour class."
+                      Source="Radio/UncheckedColor" />
+    <docs:ExampleCard Title="Inherit"
+                      Description="inherit is Color.Inherit: the glyph in the text colour the radio sits in, with no halo. unchecked-inherit is the same while not checked only."
+                      Source="Radio/Inherit" />
+
+    <TextBlock Classes="h5 section" Text="Dense" />
+    <docs:ExampleCard Title="Dense"
+                      Description="dense is MudRadio's Dense: 4px round the glyph, a 32px box in place of the 48px hit circle."
+                      Source="Radio/Dense" />
+
+    <TextBlock Classes="h5 section" Text="Sizes" />
+    <docs:ExampleCard Title="Small, medium and large"
+                      Description="small and large are MudIcon's 20 and 36px glyphs, in a 44 and 60px hit circle."
+                      Source="Radio/Sizes" />
+
+    <TextBlock Classes="h5 section" Text="Content placement" />
+    <docs:ExampleCard Title="Label placement"
+                      Description="label-start, label-top and label-bottom are LabelPlacement Start, Top and Bottom; End, the default, needs no class. Stacked, the glyph and the label are centred."
+                      Source="Radio/Placement" />
+
+    <TextBlock Classes="h5 section" Text="Icons" />
+    <docs:ExampleCard Title="Custom glyphs"
+                      Description="CheckedIcon and UncheckedIcon are the glyph keys FiliRadioCheckedGeometry and FiliRadioUncheckedGeometry, set in the radio's Resources or a parent's."
+                      Source="Radio/Icons" />
+
+    <TextBlock Classes="h5 section" Text="Read-only and disabled" />
+    <docs:ExampleCard Title="Disabled and read-only"
+                      Description="IsEnabled=&quot;False&quot;: the glyph and the label in text-disabled. IsHitTestVisible=&quot;False&quot; is ReadOnly, which looks the same as an enabled radio, as in MudBlazor."
+                      Source="Radio/Disabled" />
+
+    <TextBlock Classes="h5 section" Text="MudBlazor parity" />
+    <TextBlock Classes="body1 p">
+      <Run Text="Every MudRadio and MudRadioGroup parameter and what it is here. " />
+      <Run Classes="code" Text="Same" />
+      <Run Text=" is transcribed from MudBlazor's source; " />
+      <Run Classes="code" Text="Close" />
+      <Run Text=" gets the same result another way." />
+    </TextBlock>
+    <StackPanel Orientation="Horizontal" Spacing="8" Margin="0,0,0,16">
+      <TextBlock Classes="body1" Text="See also:" VerticalAlignment="Center" />
+      <docs:DocLink Slug="checkbox" Content="Check box" />
+      <docs:DocLink Slug="switch" Content="Switch" />
+    </StackPanel>
+    <docs:ParityTable>
+      <docs:ParityRow MudBlazor="MudRadio" Here="RadioButton" Status="Same" Note="Checked grows an inner disc." />
+      <docs:ParityRow MudBlazor="MudRadioGroup" Here="a panel of RadioButtons with one GroupName" Status="Close" Note="No look of its own." />
+      <docs:ParityRow MudBlazor="Color.Default (default)" Here="no class" Status="Same" Note="Grey action-default glyphs, checked or not." />
+      <docs:ParityRow MudBlazor="Color.Primary … Color.Dark" Here="primary … dark" Status="Same" Note="Every glyph and the halo." />
+      <docs:ParityRow MudBlazor="Size.Small / Large" Here="small / large" Status="Same" Note="The glyph at 20 / 36px." />
+      <docs:ParityRow MudBlazor="UncheckedColor" Here="unchecked-primary … unchecked-dark" Status="Same" Note="The glyph and its halo while not checked, in place of the colour class." />
+      <docs:ParityRow MudBlazor="Color.Inherit, UncheckedColor.Inherit" Here="inherit, unchecked-inherit" Status="Same" Note="The glyph in the surrounding text colour, with no halo, as MudBlazor has no inherit hover rule." />
+      <docs:ParityRow MudBlazor="Disabled" Here="IsEnabled=&quot;False&quot;" Status="Same" Note="The glyph and the label in text-disabled." />
+      <docs:ParityRow MudBlazor="ReadOnly" Here="IsHitTestVisible=&quot;False&quot;" Status="Close" Note="Looks the same, as in MudBlazor." />
+      <docs:ParityRow MudBlazor="Dense" Here="dense" Status="Same" Note="4px round the glyph: 32px; 28 small, 44 large." />
+      <docs:ParityRow MudBlazor="the hit circle" Here="the same" Status="Same" Note="48px, the icon button's 12px round the 24px glyph; 44 small, 60 large." />
+      <docs:ParityRow MudBlazor="LabelPlacement End (default)" Here="no class" Status="Same" />
+      <docs:ParityRow MudBlazor="LabelPlacement Start, Top, Bottom" Here="label-start, label-top, label-bottom" Status="Same" Note="Row-reverse, column-reverse and column, the two centred when stacked." />
+      <docs:ParityRow MudBlazor="CheckedIcon, UncheckedIcon" Here="the glyph keys in the radio's Resources" Status="Same" Note="FiliRadioCheckedGeometry, FiliRadioUncheckedGeometry." />
+      <docs:ParityRow MudBlazor="Ripple (default true)" Here="on" Status="Same" Note="In the halo only, in the glyph's colour (the unchecked colour while off), text-primary with no colour." />
+    </docs:ParityTable>
+  </StackPanel>
+</UserControl>

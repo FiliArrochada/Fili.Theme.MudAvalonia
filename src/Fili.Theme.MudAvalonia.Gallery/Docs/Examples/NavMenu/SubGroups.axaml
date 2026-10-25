@@ -1,0 +1,22 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <!-- Groups inside groups: each level steps in, to 36, 48, 60 and 72px. A top-level group's
+       title is 500; a nested one's is 400 until it opens. -->
+  <Border BorderBrush="{DynamicResource FiliLinesDefaultBrush}" BorderThickness="1" Width="260" HorizontalAlignment="Left" Padding="0,8">
+    <TreeView Classes="nav">
+      <TreeViewItem Header="Store" />
+      <TreeViewItem Header="Library" IsExpanded="True">
+        <TreeViewItem Header="Games" />
+        <TreeViewItem Header="Music" IsExpanded="True">
+          <TreeViewItem Header="Albums" />
+          <TreeViewItem Header="Playlists" IsExpanded="True">
+            <TreeViewItem Header="Favourites" IsSelected="True" />
+          </TreeViewItem>
+        </TreeViewItem>
+        <TreeViewItem Header="Videos">
+          <TreeViewItem Header="Films" />
+        </TreeViewItem>
+      </TreeViewItem>
+    </TreeView>
+  </Border>
+</UserControl>

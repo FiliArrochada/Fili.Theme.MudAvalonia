@@ -1,0 +1,72 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:docs="using:Fili.Theme.MudAvalonia.Gallery.Docs"
+             x:Class="Fili.Theme.MudAvalonia.Gallery.Docs.Pages.SwitchPage">
+  <StackPanel Classes="doc">
+    <docs:DocHeader Title="Switch"
+                    Summary="Switches turn one setting on or off: Avalonia's ToggleSwitch, drawn as MudSwitch. A 20px thumb overhangs its 14px track, with elevation under it."
+                    MudBlazor="Switch"
+                    MudBlazorPath="components/switch" />
+
+    <TextBlock Classes="h5 section" Text="Basic switches" />
+    <docs:ExampleCard Title="Off and on"
+                      Description="MudSwitch defaults to Color.Default, which adds no colour: the thumb stays #fafafa on and off, over the action-default track at 48%, 50% when on."
+                      Source="Switch/Basic" />
+
+    <TextBlock Classes="h5 section" Text="Colours" />
+    <docs:ExampleCard Title="Every palette colour"
+                      Description="A colour class is MudSwitch's Color: it paints the thumb and the track only when on, with the colour's hover tint as the halo."
+                      Source="Switch/Colors" />
+    <docs:ExampleCard Title="Unchecked colour"
+                      Description="unchecked-primary … unchecked-dark is MudSwitch's UncheckedColor: the thumb and the track while off."
+                      Source="Switch/UncheckedColor" />
+
+    <TextBlock Classes="h5 section" Text="Content placement" />
+    <docs:ExampleCard Title="Label placement"
+                      Description="label-start, label-top and label-bottom are LabelPlacement Start, Top and Bottom; End, the default, needs no class. Stacked, the switch and the label are centred."
+                      Source="Switch/Labels" />
+
+    <TextBlock Classes="h5 section" Text="Thumb icon" />
+    <docs:ExampleCard Title="Thumb icon"
+                      Description="ThumbIcon is FiliSwitchThumbIconGeometry in the switch's Resources, empty until set: 16px in the 20px thumb, in text-secondary. thumb-primary … thumb-dark is ThumbIconColor."
+                      Source="Switch/ThumbIcon" />
+
+    <TextBlock Classes="h5 section" Text="Sizes" />
+    <docs:ExampleCard Title="Small, medium and large"
+                      Description="small and large are a 14 and a 26px thumb, each on its own track span."
+                      Source="Switch/Sizes" />
+
+    <TextBlock Classes="h5 section" Text="Disabled and read-only" />
+    <docs:ExampleCard Title="Disabled"
+                      Description="IsEnabled=&quot;False&quot;: the thumb gray-default, the track keeping its colour at 12%, the label text-disabled. IsHitTestVisible=&quot;False&quot; is ReadOnly, which looks the same as an enabled switch."
+                      Source="Switch/Disabled" />
+
+    <TextBlock Classes="h5 section" Text="MudBlazor parity" />
+    <TextBlock Classes="body1 p">
+      <Run Text="Every MudSwitch parameter and what it is here. " />
+      <Run Classes="code" Text="Same" />
+      <Run Text=" is transcribed from MudBlazor's source; " />
+      <Run Classes="code" Text="Close" />
+      <Run Text=" gets the same result another way." />
+    </TextBlock>
+    <StackPanel Orientation="Horizontal" Spacing="8" Margin="0,0,0,16">
+      <TextBlock Classes="body1" Text="See also:" VerticalAlignment="Center" />
+      <docs:DocLink Slug="checkbox" Content="Check box" />
+      <docs:DocLink Slug="radio" Content="Radio" />
+    </StackPanel>
+    <docs:ParityTable>
+      <docs:ParityRow MudBlazor="MudSwitch" Here="ToggleSwitch" Status="Same" Note="A 20px thumb over a 14px track." />
+      <docs:ParityRow MudBlazor="Color.Default (default)" Here="no class" Status="Same" Note="The #fafafa thumb, on and off." />
+      <docs:ParityRow MudBlazor="Color.Primary … Color.Dark" Here="primary … dark" Status="Same" Note="The thumb and the track, only when on." />
+      <docs:ParityRow MudBlazor="Size.Small / Large" Here="small / large" Status="Same" Note="A 14 / 26px thumb on its own span." />
+      <docs:ParityRow MudBlazor="UncheckedColor" Here="unchecked-primary … unchecked-dark" Status="Same" Note="The thumb and the track while off." />
+      <docs:ParityRow MudBlazor="Disabled" Here="IsEnabled=&quot;False&quot;" Status="Same" Note="The thumb gray-default, the track keeping its colour at 12%, the label text-disabled." />
+      <docs:ParityRow MudBlazor="ReadOnly" Here="IsHitTestVisible=&quot;False&quot;" Status="Close" Note="Looks the same, as in MudBlazor." />
+      <docs:ParityRow MudBlazor="LabelPlacement End (default)" Here="no class" Status="Same" />
+      <docs:ParityRow MudBlazor="LabelPlacement Start, Top, Bottom" Here="label-start, label-top, label-bottom" Status="Same" Note="Row-reverse, column-reverse and column, the two centred when stacked." />
+      <docs:ParityRow MudBlazor="ThumbIcon" Here="FiliSwitchThumbIconGeometry in the switch's Resources" Status="Same" Note="MudIcon filling the thumb with 2px padding: 16px in a 20px thumb." />
+      <docs:ParityRow MudBlazor="ThumbIconColor (default Default)" Here="no class, or thumb-primary … thumb-dark" Status="Same" Note="Text-secondary, or the colour." />
+      <docs:ParityRow MudBlazor="Ripple (default true)" Here="on" Status="Same" Note="In the halo only, riding with the thumb." />
+    </docs:ParityTable>
+  </StackPanel>
+</UserControl>

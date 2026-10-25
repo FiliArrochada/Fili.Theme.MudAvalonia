@@ -1,0 +1,15 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <!-- A ContextMenu opens the same list at the pointer, on a right-click or the menu key. -->
+  <Border Classes="paper outlined" Padding="24" HorizontalAlignment="Left">
+    <Border.ContextMenu>
+      <ContextMenu>
+        <MenuItem Header="Copy" InputGesture="Ctrl+C" />
+        <MenuItem Header="Paste" InputGesture="Ctrl+V" />
+        <Separator />
+        <MenuItem Header="Select all" InputGesture="Ctrl+A" />
+      </ContextMenu>
+    </Border.ContextMenu>
+    <TextBlock Classes="body2" Text="Right-click here" />
+  </Border>
+</UserControl>

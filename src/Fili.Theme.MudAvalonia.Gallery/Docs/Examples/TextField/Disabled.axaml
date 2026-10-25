@@ -1,0 +1,9 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <WrapPanel ItemSpacing="16" LineSpacing="16">
+    <TextBox Width="220" VerticalAlignment="Top" PlaceholderText="Disabled" Text="Some text" IsEnabled="False" />
+    <TextBox Classes="filled" Width="220" VerticalAlignment="Top" PlaceholderText="Disabled" Text="Some text" IsEnabled="False"
+             AutomationProperties.HelpText="Helper text" />
+    <TextBox Classes="outlined" Width="220" VerticalAlignment="Top" PlaceholderText="Read-only" Text="Some text" IsReadOnly="True" />
+  </WrapPanel>
+</UserControl>

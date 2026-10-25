@@ -1,0 +1,13 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <StackPanel Orientation="Horizontal" Spacing="32">
+    <StackPanel>
+      <CheckBox Classes="primary" Content="Normal" IsChecked="True" />
+      <CheckBox Classes="primary" Content="Normal" />
+    </StackPanel>
+    <StackPanel>
+      <CheckBox Classes="primary dense" Content="Dense" IsChecked="True" />
+      <CheckBox Classes="primary dense" Content="Dense" />
+    </StackPanel>
+  </StackPanel>
+</UserControl>

@@ -1,0 +1,44 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <StackPanel Spacing="16">
+    <!-- An icon beside the text: a PathIcon marked start-icon, 24px and 8px from the label. -->
+    <TabControl>
+      <TabItem>
+        <TabItem.Header>
+          <StackPanel Orientation="Horizontal">
+            <PathIcon Classes="start-icon" Data="{DynamicResource GalleryHomeIcon}" />
+            <TextBlock Text="Home" />
+          </StackPanel>
+        </TabItem.Header>
+      </TabItem>
+      <TabItem>
+        <TabItem.Header>
+          <StackPanel Orientation="Horizontal">
+            <PathIcon Classes="start-icon" Data="{DynamicResource GalleryFavoriteIcon}" />
+            <TextBlock Text="Favourites" />
+          </StackPanel>
+        </TabItem.Header>
+      </TabItem>
+      <TabItem>
+        <TabItem.Header>
+          <StackPanel Orientation="Horizontal">
+            <PathIcon Classes="start-icon" Data="{DynamicResource GallerySettingsIcon}" />
+            <TextBlock Text="Settings" />
+          </StackPanel>
+        </TabItem.Header>
+      </TabItem>
+    </TabControl>
+    <!-- An icon alone: the PathIcon is the whole header. -->
+    <TabControl SelectedIndex="1">
+      <TabItem>
+        <TabItem.Header><PathIcon Data="{DynamicResource GalleryInboxIcon}" /></TabItem.Header>
+      </TabItem>
+      <TabItem>
+        <TabItem.Header><PathIcon Data="{DynamicResource GalleryMailIcon}" /></TabItem.Header>
+      </TabItem>
+      <TabItem>
+        <TabItem.Header><PathIcon Data="{DynamicResource GallerySendIcon}" /></TabItem.Header>
+      </TabItem>
+    </TabControl>
+  </StackPanel>
+</UserControl>

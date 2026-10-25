@@ -1,0 +1,9 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <WrapPanel Orientation="Horizontal">
+    <CheckBox Content="Default" Margin="0,0,16,0" />
+    <CheckBox Content="Default, checked" IsChecked="True" Margin="0,0,16,0" />
+    <CheckBox Classes="primary" Content="Primary" IsChecked="True" Margin="0,0,16,0" />
+    <CheckBox Classes="secondary" Content="Secondary" IsChecked="True" Margin="0,0,16,0" />
+  </WrapPanel>
+</UserControl>

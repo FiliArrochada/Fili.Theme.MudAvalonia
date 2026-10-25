@@ -1,0 +1,23 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <WrapPanel Orientation="Horizontal">
+    <!-- Icon, then ToggledIcon: the second shows only while checked. -->
+    <ToggleButton Classes="icon error" IsChecked="True" Margin="0,0,8,8">
+      <Panel>
+        <PathIcon Data="{DynamicResource GalleryFavoriteBorderIcon}" />
+        <PathIcon Data="{DynamicResource GalleryFavoriteIcon}" />
+      </Panel>
+    </ToggleButton>
+    <!-- primary is ToggledColor; unchecked-secondary is Color. -->
+    <ToggleButton Classes="icon primary unchecked-secondary" Margin="0,0,8,8">
+      <Panel>
+        <PathIcon Data="{DynamicResource GalleryNotificationsIcon}" />
+        <PathIcon Data="{DynamicResource GalleryMailIcon}" />
+      </Panel>
+    </ToggleButton>
+    <!-- One icon stays; only its colour changes. -->
+    <ToggleButton Classes="icon success" IsChecked="True" Margin="0,0,8,8">
+      <PathIcon Data="{DynamicResource GalleryDoneIcon}" />
+    </ToggleButton>
+  </WrapPanel>
+</UserControl>

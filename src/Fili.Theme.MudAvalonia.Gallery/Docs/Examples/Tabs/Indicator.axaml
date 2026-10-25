@@ -1,0 +1,17 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <StackPanel Spacing="16">
+    <!-- hide-indicator is HideSlider: the active tab is marked by its colour alone. -->
+    <TabControl Classes="hide-indicator border">
+      <TabItem Header="No indicator" />
+      <TabItem Header="Two" />
+      <TabItem Header="Three" />
+    </TabControl>
+    <!-- no-animation is SliderAnimation="false": the indicator appears under the new tab at once. -->
+    <TabControl Classes="no-animation border">
+      <TabItem Header="No animation" />
+      <TabItem Header="Two" />
+      <TabItem Header="Three" />
+    </TabControl>
+  </StackPanel>
+</UserControl>

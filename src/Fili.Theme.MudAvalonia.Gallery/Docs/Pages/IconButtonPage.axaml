@@ -1,0 +1,54 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:docs="using:Fili.Theme.MudAvalonia.Gallery.Docs"
+             x:Class="Fili.Theme.MudAvalonia.Gallery.Docs.Pages.IconButtonPage">
+  <StackPanel Classes="doc">
+    <docs:DocHeader Title="Icon button"
+                    Summary="A button that is only an icon: icon on Avalonia's Button with a PathIcon as its content, drawn as MudIconButton. Colour, variant and size are one class each."
+                    MudBlazor="IconButton"
+                    MudBlazorPath="components/iconbutton" />
+
+    <TextBlock Classes="h5 section" Text="Simple icon buttons" />
+    <docs:ExampleCard Title="Colours and disabled"
+                      Description="Round, 12px round a 24px icon. With no colour class an icon button is action-default grey, not text-primary; a colour class paints the icon and its hover. IsEnabled=&quot;False&quot; is action-disabled."
+                      Source="IconButton/Simple" />
+    <TextBlock Classes="body1 p">
+      <Run Text="The theme ships no icon set: put any " />
+      <Run Classes="code" Text="PathIcon" />
+      <Run Text=" in " />
+      <Run Classes="code" Text="Content" />
+      <Run Text=". The glyphs on these pages are the gallery's own, transcribed from MudBlazor's Material icons." />
+    </TextBlock>
+
+    <TextBlock Classes="h5 section" Text="Sizes" />
+    <docs:ExampleCard Title="Small, medium and large"
+                      Description="small is 3px round an 18px icon, large 12px round a 36px one."
+                      Source="IconButton/Sizes" />
+
+    <TextBlock Classes="h5 section" Text="Variant and size" />
+    <docs:ExampleCard Title="Outlined and filled"
+                      Description="outlined and filled take the button's corner radius and 5px of padding; filled lifts like a filled button, and flat is DropShadow=&quot;false&quot;. A large outlined or filled icon is 32px. One row per variant, one column per size."
+                      Source="IconButton/Variants" />
+
+    <TextBlock Classes="h5 section" Text="MudBlazor parity" />
+    <TextBlock Classes="body1 p">
+      <Run Text="Every MudIconButton parameter and what it is here. " />
+      <Run Classes="code" Text="Same" />
+      <Run Text=" is transcribed from MudBlazor's source; " />
+      <Run Classes="code" Text="Close" />
+      <Run Text=" gets the same result another way." />
+    </TextBlock>
+    <docs:ParityTable>
+      <docs:ParityRow MudBlazor="Variant.Text (default)" Here="icon" Status="Same" Note="Round, 12px round a 24px icon." />
+      <docs:ParityRow MudBlazor="Variant.Outlined / Filled" Here="icon outlined / icon filled" Status="Same" Note="The default border radius and 5px padding; filled lifts like a filled button." />
+      <docs:ParityRow MudBlazor="Color.Default (default)" Here="no colour class" Status="Same" Note="Action-default grey, which beats a text button's text-primary." />
+      <docs:ParityRow MudBlazor="Color.Primary … Color.Dark" Here="the colour classes" Status="Same" />
+      <docs:ParityRow MudBlazor="Size.Small / Large" Here="small / large" Status="Same" Note="3px round 18px; 12px round 36px (32px when outlined or filled)." />
+      <docs:ParityRow MudBlazor="Edge" Here="Margin" Status="Close" Note="An ordinary Avalonia property." />
+      <docs:ParityRow MudBlazor="Icon" Here="a PathIcon in Content" Status="Close" Note="The theme ships no icon set; the gallery carries a few Material glyphs." />
+      <docs:ParityRow MudBlazor="DropShadow=&quot;false&quot;" Here="icon filled flat" Status="Same" />
+      <docs:ParityRow MudBlazor="Disabled" Here="IsEnabled=&quot;False&quot;" Status="Same" Note="Action-disabled." />
+      <docs:ParityRow MudBlazor="Ripple (default true)" Here="on" Status="Same" Note="As on a button: 0.1, 0.2 when filled." />
+    </docs:ParityTable>
+  </StackPanel>
+</UserControl>

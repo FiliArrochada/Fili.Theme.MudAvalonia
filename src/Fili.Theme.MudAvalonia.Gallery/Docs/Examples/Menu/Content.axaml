@@ -1,0 +1,17 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <!-- A Separator is MudDivider in the list, 4px either side; a disabled row is
+       action-disabled; InputGesture shows a shortcut at the row's end. -->
+  <DropDownButton Classes="outlined" Content="Edit" HorizontalAlignment="Left">
+    <DropDownButton.Flyout>
+      <MenuFlyout>
+        <MenuItem Header="Undo" InputGesture="Ctrl+Z" />
+        <MenuItem Header="Redo" InputGesture="Ctrl+Y" IsEnabled="False" />
+        <Separator />
+        <MenuItem Header="Cut" InputGesture="Ctrl+X" />
+        <MenuItem Header="Copy" InputGesture="Ctrl+C" />
+        <MenuItem Header="Paste" InputGesture="Ctrl+V" />
+      </MenuFlyout>
+    </DropDownButton.Flyout>
+  </DropDownButton>
+</UserControl>

@@ -1,0 +1,11 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <WrapPanel Orientation="Horizontal">
+    <!-- Underline.Hover, the default: underlined under the pointer, on focus and pressed. -->
+    <HyperlinkButton Content="Hover (default)" Margin="0,0,24,8" />
+    <!-- Underline.Always. -->
+    <HyperlinkButton Classes="underline" Content="Always" Margin="0,0,24,8" />
+    <!-- Underline.None: never, even under the pointer. -->
+    <HyperlinkButton Classes="no-underline" Content="None" Margin="0,0,24,8" />
+  </WrapPanel>
+</UserControl>

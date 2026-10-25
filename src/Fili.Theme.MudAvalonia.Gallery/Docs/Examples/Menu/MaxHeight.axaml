@@ -1,0 +1,23 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <!-- MaxHeight on the flyout's presenter caps the list; the rest scrolls. -->
+  <DropDownButton Classes="outlined" Content="Month" HorizontalAlignment="Left">
+    <DropDownButton.Flyout>
+      <MenuFlyout>
+        <MenuFlyout.FlyoutPresenterTheme>
+          <ControlTheme TargetType="MenuFlyoutPresenter" BasedOn="{StaticResource {x:Type MenuFlyoutPresenter}}">
+            <Setter Property="MaxHeight" Value="200" />
+          </ControlTheme>
+        </MenuFlyout.FlyoutPresenterTheme>
+        <MenuItem Header="January" />
+        <MenuItem Header="February" />
+        <MenuItem Header="March" />
+        <MenuItem Header="April" />
+        <MenuItem Header="May" />
+        <MenuItem Header="June" />
+        <MenuItem Header="July" />
+        <MenuItem Header="August" />
+      </MenuFlyout>
+    </DropDownButton.Flyout>
+  </DropDownButton>
+</UserControl>

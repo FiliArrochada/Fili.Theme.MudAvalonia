@@ -1,0 +1,26 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <!-- A colour class paints the bar; the tabs and the indicator take its contrast text. -->
+  <StackPanel Spacing="16">
+    <TabControl Classes="primary">
+      <TabItem Header="Primary" />
+      <TabItem Header="Two" />
+      <TabItem Header="Three" />
+    </TabControl>
+    <TabControl Classes="secondary">
+      <TabItem Header="Secondary" />
+      <TabItem Header="Two" />
+      <TabItem Header="Three" />
+    </TabControl>
+    <TabControl Classes="info">
+      <TabItem Header="Info" />
+      <TabItem Header="Two" />
+      <TabItem Header="Three" />
+    </TabControl>
+    <TabControl Classes="dark">
+      <TabItem Header="Dark" />
+      <TabItem Header="Two" />
+      <TabItem Header="Three" />
+    </TabControl>
+  </StackPanel>
+</UserControl>

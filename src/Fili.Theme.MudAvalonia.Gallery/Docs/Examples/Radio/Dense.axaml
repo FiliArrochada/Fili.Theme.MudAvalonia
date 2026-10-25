@@ -1,0 +1,13 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <StackPanel Orientation="Horizontal" Spacing="32">
+    <StackPanel>
+      <RadioButton Classes="primary" GroupName="docs-radio-normal" Content="Normal" IsChecked="True" />
+      <RadioButton Classes="primary" GroupName="docs-radio-normal" Content="Normal" />
+    </StackPanel>
+    <StackPanel>
+      <RadioButton Classes="primary dense" GroupName="docs-radio-dense" Content="Dense" IsChecked="True" />
+      <RadioButton Classes="primary dense" GroupName="docs-radio-dense" Content="Dense" />
+    </StackPanel>
+  </StackPanel>
+</UserControl>

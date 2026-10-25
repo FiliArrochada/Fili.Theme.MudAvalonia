@@ -1,0 +1,26 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <StackPanel>
+    <WrapPanel Orientation="Horizontal">
+      <RadioButton GroupName="docs-radio-default" Content="Default" IsChecked="True" Margin="0,0,16,0" />
+      <RadioButton Classes="primary" GroupName="docs-radio-primary" Content="Primary" IsChecked="True" Margin="0,0,16,0" />
+      <RadioButton Classes="secondary" GroupName="docs-radio-secondary" Content="Secondary" IsChecked="True" Margin="0,0,16,0" />
+      <RadioButton Classes="tertiary" GroupName="docs-radio-tertiary" Content="Tertiary" IsChecked="True" Margin="0,0,16,0" />
+      <RadioButton Classes="info" GroupName="docs-radio-info" Content="Info" IsChecked="True" Margin="0,0,16,0" />
+    </WrapPanel>
+    <WrapPanel Orientation="Horizontal">
+      <RadioButton Classes="success" GroupName="docs-radio-success" Content="Success" IsChecked="True" Margin="0,0,16,0" />
+      <RadioButton Classes="warning" GroupName="docs-radio-warning" Content="Warning" IsChecked="True" Margin="0,0,16,0" />
+      <RadioButton Classes="error" GroupName="docs-radio-error" Content="Error" IsChecked="True" Margin="0,0,16,0" />
+      <RadioButton Classes="dark" GroupName="docs-radio-dark" Content="Dark" IsChecked="True" Margin="0,0,16,0" />
+    </WrapPanel>
+    <!-- A colour class paints the glyph in every state, unchecked too. -->
+    <WrapPanel Orientation="Horizontal">
+      <RadioButton GroupName="docs-radio-default" Content="Default" Margin="0,0,16,0" />
+      <RadioButton Classes="primary" GroupName="docs-radio-primary" Content="Primary" Margin="0,0,16,0" />
+      <RadioButton Classes="secondary" GroupName="docs-radio-secondary" Content="Secondary" Margin="0,0,16,0" />
+      <RadioButton Classes="success" GroupName="docs-radio-success" Content="Success" Margin="0,0,16,0" />
+      <RadioButton Classes="error" GroupName="docs-radio-error" Content="Error" Margin="0,0,16,0" />
+    </WrapPanel>
+  </StackPanel>
+</UserControl>

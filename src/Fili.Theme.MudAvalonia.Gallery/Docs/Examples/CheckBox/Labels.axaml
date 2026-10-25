@@ -1,0 +1,9 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <StackPanel Orientation="Horizontal" Spacing="24">
+    <CheckBox Classes="primary" Content="End" IsChecked="True" />
+    <CheckBox Classes="primary label-start" Content="Start" IsChecked="True" />
+    <CheckBox Classes="primary label-top" Content="Top" IsChecked="True" />
+    <CheckBox Classes="primary label-bottom" Content="Bottom" IsChecked="True" />
+  </StackPanel>
+</UserControl>

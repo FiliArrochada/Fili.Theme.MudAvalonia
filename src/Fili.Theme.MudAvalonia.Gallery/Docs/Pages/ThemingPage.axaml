@@ -1,0 +1,48 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:docs="using:Fili.Theme.MudAvalonia.Gallery.Docs"
+             x:Class="Fili.Theme.MudAvalonia.Gallery.Docs.Pages.ThemingPage">
+  <StackPanel Classes="doc">
+    <docs:DocHeader Title="Theming"
+                    Summary="Your colours instead of MudBlazor's, in each variant, and one control's look without touching its template."
+                    MudBlazor="ThemeProvider"
+                    MudBlazorPath="customization/overview" />
+
+    <TextBlock Classes="h5 section" Text="Your colours" />
+    <TextBlock Classes="body1 p">
+      <Run Text="Every colour is a " />
+      <Run Classes="code" Text="Fili{Name}Color" />
+      <Run Text=" and its " />
+      <Run Classes="code" Text="Fili{Name}Brush" />
+      <Run Text=". Override the colours in your application's resources, per variant, as MudTheme's PaletteLight and PaletteDark do." />
+    </TextBlock>
+    <docs:CodeBlock Code="&lt;Application.Resources&gt;&#10;  &lt;ResourceDictionary&gt;&#10;    &lt;ResourceDictionary.ThemeDictionaries&gt;&#10;      &lt;ResourceDictionary x:Key=&quot;Light&quot;&gt;&#10;        &lt;Color x:Key=&quot;FiliPrimaryColor&quot;&gt;#C79A3B&lt;/Color&gt;&#10;        &lt;Color x:Key=&quot;FiliPrimaryHoverColor&quot;&gt;#0FC79A3B&lt;/Color&gt;&#10;        &lt;Color x:Key=&quot;FiliPrimaryDarkenColor&quot;&gt;#AB8431&lt;/Color&gt;&#10;        &lt;Color x:Key=&quot;FiliPrimaryLightenColor&quot;&gt;#D0A959&lt;/Color&gt;&#10;        &lt;Color x:Key=&quot;FiliPrimaryContrastTextColor&quot;&gt;#000000&lt;/Color&gt;&#10;      &lt;/ResourceDictionary&gt;&#10;    &lt;/ResourceDictionary.ThemeDictionaries&gt;&#10;  &lt;/ResourceDictionary&gt;&#10;&lt;/Application.Resources&gt;"
+                    Margin="0,0,0,16" />
+    <TextBlock Classes="body1 p">
+      <Run Text="A colour is five tokens, not one. Hover, focus and press paint the " />
+      <Run Classes="code" Text="Hover" />
+      <Run Text=" shade (the colour at 6%) on text and outlined controls and the " />
+      <Run Classes="code" Text="Darken" />
+      <Run Text=" shade on filled ones; " />
+      <Run Classes="code" Text="ContrastText" />
+      <Run Text=" is the text on a fill. Leave one out and that state keeps MudBlazor's colour: a gold button that turns purple under the pointer. MudBlazor derives darken and lighten from the colour, its lightness 0.075 down and up." />
+    </TextBlock>
+
+    <TextBlock Classes="h5 section" Text="One control's look" />
+    <TextBlock Classes="body1 p">
+      <Run Text="A template's parts are not published, and a style that reaches into one can break on any release. Every part paints a token, and a resource lookup starts at the control, so a key in a control's own " />
+      <Run Classes="code" Text="Resources" />
+      <Run Text=" changes that control alone." />
+    </TextBlock>
+    <docs:ExampleCard Title="A button with no hover tint or ripple"
+                      Description="The state layer and the ripple read tokens; set in the button's Resources, they reach this button and its content only."
+                      Source="Theming/QuietButton" />
+
+    <TextBlock Classes="h5 section" Text="Variants" />
+    <TextBlock Classes="body1 p">
+      <Run Text="Light and Dark are Avalonia's own variants. High contrast is " />
+      <Run Classes="code" Text="FiliThemeVariants.HighContrast" />
+      <Run Text=", the package's one public type, and inherits from Dark: declare its colours too if you override Dark's. The switch in this site's app bar changes all three." />
+    </TextBlock>
+  </StackPanel>
+</UserControl>

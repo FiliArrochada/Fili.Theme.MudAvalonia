@@ -1,0 +1,28 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <!-- Inline is MudDrawer's Persistent variant: the pane pushes the content aside. The toggle in
+       the app bar opens and closes it; a fixed box keeps the layout in the example. -->
+  <Border BorderBrush="{DynamicResource FiliLinesDefaultBrush}" BorderThickness="1" Height="300" ClipToBounds="True">
+    <DockPanel>
+      <Border DockPanel.Dock="Top" Classes="appbar elevation0">
+        <StackPanel Orientation="Horizontal" Spacing="8" VerticalAlignment="Center">
+          <ToggleButton x:Name="PersistentToggle" Classes="icon inherit" IsChecked="True" Margin="-12,0,0,0">
+            <PathIcon Data="{DynamicResource GalleryMenuIcon}" />
+          </ToggleButton>
+          <TextBlock Classes="h6" Text="Persistent" VerticalAlignment="Center" />
+        </StackPanel>
+      </Border>
+      <SplitView DisplayMode="Inline" IsPaneOpen="{Binding #PersistentToggle.IsChecked}">
+        <SplitView.Pane>
+          <TreeView Classes="nav" Margin="0,8">
+            <TreeViewItem Header="Inbox" IsSelected="True" />
+            <TreeViewItem Header="Sent" />
+            <TreeViewItem Header="Favourites" />
+          </TreeView>
+        </SplitView.Pane>
+        <TextBlock Classes="body2" Margin="16" TextWrapping="Wrap"
+                   Text="The content beside the pane moves over as it opens." />
+      </SplitView>
+    </DockPanel>
+  </Border>
+</UserControl>

@@ -1,0 +1,50 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:docs="using:Fili.Theme.MudAvalonia.Gallery.Docs"
+             x:Class="Fili.Theme.MudAvalonia.Gallery.Docs.Pages.ToggleIconButtonPage">
+  <StackPanel Classes="doc">
+    <docs:DocHeader Title="Toggle icon button"
+                    Summary="An icon button that stays on or off: icon on Avalonia's ToggleButton, drawn as MudToggleIconButton. It has the icon button's three variants and sizes, and a colour and icon for each state."
+                    MudBlazor="ToggleIconButton"
+                    MudBlazorPath="components/toggleiconbutton" />
+
+    <TextBlock Classes="h5 section" Text="Basic usage" />
+    <docs:ExampleCard Title="Icon and toggled icon"
+                      Description="For ToggledIcon, put two icons in a Panel, Icon first: the second shows only while checked, and a lone icon stays. A colour class is ToggledColor, painted while checked; unchecked-{color} is Color, painted while not; with neither it is action-default."
+                      Source="ToggleIconButton/Basic" />
+
+    <TextBlock Classes="h5 section" Text="Binding" />
+    <docs:ExampleCard Title="IsChecked"
+                      Description="MudToggleIconButton's Toggled is IsChecked: bind it two ways, or handle IsCheckedChanged as MudBlazor's ToggledChanged."
+                      Source="ToggleIconButton/Binding" />
+
+    <TextBlock Classes="h5 section" Text="Variants and sizes" />
+    <docs:ExampleCard Title="Outlined, filled, small and large"
+                      Description="The same classes as an icon button: outlined and filled, small and large, and flat for DropShadow=&quot;false&quot;. One row per variant and state, one column per size."
+                      Source="ToggleIconButton/Variants" />
+
+    <TextBlock Classes="h5 section" Text="Disabled" />
+    <docs:ExampleCard Title="Disabled"
+                      Description="IsEnabled=&quot;False&quot;: action-disabled, checked or not."
+                      Source="ToggleIconButton/Disabled" />
+
+    <TextBlock Classes="h5 section" Text="MudBlazor parity" />
+    <TextBlock Classes="body1 p">
+      <Run Text="Every MudToggleIconButton parameter and what it is here. " />
+      <Run Classes="code" Text="Same" />
+      <Run Text=" is transcribed from MudBlazor's source; " />
+      <Run Classes="code" Text="Close" />
+      <Run Text=" gets the same result another way." />
+    </TextBlock>
+    <docs:ParityTable>
+      <docs:ParityRow MudBlazor="the component" Here="icon on a ToggleButton" Status="Same" Note="MudIconButton's look in all three variants, from the same generator as Button.icon." />
+      <docs:ParityRow MudBlazor="Toggled" Here="IsChecked" Status="Same" />
+      <docs:ParityRow MudBlazor="Color (default Default)" Here="unchecked-primary … unchecked-dark" Status="Same" Note="The colour while not checked; action-default with none." />
+      <docs:ParityRow MudBlazor="ToggledColor (default: Color)" Here="primary … dark" Status="Same" Note="The colour while checked; for one colour in both states, put both classes on." />
+      <docs:ParityRow MudBlazor="Icon, ToggledIcon" Here="a PathIcon; for two, a Panel holding both, Icon first" Status="Same" Note="The second shows only while checked; a lone icon stays." />
+      <docs:ParityRow MudBlazor="Variant, Size, DropShadow=&quot;false&quot;" Here="outlined / filled, small / large, flat" Status="Same" Note="As on Button.icon." />
+      <docs:ParityRow MudBlazor="ToggledSize, ToggledVariant" Here="the classes, bound to IsChecked" Status="Close" Note="One size and one variant unless the app swaps them." />
+      <docs:ParityRow MudBlazor="Disabled" Here="IsEnabled=&quot;False&quot;" Status="Same" Note="Action-disabled." />
+    </docs:ParityTable>
+  </StackPanel>
+</UserControl>

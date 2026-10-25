@@ -1,0 +1,68 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:docs="using:Fili.Theme.MudAvalonia.Gallery.Docs"
+             x:Class="Fili.Theme.MudAvalonia.Gallery.Docs.Pages.ButtonPage">
+  <StackPanel Classes="doc">
+    <docs:DocHeader Title="Button"
+                    Summary="Buttons let people act with a single tap: Avalonia's Button, drawn as MudButton. Variant, colour and size are one class each and combine freely."
+                    MudBlazor="Button"
+                    MudBlazorPath="components/button" />
+
+    <TextBlock Classes="h5 section" Text="Variants" />
+    <docs:ExampleCard Title="Text, outlined and filled"
+                      Description="MudButton.Variant defaults to Text, so a Button with no class is the text one. flat is DropShadow=&quot;false&quot;: a filled button that stays at elevation 0."
+                      Source="Button/Variants" />
+
+    <TextBlock Classes="h5 section" Text="Colours" />
+    <docs:ExampleCard Title="Every palette colour"
+                      Description="A colour class is only a colour: primary alone is a primary text button, filled primary the filled one. With no class a button is Color.Default, text-primary - not primary."
+                      Source="Button/Colors" />
+
+    <TextBlock Classes="h5 section" Text="Sizes" />
+    <docs:ExampleCard Title="Small, medium and large"
+                      Description="30.75, 36.5 and 42.25px in every variant: 13, 14 and 15px text on the button typography's 1.75 line."
+                      Source="Button/Sizes" />
+
+    <TextBlock Classes="h5 section" Text="Icons" />
+    <docs:ExampleCard Title="Start and end icons"
+                      Description="MudButton's StartIcon and EndIcon are a PathIcon in the content marked start-icon or end-icon: 20px (18 small, 22 large), 8px from the label."
+                      Source="Button/Icons" />
+
+    <TextBlock Classes="h5 section" Text="Disabled" />
+    <docs:ExampleCard Title="Disabled"
+                      Description="IsEnabled=&quot;False&quot;: action-disabled text, and an action-disabled-background ground or line where the variant has one."
+                      Source="Button/Disabled" />
+
+    <TextBlock Classes="h5 section" Text="Label case" />
+    <docs:ExampleCard Title="Uppercase labels"
+                      Description="MudBlazor's button typography is uppercase. A string label is drawn in FiliButtonTextTransform's case; a label written as runs keeps them as written; the key set to none in a region keeps every label there as written."
+                      Source="Button/Case" />
+
+    <TextBlock Classes="h5 section" Text="MudBlazor parity" />
+    <TextBlock Classes="body1 p">
+      <Run Text="Every MudButton parameter and what it is here. " />
+      <Run Classes="code" Text="Same" />
+      <Run Text=" is transcribed from MudBlazor's source; " />
+      <Run Classes="code" Text="Close" />
+      <Run Text=" gets the same result another way." />
+    </TextBlock>
+    <docs:ParityTable>
+      <docs:ParityRow MudBlazor="Variant.Text (default)" Here="no class, or text" Status="Same" />
+      <docs:ParityRow MudBlazor="Variant.Outlined" Here="outlined" Status="Same" />
+      <docs:ParityRow MudBlazor="Variant.Filled" Here="filled" Status="Same" Note="Elevation 2, 4 on hover and focus, 8 pressed." />
+      <docs:ParityRow MudBlazor="Color.Default (default)" Here="no class" Status="Same" Note="Text-primary; a grey fill when filled." />
+      <docs:ParityRow MudBlazor="Color.Primary … Color.Dark" Here="primary … dark" Status="Same" Note="primary, secondary, tertiary, info, success, warning, error, dark." />
+      <docs:ParityRow MudBlazor="Color.Inherit" Here="inherit" Status="Same" Note="Text and line follow the surrounding text colour." />
+      <docs:ParityRow MudBlazor="Size.Small / Medium / Large" Here="small / no class / large" Status="Same" Note="30.75 / 36.5 / 42.25px in every variant." />
+      <docs:ParityRow MudBlazor="Disabled" Here="IsEnabled=&quot;False&quot;" Status="Same" />
+      <docs:ParityRow MudBlazor="hover, :focus-visible, :active" Here="the same states" Status="Same" Note="{}{color}-hover for text and outlined, {color}-darken for filled." />
+      <docs:ParityRow MudBlazor="DropShadow=&quot;false&quot;" Here="flat" Status="Same" Note="Elevation 0 in every state." />
+      <docs:ParityRow MudBlazor="FullWidth" Here="HorizontalAlignment=&quot;Stretch&quot;" Status="Close" />
+      <docs:ParityRow MudBlazor="StartIcon / EndIcon" Here="an icon in Content with start-icon / end-icon" Status="Same" Note="20px (18 small, 22 large), 4px out and 8px from the label." />
+      <docs:ParityRow MudBlazor="Ripple (default true)" Here="on; FiliRippleOpacity at 0 for false" Status="Same" Note="From the pointer, in the text colour, at 0.1 (0.2 filled); off with FiliReducedMotion." />
+      <docs:ParityRow MudBlazor="Typography.Button.TextTransform" Here="FiliButtonTextTransform" Status="Same" Note="Uppercase by default; none, lowercase or capitalize as CSS would. A label written as runs keeps them." />
+      <docs:ParityRow MudBlazor="IconColor, IconSize, IconClass" Here="the icon's Foreground, size class, Classes" Status="Close" />
+      <docs:ParityRow MudBlazor="Href, Target" Here="HyperlinkButton" Status="Close" Note="No look of their own: a link is a HyperlinkButton." />
+    </docs:ParityTable>
+  </StackPanel>
+</UserControl>

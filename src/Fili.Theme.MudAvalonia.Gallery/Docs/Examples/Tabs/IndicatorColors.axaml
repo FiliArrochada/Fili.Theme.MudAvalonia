@@ -1,0 +1,27 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <!-- indicator-{colour} is MudTabs' SliderColor: the indicator alone, over any bar colour.
+       The first tab of each bar names its indicator's colour. -->
+  <StackPanel Spacing="16">
+    <TabControl Classes="indicator-secondary">
+      <TabItem Header="Secondary" />
+      <TabItem Header="Two" />
+      <TabItem Header="Three" />
+    </TabControl>
+    <TabControl Classes="indicator-success">
+      <TabItem Header="Success" />
+      <TabItem Header="Two" />
+      <TabItem Header="Three" />
+    </TabControl>
+    <TabControl Classes="indicator-info">
+      <TabItem Header="Info" />
+      <TabItem Header="Two" />
+      <TabItem Header="Three" />
+    </TabControl>
+    <TabControl Classes="primary indicator-warning">
+      <TabItem Header="Warning, on primary" />
+      <TabItem Header="Two" />
+      <TabItem Header="Three" />
+    </TabControl>
+  </StackPanel>
+</UserControl>

@@ -1,0 +1,13 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <!-- An app bar sets the text colour its content inherits. -->
+  <Border Classes="appbar">
+    <StackPanel Orientation="Horizontal" Spacing="8" VerticalAlignment="Center">
+      <TextBlock Classes="h6" Text="View" VerticalAlignment="Center" Margin="0,0,16,0" />
+      <RadioButton Classes="inherit" GroupName="docs-radio-inherit" IsChecked="True" />
+      <RadioButton Classes="inherit" GroupName="docs-radio-inherit" />
+      <RadioButton Classes="secondary unchecked-inherit" GroupName="docs-radio-unchecked-inherit" IsChecked="True" />
+      <RadioButton Classes="secondary unchecked-inherit" GroupName="docs-radio-unchecked-inherit" />
+    </StackPanel>
+  </Border>
+</UserControl>

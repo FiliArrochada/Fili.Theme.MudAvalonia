@@ -1,0 +1,9 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <WrapPanel ItemSpacing="16" LineSpacing="16">
+    <TextBox Classes="filled" Width="220" VerticalAlignment="Top" PlaceholderText="Password"
+             PasswordChar="•" Text="secret" />
+    <MaskedTextBox Classes="outlined" Width="220" VerticalAlignment="Top" PlaceholderText="Phone"
+                   Mask="(000) 000-0000" />
+  </WrapPanel>
+</UserControl>

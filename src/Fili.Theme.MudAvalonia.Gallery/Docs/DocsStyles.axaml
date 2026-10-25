@@ -1,0 +1,30 @@
+<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+  <!-- The docs' prose: a page is a column of these, as mudblazor.com's pages are. -->
+
+  <!-- A section's heading, with room above it. -->
+  <Style Selector="TextBlock.section">
+    <Setter Property="Margin" Value="0,24,0,12" />
+    <Setter Property="TextWrapping" Value="Wrap" />
+  </Style>
+
+  <!-- A paragraph: body1, wrapping, a line apart from the next. -->
+  <Style Selector="TextBlock.p, SelectableTextBlock.p">
+    <Setter Property="TextWrapping" Value="Wrap" />
+    <Setter Property="Margin" Value="0,0,0,16" />
+  </Style>
+
+  <!-- Code inside a sentence. -->
+  <Style Selector="Run.code">
+    <Setter Property="FontFamily" Value="avares://Fili.Theme.MudAvalonia.Gallery/Assets/Fonts#JetBrains Mono" />
+    <Setter Property="FontSize" Value="14" />
+  </Style>
+
+  <!-- A page's column: as wide as reads well, centred in the content area. -->
+  <Style Selector="StackPanel.doc">
+    <Setter Property="MaxWidth" Value="1000" />
+    <Setter Property="Margin" Value="32,32,32,64" />
+  </Style>
+
+</Styles>

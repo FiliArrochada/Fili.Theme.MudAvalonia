@@ -1,0 +1,37 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <StackPanel Spacing="16">
+    <!-- Icons alone. -->
+    <StackPanel Orientation="Horizontal" Classes="button-group">
+      <ToggleButton Classes="outlined" IsChecked="True">
+        <PathIcon Data="{DynamicResource GalleryFormatAlignLeftIcon}" />
+      </ToggleButton>
+      <ToggleButton Classes="outlined">
+        <PathIcon Data="{DynamicResource GalleryFormatAlignCenterIcon}" />
+      </ToggleButton>
+      <ToggleButton Classes="outlined">
+        <PathIcon Data="{DynamicResource GalleryFormatAlignRightIcon}" />
+      </ToggleButton>
+      <ToggleButton Classes="outlined">
+        <PathIcon Data="{DynamicResource GalleryFormatAlignJustifyIcon}" />
+      </ToggleButton>
+    </StackPanel>
+    <!-- CheckMark: an icon the app shows while IsChecked. -->
+    <StackPanel Orientation="Horizontal" Classes="button-group">
+      <ToggleButton Classes="outlined secondary" IsChecked="True">
+        <StackPanel Orientation="Horizontal">
+          <PathIcon Classes="start-icon" Data="{DynamicResource GalleryDoneIcon}"
+                    IsVisible="{Binding $parent[ToggleButton].IsChecked}" />
+          <TextBlock Text="Bold" />
+        </StackPanel>
+      </ToggleButton>
+      <ToggleButton Classes="outlined secondary">
+        <StackPanel Orientation="Horizontal">
+          <PathIcon Classes="start-icon" Data="{DynamicResource GalleryDoneIcon}"
+                    IsVisible="{Binding $parent[ToggleButton].IsChecked}" />
+          <TextBlock Text="Italic" />
+        </StackPanel>
+      </ToggleButton>
+    </StackPanel>
+  </StackPanel>
+</UserControl>

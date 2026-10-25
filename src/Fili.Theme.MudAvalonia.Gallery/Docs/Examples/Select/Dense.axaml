@@ -1,0 +1,16 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <WrapPanel ItemSpacing="16" LineSpacing="16">
+    <!-- dense is the field's Margin.Dense. -->
+    <ComboBox Classes="outlined dense" Width="220" VerticalAlignment="Top" PlaceholderText="Dense field" SelectedIndex="0">
+      <ComboBoxItem>Apple</ComboBoxItem>
+      <ComboBoxItem>Orange</ComboBoxItem>
+    </ComboBox>
+    <!-- dense-items is MudSelect's Dense: 36px rows in the list. -->
+    <ComboBox Classes="outlined dense-items" Width="220" VerticalAlignment="Top" PlaceholderText="Dense items">
+      <ComboBoxItem>Apple</ComboBoxItem>
+      <ComboBoxItem>Orange</ComboBoxItem>
+      <ComboBoxItem>Pear</ComboBoxItem>
+    </ComboBox>
+  </WrapPanel>
+</UserControl>

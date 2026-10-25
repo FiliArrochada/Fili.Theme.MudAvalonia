@@ -1,0 +1,18 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <WrapPanel Orientation="Horizontal">
+    <!-- A string label takes the button typography's case: uppercase. -->
+    <Button Classes="filled primary" Content="Save changes" Margin="0,0,8,8" />
+    <!-- A label the app writes as runs keeps them as written. -->
+    <Button Classes="filled primary" Margin="0,0,8,8">
+      <TextBlock><Run Text="Save changes" /></TextBlock>
+    </Button>
+    <!-- FiliButtonTextTransform in a region's resources changes every button in it. -->
+    <StackPanel Orientation="Horizontal" Spacing="8">
+      <StackPanel.Resources>
+        <x:String x:Key="FiliButtonTextTransform">none</x:String>
+      </StackPanel.Resources>
+      <Button Classes="outlined" Content="Keeps its case" Margin="0,0,0,8" />
+    </StackPanel>
+  </WrapPanel>
+</UserControl>

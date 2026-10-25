@@ -1,0 +1,96 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:docs="using:Fili.Theme.MudAvalonia.Gallery.Docs"
+             x:Class="Fili.Theme.MudAvalonia.Gallery.Docs.Pages.AutocompletePage">
+  <StackPanel Classes="doc">
+    <docs:DocHeader Title="Autocomplete"
+                    Summary="An autocomplete suggests values as people type: Avalonia's AutoCompleteBox, drawn as MudAutocomplete. Its field is a text field, and its suggestions sit on a surface at elevation 8."
+                    MudBlazor="Autocomplete"
+                    MudBlazorPath="components/autocomplete" />
+
+    <TextBlock Classes="h5 section" Text="Usage" />
+    <docs:ExampleCard Title="Standard, filled and outlined"
+                      Description="Type to see the suggestions. The field is the TextBox inside, and the suggestions are list rows in a popup on a surface, with the default 4px radius and elevation 8, as MudPopover draws them."
+                      Source="Autocomplete/Usage" />
+    <TextBlock Classes="body1 p">
+      <Run Text="The text field's classes go on the " />
+      <Run Classes="code" Text="AutoCompleteBox" />
+      <Run Text=" itself: " />
+      <Run Classes="code" Text="filled" />
+      <Run Text=", " />
+      <Run Classes="code" Text="outlined" />
+      <Run Text=", " />
+      <Run Classes="code" Text="dense" />
+      <Run Text=", " />
+      <Run Classes="code" Text="error" />
+      <Run Text=", " />
+      <Run Classes="code" Text="counter" />
+      <Run Text=" and " />
+      <Run Classes="code" Text="helper-on-focus" />
+      <Run Text=" reach the TextBox inside, as does its helper text." />
+    </TextBlock>
+    <StackPanel Orientation="Horizontal" Spacing="8" Margin="0,0,0,16">
+      <TextBlock Classes="body1" Text="See also:" VerticalAlignment="Center" />
+      <docs:DocLink Slug="text-field" Content="Text field" />
+    </StackPanel>
+
+    <TextBlock Classes="h5 section" Text="Presentation" />
+    <docs:ExampleCard Title="Dense, required, helper text and counter"
+                      Description="dense is Margin.Dense, required the label's asterisk, AutomationProperties.HelpText the helper text, and counter with helper-on-focus as on a text field."
+                      Source="Autocomplete/Presentation" />
+
+    <TextBlock Classes="h5 section" Text="Validation" />
+    <docs:ExampleCard Title="Error"
+                      Description="error is MudAutocomplete's Error: the field's rule and label in the error colour. A failing binding paints the same and shows its message in the helper line."
+                      Source="Autocomplete/Validation" />
+
+    <TextBlock Classes="h5 section" Text="Adornments" />
+    <docs:ExampleCard Title="Drop-down arrow and icons"
+                      Description="An AutoCompleteBox shows no arrow of its own: MudAutocomplete's is a PathIcon in InnerRightContent, here the theme's own FiliArrowDropDownGeometry. Start and end icons are a text field's adornments."
+                      Source="Autocomplete/Adornments" />
+    <TextBlock Classes="body1 p">
+      <Run Text="MudAutocomplete's " />
+      <Run Classes="code" Text="Clearable" />
+      <Run Text=" is a button in " />
+      <Run Classes="code" Text="InnerRightContent" />
+      <Run Text=" whose click clears the value: the clearing is the app's." />
+    </TextBlock>
+
+    <TextBlock Classes="h5 section" Text="Progress" />
+    <docs:ExampleCard Title="Progress indicator"
+                      Description="ShowProgressIndicator is a small circular ProgressBar in InnerRightContent, shown while the app searches. Its colour class is ProgressIndicatorColor."
+                      Source="Autocomplete/Progress" />
+
+    <TextBlock Classes="h5 section" Text="Disabled" />
+    <docs:ExampleCard Title="Disabled"
+                      Description="IsEnabled=&quot;False&quot;: a disabled text field, its text, label and line in text-disabled."
+                      Source="Autocomplete/Disabled" />
+
+    <TextBlock Classes="h5 section" Text="List height" />
+    <TextBlock Classes="body1 p">
+      <Run Text="MudAutocomplete's " />
+      <Run Classes="code" Text="MaxHeight" />
+      <Run Text=" defaults to 300, and so does " />
+      <Run Classes="code" Text="MaxDropDownHeight" />
+      <Run Text=" here, where Avalonia's default is 200." />
+    </TextBlock>
+
+    <TextBlock Classes="h5 section" Text="MudBlazor parity" />
+    <TextBlock Classes="body1 p">
+      <Run Text="Every MudAutocomplete parameter and what it is here. " />
+      <Run Classes="code" Text="Same" />
+      <Run Text=" is transcribed from MudBlazor's source; " />
+      <Run Classes="code" Text="Close" />
+      <Run Text=" gets the same result another way." />
+    </TextBlock>
+    <docs:ParityTable>
+      <docs:ParityRow MudBlazor="MudAutocomplete" Here="AutoCompleteBox" Status="Same" Note="The popup on a surface at elevation 8." />
+      <docs:ParityRow MudBlazor="Variant, Margin.Dense, Error, Counter, HelperText, HelperTextOnFocus" Here="the text field's classes and AutomationProperties.HelpText, on the outer control" Status="Same" Note="Passed to the TextBox inside." />
+      <docs:ParityRow MudBlazor="Underline, Required, ShrinkLabel" Here="no-underline, required, shrink-label" Status="Same" Note="As on a text field." />
+      <docs:ParityRow MudBlazor="MaxHeight (default 300)" Here="MaxDropDownHeight" Status="Same" Note="300, where Avalonia's default is 200." />
+      <docs:ParityRow MudBlazor="Clearable" Here="a button in InnerRightContent" Status="Close" Note="The app clears the value." />
+      <docs:ParityRow MudBlazor="the drop-down arrow" Here="an arrow in InnerRightContent" Status="Close" Note="An AutoCompleteBox shows none of its own." />
+      <docs:ParityRow MudBlazor="ShowProgressIndicator, ProgressIndicatorColor" Here="a ProgressBar.circular.small in InnerRightContent" Status="Close" />
+    </docs:ParityTable>
+  </StackPanel>
+</UserControl>

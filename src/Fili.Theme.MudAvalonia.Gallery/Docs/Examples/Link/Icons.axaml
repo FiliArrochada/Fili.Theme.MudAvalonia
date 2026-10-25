@@ -1,0 +1,19 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <!-- StartIcon and EndIcon: a PathIcon marked start-icon or end-icon, at the link's
+       own font size and 4px from the text. -->
+  <WrapPanel Orientation="Horizontal">
+    <HyperlinkButton Margin="0,0,24,8">
+      <StackPanel Orientation="Horizontal">
+        <PathIcon Classes="start-icon" Data="{DynamicResource GalleryMailIcon}" />
+        <TextBlock Text="Start icon" />
+      </StackPanel>
+    </HyperlinkButton>
+    <HyperlinkButton Classes="secondary" Margin="0,0,24,8">
+      <StackPanel Orientation="Horizontal">
+        <TextBlock Text="End icon" />
+        <PathIcon Classes="end-icon" Data="{DynamicResource GallerySendIcon}" />
+      </StackPanel>
+    </HyperlinkButton>
+  </WrapPanel>
+</UserControl>

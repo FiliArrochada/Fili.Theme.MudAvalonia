@@ -1,0 +1,26 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <!-- CommandBar is MudToolBar holding MudIconButtons: each command a 48px circle round a 24px
+       icon in action-default, its Label the tooltip. MoreVert opens a MudMenu of the secondary
+       commands. A checked CommandBarToggleButton is primary. -->
+  <Border BorderBrush="{DynamicResource FiliLinesDefaultBrush}" BorderThickness="1">
+    <CommandBar>
+      <CommandBar.Content>
+        <TextBlock Classes="h6" Text="Inbox" />
+      </CommandBar.Content>
+      <CommandBarButton Label="Search">
+        <CommandBarButton.Icon><PathIcon Data="{DynamicResource GallerySearchIcon}" /></CommandBarButton.Icon>
+      </CommandBarButton>
+      <CommandBarButton Label="Share">
+        <CommandBarButton.Icon><PathIcon Data="{DynamicResource GalleryShareIcon}" /></CommandBarButton.Icon>
+      </CommandBarButton>
+      <CommandBarToggleButton Label="Favourite" IsChecked="True">
+        <CommandBarToggleButton.Icon><PathIcon Data="{DynamicResource GalleryFavoriteIcon}" /></CommandBarToggleButton.Icon>
+      </CommandBarToggleButton>
+      <CommandBar.SecondaryCommands>
+        <CommandBarButton Label="Settings" />
+        <CommandBarButton Label="Help" />
+      </CommandBar.SecondaryCommands>
+    </CommandBar>
+  </Border>
+</UserControl>

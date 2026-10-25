@@ -1,0 +1,13 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <StackPanel Spacing="16">
+    <StackPanel Orientation="Horizontal">
+      <ToggleButton Content="One" IsEnabled="False" />
+      <ToggleButton Content="Two" IsChecked="True" IsEnabled="False" />
+    </StackPanel>
+    <StackPanel Orientation="Horizontal" Classes="button-group">
+      <ToggleButton Classes="outlined" Content="One" IsEnabled="False" />
+      <ToggleButton Classes="outlined" Content="Two" IsChecked="True" IsEnabled="False" />
+    </StackPanel>
+  </StackPanel>
+</UserControl>

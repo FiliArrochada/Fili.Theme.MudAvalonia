@@ -1,0 +1,17 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <StackPanel Spacing="16">
+    <!-- centered: the tab row in the middle of the bar. -->
+    <TabControl Classes="centered border">
+      <TabItem Header="Centered" />
+      <TabItem Header="Two" />
+      <TabItem Header="Three" />
+    </TabControl>
+    <!-- material-fixed-tabs: Material's fixed tabs, equal shares of the bar, never scrolling. -->
+    <TabControl Classes="material-fixed-tabs border">
+      <TabItem Header="Fixed" />
+      <TabItem Header="Two" />
+      <TabItem Header="Three" />
+    </TabControl>
+  </StackPanel>
+</UserControl>

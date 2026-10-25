@@ -1,0 +1,14 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <StackPanel Spacing="16">
+    <StackPanel>
+      <!-- MudSlider's ChildContent: a TextBlock above it. -->
+      <TextBlock Classes="body1" Text="Volume" />
+      <Slider Value="40" />
+    </StackPanel>
+    <StackPanel>
+      <TextBlock Classes="body1" Text="Brightness" />
+      <Slider Classes="secondary" Value="70" />
+    </StackPanel>
+  </StackPanel>
+</UserControl>

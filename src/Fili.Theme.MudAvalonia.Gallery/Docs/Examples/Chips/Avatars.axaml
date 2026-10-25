@@ -1,0 +1,25 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <WrapPanel Orientation="Horizontal">
+    <!-- A Border.avatar in the content is MudChip's Avatar: 24px, pulled to the chip's edge;
+         the label beside it is centred by hand. -->
+    <Button Classes="chip" Margin="0,0,8,8">
+      <StackPanel Orientation="Horizontal">
+        <Border Classes="avatar primary"><TextBlock Text="M" /></Border>
+        <TextBlock Text="Mud" />
+      </StackPanel>
+    </Button>
+    <Button Classes="chip outlined" Margin="0,0,8,8">
+      <StackPanel Orientation="Horizontal">
+        <Border Classes="avatar secondary"><PathIcon Data="{DynamicResource GalleryPersonIcon}" /></Border>
+        <TextBlock Text="Person" />
+      </StackPanel>
+    </Button>
+    <Button Classes="chip text tertiary" Margin="0,0,8,8">
+      <StackPanel Orientation="Horizontal">
+        <Border Classes="avatar tertiary"><TextBlock Text="A" /></Border>
+        <TextBlock Text="Avalonia" />
+      </StackPanel>
+    </Button>
+  </WrapPanel>
+</UserControl>

@@ -1,0 +1,13 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <!-- An app bar sets the text colour its content inherits. -->
+  <Border Classes="appbar">
+    <StackPanel Orientation="Horizontal" Spacing="8" VerticalAlignment="Center">
+      <TextBlock Classes="h6" Text="Inbox" VerticalAlignment="Center" Margin="0,0,16,0" />
+      <CheckBox Classes="inherit" IsChecked="True" />
+      <CheckBox Classes="inherit" />
+      <CheckBox Classes="secondary unchecked-inherit" />
+      <CheckBox Classes="secondary unchecked-inherit" IsChecked="True" />
+    </StackPanel>
+  </Border>
+</UserControl>

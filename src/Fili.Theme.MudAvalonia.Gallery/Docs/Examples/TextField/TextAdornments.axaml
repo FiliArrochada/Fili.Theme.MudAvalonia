@@ -1,0 +1,10 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <WrapPanel ItemSpacing="16" LineSpacing="16">
+    <TextBox Width="220" VerticalAlignment="Top" PlaceholderText="Amount" InnerLeftContent="€" />
+    <TextBox Classes="filled" Width="220" VerticalAlignment="Top" PlaceholderText="Weight" Text="72"
+             InnerRightContent="kg" />
+    <TextBox Classes="outlined" Width="220" VerticalAlignment="Top" PlaceholderText="Height" Text="180"
+             InnerRightContent="cm" />
+  </WrapPanel>
+</UserControl>

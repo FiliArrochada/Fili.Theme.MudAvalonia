@@ -1,0 +1,51 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <!-- MudNavMenu's Color: the active link's text and icon in the colour over its hover tint, and
+       an open group's arrow in the colour. With no class the active link is primary. -->
+  <WrapPanel Orientation="Horizontal">
+    <StackPanel Width="200" Margin="0,0,16,16" Spacing="8">
+      <TextBlock Classes="caption" Text="no class" HorizontalAlignment="Center" />
+      <Border BorderBrush="{DynamicResource FiliLinesDefaultBrush}" BorderThickness="1" Padding="0,8">
+        <TreeView Classes="nav">
+          <TreeViewItem Header="Active link" IsSelected="True" />
+          <TreeViewItem Header="Group" IsExpanded="True">
+            <TreeViewItem Header="Link" />
+          </TreeViewItem>
+        </TreeView>
+      </Border>
+    </StackPanel>
+    <StackPanel Width="200" Margin="0,0,16,16" Spacing="8">
+      <TextBlock Classes="caption" Text="secondary" HorizontalAlignment="Center" />
+      <Border BorderBrush="{DynamicResource FiliLinesDefaultBrush}" BorderThickness="1" Padding="0,8">
+        <TreeView Classes="nav secondary">
+          <TreeViewItem Header="Active link" IsSelected="True" />
+          <TreeViewItem Header="Group" IsExpanded="True">
+            <TreeViewItem Header="Link" />
+          </TreeViewItem>
+        </TreeView>
+      </Border>
+    </StackPanel>
+    <StackPanel Width="200" Margin="0,0,16,16" Spacing="8">
+      <TextBlock Classes="caption" Text="success" HorizontalAlignment="Center" />
+      <Border BorderBrush="{DynamicResource FiliLinesDefaultBrush}" BorderThickness="1" Padding="0,8">
+        <TreeView Classes="nav success">
+          <TreeViewItem Header="Active link" IsSelected="True" />
+          <TreeViewItem Header="Group" IsExpanded="True">
+            <TreeViewItem Header="Link" />
+          </TreeViewItem>
+        </TreeView>
+      </Border>
+    </StackPanel>
+    <StackPanel Width="200" Margin="0,0,16,16" Spacing="8">
+      <TextBlock Classes="caption" Text="error" HorizontalAlignment="Center" />
+      <Border BorderBrush="{DynamicResource FiliLinesDefaultBrush}" BorderThickness="1" Padding="0,8">
+        <TreeView Classes="nav error">
+          <TreeViewItem Header="Active link" IsSelected="True" />
+          <TreeViewItem Header="Group" IsExpanded="True">
+            <TreeViewItem Header="Link" />
+          </TreeViewItem>
+        </TreeView>
+      </Border>
+    </StackPanel>
+  </WrapPanel>
+</UserControl>

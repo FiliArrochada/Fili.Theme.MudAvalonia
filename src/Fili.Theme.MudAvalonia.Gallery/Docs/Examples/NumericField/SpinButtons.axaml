@@ -1,0 +1,10 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <WrapPanel ItemSpacing="16" LineSpacing="16">
+    <NumericUpDown Classes="outlined" Width="220" VerticalAlignment="Top" PlaceholderText="Spin on the right" Value="5" />
+    <NumericUpDown Classes="outlined" Width="220" VerticalAlignment="Top" PlaceholderText="Spin on the left" Value="5"
+                   ButtonSpinnerLocation="Left" />
+    <NumericUpDown Classes="outlined" Width="220" VerticalAlignment="Top" PlaceholderText="No spin buttons" Value="5"
+                   ShowButtonSpinner="False" />
+  </WrapPanel>
+</UserControl>

@@ -1,0 +1,8 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <StackPanel Spacing="16">
+    <Slider TickPlacement="BottomRight" TickFrequency="10" IsSnapToTickEnabled="True" Value="50" />
+    <Slider Classes="filled medium secondary" TickPlacement="BottomRight" TickFrequency="20" IsSnapToTickEnabled="True" Value="40" />
+    <Slider Classes="large success" TickPlacement="BottomRight" Ticks="0,25,50,75,100" IsSnapToTickEnabled="True" Value="75" />
+  </StackPanel>
+</UserControl>

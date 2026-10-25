@@ -1,0 +1,87 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:docs="using:Fili.Theme.MudAvalonia.Gallery.Docs"
+             x:Class="Fili.Theme.MudAvalonia.Gallery.Docs.Pages.MenuPage">
+  <StackPanel Classes="doc">
+    <docs:DocHeader Title="Menu"
+                    Summary="Menus show a list of choices on a raised surface: Avalonia's MenuFlyout, ContextMenu and Menu, their rows drawn as MudMenuItem. Every example opens its menu on a click."
+                    MudBlazor="Menu"
+                    MudBlazorPath="components/menu" />
+
+    <TextBlock Classes="h5 section" Text="Basic usage" />
+    <docs:ExampleCard Title="A button that opens a menu"
+                      Description="MudMenu with a button activator is a DropDownButton whose Flyout is a MenuFlyout. Click it: the list opens on the surface at elevation 8, fading in over 251ms."
+                      Source="Menu/Basic" />
+    <TextBlock Classes="body1 p">
+      <Run Text="A row is MudMenuItem: 8px 12px round a body1 label with 4px above and below it, so 48px. The list has 4px above and below and is at least 112px wide. The theme themes " />
+      <Run Classes="code" Text="MenuItem" />
+      <Run Text=" by type, so the rows of any " />
+      <Run Classes="code" Text="MenuFlyout" />
+      <Run Text=" need nothing from the app." />
+    </TextBlock>
+
+    <TextBlock Classes="h5 section" Text="Activators" />
+    <docs:ExampleCard Title="Button and icon-button activators"
+                      Description="A DropDownButton takes Button's classes; an unclassed one is Color.Default, text-primary. MudMenu's Icon activator is an icon Button with a MenuFlyout as its Flyout."
+                      Source="Menu/Activators" />
+
+    <TextBlock Classes="h5 section" Text="Menu bar" />
+    <docs:ExampleCard Title="A strip of menus"
+                      Description="A Menu is a row of top-level items, each dropping its list downward. A strip item and a dropdown row are separate themes: the strip item has no chevron and no icon column. Click File to open it."
+                      Source="Menu/MenuBar" />
+
+    <TextBlock Classes="h5 section" Text="Item icons" />
+    <docs:ExampleCard Title="MenuItem.Icon"
+                      Description="MudMenuItem's Icon is MenuItem.Icon: 24px in action-default, 12px from the label. Every row in a list with an icon keeps the gutter, so the labels line up; a list without icons has none. The icon's Foreground is IconColor."
+                      Source="Menu/Icons" />
+
+    <TextBlock Classes="h5 section" Text="Dividers, disabled items and shortcuts" />
+    <docs:ExampleCard Title="Separator, IsEnabled and InputGesture"
+                      Description="A Separator divides the list with 4px either side. A disabled row is action-disabled, its icon too. InputGesture shows the row's shortcut at its end."
+                      Source="Menu/Content" />
+
+    <TextBlock Classes="h5 section" Text="Nested menu" />
+    <docs:ExampleCard Title="Submenus"
+                      Description="A row with children ends in Filled.ArrowRight at 24px in action-default and opens its submenu beside it. hide-icon on that row is HideSubMenuArrow."
+                      Source="Menu/Nested" />
+
+    <TextBlock Classes="h5 section" Text="Dense menu" />
+    <docs:ExampleCard Title="dense"
+                      Description="MudMenu's Dense is dense on a MenuFlyout's FlyoutPresenterClasses, on a ContextMenu, or on the item whose submenu it is: 2px 12px rows in body2."
+                      Source="Menu/Dense" />
+
+    <TextBlock Classes="h5 section" Text="Max height" />
+    <docs:ExampleCard Title="MaxHeight"
+                      Description="MaxHeight on a ContextMenu, or on a flyout's presenter as here, caps the list; the rest scrolls."
+                      Source="Menu/MaxHeight" />
+
+    <TextBlock Classes="h5 section" Text="Context menu" />
+    <docs:ExampleCard Title="ContextMenu"
+                      Description="A ContextMenu is the same list on the same surface, opened at the pointer by a right-click or the menu key."
+                      Source="Menu/ContextMenu" />
+
+    <TextBlock Classes="h5 section" Text="MudBlazor parity" />
+    <TextBlock Classes="body1 p">
+      <Run Text="Every MudMenu and MudMenuItem parameter and what it is here. " />
+      <Run Classes="code" Text="Same" />
+      <Run Text=" is transcribed from MudBlazor's source; " />
+      <Run Classes="code" Text="Close" />
+      <Run Text=" gets the same result another way." />
+    </TextBlock>
+    <docs:ParityTable>
+      <docs:ParityRow MudBlazor="MudMenu with a button activator" Here="DropDownButton" Status="Same" Note="Button's classes; an unclassed one is Color.Default, text-primary." />
+      <docs:ParityRow MudBlazor="menu items" Here="MenuItem" Status="Same" Note="48px rows, 8px 12px round a body1 label with 4px above and below; strip items and dropdown rows are separate themes." />
+      <docs:ParityRow MudBlazor="MudMenuItem.Icon" Here="MenuItem.Icon" Status="Same" Note="24px in action-default, 12px from the label; every row in a list with an icon keeps the gutter, a list without has none." />
+      <docs:ParityRow MudBlazor="the list" Here="the dropdown" Status="Same" Note="4px above and below, at least 112px wide, 4px either side of a separator." />
+      <docs:ParityRow MudBlazor="Dense" Here="dense on the ContextMenu, a MenuFlyout's FlyoutPresenterClasses, or the item whose submenu it is" Status="Same" Note="2px 12px rows in body2." />
+      <docs:ParityRow MudBlazor="MaxHeight" Here="MaxHeight on the ContextMenu or flyout" Status="Close" />
+      <docs:ParityRow MudBlazor="an icon-button activator (Icon)" Here="a Button.icon with a Flyout" Status="Close" />
+      <docs:ParityRow MudBlazor="StartIcon, EndIcon, IconColor, FullWidth on the activator" Here="the DropDownButton's content and alignment" Status="Close" />
+      <docs:ParityRow MudBlazor="MudMenuItem.IconColor" Here="the icon's Foreground" Status="Close" Note="Action-default unless set." />
+      <docs:ParityRow MudBlazor="MudMenuItem.Disabled" Here="IsEnabled=&quot;False&quot;" Status="Same" Note="Action-disabled, its icon too." />
+      <docs:ParityRow MudBlazor="a submenu's arrow" Here="the same" Status="Same" Note="Filled.ArrowRight at 24px in action-default, mirrored under right to left as MudBlazor swaps in ArrowLeft; action-disabled when disabled." />
+      <docs:ParityRow MudBlazor="HideSubMenuArrow" Here="hide-icon on the item whose submenu it is" Status="Same" />
+      <docs:ParityRow MudBlazor="Ripple (default true)" Here="on" Status="Same" Note="On drop-down buttons and menu rows." />
+    </docs:ParityTable>
+  </StackPanel>
+</UserControl>
