@@ -6,7 +6,8 @@
     <docs:DocHeader Title="Chips"
                     Summary="Compact pills for a tag, a filter or a choice: chip on a Button, a ToggleButton or a ContentControl, drawn as MudChip. A panel of selectable chips is a MudChipSet."
                     MudBlazor="Chip"
-                    MudBlazorPath="components/chips" />
+                    MudBlazorPath="components/chips"
+                    AvaloniaControls="Button, ToggleButton" />
 
     <TextBlock Classes="h5 section" Text="Filled chips" />
     <docs:ExampleCard Title="Filled, the default"

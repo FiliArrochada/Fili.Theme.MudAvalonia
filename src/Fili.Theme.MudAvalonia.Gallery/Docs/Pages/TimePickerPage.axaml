@@ -6,7 +6,8 @@
     <docs:DocHeader Title="Time picker"
                     Summary="A time picker is a text field that opens an hour and minute picker: Avalonia's TimePicker, drawn as MudTimePicker, with nothing to opt into. Under the toolbar are Avalonia's scrolling columns, not MudBlazor's clock face."
                     MudBlazor="TimePicker"
-                    MudBlazorPath="components/timepicker" />
+                    MudBlazorPath="components/timepicker"
+                    AvaloniaControls="TimePicker" />
 
     <TextBlock Classes="h5 section" Text="Basic usage" />
     <docs:ExampleCard Title="Standard, filled and outlined"

@@ -1,6 +1,8 @@
 using Avalonia;
 using Avalonia.Controls;
+using Avalonia.Layout;
 using Avalonia.Markup.Xaml;
+using Avalonia.Markup.Xaml.MarkupExtensions;
 
 namespace Fili.Theme.MudAvalonia.Gallery.Docs;
 
@@ -23,6 +25,10 @@ public partial class DocHeader : UserControl
     public static readonly StyledProperty<string?> MudBlazorPathProperty =
         AvaloniaProperty.Register<DocHeader, string?>(nameof(MudBlazorPath));
 
+    /// <summary>The Avalonia controls it is drawn on, as AvaloniaDocs names them: "TabControl, TabStrip".</summary>
+    public static readonly StyledProperty<string?> AvaloniaControlsProperty =
+        AvaloniaProperty.Register<DocHeader, string?>(nameof(AvaloniaControls));
+
     public DocHeader() => AvaloniaXamlLoader.Load(this);
 
     public string? Title
@@ -43,6 +49,12 @@ public partial class DocHeader : UserControl
         set => SetValue(MudBlazorProperty, value);
     }
 
+    public string? AvaloniaControls
+    {
+        get => GetValue(AvaloniaControlsProperty);
+        set => SetValue(AvaloniaControlsProperty, value);
+    }
+
     public string? MudBlazorPath
     {
         get => GetValue(MudBlazorPathProperty);
@@ -53,7 +65,8 @@ public partial class DocHeader : UserControl
     {
         base.OnPropertyChanged(change);
         if (change.Property != TitleProperty && change.Property != SummaryProperty
-            && change.Property != MudBlazorProperty && change.Property != MudBlazorPathProperty)
+            && change.Property != MudBlazorProperty && change.Property != MudBlazorPathProperty
+            && change.Property != AvaloniaControlsProperty)
         {
             return;
         }
@@ -63,13 +76,49 @@ public partial class DocHeader : UserControl
         summary.Text = Summary;
         summary.IsVisible = !string.IsNullOrEmpty(Summary);
 
-        var link = this.FindControl<HyperlinkButton>("MudBlazorLink")!;
-        link.IsVisible = !string.IsNullOrEmpty(MudBlazorPath);
-        if (link.IsVisible)
+        // The MudBlazor row reads as the Avalonia one: a label, then the page's link.
+        var mudBlazor = this.FindControl<WrapPanel>("MudBlazorLinks")!;
+        mudBlazor.IsVisible = !string.IsNullOrEmpty(MudBlazorPath);
+        if (mudBlazor.IsVisible)
         {
-            link.NavigateUri = new Uri($"https://mudblazor.com/{MudBlazorPath}");
+            this.FindControl<HyperlinkButton>("MudBlazorLink")!.NavigateUri = new Uri($"https://mudblazor.com/{MudBlazorPath}");
             var name = MudBlazorPath!.StartsWith("components/", StringComparison.Ordinal) ? $"Mud{MudBlazor}" : MudBlazor;
-            this.FindControl<TextBlock>("MudBlazorText")!.Text = $"{name} on mudblazor.com";
+            this.FindControl<TextBlock>("MudBlazorText")!.Text = name;
         }
+
+        // One link per control, after the row's label; rebuilt whole, as the names may change.
+        var avalonia = this.FindControl<WrapPanel>("AvaloniaLinks")!;
+        while (avalonia.Children.Count > 1)
+        {
+            avalonia.Children.RemoveAt(1);
+        }
+
+        foreach (var control in AvaloniaDocs.Names(AvaloniaControls))
+        {
+            avalonia.Children.Add(new HyperlinkButton
+            {
+                NavigateUri = AvaloniaDocs.Uri(control),
+                Margin = new Thickness(0, 0, 12, 0),
+                Content = new StackPanel
+                {
+                    Orientation = Orientation.Horizontal,
+                    Spacing = 4,
+                    Children =
+                    {
+                        new TextBlock { Classes = { "body2" }, Text = control },
+                        OpenInNewIcon(),
+                    },
+                },
+            });
+        }
+
+        avalonia.IsVisible = avalonia.Children.Count > 1;
+    }
+
+    private static PathIcon OpenInNewIcon()
+    {
+        var icon = new PathIcon { Classes = { "small" } };
+        icon[!PathIcon.DataProperty] = new DynamicResourceExtension("DocsOpenInNewIcon");
+        return icon;
     }
 }

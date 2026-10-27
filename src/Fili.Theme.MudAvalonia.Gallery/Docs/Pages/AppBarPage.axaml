@@ -6,7 +6,8 @@
     <docs:DocHeader Title="App bar"
                     Summary="The bar across the top of an app: appbar on a Border, drawn as MudAppBar. 64px with 24px gutters at elevation 4; dense, a colour or an elevation class changes it."
                     MudBlazor="AppBar"
-                    MudBlazorPath="components/appbar" />
+                    MudBlazorPath="components/appbar"
+                    AvaloniaControls="Border, NavigationPage, ContentPage" />
 
     <TextBlock Classes="h5 section" Text="Basic app bar" />
     <docs:ExampleCard Title="Title and icon buttons"

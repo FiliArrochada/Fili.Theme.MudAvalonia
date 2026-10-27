@@ -1,4 +1,5 @@
 using Avalonia.Controls;
+using Avalonia.LogicalTree;
 using Avalonia.Threading;
 using Avalonia.VisualTree;
 using Fili.Theme.MudAvalonia.Gallery;
@@ -99,6 +100,26 @@ public class DocsSiteTests
 
         Assert.Equal(ComponentIndex.All.Count, ComponentIndex.All.Select(e => e.Name).Distinct().Count());
     }
+
+    /// <summary>
+    /// A component's page links Avalonia's page for each control it is drawn on, and every one of
+    /// those is a control guide or an API page on docs.avaloniaui.net.
+    /// </summary>
+    [Fact]
+    public Task EveryComponentLinksAvalonias() => UiThread.RunAsync(() =>
+    {
+        foreach (var page in DocCatalog.Pages)
+        {
+            if (page.Create().GetLogicalDescendants().OfType<DocHeader>().FirstOrDefault() is { } header
+                && header.MudBlazorPath?.StartsWith("components/", StringComparison.Ordinal) == true)
+            {
+                Assert.True(AvaloniaDocs.Names(header.AvaloniaControls).Count > 0, $"{page.Slug} links no Avalonia page.");
+                Assert.All(AvaloniaDocs.Names(header.AvaloniaControls), name => Assert.Contains(name, AvaloniaDocs.Paths.Keys));
+            }
+        }
+
+        Assert.All(AvaloniaDocs.Paths.Values, path => Assert.Matches("^(controls|api/avalonia)/[a-z/-]+$", path));
+    });
 
     /// <summary>Each slug names one page.</summary>
     [Fact]

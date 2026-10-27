@@ -6,7 +6,8 @@
     <docs:DocHeader Title="Icons"
                     Summary="Icons are Avalonia's PathIcon, drawn as MudIcon: a Material glyph in a 24px box. Size and colour are one class each, and every glyph the theme draws is a resource key you can swap."
                     MudBlazor="Icons"
-                    MudBlazorPath="components/icons" />
+                    MudBlazorPath="components/icons"
+                    AvaloniaControls="PathIcon" />
 
     <TextBlock Classes="h5 section" Text="Usage" />
     <docs:ExampleCard Title="A PathIcon"

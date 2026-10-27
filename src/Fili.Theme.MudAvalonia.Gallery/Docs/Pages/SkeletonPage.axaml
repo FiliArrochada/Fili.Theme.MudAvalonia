@@ -6,7 +6,8 @@
     <docs:DocHeader Title="Skeleton"
                     Summary="A skeleton holds the place of content that is still loading: skeleton on Avalonia's Border, drawn as MudSkeleton. It pulses on MudSkeleton's timing."
                     MudBlazor="Skeleton"
-                    MudBlazorPath="components/skeleton" />
+                    MudBlazorPath="components/skeleton"
+                    AvaloniaControls="Border" />
 
     <TextBlock Classes="h5 section" Text="Variants" />
     <docs:ExampleCard Title="Text, circle and rectangle"

@@ -6,7 +6,8 @@
     <docs:DocHeader Title="Drawer"
                     Summary="A side panel for navigation: Avalonia's SplitView, drawn as MudDrawer. 240px open, 56px mini, in the drawer colours at elevation 1, with nothing to opt into."
                     MudBlazor="Drawer"
-                    MudBlazorPath="components/drawer" />
+                    MudBlazorPath="components/drawer"
+                    AvaloniaControls="SplitView, DrawerPage" />
 
     <TextBlock Classes="body1 p">
       <Run Text="MudDrawer's " /><Run Classes="code" Text="Variant" /><Run Text=" is the SplitView's " /><Run Classes="code" Text="DisplayMode" /><Run Text=": Inline is Persistent, Overlay is Temporary, CompactInline and CompactOverlay are Mini. Responsive's breakpoints are the app's. Open and close it through " /><Run Classes="code" Text="IsPaneOpen" /><Run Text="; the examples bind it to the app bar's toggle." />

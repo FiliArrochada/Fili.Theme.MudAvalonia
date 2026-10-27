@@ -6,7 +6,8 @@
     <docs:DocHeader Title="Radio"
                     Summary="Radio buttons let people pick one option from a set: Avalonia's RadioButton, drawn as MudRadio. Checked grows an inner disc inside the ring rather than filling it."
                     MudBlazor="Radio"
-                    MudBlazorPath="components/radio" />
+                    MudBlazorPath="components/radio"
+                    AvaloniaControls="RadioButton" />
 
     <TextBlock Classes="h5 section" Text="Radio group" />
     <docs:ExampleCard Title="A group"

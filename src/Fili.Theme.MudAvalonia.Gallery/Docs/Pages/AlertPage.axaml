@@ -6,7 +6,8 @@
     <docs:DocHeader Title="Alert"
                     Summary="A short message that stands out from the page: alert on a Border, drawn as MudAlert. Severity, variant and density are one class each; the message and an icon go inside."
                     MudBlazor="Alert"
-                    MudBlazorPath="components/alert" />
+                    MudBlazorPath="components/alert"
+                    AvaloniaControls="Border" />
 
     <TextBlock Classes="h5 section" Text="Simple alerts" />
     <docs:ExampleCard Title="Severities"

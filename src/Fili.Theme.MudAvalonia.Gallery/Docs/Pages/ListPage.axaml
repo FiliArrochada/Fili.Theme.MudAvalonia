@@ -6,7 +6,8 @@
     <docs:DocHeader Title="List"
                     Summary="Avalonia's ListBox, drawn as MudList: body1 rows of 48px with 16px sides, and a selected row that is a tint, never a filled bar. list-item on a Button is a MudListItem that does something rather than one that is chosen."
                     MudBlazor="List"
-                    MudBlazorPath="components/list" />
+                    MudBlazorPath="components/list"
+                    AvaloniaControls="ListBox" />
 
     <TextBlock Classes="h5 section" Text="Simple list" />
     <docs:ExampleCard Title="Rows, icons and text"

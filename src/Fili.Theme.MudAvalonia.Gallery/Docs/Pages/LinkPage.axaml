@@ -6,7 +6,8 @@
     <docs:DocHeader Title="Link"
                     Summary="Links navigate or act from inside text: Avalonia's HyperlinkButton, drawn as MudLink. Primary by default, underlined only under the pointer, and sized by the text around it."
                     MudBlazor="Link"
-                    MudBlazorPath="components/link" />
+                    MudBlazorPath="components/link"
+                    AvaloniaControls="HyperlinkButton" />
 
     <TextBlock Classes="h5 section" Text="Simple links" />
     <docs:ExampleCard Title="Colours"

@@ -6,7 +6,8 @@
     <docs:DocHeader Title="Expansion panels"
                     Summary="Expansion panels show and hide sections of content: Avalonia's Expander, drawn as MudExpansionPanel, and expansion-panels on the StackPanel that holds them, drawn as MudExpansionPanels."
                     MudBlazor="ExpansionPanels"
-                    MudBlazorPath="components/expansionpanels" />
+                    MudBlazorPath="components/expansionpanels"
+                    AvaloniaControls="Expander" />
 
     <TextBlock Classes="h5 section" Text="Simple usage" />
     <docs:ExampleCard Title="A group of panels"

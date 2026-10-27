@@ -6,7 +6,8 @@
     <docs:DocHeader Title="Progress"
                     Summary="Progress shows that work is under way, and how far it has got: Avalonia's ProgressBar, drawn as MudProgressLinear, and as MudProgressCircular with the circular class."
                     MudBlazor="Progress"
-                    MudBlazorPath="components/progress" />
+                    MudBlazorPath="components/progress"
+                    AvaloniaControls="ProgressBar" />
 
     <TextBlock Classes="h4 section" Text="Circular progress" />
     <TextBlock Classes="body1 p">

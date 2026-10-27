@@ -6,7 +6,8 @@
     <docs:DocHeader Title="Card"
                     Summary="A card holds content and actions about one subject: card on Avalonia's Border, drawn as MudCard. Its parts are classes on whatever lays the card out."
                     MudBlazor="Card"
-                    MudBlazorPath="components/card" />
+                    MudBlazorPath="components/card"
+                    AvaloniaControls="Border" />
 
     <TextBlock Classes="h5 section" Text="Simple card" />
     <docs:ExampleCard Title="Content and actions"

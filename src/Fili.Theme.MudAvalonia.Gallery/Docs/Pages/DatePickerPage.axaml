@@ -6,7 +6,8 @@
     <docs:DocHeader Title="Date picker"
                     Summary="A date picker is a text field that opens a calendar: Avalonia's CalendarDatePicker, drawn as MudDatePicker, with nothing to opt into. A Calendar on its own is the static picker."
                     MudBlazor="DatePicker"
-                    MudBlazorPath="components/datepicker" />
+                    MudBlazorPath="components/datepicker"
+                    AvaloniaControls="CalendarDatePicker, Calendar, DatePicker" />
 
     <TextBlock Classes="h5 section" Text="Basic usage" />
     <docs:ExampleCard Title="Standard, filled and outlined"

@@ -6,7 +6,8 @@
     <docs:DocHeader Title="Split panel"
                     Summary="Two panels with a divider the user drags to resize them: a Grid with Avalonia's GridSplitter between two cells, where MudBlazor has MudSplitPanel. The splitter keeps a visible hairline on purpose."
                     MudBlazor="SplitPanel"
-                    MudBlazorPath="components/splitpanel" />
+                    MudBlazorPath="components/splitpanel"
+                    AvaloniaControls="GridSplitter, Grid" />
 
     <TextBlock Classes="h5 section" Text="Basic usage" />
     <docs:ExampleCard Title="GridSplitter between two cells"

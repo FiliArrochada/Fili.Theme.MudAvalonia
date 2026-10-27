@@ -6,7 +6,8 @@
     <docs:DocHeader Title="Nav menu"
                     Summary="Links and groups for a drawer: nav on Avalonia's TreeView, drawn as MudNavMenu, MudNavLink and MudNavGroup. A row without children is a link, a row with children a group."
                     MudBlazor="NavMenu"
-                    MudBlazorPath="components/navmenu" />
+                    MudBlazorPath="components/navmenu"
+                    AvaloniaControls="TreeView" />
 
     <TextBlock Classes="h5 section" Text="Basic usage" />
     <docs:ExampleCard Title="Links, a group and the active link"

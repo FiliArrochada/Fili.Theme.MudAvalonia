@@ -6,7 +6,8 @@
     <docs:DocHeader Title="Autocomplete"
                     Summary="An autocomplete suggests values as people type: Avalonia's AutoCompleteBox, drawn as MudAutocomplete. Its field is a text field, and its suggestions sit on a surface at elevation 8."
                     MudBlazor="Autocomplete"
-                    MudBlazorPath="components/autocomplete" />
+                    MudBlazorPath="components/autocomplete"
+                    AvaloniaControls="AutoCompleteBox" />
 
     <TextBlock Classes="h5 section" Text="Usage" />
     <docs:ExampleCard Title="Standard, filled and outlined"

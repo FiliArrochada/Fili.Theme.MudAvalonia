@@ -6,7 +6,8 @@
     <docs:DocHeader Title="Button group"
                     Summary="A row or column of buttons joined into one shape: button-group on a StackPanel of buttons, as MudButtonGroup draws them. A two-part group with a menu is Avalonia's SplitButton."
                     MudBlazor="ButtonGroup"
-                    MudBlazorPath="components/buttongroup" />
+                    MudBlazorPath="components/buttongroup"
+                    AvaloniaControls="StackPanel, Button, SplitButton, DropDownButton" />
 
     <TextBlock Classes="h5 section" Text="Basic button group" />
     <docs:ExampleCard Title="Text, outlined and filled"

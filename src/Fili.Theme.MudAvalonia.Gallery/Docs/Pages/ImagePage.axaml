@@ -6,7 +6,8 @@
     <docs:DocHeader Title="Image"
                     Summary="Images are Avalonia's own Image, which the theme leaves as it is: MudImage's parameters are its ordinary properties. A shadow or rounded corners come from a Border round it."
                     MudBlazor="Image"
-                    MudBlazorPath="components/image" />
+                    MudBlazorPath="components/image"
+                    AvaloniaControls="Image" />
 
     <TextBlock Classes="h5 section" Text="Usage" />
     <docs:ExampleCard Title="An Image"

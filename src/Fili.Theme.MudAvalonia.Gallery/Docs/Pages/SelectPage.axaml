@@ -6,7 +6,8 @@
     <docs:DocHeader Title="Select"
                     Summary="A select picks one value from a list: Avalonia's ComboBox, drawn as MudSelect. As in MudBlazor, a select is a text field with a drop-down arrow, and it takes the text field's classes."
                     MudBlazor="Select"
-                    MudBlazorPath="components/select" />
+                    MudBlazorPath="components/select"
+                    AvaloniaControls="ComboBox" />
 
     <TextBlock Classes="h5 section" Text="Variants" />
     <docs:ExampleCard Title="Standard, filled and outlined"

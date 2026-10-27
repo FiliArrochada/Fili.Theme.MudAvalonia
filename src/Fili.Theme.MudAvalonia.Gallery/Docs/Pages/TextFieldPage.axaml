@@ -6,7 +6,8 @@
     <docs:DocHeader Title="Text field"
                     Summary="Text fields let people type a value: Avalonia's TextBox, drawn as MudTextField. PlaceholderText is its floating label, and its variant, density and state are one class each."
                     MudBlazor="TextField"
-                    MudBlazorPath="components/textfield" />
+                    MudBlazorPath="components/textfield"
+                    AvaloniaControls="TextBox, MaskedTextBox" />
 
     <TextBlock Classes="h5 section" Text="Variants" />
     <docs:ExampleCard Title="Standard, filled and outlined"

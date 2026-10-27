@@ -6,7 +6,8 @@
     <docs:DocHeader Title="Tree view"
                     Summary="Avalonia's TreeView, drawn as MudTreeView: 32px rows indented 17px per level, with an arrow that turns as a branch opens. Hover, Dense, Color and multiselection are classes on the tree."
                     MudBlazor="TreeView"
-                    MudBlazorPath="components/treeview" />
+                    MudBlazorPath="components/treeview"
+                    AvaloniaControls="TreeView" />
 
     <TextBlock Classes="h5 section" Text="Basic usage" />
     <docs:ExampleCard Title="Branches and leaves"

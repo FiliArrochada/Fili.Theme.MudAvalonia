@@ -6,7 +6,8 @@
     <docs:DocHeader Title="Menu"
                     Summary="Menus show a list of choices on a raised surface: Avalonia's MenuFlyout, ContextMenu and Menu, their rows drawn as MudMenuItem. Every example opens its menu on a click."
                     MudBlazor="Menu"
-                    MudBlazorPath="components/menu" />
+                    MudBlazorPath="components/menu"
+                    AvaloniaControls="MenuFlyout, ContextMenu, Menu" />
 
     <TextBlock Classes="h5 section" Text="Basic usage" />
     <docs:ExampleCard Title="A button that opens a menu"

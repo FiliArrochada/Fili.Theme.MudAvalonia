@@ -6,7 +6,8 @@
     <docs:DocHeader Title="Overlay"
                     Summary="An overlay covers content to block it or show that it is busy: overlay on Avalonia's Border, drawn as MudOverlay. It sits over the content it covers, in a Panel with it, and the app shows and hides it."
                     MudBlazor="Overlay"
-                    MudBlazorPath="components/overlay" />
+                    MudBlazorPath="components/overlay"
+                    AvaloniaControls="Border" />
 
     <TextBlock Classes="h5 section" Text="Usage" />
     <docs:ExampleCard Title="Shown and hidden"

@@ -6,7 +6,8 @@
     <docs:DocHeader Title="Badge"
                     Summary="A badge is a small count or status mark on the corner of something else: badge on a HeaderedContentControl, drawn as MudBadge. Content is what it decorates and Header is the badge."
                     MudBlazor="Badge"
-                    MudBlazorPath="components/badge" />
+                    MudBlazorPath="components/badge"
+                    AvaloniaControls="HeaderedContentControl" />
 
     <TextBlock Classes="h5 section" Text="Usage" />
     <docs:ExampleCard Title="Text, dot and icon"

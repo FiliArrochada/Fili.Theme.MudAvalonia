@@ -25,7 +25,10 @@ rationale and the internal helpers in `docs/the-base.md`, the traps in `docs/tra
   parameter on its component's page, and the page's text and examples where they show it. A
   palette, type, shadow or layout token updates the Theming or Typography page's table, a glyph
   key the Icons page's. A component newly drawn, or newly given a page, updates its entry in
-  `Docs/ComponentIndex.cs`. A gap's reason goes in its row's `Note`, never in a separate list.
+  `Docs/ComponentIndex.cs`. A gap's reason goes in its row's `Note`, never in a separate list. A
+  component page names the Avalonia controls it is drawn on in its header's `AvaloniaControls`;
+  a control new to it goes into `Docs/AvaloniaDocs.cs` with a path from docs.avaloniaui.net's
+  sitemap, never a guessed one.
 - **Classes, resource keys and `FiliThemeVariants` are the published interface**
   (`docs/compatibility.md`). A new token or glyph key goes into `docs/published-keys.md` in the
   same change (`PublishedInterfaceTests`); one is never renamed or removed before 2.0, only aliased.

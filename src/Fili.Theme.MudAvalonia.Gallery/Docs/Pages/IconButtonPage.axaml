@@ -6,7 +6,8 @@
     <docs:DocHeader Title="Icon button"
                     Summary="A button that is only an icon: icon on Avalonia's Button with a PathIcon as its content, drawn as MudIconButton. Colour, variant and size are one class each."
                     MudBlazor="IconButton"
-                    MudBlazorPath="components/iconbutton" />
+                    MudBlazorPath="components/iconbutton"
+                    AvaloniaControls="Button, PathIcon" />
 
     <TextBlock Classes="h5 section" Text="Simple icon buttons" />
     <docs:ExampleCard Title="Colours and disabled"

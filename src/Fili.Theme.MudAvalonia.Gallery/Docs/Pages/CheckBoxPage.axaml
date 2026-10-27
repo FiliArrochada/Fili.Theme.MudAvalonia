@@ -6,7 +6,8 @@
     <docs:DocHeader Title="Check box"
                     Summary="Check boxes let people pick any number of options: Avalonia's CheckBox, drawn as MudCheckBox with the real Material glyphs, swapped per state."
                     MudBlazor="CheckBox"
-                    MudBlazorPath="components/checkbox" />
+                    MudBlazorPath="components/checkbox"
+                    AvaloniaControls="CheckBox" />
 
     <TextBlock Classes="h5 section" Text="Basic check boxes" />
     <docs:ExampleCard Title="Default and coloured"

@@ -6,7 +6,8 @@
     <docs:DocHeader Title="Paper"
                     Summary="A paper is a surface to put things on: paper on Avalonia's Border, drawn as MudPaper. Elevation and outlined are classes; square is CornerRadius=&quot;0&quot;."
                     MudBlazor="Paper"
-                    MudBlazorPath="components/paper" />
+                    MudBlazorPath="components/paper"
+                    AvaloniaControls="Border" />
 
     <TextBlock Classes="h5 section" Text="Component" />
     <docs:ExampleCard Title="A surface"

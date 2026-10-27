@@ -6,7 +6,8 @@
     <docs:DocHeader Title="Button"
                     Summary="Buttons let people act with a single tap: Avalonia's Button, drawn as MudButton. Variant, colour and size are one class each and combine freely."
                     MudBlazor="Button"
-                    MudBlazorPath="components/button" />
+                    MudBlazorPath="components/button"
+                    AvaloniaControls="Button, SplitButton, DropDownButton" />
 
     <TextBlock Classes="h5 section" Text="Variants" />
     <docs:ExampleCard Title="Text, outlined and filled"

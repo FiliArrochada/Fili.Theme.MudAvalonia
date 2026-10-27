@@ -6,7 +6,8 @@
     <docs:DocHeader Title="Numeric field"
                     Summary="A numeric field takes a number, with spin buttons to step it: Avalonia's NumericUpDown, drawn as MudNumericField. Its field is a text field with a 24px spin column inside the box."
                     MudBlazor="NumericField"
-                    MudBlazorPath="components/numericfield" />
+                    MudBlazorPath="components/numericfield"
+                    AvaloniaControls="NumericUpDown" />
 
     <TextBlock Classes="h5 section" Text="Basic usage" />
     <docs:ExampleCard Title="Standard, filled and outlined"

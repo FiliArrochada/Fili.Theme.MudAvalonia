@@ -6,7 +6,8 @@
     <docs:DocHeader Title="Tool bar"
                     Summary="A row of actions: toolbar on a Border, drawn as MudToolBar, 64px with 24px gutters. Avalonia's CommandBar is MudToolBar holding MudIconButtons, with a MudMenu for the rest."
                     MudBlazor="ToolBar"
-                    MudBlazorPath="components/toolbar" />
+                    MudBlazorPath="components/toolbar"
+                    AvaloniaControls="Border, CommandBar" />
 
     <TextBlock Classes="h5 section" Text="Tool bar" />
     <docs:ExampleCard Title="Icon buttons in a tool bar"

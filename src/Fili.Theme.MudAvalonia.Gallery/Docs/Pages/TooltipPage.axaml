@@ -6,7 +6,8 @@
     <docs:DocHeader Title="Tooltip"
                     Summary="A short label that appears when the pointer rests on a control: Avalonia's ToolTip, drawn as MudTooltip. Hover the controls in the examples to see them."
                     MudBlazor="Tooltip"
-                    MudBlazorPath="components/tooltip" />
+                    MudBlazorPath="components/tooltip"
+                    AvaloniaControls="ToolTip" />
 
     <TextBlock Classes="h5 section" Text="Simple tooltips" />
     <docs:ExampleCard Title="ToolTip.Tip and ToolTip.Placement"

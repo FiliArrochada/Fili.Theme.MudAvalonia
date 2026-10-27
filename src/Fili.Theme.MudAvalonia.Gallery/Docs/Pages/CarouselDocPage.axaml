@@ -6,7 +6,8 @@
     <docs:DocHeader Title="Carousel"
                     Summary="Avalonia's Carousel, drawn as MudCarousel: arrows at the sides and bullets along the bottom, on by default. A CarouselPage is a carousel of pages, with the same arrows and bullets."
                     MudBlazor="Carousel"
-                    MudBlazorPath="components/carousel" />
+                    MudBlazorPath="components/carousel"
+                    AvaloniaControls="Carousel, PipsPager, CarouselPage" />
 
     <TextBlock Classes="h5 section" Text="Example" />
     <docs:ExampleCard Title="Arrows and bullets"

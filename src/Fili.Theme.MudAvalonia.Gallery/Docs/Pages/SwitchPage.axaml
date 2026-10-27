@@ -6,7 +6,8 @@
     <docs:DocHeader Title="Switch"
                     Summary="Switches turn one setting on or off: Avalonia's ToggleSwitch, drawn as MudSwitch. A 20px thumb overhangs its 14px track, with elevation under it."
                     MudBlazor="Switch"
-                    MudBlazorPath="components/switch" />
+                    MudBlazorPath="components/switch"
+                    AvaloniaControls="ToggleSwitch" />
 
     <TextBlock Classes="h5 section" Text="Basic switches" />
     <docs:ExampleCard Title="Off and on"

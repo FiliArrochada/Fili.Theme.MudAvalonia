@@ -6,7 +6,8 @@
     <docs:DocHeader Title="Popover"
                     Summary="Content floating above the page, anchored to a control: Avalonia's Flyout, MenuFlyout and ContextMenu, drawn as MudPopover's paper. Click the triggers in the examples to open them."
                     MudBlazor="Popover"
-                    MudBlazorPath="components/popover" />
+                    MudBlazorPath="components/popover"
+                    AvaloniaControls="Flyout, MenuFlyout, ContextMenu" />
 
     <TextBlock Classes="h5 section" Text="Simple popover" />
     <docs:ExampleCard Title="A button with a Flyout"

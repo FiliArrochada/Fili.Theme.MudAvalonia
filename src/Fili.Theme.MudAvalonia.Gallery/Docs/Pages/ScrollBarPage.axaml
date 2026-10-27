@@ -4,7 +4,8 @@
              x:Class="Fili.Theme.MudAvalonia.Gallery.Docs.Pages.ScrollBarPage">
   <StackPanel Classes="doc">
     <docs:DocHeader Title="Scroll bar"
-                    Summary="The rail a ScrollViewer shows when its content does not fit: a thin bar with a rounded thumb and no line buttons, with nothing to opt into. MudBlazor leaves scroll bars to the browser, so this is the look a MudBlazor app has in one." />
+                    Summary="The rail a ScrollViewer shows when its content does not fit: a thin bar with a rounded thumb and no line buttons, with nothing to opt into. MudBlazor leaves scroll bars to the browser, so this is the look a MudBlazor app has in one."
+                    AvaloniaControls="ScrollBar, ScrollViewer" />
 
     <TextBlock Classes="h5 section" Text="Basic usage" />
     <docs:ExampleCard Title="A ScrollViewer"

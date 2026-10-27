@@ -6,7 +6,8 @@
     <docs:DocHeader Title="Avatar"
                     Summary="Avatars show a person or a thing as initials, an icon or a picture: avatar on a Border, drawn as MudAvatar. Variant, colour, size and shape are one class each."
                     MudBlazor="Avatar"
-                    MudBlazorPath="components/avatar" />
+                    MudBlazorPath="components/avatar"
+                    AvaloniaControls="Border" />
 
     <TextBlock Classes="h5 section" Text="Usage" />
     <docs:ExampleCard Title="Filled and outlined, in every colour"

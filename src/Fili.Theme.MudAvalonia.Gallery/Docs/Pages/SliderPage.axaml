@@ -6,7 +6,8 @@
     <docs:DocHeader Title="Slider"
                     Summary="Sliders let people pick a value from a range: Avalonia's Slider, drawn as MudSlider. Unlike most components it is primary with no class."
                     MudBlazor="Slider"
-                    MudBlazorPath="components/slider" />
+                    MudBlazorPath="components/slider"
+                    AvaloniaControls="Slider" />
 
     <TextBlock Classes="h5 section" Text="Basic sliders" />
     <docs:ExampleCard Title="Text, the default"

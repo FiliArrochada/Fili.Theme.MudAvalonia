@@ -6,7 +6,8 @@
     <docs:DocHeader Title="Tabs"
                     Summary="Tabs switch between views at the same level: Avalonia's TabControl and TabStrip, drawn as MudTabs. A 48px bar with a 2px indicator that slides to the selected tab."
                     MudBlazor="Tabs"
-                    MudBlazorPath="components/tabs" />
+                    MudBlazorPath="components/tabs"
+                    AvaloniaControls="TabControl, TabStrip, TabbedPage" />
 
     <TextBlock Classes="h5 section" Text="Simple tabs" />
     <docs:ExampleCard Title="TabControl"

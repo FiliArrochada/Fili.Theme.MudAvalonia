@@ -6,7 +6,8 @@
     <docs:DocHeader Title="FAB"
                     Summary="A floating action button for a screen's main action: fab on Avalonia's Button, drawn as MudFab. Unlike a button it is filled, grey and large by default, and extended gives it a label."
                     MudBlazor="Fab"
-                    MudBlazorPath="components/buttonfab" />
+                    MudBlazorPath="components/buttonfab"
+                    AvaloniaControls="Button" />
 
     <TextBlock Classes="h5 section" Text="Simple FAB" />
     <docs:ExampleCard Title="The defaults"

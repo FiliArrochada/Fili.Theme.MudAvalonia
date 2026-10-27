@@ -6,7 +6,8 @@
     <docs:DocHeader Title="Divider"
                     Summary="A divider is a thin rule that groups content in lists and layouts: Avalonia's Separator, drawn as MudDivider. A 1px line in the divider colour, with no margin."
                     MudBlazor="Divider"
-                    MudBlazorPath="components/divider" />
+                    MudBlazorPath="components/divider"
+                    AvaloniaControls="Separator" />
 
     <TextBlock Classes="h5 section" Text="List dividers" />
     <docs:ExampleCard Title="Between rows"

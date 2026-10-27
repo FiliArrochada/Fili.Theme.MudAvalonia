@@ -6,7 +6,8 @@
     <docs:DocHeader Title="Data grid"
                     Summary="Avalonia's own DataGrid, drawn as MudDataGrid with nothing to opt into. The app references the Avalonia.Controls.DataGrid package; the theme does not pull it in, and themes the grid once it is there."
                     MudBlazor="DataGrid"
-                    MudBlazorPath="components/datagrid" />
+                    MudBlazorPath="components/datagrid"
+                    AvaloniaControls="DataGrid" />
 
     <TextBlock Classes="h5 section" Text="Default data grid" />
     <docs:ExampleCard Title="A DataGrid with no class"

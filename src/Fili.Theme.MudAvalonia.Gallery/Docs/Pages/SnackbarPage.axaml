@@ -6,7 +6,8 @@
     <docs:DocHeader Title="Snackbar"
                     Summary="Brief messages at the edge of the window: Avalonia's WindowNotificationManager and the NotificationCards it shows, drawn as MudSnackbar. The examples below are cards placed in the page, drawn as the manager shows them."
                     MudBlazor="Snackbar"
-                    MudBlazorPath="components/snackbar" />
+                    MudBlazorPath="components/snackbar"
+                    AvaloniaControls="Notification" />
 
     <TextBlock Classes="h5 section" Text="Usage" />
     <TextBlock Classes="body1 p">

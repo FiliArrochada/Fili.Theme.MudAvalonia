@@ -6,7 +6,8 @@
     <docs:DocHeader Title="Toggle group"
                     Summary="A row of options that stay pressed: Avalonia's ToggleButton, drawn as MudToggleItem. A group is a panel of them, with the group's options as classes on each."
                     MudBlazor="ToggleGroup"
-                    MudBlazorPath="components/togglegroup" />
+                    MudBlazorPath="components/togglegroup"
+                    AvaloniaControls="ToggleButton" />
 
     <TextBlock Classes="h5 section" Text="Usage" />
     <docs:ExampleCard Title="A toggle group"

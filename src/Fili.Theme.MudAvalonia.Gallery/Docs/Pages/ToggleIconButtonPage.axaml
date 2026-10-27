@@ -6,7 +6,8 @@
     <docs:DocHeader Title="Toggle icon button"
                     Summary="An icon button that stays on or off: icon on Avalonia's ToggleButton, drawn as MudToggleIconButton. It has the icon button's three variants and sizes, and a colour and icon for each state."
                     MudBlazor="ToggleIconButton"
-                    MudBlazorPath="components/toggleiconbutton" />
+                    MudBlazorPath="components/toggleiconbutton"
+                    AvaloniaControls="ToggleButton" />
 
     <TextBlock Classes="h5 section" Text="Basic usage" />
     <docs:ExampleCard Title="Icon and toggled icon"

@@ -6,7 +6,8 @@
     <docs:DocHeader Title="Typography"
                     Summary="MudText is a TextBlock with a type class: the thirteen styles of MudBlazor's Typography.cs, in embedded Roboto, and MudText's colours as colour classes."
                     MudBlazor="Typography"
-                    MudBlazorPath="components/typography" />
+                    MudBlazorPath="components/typography"
+                    AvaloniaControls="TextBlock" />
 
     <TextBlock Classes="h5 section" Text="Type styles" />
     <docs:ExampleCard Title="Typo"

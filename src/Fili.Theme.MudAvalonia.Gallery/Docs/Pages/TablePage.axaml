@@ -6,7 +6,8 @@
     <docs:DocHeader Title="Table"
                     Summary="Avalonia's own TableView, drawn as MudTable and MudSimpleTable: surface at elevation 1, subtitle2 headers and body2 cells 16px round. It needs no package; the data grid wears the same look."
                     MudBlazor="Table"
-                    MudBlazorPath="components/table" />
+                    MudBlazorPath="components/table"
+                    AvaloniaControls="TableView" />
 
     <TextBlock Classes="h5 section" Text="Default table" />
     <docs:ExampleCard Title="A TableView with no class"
