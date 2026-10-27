@@ -6,6 +6,7 @@ using Avalonia.Interactivity;
 using Avalonia.Markup.Xaml;
 using Avalonia.Media;
 using Avalonia.Styling;
+using Avalonia.Threading;
 using Fili.Theme.MudAvalonia;
 using Fili.Theme.MudAvalonia.Gallery.Docs;
 
@@ -38,8 +39,36 @@ public partial class MainView : UserControl
         _ready = true;
 
         BuildNav(string.Empty);
-        Navigate("overview");
+        Navigate(DocAddress.Current?.Slug is { Length: > 0 } slug && DocCatalog.Find(slug) is not null ? slug : "overview");
     }
+
+    protected override void OnAttachedToVisualTree(VisualTreeAttachmentEventArgs e)
+    {
+        base.OnAttachedToVisualTree(e);
+        if (DocAddress.Current is { } address)
+        {
+            address.Changed += OnAddressChanged;
+        }
+    }
+
+    protected override void OnDetachedFromVisualTree(VisualTreeAttachmentEventArgs e)
+    {
+        base.OnDetachedFromVisualTree(e);
+        if (DocAddress.Current is { } address)
+        {
+            address.Changed -= OnAddressChanged;
+        }
+    }
+
+    /// <summary>Back, Forward or a followed link changed the address: show the page it names.</summary>
+    private void OnAddressChanged(string slug) =>
+        Dispatcher.UIThread.Post(() =>
+        {
+            if (slug != Current)
+            {
+                Navigate(slug.Length > 0 ? slug : "overview");
+            }
+        });
 
     /// <summary>The slug of the page on show.</summary>
     public string? Current { get; private set; }
@@ -81,6 +110,7 @@ public partial class MainView : UserControl
 
         Current = slug;
         _host.Content = view;
+        DocAddress.Current?.Show(slug, page.Title);
         if (_links.TryGetValue(slug, out var link) && !ReferenceEquals(_nav.SelectedItem, link))
         {
             _nav.SelectedItem = link;

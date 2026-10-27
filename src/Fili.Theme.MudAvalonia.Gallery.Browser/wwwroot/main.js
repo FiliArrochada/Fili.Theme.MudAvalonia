@@ -50,6 +50,30 @@ const dotnetRuntime = await dotnet
     .withApplicationArgumentsFromQuery()
     .create();
 
+// The page on show is the URL's fragment: #tooltip is the Tooltip page (BrowserDocAddress.cs).
+// The first page replaces the history entry, so Back leaves the site rather than stepping from
+// the bare address to the overview; every page after that is an entry of its own.
+const site = document.title;
+const slugOf = (hash) => decodeURIComponent(hash.replace(/^#\/?/, ''));
+dotnetRuntime.setModuleImports('main.js', {
+    docAddress: {
+        read: () => slugOf(globalThis.location.hash),
+        write: (slug, title) => {
+            document.title = `${title} - ${site}`;
+            if (slugOf(globalThis.location.hash) === slug) {
+                return;
+            }
+
+            if (globalThis.location.hash === '') {
+                history.replaceState(null, '', `#${encodeURIComponent(slug)}`);
+            } else {
+                globalThis.location.hash = encodeURIComponent(slug);
+            }
+        },
+        listen: (changed) => globalThis.addEventListener('hashchange', () => changed(slugOf(globalThis.location.hash))),
+    },
+});
+
 const config = dotnetRuntime.getConfig();
 
 await dotnetRuntime.runMain(config.mainAssemblyName, [globalThis.location.href]);
