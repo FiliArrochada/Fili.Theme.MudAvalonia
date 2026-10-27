@@ -107,13 +107,13 @@ public class ClassVocabularyTests
 
         // Behaviour parameters named as MudBlazor names them: HelperTextOnFocus, Required and
         // ShrinkLabel on a field, MudSkeleton's Animation.False and Animation.Wave, MudDataGrid's
-        // Hover, Gutters="false", HideIcon, MudSnackbar's ShowCloseIcon="false", MudTextField's
+        // Hover, Gutters="false", HideIcon, MudInput's Clearable, MudSnackbar's ShowCloseIcon="false", MudTextField's
         // Placeholder in place of its Label,
         // MudExpansionPanels' Outlined="false" and MudTabs' SliderAnimation="false", which is
         // no-animation too, and its AlwaysShowScrollButtons; MudPopover's Paper="false";
         // MudCarousel's ShowArrows="false" and ShowBullets="false", and its ArrowsPosition and
         // BulletsPosition other than their defaults; and MudTimePicker's Editable.
-        "always-show-scroll-buttons", "arrows-bottom", "arrows-top", "bullets-center", "bullets-top", "editable", "helper-on-focus", "hide-close", "hide-icon", "hover", "no-animation", "no-arrows",
+        "always-show-scroll-buttons", "arrows-bottom", "arrows-top", "bullets-center", "bullets-top", "clearable", "editable", "helper-on-focus", "hide-close", "hide-icon", "hover", "no-animation", "no-arrows",
         "no-bullets", "no-gutters", "no-outline", "no-paper", "placeholder", "required", "shrink-label", "wave",
 
         // MudSlider's ValueLabel, MudTooltip's Arrow, MudSelect's Dense on its options,

@@ -28,7 +28,7 @@ internal sealed class FieldClasses
 {
     /// <summary>Every class the text field's theme reads; the variants pick its ControlTheme.</summary>
     internal static readonly string[] Mirrored =
-        ["filled", "outlined", "dense", "error", "counter", "helper-on-focus", "no-underline", "placeholder", "required", "shrink-label"];
+        ["filled", "outlined", "dense", "error", "counter", "clearable", "helper-on-focus", "no-underline", "placeholder", "required", "shrink-label"];
 
     private static readonly ConditionalWeakTable<TextBox, StyledElement> Sources = new();
 

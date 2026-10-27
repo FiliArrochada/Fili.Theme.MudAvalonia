@@ -293,6 +293,8 @@ for something XAML cannot express on its own:
 - **`TextLengthConverter`** reads a text's length for a field's counter. A template binding
   through `Text.Length` logs a binding error in every app that leaves the text null, shown or not
   ([Traps](traps.md)).
+- **`NotBlankConverter`** tells a `clearable` field whether its text is blank, as
+  `MudInput.ShowClearButton` asks `IsNullOrWhiteSpace`: `:empty` is only null or empty.
 - **`TickPositionsConverter`** places a slider's tick dots along its track, because `TickBar`
   only draws lines.
 - **`BadgeContentConverter`** caps a numeric badge at `MudBadge.Max`'s default: an `int` over 99

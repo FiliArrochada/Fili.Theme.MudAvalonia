@@ -59,7 +59,7 @@
       <docs:ParityRow MudBlazor="Underline, Required, ShrinkLabel" Here="no-underline, required, shrink-label" Status="Same" Note="As on a text field." />
       <docs:ParityRow MudBlazor="HideSpinButtons" Here="ShowButtonSpinner=&quot;False&quot;" Status="Close" />
       <docs:ParityRow MudBlazor="NumericUpIcon, NumericDownIcon" Here="FiliKeyboardArrowUpGeometry, FiliKeyboardArrowDownGeometry in the field's Resources" Status="Same" Note="Drawn at their own size in the 24px box." />
-      <docs:ParityRow MudBlazor="Clearable" Here="a button in InnerRightContent" Status="Close" Note="The app clears the value." />
+      <docs:ParityRow MudBlazor="Clearable" Here="clearable" Status="Same" Note="As on a text field: the class reaches the field inside." />
     </docs:ParityTable>
   </StackPanel>
 </UserControl>

@@ -151,6 +151,29 @@
                                 Content="{TemplateBinding InnerRightContent}"
                                 DockPanel.Dock="Right"
                                 VerticalAlignment="Center" />
+              <!-- Clearable: MudInput's clear button, a small default-colour MudIconButton between
+                   the text and an end adornment, out of the Tab order (tabindex -1). The Panel
+                   holds MudInput.ShowClearButton's "not blank" as a binding, which a style cannot
+                   outrank; `clearable` and the field's state show the button inside it. -->
+              <Panel DockPanel.Dock="Right"
+                     VerticalAlignment="Center"
+                     IsVisible="{Binding $parent[TextBox].Text, Converter={x:Static fili:NotBlankConverter.Instance}}">
+                <Button x:Name="PART_ClearButton"
+                        Classes="icon small"
+                        Focusable="False"
+                        IsVisible="False"
+                        Margin="0,0,8,0"
+                        Command="{Binding $parent[TextBox].Clear}"
+                        AutomationProperties.Name="Clear">
+                  <!-- Icons.Material.Filled.Clear is Close's path. 18px, the small icon button's. -->
+                  <Viewbox Width="18" Height="18">
+                    <Path Width="24" Height="24"
+                          Stretch="None"
+                          Data="{DynamicResource FiliCloseGeometry}"
+                          Fill="{Binding $parent[Button].Foreground}" />
+                  </Viewbox>
+                </Button>
+              </Panel>
               <ScrollViewer x:Name="PART_ScrollViewer"
                             HorizontalScrollBarVisibility="{TemplateBinding (ScrollViewer.HorizontalScrollBarVisibility)}"
                             VerticalScrollBarVisibility="{TemplateBinding (ScrollViewer.VerticalScrollBarVisibility)}">
@@ -452,6 +475,24 @@
     </Style>
     <Style Selector="^.placeholder:empty /template/ TextBlock#PART_Placeholder">
       <Setter Property="IsVisible" Value="True" />
+    </Style>
+
+    <!-- `clearable`: MudInput.ShowClearButton - never disabled or read-only, and only over text
+         that is not blank (the Panel round the button). Its margin is ClearButtonClassname's:
+         `mud-icon-button-edge-margin-end`, 8px, alone; `mud-icon-button-edge-end`, -3px, before an
+         end adornment; beside a spin column `me-6` and `me-n1`, the column's 24px being the
+         adornment presenter's already. -->
+    <Style Selector="^.clearable[IsReadOnly=False]:not(:disabled) /template/ Button#PART_ClearButton">
+      <Setter Property="IsVisible" Value="True" />
+    </Style>
+    <Style Selector="^:end-adornment /template/ Button#PART_ClearButton">
+      <Setter Property="Margin" Value="0,0,-3,0" />
+    </Style>
+    <Style Selector="^:spin-end /template/ Button#PART_ClearButton">
+      <Setter Property="Margin" Value="0" />
+    </Style>
+    <Style Selector="^:spin-end:end-adornment /template/ Button#PART_ClearButton">
+      <Setter Property="Margin" Value="0,0,-4,0" />
     </Style>
   </ControlTheme>
 

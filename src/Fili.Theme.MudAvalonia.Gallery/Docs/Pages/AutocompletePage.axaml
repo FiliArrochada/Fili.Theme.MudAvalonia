@@ -36,7 +36,7 @@
                       Description="An AutoCompleteBox shows no arrow of its own: MudAutocomplete's is a PathIcon in InnerRightContent, here the theme's own FiliArrowDropDownGeometry. Start and end icons are a text field's adornments."
                       Source="Autocomplete/Adornments" />
     <TextBlock Classes="body1 p">
-      <Run Text="MudAutocomplete's " /><Run Classes="code" Text="Clearable" /><Run Text=" is a button in " /><Run Classes="code" Text="InnerRightContent" /><Run Text=" whose click clears the value: the clearing is the app's." />
+      <Run Text="MudAutocomplete's " /><Run Classes="code" Text="Clearable" /><Run Text=" is " /><Run Classes="code" Text="clearable" /><Run Text=", as on a text field." />
     </TextBlock>
 
     <TextBlock Classes="h5 section" Text="Progress" />
@@ -63,7 +63,7 @@
       <docs:ParityRow MudBlazor="Variant, Margin.Dense, Error, Counter, HelperText, HelperTextOnFocus" Here="the text field's classes and AutomationProperties.HelpText, on the outer control" Status="Same" Note="Passed to the TextBox inside." />
       <docs:ParityRow MudBlazor="Underline, Required, ShrinkLabel" Here="no-underline, required, shrink-label" Status="Same" Note="As on a text field." />
       <docs:ParityRow MudBlazor="MaxHeight (default 300)" Here="MaxDropDownHeight" Status="Same" Note="300, where Avalonia's default is 200." />
-      <docs:ParityRow MudBlazor="Clearable" Here="a button in InnerRightContent" Status="Close" Note="The app clears the value." />
+      <docs:ParityRow MudBlazor="Clearable" Here="clearable" Status="Same" Note="As on a text field: the class reaches the field inside." />
       <docs:ParityRow MudBlazor="the drop-down arrow" Here="an arrow in InnerRightContent" Status="Close" Note="An AutoCompleteBox shows none of its own." />
       <docs:ParityRow MudBlazor="ShowProgressIndicator, ProgressIndicatorColor" Here="a ProgressBar.circular.small in InnerRightContent" Status="Close" />
     </docs:ParityTable>

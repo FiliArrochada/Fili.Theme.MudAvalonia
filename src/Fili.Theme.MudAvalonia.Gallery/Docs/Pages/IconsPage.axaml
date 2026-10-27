@@ -84,6 +84,7 @@
       <docs:ParityRow MudBlazor="MudDatePicker AdornmentIcon, PreviousIcon, NextIcon; MudTimePicker AdornmentIcon" Here="FiliEventGeometry; FiliNavigateBeforeGeometry, FiliChevronRightGeometry; FiliAccessTimeGeometry" Status="Same" />
       <docs:ParityRow MudBlazor="MudSnackbar CloseIcon; CommonSnackbarOptions' InfoIcon, SuccessIcon, WarningIcon, ErrorIcon, NormalIcon" Here="on the WindowNotificationManager: FiliCloseGeometry; FiliInfoOutlinedGeometry, FiliAlertSuccessGeometry, FiliReportProblemGeometry, FiliErrorOutlineGeometry, FiliEventNoteGeometry" Status="Same" />
       <docs:ParityRow MudBlazor="a submenu's arrow (Filled.ArrowRight)" Here="FiliArrowRightGeometry" Status="Same" Note="No MudBlazor parameter; mirrored under right to left." />
+      <docs:ParityRow MudBlazor="MudInput ClearIcon" Here="FiliCloseGeometry, on a clearable field" Status="Same" Note="Icons.Material.Filled.Clear is Close's path." />
       <docs:ParityRow MudBlazor="the time picker's Close and Check buttons" Here="FiliCloseGeometry, FiliCheckGeometry" Status="Same" Note="No MudBlazor parameter." />
       <docs:ParityRow MudBlazor="a command bar's overflow button: MudMenu's ActivatorIcon in a MudToolBar (Filled.MoreVert)" Here="FiliMoreVertGeometry" Status="Same" />
       <docs:ParityRow MudBlazor="a navigation page's back button (Filled.ArrowBack)" Here="FiliArrowBackGeometry" Status="Same" Note="No MudBlazor parameter." />
