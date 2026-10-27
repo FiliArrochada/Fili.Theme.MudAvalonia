@@ -13,13 +13,7 @@
                       Description="The overlay shares a Panel with the content it covers, so it lies over that content alone, as MudOverlay's Absolute does. Here a ToggleButton's IsChecked is bound to its IsVisible."
                       Source="Overlay/Toggle" />
     <TextBlock Classes="body1 p">
-      <Run Text="It fades in over .15s each time it is shown, MudBlazor's " />
-      <Run Classes="code" Text="mud-animation-fadein" />
-      <Run Text=": the whole overlay, content included, where MudBlazor fades the scrim and shows the content at once. With " />
-      <Run Classes="code" Text="FiliReducedMotion" />
-      <Run Text=" set it is shown at once. To cover the whole page rather than one container, put the overlay in a " />
-      <Run Classes="code" Text="Panel" />
-      <Run Text=" with the window's content." />
+      <Run Text="It fades in over .15s each time it is shown, MudBlazor's " /><Run Classes="code" Text="mud-animation-fadein" /><Run Text=": the whole overlay, content included, where MudBlazor fades the scrim and shows the content at once. With " /><Run Classes="code" Text="FiliReducedMotion" /><Run Text=" set it is shown at once. To cover the whole page rather than one container, put the overlay in a " /><Run Classes="code" Text="Panel" /><Run Text=" with the window's content." />
     </TextBlock>
 
     <TextBlock Classes="h5 section" Text="Colour" />
@@ -39,16 +33,7 @@
 
     <TextBlock Classes="h5 section" Text="Z-index and closing" />
     <TextBlock Classes="body1 p">
-      <Run Classes="code" Text="ZIndex" />
-      <Run Text=" is the ordinary Avalonia property; in a " />
-      <Run Classes="code" Text="Panel" />
-      <Run Text=" a later child is drawn over an earlier one anyway. MudBlazor's " />
-      <Run Classes="code" Text="AutoClose" />
-      <Run Text=", " />
-      <Run Classes="code" Text="OnClick" />
-      <Run Text=" and " />
-      <Run Classes="code" Text="LockScroll" />
-      <Run Text=" are behaviour, and have no counterpart: closing on a click and locking scroll are the app's." />
+      <Run Classes="code" Text="ZIndex" /><Run Text=" is the ordinary Avalonia property; in a " /><Run Classes="code" Text="Panel" /><Run Text=" a later child is drawn over an earlier one anyway. MudBlazor's " /><Run Classes="code" Text="AutoClose" /><Run Text=", " /><Run Classes="code" Text="OnClick" /><Run Text=" and " /><Run Classes="code" Text="LockScroll" /><Run Text=" are behaviour, and have no counterpart: closing on a click and locking scroll are the app's." />
     </TextBlock>
     <StackPanel Orientation="Horizontal" Spacing="8" Margin="0,0,0,16">
       <TextBlock Classes="body1" Text="See also:" VerticalAlignment="Center" />
@@ -59,15 +44,7 @@
 
     <TextBlock Classes="h5 section" Text="MudBlazor parity" />
     <TextBlock Classes="body1 p">
-      <Run Text="Every MudOverlay parameter and what it is here. " />
-      <Run Classes="code" Text="Same" />
-      <Run Text=" is transcribed from MudBlazor's source; " />
-      <Run Classes="code" Text="Close" />
-      <Run Text=" gets the same result another way; " />
-      <Run Classes="code" Text="Missing" />
-      <Run Text=" has no counterpart; " />
-      <Run Classes="code" Text="Extra" />
-      <Run Text=" is beyond MudBlazor." />
+      <Run Text="Every MudOverlay parameter and what it is here. " /><Run Classes="code" Text="Same" /><Run Text=" is transcribed from MudBlazor's source; " /><Run Classes="code" Text="Close" /><Run Text=" gets the same result another way; " /><Run Classes="code" Text="Missing" /><Run Text=" has no counterpart; " /><Run Classes="code" Text="Extra" /><Run Text=" is beyond MudBlazor." />
     </TextBlock>
     <docs:ParityTable>
       <docs:ParityRow MudBlazor="MudOverlay" Here="overlay on a Border" Status="Same" Note="Transparent, and it still takes the pointer, as a modal MudOverlay does." />

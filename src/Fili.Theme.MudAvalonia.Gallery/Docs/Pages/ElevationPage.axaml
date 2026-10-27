@@ -1,0 +1,61 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:docs="using:Fili.Theme.MudAvalonia.Gallery.Docs"
+             x:Class="Fili.Theme.MudAvalonia.Gallery.Docs.Pages.ElevationPage">
+  <StackPanel Classes="doc">
+    <docs:DocHeader Title="Elevation"
+                    Summary="MudBlazor's shadows: twenty-six levels, each three layers from Shadow.cs, as the classes elevation0 to elevation25 on the surfaces that take an Elevation, and as the fixed shadows of buttons, menus and the rest." />
+
+    <TextBlock Classes="h5 section" Text="Levels" />
+    <docs:ExampleCard Title="elevation0 to elevation25"
+                      Description="Every level _elevation.scss has, on papers. 1 to 4 are what most of an app uses; 25 is MudBlazor's own soft shadow, not a step up from 24."
+                      Source="Elevation/Levels" />
+    <TextBlock Classes="body1 p">
+      <Run Text="Shadows are what separate MudBlazor's surfaces, where Fluent draws a one-pixel border instead. Each level is a resource, " /><Run Classes="code" Text="FiliElevation0" /><Run Text=" to " /><Run Classes="code" Text="FiliElevation25" /><Run Text=", a three-layer " /><Run Classes="code" Text="BoxShadows" /><Run Text="; override one in your application's resources and every surface at that level follows." />
+    </TextBlock>
+
+    <TextBlock Classes="h5 section" Text="Which controls take it" />
+    <TextBlock Classes="body1 p">
+      <Run Text="Where a MudBlazor component has an " /><Run Classes="code" Text="Elevation" /><Run Text=" parameter, the control here takes the same level as a class, " /><Run Classes="code" Text="elevation0" /><Run Text=" to " /><Run Classes="code" Text="elevation25" /><Run Text=", and with no class it sits at the component's default. Each component's page shows its own." />
+    </TextBlock>
+    <docs:ParityTable>
+      <docs:ParityRow MudBlazor="MudPaper, MudCard" Here="Border.paper, Border.card" Status="Same" Note="Default 1. elevationN also works on any Border." />
+      <docs:ParityRow MudBlazor="MudExpansionPanels" Here="Expander" Status="Same" Note="Default 1, on the panel." />
+      <docs:ParityRow MudBlazor="MudTable, MudDataGrid" Here="TableView, DataGrid" Status="Same" Note="Default 1, on the table's surface." />
+      <docs:ParityRow MudBlazor="MudDrawer" Here="SplitView" Status="Same" Note="Default 1, on the pane." />
+      <docs:ParityRow MudBlazor="MudTabs" Here="TabControl, TabStrip" Status="Same" Note="Default 0. The shadow sits outside the bar, so rounded does not clip it." />
+      <docs:ParityRow MudBlazor="MudBadge" Here="badge" Status="Same" Note="Default 0, on the badge, not what it decorates." />
+      <docs:ParityRow MudBlazor="MudAppBar" Here="Border.appbar" Status="Same" Note="Default 4; an elevation class replaces it." />
+    </docs:ParityTable>
+    <StackPanel Orientation="Horizontal" Spacing="8" Margin="0,0,0,16">
+      <TextBlock Classes="body1" Text="See also:" VerticalAlignment="Center" />
+      <docs:DocLink Slug="paper" Content="Paper" />
+      <docs:DocLink Slug="expansion-panels" Content="Expansion panels" />
+      <docs:DocLink Slug="tabs" Content="Tabs" />
+      <docs:DocLink Slug="badge" Content="Badge" />
+    </StackPanel>
+
+    <TextBlock Classes="h5 section" Text="Fixed shadows" />
+    <TextBlock Classes="body1 p">
+      <Run Text="The rest have the level MudBlazor gives them, with no class to change it: a filled button 2, 4 under the pointer or focus and 8 pressed, unless it is " /><Run Classes="code" Text="flat" /><Run Text="; a FAB 6, 8 and 12; the switch's thumb 2; a snackbar 6; a navigation page's bar 4; and the menus, selects, autocomplete lists, picker popups and flyouts 8. To change one everywhere, override its level's resource." />
+    </TextBlock>
+    <StackPanel Orientation="Horizontal" Spacing="8" Margin="0,0,0,16">
+      <TextBlock Classes="body1" Text="See also:" VerticalAlignment="Center" />
+      <docs:DocLink Slug="button" Content="Button" />
+      <docs:DocLink Slug="fab" Content="FAB" />
+      <docs:DocLink Slug="menu" Content="Menu" />
+      <docs:DocLink Slug="snackbar" Content="Snackbar" />
+    </StackPanel>
+
+    <TextBlock Classes="h5 section" Text="Elevation in dark" />
+    <docs:ExampleCard Title="material-elevation-overlay"
+                      Description="A black shadow barely shows on a dark ground, in MudBlazor as here. On a window or any container, this class opts into Material's dark-theme overlay: each raised surface inside is lightened by white at its level's opacity, 5% at 1, 9% at 4, 12% at 8 and 16% at 24. Switch to dark to see it; light and high contrast are unchanged."
+                      Source="Elevation/Overlay" />
+    <TextBlock Classes="body1 p">
+      <Run Text="MudBlazor does not offer this, so its name says it is Material's: " /><Run Classes="code" Text="material-elevation-overlay" /><Run Text=". It is an inset shadow over the surface's own background, so it follows a custom surface colour and the corner radius. Papers, cards, panels, grids and the menus, selects and flyouts take it; coloured app bars, buttons and badges keep their colour, and a tab bar is left alone, as its shadow sits outside the bar it would have to lighten. Most apps set it once, on the window." />
+    </TextBlock>
+    <TextBlock Classes="body1 p">
+      <Run Text="Each level of the overlay is a shadow of its own, " /><Run Classes="code" Text="FiliElevationOverlay1" /><Run Text=" to " /><Run Classes="code" Text="FiliElevationOverlay25" /><Run Text=": the level's shadow with the white inset added in dark. An app that repaints a shadow, " /><Run Classes="code" Text="FiliElevation4" /><Run Text=" say, repaints " /><Run Classes="code" Text="FiliElevationOverlay4" /><Run Text=" too, or a surface under the overlay keeps the old one." />
+    </TextBlock>
+  </StackPanel>
+</UserControl>

@@ -39,6 +39,29 @@ public class DocsSiteTests
         window.Close();
     });
 
+    /// <summary>
+    /// No sentence has a run of bare whitespace in it: the line break between two Runs in XAML is
+    /// a space of its own, on top of the spaces the Runs carry, so code was followed by a gap
+    /// before its punctuation. A page writes its Runs on one line.
+    /// </summary>
+    [Theory]
+    [MemberData(nameof(Slugs))]
+    public Task NoSentenceHasAStraySpace(string slug) => UiThread.RunAsync(() =>
+    {
+        var view = new MainView();
+        var window = new Window { Content = view, Width = 1440, Height = 900 };
+        window.Show();
+        view.Navigate(slug);
+        Dispatcher.UIThread.RunJobs();
+
+        foreach (var text in window.GetVisualDescendants().OfType<TextBlock>().Where(t => t.Inlines is { Count: > 1 }))
+        {
+            Assert.DoesNotContain(text.Inlines!, i => i is Avalonia.Controls.Documents.Run { Text: { } t } && string.IsNullOrWhiteSpace(t));
+        }
+
+        window.Close();
+    });
+
     /// <summary>Each example card loaded its file, and shows that file's content as its code.</summary>
     [Theory]
     [MemberData(nameof(Slugs))]
@@ -81,4 +104,84 @@ public class DocsSiteTests
     [Fact]
     public void SlugsAreUnique() =>
         Assert.Equal(DocCatalog.Pages.Count, DocCatalog.Pages.Select(p => p.Slug).Distinct().Count());
+
+    /// <summary>The address names a page: the site opens on it rather than on the overview.</summary>
+    [Fact]
+    public Task TheSiteOpensOnThePageItsAddressNames() => WithAddress("tooltip", (address, view) =>
+    {
+        Assert.Equal("tooltip", view.Current);
+        Assert.Equal(("tooltip", "Tooltip"), address.Shown[^1]);
+    });
+
+    /// <summary>An address naming no page opens the overview, and says so.</summary>
+    [Fact]
+    public Task AnUnknownAddressOpensTheOverview() => WithAddress("no-such-page", (address, view) =>
+    {
+        Assert.Equal("overview", view.Current);
+        Assert.Equal("overview", address.Shown[^1].Slug);
+    });
+
+    /// <summary>Each page shown is written into the address, with its title.</summary>
+    [Fact]
+    public Task APageShownIsWrittenToTheAddress() => WithAddress(null, (address, view) =>
+    {
+        view.Navigate("badge");
+
+        Assert.Equal(("badge", "Badge"), address.Shown[^1]);
+    });
+
+    /// <summary>Back and Forward change the address from outside: the page follows it.</summary>
+    [Fact]
+    public Task ThePageFollowsTheAddressBackAndForward() => WithAddress(null, (address, view) =>
+    {
+        view.Navigate("badge");
+        address.Go("avatar");
+        Dispatcher.UIThread.RunJobs();
+        Assert.Equal("avatar", view.Current);
+
+        address.Go(string.Empty);
+        Dispatcher.UIThread.RunJobs();
+        Assert.Equal("overview", view.Current);
+    });
+
+    private static Task WithAddress(string? slug, Action<FakeAddress, MainView> test) => UiThread.RunAsync(() =>
+    {
+        var address = new FakeAddress { Slug = slug };
+        DocAddress.Current = address;
+        try
+        {
+            var view = new MainView();
+            var window = new Window { Content = view, Width = 1440, Height = 900 };
+            window.Show();
+            Dispatcher.UIThread.RunJobs();
+
+            test(address, view);
+            window.Close();
+        }
+        finally
+        {
+            DocAddress.Current = null;
+        }
+    });
+
+    private sealed class FakeAddress : IDocAddress
+    {
+        public string? Slug { get; set; }
+
+        public List<(string Slug, string Title)> Shown { get; } = [];
+
+        public event Action<string>? Changed;
+
+        public void Show(string slug, string title)
+        {
+            Slug = slug;
+            Shown.Add((slug, title));
+        }
+
+        public void Go(string slug)
+        {
+            Slug = slug;
+            Changed?.Invoke(slug);
+        }
+    }
 }

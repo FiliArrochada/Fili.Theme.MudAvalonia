@@ -106,7 +106,7 @@
 
   <!--
     No focus rectangle. MudBlazor's _reset.scss removes the browser's outline, and every control
-    here marks keyboard focus with its state layer instead (docs/controls.md, Keyboard focus). The
+    here marks keyboard focus with its state layer instead (docs/traps.md, the focus rectangle). The
     forked AdornerLayer still drew Simple's dashed box round every focused control, on top of the
     tint. A control's own FocusAdorner, set by an app, still draws.
   -->
@@ -270,7 +270,7 @@
   </Style>
   <!-- END GENERATED -->
   <!-- Color.Inherit, `.mud-inherit-text { color: inherit }`: the colour round the text, over a
-       type class's own (caption and overline are text-secondary). Bound to the parent's, as a
+       colour class's own. Bound to the parent's, as a
        setter cannot withdraw another style's Foreground. -->
   <Style Selector="TextBlock.inherit">
     <Setter Property="Foreground" Value="{Binding $parent[Control].(TextElement.Foreground)}" />

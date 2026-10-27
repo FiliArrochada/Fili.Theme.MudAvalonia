@@ -1001,7 +1001,7 @@
             <StackPanel Margin="12" Spacing="8">
               <TextBlock Classes="subtitle2" Text="Themed scrolling" />
               <TextBlock Classes="body2" TextWrapping="Wrap"
-                         Text="A thin rail with a rounded thumb and no line buttons, overlaying the content rather than insetting it — so a list does not reflow by twelve pixels the moment it becomes scrollable." />
+                         Text="A thin rail with a rounded thumb and no line buttons, in a column of its own beside the content: a list narrows by twelve pixels once it scrolls." />
               <TextBlock Classes="body2" TextWrapping="Wrap"
                          Text="Scroll this panel to see the thumb. It darkens on hover and again on press." />
               <TextBlock Classes="body2" TextWrapping="Wrap"

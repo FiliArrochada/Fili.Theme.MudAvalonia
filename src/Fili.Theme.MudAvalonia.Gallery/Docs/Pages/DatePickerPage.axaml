@@ -13,11 +13,7 @@
                       Description="Closed, the picker is the standard text field with MudPicker's adornment, the Event icon in an icon button at the end. PlaceholderText is the floating label, and filled and outlined are the text field's own variants, set on the picker."
                       Source="DatePicker/Variants" />
     <TextBlock Classes="body1 p">
-      <Run Text="The date can be typed, as MudPicker's " />
-      <Run Classes="code" Text="Editable=&quot;true&quot;" />
-      <Run Text=" allows. Give every date picker a " />
-      <Run Classes="code" Text="PlaceholderText" />
-      <Run Text=": without one, Avalonia writes the date format into the field, where an unlabelled MudDatePicker is empty." />
+      <Run Text="The date can be typed, as MudPicker's " /><Run Classes="code" Text="Editable=&quot;true&quot;" /><Run Text=" allows. Give every date picker a " /><Run Classes="code" Text="PlaceholderText" /><Run Text=": without one, Avalonia writes the date format into the field, where an unlabelled MudDatePicker is empty." />
     </TextBlock>
     <StackPanel Orientation="Horizontal" Spacing="8" Margin="0,0,0,16">
       <TextBlock Classes="body1" Text="See also:" VerticalAlignment="Center" />
@@ -41,11 +37,7 @@
 
     <TextBlock Classes="h5 section" Text="The picker" />
     <TextBlock Classes="body1 p">
-      <Run Text="Open, the picker is MudPicker's popover: a paper at elevation 8, hung from the field's bottom-left. On top is the toolbar, 100px of primary in its contrast text, with the year above the date written as MudDatePicker's " />
-      <Run Classes="code" Text="TitleDateFormat" />
-      <Run Text=", " />
-      <Run Classes="code" Text="ddd, dd MMM" />
-      <Run Text=" (Sun, 11 Oct), in the case written and in the current culture. Under it is the calendar, 310px wide." />
+      <Run Text="Open, the picker is MudPicker's popover: a paper at elevation 8, hung from the field's bottom-left. On top is the toolbar, 100px of primary in its contrast text, with the year above the date written as MudDatePicker's " /><Run Classes="code" Text="TitleDateFormat" /><Run Text=", " /><Run Classes="code" Text="ddd, dd MMM" /><Run Text=" (Sun, 11 Oct), in the case written and in the current culture. Under it is the calendar, 310px wide." />
     </TextBlock>
     <TextBlock Classes="body1 p">
       <Run Text="The toolbar's year opens the years and its date goes back to the selected month; the month's name between the arrows steps up to the months, as MudBlazor's does. The toolbar and the selected day are always primary: the picker takes no colour class, and the popover's elevation is fixed at 8." />
@@ -56,9 +48,7 @@
                       Description="MudDatePicker's PickerVariant.Static is a Calendar placed in the page: the popover's calendar, without the toolbar or the paper. Put it in a paper for an elevation and rounded corners."
                       Source="DatePicker/Static" />
     <TextBlock Classes="body1 p">
-      <Run Text="A day is a 36px circle with body2 in it; the selected one is filled primary. Today is ringed in primary, its number in primary, as MudDatePicker always marks it, where Avalonia's picker would not; " />
-      <Run Classes="code" Text="IsTodayHighlighted=&quot;False&quot;" />
-      <Run Text=" still turns it off, as these examples do so that they look the same every day. Days of the months either side are hidden." />
+      <Run Text="A day is a 36px circle with body2 in it; the selected one is filled primary. Today is ringed in primary, its number in primary, as MudDatePicker always marks it, where Avalonia's picker would not; " /><Run Classes="code" Text="IsTodayHighlighted=&quot;False&quot;" /><Run Text=" still turns it off, as these examples do so that they look the same every day. Days of the months either side are hidden." />
     </TextBlock>
 
     <TextBlock Classes="h5 section" Text="Different views" />
@@ -74,20 +64,12 @@
                       Description="DisplayDateStart and DisplayDateEnd bound the dates that can be shown and picked: the days outside them are left out, and an arrow that would leave the range is disabled. BlackoutDates keeps days in the month but in text-disabled, and they cannot be picked."
                       Source="DatePicker/Range" />
     <TextBlock Classes="body1 p">
-      <Run Text="Both are Avalonia's own properties, on " />
-      <Run Classes="code" Text="CalendarDatePicker" />
-      <Run Text=" as on " />
-      <Run Classes="code" Text="Calendar" />
-      <Run Text=", standing in for MudDatePicker's MinDate, MaxDate and IsDateDisabledFunc. Where MudBlazor greys out a day before MinDate or after MaxDate, Avalonia leaves it out of the month." />
+      <Run Text="Both are Avalonia's own properties, on " /><Run Classes="code" Text="CalendarDatePicker" /><Run Text=" as on " /><Run Classes="code" Text="Calendar" /><Run Text=", standing in for MudDatePicker's MinDate, MaxDate and IsDateDisabledFunc. Where MudBlazor greys out a day before MinDate or after MaxDate, Avalonia leaves it out of the month." />
     </TextBlock>
 
     <TextBlock Classes="h5 section" Text="MudBlazor parity" />
     <TextBlock Classes="body1 p">
-      <Run Text="Every MudDatePicker parameter the theme carries and what it is here. " />
-      <Run Classes="code" Text="Same" />
-      <Run Text=" is transcribed from MudBlazor's source; " />
-      <Run Classes="code" Text="Close" />
-      <Run Text=" gets the same result another way." />
+      <Run Text="Every MudDatePicker parameter the theme carries and what it is here. " /><Run Classes="code" Text="Same" /><Run Text=" is transcribed from MudBlazor's source; " /><Run Classes="code" Text="Close" /><Run Text=" gets the same result another way." />
     </TextBlock>
     <docs:ParityTable>
       <docs:ParityRow MudBlazor="MudDatePicker" Here="CalendarDatePicker" Status="Same" Note="The standard field with the Event adornment, and MudPicker's popover." />
@@ -95,7 +77,9 @@
       <docs:ParityRow MudBlazor="Label" Here="PlaceholderText" Status="Same" Note="The floating label." />
       <docs:ParityRow MudBlazor="TitleDateFormat, Color" Here="ddd, dd MMM, primary" Status="Same" Note="The toolbar's date in the current culture; the toolbar and the selected day in primary." />
       <docs:ParityRow MudBlazor="PickerVariant.Static" Here="a Calendar on its own" Status="Same" Note="The calendar without the toolbar or the paper." />
-      <docs:ParityRow MudBlazor="the day names, the year list" Here="Avalonia's" Status="Close" Note="The shortest day names, and the years as a decade in a grid." />
+      <docs:ParityRow MudBlazor="the day names, the year list" Here="Avalonia's" Status="Close" Note="The shortest day names (S M T, not Sun Mon Tue); the years as a decade, twelve in a grid, not a list of every year; the months four to a row, not three. The CalendarItem builds them itself." />
+      <docs:ParityRow MudBlazor="no Label" Here="no PlaceholderText" Status="Close" Note="Avalonia writes the date format into an unlabelled field, which a style cannot undo, where an unlabelled MudDatePicker is empty: give every date picker a PlaceholderText." />
+      <docs:ParityRow MudBlazor="(none: Avalonia's spinner DatePicker)" Here="DatePicker" Status="Close" Note="The forked template in the theme's palette, legible in every variant but not MudBlazor's shape; MudDatePicker is CalendarDatePicker." />
       <docs:ParityRow MudBlazor="AdornmentIcon (Event)" Here="FiliEventGeometry" Status="Same" Note="In the picker's Resources to swap it." />
       <docs:ParityRow MudBlazor="PreviousIcon, NextIcon" Here="FiliNavigateBeforeGeometry, FiliChevronRightGeometry" Status="Same" Note="The arrows either side of the month's name." />
       <docs:ParityRow MudBlazor="Editable" Here="on" Status="Same" Note="The date can be typed, as Avalonia's picker allows." />

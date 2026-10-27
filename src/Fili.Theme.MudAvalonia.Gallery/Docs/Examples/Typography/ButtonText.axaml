@@ -1,0 +1,20 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <!-- Typo.button takes FiliButtonTextTransform's case, uppercase unless a region says otherwise. -->
+  <Grid ColumnDefinitions="160,*" RowDefinitions="Auto,Auto,Auto">
+    <TextBlock Classes="caption" Text="no key" VerticalAlignment="Center" />
+    <TextBlock Grid.Column="1" Classes="button" Text="Read more" />
+    <TextBlock Grid.Row="1" Classes="caption" Text="none" VerticalAlignment="Center" />
+    <TextBlock Grid.Row="1" Grid.Column="1" Classes="button" Text="Read more">
+      <TextBlock.Resources>
+        <x:String x:Key="FiliButtonTextTransform">none</x:String>
+      </TextBlock.Resources>
+    </TextBlock>
+    <TextBlock Grid.Row="2" Classes="caption" Text="capitalize" VerticalAlignment="Center" />
+    <TextBlock Grid.Row="2" Grid.Column="1" Classes="button" Text="read more">
+      <TextBlock.Resources>
+        <x:String x:Key="FiliButtonTextTransform">capitalize</x:String>
+      </TextBlock.Resources>
+    </TextBlock>
+  </Grid>
+</UserControl>

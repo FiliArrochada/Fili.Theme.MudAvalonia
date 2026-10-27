@@ -16,9 +16,7 @@
                       Description="inherit is Color.Inherit: the link takes the surrounding text colour, here text-secondary set on the panel round it."
                       Source="Link/Inherit" />
     <TextBlock Classes="body1 p">
-      <Run Text="Size, weight and spacing are inherited from the surrounding text, so the theme sets no " />
-      <Run Classes="code" Text="FontSize" />
-      <Run Text=": a link inside body2 is body2, and a link inside a heading is the heading." />
+      <Run Text="Size, weight and spacing are inherited from the surrounding text, so the theme sets no " /><Run Classes="code" Text="FontSize" /><Run Text=": a link inside body2 is body2, and a link inside a heading is the heading." />
     </TextBlock>
 
     <TextBlock Classes="h5 section" Text="Underlines" />
@@ -43,11 +41,7 @@
 
     <TextBlock Classes="h5 section" Text="MudBlazor parity" />
     <TextBlock Classes="body1 p">
-      <Run Text="Every MudLink parameter and what it is here. " />
-      <Run Classes="code" Text="Same" />
-      <Run Text=" is transcribed from MudBlazor's source; " />
-      <Run Classes="code" Text="Close" />
-      <Run Text=" gets the same result another way." />
+      <Run Text="Every MudLink parameter and what it is here. " /><Run Classes="code" Text="Same" /><Run Text=" is transcribed from MudBlazor's source; " /><Run Classes="code" Text="Close" /><Run Text=" gets the same result another way." />
     </TextBlock>
     <docs:ParityTable>
       <docs:ParityRow MudBlazor="Underline.Hover (default)" Here="no class" Status="Same" />

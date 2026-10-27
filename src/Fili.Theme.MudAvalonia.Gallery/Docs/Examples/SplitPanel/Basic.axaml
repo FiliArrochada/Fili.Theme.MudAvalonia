@@ -1,0 +1,36 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <!-- MudSplitPanel is a Grid with a GridSplitter between two cells: ResizeDirection is
+       Horizontal, the cells' MinWidth or MinHeight is MinPanelSize. The splitter keeps its
+       hairline, the only line between the two panels here; drag it to resize them. -->
+  <Grid ColumnDefinitions="*,24,*" RowDefinitions="Auto,Auto">
+    <TextBlock Classes="caption" Text="Columns" Margin="0,0,0,8" />
+    <TextBlock Grid.Column="2" Classes="caption" Text="Rows" Margin="0,0,0,8" />
+
+    <Border Grid.Row="1" Classes="paper outlined">
+      <Grid Height="160">
+        <Grid.ColumnDefinitions>
+          <ColumnDefinition Width="*" MinWidth="64" />
+          <ColumnDefinition Width="Auto" />
+          <ColumnDefinition Width="*" MinWidth="64" />
+        </Grid.ColumnDefinitions>
+        <TextBlock Classes="body2" Text="Start panel" Margin="16" />
+        <GridSplitter Grid.Column="1" ResizeDirection="Columns" />
+        <TextBlock Grid.Column="2" Classes="body2" Text="End panel" Margin="16" />
+      </Grid>
+    </Border>
+
+    <Border Grid.Row="1" Grid.Column="2" Classes="paper outlined">
+      <Grid Height="160">
+        <Grid.RowDefinitions>
+          <RowDefinition Height="*" MinHeight="48" />
+          <RowDefinition Height="Auto" />
+          <RowDefinition Height="*" MinHeight="48" />
+        </Grid.RowDefinitions>
+        <TextBlock Classes="body2" Text="Top panel" Margin="16" />
+        <GridSplitter Grid.Row="1" ResizeDirection="Rows" />
+        <TextBlock Grid.Row="2" Classes="body2" Text="Bottom panel" Margin="16" />
+      </Grid>
+    </Border>
+  </Grid>
+</UserControl>

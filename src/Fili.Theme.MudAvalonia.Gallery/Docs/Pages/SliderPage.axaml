@@ -55,13 +55,7 @@
 
     <TextBlock Classes="h5 section" Text="MudBlazor parity" />
     <TextBlock Classes="body1 p">
-      <Run Text="Every MudSlider parameter and what it is here. " />
-      <Run Classes="code" Text="Same" />
-      <Run Text=" is transcribed from MudBlazor's source; " />
-      <Run Classes="code" Text="Close" />
-      <Run Text=" gets the same result another way; " />
-      <Run Classes="code" Text="Missing" />
-      <Run Text=" is not here." />
+      <Run Text="Every MudSlider parameter and what it is here. " /><Run Classes="code" Text="Same" /><Run Text=" is transcribed from MudBlazor's source; " /><Run Classes="code" Text="Close" /><Run Text=" gets the same result another way; " /><Run Classes="code" Text="Missing" /><Run Text=" is not here." />
     </TextBlock>
     <docs:ParityTable>
       <docs:ParityRow MudBlazor="Size.Small (default)" Here="no class" Status="Same" Note="A 2px rail and a 12px thumb." />
@@ -72,11 +66,11 @@
       <docs:ParityRow MudBlazor="hover, focus and press" Here="the same" Status="Same" Note="A 1px / 2px ring of the colour at 24%; no growth." />
       <docs:ParityRow MudBlazor="Vertical" Here="Orientation=&quot;Vertical&quot;" Status="Same" />
       <docs:ParityRow MudBlazor="TickMarks" Here="TickPlacement other than None, at TickFrequency or Ticks" Status="Same" Note="Dots on the rail, its thickness and the colour." />
-      <docs:ParityRow MudBlazor="TickMarkLabels" Here="—" Status="Missing" Note="A Slider has nowhere to put the strings." />
+      <docs:ParityRow MudBlazor="TickMarkLabels" Here="—" Status="Missing" Note="An array of strings a Slider has no property for; passing it would take a public attached property, and this package's public API is one type. The tick dots are themed." />
       <docs:ParityRow MudBlazor="ValueLabel" Here="value-label" Status="Same" Note="A 12px chip of the colour above the thumb while it is held." />
       <docs:ParityRow MudBlazor="ValueLabelFormat, Culture" Here="—" Status="Close" Note="At most two decimals, in the app's culture rather than MudBlazor's invariant default." />
       <docs:ParityRow MudBlazor="ValueLabelContent" Here="—" Status="Missing" Note="The label shows the value." />
-      <docs:ParityRow MudBlazor="Disabled" Here="IsEnabled=&quot;False&quot;" Status="Same" Note="The rail and thumb at .38 in their colour, the thumb ringed 1px in white; the filled part and ticks keep their strength." />
+      <docs:ParityRow MudBlazor="Disabled" Here="IsEnabled=&quot;False&quot;" Status="Same" Note="The rail and thumb at .38 in their colour, the thumb ringed 1px in white; the filled part and ticks keep their strength, as elements outside the native input. MudBlazor's black, ×4 disabled thumb rule loses the cascade to its colour and size rules, so it never shows there either." />
       <docs:ParityRow MudBlazor="ChildContent" Here="a TextBlock above it" Status="Close" />
     </docs:ParityTable>
   </StackPanel>

@@ -18,7 +18,7 @@ public static class FiliThemeVariants
     /// <para>
     /// It inherits from <see cref="ThemeVariant.Dark"/>, which is doing real work rather than
     /// naming a family: a token this variant does not declare resolves to the dark one instead
-    /// of resolving to nothing. That is what lets the eighty-one forked control themes, which
+    /// of resolving to nothing. That is what lets the seventy-nine forked control themes, which
     /// declare Light and Dark only, keep working here untouched.
     /// </para>
     /// <para>

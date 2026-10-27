@@ -13,13 +13,7 @@
                       Description="The appbar colours, 64px high, 24px a side. The text colour is inherited from the bar, so plain text takes it and a control that sets its own keeps it: icon buttons say inherit, as MudBlazor's examples give theirs Color.Inherit."
                       Source="AppBar/Simple" />
     <TextBlock Classes="body1 p">
-      <Run Text="The row inside is the app's own panel: a " />
-      <Run Classes="code" Text="DockPanel" />
-      <Run Text=" stands in for MudSpacer. MudIconButton's " />
-      <Run Classes="code" Text="Edge" />
-      <Run Text=" is a negative " />
-      <Run Classes="code" Text="Margin" />
-      <Run Text=". Where the bar sits, top or bottom, fixed or not, is the app's layout." />
+      <Run Text="The row inside is the app's own panel: a " /><Run Classes="code" Text="DockPanel" /><Run Text=" stands in for MudSpacer. MudIconButton's " /><Run Classes="code" Text="Edge" /><Run Text=" is a negative " /><Run Classes="code" Text="Margin" /><Run Text=". Where the bar sits, top or bottom, fixed or not, is the app's layout." />
     </TextBlock>
 
     <TextBlock Classes="h5 section" Text="Colours" />
@@ -50,14 +44,13 @@
     <docs:ExampleCard Title="NavigationPage's bar"
                       Description="Avalonia's NavigationPage draws its bar as MudAppBar: the appbar colours, 64px, 24px gutters and elevation 4. HasShadow, on by default here, is the elevation; HasShadow=&quot;False&quot; is 0."
                       Source="AppBar/NavigationPage" />
+    <TextBlock Classes="body1 p">
+      <Run Text="A " /><Run Classes="code" Text="ContentPage" /><Run Text=" is MudMainContent: text-primary on the app's background, and its top and bottom command bars are the CommandBar's MudToolBar. How pages slide, push and pop stays Avalonia's." />
+    </TextBlock>
 
     <TextBlock Classes="h5 section" Text="MudBlazor parity" />
     <TextBlock Classes="body1 p">
-      <Run Text="Every MudAppBar parameter, and the page type that draws an app bar, and what each is here. " />
-      <Run Classes="code" Text="Same" />
-      <Run Text=" is transcribed from MudBlazor's source; " />
-      <Run Classes="code" Text="Close" />
-      <Run Text=" gets the same result another way." />
+      <Run Text="Every MudAppBar parameter, and the page type that draws an app bar, and what each is here. " /><Run Classes="code" Text="Same" /><Run Text=" is transcribed from MudBlazor's source; " /><Run Classes="code" Text="Close" /><Run Text=" gets the same result another way." />
     </TextBlock>
     <docs:ParityTable>
       <docs:ParityRow MudBlazor="background, text colour" Here="appbar" Status="Same" Note="The text colour is inherited, so a control's own colour wins." />
@@ -69,6 +62,7 @@
       <docs:ParityRow MudBlazor="Bottom, Fixed" Here="the app's layout" Status="Close" Note="Placement is the app's layout." />
       <docs:ParityRow MudBlazor="WrapContent" Here="a WrapPanel inside" Status="Close" />
       <docs:ParityRow MudBlazor="Contextual" Here="none" Status="Missing" Note="Swapping the bar's content on selection is code." />
+      <docs:ParityRow MudBlazor="MudMainContent" Here="ContentPage" Status="Same" Note="Text-primary on the background." />
       <docs:ParityRow MudBlazor="MudAppBar with a back MudIconButton and an h6 title" Here="NavigationPage" Status="Same" Note="HasShadow is Elevation 4 or 0." />
       <docs:ParityRow MudBlazor="Color.Inherit on an app bar's icon buttons" Here="a CommandBar inside an appbar" Status="Same" Note="Its commands and overflow button take the bar's text colour." />
     </docs:ParityTable>

@@ -13,11 +13,7 @@
                       Description="Surface at elevation 1 and the default radius, subtitle2 headers in a 59px row with no rule between them, body2 cells 16px round, and a table-lines rule under every row but the last."
                       Source="DataGrid/Default" />
     <TextBlock Classes="body1 p">
-      <Run Text="Reference " />
-      <Run Classes="code" Text="Avalonia.Controls.DataGrid" />
-      <Run Text=" 12.1.0 or later in the app and every " />
-      <Run Classes="code" Text="DataGrid" />
-      <Run Text=" is a MudDataGrid. An app without it never loads the grid's rules; on an older version the theme leaves the grid alone and Avalonia's log says why." />
+      <Run Text="Reference " /><Run Classes="code" Text="Avalonia.Controls.DataGrid" /><Run Text=" 12.1.0 or later in the app and every " /><Run Classes="code" Text="DataGrid" /><Run Text=" is a MudDataGrid. An app without it never loads the grid's rules; on an older version the theme leaves the grid alone, rather than apply templates that name parts it lacks, and Avalonia's log says why. Avalonia has no default theme, so the grid then needs the package's own theme included to show at all." />
     </TextBlock>
 
     <TextBlock Classes="h5 section" Text="Visual styling" />
@@ -25,11 +21,7 @@
                       Description="dense is Dense, 6px 24px 6px 16px with 16px on the right of the last visible column and a 39px header row. striped is Striped; hover is Hover and replaces the stripe under the pointer. GridLinesVisibility=&quot;All&quot; is Bordered."
                       Source="DataGrid/VisualStyling" />
     <TextBlock Classes="body1 p">
-      <Run Text="Hover and the stripes are off by default, as " />
-      <Run Classes="code" Text="MudDataGrid.Hover" />
-      <Run Text=" and " />
-      <Run Classes="code" Text="Striped" />
-      <Run Text=" are. The last row has no rule under it: rows cannot tell they are last, so they reach 1px past the grid's clip instead." />
+      <Run Text="Hover and the stripes are off by default, as " /><Run Classes="code" Text="MudDataGrid.Hover" /><Run Text=" and " /><Run Classes="code" Text="Striped" /><Run Text=" are. The last row has no rule under it: rows cannot tell they are last, so they reach 1px past the grid's clip instead." />
     </TextBlock>
     <docs:ExampleCard Title="outlined, elevation and CornerRadius 0"
                       Description="outlined is a 1px lines-default border and drops the elevation, as MudPaper does. elevation0 to elevation25 replace the default 1; CornerRadius=&quot;0&quot; is Square."
@@ -40,13 +32,7 @@
                       Description="MudDataGrid's ArrowUpward, 18px in a small icon button at the far end of the header, action-default, hidden until the column is sorted and turned for descending. Click a header to sort by it."
                       Source="DataGrid/Sorting" />
     <TextBlock Classes="body1 p">
-      <Run Text="The arrow sits where " />
-      <Run Classes="code" Text=".sortable-column-header" />
-      <Run Text=" taking the width puts it, not next to the title, and shows at 0.8 while the header is hovered. A sort set in code is a " />
-      <Run Classes="code" Text="DataGridCollectionView" />
-      <Run Text=" with " />
-      <Run Classes="code" Text="SortDescriptions" />
-      <Run Text="; the example's comes from the gallery's sample data." />
+      <Run Text="The arrow sits where " /><Run Classes="code" Text=".sortable-column-header" /><Run Text=" taking the width puts it, not next to the title, and shows at 0.8 while the header is hovered. A sort set in code is a " /><Run Classes="code" Text="DataGridCollectionView" /><Run Text=" with " /><Run Classes="code" Text="SortDescriptions" /><Run Text="; the example's comes from the gallery's sample data." />
     </TextBlock>
 
     <TextBlock Classes="h5 section" Text="Row selection" />
@@ -57,11 +43,7 @@
                       Description="A CheckBox in a cell is MudBlazor's table checkbox, the dense checkbox's circle pulled in 4px, so a row with one is 57px. A DataGridCheckBoxColumn's box is action-default in every row, as a read-only MudCheckBox is."
                       Source="DataGrid/CheckBoxColumn" />
     <TextBlock Classes="body1 p">
-      <Run Text="The checkbox column disables every row but the current one; the theme keeps the boxes in action-default anyway, so the column does not read as disabled. A " />
-      <Run Classes="code" Text="CheckBox" />
-      <Run Text=" in a " />
-      <Run Classes="code" Text="DataGridTemplateColumn" />
-      <Run Text=" gets the same circle." />
+      <Run Text="The checkbox column disables every row but the current one; the theme keeps the boxes in action-default anyway, so the column does not read as disabled. A " /><Run Classes="code" Text="CheckBox" /><Run Text=" in a " /><Run Classes="code" Text="DataGridTemplateColumn" /><Run Text=" gets the same circle." />
     </TextBlock>
 
     <TextBlock Classes="h5 section" Text="Editing" />
@@ -74,13 +56,7 @@
                       Description="background-gray group rows, &quot;Title: Key&quot; in bold, ExpandMore or ChevronRight in a 48px icon button, and no count. A nested group's header steps in 48px per level; its data rows stay where they are."
                       Source="DataGrid/Grouping" />
     <TextBlock Classes="body1 p">
-      <Run Text="Groupable is a " />
-      <Run Classes="code" Text="DataGridCollectionView" />
-      <Run Text=" with " />
-      <Run Classes="code" Text="GroupDescriptions" />
-      <Run Text=". The grid's own " />
-      <Run Classes="code" Text="SublevelIndent" />
-      <Run Text=" stays at 0, because it would move the rows as well; the headers step in up to a fifth level." />
+      <Run Text="Groupable is a " /><Run Classes="code" Text="DataGridCollectionView" /><Run Text=" with " /><Run Classes="code" Text="GroupDescriptions" /><Run Text=". The grid's own " /><Run Classes="code" Text="SublevelIndent" /><Run Text=" stays at 0, because it would move the rows as well; the headers step in up to a fifth level." />
     </TextBlock>
 
     <TextBlock Classes="h5 section" Text="Loading" />
@@ -90,13 +66,7 @@
 
     <TextBlock Classes="h5 section" Text="Columns" />
     <TextBlock Classes="body1 p">
-      <Run Text="Resizing, reordering and hiding are Avalonia's: " />
-      <Run Classes="code" Text="CanUserResizeColumns" />
-      <Run Text=", " />
-      <Run Classes="code" Text="CanUserReorderColumns" />
-      <Run Text=" and a column's " />
-      <Run Classes="code" Text="IsVisible" />
-      <Run Text=". Resizing works and shows its cursor, but MudBlazor's 2px primary line down the grid does not appear. The header never scrolls and the rows always virtualize. There is no column menu, filter row, pager or footer: each is a control of its own, not a look." />
+      <Run Text="Resizing, reordering and hiding are Avalonia's: " /><Run Classes="code" Text="CanUserResizeColumns" /><Run Text=", " /><Run Classes="code" Text="CanUserReorderColumns" /><Run Text=" and a column's " /><Run Classes="code" Text="IsVisible" /><Run Text=". Resizing works and shows its cursor, but MudBlazor's 2px primary line down the grid does not appear. The header never scrolls and the rows always virtualize. There is no column menu, filter row, pager or footer: each is a control of its own, not a look." />
     </TextBlock>
     <StackPanel Orientation="Horizontal" Spacing="8" Margin="0,0,0,16">
       <TextBlock Classes="body1" Text="See also:" VerticalAlignment="Center" />
@@ -105,13 +75,7 @@
 
     <TextBlock Classes="h5 section" Text="MudBlazor parity" />
     <TextBlock Classes="body1 p">
-      <Run Text="Every MudDataGrid parameter the theme touches, and what it is here. " />
-      <Run Classes="code" Text="Same" />
-      <Run Text=" is transcribed from MudBlazor's source; " />
-      <Run Classes="code" Text="Close" />
-      <Run Text=" gets the same result another way; " />
-      <Run Classes="code" Text="Missing" />
-      <Run Text=" is not here." />
+      <Run Text="Every MudDataGrid parameter the theme touches, and what it is here. " /><Run Classes="code" Text="Same" /><Run Text=" is transcribed from MudBlazor's source; " /><Run Classes="code" Text="Close" /><Run Text=" gets the same result another way; " /><Run Classes="code" Text="Missing" /><Run Text=" is not here." />
     </TextBlock>
     <docs:ParityTable>
       <docs:ParityRow MudBlazor="the component" Here="any DataGrid" Status="Same" Note="Surface, the default radius, text-primary." />
@@ -123,17 +87,17 @@
       <docs:ParityRow MudBlazor="Hover" Here="hover" Status="Same" Note="Table-hover, off by default." />
       <docs:ParityRow MudBlazor="Striped" Here="striped" Status="Same" Note="The 1st, 3rd, 5th row; hover replaces it." />
       <docs:ParityRow MudBlazor="Bordered" Here="GridLinesVisibility=&quot;All&quot;" Status="Same" Note="Table-lines between body cells, none after the last, none in the header." />
-      <docs:ParityRow MudBlazor="SortIcon, sorting" Here="the column's sort" Status="Same" Note="ArrowUpward in a small icon button at the end of the header, hidden until sorted, 0.8 on hover, turned for descending." />
+      <docs:ParityRow MudBlazor="SortIcon, sorting" Here="the column's sort" Status="Same" Note="ArrowUpward in a small icon button at the end of the header, action-default, hidden until sorted, 0.8 on hover, turned for descending." />
       <docs:ParityRow MudBlazor="a selected row" Here="SelectedItem" Status="Close" Note="MudDataGrid draws none; here a selected list row's primary-hover, so selection is visible." />
       <docs:ParityRow MudBlazor="Groupable, a group row" Here="a DataGridCollectionView with GroupDescriptions" Status="Same" Note="Background-gray, &quot;Title: Key&quot; in bold, ExpandMore / ChevronRight, a nested header 48px further in per level and its rows not at all." />
       <docs:ParityRow MudBlazor="edit mode" Here="IsReadOnly=&quot;False&quot;" Status="Same" Note="The field loses its resting line and keeps its focused one, as _datagrid.scss leaves it." />
-      <docs:ParityRow MudBlazor="ShowColumnOptions, Filterable, MudDataGridPager" Here="—" Status="Missing" Note="No column menu, filter row or pager: each is a control of its own, not a look." />
-      <docs:ParityRow MudBlazor="ColumnResizeMode" Here="CanUserResizeColumns" Status="Close" Note="Resizing works and shows its cursor; MudBlazor's 2px primary line does not appear." />
+      <docs:ParityRow MudBlazor="ShowColumnOptions, Filterable, MudDataGridPager" Here="—" Status="Missing" Note="No column menu, filter row or pager: each is a control with behaviour of its own, which belongs in a separate package rather than a theme." />
+      <docs:ParityRow MudBlazor="ColumnResizeMode" Here="CanUserResizeColumns" Status="Close" Note="Resizing works and shows its cursor; MudBlazor's 2px primary line down the grid does not appear, because the DataGrid keeps its resize state internal and drawing it would mean re-implementing its pointer handling." />
       <docs:ParityRow MudBlazor="FixedHeader, Virtualize" Here="built in" Status="Close" Note="Avalonia's header never scrolls and its rows always virtualize." />
       <docs:ParityRow MudBlazor="Height, HorizontalScrollbar" Here="Height, HorizontalScrollBarVisibility" Status="Close" Note="Ordinary Avalonia properties." />
       <docs:ParityRow MudBlazor="DragDropColumnReordering, Hideable" Here="CanUserReorderColumns, a column's IsVisible" Status="Close" Note="Ordinary Avalonia properties." />
       <docs:ParityRow MudBlazor="MultiSelection" Here="SelectionMode=&quot;Extended&quot;" Status="Close" Note="No checkbox column of its own." />
-      <docs:ParityRow MudBlazor="a checkbox in a cell (SelectColumn, a template column's MudCheckBox)" Here="a CheckBox in a cell template" Status="Same" Note="The dense checkbox's circle pulled in 4px, so the row is 57px; a DataGridCheckBoxColumn's box in action-default in every row." />
+      <docs:ParityRow MudBlazor="a checkbox in a cell (SelectColumn, a template column's MudCheckBox)" Here="a CheckBox in a cell template" Status="Same" Note="As .mud-table-cell .mud-checkbox: the 32 / 28 / 44px circle of a dense checkbox, pulled in 4px, so a row with one is 57px rather than 81; a DataGridCheckBoxColumn's box in action-default in every row, as a read-only MudCheckBox is, though the column disables all but the current row's." />
       <docs:ParityRow MudBlazor="FixedFooter, footers" Here="—" Status="Missing" Note="Avalonia's DataGrid has no footer row." />
       <docs:ParityRow MudBlazor="Loading, LoadingProgressColor" Here="a ProgressBar over the grid" Status="Close" Note="The app lays it over the grid." />
       <docs:ParityRow MudBlazor="Breakpoint (the stacked mobile layout)" Here="—" Status="Missing" Note="Re-laying rows as cards is a layout the DataGrid does not have, not a look." />

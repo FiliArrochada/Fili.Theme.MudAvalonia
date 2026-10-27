@@ -131,6 +131,10 @@ one.
   `FlowDirection="LeftToRight"`, while a directional one (a disclosure arrow) is left alone.
   Note also that `HasMirrorTransform` is false *inside* the subtree, and that measuring the flip
   requires translating a point across the boundary, not to the mirrored panel.
+- **A parent's class reaches its items through a child selector in FiliTheme.axaml.** A tab's
+  theme cannot see its TabControl's class, so `primary` and the rest are
+  `TabControl.primary > TabItem` there. A descendant selector would also repaint a `TabControl`
+  nested in the content.
 
 ## Tokens, resources and variants
 
@@ -177,6 +181,9 @@ one.
 - **Elevation does not vary between light and dark**, matching MudBlazor - but it DOES vary
   in high contrast, where every raised level becomes a hard 1px ring instead of a shadow. That is
   what gives the variant its separation without a single control template knowing it exists.
+- **One path serves two glyph keys when MudBlazor's are identical.** `NavigateNext` is
+  byte-identical to `ChevronRight`, so `Icons.axaml` carries the path once, under the name it was
+  first needed for: `FiliChevronRightGeometry` is the tabs' next icon too.
 
 ## Templates and controls
 
@@ -245,7 +252,7 @@ one.
   stops in the common controls: one at most, the control or the one part that stands for it.
 - **The base draws a focus rectangle; this theme does not.** The forked `AdornerLayer` gives every
   focused control Simple's dashed box, and nothing had turned it off, so the state layer - the
-  only affordance MudBlazor has, `docs/controls.md` says - had a dotted outline over it. A Style
+  only affordance MudBlazor has - had a dotted outline over it. A Style
   in FiliTheme.axaml sets `DefaultFocusAdorner` to null; an app's own `FocusAdorner` still draws.
 - **A popup is the root of its own tree.** The theme set the font on `Window` and `UserControl`,
   and a popup's host is neither: it took the base's `ContentControlThemeFontFamily`, an alias
@@ -304,6 +311,25 @@ one.
   `RenderTargetBitmap` uses - reads a `Border`'s radius, so a pixel frame can look right where a
   window does not. The ripple sets a rounded `Clip` geometry on its layer instead
   (`Ripple.RoundedRect`).
+- **A `Slider` needs a `Track` named `PART_Track` with two `RepeatButton`s**, which here are the
+  hit areas a click pages through and, for the decrease half, the `filled` part; the 30% rail and
+  the dots sit behind them. Both orientations need their own `Template`: a horizontal one applied
+  to a vertical slider renders sideways rather than degrading. A `ScrollBar` likewise needs its
+  `PART_Track`, or the thumb never moves; dropping the line buttons is safe, as their lookups are
+  null-safe and wheel, drag, keyboard and touch are the ScrollViewer's.
+- **`TabStrip` and `TabControl` are written out twice, not shared**: a `ControlTheme` cannot be
+  `BasedOn` one whose `TargetType` differs. Change one, change the other; the gallery shows them
+  together for that reason.
+- **A snackbar's close animation must keep the key frame that sets `IsClosed` at 100%.** That is
+  what removes the card: a theme that drops it renders beautifully and leaves notifications on
+  screen forever.
+- **A flyout's template carries an 8px outer margin**, because `BoxShadow` draws outside the
+  border and a popup window is sized to its content: with no room to spill into, the shadow is
+  clipped and the flyout reads flat. A presenter that takes the margin itself must also not clip
+  (the time picker's).
+- **Joined segments drop their inner corners and pull back 1px**, as `_buttongroup.scss` does, so
+  two outlines share one line. On a `SplitButton` the -1px does not appear, because Avalonia's
+  separator sits between the halves; a `button-group` keeps it (`ButtonGroup`).
 
 ## Writing tests
 
@@ -505,7 +531,7 @@ the package does not ship and drew Fluent's dark theme under the High contrast l
 Fluent back for a comparison - `StandaloneReadinessTests` is the record of what is hand-written.
 
 **Coverage is pinned, not reported.** `StandaloneReadinessTests` asserts the exact set of
-hand-written themes — **47 of the 95 templated types** — plus the count of both. The other 48 wear
+hand-written themes — **69 of the 95 templated types** — plus the count of both. The other 26 wear
 forked templates, and `SimpleBridgeTests` asserts the ~96 contract keys those paint from still
 resolve in both variants. Adding a theme means adding its `Fili*` key AND its target type to the
 first test in the same change; that is what keeps the number honest and turns an Avalonia version
@@ -515,7 +541,11 @@ that adds control types into a failing build rather than a silent gap.
 default is the mistake.** In order of increasing cost: a `Style` in `FiliTheme.axaml` when the
 shape is right and only values are wrong (`SplitView`/MudDrawer is the worked example — a Style
 outranks a ControlTheme setter, which is the trap above used deliberately; its own theme only adds
-the part its elevation needs); `Accents.axaml` when
+the part its elevation needs: `Controls/SplitView.axaml` owns the template, the fork's part for
+part, with `PART_PaneShadow` under the pane's content and the clip moved one level in, to
+`PART_PaneClip`, because the pane root is a `Panel`, which cannot carry a `BoxShadow`, and it
+clips; `DrawerTakesMudDrawerMetricsOverTheForkedTemplate` pins the precedence, and if it ever
+reversed every drawer would quietly revert to Simple's 320px grey pane); `Accents.axaml` when
 the control paints from one of Simple's shared keys; a hand-written `ControlTheme` when the shape
 itself is wrong.
 
@@ -527,9 +557,18 @@ reach — a Style setting the property directly is the way.
 **Do not add a hand-written theme for a control MudBlazor has no counterpart for.** `PopupRoot`,
 `AdornerLayer`, `TextSelectionHandle`, `ManagedFileChooser` and roughly 20 others exist because Avalonia needs them, not because a design system has an
 opinion about them. They stay forked permanently, and that is the fork earning its keep rather
-than a gap to close.
+than a gap to close. `GroupBox` stays forked too: its nearest MudBlazor relatives, MudCard and
+MudPaper, are different shapes, so theming it would be invention rather than transcription.
+
+**Do not transcribe `GridSplitter` from `_splitpanel.scss`.** MudBlazor's divider is a cursor, a
+12px invisible hit area and a focus outline; the separation comes from the panels' different
+backgrounds, which Avalonia does not guarantee. Transcribed faithfully it is invisible, the same
+failure this package has shipped twice in other forms. Simple's hairline is kept on purpose.
 
 The two deliberate deletions worth not re-adding: **`ScrollViewer`** (structural — get a part name
 wrong and it lays out perfectly and does not scroll) and **`Window`** (`VisualLayerManager` and
-`PART_TransparencyFallback` are load-bearing and invisible until missing). Both were written while
+`PART_TransparencyFallback` are load-bearing and invisible until missing: `PART_ContentPresenter`
+must be a `ScrollContentPresenter`, beside `PART_HorizontalScrollBar` and
+`PART_VerticalScrollBar`, and without `PART_TransparencyFallback` a window asking for acrylic on a
+compositor that cannot provide it renders with no background at all). Both were written while
 layering and both went when the fork made them redundant.

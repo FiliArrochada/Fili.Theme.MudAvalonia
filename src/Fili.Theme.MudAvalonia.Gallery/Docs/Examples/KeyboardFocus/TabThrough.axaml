@@ -1,0 +1,13 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <!-- Click the field, then press Tab: each control lights its state layer as it takes focus. -->
+  <WrapPanel Orientation="Horizontal">
+    <TextBox Classes="outlined" Width="160" PlaceholderText="Name" Margin="0,0,16,16" VerticalAlignment="Center" />
+    <Button Classes="filled primary" Content="Filled" Margin="0,0,16,16" VerticalAlignment="Center" />
+    <Button Content="Text" Margin="0,0,16,16" VerticalAlignment="Center" />
+    <CheckBox Content="Check box" IsChecked="True" Margin="0,0,16,16" VerticalAlignment="Center" />
+    <ToggleSwitch Content="Switch" Margin="0,0,16,16" VerticalAlignment="Center" />
+    <Slider Width="160" Value="40" Margin="0,0,16,16" VerticalAlignment="Center" />
+    <NumericUpDown Width="120" Value="3" Margin="0,0,16,16" VerticalAlignment="Center" />
+  </WrapPanel>
+</UserControl>

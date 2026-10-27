@@ -1,0 +1,41 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:docs="using:Fili.Theme.MudAvalonia.Gallery.Docs"
+             x:Class="Fili.Theme.MudAvalonia.Gallery.Docs.Pages.ScrollBarPage">
+  <StackPanel Classes="doc">
+    <docs:DocHeader Title="Scroll bar"
+                    Summary="The rail a ScrollViewer shows when its content does not fit: a thin bar with a rounded thumb and no line buttons, with nothing to opt into. MudBlazor leaves scroll bars to the browser, so this is the look a MudBlazor app has in one." />
+
+    <TextBlock Classes="h5 section" Text="Basic usage" />
+    <docs:ExampleCard Title="A ScrollViewer"
+                      Description="A 12px rail with no line buttons and a thumb rounded 4px, 2px inside it. The thumb is action-disabled at rest, action-default under the pointer and text-primary while it is dragged. Scroll the panel, then hover and drag the thumb."
+                      Source="ScrollBar/Vertical" />
+    <TextBlock Classes="body1 p">
+      <Run Text="Material has no scroll bar of its own, as the web hands that to the browser, so the theme follows what a MudBlazor app looks like: a narrow track, a rounded thumb, and a thumb that darkens rather than changes shape. The rail takes its 12px beside the content, so content that becomes scrollable gives up that width." />
+    </TextBlock>
+
+    <TextBlock Classes="h5 section" Text="Both ways" />
+    <docs:ExampleCard Title="HorizontalScrollBarVisibility"
+                      Description="A ScrollViewer scrolls only vertically by default. HorizontalScrollBarVisibility=&quot;Auto&quot; adds a horizontal rail when the content is wider than the viewer, and the corner where the two rails meet is a background-gray square."
+                      Source="ScrollBar/BothWays" />
+
+    <TextBlock Classes="h5 section" Text="The scroll viewer" />
+    <TextBlock Classes="body1 p">
+      <Run Text="Only the " /><Run Classes="code" Text="ScrollBar" /><Run Text=" is this theme's own. " /><Run Classes="code" Text="ScrollViewer" /><Run Text=" keeps Avalonia's template on purpose: it is structure rather than look, and the control where a mistake costs most, as a viewer with a misnamed part lays out perfectly and does not scroll. The wheel, a drag, the keyboard and touch are the ScrollViewer's, so they work as they always do; the bar has no line buttons to click." />
+    </TextBlock>
+    <StackPanel Orientation="Horizontal" Spacing="8" Margin="0,0,0,16">
+      <TextBlock Classes="body1" Text="See also:" VerticalAlignment="Center" />
+      <docs:DocLink Slug="list" Content="List" />
+      <docs:DocLink Slug="tabs" Content="Tabs" />
+    </StackPanel>
+
+    <TextBlock Classes="h5 section" Text="MudBlazor parity" />
+    <TextBlock Classes="body1 p">
+      <Run Text="MudBlazor has no scroll bar component, so both rows are " /><Run Classes="code" Text="Extra" /><Run Text=": the theme's own, where a MudBlazor app has the browser's." />
+    </TextBlock>
+    <docs:ParityTable>
+      <docs:ParityRow MudBlazor="(none: the browser's scroll bar)" Here="ScrollBar, themed by type" Status="Extra" Note="A 12px rail with no line buttons; a thumb rounded 4px, 2px in, action-disabled at rest, action-default under the pointer and text-primary while dragged." />
+      <docs:ParityRow MudBlazor="(none: overflow: auto)" Here="ScrollViewer" Status="Extra" Note="Avalonia's own template, parts and all: the wheel, a drag, the keyboard and touch scroll it, the rail sits beside the content, and the corner where two rails meet is background-gray." />
+    </docs:ParityTable>
+  </StackPanel>
+</UserControl>

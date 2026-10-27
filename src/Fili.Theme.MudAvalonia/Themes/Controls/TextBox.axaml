@@ -19,7 +19,7 @@
     variant    content padding    label resting        label floated
     standard   6px 0 7px          translate(0, 24)     translate(0, 1.5)  scale(.75)
     filled     12px horizontal    translate(12, 20)    translate(12, 10)  scale(.75)
-    outlined   14px horizontal    translate(14, 20)    translate(0, 1.5)  scale(.75)
+    outlined   14px horizontal    translate(14, 20)    translate(14, -6)  scale(.75)
 
   Two deliberate deviations, flagged because they are NOT transcriptions:
 

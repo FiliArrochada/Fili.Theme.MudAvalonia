@@ -1,0 +1,574 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:docs="using:Fili.Theme.MudAvalonia.Gallery.Docs"
+             x:Class="Fili.Theme.MudAvalonia.Gallery.Docs.Pages.FromMudBlazorPage">
+  <StackPanel Classes="doc">
+    <docs:DocHeader Title="From MudBlazor"
+                    Summary="The same UI written in MudBlazor Razor and in AXAML, section by section. A parameter value becomes a class; binding, events and layout stay Avalonia's." />
+    <TextBlock Classes="body1 p">
+      <Run Text="The same UI written twice: MudBlazor Razor first, then the AXAML that gives the same look with this theme. Two rules explain almost every pair below."
+      />
+    </TextBlock>
+    <TextBlock Classes="body1 p">
+      <Run FontWeight="Bold" Text="A class names a variant, and nothing else."
+      /><Run Text=" A MudBlazor parameter value such as "
+      /><Run Classes="code" Text="Variant.Outlined"
+      /><Run Text=" or "
+      /><Run Classes="code" Text="Color.Error"
+      /><Run Text=" becomes a lowercase class: "
+      /><Run Classes="code" Text="outlined"
+      /><Run Text=", "
+      /><Run Classes="code" Text="error"
+      /><Run Text=". Defaults need no class, because every control is themed by its type."
+      />
+    </TextBlock>
+    <TextBlock Classes="body1 p">
+      <Run FontWeight="Bold" Text="Behaviour stays Avalonia's."
+      /><Run Text=" Binding, events, validation and layout are ordinary Avalonia. The theme only supplies the look, so "
+      /><Run Classes="code" Text="@bind-Value"
+      /><Run Text=" becomes a "
+      /><Run Classes="code" Text="{}{Binding}"
+      /><Run Text=" and "
+      /><Run Classes="code" Text="OnClick"
+      /><Run Text=" becomes "
+      /><Run Classes="code" Text="Command"
+      /><Run Text=" or "
+      /><Run Classes="code" Text="Click"
+      /><Run Text="."
+      />
+    </TextBlock>
+    <StackPanel Orientation="Horizontal" Spacing="8" Margin="0,0,0,16">
+      <TextBlock Classes="body1" Text="For the full parameter-by-parameter list:" VerticalAlignment="Center" />
+      <docs:DocLink Slug="parity" Content="MudBlazor parity" />
+    </StackPanel>
+
+    <TextBlock Classes="h5 section" Text="Setup" />
+    <TextBlock Classes="body1 p">
+      <Run Text="MudThemeProvider becomes two includes in "
+      /><Run Classes="code" Text="App.axaml"
+      /><Run Text=", the base first, and "
+      /><Run Classes="code" Text="IsDarkMode"
+      /><Run Text=" becomes the application's "
+      /><Run Classes="code" Text="RequestedThemeVariant"
+      /><Run Text=", which also takes this theme's third variant, high contrast."
+      />
+    </TextBlock>
+    <TextBlock Classes="overline" Text="MudBlazor" Margin="0,0,0,4" />
+    <docs:CodeBlock Margin="0,0,0,16"
+                    Code="@* MainLayout.razor *@&#10;&lt;MudThemeProvider @bind-IsDarkMode=&quot;_dark&quot; /&gt;" />
+    <TextBlock Classes="overline" Text="AXAML" Margin="0,0,0,4" />
+    <docs:CodeBlock Margin="0,0,0,16"
+                    Code="&lt;!-- App.axaml --&gt;&#10;&lt;Application.Styles&gt;&#10;  &lt;StyleInclude Source=&quot;avares://Fili.Theme.MudAvalonia/Themes/Base/FiliBaseTheme.axaml&quot; /&gt;&#10;  &lt;StyleInclude Source=&quot;avares://Fili.Theme.MudAvalonia/FiliTheme.axaml&quot; /&gt;&#10;&lt;/Application.Styles&gt;" />
+    <TextBlock Classes="overline" Text="C#" Margin="0,0,0,4" />
+    <docs:CodeBlock Margin="0,0,0,16"
+                    Code="// IsDarkMode, and this theme's third variant&#10;Application.Current!.RequestedThemeVariant = ThemeVariant.Dark;&#10;Application.Current!.RequestedThemeVariant = FiliThemeVariants.HighContrast;" />
+    <StackPanel Orientation="Horizontal" Spacing="8" Margin="0,0,0,16">
+      <TextBlock Classes="body1" Text="See also:" VerticalAlignment="Center" />
+      <docs:DocLink Slug="installation" Content="Installation" />
+      <docs:DocLink Slug="theming" Content="Theming" />
+    </StackPanel>
+
+    <TextBlock Classes="h5 section" Text="Buttons" />
+    <TextBlock Classes="overline" Text="MudBlazor" Margin="0,0,0,4" />
+    <docs:CodeBlock Margin="0,0,0,16"
+                    Code="&lt;MudButton&gt;Learn more&lt;/MudButton&gt;&#10;&lt;MudButton Color=&quot;Color.Primary&quot;&gt;Learn more&lt;/MudButton&gt;&#10;&lt;MudButton Variant=&quot;Variant.Outlined&quot; Color=&quot;Color.Error&quot;&gt;Delete&lt;/MudButton&gt;&#10;&lt;MudButton Variant=&quot;Variant.Filled&quot; Color=&quot;Color.Primary&quot;&gt;Save&lt;/MudButton&gt;&#10;&lt;MudButton Variant=&quot;Variant.Filled&quot; Color=&quot;Color.Success&quot; Size=&quot;Size.Small&quot;&gt;OK&lt;/MudButton&gt;&#10;&lt;MudButton Variant=&quot;Variant.Filled&quot; Disabled=&quot;true&quot;&gt;Saving…&lt;/MudButton&gt;&#10;&lt;MudButton Color=&quot;Color.Inherit&quot;&gt;Sign in&lt;/MudButton&gt;" />
+    <TextBlock Classes="overline" Text="AXAML" Margin="0,0,0,4" />
+    <docs:CodeBlock Margin="0,0,0,16"
+                    Code="&lt;Button Content=&quot;Learn more&quot; /&gt;&#10;&lt;Button Classes=&quot;primary&quot; Content=&quot;Learn more&quot; /&gt;&#10;&lt;Button Classes=&quot;outlined error&quot; Content=&quot;Delete&quot; /&gt;&#10;&lt;Button Classes=&quot;filled primary&quot; Content=&quot;Save&quot; /&gt;&#10;&lt;Button Classes=&quot;filled success small&quot; Content=&quot;OK&quot; /&gt;&#10;&lt;Button Classes=&quot;filled&quot; Content=&quot;Saving…&quot; IsEnabled=&quot;False&quot; /&gt;&#10;&lt;Button Classes=&quot;inherit&quot; Content=&quot;Sign in&quot; /&gt;" />
+    <TextBlock Classes="body1 p">
+      <Run Classes="code" Text="primary"
+      /><Run Text=" on its own is a primary text button, exactly as "
+      /><Run Classes="code" Text="Color=&quot;Color.Primary&quot;"
+      /><Run Text=" is without a "
+      /><Run Classes="code" Text="Variant"
+      /><Run Text=". The fill comes from "
+      /><Run Classes="code" Text="filled"
+      /><Run Text="."
+      />
+    </TextBlock>
+    <TextBlock Classes="overline" Text="MudBlazor" Margin="0,0,0,4" />
+    <docs:CodeBlock Margin="0,0,0,16"
+                    Code="&lt;MudButton Variant=&quot;Variant.Filled&quot; Color=&quot;Color.Primary&quot; StartIcon=&quot;@Icons.Material.Filled.Add&quot;&gt;Add&lt;/MudButton&gt;" />
+    <TextBlock Classes="overline" Text="AXAML" Margin="0,0,0,4" />
+    <docs:CodeBlock Margin="0,0,0,16"
+                    Code="&lt;Button Classes=&quot;filled primary&quot;&gt;&#10;  &lt;StackPanel Orientation=&quot;Horizontal&quot;&gt;&#10;    &lt;PathIcon Classes=&quot;start-icon&quot; Data=&quot;{StaticResource AddIcon}&quot; /&gt;&#10;    &lt;TextBlock Text=&quot;Add&quot; VerticalAlignment=&quot;Center&quot; /&gt;&#10;  &lt;/StackPanel&gt;&#10;&lt;/Button&gt;" />
+    <TextBlock Classes="body1 p">
+      <Run Classes="code" Text="start-icon"
+      /><Run Text=" and "
+      /><Run Classes="code" Text="end-icon"
+      /><Run Text=" give the icon MudButton's size and spacing; on a chip, MudChip's."
+      />
+    </TextBlock>
+    <TextBlock Classes="overline" Text="MudBlazor" Margin="0,0,0,4" />
+    <docs:CodeBlock Margin="0,0,0,16"
+                    Code="&lt;MudButton Variant=&quot;Variant.Filled&quot; Color=&quot;Color.Primary&quot; DropShadow=&quot;false&quot;&gt;Flat&lt;/MudButton&gt;&#10;&lt;MudIconButton Icon=&quot;@Icons.Material.Filled.Menu&quot; /&gt;&#10;&lt;MudIconButton Icon=&quot;@Icons.Material.Filled.Favorite&quot; Color=&quot;Color.Primary&quot; Size=&quot;Size.Small&quot; /&gt;&#10;&lt;MudIconButton Icon=&quot;@Icons.Material.Filled.Add&quot; Variant=&quot;Variant.Filled&quot; Color=&quot;Color.Primary&quot; /&gt;" />
+    <TextBlock Classes="overline" Text="AXAML" Margin="0,0,0,4" />
+    <docs:CodeBlock Margin="0,0,0,16"
+                    Code="&lt;Button Classes=&quot;filled primary flat&quot; Content=&quot;Flat&quot; /&gt;&#10;&lt;Button Classes=&quot;icon&quot;&gt;&lt;PathIcon Data=&quot;{StaticResource MenuIcon}&quot; /&gt;&lt;/Button&gt;&#10;&lt;Button Classes=&quot;icon primary small&quot;&gt;&lt;PathIcon Data=&quot;{StaticResource FavoriteIcon}&quot; /&gt;&lt;/Button&gt;&#10;&lt;Button Classes=&quot;icon filled primary&quot;&gt;&lt;PathIcon Data=&quot;{StaticResource AddIcon}&quot; /&gt;&lt;/Button&gt;" />
+    <TextBlock Classes="body1 p">
+      <Run Text="The glyphs are the app's: copy the path from MudBlazor's "
+      /><Run Classes="code" Text="Icons/Material/Filled.cs"
+      /><Run Text=" into a "
+      /><Run Classes="code" Text="StreamGeometry"
+      /><Run Text=", without its "
+      /><Run Classes="code" Text="M0 0h24v24H0z"
+      /><Run Text=" spacer."
+      />
+    </TextBlock>
+    <StackPanel Orientation="Horizontal" Spacing="8" Margin="0,0,0,16">
+      <TextBlock Classes="body1" Text="See also:" VerticalAlignment="Center" />
+      <docs:DocLink Slug="button" Content="Button" />
+      <docs:DocLink Slug="icon-button" Content="Icon button" />
+      <docs:DocLink Slug="icons" Content="Icons" />
+    </StackPanel>
+
+    <TextBlock Classes="h5 section" Text="Chips" />
+    <TextBlock Classes="overline" Text="MudBlazor" Margin="0,0,0,4" />
+    <docs:CodeBlock Margin="0,0,0,16"
+                    Code="&lt;MudChip T=&quot;string&quot;&gt;Default&lt;/MudChip&gt;&#10;&lt;MudChip T=&quot;string&quot; Color=&quot;Color.Primary&quot;&gt;Primary&lt;/MudChip&gt;&#10;&lt;MudChip T=&quot;string&quot; Variant=&quot;Variant.Outlined&quot; Color=&quot;Color.Secondary&quot;&gt;Secondary&lt;/MudChip&gt;&#10;&lt;MudChip T=&quot;string&quot; Variant=&quot;Variant.Text&quot; Color=&quot;Color.Success&quot; Size=&quot;Size.Small&quot;&gt;Small&lt;/MudChip&gt;&#10;&#10;&lt;MudChipSet T=&quot;string&quot; SelectionMode=&quot;SelectionMode.SingleSelection&quot;&gt;&#10;    &lt;MudChip Value=&quot;@(&quot;a&quot;)&quot; Color=&quot;Color.Primary&quot;&gt;Selected&lt;/MudChip&gt;&#10;&lt;/MudChipSet&gt;" />
+    <TextBlock Classes="overline" Text="AXAML" Margin="0,0,0,4" />
+    <docs:CodeBlock Margin="0,0,0,16"
+                    Code="&lt;Button Classes=&quot;chip&quot; Content=&quot;Default&quot; /&gt;&#10;&lt;Button Classes=&quot;chip primary&quot; Content=&quot;Primary&quot; /&gt;&#10;&lt;Button Classes=&quot;chip outlined secondary&quot; Content=&quot;Secondary&quot; /&gt;&#10;&lt;Button Classes=&quot;chip text success small&quot; Content=&quot;Small&quot; /&gt;&#10;&#10;&lt;ToggleButton Classes=&quot;chip primary&quot; Content=&quot;Selected&quot; IsChecked=&quot;{Binding IsA}&quot; /&gt;" />
+    <TextBlock Classes="body1 p">
+      <Run Text="A selectable chip is a "
+      /><Run Classes="code" Text="ToggleButton"
+      /><Run Text=", and selected is "
+      /><Run Classes="code" Text="IsChecked"
+      /><Run Text="; the set's rules are bindings."
+      />
+    </TextBlock>
+    <StackPanel Orientation="Horizontal" Spacing="8" Margin="0,0,0,16">
+      <TextBlock Classes="body1" Text="See also:" VerticalAlignment="Center" />
+      <docs:DocLink Slug="chips" Content="Chips" />
+    </StackPanel>
+
+    <TextBlock Classes="h5 section" Text="Button groups" />
+    <TextBlock Classes="overline" Text="MudBlazor" Margin="0,0,0,4" />
+    <docs:CodeBlock Margin="0,0,0,16"
+                    Code="&lt;MudButtonGroup Variant=&quot;Variant.Filled&quot; Color=&quot;Color.Primary&quot;&gt;&#10;    &lt;MudButton&gt;Deploy&lt;/MudButton&gt;&#10;    &lt;MudMenu Icon=&quot;@Icons.Material.Filled.ArrowDropDown&quot;&gt;&#10;        &lt;MudMenuItem&gt;Deploy to staging&lt;/MudMenuItem&gt;&#10;    &lt;/MudMenu&gt;&#10;&lt;/MudButtonGroup&gt;" />
+    <TextBlock Classes="overline" Text="AXAML" Margin="0,0,0,4" />
+    <docs:CodeBlock Margin="0,0,0,16"
+                    Code="&lt;SplitButton Classes=&quot;filled primary&quot; Content=&quot;Deploy&quot;&gt;&#10;  &lt;SplitButton.Flyout&gt;&#10;    &lt;MenuFlyout&gt;&#10;      &lt;MenuItem Header=&quot;Deploy to staging&quot; /&gt;&#10;    &lt;/MenuFlyout&gt;&#10;  &lt;/SplitButton.Flyout&gt;&#10;&lt;/SplitButton&gt;" />
+    <TextBlock Classes="body1 p">
+      <Run Text="A split button takes the same classes as a button and they mean the same things: "
+      /><Run Classes="code" Text="outlined primary"
+      /><Run Text=", "
+      /><Run Classes="code" Text="filled error small"
+      /><Run Text=", and so on."
+      />
+    </TextBlock>
+    <StackPanel Orientation="Horizontal" Spacing="8" Margin="0,0,0,16">
+      <TextBlock Classes="body1" Text="See also:" VerticalAlignment="Center" />
+      <docs:DocLink Slug="button-group" Content="Button group" />
+      <docs:DocLink Slug="button" Content="Button" />
+      <docs:DocLink Slug="menu" Content="Menu" />
+    </StackPanel>
+
+    <TextBlock Classes="h5 section" Text="Typography" />
+    <TextBlock Classes="overline" Text="MudBlazor" Margin="0,0,0,4" />
+    <docs:CodeBlock Margin="0,0,0,16"
+                    Code="&lt;MudText Typo=&quot;Typo.h6&quot;&gt;Section&lt;/MudText&gt;&#10;&lt;MudText Typo=&quot;Typo.caption&quot;&gt;Supporting line&lt;/MudText&gt;&#10;&lt;MudText Typo=&quot;Typo.overline&quot;&gt;Label&lt;/MudText&gt;&#10;&lt;MudText&gt;Body text&lt;/MudText&gt;&#10;&lt;MudText Typo=&quot;Typo.body2&quot; Color=&quot;Color.Error&quot;&gt;Could not reach the store&lt;/MudText&gt;&#10;&lt;MudText Typo=&quot;Typo.body2&quot; Class=&quot;mud-text-secondary&quot;&gt;Last synced an hour ago&lt;/MudText&gt;" />
+    <TextBlock Classes="overline" Text="AXAML" Margin="0,0,0,4" />
+    <docs:CodeBlock Margin="0,0,0,16"
+                    Code="&lt;TextBlock Classes=&quot;h6&quot; Text=&quot;Section&quot; /&gt;&#10;&lt;TextBlock Classes=&quot;caption&quot; Text=&quot;Supporting line&quot; /&gt;&#10;&lt;TextBlock Classes=&quot;overline&quot; Text=&quot;Label&quot; /&gt;&#10;&lt;TextBlock Text=&quot;Body text&quot; /&gt;&#10;&lt;TextBlock Classes=&quot;body2 error&quot; Text=&quot;Could not reach the store&quot; /&gt;&#10;&lt;TextBlock Classes=&quot;body2&quot; Foreground=&quot;{DynamicResource FiliTextSecondaryBrush}&quot; Text=&quot;Last synced an hour ago&quot; /&gt;" />
+    <StackPanel Orientation="Horizontal" Spacing="8" Margin="0,0,0,16">
+      <TextBlock Classes="body1" Text="See also:" VerticalAlignment="Center" />
+      <docs:DocLink Slug="typography" Content="Typography" />
+    </StackPanel>
+
+    <TextBlock Classes="h5 section" Text="Surfaces" />
+    <TextBlock Classes="overline" Text="MudBlazor" Margin="0,0,0,4" />
+    <docs:CodeBlock Margin="0,0,0,16"
+                    Code="&lt;MudPaper Elevation=&quot;4&quot; Class=&quot;pa-4&quot;&gt;&#10;    &lt;MudText Typo=&quot;Typo.h6&quot;&gt;Section&lt;/MudText&gt;&#10;&lt;/MudPaper&gt;&#10;&#10;&lt;MudPaper Outlined=&quot;true&quot; Class=&quot;pa-4&quot;&gt;…&lt;/MudPaper&gt;" />
+    <TextBlock Classes="overline" Text="AXAML" Margin="0,0,0,4" />
+    <docs:CodeBlock Margin="0,0,0,16"
+                    Code="&lt;Border Classes=&quot;paper elevation4&quot; Padding=&quot;16&quot;&gt;&#10;  &lt;TextBlock Classes=&quot;h6&quot; Text=&quot;Section&quot; /&gt;&#10;&lt;/Border&gt;&#10;&#10;&lt;Border Classes=&quot;paper outlined&quot; Padding=&quot;16&quot;&gt;…&lt;/Border&gt;" />
+    <TextBlock Classes="body1 p">
+      <Run Classes="code" Text="pa-4"
+      /><Run Text=" is MudBlazor's 4 × 4px spacing step. Here it is "
+      /><Run Classes="code" Text="Padding=&quot;16&quot;"
+      /><Run Text=", or "
+      /><Run Classes="code" Text="Padding=&quot;{DynamicResource FiliSpacing4Thickness}&quot;"
+      /><Run Text="; "
+      /><Run Classes="code" Text="FiliSpacing4"
+      /><Run Text=" holds the same 16 as a number, for a "
+      /><Run Classes="code" Text="StackPanel"
+      /><Run Text="'s "
+      /><Run Classes="code" Text="Spacing"
+      /><Run Text=". Each key fits only its own kind: a number in a "
+      /><Run Classes="code" Text="Padding"
+      /><Run Text=" fails to cast."
+      />
+    </TextBlock>
+    <TextBlock Classes="body1 p">
+      <Run Text="The other layout utilities are properties too: "
+      /><Run Classes="code" Text="mx-2"
+      /><Run Text=" is a "
+      /><Run Classes="code" Text="Margin"
+      /><Run Text=" and "
+      /><Run Classes="code" Text="gap-2"
+      /><Run Text=" is "
+      /><Run Classes="code" Text="Spacing=&quot;8&quot;"
+      /><Run Text=", at 4px a step; "
+      /><Run Classes="code" Text="d-flex"
+      /><Run Text=" and "
+      /><Run Classes="code" Text="flex-column"
+      /><Run Text=" are a "
+      /><Run Classes="code" Text="StackPanel"
+      /><Run Text=" and its "
+      /><Run Classes="code" Text="Orientation"
+      /><Run Text="; "
+      /><Run Classes="code" Text="justify-*"
+      /><Run Text=" and "
+      /><Run Classes="code" Text="align-*"
+      /><Run Text=" are "
+      /><Run Classes="code" Text="HorizontalAlignment"
+      /><Run Text=" and "
+      /><Run Classes="code" Text="VerticalAlignment"
+      /><Run Text="; "
+      /><Run Classes="code" Text="rounded-*"
+      /><Run Text=" is "
+      /><Run Classes="code" Text="CornerRadius"
+      /><Run Text=", "
+      /><Run Classes="code" Text="border-*"
+      /><Run Text=" is "
+      /><Run Classes="code" Text="BorderThickness"
+      /><Run Text=", "
+      /><Run Classes="code" Text="d-none"
+      /><Run Text=" is "
+      /><Run Classes="code" Text="IsVisible"
+      /><Run Text=", "
+      /><Run Classes="code" Text="cursor-pointer"
+      /><Run Text=" is "
+      /><Run Classes="code" Text="Cursor"
+      /><Run Text=", "
+      /><Run Classes="code" Text="overflow-hidden"
+      /><Run Text=" is "
+      /><Run Classes="code" Text="ClipToBounds"
+      /><Run Text=" and "
+      /><Run Classes="code" Text="z-*"
+      /><Run Text=" is "
+      /><Run Classes="code" Text="ZIndex"
+      /><Run Text=". The utilities that carry a token, colour, elevation and the type ramp, are classes here as well. The spacing scale runs 0 to 20, a pair of keys per step, and a one-sided step is a "
+      /><Run Classes="code" Text="Thickness"
+      /><Run Text=" written out: "
+      /><Run Classes="code" Text="pt-4"
+      /><Run Text=" is "
+      /><Run Classes="code" Text="Padding=&quot;0,16,0,0&quot;"
+      /><Run Text="."
+      />
+    </TextBlock>
+    <StackPanel Orientation="Horizontal" Spacing="8" Margin="0,0,0,16">
+      <TextBlock Classes="body1" Text="See also:" VerticalAlignment="Center" />
+      <docs:DocLink Slug="paper" Content="Paper" />
+      <docs:DocLink Slug="elevation" Content="Elevation" />
+      <docs:DocLink Slug="parity" Content="MudBlazor parity" />
+    </StackPanel>
+
+    <TextBlock Classes="h5 section" Text="App bar" />
+    <TextBlock Classes="overline" Text="MudBlazor" Margin="0,0,0,4" />
+    <docs:CodeBlock Margin="0,0,0,16"
+                    Code="&lt;MudAppBar&gt;&#10;    &lt;MudText Typo=&quot;Typo.h6&quot;&gt;Library&lt;/MudText&gt;&#10;    &lt;MudSpacer /&gt;&#10;    &lt;MudButton Color=&quot;Color.Inherit&quot;&gt;Sign in&lt;/MudButton&gt;&#10;&lt;/MudAppBar&gt;" />
+    <TextBlock Classes="overline" Text="AXAML" Margin="0,0,0,4" />
+    <docs:CodeBlock Margin="0,0,0,16"
+                    Code="&lt;Border Classes=&quot;appbar&quot;&gt;&#10;  &lt;DockPanel&gt;&#10;    &lt;Button DockPanel.Dock=&quot;Right&quot; Classes=&quot;inherit&quot; Content=&quot;Sign in&quot; VerticalAlignment=&quot;Center&quot; /&gt;&#10;    &lt;TextBlock Classes=&quot;h6&quot; Text=&quot;Library&quot; VerticalAlignment=&quot;Center&quot; /&gt;&#10;  &lt;/DockPanel&gt;&#10;&lt;/Border&gt;" />
+    <TextBlock Classes="body1 p">
+      <Run Text="The 24px gutters are MudAppBar's "
+      /><Run Classes="code" Text="Gutters"
+      /><Run Text=", on by default; "
+      /><Run Classes="code" Text="Padding=&quot;0&quot;"
+      /><Run Text=" turns them off."
+      />
+    </TextBlock>
+    <TextBlock Classes="overline" Text="MudBlazor" Margin="0,0,0,4" />
+    <docs:CodeBlock Margin="0,0,0,16"
+                    Code="&lt;MudAppBar Dense=&quot;true&quot; Color=&quot;Color.Secondary&quot;&gt;…&lt;/MudAppBar&gt;" />
+    <TextBlock Classes="overline" Text="AXAML" Margin="0,0,0,4" />
+    <docs:CodeBlock Margin="0,0,0,16"
+                    Code="&lt;Border Classes=&quot;appbar dense secondary&quot;&gt;…&lt;/Border&gt;" />
+    <TextBlock Classes="body1 p">
+      <Run Text="The bar's text colour is inherited. A control that sets its own colour, such as a select, keeps it, just as a "
+      /><Run Classes="code" Text="MudSelect"
+      /><Run Text=" keeps "
+      /><Run Classes="code" Text="text-primary"
+      /><Run Text=" in an app bar. "
+      /><Run Classes="code" Text="inherit"
+      /><Run Text=" is how a button asks for the bar's colour instead."
+      />
+    </TextBlock>
+    <StackPanel Orientation="Horizontal" Spacing="8" Margin="0,0,0,16">
+      <TextBlock Classes="body1" Text="See also:" VerticalAlignment="Center" />
+      <docs:DocLink Slug="app-bar" Content="App bar" />
+    </StackPanel>
+
+    <TextBlock Classes="h5 section" Text="Text fields" />
+    <TextBlock Classes="overline" Text="MudBlazor" Margin="0,0,0,4" />
+    <docs:CodeBlock Margin="0,0,0,16"
+                    Code="&lt;MudTextField @bind-Value=&quot;_email&quot; Label=&quot;Email&quot; /&gt;&#10;&lt;MudTextField @bind-Value=&quot;_email&quot; Label=&quot;Email&quot; Variant=&quot;Variant.Filled&quot; /&gt;&#10;&lt;MudTextField @bind-Value=&quot;_email&quot; Label=&quot;Email&quot; Variant=&quot;Variant.Outlined&quot; /&gt;&#10;&lt;MudTextField @bind-Value=&quot;_email&quot; Label=&quot;Email&quot; Variant=&quot;Variant.Outlined&quot; Error=&quot;true&quot; /&gt;" />
+    <TextBlock Classes="overline" Text="AXAML" Margin="0,0,0,4" />
+    <docs:CodeBlock Margin="0,0,0,16"
+                    Code="&lt;TextBox Text=&quot;{Binding Email}&quot; PlaceholderText=&quot;Email&quot; /&gt;&#10;&lt;TextBox Text=&quot;{Binding Email}&quot; PlaceholderText=&quot;Email&quot; Classes=&quot;filled&quot; /&gt;&#10;&lt;TextBox Text=&quot;{Binding Email}&quot; PlaceholderText=&quot;Email&quot; Classes=&quot;outlined&quot; /&gt;&#10;&lt;TextBox Text=&quot;{Binding Email}&quot; PlaceholderText=&quot;Email&quot; Classes=&quot;outlined error&quot; /&gt;" />
+    <TextBlock Classes="body1 p">
+      <Run Classes="code" Text="PlaceholderText"
+      /><Run Text=" is the floating label. A binding that fails validation shows its message under the field without "
+      /><Run Classes="code" Text="error"
+      /><Run Text=", like MudBlazor's validation does."
+      />
+    </TextBlock>
+    <TextBlock Classes="overline" Text="MudBlazor" Margin="0,0,0,4" />
+    <docs:CodeBlock Margin="0,0,0,16"
+                    Code="&lt;MudTextField @bind-Value=&quot;_email&quot; Label=&quot;Email&quot; HelperText=&quot;We never share it&quot; /&gt;&#10;&lt;MudTextField @bind-Value=&quot;_title&quot; Label=&quot;Title&quot; Counter=&quot;40&quot; MaxLength=&quot;40&quot; /&gt;&#10;&lt;MudTextField @bind-Value=&quot;_email&quot; Label=&quot;Email&quot; Margin=&quot;Margin.Dense&quot; Variant=&quot;Variant.Outlined&quot; /&gt;" />
+    <TextBlock Classes="overline" Text="AXAML" Margin="0,0,0,4" />
+    <docs:CodeBlock Margin="0,0,0,16"
+                    Code="&lt;TextBox Text=&quot;{Binding Email}&quot; PlaceholderText=&quot;Email&quot; AutomationProperties.HelpText=&quot;We never share it&quot; /&gt;&#10;&lt;TextBox Text=&quot;{Binding Title}&quot; PlaceholderText=&quot;Title&quot; Classes=&quot;counter&quot; MaxLength=&quot;40&quot; /&gt;&#10;&lt;TextBox Text=&quot;{Binding Email}&quot; PlaceholderText=&quot;Email&quot; Classes=&quot;outlined dense&quot; /&gt;" />
+    <TextBlock Classes="body1 p">
+      <Run Text="The helper text is the accessibility property, so a screen reader reads it as well. The counter counts against "
+      /><Run Classes="code" Text="MaxLength"
+      /><Run Text="; without one it shows the length alone, as "
+      /><Run Classes="code" Text="Counter=&quot;0&quot;"
+      /><Run Text=" does."
+      />
+    </TextBlock>
+    <StackPanel Orientation="Horizontal" Spacing="8" Margin="0,0,0,16">
+      <TextBlock Classes="body1" Text="See also:" VerticalAlignment="Center" />
+      <docs:DocLink Slug="text-field" Content="Text field" />
+    </StackPanel>
+
+    <TextBlock Classes="h5 section" Text="Selects and numbers" />
+    <TextBlock Classes="overline" Text="MudBlazor" Margin="0,0,0,4" />
+    <docs:CodeBlock Margin="0,0,0,16"
+                    Code="&lt;MudSelect T=&quot;string&quot; @bind-Value=&quot;_platform&quot; Label=&quot;Platform&quot;&gt;&#10;    &lt;MudSelectItem Value=&quot;@(&quot;PC&quot;)&quot;&gt;PC&lt;/MudSelectItem&gt;&#10;    &lt;MudSelectItem Value=&quot;@(&quot;Switch&quot;)&quot;&gt;Switch&lt;/MudSelectItem&gt;&#10;&lt;/MudSelect&gt;&#10;&#10;&lt;MudSelect T=&quot;string&quot; @bind-Value=&quot;_library&quot; Label=&quot;Library&quot; Variant=&quot;Variant.Outlined&quot;&#10;           HelperText=&quot;Where new files go&quot; Margin=&quot;Margin.Dense&quot;&gt;…&lt;/MudSelect&gt;&#10;&#10;&lt;MudNumericField @bind-Value=&quot;_quantity&quot; Label=&quot;Quantity&quot; /&gt;" />
+    <TextBlock Classes="overline" Text="AXAML" Margin="0,0,0,4" />
+    <docs:CodeBlock Margin="0,0,0,16"
+                    Code="&lt;ComboBox SelectedItem=&quot;{Binding Platform}&quot; PlaceholderText=&quot;Platform&quot;&gt;&#10;  &lt;ComboBoxItem&gt;PC&lt;/ComboBoxItem&gt;&#10;  &lt;ComboBoxItem&gt;Switch&lt;/ComboBoxItem&gt;&#10;&lt;/ComboBox&gt;&#10;&#10;&lt;NumericUpDown Value=&quot;{Binding Quantity}&quot; PlaceholderText=&quot;Quantity&quot; /&gt;" />
+    <TextBlock Classes="body1 p">
+      <Run Text="The outlined, dense select with helper text:"
+      />
+    </TextBlock>
+    <TextBlock Classes="overline" Text="AXAML" Margin="0,0,0,4" />
+    <docs:CodeBlock Margin="0,0,0,16"
+                    Code="&lt;ComboBox SelectedItem=&quot;{Binding Library}&quot; PlaceholderText=&quot;Library&quot; Classes=&quot;outlined dense&quot;&#10;          AutomationProperties.HelpText=&quot;Where new files go&quot;&gt;…&lt;/ComboBox&gt;" />
+    <StackPanel Orientation="Horizontal" Spacing="8" Margin="0,0,0,16">
+      <TextBlock Classes="body1" Text="See also:" VerticalAlignment="Center" />
+      <docs:DocLink Slug="select" Content="Select" />
+      <docs:DocLink Slug="numeric-field" Content="Numeric field" />
+    </StackPanel>
+
+    <TextBlock Classes="h5 section" Text="Selection controls" />
+    <TextBlock Classes="overline" Text="MudBlazor" Margin="0,0,0,4" />
+    <docs:CodeBlock Margin="0,0,0,16"
+                    Code="&lt;MudCheckBox @bind-Value=&quot;_sync&quot; Label=&quot;Enable sync&quot; /&gt;&#10;&lt;MudRadioGroup @bind-Value=&quot;_cadence&quot;&gt;&#10;    &lt;MudRadio Value=&quot;@(&quot;weekly&quot;)&quot;&gt;Weekly&lt;/MudRadio&gt;&#10;    &lt;MudRadio Value=&quot;@(&quot;monthly&quot;)&quot;&gt;Monthly&lt;/MudRadio&gt;&#10;&lt;/MudRadioGroup&gt;&#10;&lt;MudSwitch @bind-Value=&quot;_dark&quot; Label=&quot;Dark mode&quot; /&gt;&#10;&lt;MudSlider @bind-Value=&quot;_volume&quot; /&gt;" />
+    <TextBlock Classes="overline" Text="AXAML" Margin="0,0,0,4" />
+    <docs:CodeBlock Margin="0,0,0,16"
+                    Code="&lt;CheckBox IsChecked=&quot;{Binding Sync}&quot; Content=&quot;Enable sync&quot; /&gt;&#10;&lt;RadioButton GroupName=&quot;cadence&quot; Content=&quot;Weekly&quot; /&gt;&#10;&lt;RadioButton GroupName=&quot;cadence&quot; Content=&quot;Monthly&quot; /&gt;&#10;&lt;ToggleSwitch IsChecked=&quot;{Binding Dark}&quot; Content=&quot;Dark mode&quot; /&gt;&#10;&lt;Slider Value=&quot;{Binding Volume}&quot; /&gt;" />
+    <TextBlock Classes="body1 p">
+      <Run Text="With no class these are MudBlazor's defaults: grey checkboxes, radios and switches, and a primary slider. Colour and size are classes, exactly as "
+      /><Run Classes="code" Text="Color"
+      /><Run Text=" and "
+      /><Run Classes="code" Text="Size"
+      /><Run Text=" are parameters:"
+      />
+    </TextBlock>
+    <TextBlock Classes="overline" Text="MudBlazor" Margin="0,0,0,4" />
+    <docs:CodeBlock Margin="0,0,0,16"
+                    Code="&lt;MudCheckBox @bind-Value=&quot;_sync&quot; Color=&quot;Color.Primary&quot; Size=&quot;Size.Small&quot; Label=&quot;Enable sync&quot; /&gt;&#10;&lt;MudSwitch @bind-Value=&quot;_online&quot; Color=&quot;Color.Success&quot; Label=&quot;Online&quot; /&gt;&#10;&lt;MudSlider @bind-Value=&quot;_volume&quot; Color=&quot;Color.Secondary&quot; Size=&quot;Size.Medium&quot; /&gt;" />
+    <TextBlock Classes="overline" Text="AXAML" Margin="0,0,0,4" />
+    <docs:CodeBlock Margin="0,0,0,16"
+                    Code="&lt;CheckBox IsChecked=&quot;{Binding Sync}&quot; Classes=&quot;primary small&quot; Content=&quot;Enable sync&quot; /&gt;&#10;&lt;ToggleSwitch IsChecked=&quot;{Binding Online}&quot; Classes=&quot;success&quot; Content=&quot;Online&quot; /&gt;&#10;&lt;Slider Value=&quot;{Binding Volume}&quot; Classes=&quot;secondary medium&quot; /&gt;" />
+    <TextBlock Classes="overline" Text="MudBlazor" Margin="0,0,0,4" />
+    <docs:CodeBlock Margin="0,0,0,16"
+                    Code="&lt;MudCheckBox @bind-Value=&quot;_sync&quot; Color=&quot;Color.Primary&quot; UncheckedColor=&quot;Color.Error&quot; Label=&quot;Agree&quot; /&gt;&#10;&lt;MudSlider @bind-Value=&quot;_volume&quot; Variant=&quot;Variant.Filled&quot; TickMarks=&quot;true&quot; Step=&quot;10&quot; ValueLabel=&quot;true&quot; /&gt;" />
+    <TextBlock Classes="overline" Text="AXAML" Margin="0,0,0,4" />
+    <docs:CodeBlock Margin="0,0,0,16"
+                    Code="&lt;CheckBox IsChecked=&quot;{Binding Sync}&quot; Classes=&quot;primary unchecked-error&quot; Content=&quot;Agree&quot; /&gt;&#10;&lt;Slider Value=&quot;{Binding Volume}&quot; Classes=&quot;filled value-label&quot;&#10;        TickPlacement=&quot;BottomRight&quot; TickFrequency=&quot;10&quot; IsSnapToTickEnabled=&quot;True&quot; /&gt;" />
+    <TextBlock Classes="body1 p">
+      <Run Classes="code" Text="UncheckedColor"
+      /><Run Text=" is a second colour class, "
+      /><Run Classes="code" Text="unchecked-{colour}"
+      /><Run Text=". A slider's ticks are Avalonia's own "
+      /><Run Classes="code" Text="TickPlacement"
+      /><Run Text=" and "
+      /><Run Classes="code" Text="TickFrequency"
+      /><Run Text="; "
+      /><Run Classes="code" Text="IsSnapToTickEnabled"
+      /><Run Text=" gives MudSlider's "
+      /><Run Classes="code" Text="Step"
+      /><Run Text=", which snaps every value."
+      />
+    </TextBlock>
+    <TextBlock Classes="overline" Text="MudBlazor" Margin="0,0,0,4" />
+    <docs:CodeBlock Margin="0,0,0,16"
+                    Code="&lt;MudCheckBox @bind-Value=&quot;_fav&quot; Color=&quot;Color.Error&quot; LabelPlacement=&quot;Placement.Start&quot;&#10;             CheckedIcon=&quot;@Icons.Material.Filled.Favorite&quot;&#10;             UncheckedIcon=&quot;@Icons.Material.Filled.FavoriteBorder&quot; Label=&quot;Favourite&quot; /&gt;&#10;&lt;MudSwitch @bind-Value=&quot;_wifi&quot; ThumbIcon=&quot;@Icons.Material.Filled.Done&quot;&#10;           ThumbIconColor=&quot;Color.Success&quot; Label=&quot;Wi-Fi&quot; /&gt;" />
+    <TextBlock Classes="overline" Text="AXAML" Margin="0,0,0,4" />
+    <docs:CodeBlock Margin="0,0,0,16"
+                    Code="&lt;CheckBox IsChecked=&quot;{Binding Fav}&quot; Classes=&quot;error label-start&quot; Content=&quot;Favourite&quot;&gt;&#10;  &lt;CheckBox.Resources&gt;&#10;    &lt;StreamGeometry x:Key=&quot;FiliCheckBoxCheckedGeometry&quot;&gt;M12 21.35l-1.45-1.32C5.4 15.36 …&lt;/StreamGeometry&gt;&#10;    &lt;StreamGeometry x:Key=&quot;FiliCheckBoxUncheckedGeometry&quot;&gt;M16.5 3c-1.74 0-3.41.81-4.5 2.09 …&lt;/StreamGeometry&gt;&#10;  &lt;/CheckBox.Resources&gt;&#10;&lt;/CheckBox&gt;&#10;&lt;ToggleSwitch IsChecked=&quot;{Binding Wifi}&quot; Classes=&quot;thumb-success&quot; Content=&quot;Wi-Fi&quot;&gt;&#10;  &lt;ToggleSwitch.Resources&gt;&#10;    &lt;StreamGeometry x:Key=&quot;FiliSwitchThumbIconGeometry&quot;&gt;M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z&lt;/StreamGeometry&gt;&#10;  &lt;/ToggleSwitch.Resources&gt;&#10;&lt;/ToggleSwitch&gt;" />
+    <TextBlock Classes="body1 p">
+      <Run FontWeight="Bold" Text="Every MudBlazor icon parameter is a resource key"
+      /><Run Text=", set in the control's "
+      /><Run Classes="code" Text="Resources"
+      /><Run Text=" with the path string from "
+      /><Run Classes="code" Text="Icons.Material"
+      /><Run Text=" pasted in. Put it on a parent and every control inside takes it. The Icons page lists the keys. "
+      /><Run Classes="code" Text="LabelPlacement"
+      /><Run Text=" is "
+      /><Run Classes="code" Text="label-start"
+      /><Run Text=", "
+      /><Run Classes="code" Text="label-top"
+      /><Run Text=" or "
+      /><Run Classes="code" Text="label-bottom"
+      /><Run Text="."
+      />
+    </TextBlock>
+    <StackPanel Orientation="Horizontal" Spacing="8" Margin="0,0,0,16">
+      <TextBlock Classes="body1" Text="See also:" VerticalAlignment="Center" />
+      <docs:DocLink Slug="checkbox" Content="Check box" />
+      <docs:DocLink Slug="radio" Content="Radio" />
+      <docs:DocLink Slug="switch" Content="Switch" />
+      <docs:DocLink Slug="slider" Content="Slider" />
+      <docs:DocLink Slug="icons" Content="Icons" />
+    </StackPanel>
+
+    <TextBlock Classes="h5 section" Text="Progress, dividers, links" />
+    <TextBlock Classes="overline" Text="MudBlazor" Margin="0,0,0,4" />
+    <docs:CodeBlock Margin="0,0,0,16"
+                    Code="&lt;MudProgressLinear Value=&quot;65&quot; /&gt;&#10;&lt;MudProgressLinear Color=&quot;Color.Primary&quot; Size=&quot;Size.Large&quot; Rounded=&quot;true&quot; Value=&quot;65&quot; /&gt;&#10;&lt;MudProgressLinear Color=&quot;Color.Primary&quot; Indeterminate=&quot;true&quot; /&gt;&#10;&#10;&lt;MudDivider /&gt;&#10;&lt;MudDivider DividerType=&quot;DividerType.Inset&quot; /&gt;&#10;&lt;MudDivider Vertical=&quot;true&quot; FlexItem=&quot;true&quot; /&gt;&#10;&lt;MudDivider Light=&quot;true&quot; /&gt;&#10;&#10;&lt;MudLink Href=&quot;/docs&quot;&gt;Learn more&lt;/MudLink&gt;&#10;&lt;MudLink Href=&quot;/docs&quot; Underline=&quot;Underline.Always&quot;&gt;Learn more&lt;/MudLink&gt;" />
+    <TextBlock Classes="overline" Text="AXAML" Margin="0,0,0,4" />
+    <docs:CodeBlock Margin="0,0,0,16"
+                    Code="&lt;ProgressBar Value=&quot;65&quot; /&gt;&#10;&lt;ProgressBar Classes=&quot;primary large rounded&quot; Value=&quot;65&quot; /&gt;&#10;&lt;ProgressBar Classes=&quot;primary&quot; IsIndeterminate=&quot;True&quot; /&gt;&#10;&#10;&lt;Separator /&gt;&#10;&lt;Separator Classes=&quot;inset&quot; /&gt;&#10;&lt;Separator Classes=&quot;vertical&quot; /&gt;&#10;&lt;Separator Classes=&quot;light&quot; /&gt;&#10;&#10;&lt;HyperlinkButton NavigateUri=&quot;https://example.com/docs&quot; Content=&quot;Learn more&quot; /&gt;&#10;&lt;HyperlinkButton Classes=&quot;underline&quot; NavigateUri=&quot;https://example.com/docs&quot; Content=&quot;Learn more&quot; /&gt;" />
+    <StackPanel Orientation="Horizontal" Spacing="8" Margin="0,0,0,16">
+      <TextBlock Classes="body1" Text="See also:" VerticalAlignment="Center" />
+      <docs:DocLink Slug="progress" Content="Progress" />
+      <docs:DocLink Slug="divider" Content="Divider" />
+      <docs:DocLink Slug="link" Content="Link" />
+    </StackPanel>
+
+    <TextBlock Classes="h5 section" Text="Tabs, lists and panels" />
+    <TextBlock Classes="overline" Text="MudBlazor" Margin="0,0,0,4" />
+    <docs:CodeBlock Margin="0,0,0,16"
+                    Code="&lt;MudTabs&gt;&#10;    &lt;MudTabPanel Text=&quot;One&quot;&gt;First tab&lt;/MudTabPanel&gt;&#10;    &lt;MudTabPanel Text=&quot;Two&quot;&gt;Second tab&lt;/MudTabPanel&gt;&#10;&lt;/MudTabs&gt;&#10;&#10;&lt;MudList T=&quot;string&quot; Dense=&quot;true&quot;&gt;&#10;    &lt;MudListItem Text=&quot;First&quot; /&gt;&#10;    &lt;MudListItem Text=&quot;Second&quot; /&gt;&#10;&lt;/MudList&gt;&#10;&#10;&lt;MudExpansionPanels&gt;&#10;    &lt;MudExpansionPanel Text=&quot;Details&quot;&gt;…&lt;/MudExpansionPanel&gt;&#10;&lt;/MudExpansionPanels&gt;" />
+    <TextBlock Classes="overline" Text="AXAML" Margin="0,0,0,4" />
+    <docs:CodeBlock Margin="0,0,0,16"
+                    Code="&lt;TabControl&gt;&#10;  &lt;TabItem Header=&quot;One&quot;&gt;&lt;TextBlock Text=&quot;First tab&quot; /&gt;&lt;/TabItem&gt;&#10;  &lt;TabItem Header=&quot;Two&quot;&gt;&lt;TextBlock Text=&quot;Second tab&quot; /&gt;&lt;/TabItem&gt;&#10;&lt;/TabControl&gt;&#10;&#10;&lt;!-- &lt;MudTabs Color=&quot;Color.Primary&quot; Centered=&quot;true&quot; Rounded=&quot;true&quot; Border=&quot;true&quot;&gt; --&gt;&#10;&lt;TabControl Classes=&quot;primary centered rounded border&quot;&gt;…&lt;/TabControl&gt;&#10;&#10;&lt;!-- &lt;MudTabs Position=&quot;Position.Left&quot; Elevation=&quot;4&quot; SliderColor=&quot;Color.Secondary&quot;&gt; --&gt;&#10;&lt;TabControl TabStripPlacement=&quot;Left&quot; Classes=&quot;elevation4 indicator-secondary&quot;&gt;…&lt;/TabControl&gt;&#10;&#10;&lt;!-- &lt;MudProgressLinear Color=&quot;Color.Primary&quot; Striped=&quot;true&quot; Value=&quot;70&quot; /&gt; --&gt;&#10;&lt;ProgressBar Classes=&quot;primary striped&quot; Value=&quot;70&quot; /&gt;&#10;&#10;&lt;ListBox Classes=&quot;paper&quot;&gt;&#10;  &lt;ListBoxItem Classes=&quot;dense&quot;&gt;First&lt;/ListBoxItem&gt;&#10;  &lt;ListBoxItem Classes=&quot;dense&quot;&gt;Second&lt;/ListBoxItem&gt;&#10;&lt;/ListBox&gt;&#10;&#10;&lt;!-- &lt;MudList T=&quot;string&quot; SelectionMode=&quot;SelectionMode.MultiSelection&quot; CheckBoxColor=&quot;Color.Primary&quot;&gt; --&gt;&#10;&lt;ListBox Classes=&quot;multi-selection primary&quot; SelectionMode=&quot;Multiple, Toggle&quot;&gt;…&lt;/ListBox&gt;&#10;&#10;&lt;!-- &lt;MudExpansionPanels MultiExpansion=&quot;true&quot;&gt; --&gt;&#10;&lt;StackPanel Classes=&quot;expansion-panels multi-expansion&quot;&gt;&#10;  &lt;Expander Header=&quot;Details&quot;&gt;…&lt;/Expander&gt;&#10;&lt;/StackPanel&gt;&#10;&#10;&lt;!-- &lt;MudExpansionPanels Outlined=&quot;false&quot;&gt; --&gt;&#10;&lt;StackPanel Classes=&quot;expansion-panels no-outline&quot;&gt;&#10;  &lt;Expander Header=&quot;Details&quot;&gt;…&lt;/Expander&gt;&#10;&lt;/StackPanel&gt;" />
+    <TextBlock Classes="body1 p">
+      <Run Classes="code" FontWeight="Bold" Text="SelectionMode.MultiSelection"
+      /><Run FontWeight="Bold" Text=" takes two settings"
+      /><Run Text=", and both are needed: the class draws the checkboxes, and "
+      /><Run Classes="code" Text="SelectionMode"
+      /><Run Text=" lets more than one row be selected. A style cannot set "
+      /><Run Classes="code" Text="SelectionMode"
+      /><Run Text=" for you, because Avalonia fixes it when the list is created. The same pair works on a "
+      /><Run Classes="code" Text="TreeView"
+      /><Run Text="."
+      />
+    </TextBlock>
+    <StackPanel Orientation="Horizontal" Spacing="8" Margin="0,0,0,16">
+      <TextBlock Classes="body1" Text="See also:" VerticalAlignment="Center" />
+      <docs:DocLink Slug="tabs" Content="Tabs" />
+      <docs:DocLink Slug="list" Content="List" />
+      <docs:DocLink Slug="expansion-panels" Content="Expansion panels" />
+      <docs:DocLink Slug="tree-view" Content="Tree view" />
+      <docs:DocLink Slug="progress" Content="Progress" />
+    </StackPanel>
+
+    <TextBlock Classes="h5 section" Text="Feedback" />
+    <TextBlock Classes="overline" Text="MudBlazor" Margin="0,0,0,4" />
+    <docs:CodeBlock Margin="0,0,0,16"
+                    Code="&lt;MudAlert Severity=&quot;Severity.Info&quot;&gt;Library scan finished&lt;/MudAlert&gt;&#10;&lt;MudAlert Severity=&quot;Severity.Warning&quot; Variant=&quot;Variant.Outlined&quot;&gt;Two folders were skipped&lt;/MudAlert&gt;&#10;&lt;MudAlert Severity=&quot;Severity.Error&quot; Variant=&quot;Variant.Filled&quot; Dense=&quot;true&quot;&gt;Could not reach the store&lt;/MudAlert&gt;&#10;&#10;&lt;MudSkeleton Width=&quot;200px&quot; /&gt;&#10;&lt;MudSkeleton SkeletonType=&quot;SkeletonType.Circle&quot; Width=&quot;40px&quot; Height=&quot;40px&quot; /&gt;" />
+    <TextBlock Classes="overline" Text="AXAML" Margin="0,0,0,4" />
+    <docs:CodeBlock Margin="0,0,0,16"
+                    Code="&lt;Border Classes=&quot;alert info&quot;&gt;&lt;TextBlock Text=&quot;Library scan finished&quot; /&gt;&lt;/Border&gt;&#10;&lt;Border Classes=&quot;alert outlined warning&quot;&gt;&lt;TextBlock Text=&quot;Two folders were skipped&quot; /&gt;&lt;/Border&gt;&#10;&lt;Border Classes=&quot;alert filled error dense&quot;&gt;&lt;TextBlock Text=&quot;Could not reach the store&quot; /&gt;&lt;/Border&gt;&#10;&#10;&lt;Border Classes=&quot;skeleton&quot; Width=&quot;200&quot; /&gt;&#10;&lt;Border Classes=&quot;skeleton circle&quot; Width=&quot;40&quot; Height=&quot;40&quot; /&gt;" />
+    <TextBlock Classes="body1 p">
+      <Run Text="MudAlert's severity icon is not drawn for you: put a "
+      /><Run Classes="code" Text="PathIcon"
+      /><Run Text=" next to the text and it takes the alert's colour."
+      />
+    </TextBlock>
+    <TextBlock Classes="overline" Text="MudBlazor" Margin="0,0,0,4" />
+    <docs:CodeBlock Margin="0,0,0,16"
+                    Code="&lt;MudTooltip Text=&quot;Saved to the cloud&quot;&gt;&#10;    &lt;MudButton&gt;Sync&lt;/MudButton&gt;&#10;&lt;/MudTooltip&gt;&#10;&#10;@inject ISnackbar Snackbar&#10;@code {&#10;    void Done() =&gt; Snackbar.Add(&quot;Library scan finished&quot;, Severity.Success);&#10;    void Saved() =&gt; Snackbar.Add(&quot;Saved&quot;, Severity.Normal, o =&gt; o.SnackbarVariant = Variant.Outlined);&#10;}" />
+    <TextBlock Classes="overline" Text="AXAML: the tooltip" Margin="0,0,0,4" />
+    <docs:CodeBlock Margin="0,0,0,16"
+                    Code="&lt;Button Content=&quot;Sync&quot; ToolTip.Tip=&quot;Saved to the cloud&quot; /&gt;" />
+    <TextBlock Classes="body1 p">
+      <Run Text="A tooltip with MudTooltip's "
+      /><Run Classes="code" Text="Color"
+      /><Run Text=" or "
+      /><Run Classes="code" Text="Arrow"
+      /><Run Text=" needs a "
+      /><Run Classes="code" Text="ToolTip"
+      /><Run Text=" of its own as the "
+      /><Run Classes="code" Text="Tip"
+      /><Run Text=", because that is the only place to put a class:"
+      />
+    </TextBlock>
+    <TextBlock Classes="overline" Text="MudBlazor" Margin="0,0,0,4" />
+    <docs:CodeBlock Margin="0,0,0,16"
+                    Code="&lt;MudTooltip Text=&quot;Deletes for good&quot; Color=&quot;Color.Error&quot; Arrow=&quot;true&quot; Placement=&quot;Placement.Bottom&quot;&gt;&#10;    &lt;MudButton&gt;Delete&lt;/MudButton&gt;&#10;&lt;/MudTooltip&gt;" />
+    <TextBlock Classes="overline" Text="AXAML" Margin="0,0,0,4" />
+    <docs:CodeBlock Margin="0,0,0,16"
+                    Code="&lt;Button Content=&quot;Delete&quot; ToolTip.Placement=&quot;Bottom&quot;&gt;&#10;  &lt;ToolTip.Tip&gt;&#10;    &lt;ToolTip Classes=&quot;error arrow&quot; Content=&quot;Deletes for good&quot; /&gt;&#10;  &lt;/ToolTip.Tip&gt;&#10;&lt;/Button&gt;" />
+    <TextBlock Classes="body1 p">
+      <Run Text="The snackbar is Avalonia's "
+      /><Run Classes="code" Text="WindowNotificationManager"
+      /><Run Text=", set up once for the window:"
+      />
+    </TextBlock>
+    <TextBlock Classes="overline" Text="C#" Margin="0,0,0,4" />
+    <docs:CodeBlock Margin="0,0,0,16"
+                    Code="// once, for the window&#10;var notifications = new WindowNotificationManager(TopLevel.GetTopLevel(this))&#10;{&#10;    Position = NotificationPosition.BottomRight,&#10;};&#10;&#10;// MudSnackbar's look comes with the theme: the icon, the close button, the colour&#10;notifications.Show(new Notification(null, &quot;Library scan finished&quot;, NotificationType.Success));&#10;&#10;// Severity and variant options are classes on the card&#10;notifications.Show(&quot;Saved&quot;, NotificationType.Information, classes: [&quot;normal&quot;, &quot;outlined&quot;]);" />
+    <StackPanel Orientation="Horizontal" Spacing="8" Margin="0,0,0,16">
+      <TextBlock Classes="body1" Text="See also:" VerticalAlignment="Center" />
+      <docs:DocLink Slug="alert" Content="Alert" />
+      <docs:DocLink Slug="skeleton" Content="Skeleton" />
+      <docs:DocLink Slug="tooltip" Content="Tooltip" />
+      <docs:DocLink Slug="snackbar" Content="Snackbar" />
+    </StackPanel>
+
+    <TextBlock Classes="h5 section" Text="Drawer" />
+    <TextBlock Classes="overline" Text="MudBlazor" Margin="0,0,0,4" />
+    <docs:CodeBlock Margin="0,0,0,16"
+                    Code="&lt;MudLayout&gt;&#10;    &lt;MudDrawer @bind-Open=&quot;_open&quot; Variant=&quot;DrawerVariant.Persistent&quot;&gt;&#10;        &lt;MudNavMenu Color=&quot;Color.Primary&quot;&gt;&#10;            &lt;MudNavLink Href=&quot;/library&quot;&gt;Library&lt;/MudNavLink&gt;&#10;            &lt;MudNavGroup Title=&quot;Downloads&quot;&gt;&#10;                &lt;MudNavLink Href=&quot;/queue&quot;&gt;Queue&lt;/MudNavLink&gt;&#10;            &lt;/MudNavGroup&gt;&#10;        &lt;/MudNavMenu&gt;&#10;    &lt;/MudDrawer&gt;&#10;    &lt;MudMainContent&gt;…&lt;/MudMainContent&gt;&#10;&lt;/MudLayout&gt;" />
+    <TextBlock Classes="overline" Text="AXAML" Margin="0,0,0,4" />
+    <docs:CodeBlock Margin="0,0,0,16"
+                    Code="&lt;SplitView IsPaneOpen=&quot;{Binding Open}&quot; DisplayMode=&quot;Inline&quot;&gt;&#10;  &lt;SplitView.Pane&gt;&#10;    &lt;TreeView Classes=&quot;nav primary&quot; SelectedItem=&quot;{Binding CurrentPage}&quot;&gt;&#10;      &lt;TreeViewItem Header=&quot;Library&quot; /&gt;&#10;      &lt;TreeViewItem Header=&quot;Downloads&quot;&gt;&#10;        &lt;TreeViewItem Header=&quot;Queue&quot; /&gt;&#10;      &lt;/TreeViewItem&gt;&#10;    &lt;/TreeView&gt;&#10;  &lt;/SplitView.Pane&gt;&#10;  &lt;!-- main content --&gt;&#10;&lt;/SplitView&gt;" />
+    <TextBlock Classes="body1 p">
+      <Run Text="The drawer's 240px width and its background and text colours come from the theme. "
+      /><Run Classes="code" Text="DisplayMode"
+      /><Run Text=" covers MudBlazor's drawer variants: "
+      /><Run Classes="code" Text="Inline"
+      /><Run Text=" (persistent), "
+      /><Run Classes="code" Text="Overlay"
+      /><Run Text=" (temporary), and "
+      /><Run Classes="code" Text="CompactInline"
+      /><Run Text=" / "
+      /><Run Classes="code" Text="CompactOverlay"
+      /><Run Text=" (mini). The nav menu is "
+      /><Run Classes="code" Text="nav"
+      /><Run Text=" on a "
+      /><Run Classes="code" Text="TreeView"
+      /><Run Text=": the selected row is the active link, which the app sets where MudNavLink matches the URL."
+      />
+    </TextBlock>
+    <TextBlock Classes="body1 p">
+      <Run Text="A mini drawer shows only the links' icons while it is closed, so each link needs one, as MudNavLink's "
+      /><Run Classes="code" Text="Icon"
+      /><Run Text=" does. Put the icon and the text in "
+      /><Run Classes="code" Text="TreeViewItem.Header"
+      /><Run Text="; written straight inside the "
+      /><Run Classes="code" Text="TreeViewItem"
+      /><Run Text=", they would become a child row."
+      />
+    </TextBlock>
+    <TextBlock Classes="overline" Text="MudBlazor" Margin="0,0,0,4" />
+    <docs:CodeBlock Margin="0,0,0,16"
+                    Code="&lt;MudDrawer @bind-Open=&quot;_open&quot; Variant=&quot;DrawerVariant.Mini&quot;&gt;&#10;    &lt;MudNavMenu&gt;&#10;        &lt;MudNavLink Href=&quot;/inbox&quot; Icon=&quot;@Icons.Material.Filled.Inbox&quot;&gt;Inbox&lt;/MudNavLink&gt;&#10;    &lt;/MudNavMenu&gt;&#10;&lt;/MudDrawer&gt;" />
+    <TextBlock Classes="overline" Text="AXAML" Margin="0,0,0,4" />
+    <docs:CodeBlock Margin="0,0,0,16"
+                    Code="&lt;SplitView IsPaneOpen=&quot;{Binding Open}&quot; DisplayMode=&quot;CompactInline&quot;&gt;&#10;  &lt;SplitView.Pane&gt;&#10;    &lt;TreeView Classes=&quot;nav&quot;&gt;&#10;      &lt;TreeViewItem&gt;&#10;        &lt;TreeViewItem.Header&gt;&#10;          &lt;StackPanel Orientation=&quot;Horizontal&quot;&gt;&#10;            &lt;PathIcon Classes=&quot;start-icon&quot; Data=&quot;{StaticResource InboxIcon}&quot; /&gt;&#10;            &lt;TextBlock Text=&quot;Inbox&quot; /&gt;&#10;          &lt;/StackPanel&gt;&#10;        &lt;/TreeViewItem.Header&gt;&#10;      &lt;/TreeViewItem&gt;&#10;    &lt;/TreeView&gt;&#10;  &lt;/SplitView.Pane&gt;&#10;&lt;/SplitView&gt;" />
+    <StackPanel Orientation="Horizontal" Spacing="8" Margin="0,0,0,16">
+      <TextBlock Classes="body1" Text="See also:" VerticalAlignment="Center" />
+      <docs:DocLink Slug="drawer" Content="Drawer" />
+      <docs:DocLink Slug="nav-menu" Content="Nav menu" />
+    </StackPanel>
+  </StackPanel>
+</UserControl>

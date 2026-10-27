@@ -13,17 +13,7 @@
                       Description="NavigateBefore and NavigateNext icon buttons at the sides, centred, in the carousel's text colour at .75, and the bullets along the bottom at .75. SelectedIndex is the slide shown."
                       Source="Carousel/Basic" />
     <TextBlock Classes="body1 p">
-      <Run Text="The bullets are a " />
-      <Run Classes="code" Text="PipsPager" />
-      <Run Text=", drawn with the radio button's two glyphs: the current slide's bullet is " />
-      <Run Classes="code" Text="RadioButtonChecked" />
-      <Run Text=", the others " />
-      <Run Classes="code" Text="RadioButtonUnchecked" />
-      <Run Text=". The arrows are for the pointer; the carousel itself is the Tab stop, and its keys turn it. Bind " />
-      <Run Classes="code" Text="ItemsSource" />
-      <Run Text=" and " />
-      <Run Classes="code" Text="SelectedIndex" />
-      <Run Text=" for MudCarousel's data binding." />
+      <Run Text="The bullets are a " /><Run Classes="code" Text="PipsPager" /><Run Text=", drawn with the radio button's two glyphs: the current slide's bullet is " /><Run Classes="code" Text="RadioButtonChecked" /><Run Text=", the others " /><Run Classes="code" Text="RadioButtonUnchecked" /><Run Text=". The arrows are for the pointer; the carousel itself is the Tab stop, and its keys turn it. Bind " /><Run Classes="code" Text="ItemsSource" /><Run Text=" and " /><Run Classes="code" Text="SelectedIndex" /><Run Text=" for MudCarousel's data binding." />
     </TextBlock>
 
     <TextBlock Classes="h5 section" Text="Arrows and bullets" />
@@ -36,6 +26,14 @@
                       Description="How a slide moves is Avalonia's PageTransition, behaviour rather than a look: set any transition on the carousel."
                       Source="Carousel/Transitions" />
 
+    <TextBlock Classes="h5 section" Text="Pips pager" />
+    <docs:ExampleCard Title="A PipsPager on its own"
+                      Description="A PipsPager outside a carousel wears the same look: the radio button's two glyphs in action-default at .75, the current page's filled, with NavigateBefore and NavigateNext buttons at the ends unless they are hidden."
+                      Source="Carousel/PipsPager" />
+    <TextBlock Classes="body1 p">
+      <Run Text="It is MudCarousel's bullets, not MudPagination: Avalonia has no numbered pager, so a pager of page numbers is not here." />
+    </TextBlock>
+
     <TextBlock Classes="h5 section" Text="Carousel page" />
     <docs:ExampleCard Title="CarouselPage"
                       Description="A carousel of ContentPages, each on the app's background, with the same arrows and bullets."
@@ -43,15 +41,12 @@
 
     <TextBlock Classes="h5 section" Text="MudBlazor parity" />
     <TextBlock Classes="body1 p">
-      <Run Text="Every MudCarousel parameter that changes how it looks and what it is here. " />
-      <Run Classes="code" Text="Same" />
-      <Run Text=" is transcribed from MudBlazor's source; " />
-      <Run Classes="code" Text="Missing" />
-      <Run Text=" is not available." />
+      <Run Text="Every MudCarousel parameter that changes how it looks and what it is here. " /><Run Classes="code" Text="Same" /><Run Text=" is transcribed from MudBlazor's source; " /><Run Classes="code" Text="Missing" /><Run Text=" is not available." />
     </TextBlock>
     <docs:ParityTable>
       <docs:ParityRow MudBlazor="the arrows, NavigateBefore / NavigateNext" Here="at the sides, centred, .75" Status="Same" Note="Icon buttons in the carousel's text colour, for the pointer; the carousel itself is the Tab stop." />
       <docs:ParityRow MudBlazor="the bullets" Here="a PipsPager along the bottom" Status="Same" Note="RadioButtonChecked for the current slide, RadioButtonUnchecked for the rest, all in the carousel's text colour (Color.Inherit)." />
+      <docs:ParityRow MudBlazor="the bullets on their own" Here="PipsPager" Status="Same" Note="The same glyphs in action-default at .75, with the arrows as its previous and next buttons; MudPagination has no counterpart, as Avalonia has no numbered pager." />
       <docs:ParityRow MudBlazor="ArrowsColor, BulletsColor" Here="Foreground on the carousel" Status="Close" Note="One colour for the arrows and the bullets together." />
       <docs:ParityRow MudBlazor="ShowArrows=&quot;false&quot;, ShowBullets=&quot;false&quot;" Here="no-arrows, no-bullets" Status="Same" Note="Each class hides its part." />
       <docs:ParityRow MudBlazor="ArrowsPosition, BulletsPosition, AutoCycle" Here="—" Status="Missing" Note="The defaults, Center and Bottom; cycling is the app's." />

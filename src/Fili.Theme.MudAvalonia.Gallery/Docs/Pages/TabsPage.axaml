@@ -13,13 +13,7 @@
                       Description="The bar is the surface colour with no rule under it, as MudTabs' Border defaults to false. Tabs are at least 160px, MudTabs' MinimumTabWidth, in text-primary with uppercase labels; the selected one is primary, a disabled one text-disabled."
                       Source="Tabs/Simple" />
     <TextBlock Classes="body1 p">
-      <Run Text="The theme sets the TabControl's " />
-      <Run Classes="code" Text="ItemContainerTheme" />
-      <Run Text=", which is what carries the header look down to a bare " />
-      <Run Classes="code" Text="TabItem" />
-      <Run Text=". A string header is uppercase; " />
-      <Run Classes="code" Text="FiliButtonTextTransform" />
-      <Run Text=" is the switch, as it is for buttons." />
+      <Run Text="The theme sets the TabControl's " /><Run Classes="code" Text="ItemContainerTheme" /><Run Text=", which is what carries the header look down to a bare " /><Run Classes="code" Text="TabItem" /><Run Text=". A string header is uppercase; " /><Run Classes="code" Text="FiliButtonTextTransform" /><Run Text=" is the switch, as it is for buttons." />
     </TextBlock>
 
     <TextBlock Classes="h5 section" Text="TabStrip" />
@@ -45,11 +39,7 @@
                       Description="MudTabs' Position is the TabControl's TabStripPlacement: Top, Bottom, Left or Right. The bar docks to that edge, border draws its rule on the content side, the tabs stack for Left and Right, and the indicator follows."
                       Source="Tabs/Position" />
     <TextBlock Classes="body1 p">
-      <Run Text="A " />
-      <Run Classes="code" Text="TabStrip" />
-      <Run Text=" has no " />
-      <Run Classes="code" Text="TabStripPlacement" />
-      <Run Text="; place it with ordinary layout." />
+      <Run Text="A " /><Run Classes="code" Text="TabStrip" /><Run Text=" has no " /><Run Classes="code" Text="TabStripPlacement" /><Run Text="; place it with ordinary layout." />
     </TextBlock>
 
     <TextBlock Classes="h5 section" Text="Centered and fixed tabs" />
@@ -72,15 +62,7 @@
                       Description="Tabs that do not fit the bar scroll, as MudTabs' do: ChevronLeft and ChevronRight icon buttons show at the bar's ends only while the row overflows, each disabled at its end and scrolling a bar's length per click. The selected tab is scrolled into view."
                       Source="Tabs/Scrolling" />
     <TextBlock Classes="body1 p">
-      <Run Text="On a bar at the left or right the buttons sit above and below, the bar's width and 32px high, the chevrons turned a quarter. MudTabs' " />
-      <Run Classes="code" Text="PrevIcon" />
-      <Run Text=" and " />
-      <Run Classes="code" Text="NextIcon" />
-      <Run Text=" are " />
-      <Run Classes="code" Text="FiliNavigateBeforeGeometry" />
-      <Run Text=" and " />
-      <Run Classes="code" Text="FiliChevronRightGeometry" />
-      <Run Text=" in the tabs' Resources." />
+      <Run Text="On a bar at the left or right the buttons sit above and below, the bar's width and 32px high, the chevrons turned a quarter. MudTabs' " /><Run Classes="code" Text="PrevIcon" /><Run Text=" and " /><Run Classes="code" Text="NextIcon" /><Run Text=" are " /><Run Classes="code" Text="FiliNavigateBeforeGeometry" /><Run Text=" and " /><Run Classes="code" Text="FiliChevronRightGeometry" /><Run Text=" in the tabs' Resources." />
     </TextBlock>
 
     <TextBlock Classes="h5 section" Text="Badges and tooltips" />
@@ -95,11 +77,7 @@
 
     <TextBlock Classes="h5 section" Text="MudBlazor parity" />
     <TextBlock Classes="body1 p">
-      <Run Text="Every MudTabs parameter and what it is here, with the page type that draws tabs. " />
-      <Run Classes="code" Text="Same" />
-      <Run Text=" is transcribed from MudBlazor's source; " />
-      <Run Classes="code" Text="Close" />
-      <Run Text=" gets the same result another way." />
+      <Run Text="Every MudTabs parameter and what it is here, with the page type that draws tabs. " /><Run Classes="code" Text="Same" /><Run Text=" is transcribed from MudBlazor's source; " /><Run Classes="code" Text="Close" /><Run Text=" gets the same result another way." />
     </TextBlock>
     <docs:ParityTable>
       <docs:ParityRow MudBlazor="48px strip, 2px indicator" Here="the same" Status="Same" />

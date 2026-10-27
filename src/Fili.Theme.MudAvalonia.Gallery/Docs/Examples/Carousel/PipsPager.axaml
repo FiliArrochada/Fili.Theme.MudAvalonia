@@ -1,0 +1,13 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <!-- A PipsPager on its own wears MudCarousel's bullets: the radio button's two glyphs in
+       action-default at .75, with NavigateBefore and NavigateNext buttons at the ends. -->
+  <Grid ColumnDefinitions="Auto,24,Auto" RowDefinitions="Auto,Auto" HorizontalAlignment="Center">
+    <TextBlock Classes="caption" Text="With its buttons" HorizontalAlignment="Center" Margin="0,0,0,8" />
+    <TextBlock Grid.Column="2" Classes="caption" Text="Pips only" HorizontalAlignment="Center" Margin="0,0,0,8" />
+
+    <PipsPager Grid.Row="1" NumberOfPages="5" SelectedPageIndex="1" />
+    <PipsPager Grid.Row="1" Grid.Column="2" NumberOfPages="5" SelectedPageIndex="3"
+               IsPreviousButtonVisible="False" IsNextButtonVisible="False" />
+  </Grid>
+</UserControl>

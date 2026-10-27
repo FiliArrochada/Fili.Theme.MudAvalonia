@@ -46,11 +46,7 @@
 
     <TextBlock Classes="h5 section" Text="MudBlazor parity" />
     <TextBlock Classes="body1 p">
-      <Run Text="Every MudImage parameter and what it is here. " />
-      <Run Classes="code" Text="Close" />
-      <Run Text=" gets the same result another way; " />
-      <Run Classes="code" Text="Missing" />
-      <Run Text=" is not here." />
+      <Run Text="Every MudImage parameter and what it is here. " /><Run Classes="code" Text="Close" /><Run Text=" gets the same result another way; " /><Run Classes="code" Text="Missing" /><Run Text=" is not here." />
     </TextBlock>
     <docs:ParityTable>
       <docs:ParityRow MudBlazor="Src, Width, Height" Here="Source, Width, Height" Status="Close" Note="Ordinary Avalonia properties." />

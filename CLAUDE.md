@@ -13,13 +13,19 @@ the project name.
 
 A **design-token theme for Avalonia 12**, not a component library: resource dictionaries, style
 classes, `ControlTheme`s where a Material look cannot be faked without one, and a gallery. Read
-`README.md` first: install, the published class list, the tokens and fonts. Per-control usage is
-`docs/controls.md`, the fork's rationale `docs/the-base.md`, and the gaps `docs/known-gaps.md`.
+`README.md` first: install, the published class list, the tokens and fonts. Usage lives in the docs
+site the gallery is (`src/Fili.Theme.MudAvalonia.Gallery/Docs/Pages/`, one page per component,
+listed in `Docs/DocCatalog.cs`, served on GitHub Pages); `docs/` is for contributors: the fork's
+rationale and the internal helpers in `docs/the-base.md`, the traps in `docs/traps.md`.
 
 - **Never name another app in this repository** - not in code, comments, docs, tests or commit
   messages. A bug an app found is "found by an adopting app"; the package stands on its own.
-- **The docs are part of the change, not a follow-up.** Adding, renaming or dropping a class or
-  token updates its row in `docs/mudblazor-parity.md` in the same commit.
+- **The docs are part of the change, not a follow-up.** Adding, renaming or dropping a class,
+  token or glyph key updates, in the same commit, the `<docs:ParityRow>` for that MudBlazor
+  parameter on its component's page, and the page's text and examples where they show it. A
+  palette, type, shadow or layout token updates the Theming or Typography page's table, a glyph
+  key the Icons page's. A component newly drawn, or newly given a page, updates its entry in
+  `Docs/ComponentIndex.cs`. A gap's reason goes in its row's `Note`, never in a separate list.
 - **Classes, resource keys and `FiliThemeVariants` are the published interface**
   (`docs/compatibility.md`). A new token or glyph key goes into `docs/published-keys.md` in the
   same change (`PublishedInterfaceTests`); one is never renamed or removed before 2.0, only aliased.
@@ -85,7 +91,8 @@ comment which file a new value came from.
 - **Palette, shadows, type, layout:** MudBlazor `src/MudBlazor/Themes/Models/` (`Palette.cs`,
   `PaletteDark.cs`, `Shadow.cs`, `Typography.cs`, `LayoutProperties.cs`), with `Colors.*` resolved
   through `src/MudBlazor/Colors/Colors.cs`.
-- **Control metrics:** `src/MudBlazor/Styles/components/*.scss` AND the component's `.razor.cs`
+- **Control metrics:** `src/MudBlazor/Styles/components/*.scss` (the drawer's `_drawer.scss` is
+  under `Styles/layout/`) AND the component's `.razor.cs`
   for parameter defaults, which are as load-bearing and easier to get wrong
   (`MudProgressLinear.Size` is `Small`, `MudButton.Variant` is `Text`, `MudLink.Underline` is
   `Hover`).

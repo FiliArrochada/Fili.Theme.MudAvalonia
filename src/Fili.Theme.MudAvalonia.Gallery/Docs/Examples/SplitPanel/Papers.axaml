@@ -1,0 +1,21 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <!-- MudSplitPanel's Rounded, Elevation, PanelGap and Padding: each panel is a Border.paper,
+       with the gap as its margin. Drag the splitter between them. -->
+  <Border Background="{DynamicResource FiliBackgroundGrayBrush}" Padding="16">
+    <Grid Height="160">
+      <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="*" MinWidth="96" />
+        <ColumnDefinition Width="Auto" />
+        <ColumnDefinition Width="*" MinWidth="96" />
+      </Grid.ColumnDefinitions>
+      <Border Classes="paper" Padding="16" Margin="0,0,8,0">
+        <TextBlock Classes="body2" Text="A paper at elevation 1" TextWrapping="Wrap" />
+      </Border>
+      <GridSplitter Grid.Column="1" ResizeDirection="Columns" />
+      <Border Grid.Column="2" Classes="paper outlined" Padding="16" Margin="8,0,0,0">
+        <TextBlock Classes="body2" Text="An outlined paper" TextWrapping="Wrap" />
+      </Border>
+    </Grid>
+  </Border>
+</UserControl>

@@ -1,0 +1,86 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <Border Background="{DynamicResource FiliBackgroundGrayBrush}" Padding="24,24,0,0">
+    <WrapPanel Orientation="Horizontal">
+      <!-- No class is MudPaper's default Elevation 1; an elevation class replaces it. -->
+      <Border Classes="paper elevation0" Width="96" Height="72" Margin="0,0,24,24">
+        <TextBlock Classes="caption" Text="elevation0" HorizontalAlignment="Center" VerticalAlignment="Center" />
+      </Border>
+      <Border Classes="paper" Width="96" Height="72" Margin="0,0,24,24">
+        <TextBlock Classes="caption" Text="no class (1)" HorizontalAlignment="Center" VerticalAlignment="Center" />
+      </Border>
+      <Border Classes="paper elevation2" Width="96" Height="72" Margin="0,0,24,24">
+        <TextBlock Classes="caption" Text="elevation2" HorizontalAlignment="Center" VerticalAlignment="Center" />
+      </Border>
+      <Border Classes="paper elevation3" Width="96" Height="72" Margin="0,0,24,24">
+        <TextBlock Classes="caption" Text="elevation3" HorizontalAlignment="Center" VerticalAlignment="Center" />
+      </Border>
+      <Border Classes="paper elevation4" Width="96" Height="72" Margin="0,0,24,24">
+        <TextBlock Classes="caption" Text="elevation4" HorizontalAlignment="Center" VerticalAlignment="Center" />
+      </Border>
+      <Border Classes="paper elevation5" Width="96" Height="72" Margin="0,0,24,24">
+        <TextBlock Classes="caption" Text="elevation5" HorizontalAlignment="Center" VerticalAlignment="Center" />
+      </Border>
+      <Border Classes="paper elevation6" Width="96" Height="72" Margin="0,0,24,24">
+        <TextBlock Classes="caption" Text="elevation6" HorizontalAlignment="Center" VerticalAlignment="Center" />
+      </Border>
+      <Border Classes="paper elevation7" Width="96" Height="72" Margin="0,0,24,24">
+        <TextBlock Classes="caption" Text="elevation7" HorizontalAlignment="Center" VerticalAlignment="Center" />
+      </Border>
+      <Border Classes="paper elevation8" Width="96" Height="72" Margin="0,0,24,24">
+        <TextBlock Classes="caption" Text="elevation8" HorizontalAlignment="Center" VerticalAlignment="Center" />
+      </Border>
+      <Border Classes="paper elevation9" Width="96" Height="72" Margin="0,0,24,24">
+        <TextBlock Classes="caption" Text="elevation9" HorizontalAlignment="Center" VerticalAlignment="Center" />
+      </Border>
+      <Border Classes="paper elevation10" Width="96" Height="72" Margin="0,0,24,24">
+        <TextBlock Classes="caption" Text="elevation10" HorizontalAlignment="Center" VerticalAlignment="Center" />
+      </Border>
+      <Border Classes="paper elevation11" Width="96" Height="72" Margin="0,0,24,24">
+        <TextBlock Classes="caption" Text="elevation11" HorizontalAlignment="Center" VerticalAlignment="Center" />
+      </Border>
+      <Border Classes="paper elevation12" Width="96" Height="72" Margin="0,0,24,24">
+        <TextBlock Classes="caption" Text="elevation12" HorizontalAlignment="Center" VerticalAlignment="Center" />
+      </Border>
+      <Border Classes="paper elevation13" Width="96" Height="72" Margin="0,0,24,24">
+        <TextBlock Classes="caption" Text="elevation13" HorizontalAlignment="Center" VerticalAlignment="Center" />
+      </Border>
+      <Border Classes="paper elevation14" Width="96" Height="72" Margin="0,0,24,24">
+        <TextBlock Classes="caption" Text="elevation14" HorizontalAlignment="Center" VerticalAlignment="Center" />
+      </Border>
+      <Border Classes="paper elevation15" Width="96" Height="72" Margin="0,0,24,24">
+        <TextBlock Classes="caption" Text="elevation15" HorizontalAlignment="Center" VerticalAlignment="Center" />
+      </Border>
+      <Border Classes="paper elevation16" Width="96" Height="72" Margin="0,0,24,24">
+        <TextBlock Classes="caption" Text="elevation16" HorizontalAlignment="Center" VerticalAlignment="Center" />
+      </Border>
+      <Border Classes="paper elevation17" Width="96" Height="72" Margin="0,0,24,24">
+        <TextBlock Classes="caption" Text="elevation17" HorizontalAlignment="Center" VerticalAlignment="Center" />
+      </Border>
+      <Border Classes="paper elevation18" Width="96" Height="72" Margin="0,0,24,24">
+        <TextBlock Classes="caption" Text="elevation18" HorizontalAlignment="Center" VerticalAlignment="Center" />
+      </Border>
+      <Border Classes="paper elevation19" Width="96" Height="72" Margin="0,0,24,24">
+        <TextBlock Classes="caption" Text="elevation19" HorizontalAlignment="Center" VerticalAlignment="Center" />
+      </Border>
+      <Border Classes="paper elevation20" Width="96" Height="72" Margin="0,0,24,24">
+        <TextBlock Classes="caption" Text="elevation20" HorizontalAlignment="Center" VerticalAlignment="Center" />
+      </Border>
+      <Border Classes="paper elevation21" Width="96" Height="72" Margin="0,0,24,24">
+        <TextBlock Classes="caption" Text="elevation21" HorizontalAlignment="Center" VerticalAlignment="Center" />
+      </Border>
+      <Border Classes="paper elevation22" Width="96" Height="72" Margin="0,0,24,24">
+        <TextBlock Classes="caption" Text="elevation22" HorizontalAlignment="Center" VerticalAlignment="Center" />
+      </Border>
+      <Border Classes="paper elevation23" Width="96" Height="72" Margin="0,0,24,24">
+        <TextBlock Classes="caption" Text="elevation23" HorizontalAlignment="Center" VerticalAlignment="Center" />
+      </Border>
+      <Border Classes="paper elevation24" Width="96" Height="72" Margin="0,0,24,24">
+        <TextBlock Classes="caption" Text="elevation24" HorizontalAlignment="Center" VerticalAlignment="Center" />
+      </Border>
+      <Border Classes="paper elevation25" Width="96" Height="72" Margin="0,0,24,24">
+        <TextBlock Classes="caption" Text="elevation25" HorizontalAlignment="Center" VerticalAlignment="Center" />
+      </Border>
+    </WrapPanel>
+  </Border>
+</UserControl>

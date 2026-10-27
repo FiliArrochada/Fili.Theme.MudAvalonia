@@ -1,0 +1,16 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <!-- The button's own label is a run, so it keeps its case. FiliButtonTextTransform is left
+       alone, so the buttons in the flyout keep MudBlazor's uppercase. -->
+  <Button Classes="outlined" HorizontalAlignment="Left">
+    <TextBlock><Run Text="Last 30 days" /></TextBlock>
+    <Button.Flyout>
+      <Flyout>
+        <StackPanel Orientation="Horizontal" Spacing="8" Margin="8">
+          <Button Content="Reset" />
+          <Button Classes="filled primary" Content="Apply" />
+        </StackPanel>
+      </Flyout>
+    </Button.Flyout>
+  </Button>
+</UserControl>

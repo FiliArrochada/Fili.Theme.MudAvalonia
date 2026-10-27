@@ -31,13 +31,7 @@
                       Description="DefaultLabelPosition=&quot;Right&quot; makes each command a text MudButton with a start icon, the label uppercase. dense is the 48px bar; a CommandBarSeparator is a vertical MudDivider."
                       Source="ToolBar/Labels" />
     <TextBlock Classes="body1 p">
-      <Run Text="On an " />
-      <Run Classes="code" Text="appbar" />
-      <Run Text=" the commands take the bar's text colour, as MudBlazor's app bar examples give theirs " />
-      <Run Classes="code" Text="Color.Inherit" />
-      <Run Text="; give the app bar " />
-      <Run Classes="code" Text="Padding=&quot;0&quot;" />
-      <Run Text=", as the CommandBar brings its own gutters." />
+      <Run Text="On an " /><Run Classes="code" Text="appbar" /><Run Text=" the commands take the bar's text colour, as MudBlazor's app bar examples give theirs " /><Run Classes="code" Text="Color.Inherit" /><Run Text="; give the app bar " /><Run Classes="code" Text="Padding=&quot;0&quot;" /><Run Text=", as the CommandBar brings its own gutters." />
     </TextBlock>
     <StackPanel Orientation="Horizontal" Spacing="8" Margin="0,0,0,16">
       <TextBlock Classes="body1" Text="See also:" VerticalAlignment="Center" />
@@ -47,11 +41,7 @@
 
     <TextBlock Classes="h5 section" Text="MudBlazor parity" />
     <TextBlock Classes="body1 p">
-      <Run Text="Every MudToolBar parameter, and MudToolBar with MudIconButtons as a CommandBar, and what each is here. " />
-      <Run Classes="code" Text="Same" />
-      <Run Text=" is transcribed from MudBlazor's source; " />
-      <Run Classes="code" Text="Close" />
-      <Run Text=" gets the same result another way." />
+      <Run Text="Every MudToolBar parameter, and MudToolBar with MudIconButtons as a CommandBar, and what each is here. " /><Run Classes="code" Text="Same" /><Run Text=" is transcribed from MudBlazor's source; " /><Run Classes="code" Text="Close" /><Run Text=" gets the same result another way." />
     </TextBlock>
     <docs:ParityTable>
       <docs:ParityRow MudBlazor="the component" Here="toolbar on a Border" Status="Same" Note="64px, the children centred; 56px below the sm breakpoint is the app's to set." />

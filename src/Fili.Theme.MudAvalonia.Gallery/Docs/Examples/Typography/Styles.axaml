@@ -1,0 +1,32 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <!-- Typo.h1 ... Typo.overline is a class of the same name on a TextBlock; each label is its size and weight. -->
+  <Grid ColumnDefinitions="140,*" RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto">
+    <TextBlock Grid.Row="0" Classes="caption" Text="h1 · 96px, 300" VerticalAlignment="Center" />
+    <TextBlock Grid.Row="0" Grid.Column="1" Classes="h1" Text="Heading 1" />
+    <TextBlock Grid.Row="1" Classes="caption" Text="h2 · 60px, 300" VerticalAlignment="Center" />
+    <TextBlock Grid.Row="1" Grid.Column="1" Classes="h2" Text="Heading 2" />
+    <TextBlock Grid.Row="2" Classes="caption" Text="h3 · 48px, 400" VerticalAlignment="Center" />
+    <TextBlock Grid.Row="2" Grid.Column="1" Classes="h3" Text="Heading 3" />
+    <TextBlock Grid.Row="3" Classes="caption" Text="h4 · 34px, 400" VerticalAlignment="Center" />
+    <TextBlock Grid.Row="3" Grid.Column="1" Classes="h4" Text="Heading 4" />
+    <TextBlock Grid.Row="4" Classes="caption" Text="h5 · 24px, 400" VerticalAlignment="Center" />
+    <TextBlock Grid.Row="4" Grid.Column="1" Classes="h5" Text="Heading 5" />
+    <TextBlock Grid.Row="5" Classes="caption" Text="h6 · 20px, 500" VerticalAlignment="Center" />
+    <TextBlock Grid.Row="5" Grid.Column="1" Classes="h6" Text="Heading 6" />
+    <TextBlock Grid.Row="6" Classes="caption" Text="subtitle1 · 16px, 400" VerticalAlignment="Center" />
+    <TextBlock Grid.Row="6" Grid.Column="1" Classes="subtitle1" Text="Subtitle 1, above a block of body copy" />
+    <TextBlock Grid.Row="7" Classes="caption" Text="subtitle2 · 14px, 500" VerticalAlignment="Center" />
+    <TextBlock Grid.Row="7" Grid.Column="1" Classes="subtitle2" Text="Subtitle 2, a list header's weight" />
+    <TextBlock Grid.Row="8" Classes="caption" Text="body1 · 16px, 400" VerticalAlignment="Center" />
+    <TextBlock Grid.Row="8" Grid.Column="1" Classes="body1" Text="Body 1, the comfortable reading size" />
+    <TextBlock Grid.Row="9" Classes="caption" Text="body2 · 14px, 400" VerticalAlignment="Center" />
+    <TextBlock Grid.Row="9" Grid.Column="1" Classes="body2" Text="Body 2, every window's default text" />
+    <TextBlock Grid.Row="10" Classes="caption" Text="button · 14px, 500" VerticalAlignment="Center" />
+    <TextBlock Grid.Row="10" Grid.Column="1" Classes="button" Text="Button text" />
+    <TextBlock Grid.Row="11" Classes="caption" Text="caption · 12px, 400" VerticalAlignment="Center" />
+    <TextBlock Grid.Row="11" Grid.Column="1" Classes="caption" Text="Caption, helper text and metadata" />
+    <TextBlock Grid.Row="12" Classes="caption" Text="overline · 12px, 400" VerticalAlignment="Center" />
+    <TextBlock Grid.Row="12" Grid.Column="1" Classes="overline" Text="Overline, a section label" />
+  </Grid>
+</UserControl>

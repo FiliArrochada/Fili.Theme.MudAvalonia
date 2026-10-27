@@ -1,0 +1,16 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <!-- The theme draws no focus ring; a FocusAdorner the app sets still draws, over the tint.
+       An adorner is clipped to its control unless it opts out, as this ring outside it must. -->
+  <WrapPanel Orientation="Horizontal">
+    <Button Classes="outlined primary" Content="Tint only" Margin="0,0,16,16" />
+    <Button Classes="outlined primary" Content="Tint and a ring" Margin="0,0,16,16">
+      <Button.FocusAdorner>
+        <FocusAdornerTemplate>
+          <Border BorderBrush="{DynamicResource FiliPrimaryBrush}" BorderThickness="2"
+                  CornerRadius="6" Margin="-3" AdornerLayer.IsClipEnabled="False" />
+        </FocusAdornerTemplate>
+      </Button.FocusAdorner>
+    </Button>
+  </WrapPanel>
+</UserControl>

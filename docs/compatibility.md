@@ -14,10 +14,10 @@ pinned by a test, so a change that breaks one fails the build rather than an app
 |---|---|---|
 | The NuGet id `Fili.MudAvalonia.Theme` | [README](../README.md#install) | - |
 | The two includes, `avares://Fili.Theme.MudAvalonia/Themes/Base/FiliBaseTheme.axaml` and `avares://Fili.Theme.MudAvalonia/FiliTheme.axaml`, in that order | [README](../README.md#using-it) | the gallery and every test session load them |
-| The style classes, and the control each applies to | [README](../README.md#every-control) and [MudBlazor parity](mudblazor-parity.md) | `ClassVocabularyTests` |
+| The style classes, and the control each applies to | [README](../README.md#every-control) and the docs site's [component pages](https://filiarrochada.github.io/Fili.Theme.MudAvalonia/#parity) | `ClassVocabularyTests` |
 | The resource keys: every palette, elevation, geometry and typography token, and every glyph key | [Published resource keys](published-keys.md) | `PublishedInterfaceTests` |
 | The public C# API: `FiliThemeVariants` and its `HighContrast` variant | [README](../README.md) | `PublishedInterfaceTests` |
-| Themed by type: a control the theme styles is styled with no class, and an optional package's controls with nothing to opt into | [Controls](controls.md) | `StandaloneReadinessTests`, `OptionalBoundaryTests` |
+| Themed by type: a control the theme styles is styled with no class, and an optional package's controls with nothing to opt into | [Installation](https://filiarrochada.github.io/Fili.Theme.MudAvalonia/#installation) and [The base](the-base.md) | `StandaloneReadinessTests`, `OptionalBoundaryTests` |
 | No dependency but `Avalonia` | [Releasing](releasing.md#supported-avalonia-versions) | - |
 
 So a 1.x release does not remove or rename a class or a key, does not change what a class means,

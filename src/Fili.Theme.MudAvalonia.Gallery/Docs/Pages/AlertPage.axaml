@@ -13,21 +13,7 @@
                       Description="A colour class is the Severity: info, success, warning, error. With no colour class it is Severity.Normal, text-primary on dark-hover. The text variant is the colour at 6% behind text in the colour's darken shade; only the icon is the colour itself."
                       Source="Alert/Simple" />
     <TextBlock Classes="body1 p">
-      <Run Text="An icon is a " />
-      <Run Classes="code" Text="PathIcon" />
-      <Run Text=" inside the alert. The theme draws it as " />
-      <Run Classes="code" Text=".mud-alert-icon" />
-      <Run Text=": 22px at .9 opacity, 12px before the message and on its first line. There is no default icon per severity; these examples use the theme's own glyphs, " />
-      <Run Classes="code" Text="FiliEventNoteGeometry" />
-      <Run Text=", " />
-      <Run Classes="code" Text="FiliInfoOutlinedGeometry" />
-      <Run Text=", " />
-      <Run Classes="code" Text="FiliAlertSuccessGeometry" />
-      <Run Text=", " />
-      <Run Classes="code" Text="FiliReportProblemGeometry" />
-      <Run Text=" and " />
-      <Run Classes="code" Text="FiliErrorOutlineGeometry" />
-      <Run Text=", which are MudBlazor's. The padding holds the message's 9px inside the alert's 6px, so a one-line alert is MudAlert's 50px." />
+      <Run Text="An icon is a " /><Run Classes="code" Text="PathIcon" /><Run Text=" inside the alert. The theme draws it as " /><Run Classes="code" Text=".mud-alert-icon" /><Run Text=": 22px at .9 opacity, 12px before the message and on its first line. There is no default icon per severity; these examples use the theme's own glyphs, " /><Run Classes="code" Text="FiliEventNoteGeometry" /><Run Text=", " /><Run Classes="code" Text="FiliInfoOutlinedGeometry" /><Run Text=", " /><Run Classes="code" Text="FiliAlertSuccessGeometry" /><Run Text=", " /><Run Classes="code" Text="FiliReportProblemGeometry" /><Run Text=" and " /><Run Classes="code" Text="FiliErrorOutlineGeometry" /><Run Text=", which are MudBlazor's. The padding holds the message's 9px inside the alert's 6px, so a one-line alert is MudAlert's 50px." />
     </TextBlock>
 
     <TextBlock Classes="h5 section" Text="Variants" />
@@ -65,18 +51,12 @@
                       Description="MudAlert's ShowCloseIcon is a button you put in the content; an inherit icon button takes the alert's colour. Closing the alert is the app's."
                       Source="Alert/Close" />
     <TextBlock Classes="body1 p">
-      <Run Text="MudAlert's " />
-      <Run Classes="code" Text="ContentAlignment" />
-      <Run Text=" has no class either: align the content with ordinary layout." />
+      <Run Text="MudAlert's " /><Run Classes="code" Text="ContentAlignment" /><Run Text=" has no class either: align the content with ordinary layout." />
     </TextBlock>
 
     <TextBlock Classes="h5 section" Text="MudBlazor parity" />
     <TextBlock Classes="body1 p">
-      <Run Text="Every MudAlert parameter and what it is here. " />
-      <Run Classes="code" Text="Same" />
-      <Run Text=" is transcribed from MudBlazor's source; " />
-      <Run Classes="code" Text="Close" />
-      <Run Text=" gets the same result another way." />
+      <Run Text="Every MudAlert parameter and what it is here. " /><Run Classes="code" Text="Same" /><Run Text=" is transcribed from MudBlazor's source; " /><Run Classes="code" Text="Close" /><Run Text=" gets the same result another way." />
     </TextBlock>
     <docs:ParityTable>
       <docs:ParityRow MudBlazor="Severity.Normal (default)" Here="alert" Status="Same" Note="Text-primary on dark-hover." />

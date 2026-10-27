@@ -1,0 +1,20 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <!-- A colour class is MudText's Color; grey supporting text is text-secondary, a Foreground. -->
+  <StackPanel Spacing="4">
+    <TextBlock Classes="body2" Text="No class: the colour round it, text-primary here" />
+    <TextBlock Classes="body2 primary" Text="primary" />
+    <TextBlock Classes="body2 secondary" Text="secondary" />
+    <TextBlock Classes="body2 tertiary" Text="tertiary" />
+    <TextBlock Classes="body2 info" Text="info" />
+    <TextBlock Classes="body2 success" Text="success" />
+    <TextBlock Classes="body2 warning" Text="warning" />
+    <TextBlock Classes="body2 error" Text="error" />
+    <TextBlock Classes="body2 dark" Text="dark" />
+    <TextBlock Classes="body2" Foreground="{DynamicResource FiliTextSecondaryBrush}" Text="text-secondary, as mud-text-secondary" />
+    <Border Background="{DynamicResource FiliPrimaryBrush}" Padding="12,8" CornerRadius="4" HorizontalAlignment="Left"
+            TextElement.Foreground="{DynamicResource FiliPrimaryContrastTextBrush}">
+      <TextBlock Classes="body2 error inherit" Text="inherit: the colour round it, over a colour class" />
+    </Border>
+  </StackPanel>
+</UserControl>

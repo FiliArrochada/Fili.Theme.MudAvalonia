@@ -1,0 +1,80 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <!-- One row per variant: a SplitButton, then a DropDownButton with the same classes. -->
+  <Grid ColumnDefinitions="Auto,180,180" RowDefinitions="Auto,Auto,Auto,Auto,Auto">
+    <TextBlock Grid.Column="1" Classes="caption" Text="SplitButton" HorizontalAlignment="Center" />
+    <TextBlock Grid.Column="2" Classes="caption" Text="DropDownButton" HorizontalAlignment="Center" />
+
+    <TextBlock Grid.Row="1" Classes="caption" Text="text" VerticalAlignment="Center" Margin="0,0,16,0" />
+    <SplitButton Grid.Row="1" Grid.Column="1" Content="Reply" HorizontalAlignment="Center" Margin="0,8">
+      <SplitButton.Flyout>
+        <MenuFlyout>
+          <MenuItem Header="Reply all" />
+          <MenuItem Header="Forward" />
+        </MenuFlyout>
+      </SplitButton.Flyout>
+    </SplitButton>
+    <DropDownButton Grid.Row="1" Grid.Column="2" Content="Sort" HorizontalAlignment="Center" Margin="0,8">
+      <DropDownButton.Flyout>
+        <MenuFlyout>
+          <MenuItem Header="By name" />
+          <MenuItem Header="By date" />
+        </MenuFlyout>
+      </DropDownButton.Flyout>
+    </DropDownButton>
+
+    <TextBlock Grid.Row="2" Classes="caption" Text="outlined primary" VerticalAlignment="Center" Margin="0,0,16,0" />
+    <SplitButton Grid.Row="2" Grid.Column="1" Classes="outlined primary" Content="Export" HorizontalAlignment="Center" Margin="0,8">
+      <SplitButton.Flyout>
+        <MenuFlyout>
+          <MenuItem Header="As PDF" />
+          <MenuItem Header="As CSV" />
+        </MenuFlyout>
+      </SplitButton.Flyout>
+    </SplitButton>
+    <DropDownButton Grid.Row="2" Grid.Column="2" Classes="outlined primary" Content="Export" HorizontalAlignment="Center" Margin="0,8">
+      <DropDownButton.Flyout>
+        <MenuFlyout>
+          <MenuItem Header="As PDF" />
+          <MenuItem Header="As CSV" />
+        </MenuFlyout>
+      </DropDownButton.Flyout>
+    </DropDownButton>
+
+    <TextBlock Grid.Row="3" Classes="caption" Text="filled" VerticalAlignment="Center" Margin="0,0,16,0" />
+    <SplitButton Grid.Row="3" Grid.Column="1" Classes="filled" Content="Save" HorizontalAlignment="Center" Margin="0,8">
+      <SplitButton.Flyout>
+        <MenuFlyout>
+          <MenuItem Header="Save as" />
+          <MenuItem Header="Save a copy" />
+        </MenuFlyout>
+      </SplitButton.Flyout>
+    </SplitButton>
+    <DropDownButton Grid.Row="3" Grid.Column="2" Classes="filled" Content="Save" HorizontalAlignment="Center" Margin="0,8">
+      <DropDownButton.Flyout>
+        <MenuFlyout>
+          <MenuItem Header="Save as" />
+          <MenuItem Header="Save a copy" />
+        </MenuFlyout>
+      </DropDownButton.Flyout>
+    </DropDownButton>
+
+    <TextBlock Grid.Row="4" Classes="caption" Text="filled primary" VerticalAlignment="Center" Margin="0,0,16,0" />
+    <SplitButton Grid.Row="4" Grid.Column="1" Classes="filled primary" Content="Deploy" HorizontalAlignment="Center" Margin="0,8">
+      <SplitButton.Flyout>
+        <MenuFlyout>
+          <MenuItem Header="To staging" />
+          <MenuItem Header="To production" />
+        </MenuFlyout>
+      </SplitButton.Flyout>
+    </SplitButton>
+    <DropDownButton Grid.Row="4" Grid.Column="2" Classes="filled primary" Content="Deploy" HorizontalAlignment="Center" Margin="0,8">
+      <DropDownButton.Flyout>
+        <MenuFlyout>
+          <MenuItem Header="To staging" />
+          <MenuItem Header="To production" />
+        </MenuFlyout>
+      </DropDownButton.Flyout>
+    </DropDownButton>
+  </Grid>
+</UserControl>

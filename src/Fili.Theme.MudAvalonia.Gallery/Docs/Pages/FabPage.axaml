@@ -45,15 +45,11 @@
 
     <TextBlock Classes="h5 section" Text="MudBlazor parity" />
     <TextBlock Classes="body1 p">
-      <Run Text="Every MudFab parameter and what it is here. " />
-      <Run Classes="code" Text="Same" />
-      <Run Text=" is transcribed from MudBlazor's source; " />
-      <Run Classes="code" Text="Close" />
-      <Run Text=" gets the same result another way." />
+      <Run Text="Every MudFab parameter and what it is here. " /><Run Classes="code" Text="Same" /><Run Text=" is transcribed from MudBlazor's source; " /><Run Classes="code" Text="Close" /><Run Text=" gets the same result another way." />
     </TextBlock>
     <docs:ParityTable>
       <docs:ParityRow MudBlazor="the component" Here="fab on a Button" Status="Same" Note="Round, at elevation 6, lifting to 8 on hover and focus and 12 on press." />
-      <docs:ParityRow MudBlazor="Variant.Filled (default) / Outlined / Text" Here="no class / outlined / text" Status="Same" Note="Filled is grey action-default-hover; outlined and text never cast a shadow." />
+      <docs:ParityRow MudBlazor="Variant.Filled (default) / Outlined / Text" Here="no class / outlined / text" Status="Same" Note="Filled is grey action-default-hover, action-disabled-background on hover; outlined and text never cast a shadow." />
       <docs:ParityRow MudBlazor="Color.Default (default)" Here="no colour class" Status="Same" Note="Text-primary." />
       <docs:ParityRow MudBlazor="Color.Primary … Color.Dark" Here="the colour classes" Status="Same" Note="Filled: the colour, its darken shade on hover; outlined and text: the colour as content, its hover tint on hover." />
       <docs:ParityRow MudBlazor="Color.Inherit" Here="—" Status="Same" Note="Draws as Color.Default, because _fab.scss has no rule for it." />

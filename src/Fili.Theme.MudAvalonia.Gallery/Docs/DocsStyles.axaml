@@ -15,8 +15,9 @@
     <Setter Property="Margin" Value="0,0,0,16" />
   </Style>
 
-  <!-- Code inside a sentence. -->
+  <!-- Code inside a sentence, without the font's ligatures, as in a code block. -->
   <Style Selector="Run.code">
+    <Setter Property="FontFeatures" Value="-calt,-liga" />
     <Setter Property="FontFamily" Value="avares://Fili.Theme.MudAvalonia.Gallery/Assets/Fonts#JetBrains Mono" />
     <Setter Property="FontSize" Value="14" />
   </Style>

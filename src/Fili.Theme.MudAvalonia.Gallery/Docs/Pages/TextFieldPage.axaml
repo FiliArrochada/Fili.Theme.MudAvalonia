@@ -12,6 +12,9 @@
     <docs:ExampleCard Title="Standard, filled and outlined"
                       Description="MudTextField.Variant defaults to Text, so a TextBox with no class is the standard field: no box, just the rule. filled puts it on a tinted sheet, outlined in a box whose label floats onto the stroke."
                       Source="TextField/Variants" />
+    <docs:ExampleCard Title="An outlined field on another ground"
+                      Description="The outlined label does not cut a notch in the stroke: it masks the stroke behind it with a patch of FiliSurfaceBrush. On any other ground the floated label sits on a visible rectangle of the wrong shade. Set FiliSurfaceBrush to that ground in the field's Resources, as the second field does."
+                      Source="TextField/OutlinedGround" />
 
     <TextBlock Classes="h5 section" Text="Label and placeholder" />
     <docs:ExampleCard Title="Label, placeholder, or neither"
@@ -19,6 +22,9 @@
                       Source="TextField/Label" />
     <TextBlock Classes="body1 p">
       <Run Text="A field has a label or a placeholder, not both: that would take a second text property, which this package does not add. A floated label is text-primary once its text holds it up, and primary while the field has focus." />
+    </TextBlock>
+    <TextBlock Classes="body1 p">
+      <Run Text="With no " /><Run Classes="code" Text="PlaceholderText" /><Run Text=", a standard field is MudInput, 32px (29 dense), a filled one centres its text in the same 56px, and an outlined one is the same box. Set " /><Run Classes="code" Text="PlaceholderText" /><Run Text=" later and the label's room comes back." />
     </TextBlock>
     <docs:ExampleCard Title="Required, shrink label and no underline"
                       Description="required is Required: an asterisk straight after the label. shrink-label is ShrinkLabel: the label floated with nothing typed. no-underline is Underline=&quot;false&quot;: neither the resting rule nor the focus one."
@@ -44,11 +50,7 @@
                       Description="error is MudTextField's Error: the rule, the label and the helper line in the error colour. A counter turns red with the field."
                       Source="TextField/Error" />
     <TextBlock Classes="body1 p">
-      <Run Text="The other way to be invalid fires on its own: when a binding fails validation, Avalonia sets " />
-      <Run Classes="code" Text="DataValidationErrors.HasErrors" />
-      <Run Text=" and the field paints as " />
-      <Run Classes="code" Text="error" />
-      <Run Text=" does, with the message under the field at 12px in the helper text's place. A field can fail two rules at once, and both messages show." />
+      <Run Text="The other way to be invalid fires on its own: when a binding fails validation, Avalonia sets " /><Run Classes="code" Text="DataValidationErrors.HasErrors" /><Run Text=" and the field paints as " /><Run Classes="code" Text="error" /><Run Text=" does, with the message under the field at 12px in the helper text's place. A field can fail two rules at once, and both messages show." />
     </TextBlock>
     <docs:CodeBlock Code="&lt;!-- Email's setter throws, or the view model implements INotifyDataErrorInfo --&gt;&#10;&lt;TextBox Classes=&quot;outlined&quot; PlaceholderText=&quot;Email&quot; Text=&quot;{Binding Email}&quot; /&gt;"
                     Margin="0,0,0,16" />
@@ -61,11 +63,7 @@
                       Description="AdornmentText is a string in the same slot. Unlike MudBlazor's, a text adornment on a filled or outlined field stays on the text line, so a unit is not lifted above the value it is read with."
                       Source="TextField/TextAdornments" />
     <TextBlock Classes="body1 p">
-      <Run Text="MudTextField's " />
-      <Run Classes="code" Text="Clearable" />
-      <Run Text=" is a button in " />
-      <Run Classes="code" Text="InnerRightContent" />
-      <Run Text=" whose click clears the text: the clearing is the app's." />
+      <Run Text="MudTextField's " /><Run Classes="code" Text="Clearable" /><Run Text=" is a button in " /><Run Classes="code" Text="InnerRightContent" /><Run Text=" whose click clears the text: the clearing is the app's." />
     </TextBlock>
 
     <TextBlock Classes="h5 section" Text="Multiline" />
@@ -85,15 +83,14 @@
 
     <TextBlock Classes="h5 section" Text="MudBlazor parity" />
     <TextBlock Classes="body1 p">
-      <Run Text="Every MudTextField parameter and what it is here. " />
-      <Run Classes="code" Text="Same" />
-      <Run Text=" is transcribed from MudBlazor's source; " />
-      <Run Classes="code" Text="Close" />
-      <Run Text=" gets the same result another way." />
+      <Run Text="Every MudTextField parameter and what it is here. " /><Run Classes="code" Text="Same" /><Run Text=" is transcribed from MudBlazor's source; " /><Run Classes="code" Text="Close" /><Run Text=" gets the same result another way." />
     </TextBlock>
     <docs:ParityTable>
       <docs:ParityRow MudBlazor="Variant.Text (default)" Here="no class" Status="Same" />
       <docs:ParityRow MudBlazor="Variant.Filled / Outlined" Here="filled / outlined" Status="Same" />
+      <docs:ParityRow MudBlazor="content padding" Here="the same" Status="Same" Note="As _input.scss: 6px 0 7px on a standard field, 12px a side on a filled one, 14px a side on an outlined one." />
+      <docs:ParityRow MudBlazor="the label's position" Here="the same" Status="Same" Note="As _inputlabel.scss: resting at (0, 24), (12, 20) and (14, 20) on standard, filled and outlined; floated at (0, 1.5), (12, 10) and (14, -6) at three quarters size. The label shrinks from 16 to 12px by its font size rather than scale(.75), which keeps the glyphs crisp." />
+      <docs:ParityRow MudBlazor="the outlined label's notch" Here="a patch of FiliSurfaceBrush behind the label" Status="Close" Note="Avalonia has no fieldset to cut a notch in; on another ground, set FiliSurfaceBrush to it in the field's Resources." />
       <docs:ParityRow MudBlazor="Label" Here="PlaceholderText" Status="Close" Note="The placeholder is the floating label, so a field has no separate placeholder." />
       <docs:ParityRow MudBlazor="Placeholder" Here="placeholder, and the text in PlaceholderText" Status="Same" Note="The hint where the text goes, in its colour at .42, never floating; a field has a label or a placeholder, not both." />
       <docs:ParityRow MudBlazor="no Label, and MudInput" Here="no PlaceholderText" Status="Same" Note="No room for a label: a standard field is MudInput's 32px (29 dense), and a filled one centres its text." />
@@ -104,9 +101,10 @@
       <docs:ParityRow MudBlazor="Counter" Here="counter with MaxLength" Status="Same" Note="12 / 50 on the right, or the length alone when MaxLength is 0, as Counter=&quot;0&quot;." />
       <docs:ParityRow MudBlazor="Margin.Dense" Here="dense" Status="Same" Note="Standard 3px shorter, filled 8px, outlined 16px, with the label resting and floating to match." />
       <docs:ParityRow MudBlazor="Margin.Normal" Here="Margin" Status="Close" Note="Only an outer margin in MudBlazor, and an ordinary Avalonia property here." />
-      <docs:ParityRow MudBlazor="Adornment, AdornmentIcon, AdornmentText" Here="InnerLeftContent / InnerRightContent" Status="Same" Note="8px from the text; an icon marked start-icon or end-icon is MudIcon's 24px in the text colour, and a text adornment stays on the text line." />
+      <docs:ParityRow MudBlazor="Adornment, AdornmentIcon" Here="InnerLeftContent / InnerRightContent" Status="Same" Note="8px from the text, as .mud-input-adornment-start and -end, beside a spin column too; an icon marked start-icon or end-icon is MudIcon's 24px in the field's text colour, centred on a filled or outlined box as .mud-input centres it. A start adornment floats the label, as Adornment.Start does." />
+      <docs:ParityRow MudBlazor="AdornmentText" Here="text in InnerLeftContent / InnerRightContent" Status="Close" Note="Unlike MudBlazor's, a text adornment stays on the text line, so a unit is not lifted above the value it is read with." />
       <docs:ParityRow MudBlazor="AdornmentColor, IconSize" Here="a colour class, or Width / Height, on the icon" Status="Close" Note="Ordinary Avalonia properties." />
-      <docs:ParityRow MudBlazor="Disabled" Here="IsEnabled=&quot;False&quot;" Status="Same" Note="Text-disabled text, label and helper text; the line turns dotted, 1px on and 1px off." />
+      <docs:ParityRow MudBlazor="Disabled" Here="IsEnabled=&quot;False&quot;" Status="Same" Note="Text-disabled text, label and helper text; the line stays lines-inputs and turns dotted, 1px on and 1px off, on a text field and a select alike." />
       <docs:ParityRow MudBlazor="ReadOnly" Here="IsReadOnly" Status="Same" Note="Looks the same, as in MudBlazor." />
       <docs:ParityRow MudBlazor="Underline=&quot;false&quot;" Here="no-underline" Status="Same" Note="Neither the resting nor the focus rule; an outlined field has none anyway." />
       <docs:ParityRow MudBlazor="Required" Here="required" Status="Same" Note="An asterisk straight after the label." />

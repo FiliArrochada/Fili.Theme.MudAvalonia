@@ -1,0 +1,75 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:docs="using:Fili.Theme.MudAvalonia.Gallery.Docs"
+             x:Class="Fili.Theme.MudAvalonia.Gallery.Docs.Pages.HighContrastPage">
+  <StackPanel Classes="doc">
+    <docs:DocHeader Title="High contrast"
+                    Summary="A third variant, a black ground with opaque lines, for people who need more contrast than light or dark give. MudBlazor ships light and dark and nothing else, so this one is derived rather than transcribed." />
+
+    <TextBlock Classes="h5 section" Text="Select it" />
+    <TextBlock Classes="body1 p">
+      <Run Text="Select it like any other variant, from code or in " /><Run Classes="code" Text="App.axaml" /><Run Text=". It is " /><Run Classes="code" Text="FiliThemeVariants.HighContrast" /><Run Text=", the package's one public type. The switch in this site's app bar selects it too." />
+    </TextBlock>
+    <docs:CodeBlock Code="Application.Current.RequestedThemeVariant = FiliThemeVariants.HighContrast;"
+                    Margin="0,0,0,16" />
+    <docs:CodeBlock Code="&lt;Application xmlns:theme=&quot;using:Fili.Theme.MudAvalonia&quot;&#10;             RequestedThemeVariant=&quot;{x:Static theme:FiliThemeVariants.HighContrast}&quot;&gt;"
+                    Margin="0,0,0,16" />
+    <TextBlock Classes="body1 p">
+      <Run Text="Not " /><Run Classes="code" Text="x:Key=&quot;HighContrast&quot;" /><Run Text=": Avalonia's ThemeVariant type converter accepts the built-in variants only, and throws NotSupportedException while the merged dictionary is being built, which takes the rest of the theme down with it. A custom variant is reachable from XAML only through " /><Run Classes="code" Text="x:Static" /><Run Text="." />
+    </TextBlock>
+    <TextBlock Classes="body1 p">
+      <Run Text="Set the variant on the Application, not on a window: every brush is one application-level object, shared by every window." />
+    </TextBlock>
+
+    <TextBlock Classes="h5 section" Text="How it is built" />
+    <TextBlock Classes="body1 p">
+      <Run Text="Three rules produced every value in it. " /><Run FontWeight="Bold" Text="Separation comes from lines, not fills." /><Run Text=" The surface sits one step off the page, #0D0D0D on black, a difference nobody can see; what divides a card, a menu or a dialog from the page is its outline." />
+    </TextBlock>
+    <TextBlock Classes="body1 p">
+      <Run FontWeight="Bold" Text="Nothing is conveyed by alpha." /><Run Text=" Light and dark lean on translucent blacks and whites, a dark divider is white at 12%, and on a black ground that is no line at all. Every line and text token here is opaque. Alpha survives only in overlays: the state layers, the selection tints, at 35% where light and dark use 6%, the input fill, and the two scrims, at 90%." />
+    </TextBlock>
+    <TextBlock Classes="body1 p">
+      <Run FontWeight="Bold" Text="Disabled still has to be legible." /><Run Text=" Disabled text is #CFCFDA, about 12:1 on black, far too strong to read as disabled in a normal palette, which is the point: disabled is dimmer than enabled, not nearly gone." />
+    </TextBlock>
+    <docs:ExampleCard Title="Lines, not fills"
+                      Description="Switch the site to high contrast in the app bar: the raised paper gains a 1px ring, the paper at elevation 0 has none, the field's outline is the line colour and the disabled button stays readable."
+                      Source="HighContrast/Surfaces" />
+
+    <TextBlock Classes="h5 section" Text="Elevation is a ring" />
+    <TextBlock Classes="body1 p">
+      <Run Text="The shadow ladder becomes a hard 1px ring, so every surface that asks for a " /><Run Classes="code" Text="FiliElevation*" /><Run Text=" gets its outline with no template of its own; " /><Run Classes="code" Text="FiliElevation0" /><Run Text=" has none. The ring is " /><Run Classes="code" Text="FiliLinesDefaultColor" /><Run Text=" as the application resolves it: repaint the line for high contrast in the application's resources and every ring follows, at run time too. A line colour set only in a window's or a control's resources does not reach the rings, which are one application-level value." />
+    </TextBlock>
+
+    <TextBlock Classes="h5 section" Text="Your colours in high contrast" />
+    <TextBlock Classes="body1 p">
+      <Run Text="High contrast inherits from Dark, so any token it does not declare is the dark one. That is what lets the forked templates, which declare Light and Dark only, work here untouched. It is also the trap: an app that overrides its colours in Light and Dark and stops there gets its dark colours in high contrast, silently. Declare the variant too, with the same " /><Run Classes="code" Text="Fili*" /><Run Text=" keys." />
+    </TextBlock>
+    <docs:CodeBlock Code="&lt;ResourceDictionary.ThemeDictionaries&gt;&#10;  &lt;ResourceDictionary x:Key=&quot;Light&quot;&gt; &lt;!-- … --&gt; &lt;/ResourceDictionary&gt;&#10;  &lt;ResourceDictionary x:Key=&quot;Dark&quot;&gt; &lt;!-- … --&gt; &lt;/ResourceDictionary&gt;&#10;  &lt;ResourceDictionary x:Key=&quot;{x:Static theme:FiliThemeVariants.HighContrast}&quot;&gt;&#10;    &lt;!-- the same Fili* keys again, in this variant's colours --&gt;&#10;  &lt;/ResourceDictionary&gt;&#10;&lt;/ResourceDictionary.ThemeDictionaries&gt;"
+                    Margin="0,0,0,16" />
+    <StackPanel Orientation="Horizontal" Spacing="8" Margin="0,0,0,16">
+      <TextBlock Classes="body1" Text="See also:" VerticalAlignment="Center" />
+      <docs:DocLink Slug="theming" Content="Theming" />
+    </StackPanel>
+
+    <TextBlock Classes="h5 section" Text="Text on a colour" />
+    <docs:ExampleCard Title="ContrastText"
+                      Description="Each colour has its own contrast-text token, FiliInfoContrastTextBrush and the rest: MudBlazor's white in light and dark, black in high contrast, where the colours are pastels raised to clear 10:1 on black and white on them would be about 1.6:1."
+                      Source="HighContrast/ContrastText" />
+    <TextBlock Classes="body1 p">
+      <Run Text="The " /><Run Classes="code" Text="dark" /><Run Text=" colour is black here, so it does not show as text or a line; its contrast text stays white. A tooltip's chip is black rather than gray-darker, on which its text would be the weakest in the variant." />
+    </TextBlock>
+    <StackPanel Orientation="Horizontal" Spacing="8" Margin="0,0,0,16">
+      <TextBlock Classes="body1" Text="See also:" VerticalAlignment="Center" />
+      <docs:DocLink Slug="snackbar" Content="Snackbar" />
+      <docs:DocLink Slug="tooltip" Content="Tooltip" />
+      <docs:DocLink Slug="keyboard-focus" Content="Keyboard focus" />
+    </StackPanel>
+
+    <TextBlock Classes="h5 section" Text="MudBlazor parity" />
+    <docs:ParityTable>
+      <docs:ParityRow MudBlazor="IsDarkMode" Here="Application.RequestedThemeVariant" Status="Same" Note="Light and Dark are Avalonia's own variants." />
+      <docs:ParityRow MudBlazor="(none: high contrast)" Here="FiliThemeVariants.HighContrast" Status="Extra" Note="This package's own third variant, inheriting from Dark; its colours are MudBlazor's hues raised until they clear about 10:1 on black." />
+      <docs:ParityRow MudBlazor="Shadow.cs" Here="FiliElevation0 … FiliElevation25" Status="Close" Note="A 1px ring in the line colour in high contrast, where a shadow would not show." />
+    </docs:ParityTable>
+  </StackPanel>
+</UserControl>

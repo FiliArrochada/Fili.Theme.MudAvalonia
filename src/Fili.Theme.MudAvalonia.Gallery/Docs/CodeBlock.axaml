@@ -3,7 +3,8 @@
              xmlns:docs="using:Fili.Theme.MudAvalonia.Gallery.Docs"
              x:Class="Fili.Theme.MudAvalonia.Gallery.Docs.CodeBlock">
   <!-- Code on a docs page: monospace on the page's grey ground, selectable, with a copy button.
-       JetBrains Mono is embedded, as a browser has no system fonts to fall back on. -->
+       JetBrains Mono is embedded, as a browser has no system fonts to fall back on; its ligatures
+       are off, so code reads as typed: => and /> stay two characters, not an arrow. -->
   <Border Background="{DynamicResource FiliBackgroundGrayBrush}" CornerRadius="4">
     <Panel>
       <ScrollViewer HorizontalScrollBarVisibility="Auto"
@@ -11,6 +12,7 @@
                     Padding="16,12,48,12">
         <SelectableTextBlock x:Name="Text"
                              FontFamily="avares://Fili.Theme.MudAvalonia.Gallery/Assets/Fonts#JetBrains Mono"
+                             FontFeatures="-calt,-liga"
                              FontSize="13"
                              LineHeight="20"
                              TextWrapping="NoWrap" />

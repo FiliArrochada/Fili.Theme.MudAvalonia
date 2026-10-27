@@ -18,11 +18,7 @@
                       Description="Pulse is the default: opacity 1 to 0.4 and back over 1.5s, ease-in-out, after a 0.5s delay. wave is Animation.Wave and no-animation is Animation.False."
                       Source="Skeleton/Animations" />
     <TextBlock Classes="body1 p">
-      <Run Text="MudBlazor slides a separate layer across a wave skeleton; a " />
-      <Run Classes="code" Text="Border" />
-      <Run Text=" has no such layer, so the band is drawn into the background: 1.6s linear after 0.5s, the 4% band crossing in the first 60%. With " />
-      <Run Classes="code" Text="FiliReducedMotion" />
-      <Run Text=" set, a skeleton is still, without its pulse or wave." />
+      <Run Text="MudBlazor slides a separate layer across a wave skeleton; a " /><Run Classes="code" Text="Border" /><Run Text=" has no such layer, so the band is drawn into the background: 1.6s linear after 0.5s, the 4% band crossing in the first 60%. With " /><Run Classes="code" Text="FiliReducedMotion" /><Run Text=" set, a skeleton is still, without its pulse or wave." />
     </TextBlock>
 
     <TextBlock Classes="h5 section" Text="Sizes" />
@@ -48,11 +44,7 @@
 
     <TextBlock Classes="h5 section" Text="MudBlazor parity" />
     <TextBlock Classes="body1 p">
-      <Run Text="Every MudSkeleton parameter and what it is here. " />
-      <Run Classes="code" Text="Same" />
-      <Run Text=" is transcribed from MudBlazor's source; " />
-      <Run Classes="code" Text="Extra" />
-      <Run Text=" is beyond MudBlazor." />
+      <Run Text="Every MudSkeleton parameter and what it is here. " /><Run Classes="code" Text="Same" /><Run Text=" is transcribed from MudBlazor's source; " /><Run Classes="code" Text="Extra" /><Run Text=" is beyond MudBlazor." />
     </TextBlock>
     <docs:ParityTable>
       <docs:ParityRow MudBlazor="SkeletonType.Text (default)" Here="skeleton on a Border" Status="Same" Note="The skeleton colour, 20px scaled to 60% as _skeleton.scss does." />

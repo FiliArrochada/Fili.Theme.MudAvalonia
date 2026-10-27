@@ -1,0 +1,60 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:docs="using:Fili.Theme.MudAvalonia.Gallery.Docs"
+             x:Class="Fili.Theme.MudAvalonia.Gallery.Docs.Pages.KeyboardFocusPage">
+  <StackPanel Classes="doc">
+    <docs:DocHeader Title="Keyboard focus"
+                    Summary="Keyboard focus is shown as MudBlazor shows it: the control lights the same state layer hovering gives it, and no focus ring is drawn. Each control is one Tab stop." />
+
+    <TextBlock Classes="h5 section" Text="The state layer" />
+    <TextBlock Classes="body1 p">
+      <Run Text="Every interactive control lights its state layer on " /><Run Classes="code" Text=":focus-visible" /><Run Text=", the tint hovering gives it. That is MudBlazor's own affordance rather than a choice made here: its " /><Run Classes="code" Text="_reset.scss" /><Run Text=" removes the browser's focus outline, and each component maps " /><Run Classes="code" Text=":focus-visible" /><Run Text=" to its hover colour." />
+    </TextBlock>
+    <docs:CodeBlock Code="_button.scss          &amp;:focus-visible, &amp;:active { background-color: action-default-hover }&#10;_expansionpanel.scss  &amp;:focus-visible           { background-color: action-default-hover }&#10;_link.scss            &amp;:focus-visible, &amp;:active { text-decoration: underline }&#10;_list.scss            &amp;:focus:not(.mud-selected-item) { background-color: action-default-hover }"
+                    Margin="0,0,0,16" />
+    <docs:ExampleCard Title="Tab through"
+                      Description="Click the field, then press Tab: each control takes focus in turn and shows its hover tint while it has it. The slider is one stop, not its two rail halves, and the numeric field's text box stands for its control."
+                      Source="KeyboardFocus/TabThrough" />
+    <TextBlock Classes="body1 p">
+      <Run Text="It is " /><Run Classes="code" Text=":focus-visible" /><Run Text=", not " /><Run Classes="code" Text=":focus" /><Run Text=": clicking a button does not leave it tinted once the pointer has gone; only keyboard navigation marks it." />
+    </TextBlock>
+
+    <TextBlock Classes="h5 section" Text="Lists and text fields" />
+    <TextBlock Classes="body1 p">
+      <Run Text="A selected list row gets no focus tint, as in " /><Run Classes="code" Text="_list.scss" /><Run Text=": it keeps its selection tint, the primary's hover shade under primary text, because the arrow keys move focus and selection together and tinting both would be the selection tint twice. In a " /><Run Classes="code" Text="multi-selection" /><Run Text=" list a selected row has no tint, its checkbox marks it, so there a focused row does take the hover tint. A text field keeps " /><Run Classes="code" Text=":focus" /><Run Text=", however it was focused: its accent rule says where typing goes, not where the keyboard is." />
+    </TextBlock>
+
+    <TextBlock Classes="h5 section" Text="A ring of your own" />
+    <TextBlock Classes="body1 p">
+      <Run Text="The tint is MudBlazor's 6% action-default-hover, which is on the subtle side. An app with a stricter accessibility bar adds a ring of its own; the theme deliberately does not invent one. Avalonia's dashed focus rectangle is off, but a ring an app sets through a control's " /><Run Classes="code" Text="FocusAdorner" /><Run Text=" still draws." />
+    </TextBlock>
+    <docs:ExampleCard Title="FocusAdorner"
+                      Description="Tab to the second button: its FocusAdorner draws a 2px primary ring round the tint. An adorner is clipped to its control, so a ring drawn outside it sets AdornerLayer.IsClipEnabled to False. Set it in a style to give every button one."
+                      Source="KeyboardFocus/FocusRing" />
+
+    <TextBlock Classes="h5 section" Text="Access keys" />
+    <docs:ExampleCard Title="_Save"
+                      Description="An underscore before a letter makes it the access key, as in Avalonia's own themes: Alt underlines the letters and Alt with one presses the control. The label's case survives, so _Save reads SAVE with Alt+S. To show an underscore, double it. MudBlazor has none."
+                      Source="KeyboardFocus/AccessKeys" />
+
+    <TextBlock Classes="h5 section" Text="Screen readers" />
+    <TextBlock Classes="body1 p">
+      <Run Text="A text field's helper text is its " /><Run Classes="code" Text="AutomationProperties.HelpText" /><Run Text=", which a screen reader announces too, and a time picker's label is its " /><Run Classes="code" Text="AutomationProperties.Name" /><Run Text="." />
+    </TextBlock>
+    <StackPanel Orientation="Horizontal" Spacing="8" Margin="0,0,0,16">
+      <TextBlock Classes="body1" Text="See also:" VerticalAlignment="Center" />
+      <docs:DocLink Slug="text-field" Content="Text field" />
+      <docs:DocLink Slug="time-picker" Content="Time picker" />
+      <docs:DocLink Slug="high-contrast" Content="High contrast" />
+    </StackPanel>
+
+    <TextBlock Classes="h5 section" Text="MudBlazor parity" />
+    <docs:ParityTable>
+      <docs:ParityRow MudBlazor=":focus-visible" Here=":focus-visible" Status="Same" Note="The control's hover tint; a click leaves none." />
+      <docs:ParityRow MudBlazor="outline: none (_reset.scss)" Here="no focus rectangle" Status="Same" Note="The base's dashed rectangle is off; a FocusAdorner the app sets still draws." />
+      <docs:ParityRow MudBlazor="a list row, :focus:not(.mud-selected-item)" Here="the same" Status="Same" Note="A selected row shows its selection tint only; in a multi-selection list, which tints no selected row, a focused one takes the hover tint." />
+      <docs:ParityRow MudBlazor="a text field's :focus" Here="the same" Status="Same" Note="The accent rule and the label's colour, however the field was focused." />
+      <docs:ParityRow MudBlazor="(none: access keys)" Here="_ before a letter in a label" Status="Extra" Note="Avalonia's own: Alt underlines and presses." />
+    </docs:ParityTable>
+  </StackPanel>
+</UserControl>

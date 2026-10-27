@@ -10,18 +10,21 @@
 A design-token theme for Avalonia 12: palette, elevation, typography and geometry, in light, dark
 and high contrast, with a gallery app to look at it in.
 
-**[See the gallery live](https://filiarrochada.github.io/Fili.Theme.MudAvalonia/)** — the same app,
-compiled to WebAssembly and served by GitHub Pages.
+**[Read the docs](https://filiarrochada.github.io/Fili.Theme.MudAvalonia/)**, laid out as
+mudblazor.com is: a page per component with live examples, their code, a link to the MudBlazor
+page and a parity table. The site is the gallery app itself, built with the theme it documents,
+compiled to WebAssembly and served by GitHub Pages; every page has its own address
+(`#button`, `#tooltip`).
 
 **Where to read what**, in the order most people need it:
 
 | If you want to | Read |
 |---|---|
 | install it and see the classes | this page |
-| write a MudBlazor screen in AXAML | [Razor and AXAML](docs/razor-vs-axaml.md): the same UI written both ways |
-| find the class or key for one parameter | [MudBlazor parity](docs/mudblazor-parity.md): every parameter, with ✅, ≈ or ❌ |
-| know how a control behaves, and why | [Controls](docs/controls.md) |
-| know what is not there | [Known gaps](docs/known-gaps.md) |
+| write a MudBlazor screen in AXAML | [From MudBlazor](https://filiarrochada.github.io/Fili.Theme.MudAvalonia/#from-mudblazor): the same UI written both ways |
+| use one control | its page on [the docs site](https://filiarrochada.github.io/Fili.Theme.MudAvalonia/): examples, code and behaviour |
+| find the class or key for one parameter | the parity table on its component's page; [MudBlazor parity](https://filiarrochada.github.io/Fili.Theme.MudAvalonia/#parity) lists every component |
+| know what is not there | [MudBlazor parity](https://filiarrochada.github.io/Fili.Theme.MudAvalonia/#parity), "What is not here", and each page's Missing rows |
 | upgrade | [Versions](docs/versions.md): what changed, and what to change; [Compatibility](docs/compatibility.md): what a version promises not to change |
 | work on the theme itself | [Traps](docs/traps.md), [The base](docs/the-base.md), [Testing](docs/testing.md), [Releasing](docs/releasing.md) |
 
@@ -30,7 +33,7 @@ aim is the *look* — this is not a component library: no new control types, no 
 public type. That type is `FiliThemeVariants`, whose only member is the high-contrast
 `ThemeVariant`; it has to be public, because XAML can reach a custom variant only through
 `x:Static`. A few `internal` converters exist where XAML cannot express a MudBlazor rule; see
-[The converters](docs/controls.md#the-converters).
+[The internal helpers](docs/the-base.md#the-internal-helpers).
 
 ```
 src/Fili.Theme.MudAvalonia                  the theme (the NuGet package, id Fili.MudAvalonia.Theme)
@@ -55,11 +58,11 @@ dotnet add package Fili.MudAvalonia.Theme
 or, in a project file:
 
 ```xml
-<PackageReference Include="Fili.MudAvalonia.Theme" Version="0.21.0" />
+<PackageReference Include="Fili.MudAvalonia.Theme" Version="0.22.0" />
 ```
 
 Under Central Package Management the version goes in `Directory.Packages.props` instead, as
-`<PackageVersion Include="Fili.MudAvalonia.Theme" Version="0.21.0" />`, and the reference stays
+`<PackageVersion Include="Fili.MudAvalonia.Theme" Version="0.22.0" />`, and the reference stays
 version-less.
 
 | | |
@@ -172,7 +175,7 @@ follows `FiliCornerRadius`), sets several properties, gives a value that follows
 (`inset` moves to the top of a `vertical` divider), or is one of the Size and Variant words that
 must work alike on every control - and `ClassVocabularyTests` fails a class that is one fixed
 value on its own control. The whole list is in
-[MudBlazor parity](docs/mudblazor-parity.md#properties-not-classes).
+[MudBlazor parity](https://filiarrochada.github.io/Fili.Theme.MudAvalonia/#parity), "Properties, not classes".
 
 Note how ordinary those words are — `small`, `flat`, `middle`, `vertical`, `error`. That is the
 hazard, and it is why the list is a published interface rather than an implementation detail.
@@ -199,7 +202,7 @@ everywhere or in one region, set the switch MudBlazor's `TextTransform = "none"`
 ```
 
 Not on a button with a flyout, which would take its menu's capitals away too: write that
-button's label as a `<Run>` instead ([Buttons](docs/controls.md)).
+button's label as a `<Run>` instead ([Button](https://filiarrochada.github.io/Fili.Theme.MudAvalonia/#button), "Label case").
 
 **A press ripples**, as in MudBlazor: a circle grows from the pointer in the label's colour, on
 buttons, chips, FABs, toggles, tabs and list, select, menu and tree rows, and in the halo of a
@@ -209,7 +212,7 @@ set to `0` in a control's resources, or the application's.
 **Reduced motion is one key**, which MudBlazor does not have: `FiliReducedMotion` set to `True` in
 the application's resources stops everything the theme moves or fades on its own - the ripple,
 popup fades, skeletons, snackbar slides, expansion panels, overlays and the tab indicator - in
-every window and popup ([Reduced motion](docs/controls.md#reduced-motion)).
+every window and popup ([Reduced motion](https://filiarrochada.github.io/Fili.Theme.MudAvalonia/#reduced-motion)).
 
 The raised variants step elevation 2 → 4 → 8 across rest, hover and press, and drop to 0 when
 disabled. That step is the thing Fluent cannot express at all, because `Button` has no `BoxShadow`
@@ -249,15 +252,15 @@ one like everything else.
 **`fab`, `avatar`, `badge` and `card` are MudFab, MudAvatar, MudBadge and MudCard.** A FAB is a
 `Button`, filled, grey and 56px by default; an avatar and a card are a `Border`; a badge is a
 `HeaderedContentControl` whose `Content` is what it decorates and whose `Header` is the badge.
-The card's parts are classes on whatever lays it out. [Controls](docs/controls.md#fabs-avatars-badges-and-cards)
-has the details.
+The card's parts are classes on whatever lays it out. The [FAB](https://filiarrochada.github.io/Fili.Theme.MudAvalonia/#fab),
+[Avatar](https://filiarrochada.github.io/Fili.Theme.MudAvalonia/#avatar), [Badge](https://filiarrochada.github.io/Fili.Theme.MudAvalonia/#badge) and [Card](https://filiarrochada.github.io/Fili.Theme.MudAvalonia/#card) pages have the details.
 
 **A `DataGrid` is MudDataGrid with nothing to opt into.** The package does not depend on
 `Avalonia.Controls.DataGrid`; it is built against it, and when the app references it (12.1.0 or
 later) the theme finds it and themes its controls by type, so a grid on screen is surface at
 elevation 1 with MudDataGrid's header, rows and sort arrow. `dense`, `striped` and `hover` are
 its `Dense`, `Striped` and `Hover`, and `GridLinesVisibility="All"` its `Bordered`; `outlined` and
-the elevation classes are the paper's, and `CornerRadius="0"` its `Square`. [Controls](docs/controls.md#data-grid) has the rest.
+the elevation classes are the paper's, and `CornerRadius="0"` its `Square`. [Data grid](https://filiarrochada.github.io/Fili.Theme.MudAvalonia/#data-grid) has the rest.
 
 ### One rule for adopters: no blanket metric styles
 
@@ -280,12 +283,11 @@ clip, and `UnclassedTextKeepsItsNaturalLineHeight` keeps it that way.
 
 ### Every control
 
-[Controls](docs/controls.md) is the usage guide, one section per control: buttons, split and
-drop-down buttons, text fields, the date and time pickers, selection controls, slider and tabs,
-command bars, tables, the page types, the carousel, progress, dividers, panels
-and links, FABs, avatars, badges and cards, the data grid, the drawer, snackbars, right to left, high contrast,
-keyboard focus, the converters,
-lists and selects, scrolling and menus, and overlays.
+[The docs site](https://filiarrochada.github.io/Fili.Theme.MudAvalonia/) is the usage guide, one page per component, grouped as
+mudblazor.com groups them: buttons, form and inputs, pickers, navigation, surfaces and lists,
+feedback and data display. Its Customization pages cover theming, typography, reduced motion,
+[high contrast](https://filiarrochada.github.io/Fili.Theme.MudAvalonia/#high-contrast), [right to left](https://filiarrochada.github.io/Fili.Theme.MudAvalonia/#right-to-left) and
+[keyboard focus](https://filiarrochada.github.io/Fili.Theme.MudAvalonia/#keyboard-focus).
 
 [The base](docs/the-base.md) explains the forked Avalonia Simple templates under every control
 that has no hand-written theme, and why the package forks rather than layering.
@@ -414,10 +416,10 @@ publish to nuget.org and its one-time setup. [Versions](docs/versions.md) is the
 
 ## Known gaps
 
-47 of the 95 templated control types are hand-written; the other 48 wear forked Simple
-templates repaletted onto these tokens, each classified with a reason. There is no date or time
-picker restyle. [Known gaps](docs/known-gaps.md)
-has the full list and the reason for each.
+69 of the 95 templated control types are hand-written; the other 26 wear forked Simple
+templates repaletted onto these tokens, each classified with a reason ([The base](docs/the-base.md)).
+What MudBlazor has and this package does not is on [MudBlazor parity](https://filiarrochada.github.io/Fili.Theme.MudAvalonia/#parity), "What is not
+here", and in the Missing rows of each component's parity table, with the reason for each.
 
 ## Where the light palette's colours come from
 

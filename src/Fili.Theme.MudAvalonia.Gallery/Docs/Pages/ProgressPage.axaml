@@ -10,20 +10,7 @@
 
     <TextBlock Classes="h4 section" Text="Circular progress" />
     <TextBlock Classes="body1 p">
-      <Run Classes="code" Text="circular" />
-      <Run Text=" is a theme the same " />
-      <Run Classes="code" Text="ProgressBar" />
-      <Run Text=" takes, as " />
-      <Run Classes="code" Text="chip" />
-      <Run Text=" is one a Button takes, so " />
-      <Run Classes="code" Text="Value" />
-      <Run Text=", " />
-      <Run Classes="code" Text="Minimum" />
-      <Run Text=", " />
-      <Run Classes="code" Text="Maximum" />
-      <Run Text=" and " />
-      <Run Classes="code" Text="IsIndeterminate" />
-      <Run Text=" all carry over. It is grey with no colour: its default is text-secondary, not primary, and there is no track." />
+      <Run Classes="code" Text="circular" /><Run Text=" is a theme the same " /><Run Classes="code" Text="ProgressBar" /><Run Text=" takes, as " /><Run Classes="code" Text="chip" /><Run Text=" is one a Button takes, so " /><Run Classes="code" Text="Value" /><Run Text=", " /><Run Classes="code" Text="Minimum" /><Run Text=", " /><Run Classes="code" Text="Maximum" /><Run Text=" and " /><Run Classes="code" Text="IsIndeterminate" /><Run Text=" all carry over. It is grey with no colour: its default is text-secondary, not primary, and there is no track." />
     </TextBlock>
 
     <TextBlock Classes="h5 section" Text="Indeterminate" />
@@ -56,13 +43,7 @@
 
     <TextBlock Classes="h4 section" Text="Linear progress" />
     <TextBlock Classes="body1 p">
-      <Run Text="A bare " />
-      <Run Classes="code" Text="ProgressBar" />
-      <Run Text=" is a 4px square hairline: MudProgressLinear's Size defaults to Small and Rounded to false. The track is always the bar's own colour at 20%; only the default colour splits them, track action-disabled and bar action-default, which is why " />
-      <Run Classes="code" Text="Background" />
-      <Run Text=" and " />
-      <Run Classes="code" Text="Foreground" />
-      <Run Text=" are the two knobs." />
+      <Run Text="A bare " /><Run Classes="code" Text="ProgressBar" /><Run Text=" is a 4px square hairline: MudProgressLinear's Size defaults to Small and Rounded to false. The track is always the bar's own colour at 20%; only the default colour splits them, track action-disabled and bar action-default, which is why " /><Run Classes="code" Text="Background" /><Run Text=" and " /><Run Classes="code" Text="Foreground" /><Run Text=" are the two knobs." />
     </TextBlock>
 
     <TextBlock Classes="h5 section" Text="Indeterminate" />
@@ -87,13 +68,7 @@
 
     <TextBlock Classes="h5 section" Text="Buffer" />
     <TextBlock Classes="body1 p">
-      <Run Text="MudBlazor's " />
-      <Run Classes="code" Text="Buffer" />
-      <Run Text=" and " />
-      <Run Classes="code" Text="BufferValue" />
-      <Run Text=" have no counterpart: a buffer needs a second value, which " />
-      <Run Classes="code" Text="ProgressBar" />
-      <Run Text=" does not have." />
+      <Run Text="MudBlazor's " /><Run Classes="code" Text="Buffer" /><Run Text=" and " /><Run Classes="code" Text="BufferValue" /><Run Text=" have no counterpart: a buffer needs a second value, which " /><Run Classes="code" Text="ProgressBar" /><Run Text=" has no property for. The only way to pass one would be a public attached property, and this package's public API is one type." />
     </TextBlock>
 
     <TextBlock Classes="h5 section" Text="Rounded" />
@@ -127,20 +102,12 @@
       <docs:DocLink Slug="reduced-motion" Content="Reduced motion" />
     </StackPanel>
     <TextBlock Classes="body1 p">
-      <Run Text="A progress indicator keeps moving with " />
-      <Run Classes="code" Text="FiliReducedMotion" />
-      <Run Text=" set, as it is the only sign that work is going on." />
+      <Run Text="A progress indicator keeps moving with " /><Run Classes="code" Text="FiliReducedMotion" /><Run Text=" set, as it is the only sign that work is going on." />
     </TextBlock>
 
     <TextBlock Classes="h5 section" Text="MudBlazor parity" />
     <TextBlock Classes="body1 p">
-      <Run Text="Every MudProgressLinear and MudProgressCircular parameter and what it is here. " />
-      <Run Classes="code" Text="Same" />
-      <Run Text=" is transcribed from MudBlazor's source; " />
-      <Run Classes="code" Text="Close" />
-      <Run Text=" gets the same result another way; " />
-      <Run Classes="code" Text="Missing" />
-      <Run Text=" has no counterpart." />
+      <Run Text="Every MudProgressLinear and MudProgressCircular parameter and what it is here. " /><Run Classes="code" Text="Same" /><Run Text=" is transcribed from MudBlazor's source; " /><Run Classes="code" Text="Close" /><Run Text=" gets the same result another way; " /><Run Classes="code" Text="Missing" /><Run Text=" has no counterpart." />
     </TextBlock>
     <docs:ParityTable>
       <docs:ParityRow MudBlazor="MudProgressLinear Size.Small (default)" Here="ProgressBar, no class" Status="Same" Note="A 4px square hairline." />
@@ -149,7 +116,7 @@
       <docs:ParityRow MudBlazor="MudProgressLinear Indeterminate" Here="IsIndeterminate" Status="Same" Note="MudBlazor's two-bar animation." />
       <docs:ParityRow MudBlazor="MudProgressLinear Color" Here="primary … dark" Status="Same" Note="Every palette colour, the track at 20% of it." />
       <docs:ParityRow MudBlazor="MudProgressLinear Striped" Here="striped" Status="Same" Note="25% white bands at 135 degrees, 40px apart, sliding as MudBlazor's do." />
-      <docs:ParityRow MudBlazor="MudProgressLinear Buffer, BufferValue" Here="(none)" Status="Missing" Note="A buffer needs a second value, which ProgressBar does not have." />
+      <docs:ParityRow MudBlazor="MudProgressLinear Buffer, BufferValue" Here="(none)" Status="Missing" Note="A buffer is a second value ProgressBar has no property for; passing it would take a public attached property, and this package's public API is one type." />
       <docs:ParityRow MudBlazor="MudProgressLinear Vertical" Here="Orientation=&quot;Vertical&quot;" Status="Same" Note="Every size." />
       <docs:ParityRow MudBlazor="MudProgressLinear Min, Max, Value" Here="Minimum, Maximum, Value" Status="Same" Note="The same three values under Avalonia's names." />
       <docs:ParityRow MudBlazor="MudProgressLinear ShowBackground=&quot;false&quot;" Here="Background=&quot;Transparent&quot;" Status="Close" Note="The bar with no track behind it." />

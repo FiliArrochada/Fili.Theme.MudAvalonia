@@ -7,16 +7,34 @@
                     Summary="Every MudBlazor component, what draws it here, and how close it comes. Each component's own page has the same, parameter by parameter." />
 
     <TextBlock Classes="body1 p">
-      <Run Classes="code" Text="Same" />
-      <Run Text=" is transcribed from MudBlazor's source. " />
-      <Run Classes="code" Text="Close" />
-      <Run Text=" gets the result another way, or nearly. " />
-      <Run Classes="code" Text="Missing" />
-      <Run Text=" needs a control of its own, is behaviour rather than a look, or is layout Avalonia's panels already do. " />
-      <Run Classes="code" Text="Extra" />
-      <Run Text=" on a component's page is Material's own, beyond MudBlazor, and named so." />
+      <Run Classes="code" Text="Same" /><Run Text=" is transcribed from MudBlazor's source. " /><Run Classes="code" Text="Close" /><Run Text=" gets the result another way, or nearly. " /><Run Classes="code" Text="Missing" /><Run Text=" needs a control of its own, is behaviour rather than a look, or is layout Avalonia's panels already do. " /><Run Classes="code" Text="Extra" /><Run Text=" on a component's page is Material's own, beyond MudBlazor, and named so." />
     </TextBlock>
 
+    <TextBlock Classes="h5 section" Text="Scope" />
+    <TextBlock Classes="body1 p" Text="Every parameter of a MudBlazor 9.11 component that changes how it looks has a row on its component's page, and every component is listed below. Parameters that only change behaviour (events, binding, validation logic, Class, Style, UserAttributes) do not." />
+
+    <TextBlock Classes="h5 section" Text="Properties, not classes" />
+    <TextBlock Classes="body1 p">
+      <Run Text="A class only ever names a MudBlazor variant. An option that is one property of its control is that property, not a class: Square is " /><Run Classes="code" Text="CornerRadius=&quot;0&quot;" /><Run Text=" on a paper, an alert, a data grid or one expansion panel; Gutters=&quot;false&quot; on a tool bar or an app bar is " /><Run Classes="code" Text="Padding=&quot;0&quot;" /><Run Text="; MudDataGrid's Bordered is " /><Run Classes="code" Text="GridLinesVisibility=&quot;All&quot;" /><Run Text="." />
+    </TextBlock>
+    <TextBlock Classes="body1 p">
+      <Run Text="A word keeps its class where it does more: " /><Run Classes="code" Text="square" /><Run Text=" on a card squares its media too, on an avatar it lets the image fill the corners, and on an expansion-panels group it reaches every panel; " /><Run Classes="code" Text="no-gutters" /><Run Text=" on an Expander or a ListBox reaches the header or every row; " /><Run Classes="code" Text="inset" /><Run Text=" and " /><Run Classes="code" Text="middle" /><Run Text=" move to the top of a vertical divider; " /><Run Classes="code" Text="rounded" /><Run Text=" on a linear bar follows FiliCornerRadius. The Size and Variant words, such as " /><Run Classes="code" Text="small" /><Run Text=", " /><Run Classes="code" Text="dense" /><Run Text=" and " /><Run Classes="code" Text="outlined" /><Run Text=", are classes everywhere, so one word means one thing on every control." />
+    </TextBlock>
+    <TextBlock Classes="body1 p">
+      <Run Text="Class names are MudBlazor's own words, deliberately not namespaced. The two that are not MudBlazor's say so: " /><Run Classes="code" Text="material-fixed-tabs" /><Run Text=" and " /><Run Classes="code" Text="material-elevation-overlay" /><Run Text="." />
+    </TextBlock>
+
+    <TextBlock Classes="h5 section" Text="What is not here, and why" />
+    <TextBlock Classes="body1 p" Text="The aim is the look. A MudBlazor component that needs a control of its own (a colour picker, a chart, a rating, a stepper), a service (a dialog), behaviour (selection rules, closing, lazy loading) or layout Avalonia's panels already do is not here, and each component page marks such parameters Missing with the reason. Data a control has no property for, such as a slider's tick labels or a progress bar's buffer value, would need a public attached property, and this package's public API is one type." />
+    <TextBlock Classes="body1 p" Text="Two Avalonia controls are deliberately left on their forked templates: GridSplitter, because MudBlazor's split-panel divider is invisible on its own, and GroupBox, which MudBlazor has no counterpart for. The spinner DatePicker wears the theme's palette but not MudBlazor's shape; MudDatePicker is CalendarDatePicker. A DrawerPage's drawer is themed, its top bar and title keep the forked template." />
+    <StackPanel Orientation="Horizontal" Spacing="8" Margin="0,0,0,16">
+      <TextBlock Classes="body1" Text="See also:" VerticalAlignment="Center" />
+      <docs:DocLink Slug="split-panel" Content="Split panel" />
+      <docs:DocLink Slug="date-picker" Content="Date picker" />
+      <docs:DocLink Slug="drawer" Content="Drawer" />
+    </StackPanel>
+
+    <TextBlock Classes="h5 section" Text="Every component" />
     <Border Classes="paper elevation0"
             BorderBrush="{DynamicResource FiliLinesDefaultBrush}"
             BorderThickness="1">

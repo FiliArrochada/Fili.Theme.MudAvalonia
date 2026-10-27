@@ -63,20 +63,12 @@
                       Description="chip on a ToggleButton is a chip in a MudChipSet, and IsChecked is selected. A selected filled chip draws as text and a selected text chip as filled; an outlined one keeps its line and gains the tint. A check mark is an icon the app shows while IsChecked."
                       Source="Chips/Selection" />
     <TextBlock Classes="body1 p">
-      <Run Text="A chip set is a panel of chips, and nothing cascades: put the variant, colour and size on each chip, or one " />
-      <Run Classes="code" Text="Style" />
-      <Run Text=" over the container. Single or multiple selection is the app's, through " />
-      <Run Classes="code" Text="IsChecked" />
-      <Run Text=" bindings." />
+      <Run Text="A chip set is a panel of chips, and nothing cascades: put the variant, colour and size on each chip, or one " /><Run Classes="code" Text="Style" /><Run Text=" over the container. Single or multiple selection is the app's, through " /><Run Classes="code" Text="IsChecked" /><Run Text=" bindings." />
     </TextBlock>
 
     <TextBlock Classes="h5 section" Text="MudBlazor parity" />
     <TextBlock Classes="body1 p">
-      <Run Text="Every MudChip and MudChipSet parameter and what it is here. " />
-      <Run Classes="code" Text="Same" />
-      <Run Text=" is transcribed from MudBlazor's source; " />
-      <Run Classes="code" Text="Close" />
-      <Run Text=" gets the same result another way." />
+      <Run Text="Every MudChip and MudChipSet parameter and what it is here. " /><Run Classes="code" Text="Same" /><Run Text=" is transcribed from MudBlazor's source; " /><Run Classes="code" Text="Close" /><Run Text=" gets the same result another way." />
     </TextBlock>
     <docs:ParityTable>
       <docs:ParityRow MudBlazor="Variant.Filled (default)" Here="chip" Status="Same" Note="A 32px pill in action-disabled-background grey, action-disabled on hover." />
@@ -89,7 +81,7 @@
       <docs:ParityRow MudBlazor="Disabled" Here="IsEnabled=&quot;False&quot;" Status="Same" />
       <docs:ParityRow MudBlazor="Icon" Here="an icon in Content with start-icon" Status="Same" Note="20px (18 small, 24 large), 4px out and 4px in (6px on a large chip)." />
       <docs:ParityRow MudBlazor="close icon" Here="an icon or button in Content with end-icon" Status="Close" Note="The close button's 18px and spacing; closing is the app's." />
-      <docs:ParityRow MudBlazor="Avatar" Here="a Border.avatar in Content" Status="Same" Note="24px, 8px out and in, 12px text; 18px on a small chip, 32px on a large one." />
+      <docs:ParityRow MudBlazor="Avatar" Here="a Border.avatar in Content" Status="Same" Note="As .mud-chip .mud-avatar: 24px, 8px out and 8px in, 12px text; on a small chip 18px, 4px out and 4px in, 10px text; on a large one 32px, 12px out and 8px in, 16px text." />
       <docs:ParityRow MudBlazor="MudChipSet selection rules" Here="—" Status="Missing" Note="Single or multiple selection is the app's, through IsChecked bindings." />
       <docs:ParityRow MudBlazor="Label" Here="CornerRadius=&quot;4&quot;" Status="Close" Note="The chip label's default radius in place of the pill." />
       <docs:ParityRow MudBlazor="SelectedColor" Here="a colour class the app sets while IsChecked" Status="Close" />

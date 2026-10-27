@@ -1,0 +1,14 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <WrapPanel Orientation="Horizontal">
+    <Button Classes="filled primary" Content="Ripples" Margin="0,0,8,8" />
+    <!-- Ripple="false": both keys, as a filled button reads the secondary one. -->
+    <Button Classes="filled primary" Content="No ripple" Margin="0,0,8,8">
+      <Button.Resources>
+        <x:Double x:Key="FiliRippleOpacity">0</x:Double>
+        <x:Double x:Key="FiliRippleOpacitySecondary">0</x:Double>
+      </Button.Resources>
+    </Button>
+    <Button Classes="outlined primary" Content="Ripples" Margin="0,0,8,8" />
+  </WrapPanel>
+</UserControl>

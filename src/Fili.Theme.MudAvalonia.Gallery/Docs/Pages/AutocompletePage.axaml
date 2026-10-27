@@ -13,21 +13,7 @@
                       Description="Type to see the suggestions. The field is the TextBox inside, and the suggestions are list rows in a popup on a surface, with the default 4px radius and elevation 8, as MudPopover draws them."
                       Source="Autocomplete/Usage" />
     <TextBlock Classes="body1 p">
-      <Run Text="The text field's classes go on the " />
-      <Run Classes="code" Text="AutoCompleteBox" />
-      <Run Text=" itself: " />
-      <Run Classes="code" Text="filled" />
-      <Run Text=", " />
-      <Run Classes="code" Text="outlined" />
-      <Run Text=", " />
-      <Run Classes="code" Text="dense" />
-      <Run Text=", " />
-      <Run Classes="code" Text="error" />
-      <Run Text=", " />
-      <Run Classes="code" Text="counter" />
-      <Run Text=" and " />
-      <Run Classes="code" Text="helper-on-focus" />
-      <Run Text=" reach the TextBox inside, as does its helper text." />
+      <Run Text="The text field's classes go on the " /><Run Classes="code" Text="AutoCompleteBox" /><Run Text=" itself: " /><Run Classes="code" Text="filled" /><Run Text=", " /><Run Classes="code" Text="outlined" /><Run Text=", " /><Run Classes="code" Text="dense" /><Run Text=", " /><Run Classes="code" Text="error" /><Run Text=", " /><Run Classes="code" Text="counter" /><Run Text=" and " /><Run Classes="code" Text="helper-on-focus" /><Run Text=" reach the TextBox inside, as does its helper text." />
     </TextBlock>
     <StackPanel Orientation="Horizontal" Spacing="8" Margin="0,0,0,16">
       <TextBlock Classes="body1" Text="See also:" VerticalAlignment="Center" />
@@ -49,11 +35,7 @@
                       Description="An AutoCompleteBox shows no arrow of its own: MudAutocomplete's is a PathIcon in InnerRightContent, here the theme's own FiliArrowDropDownGeometry. Start and end icons are a text field's adornments."
                       Source="Autocomplete/Adornments" />
     <TextBlock Classes="body1 p">
-      <Run Text="MudAutocomplete's " />
-      <Run Classes="code" Text="Clearable" />
-      <Run Text=" is a button in " />
-      <Run Classes="code" Text="InnerRightContent" />
-      <Run Text=" whose click clears the value: the clearing is the app's." />
+      <Run Text="MudAutocomplete's " /><Run Classes="code" Text="Clearable" /><Run Text=" is a button in " /><Run Classes="code" Text="InnerRightContent" /><Run Text=" whose click clears the value: the clearing is the app's." />
     </TextBlock>
 
     <TextBlock Classes="h5 section" Text="Progress" />
@@ -68,20 +50,12 @@
 
     <TextBlock Classes="h5 section" Text="List height" />
     <TextBlock Classes="body1 p">
-      <Run Text="MudAutocomplete's " />
-      <Run Classes="code" Text="MaxHeight" />
-      <Run Text=" defaults to 300, and so does " />
-      <Run Classes="code" Text="MaxDropDownHeight" />
-      <Run Text=" here, where Avalonia's default is 200." />
+      <Run Text="MudAutocomplete's " /><Run Classes="code" Text="MaxHeight" /><Run Text=" defaults to 300, and so does " /><Run Classes="code" Text="MaxDropDownHeight" /><Run Text=" here, where Avalonia's default is 200." />
     </TextBlock>
 
     <TextBlock Classes="h5 section" Text="MudBlazor parity" />
     <TextBlock Classes="body1 p">
-      <Run Text="Every MudAutocomplete parameter and what it is here. " />
-      <Run Classes="code" Text="Same" />
-      <Run Text=" is transcribed from MudBlazor's source; " />
-      <Run Classes="code" Text="Close" />
-      <Run Text=" gets the same result another way." />
+      <Run Text="Every MudAutocomplete parameter and what it is here. " /><Run Classes="code" Text="Same" /><Run Text=" is transcribed from MudBlazor's source; " /><Run Classes="code" Text="Close" /><Run Text=" gets the same result another way." />
     </TextBlock>
     <docs:ParityTable>
       <docs:ParityRow MudBlazor="MudAutocomplete" Here="AutoCompleteBox" Status="Same" Note="The popup on a surface at elevation 8." />

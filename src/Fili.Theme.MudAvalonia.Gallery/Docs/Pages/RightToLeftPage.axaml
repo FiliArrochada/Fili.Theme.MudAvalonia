@@ -1,0 +1,43 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:docs="using:Fili.Theme.MudAvalonia.Gallery.Docs"
+             x:Class="Fili.Theme.MudAvalonia.Gallery.Docs.Pages.RightToLeftPage">
+  <StackPanel Classes="doc">
+    <docs:DocHeader Title="Right to left"
+                    Summary="Set FlowDirection to RightToLeft on a window or any container and every control in it mirrors, as MudRTLProvider does. Nothing else is needed." />
+
+    <TextBlock Classes="h5 section" Text="Everything mirrors" />
+    <TextBlock Classes="body1 p">
+      <Run Text="No template in this package does anything to make right to left happen. Avalonia mirrors a whole subtree with one transform, where the flow direction changes, so grid columns, dock sides and Left and Right alignment flip on their own. MudBlazor reaches the same place with logical CSS properties such as " /><Run Classes="code" Text="margin-inline-end" /><Run Text=", which is why those need no counterpart here." />
+    </TextBlock>
+    <docs:ExampleCard Title="FlowDirection"
+                      Description="The same controls, the second set under FlowDirection=&quot;RightToLeft&quot;: the switch's thumb travels to the left, the numeric field's spin column moves to the left, the split button's rounded corners swap ends, the tree indents from the right and the inset divider indents from the right."
+                      Source="RightToLeft/Mirrored" />
+
+    <TextBlock Classes="h5 section" Text="What does not mirror" />
+    <TextBlock Classes="body1 p">
+      <Run Text="The exception is a glyph that must not mirror. A tick is not a directional symbol, and a reversed one looks broken, so the check box glyphs keep " /><Run Classes="code" Text="FlowDirection=&quot;LeftToRight&quot;" /><Run Text=": on a check box, and on the rows of a multi-selection list or tree." />
+    </TextBlock>
+    <TextBlock Classes="body1 p">
+      <Run Text="Arrows are deliberately left to mirror. A tree's disclosure arrow points left in right to left, towards the content it opens, and a menu's submenu arrow is MudBlazor's ArrowLeft there." />
+    </TextBlock>
+
+    <TextBlock Classes="h5 section" Text="Text that stays left to right" />
+    <docs:ExampleCard Title="FlowDirection on one element"
+                      Description="No control has bidi-aware behaviour beyond mirroring, so a numeral, a code or a command that must read left to right inside right-to-left content is the app's FlowDirection to set, on that element."
+                      Source="RightToLeft/KeepLeftToRight" />
+
+    <TextBlock Classes="h5 section" Text="Fonts" />
+    <TextBlock Classes="body1 p">
+      <Run Text="The mirroring works anywhere; the glyphs need a font. Roboto has no Arabic or Hebrew, and in a browser there are no system fonts to fall back on, so an app that shows right-to-left text in a browser ships a font for its script. This site embeds Noto Sans Arabic for the examples above." />
+    </TextBlock>
+    <HyperlinkButton Content="Fonts, in the README" NavigateUri="https://github.com/FiliArrochada/Fili.Theme.MudAvalonia#fonts" Margin="0,0,0,16" />
+
+    <TextBlock Classes="h5 section" Text="MudBlazor parity" />
+    <docs:ParityTable>
+      <docs:ParityRow MudBlazor="MudRTLProvider RightToLeft" Here="FlowDirection=&quot;RightToLeft&quot;" Status="Same" Note="On a window or any container; every template mirrors." />
+      <docs:ParityRow MudBlazor="logical properties (margin-inline-end …)" Here="nothing" Status="Same" Note="Avalonia's mirror transform flips margins, columns, docks and alignment." />
+      <docs:ParityRow MudBlazor="a checkmark that does not mirror" Here="the check box glyphs" Status="Same" Note="FlowDirection=&quot;LeftToRight&quot; on the glyph; arrows mirror." />
+    </docs:ParityTable>
+  </StackPanel>
+</UserControl>

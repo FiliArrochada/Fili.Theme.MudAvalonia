@@ -7,32 +7,12 @@
                     Summary="MudBlazor's look for Avalonia 12: its palette, typography, elevation and components, in light, dark and high contrast. This site is built with it." />
 
     <TextBlock Classes="body1 p">
-      <Run Text="The theme dresses Avalonia's own controls as MudBlazor's components. A " />
-      <Run Classes="code" Text="Button" />
-      <Run Text=" is a MudButton, a " />
-      <Run Classes="code" Text="TextBox" />
-      <Run Text=" a MudTextField, a " />
-      <Run Classes="code" Text="TreeView" />
-      <Run Text=" with " />
-      <Run Classes="code" Text="nav" />
-      <Run Text=" a MudNavMenu. Every value is transcribed from MudBlazor's source, not eyeballed, and each component page here links to the MudBlazor page it mirrors and says, parameter by parameter, how close it comes." />
+      <Run Text="The theme dresses Avalonia's own controls as MudBlazor's components. A " /><Run Classes="code" Text="Button" /><Run Text=" is a MudButton, a " /><Run Classes="code" Text="TextBox" /><Run Text=" a MudTextField, a " /><Run Classes="code" Text="TreeView" /><Run Text=" with " /><Run Classes="code" Text="nav" /><Run Text=" a MudNavMenu. Every value is transcribed from MudBlazor's source, not eyeballed, and each component page here links to the MudBlazor page it mirrors and says, parameter by parameter, how close it comes." />
     </TextBlock>
 
     <TextBlock Classes="h5 section" Text="A class names a variant" />
     <TextBlock Classes="body1 p">
-      <Run Text="Every control arrives themed with no markup change. A class only ever names what MudBlazor sets with a parameter: " />
-      <Run Classes="code" Text="Variant.Filled" />
-      <Run Text=" is " />
-      <Run Classes="code" Text="filled" />
-      <Run Text=", " />
-      <Run Classes="code" Text="Color.Primary" />
-      <Run Text=" is " />
-      <Run Classes="code" Text="primary" />
-      <Run Text=", " />
-      <Run Classes="code" Text="Size.Small" />
-      <Run Text=" is " />
-      <Run Classes="code" Text="small" />
-      <Run Text=". They combine freely." />
+      <Run Text="Every control arrives themed with no markup change. A class only ever names what MudBlazor sets with a parameter: " /><Run Classes="code" Text="Variant.Filled" /><Run Text=" is " /><Run Classes="code" Text="filled" /><Run Text=", " /><Run Classes="code" Text="Color.Primary" /><Run Text=" is " /><Run Classes="code" Text="primary" /><Run Text=", " /><Run Classes="code" Text="Size.Small" /><Run Text=" is " /><Run Classes="code" Text="small" /><Run Text=". They combine freely." />
     </TextBlock>
     <docs:CodeBlock Code="&lt;MudButton Variant=&quot;Variant.Filled&quot; Color=&quot;Color.Primary&quot; Size=&quot;Size.Small&quot;&gt;Save&lt;/MudButton&gt;&#10;&#10;&lt;Button Classes=&quot;filled primary small&quot; Content=&quot;Save&quot; /&gt;"
                     Margin="0,0,0,16" />
@@ -46,6 +26,7 @@
       <docs:DocLink Slug="installation" Content="Installation: the package and two includes" />
       <docs:DocLink Slug="parity" Content="MudBlazor parity: every component, and how close it comes" />
       <docs:DocLink Slug="theming" Content="Theming: your colours, and one control's look" />
+      <docs:DocLink Slug="high-contrast" Content="High contrast: a third variant, and what an app declares for it" />
       <docs:DocLink Slug="button" Content="Button: a component page" />
     </StackPanel>
   </StackPanel>

@@ -10,39 +10,90 @@
 
     <TextBlock Classes="h5 section" Text="Your colours" />
     <TextBlock Classes="body1 p">
-      <Run Text="Every colour is a " />
-      <Run Classes="code" Text="Fili{Name}Color" />
-      <Run Text=" and its " />
-      <Run Classes="code" Text="Fili{Name}Brush" />
-      <Run Text=". Override the colours in your application's resources, per variant, as MudTheme's PaletteLight and PaletteDark do." />
+      <Run Text="Every colour is a " /><Run Classes="code" Text="Fili{Name}Color" /><Run Text=" and its " /><Run Classes="code" Text="Fili{Name}Brush" /><Run Text=", declared for light, dark and high contrast. Light and dark are MudBlazor's Palette.cs and PaletteDark.cs; high contrast is derived from them. Override the colours in your application's resources, per variant, as MudTheme's PaletteLight and PaletteDark do, and declare high contrast too: it falls back to your dark colours otherwise." />
     </TextBlock>
-    <docs:CodeBlock Code="&lt;Application.Resources&gt;&#10;  &lt;ResourceDictionary&gt;&#10;    &lt;ResourceDictionary.ThemeDictionaries&gt;&#10;      &lt;ResourceDictionary x:Key=&quot;Light&quot;&gt;&#10;        &lt;Color x:Key=&quot;FiliPrimaryColor&quot;&gt;#C79A3B&lt;/Color&gt;&#10;        &lt;Color x:Key=&quot;FiliPrimaryHoverColor&quot;&gt;#0FC79A3B&lt;/Color&gt;&#10;        &lt;Color x:Key=&quot;FiliPrimaryDarkenColor&quot;&gt;#AB8431&lt;/Color&gt;&#10;        &lt;Color x:Key=&quot;FiliPrimaryLightenColor&quot;&gt;#D0A959&lt;/Color&gt;&#10;        &lt;Color x:Key=&quot;FiliPrimaryContrastTextColor&quot;&gt;#000000&lt;/Color&gt;&#10;      &lt;/ResourceDictionary&gt;&#10;    &lt;/ResourceDictionary.ThemeDictionaries&gt;&#10;  &lt;/ResourceDictionary&gt;&#10;&lt;/Application.Resources&gt;"
+    <docs:CodeBlock Code="&lt;!-- xmlns:theme=&quot;using:Fili.Theme.MudAvalonia&quot; on the Application --&gt;&#10;&lt;Application.Resources&gt;&#10;  &lt;ResourceDictionary&gt;&#10;    &lt;ResourceDictionary.ThemeDictionaries&gt;&#10;      &lt;ResourceDictionary x:Key=&quot;Light&quot;&gt;&#10;        &lt;Color x:Key=&quot;FiliPrimaryColor&quot;&gt;#C79A3B&lt;/Color&gt;&#10;        &lt;Color x:Key=&quot;FiliPrimaryHoverColor&quot;&gt;#0FC79A3B&lt;/Color&gt;&#10;        &lt;Color x:Key=&quot;FiliPrimaryDarkenColor&quot;&gt;#AB8431&lt;/Color&gt;&#10;        &lt;Color x:Key=&quot;FiliPrimaryLightenColor&quot;&gt;#D0A959&lt;/Color&gt;&#10;        &lt;Color x:Key=&quot;FiliPrimaryContrastTextColor&quot;&gt;#000000&lt;/Color&gt;&#10;      &lt;/ResourceDictionary&gt;&#10;      &lt;ResourceDictionary x:Key=&quot;Dark&quot;&gt;&#10;        &lt;!-- the same five keys, in dark's colours --&gt;&#10;      &lt;/ResourceDictionary&gt;&#10;      &lt;ResourceDictionary x:Key=&quot;{x:Static theme:FiliThemeVariants.HighContrast}&quot;&gt;&#10;        &lt;!-- and again in high contrast's --&gt;&#10;      &lt;/ResourceDictionary&gt;&#10;    &lt;/ResourceDictionary.ThemeDictionaries&gt;&#10;  &lt;/ResourceDictionary&gt;&#10;&lt;/Application.Resources&gt;"
                     Margin="0,0,0,16" />
     <TextBlock Classes="body1 p">
-      <Run Text="A colour is five tokens, not one. Hover, focus and press paint the " />
-      <Run Classes="code" Text="Hover" />
-      <Run Text=" shade (the colour at 6%) on text and outlined controls and the " />
-      <Run Classes="code" Text="Darken" />
-      <Run Text=" shade on filled ones; " />
-      <Run Classes="code" Text="ContrastText" />
-      <Run Text=" is the text on a fill. Leave one out and that state keeps MudBlazor's colour: a gold button that turns purple under the pointer. MudBlazor derives darken and lighten from the colour, its lightness 0.075 down and up." />
+      <Run Text="A colour is five tokens, not one. Hover, focus and press paint the " /><Run Classes="code" Text="Hover" /><Run Text=" shade (the colour at 6%) on text and outlined controls and the " /><Run Classes="code" Text="Darken" /><Run Text=" shade on filled ones; " /><Run Classes="code" Text="ContrastText" /><Run Text=" is the text on a fill. Leave one out and that state keeps MudBlazor's colour: a gold button that turns purple under the pointer. MudBlazor derives darken and lighten from the colour, its lightness 0.075 down and up." />
+    </TextBlock>
+    <TextBlock Classes="body1 p">
+      <Run Text="The same goes for a button with no colour class: overriding " /><Run Classes="code" Text="FiliActionDefaultColor" /><Run Text=" means " /><Run Classes="code" Text="FiliActionDefaultHoverColor" /><Run Text=" too, the colour at 6%, which its hover, focus and press paint. A near-black colour darkens to black, as it does in MudBlazor, so a filled button in it barely changes under the pointer on a near-black page." />
+    </TextBlock>
+    <TextBlock Classes="body1 p">
+      <Run Text="An app that swaps whole palette dictionaries at run time, rather than setting " /><Run Classes="code" Text="RequestedThemeVariant" /><Run Text=", needs nothing new: each of its palettes carries the same " /><Run Classes="code" Text="Fili*" /><Run Text=" overrides." />
     </TextBlock>
 
     <TextBlock Classes="h5 section" Text="One control's look" />
     <TextBlock Classes="body1 p">
-      <Run Text="A template's parts are not published, and a style that reaches into one can break on any release. Every part paints a token, and a resource lookup starts at the control, so a key in a control's own " />
-      <Run Classes="code" Text="Resources" />
-      <Run Text=" changes that control alone." />
+      <Run Text="A template's parts are not published, and a style that reaches into one can break on any release. Every part paints a token, and a resource lookup starts at the control, so a key in a control's own " /><Run Classes="code" Text="Resources" /><Run Text=" changes that control alone." />
     </TextBlock>
     <docs:ExampleCard Title="A button with no hover tint or ripple"
-                      Description="The state layer and the ripple read tokens; set in the button's Resources, they reach this button and its content only."
+                      Description="The state layer reads FiliActionDefaultHoverBrush, and the ripple FiliRippleOpacity and, on a filled button, a filled chip or a coloured FAB, FiliRippleOpacitySecondary: set both to 0 to turn it off. In the button's Resources they reach this button and its content only."
                       Source="Theming/QuietButton" />
+    <TextBlock Classes="body1 p" Text="The keys reach the control's content too, so a default button inside it loses its hover as well. And hover is also MudBlazor's focus cue: a control that drops it needs a focus cue of its own for the keyboard." />
+    <StackPanel Orientation="Horizontal" Spacing="8" Margin="0,0,0,16">
+      <TextBlock Classes="body1" Text="See also:" VerticalAlignment="Center" />
+      <docs:DocLink Slug="keyboard-focus" Content="Keyboard focus" />
+      <docs:DocLink Slug="reduced-motion" Content="Reduced motion" />
+    </StackPanel>
 
     <TextBlock Classes="h5 section" Text="Variants" />
     <TextBlock Classes="body1 p">
-      <Run Text="Light and Dark are Avalonia's own variants. High contrast is " />
-      <Run Classes="code" Text="FiliThemeVariants.HighContrast" />
-      <Run Text=", the package's one public type, and inherits from Dark: declare its colours too if you override Dark's. The switch in this site's app bar changes all three." />
+      <Run Text="Light and Dark are Avalonia's own variants. High contrast is " /><Run Classes="code" Text="FiliThemeVariants.HighContrast" /><Run Text=", the package's one public type, and inherits from Dark: declare its colours too if you override Dark's. Set the variant on the Application, not a window. The switch in this site's app bar changes all three." />
     </TextBlock>
+    <StackPanel Orientation="Horizontal" Spacing="8" Margin="0,0,0,16">
+      <TextBlock Classes="body1" Text="See also:" VerticalAlignment="Center" />
+      <docs:DocLink Slug="high-contrast" Content="High contrast" />
+      <docs:DocLink Slug="palette" Content="Palette" />
+    </StackPanel>
+
+    <TextBlock Classes="h5 section" Text="Where it differs" />
+    <TextBlock Classes="body1 p">
+      <Run Text="The " /><Run Classes="code" Text="dark" /><Run Text=" colour barely shows as text or a line in dark mode, and not at all in high contrast: #27272F on a #32333D page, and black on black. MudBlazor's dark theme behaves the same way. A filled dark button stays visible." />
+    </TextBlock>
+
+    <TextBlock Classes="h5 section" Text="Right to left" />
+    <TextBlock Classes="body1 p">
+      <Run Text="Set " /><Run Classes="code" Text="FlowDirection=&quot;RightToLeft&quot;" /><Run Text=" on a window or any container, as MudRTLProvider does: every template mirrors, and the one deliberate exception is a glyph that must not." />
+    </TextBlock>
+    <StackPanel Orientation="Horizontal" Spacing="8" Margin="0,0,0,16">
+      <TextBlock Classes="body1" Text="See also:" VerticalAlignment="Center" />
+      <docs:DocLink Slug="right-to-left" Content="Right to left" />
+    </StackPanel>
+
+    <TextBlock Classes="h5 section" Text="MudBlazor parity" />
+    <TextBlock Classes="body1 p">
+      <Run Text="MudTheme's palette, shadows, layout and variants, and what each is here. " /><Run Classes="code" Text="Same" /><Run Text=" is transcribed from MudBlazor's source; " /><Run Classes="code" Text="Close" /><Run Text=" gets the same result another way. The type ramp is on the Typography page." />
+    </TextBlock>
+    <docs:ParityTable>
+      <docs:ParityRow MudBlazor="Palette Primary … Dark" Here="FiliPrimaryColor … FiliDarkColor" Status="Same" />
+      <docs:ParityRow MudBlazor="PrimaryContrastText … DarkContrastText" Here="Fili…ContrastTextColor" Status="Same" Note="White in light and dark; black on high contrast's pastels." />
+      <docs:ParityRow MudBlazor="PrimaryDarken … DarkDarken" Here="Fili…DarkenColor" Status="Same" Note="MudBlazor's own algorithm, checked on every build." />
+      <docs:ParityRow MudBlazor="PrimaryLighten … DarkLighten" Here="Fili…LightenColor" Status="Same" Note="The same algorithm; the 14 darken and lighten values of the default palette match mudblazor.com." />
+      <docs:ParityRow MudBlazor="the theme provider's {color}-hover" Here="Fili…HoverColor" Status="Same" Note="The colour at HoverOpacity, 6%." />
+      <docs:ParityRow MudBlazor="Black, White" Here="FiliBlackColor, FiliWhiteColor" Status="Same" />
+      <docs:ParityRow MudBlazor="TextPrimary / TextSecondary / TextDisabled" Here="FiliText…Color" Status="Same" />
+      <docs:ParityRow MudBlazor="ActionDefault / ActionDisabled / ActionDisabledBackground" Here="FiliAction…Color" Status="Same" />
+      <docs:ParityRow MudBlazor="the theme provider's action-default-hover" Here="FiliActionDefaultHoverColor" Status="Same" />
+      <docs:ParityRow MudBlazor="Background / BackgroundGray / Surface" Here="FiliBackground…Color, FiliSurfaceColor" Status="Same" />
+      <docs:ParityRow MudBlazor="DrawerBackground / DrawerText / DrawerIcon" Here="FiliDrawer…Color" Status="Same" />
+      <docs:ParityRow MudBlazor="AppbarBackground / AppbarText" Here="FiliAppbar…Color" Status="Same" />
+      <docs:ParityRow MudBlazor="LinesDefault / LinesInputs / Divider" Here="FiliLines…Color, FiliDividerColor" Status="Same" />
+      <docs:ParityRow MudBlazor="DividerLight" Here="FiliDividerLightColor" Status="Same" Note="High contrast keeps a visible line." />
+      <docs:ParityRow MudBlazor="TableLines / TableStriped / TableHover" Here="FiliTable…Color" Status="Same" />
+      <docs:ParityRow MudBlazor="Skeleton" Here="FiliSkeletonColor" Status="Same" />
+      <docs:ParityRow MudBlazor="OverlayDark / OverlayLight" Here="FiliOverlayDarkColor / FiliOverlayLightColor" Status="Same" />
+      <docs:ParityRow MudBlazor="GrayDefault … GrayDarker" Here="FiliGrayDefaultColor … FiliGrayDarkerColor" Status="Same" Note="The same in light and dark, as PaletteDark.cs leaves them; a step lighter in high contrast." />
+      <docs:ParityRow MudBlazor="HoverOpacity / BorderOpacity" Here="—" Status="Close" Note="Folded into the hover and line tokens rather than exposed." />
+      <docs:ParityRow MudBlazor="RippleOpacity / RippleOpacitySecondary" Here="FiliRippleOpacity / FiliRippleOpacitySecondary" Status="Same" Note="0.1 and 0.2, a Double the same in every variant, as MudThemeProvider writes both from the light palette." />
+      <docs:ParityRow MudBlazor="Shadow.cs" Here="FiliElevation0 … FiliElevation25" Status="Same" Note="Three layers each; a 1px ring in high contrast." />
+      <docs:ParityRow MudBlazor="LayoutProperties DefaultBorderRadius" Here="FiliCornerRadius" Status="Same" Note="4px." />
+      <docs:ParityRow MudBlazor="AppbarHeight, DrawerWidthLeft, DrawerMiniWidthLeft" Here="FiliAppbarHeight, FiliDrawerWidth, FiliDrawerMiniWidth" Status="Same" />
+      <docs:ParityRow MudBlazor="the spacing scale (pa-4 and friends)" Here="Padding, Margin, Spacing; FiliSpacing0 … FiliSpacing20 and FiliSpacing0Thickness … FiliSpacing20Thickness" Status="Close" Note="Properties, not classes: MudBlazor's 0 to 20 steps of 4px, a number for a Spacing and a Thickness on every side for pa-N and ma-N; a one-sided step is written out." />
+      <docs:ParityRow MudBlazor="IsDarkMode" Here="Application.RequestedThemeVariant = ThemeVariant.Dark" Status="Same" />
+      <docs:ParityRow MudBlazor="(none: high contrast)" Here="FiliThemeVariants.HighContrast" Status="Extra" Note="This package's own third variant, inheriting from Dark." />
+      <docs:ParityRow MudBlazor="MudRTLProvider" Here="FlowDirection" Status="Same" Note="Every template mirrors; a glyph that must not mirror opts out." />
+    </docs:ParityTable>
   </StackPanel>
 </UserControl>

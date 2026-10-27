@@ -1,0 +1,20 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <!-- Nothing here names high contrast: switch the site to it to see lines take over from fills. -->
+  <Grid ColumnDefinitions="160,160,184,160" RowDefinitions="Auto,Auto">
+    <Border Classes="paper elevation4" Padding="24,16" HorizontalAlignment="Center">
+      <TextBlock Classes="body2" Text="Raised" />
+    </Border>
+    <Border Grid.Column="1" Classes="paper elevation0" Padding="24,16" HorizontalAlignment="Center">
+      <TextBlock Classes="body2" Text="Flat" />
+    </Border>
+    <TextBox Grid.Column="2" Classes="outlined" Width="160" PlaceholderText="Name" Text="Ada"
+             HorizontalAlignment="Center" VerticalAlignment="Center" />
+    <Button Grid.Column="3" Classes="filled primary" Content="Disabled" IsEnabled="False"
+            HorizontalAlignment="Center" VerticalAlignment="Center" />
+    <TextBlock Grid.Row="1" Classes="caption" Text="paper elevation4" HorizontalAlignment="Center" Margin="0,8,0,0" />
+    <TextBlock Grid.Row="1" Grid.Column="1" Classes="caption" Text="paper elevation0" HorizontalAlignment="Center" Margin="0,8,0,0" />
+    <TextBlock Grid.Row="1" Grid.Column="2" Classes="caption" Text="outlined text field" HorizontalAlignment="Center" Margin="0,8,0,0" />
+    <TextBlock Grid.Row="1" Grid.Column="3" Classes="caption" Text="disabled" HorizontalAlignment="Center" Margin="0,8,0,0" />
+  </Grid>
+</UserControl>

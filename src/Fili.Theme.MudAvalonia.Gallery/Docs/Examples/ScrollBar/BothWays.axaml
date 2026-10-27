@@ -1,0 +1,35 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <!-- HorizontalScrollBarVisibility="Auto" adds the horizontal rail when the content is wider
+       than the viewer; where the two rails meet is a background-gray square. -->
+  <Border Classes="paper outlined" Width="320" HorizontalAlignment="Left">
+    <ScrollViewer Height="160" HorizontalScrollBarVisibility="Auto">
+      <Grid Width="560" Margin="16" RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto" ColumnDefinitions="140,140,140,140">
+        <TextBlock Grid.Column="0" Classes="subtitle2" Text="Name" />
+        <TextBlock Grid.Column="1" Classes="subtitle2" Text="Quantity" />
+        <TextBlock Grid.Column="2" Classes="subtitle2" Text="Price" />
+        <TextBlock Grid.Column="3" Classes="subtitle2" Text="Total" />
+        <TextBlock Grid.Row="1" Classes="body2" Text="Apples" Margin="0,12,0,0" />
+        <TextBlock Grid.Row="1" Grid.Column="1" Classes="body2" Text="4" Margin="0,12,0,0" />
+        <TextBlock Grid.Row="1" Grid.Column="2" Classes="body2" Text="0.40" Margin="0,12,0,0" />
+        <TextBlock Grid.Row="1" Grid.Column="3" Classes="body2" Text="1.60" Margin="0,12,0,0" />
+        <TextBlock Grid.Row="2" Classes="body2" Text="Bread" Margin="0,12,0,0" />
+        <TextBlock Grid.Row="2" Grid.Column="1" Classes="body2" Text="1" Margin="0,12,0,0" />
+        <TextBlock Grid.Row="2" Grid.Column="2" Classes="body2" Text="2.10" Margin="0,12,0,0" />
+        <TextBlock Grid.Row="2" Grid.Column="3" Classes="body2" Text="2.10" Margin="0,12,0,0" />
+        <TextBlock Grid.Row="3" Classes="body2" Text="Cheese" Margin="0,12,0,0" />
+        <TextBlock Grid.Row="3" Grid.Column="1" Classes="body2" Text="2" Margin="0,12,0,0" />
+        <TextBlock Grid.Row="3" Grid.Column="2" Classes="body2" Text="3.50" Margin="0,12,0,0" />
+        <TextBlock Grid.Row="3" Grid.Column="3" Classes="body2" Text="7.00" Margin="0,12,0,0" />
+        <TextBlock Grid.Row="4" Classes="body2" Text="Milk" Margin="0,12,0,0" />
+        <TextBlock Grid.Row="4" Grid.Column="1" Classes="body2" Text="3" Margin="0,12,0,0" />
+        <TextBlock Grid.Row="4" Grid.Column="2" Classes="body2" Text="0.90" Margin="0,12,0,0" />
+        <TextBlock Grid.Row="4" Grid.Column="3" Classes="body2" Text="2.70" Margin="0,12,0,0" />
+        <TextBlock Grid.Row="5" Classes="body2" Text="Pears" Margin="0,12,0,0" />
+        <TextBlock Grid.Row="5" Grid.Column="1" Classes="body2" Text="6" Margin="0,12,0,0" />
+        <TextBlock Grid.Row="5" Grid.Column="2" Classes="body2" Text="0.50" Margin="0,12,0,0" />
+        <TextBlock Grid.Row="5" Grid.Column="3" Classes="body2" Text="3.00" Margin="0,12,0,0" />
+      </Grid>
+    </ScrollViewer>
+  </Border>
+</UserControl>

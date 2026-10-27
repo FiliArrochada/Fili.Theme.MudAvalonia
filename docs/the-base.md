@@ -16,7 +16,7 @@ Simple theme at 12.1.3**, rebased onto this package and repaletted by a single h
 `Themes/Base/Accents.axaml`, which redefines the ~96 resource keys those templates paint from in
 terms of Fili tokens. One file repalettes all 79.
 
-On top of that sit **hand-written Material control themes for 47 of the 95 templated control
+On top of that sit **hand-written Material control themes for 69 of the 95 templated control
 types**, which win over their forked counterparts because `FiliTheme.axaml` is included second:
 
 | | |
@@ -36,7 +36,16 @@ types**, which win over their forked counterparts because `FiliTheme.axaml` is i
 build, and so an Avalonia version that adds control types shows up as a failure rather than as a
 gap nobody noticed.
 
-The other 28 keep the forked templates. Most of them are Avalonia plumbing MudBlazor has no
+Every type left forked is classified with a reason in `StandaloneReadinessTests.Unthemed`, and the
+test asserts that inventory is exhaustive and names each type once, so the forked count is not a
+backlog: what is left is framework plumbing with no design opinion, a bespoke MudBlazor component
+that would be a rewrite rather than a restyle, or a control MudBlazor does not have.
+`MaskedTextBox` and `ToggleSplitButton` need no theme of their own: their `StyleKeyOverride`
+points the lookup at `TextBox` and `SplitButton`, so they render identically, with the same
+desired size and descendant count. A theme of their own would be a second copy of one that
+already applies.
+
+The other 26 keep the forked templates. Most of them are Avalonia plumbing MudBlazor has no
 counterpart for — `PopupRoot`, `AdornerLayer`, `TextSelectionHandle`, `ManagedFileChooser` — and
 keeping those byte-faithful is what makes an Avalonia upgrade a re-download and a diff.
 
@@ -267,3 +276,107 @@ sub-path and at the root of a local server. The first time, Pages has to be swit
 The theme is loaded only by the two `StyleInclude`s in App.axaml, which compile to code. Keep it
 that way: a `StyleInclude` constructed in C# loads its source by reflection at runtime, which the
 browser build's trimming can strip, and the page would then render with no base theme at all.
+
+## The internal helpers
+
+Besides `FiliThemeVariants`, the package's only code is a handful of `internal` helpers, each
+for something XAML cannot express on its own:
+
+- **`FactorConverter`** multiplies a bound pixel dimension by a constant. The indeterminate
+  progress bar needs it: MudBlazor's keyframes animate `left`/`right` percentages, so each bar
+  changes *width* as it travels (35% → 90%, and 200% → 1% for the second), and Avalonia's
+  transform parser rejects a `%` unit outright — `FormatException: Invalid unit: %`, thrown at
+  **runtime**, because a transform string in a key frame is parsed lazily and compiles either way.
+- **`ErrorMessageConverter`** turns one `DataValidationErrors.Errors` entry into the sentence to
+  show. An entry is usually an `Exception`, and binding straight to it renders
+  `"System.InvalidOperationException: Must be a valid email address"`.
+- **`TextLengthConverter`** reads a text's length for a field's counter. A template binding
+  through `Text.Length` logs a binding error in every app that leaves the text null, shown or not
+  ([Traps](traps.md)).
+- **`TickPositionsConverter`** places a slider's tick dots along its track, because `TickBar`
+  only draws lines.
+- **`BadgeContentConverter`** caps a numeric badge at `MudBadge.Max`'s default: an `int` over 99
+  reads `99+`. A binding cannot compare.
+- **`StripedRowConverter`** tells `striped` which rows to paint from `DataGridRow.Index`. Avalonia
+  12's DataGrid has no alternating row brush, and a binding cannot take a remainder.
+- **`SlidingIndicator`** slides a tab's indicator over from the one it replaces. Each tab keeps
+  its own indicator, so every class reaches it; this starts the newly selected one where the old
+  one was drawn and lets its transition bring it home, from wherever an interrupted slide had got
+  to. Where to start is the old indicator's position, which only code can read at the moment the
+  selection moves. The tabs do not clip, or it would vanish outside its own tab.
+- **`FieldClasses`** passes the text field's classes (`filled`, `outlined`, `dense`, `error`,
+  `counter`, `helper-on-focus`) from an `AutoCompleteBox` or `NumericUpDown` to the `TextBox` in
+  its template, and keeps passing them as they change. A style cannot add a class, and the
+  TextBox's own theme reads them two templates down from the outer control.
+- **`MenuIconGutter`** opens a menu row's icon column when another row in the same list has an
+  icon, MudMenu's `:has(.mud-menu-item-icon)` rule. A selector cannot ask about siblings.
+- **`SpinColumn`** puts a number field's spin column inside its input box: it keeps the text
+  clear of the column and sizes the column to the box, two templates down from the NumericUpDown.
+- **`CollapsePanel`** grows an expansion panel's content into view. Avalonia cannot animate a
+  height to `Auto`, so it lays the content out whole and shows a share of it that a transition
+  eases from nothing to all.
+- **`ElevationOverlay`** is the inherited property `material-elevation-overlay` sets, which each
+  surface reads on itself: a descendant selector made every Border watch all its ancestors.
+- **`IconSlot`** gives a `start-icon` or `end-icon` its host's size, gap and colour, and an
+  `avatar` in a chip the chip's avatar size: the host's theme sets inherited values, and the
+  control that carries the class takes them as they arrive. The hosts are buttons, split and
+  drop-down buttons, toggle items, chips, FABs, nav links, links, tabs and text fields. A
+  style ending in the icon would be matched against every control in the window; the class is
+  read when the icon joins its host, so put it on the icon in markup.
+- **`ButtonGroup`** marks each button of a `button-group` with where it sits: before another,
+  after one, in a vertical group. A selector from the panel to its buttons would end in Button
+  and be matched against every button in the window, and `:nth-child` counts hidden ones.
+- **`OverlayScrim`** centres an `overlay`'s child, gives it its container's corners and fades it
+  in when shown. A style could do none of it without being matched against every control or
+  every Border.
+- **`PartBorder`** is every Border in a hand-written template. It keeps them out of the app's
+  Border class styles, which every Border in the window was matched against
+  ([Traps](traps.md)).
+- **`HighContrastOpacityConverter`** hides the drawer's shadow in high contrast, where the
+  drawer's edge is its own line. A style cannot select on the theme variant.
+- **`HighContrastRings`** builds high contrast's elevation rings in the application's
+  `FiliLinesDefaultColor`. A `BoxShadows` string cannot carry a `DynamicResource`.
+- **`ExpansionPanels`** keeps `:joined`, `:first-panel`, `:last-panel`, `:next-expanded` and
+  `:previous-expanded` on the panels of an `expansion-panels` group, for the rule and corners
+  MudBlazor gives each panel by its neighbours, and closes the others when one opens. A selector
+  cannot ask about siblings, and `:nth-child` cannot see past an `ItemsControl`'s presenters.
+- **`Ripple`** draws MudBlazor's ripple in a template's `PART_Ripple` border: a circle from the
+  pointer, its opacity inherited from the control's theme. Avalonia has no ripple, and a style
+  cannot follow a pointer.
+- **`TextTransform`** draws a button's label in `FiliButtonTextTransform`'s case: a string on
+  its way into the presenter, and any plain `TextBlock` in the content, which the inherited case
+  reaches, through a run that leaves its `Text` alone. Avalonia has no text-transform, and a
+  binding cannot read a resource as a converter parameter.
+- **`Adornments`** marks a text field that has `InnerLeftContent` with `:start-adornment`, which
+  floats its label, as MudInput's start adornment does, and one with `InnerRightContent` with
+  `:end-adornment`; each adornment then keeps 8px from the text. A string or `TextBlock` there
+  also gets `:start-text-adornment` or `:end-text-adornment`, which keeps it on the text line where
+  an icon is centred on a filled or outlined box; and a field with no `PlaceholderText` gets
+  `:no-label`, which drops the label's room. A selector cannot ask whether a property is null, or
+  what type its value is.
+- **`CalendarView`** makes the date picker's toolbar buttons change the calendar's view - the
+  year to the years, the date back to the selected month - and gives the toolbar the paper's top
+  corners. A template cannot set another control's property on a click.
+- **`TimeView`** keeps the time picker's text: the field's value as MudTimePicker writes it, and
+  the toolbar's hour, minute and period following Avalonia's columns as they turn, before the time
+  is accepted. A column's selection is not a property a binding can watch.
+- **`TabBarScroll`** shows a tab bar's scroll buttons while its tabs overflow, disables each at
+  its end, scrolls a bar's length per click, and brings the selected tab into view. Overflow is
+  the scroller's extent against its viewport, which no binding compares.
+- **`TooltipPlacement`** sets a target's `ToolTip.VerticalOffset` to 0 when its tooltip opens
+  `Top`, `Bottom`, `Left` or `Right`, below the app's own value. Avalonia's default of 20 is the
+  distance under the pointer, applied whatever the placement, and the offset is read from the
+  target, which no style on the tooltip can reach.
+- **`DataGridLastColumn`** marks the cells and header of a grid's last visible column, for
+  `dense`'s 16px on the right. The grid knows which column is last, but tells no one.
+- **`GroupIndentConverter`** indents a nested group's header 48px per level. A header's level is
+  internal to the DataGrid, so it is counted from the public group tree.
+- **`OptionalStyleInclude`** loads the DataGrid's files only when the app has the package, at
+  its `MinimumVersion`; an older one is skipped with a warning.
+
+The two DataGrid helpers name the package's types, so they live in `Themes/Optional/DataGrid/`
+with the files that use them.
+
+Compiled XAML in the same assembly can construct an `internal` type, so being internal costs
+nothing and keeps the public surface at that one type. Reach for one only after establishing
+that the XAML route does not exist.

@@ -1,0 +1,16 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <!-- Two outlined fields on background-gray rather than the surface. -->
+  <Border Background="{DynamicResource FiliBackgroundGrayBrush}" Padding="16,24,16,16" HorizontalAlignment="Left">
+    <WrapPanel ItemSpacing="16" LineSpacing="16">
+      <!-- The mask is FiliSurfaceBrush: a patch of the wrong shade behind the label. -->
+      <TextBox Classes="outlined" Width="220" VerticalAlignment="Top" PlaceholderText="On the surface's patch" Text="Some text" />
+      <!-- The mask set to the ground in the field's own Resources. -->
+      <TextBox Classes="outlined" Width="220" VerticalAlignment="Top" PlaceholderText="On its ground" Text="Some text">
+        <TextBox.Resources>
+          <SolidColorBrush x:Key="FiliSurfaceBrush" Color="{DynamicResource FiliBackgroundGrayColor}" />
+        </TextBox.Resources>
+      </TextBox>
+    </WrapPanel>
+  </Border>
+</UserControl>

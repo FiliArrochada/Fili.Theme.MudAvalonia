@@ -370,7 +370,7 @@ written).
 
 ## Glyphs
 
-Every icon the theme draws. Set one in a control's `Resources`, or a parent's, to swap that control's glyph; see [MudBlazor parity](mudblazor-parity.md).
+Every icon the theme draws. Set one in a control's `Resources`, or a parent's, to swap that control's glyph; see the docs site's [Icons](https://filiarrochada.github.io/Fili.Theme.MudAvalonia/#icons) page.
 
 - `FiliAccessTimeGeometry`
 - `FiliAlertSuccessGeometry`

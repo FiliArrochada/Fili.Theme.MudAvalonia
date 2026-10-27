@@ -9,13 +9,7 @@
                     MudBlazorPath="components/drawer" />
 
     <TextBlock Classes="body1 p">
-      <Run Text="MudDrawer's " />
-      <Run Classes="code" Text="Variant" />
-      <Run Text=" is the SplitView's " />
-      <Run Classes="code" Text="DisplayMode" />
-      <Run Text=": Inline is Persistent, Overlay is Temporary, CompactInline and CompactOverlay are Mini. Responsive's breakpoints are the app's. Open and close it through " />
-      <Run Classes="code" Text="IsPaneOpen" />
-      <Run Text="; the examples bind it to the app bar's toggle." />
+      <Run Text="MudDrawer's " /><Run Classes="code" Text="Variant" /><Run Text=" is the SplitView's " /><Run Classes="code" Text="DisplayMode" /><Run Text=": Inline is Persistent, Overlay is Temporary, CompactInline and CompactOverlay are Mini. Responsive's breakpoints are the app's. Open and close it through " /><Run Classes="code" Text="IsPaneOpen" /><Run Text="; the examples bind it to the app bar's toggle." />
     </TextBlock>
 
     <TextBlock Classes="h5 section" Text="Persistent" />
@@ -33,11 +27,7 @@
                       Description="Closed, a 56px rail: a nav link's text beside its start-icon is hidden and every row drops its indent, so the rail shows the icons. Open, the full drawer."
                       Source="Drawer/Mini" />
     <TextBlock Classes="body1 p">
-      <Run Text="The icon and text go in the item's " />
-      <Run Classes="code" Text="Header" />
-      <Run Text=": a panel written straight inside a " />
-      <Run Classes="code" Text="TreeViewItem" />
-      <Run Text=" is a child item, so the rail would show a group's arrow instead of the icon. MudDrawer's OpenMiniOnHover is behaviour, and not here." />
+      <Run Text="The icon and text go in the item's " /><Run Classes="code" Text="Header" /><Run Text=": a panel written straight inside a " /><Run Classes="code" Text="TreeViewItem" /><Run Text=" is a child item, so the rail would show a group's arrow instead of the icon. MudDrawer's OpenMiniOnHover is behaviour, and not here." />
     </TextBlock>
 
     <TextBlock Classes="h5 section" Text="Anchor" />
@@ -64,6 +54,9 @@
     <docs:ExampleCard Title="DrawerPage"
                       Description="Avalonia's DrawerPage builds its own SplitView. Its pane toggle is MudLayout's drawer button, an action-default MudIconButton, the same open or closed; closed and compact, its drawer is a 56px mini drawer. Its top bar and title keep the fork's look."
                       Source="Drawer/DrawerPage" />
+    <TextBlock Classes="body1 p">
+      <Run Text="Set " /><Run Classes="code" Text="DrawerLayoutBehavior" /><Run Text=" rather than " /><Run Classes="code" Text="DisplayMode" /><Run Text=", which a DrawerPage works out for itself. Closed with " /><Run Classes="code" Text="CompactInline" /><Run Text=" or " /><Run Classes="code" Text="CompactOverlay" /><Run Text=", its drawer is a mini drawer on a 56px rail unless the app sets " /><Run Classes="code" Text="CompactDrawerLength" /><Run Text=". Set " /><Run Classes="code" Text="DrawerBreakpointLength" /><Run Text=" if a narrow page should not fall back to an overlay. Its pane casts MudDrawer's elevation 1, as any drawer does: the SplitView it builds takes this theme's template." />
+    </TextBlock>
     <StackPanel Orientation="Horizontal" Spacing="8" Margin="0,0,0,16">
       <TextBlock Classes="body1" Text="See also:" VerticalAlignment="Center" />
       <docs:DocLink Slug="nav-menu" Content="Nav menu" />
@@ -72,11 +65,7 @@
 
     <TextBlock Classes="h5 section" Text="MudBlazor parity" />
     <TextBlock Classes="body1 p">
-      <Run Text="Every MudDrawer and MudDrawerHeader parameter and what it is here. " />
-      <Run Classes="code" Text="Same" />
-      <Run Text=" is transcribed from MudBlazor's source; " />
-      <Run Classes="code" Text="Close" />
-      <Run Text=" gets the same result another way." />
+      <Run Text="Every MudDrawer and MudDrawerHeader parameter and what it is here. " /><Run Classes="code" Text="Same" /><Run Text=" is transcribed from MudBlazor's source; " /><Run Classes="code" Text="Close" /><Run Text=" gets the same result another way." />
     </TextBlock>
     <docs:ParityTable>
       <docs:ParityRow MudBlazor="MudDrawer" Here="SplitView" Status="Same" Note="240px open, 56px mini, drawer-background and drawer-text, elevation 1 past the pane's edge." />
@@ -88,6 +77,7 @@
       <docs:ParityRow MudBlazor="ClipMode, Fixed" Here="the app's layout" Status="Close" Note="Layout." />
       <docs:ParityRow MudBlazor="Color" Here="primary … dark on the SplitView" Status="Same" Note="The pane in the colour, its content in the contrast text." />
       <docs:ParityRow MudBlazor="OpenMiniOnHover" Here="none" Status="Missing" Note="Behaviour." />
+      <docs:ParityRow MudBlazor="MudLayout's drawer with its app bar" Here="DrawerPage" Status="Close" Note="The drawer is themed by styles: the pane toggle is an action-default icon button and a closed compact drawer is the 56px mini rail. The top bar and its title keep the forked template." />
       <docs:ParityRow MudBlazor="MudDrawerHeader" Here="drawer-header on a Border at the pane's top" Status="Same" Note="At least the app bar's 64px, 12px 24px round it; dense 48px and 8px 24px." />
     </docs:ParityTable>
   </StackPanel>

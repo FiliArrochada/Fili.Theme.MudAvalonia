@@ -13,13 +13,7 @@
                       Description="A MudToggleItem is a MudButton with no border, shadow or minimum width, 36.5px high: the colour as text while off, under its hover tint on pointer-over; filled once checked, its darken shade under the pointer. Unlike most components the default is primary."
                       Source="ToggleGroup/Usage" />
     <TextBlock Classes="body1 p">
-      <Run Text="An Avalonia toggle is one item, not a group. Put the colour, size and " />
-      <Run Classes="code" Text="outlined" />
-      <Run Text=" on each toggle, or in one " />
-      <Run Classes="code" Text="Style" />
-      <Run Text=" over the panel. MudToggleGroup's selection modes are the app's, through " />
-      <Run Classes="code" Text="IsChecked" />
-      <Run Text=" bindings." />
+      <Run Text="An Avalonia toggle is one item, not a group. Put the colour, size and " /><Run Classes="code" Text="outlined" /><Run Text=" on each toggle, or in one " /><Run Classes="code" Text="Style" /><Run Text=" over the panel. MudToggleGroup's selection modes are the app's, through " /><Run Classes="code" Text="IsChecked" /><Run Text=" bindings." />
     </TextBlock>
 
     <TextBlock Classes="h5 section" Text="Outlined" />
@@ -54,13 +48,7 @@
 
     <TextBlock Classes="h5 section" Text="MudBlazor parity" />
     <TextBlock Classes="body1 p">
-      <Run Text="Every MudToggleGroup parameter and what it is here. " />
-      <Run Classes="code" Text="Same" />
-      <Run Text=" is transcribed from MudBlazor's source; " />
-      <Run Classes="code" Text="Close" />
-      <Run Text=" gets the same result another way; " />
-      <Run Classes="code" Text="Missing" />
-      <Run Text=" is not here." />
+      <Run Text="Every MudToggleGroup parameter and what it is here. " /><Run Classes="code" Text="Same" /><Run Text=" is transcribed from MudBlazor's source; " /><Run Classes="code" Text="Close" /><Run Text=" gets the same result another way; " /><Run Classes="code" Text="Missing" /><Run Text=" is not here." />
     </TextBlock>
     <StackPanel Orientation="Horizontal" Spacing="8" Margin="0,0,0,16">
       <TextBlock Classes="body1" Text="See also:" VerticalAlignment="Center" />
@@ -68,13 +56,14 @@
       <docs:DocLink Slug="toggle-icon-button" Content="Toggle icon button" />
     </StackPanel>
     <docs:ParityTable>
-      <docs:ParityRow MudBlazor="MudToggleGroup item" Here="ToggleButton" Status="Same" Note="A MudButton with no border, shadow or minimum width, 36.5px: the colour as text, filled once checked." />
+      <docs:ParityRow MudBlazor="MudToggleGroup item" Here="ToggleButton" Status="Same" Note="A MudButton with no border, shadow or minimum width, on its 1.75 line, 36.5px: the colour as text, its hover tint under the pointer; filled once checked, its darken shade under the pointer." />
       <docs:ParityRow MudBlazor="Color (default Primary)" Here="no class, or primary … dark" Status="Same" Note="On each item." />
       <docs:ParityRow MudBlazor="Outlined (default true)" Here="outlined" Status="Close" Note="Opt-in: the group's 1px line in the colour is a class on each item." />
       <docs:ParityRow MudBlazor="Size.Small / Large" Here="small / large" Status="Same" Note="4px / 8px at 13 / 15px; 3px / 7px when outlined." />
       <docs:ParityRow MudBlazor="Color.Default" Here="—" Status="Missing" Note="No class names it: a toggle's default is primary." />
       <docs:ParityRow MudBlazor="Vertical" Here="a vertical StackPanel of toggles" Status="Close" />
       <docs:ParityRow MudBlazor="Delimiters (default true), the group's shape" Here="button-group on the StackPanel" Status="Same" Note="Outlined items share one line between them, and the radius sits on the group's outer corners only." />
+      <docs:ParityRow MudBlazor="Delimiters, outside a button-group" Here="outlined items in a plain StackPanel" Status="Close" Note="Each outlined item draws its own line, so two side by side meet in a 2px one; button-group, or Spacing=&quot;-1&quot;, shares it." />
       <docs:ParityRow MudBlazor="CheckMark, SelectedIcon, UnselectedIcon, FixedContent, CheckMarkClass" Here="an icon in Content" Status="Close" Note="Shown by the app while IsChecked." />
       <docs:ParityRow MudBlazor="SelectedClass" Here="a :checked style" Status="Close" />
       <docs:ParityRow MudBlazor="Disabled" Here="IsEnabled=&quot;False&quot;" Status="Same" Note="Action-disabled text, and the line or ground in action-disabled-background." />

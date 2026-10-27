@@ -7,9 +7,7 @@
                     Summary="One key stops everything the theme moves or fades on its own, for people whose system or settings ask for less motion. MudBlazor has no such switch." />
 
     <TextBlock Classes="body1 p">
-      <Run Text="Set " />
-      <Run Classes="code" Text="FiliReducedMotion" />
-      <Run Text=" to True in the application's resources, from your app's own setting or the system's. It can change at any time, and reaches every window and popup." />
+      <Run Text="Set " /><Run Classes="code" Text="FiliReducedMotion" /><Run Text=" to True in the application's resources, from your app's own setting or the system's. It can change at any time, and reaches every window and popup." />
     </TextBlock>
     <docs:CodeBlock Code="&lt;Application.Resources&gt;&#10;  &lt;x:Boolean x:Key=&quot;FiliReducedMotion&quot;&gt;True&lt;/x:Boolean&gt;&#10;&lt;/Application.Resources&gt;"
                     Margin="0,0,0,16" />

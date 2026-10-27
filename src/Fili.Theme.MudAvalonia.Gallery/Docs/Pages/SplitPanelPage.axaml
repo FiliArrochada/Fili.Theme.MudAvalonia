@@ -1,0 +1,45 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:docs="using:Fili.Theme.MudAvalonia.Gallery.Docs"
+             x:Class="Fili.Theme.MudAvalonia.Gallery.Docs.Pages.SplitPanelPage">
+  <StackPanel Classes="doc">
+    <docs:DocHeader Title="Split panel"
+                    Summary="Two panels with a divider the user drags to resize them: a Grid with Avalonia's GridSplitter between two cells, where MudBlazor has MudSplitPanel. The splitter keeps a visible hairline on purpose."
+                    MudBlazor="SplitPanel"
+                    MudBlazorPath="components/splitpanel" />
+
+    <TextBlock Classes="h5 section" Text="Basic usage" />
+    <docs:ExampleCard Title="GridSplitter between two cells"
+                      Description="A GridSplitter in an Auto column or row between two star-sized ones. ResizeDirection is MudSplitPanel's Horizontal, and the cells' MinWidth or MinHeight is its MinPanelSize. Drag the line to resize the panels."
+                      Source="SplitPanel/Basic" />
+    <TextBlock Classes="body1 p">
+      <Run Text="The splitter is a 1px line in the background-gray colour, faint on a light surface and plainer in dark, and the drag preview is primary. Both are the forked template's, in this theme's palette. Give the panels backgrounds of their own where the line needs to stand out." />
+    </TextBlock>
+
+    <TextBlock Classes="h5 section" Text="Why the divider shows" />
+    <TextBlock Classes="body1 p">
+      <Run Classes="code" Text="GridSplitter" /><Run Text=" is left on its forked template on purpose. MudBlazor's divider is a cursor, a 12px invisible hit area and a focus outline, and nothing else: the separation comes from the two panels having different backgrounds, which Avalonia does not guarantee. Transcribed faithfully, the splitter would be invisible, so it keeps its visible hairline." />
+    </TextBlock>
+
+    <TextBlock Classes="h5 section" Text="Panels" />
+    <docs:ExampleCard Title="A paper in each cell"
+                      Description="MudSplitPanel's Rounded, Elevation, Padding and Transparent are the panels' own look: put a Border.paper in each cell, with an elevation class, outlined or CornerRadius as it needs, or leave the paper out for Transparent. PanelGap is the papers' Margin."
+                      Source="SplitPanel/Papers" />
+
+    <StackPanel Orientation="Horizontal" Spacing="8" Margin="0,0,0,16">
+      <TextBlock Classes="body1" Text="See also:" VerticalAlignment="Center" />
+      <docs:DocLink Slug="paper" Content="Paper" />
+      <docs:DocLink Slug="drawer" Content="Drawer" />
+    </StackPanel>
+
+    <TextBlock Classes="h5 section" Text="MudBlazor parity" />
+    <TextBlock Classes="body1 p">
+      <Run Text="Every MudSplitPanel parameter that changes how it looks and what it is here. " /><Run Classes="code" Text="Close" /><Run Text=" gets the same result another way." />
+    </TextBlock>
+    <docs:ParityTable>
+      <docs:ParityRow MudBlazor="the divider" Here="GridSplitter" Status="Close" Note="A visible hairline, kept from the forked template on purpose: MudBlazor's is invisible and relies on the panels' backgrounds." />
+      <docs:ParityRow MudBlazor="Horizontal, MinPanelSize" Here="ResizeDirection, the columns' or rows' MinWidth / MinHeight" Status="Close" Note="Ordinary Avalonia properties." />
+      <docs:ParityRow MudBlazor="Rounded, Elevation, PanelGap, Padding, Transparent" Here="a Border.paper round each panel" Status="Close" Note="The panels' look is the papers', the gap their Margin; no paper for Transparent." />
+    </docs:ParityTable>
+  </StackPanel>
+</UserControl>

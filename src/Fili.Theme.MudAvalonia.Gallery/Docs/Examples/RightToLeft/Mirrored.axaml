@@ -1,0 +1,58 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <!-- The same controls twice; the second column only sets FlowDirection="RightToLeft". -->
+  <Grid ColumnDefinitions="352,352" RowDefinitions="Auto,Auto">
+    <TextBlock Classes="overline" Text="Left to right" Margin="0,0,0,8" />
+    <TextBlock Grid.Column="1" Classes="overline" Text="Right to left" Margin="0,0,0,8" />
+    <StackPanel Grid.Row="1" Spacing="16" Width="320">
+      <StackPanel Orientation="Horizontal" Spacing="16">
+        <CheckBox Content="Enabled" IsChecked="True" />
+        <ToggleSwitch Content="On" IsChecked="True" />
+      </StackPanel>
+      <NumericUpDown Width="160" Value="42" HorizontalAlignment="Left" />
+      <SplitButton Classes="outlined" Content="Save" HorizontalAlignment="Left">
+        <SplitButton.Flyout>
+          <MenuFlyout>
+            <MenuItem Header="Option" />
+          </MenuFlyout>
+        </SplitButton.Flyout>
+      </SplitButton>
+      <TreeView Width="200" HorizontalAlignment="Left">
+        <TreeViewItem Header="Library" IsExpanded="True">
+          <TreeViewItem Header="Pinned" />
+          <TreeViewItem Header="Recent" />
+        </TreeViewItem>
+      </TreeView>
+      <StackPanel Width="240" HorizontalAlignment="Left">
+        <TextBlock Classes="body1" Text="Trending" Margin="72,8,16,8" />
+        <Separator Classes="inset" />
+        <TextBlock Classes="body1" Text="Most stars" Margin="72,8,16,8" />
+      </StackPanel>
+    </StackPanel>
+    <StackPanel Grid.Row="1" Grid.Column="1" FlowDirection="RightToLeft" Spacing="16" Width="320">
+      <StackPanel Orientation="Horizontal" Spacing="16">
+        <CheckBox Content="مفعل" IsChecked="True" />
+        <ToggleSwitch Content="تشغيل" IsChecked="True" />
+      </StackPanel>
+      <NumericUpDown Width="160" Value="42" HorizontalAlignment="Left" />
+      <SplitButton Classes="outlined" Content="حفظ" HorizontalAlignment="Left">
+        <SplitButton.Flyout>
+          <MenuFlyout>
+            <MenuItem Header="خيار" />
+          </MenuFlyout>
+        </SplitButton.Flyout>
+      </SplitButton>
+      <TreeView Width="200" HorizontalAlignment="Left">
+        <TreeViewItem Header="المكتبة" IsExpanded="True">
+          <TreeViewItem Header="مثبت" />
+          <TreeViewItem Header="الأخيرة" />
+        </TreeViewItem>
+      </TreeView>
+      <StackPanel Width="240" HorizontalAlignment="Left">
+        <TextBlock Classes="body1" Text="الرائج" Margin="72,8,16,8" />
+        <Separator Classes="inset" />
+        <TextBlock Classes="body1" Text="الأكثر نجمة" Margin="72,8,16,8" />
+      </StackPanel>
+    </StackPanel>
+  </Grid>
+</UserControl>

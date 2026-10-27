@@ -33,13 +33,17 @@ public static class DocCatalog
     [
         new(GettingStarted, "Overview", "overview", () => new OverviewPage()),
         new(GettingStarted, "Installation", "installation", () => new InstallationPage()),
+        new(GettingStarted, "From MudBlazor", "from-mudblazor", () => new FromMudBlazorPage()),
         new(GettingStarted, "MudBlazor parity", "parity", () => new ParityPage()),
 
         new(Customization, "Theming", "theming", () => new ThemingPage()),
         new(Customization, "Palette", "palette", () => new PaletteView(), Scrolls: true),
-        new(Customization, "Typography", "typography", () => new TypographyView(), Scrolls: true),
-        new(Customization, "Elevation", "elevation", () => new ElevationView(), Scrolls: true),
+        new(Customization, "Typography", "typography", () => new TypographyPage()),
+        new(Customization, "Elevation", "elevation", () => new ElevationPage()),
         new(Customization, "Reduced motion", "reduced-motion", () => new ReducedMotionPage()),
+        new(Customization, "High contrast", "high-contrast", () => new HighContrastPage()),
+        new(Customization, "Right to left", "right-to-left", () => new RightToLeftPage()),
+        new(Customization, "Keyboard focus", "keyboard-focus", () => new KeyboardFocusPage()),
 
         new(Buttons, "Button", "button", () => new ButtonPage()),
         new(Buttons, "Button group", "button-group", () => new ButtonGroupPage()),
@@ -76,6 +80,8 @@ public static class DocCatalog
         new(Surfaces, "List", "list", () => new ListPage()),
         new(Surfaces, "Tree view", "tree-view", () => new TreeViewPage()),
         new(Surfaces, "Carousel", "carousel", () => new CarouselDocPage()),
+        new(Surfaces, "Split panel", "split-panel", () => new SplitPanelPage()),
+        new(Surfaces, "Scroll bar", "scroll-bar", () => new ScrollBarPage()),
 
         new(Feedback, "Alert", "alert", () => new AlertPage()),
         new(Feedback, "Snackbar", "snackbar", () => new SnackbarPage()),

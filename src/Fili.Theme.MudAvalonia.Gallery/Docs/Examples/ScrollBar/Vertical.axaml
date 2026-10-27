@@ -1,0 +1,18 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <!-- A ScrollViewer needs nothing: its ScrollBar is themed by type. Scroll the panel, then
+       hover and drag the thumb. -->
+  <Border Classes="paper outlined" Width="320" HorizontalAlignment="Left">
+    <ScrollViewer Height="160">
+      <StackPanel Margin="16" Spacing="8">
+        <TextBlock Classes="subtitle2" Text="A scrolling panel" />
+        <TextBlock Classes="body2" TextWrapping="Wrap"
+                   Text="The rail is 12px wide with no line buttons, and the thumb is a rounded bar 2px inside it." />
+        <TextBlock Classes="body2" TextWrapping="Wrap"
+                   Text="At rest the thumb is action-disabled. Under the pointer it darkens to action-default, and while it is dragged to text-primary." />
+        <TextBlock Classes="body2" TextWrapping="Wrap"
+                   Text="The wheel, a drag, the keyboard and touch all scroll the panel, as they do in any ScrollViewer." />
+      </StackPanel>
+    </ScrollViewer>
+  </Border>
+</UserControl>

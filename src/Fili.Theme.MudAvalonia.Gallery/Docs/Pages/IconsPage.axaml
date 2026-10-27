@@ -13,11 +13,7 @@
                       Description="Data is MudIcon's Icon. A bare PathIcon is 24px, as MudIcon is with no Size, in the surrounding text colour."
                       Source="Icons/Usage" />
     <TextBlock Classes="body1 p">
-      <Run Text="The theme ships no icon set: paste a path from MudBlazor's " />
-      <Run Classes="code" Text="Icons.Material" />
-      <Run Text=" as it is, dropping the transparent " />
-      <Run Classes="code" Text="M0 0h24v24H0z" />
-      <Run Text=" spacer, which a filled geometry would paint as a square. The glyphs on these pages are the gallery's own, transcribed from MudBlazor's Material icons." />
+      <Run Text="The theme ships no icon set: paste a path from MudBlazor's " /><Run Classes="code" Text="Icons.Material" /><Run Text=" as it is, dropping the transparent " /><Run Classes="code" Text="M0 0h24v24H0z" /><Run Text=" spacer, which a filled geometry would paint as a square. The glyphs on these pages are the gallery's own, transcribed from MudBlazor's Material icons." />
     </TextBlock>
 
     <TextBlock Classes="h5 section" Text="Colour" />
@@ -35,9 +31,7 @@
                       Description="PathIcon draws a glyph in a 24px box scaled to its size, as MudIcon's ViewBox does, so a small glyph such as PlayArrow stays where Material put it. A Path of your own does the same on a 24 by 24 Canvas with Stretch=&quot;None&quot;; Stretch=&quot;Uniform&quot;, Avalonia's own PathIcon, stretches the glyph's bounds instead."
                       Source="Icons/Box" />
     <TextBlock Classes="body1 p">
-      <Run Text="A glyph drawn in another box is scaled into 24 by the app, with a " />
-      <Run Classes="code" Text="Transform" />
-      <Run Text=" on the geometry, before it is given to a PathIcon." />
+      <Run Text="A glyph drawn in another box is scaled into 24 by the app, with a " /><Run Classes="code" Text="Transform" /><Run Text=" on the geometry, before it is given to a PathIcon." />
     </TextBlock>
 
     <TextBlock Classes="h5 section" Text="The theme's glyphs" />
@@ -50,15 +44,7 @@
                       Description="A MudBlazor icon parameter is a resource key: set the same key in a control's Resources and that control draws your glyph. Set on a parent, it reaches every control inside it."
                       Source="Icons/Swap" />
     <TextBlock Classes="body1 p">
-      <Run Text="The keys stand for MudCheckBox's " />
-      <Run Classes="code" Text="CheckedIcon" />
-      <Run Text=", MudSelect's " />
-      <Run Classes="code" Text="OpenIcon" />
-      <Run Text=", MudExpansionPanel's " />
-      <Run Classes="code" Text="Icon" />
-      <Run Text=", MudTabs' " />
-      <Run Classes="code" Text="PrevIcon" />
-      <Run Text=" and the rest; the parity page has the table of which key is which parameter." />
+      <Run Text="The keys stand for MudCheckBox's " /><Run Classes="code" Text="CheckedIcon" /><Run Text=", MudSelect's " /><Run Classes="code" Text="OpenIcon" /><Run Text=", MudExpansionPanel's " /><Run Classes="code" Text="Icon" /><Run Text=", MudTabs' " /><Run Classes="code" Text="PrevIcon" /><Run Text=" and the rest; the Icon parameters table below has which key is which parameter." />
     </TextBlock>
     <StackPanel Orientation="Horizontal" Spacing="8" Margin="0,0,0,16">
       <TextBlock Classes="body1" Text="See also:" VerticalAlignment="Center" />
@@ -69,11 +55,7 @@
 
     <TextBlock Classes="h5 section" Text="MudBlazor parity" />
     <TextBlock Classes="body1 p">
-      <Run Text="Every MudIcon parameter and what it is here. " />
-      <Run Classes="code" Text="Same" />
-      <Run Text=" is transcribed from MudBlazor's source; " />
-      <Run Classes="code" Text="Close" />
-      <Run Text=" gets the same result another way." />
+      <Run Text="Every MudIcon parameter and what it is here. " /><Run Classes="code" Text="Same" /><Run Text=" is transcribed from MudBlazor's source; " /><Run Classes="code" Text="Close" /><Run Text=" gets the same result another way." />
     </TextBlock>
     <docs:ParityTable>
       <docs:ParityRow MudBlazor="Icon" Here="Data" Status="Close" Note="The gallery carries a few Material glyphs; the theme ships no icon set." />
@@ -83,6 +65,27 @@
       <docs:ParityRow MudBlazor="Color.Default" Here="Foreground set to FiliTextSecondaryBrush" Status="Close" Note="No class names it." />
       <docs:ParityRow MudBlazor="Disabled" Here="IsEnabled=&quot;False&quot;" Status="Close" Note="No look of its own." />
       <docs:ParityRow MudBlazor="ViewBox (default 0 0 24 24)" Here="the same" Status="Same" Note="The glyph at its own coordinates in a 24px box, scaled to the icon's size; another box is scaled into 24 by the app." />
+    </docs:ParityTable>
+
+    <TextBlock Classes="h5 section" Text="Icon parameters" />
+    <TextBlock Classes="body1 p">
+      <Run Text="Every icon the theme draws, the MudBlazor parameter it stands for where there is one, and its key. Set the key in the control's " /><Run Classes="code" Text="Resources" /><Run Text=", or a parent's to reach every control inside it. Each glyph is drawn at its own size in the 24px box." />
+    </TextBlock>
+    <docs:ParityTable>
+      <docs:ParityRow MudBlazor="MudCheckBox CheckedIcon, UncheckedIcon, IndeterminateIcon; MudList's and MudTreeView's the same" Here="FiliCheckBoxCheckedGeometry, FiliCheckBoxUncheckedGeometry, FiliCheckBoxIndeterminateGeometry" Status="Same" />
+      <docs:ParityRow MudBlazor="MudRadio CheckedIcon, UncheckedIcon" Here="FiliRadioCheckedGeometry, FiliRadioUncheckedGeometry" Status="Same" Note="A carousel's bullets draw the same two." />
+      <docs:ParityRow MudBlazor="MudSwitch ThumbIcon (none by default)" Here="FiliSwitchThumbIconGeometry" Status="Same" Note="Empty unless set." />
+      <docs:ParityRow MudBlazor="MudSelect OpenIcon (shown while closed), CloseIcon (shown while open)" Here="FiliArrowDropDownGeometry, FiliArrowDropUpGeometry" Status="Same" />
+      <docs:ParityRow MudBlazor="MudNumericField NumericUpIcon, NumericDownIcon" Here="FiliKeyboardArrowUpGeometry, FiliKeyboardArrowDownGeometry" Status="Same" Note="The time picker's column arrows draw the same two." />
+      <docs:ParityRow MudBlazor="MudExpansionPanel Icon, MudNavGroup ExpandIcon" Here="FiliExpandMoreGeometry" Status="Same" />
+      <docs:ParityRow MudBlazor="MudTreeView ExpandButtonIcon" Here="FiliChevronRightGeometry" Status="Same" />
+      <docs:ParityRow MudBlazor="MudTabs PrevIcon, NextIcon" Here="FiliNavigateBeforeGeometry, FiliChevronRightGeometry" Status="Same" />
+      <docs:ParityRow MudBlazor="MudDatePicker AdornmentIcon, PreviousIcon, NextIcon; MudTimePicker AdornmentIcon" Here="FiliEventGeometry; FiliNavigateBeforeGeometry, FiliChevronRightGeometry; FiliAccessTimeGeometry" Status="Same" />
+      <docs:ParityRow MudBlazor="MudSnackbar CloseIcon; CommonSnackbarOptions' InfoIcon, SuccessIcon, WarningIcon, ErrorIcon, NormalIcon" Here="on the WindowNotificationManager: FiliCloseGeometry; FiliInfoOutlinedGeometry, FiliAlertSuccessGeometry, FiliReportProblemGeometry, FiliErrorOutlineGeometry, FiliEventNoteGeometry" Status="Same" />
+      <docs:ParityRow MudBlazor="a submenu's arrow (Filled.ArrowRight)" Here="FiliArrowRightGeometry" Status="Same" Note="No MudBlazor parameter; mirrored under right to left." />
+      <docs:ParityRow MudBlazor="the time picker's Close and Check buttons" Here="FiliCloseGeometry, FiliCheckGeometry" Status="Same" Note="No MudBlazor parameter." />
+      <docs:ParityRow MudBlazor="a command bar's overflow button: MudMenu's ActivatorIcon in a MudToolBar (Filled.MoreVert)" Here="FiliMoreVertGeometry" Status="Same" />
+      <docs:ParityRow MudBlazor="a navigation page's back button (Filled.ArrowBack)" Here="FiliArrowBackGeometry" Status="Same" Note="No MudBlazor parameter." />
     </docs:ParityTable>
   </StackPanel>
 </UserControl>

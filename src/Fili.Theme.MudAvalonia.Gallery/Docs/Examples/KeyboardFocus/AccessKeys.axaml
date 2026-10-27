@@ -1,0 +1,11 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <!-- Hold Alt: the access keys are underlined, and Alt with the letter presses the control. -->
+  <WrapPanel Orientation="Horizontal">
+    <Button Classes="filled primary" Content="_Save" Margin="0,0,16,16" VerticalAlignment="Center" />
+    <Button Classes="primary" Content="_Cancel" Margin="0,0,16,16" VerticalAlignment="Center" />
+    <CheckBox Content="_Remember me" IsChecked="True" Margin="0,0,16,16" VerticalAlignment="Center" />
+    <!-- A doubled underscore is an underscore. -->
+    <Button Classes="outlined" Content="snake__case" Margin="0,0,16,16" VerticalAlignment="Center" />
+  </WrapPanel>
+</UserControl>

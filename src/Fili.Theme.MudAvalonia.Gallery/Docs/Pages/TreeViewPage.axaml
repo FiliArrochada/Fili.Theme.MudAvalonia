@@ -13,13 +13,7 @@
                       Description="A TreeViewItem with children is a branch: its ChevronRight turns 90 degrees as it opens. A leaf keeps the arrow's empty 40px slot, so its text lines up with a branch's. The selected row is primary text over its hover tint."
                       Source="TreeView/Basic" />
     <TextBlock Classes="body1 p">
-      <Run Text="The indent is Avalonia's mechanism rather than MudBlazor's nested margins: a " />
-      <Run Classes="code" Text="TreeViewItem" />
-      <Run Text=" multiplies its own " />
-      <Run Classes="code" Text="Level" />
-      <Run Text=" by the 17px indent, declared once. A tree has no ground of its own; " />
-      <Run Classes="code" Text="paper" />
-      <Run Text=" gives it one, as on a list." />
+      <Run Text="The indent is Avalonia's mechanism rather than MudBlazor's nested margins: a " /><Run Classes="code" Text="TreeViewItem" /><Run Text=" multiplies its own " /><Run Classes="code" Text="Level" /><Run Text=" by the 17px indent, declared once. A tree has no ground of its own; " /><Run Classes="code" Text="paper" /><Run Text=" gives it one, as on a list." />
     </TextBlock>
 
     <TextBlock Classes="h5 section" Text="Usage" />
@@ -45,9 +39,7 @@
                       Description="A checkbox after the arrow on each row, 32px (24 dense), checked while the row is selected; no row is marked. Grey with no class, CheckBoxColor's default, or the tree's colour class."
                       Source="TreeView/MultiSelection" />
     <TextBlock Classes="body1 p">
-      <Run Text="As on a list, the class is the look and " />
-      <Run Classes="code" Text="SelectionMode=&quot;Multiple, Toggle&quot;" />
-      <Run Text=" the behaviour, which the app sets. A branch's box is its own selection: it is never indeterminate from its children." />
+      <Run Text="As on a list, the class is the look and " /><Run Classes="code" Text="SelectionMode=&quot;Multiple, Toggle&quot;" /><Run Text=" the behaviour, which the app sets. A branch's box is its own selection: it is never indeterminate from its children." />
     </TextBlock>
     <StackPanel Orientation="Horizontal" Spacing="8" Margin="0,0,0,16">
       <TextBlock Classes="body1" Text="See also:" VerticalAlignment="Center" />
@@ -57,13 +49,7 @@
 
     <TextBlock Classes="h5 section" Text="MudBlazor parity" />
     <TextBlock Classes="body1 p">
-      <Run Text="Every MudTreeView parameter that changes how it looks and what it is here. " />
-      <Run Classes="code" Text="Same" />
-      <Run Text=" is transcribed from MudBlazor's source; " />
-      <Run Classes="code" Text="Close" />
-      <Run Text=" gets the same result another way; " />
-      <Run Classes="code" Text="Missing" />
-      <Run Text=" is not available." />
+      <Run Text="Every MudTreeView parameter that changes how it looks and what it is here. " /><Run Classes="code" Text="Same" /><Run Text=" is transcribed from MudBlazor's source; " /><Run Classes="code" Text="Close" /><Run Text=" gets the same result another way; " /><Run Classes="code" Text="Missing" /><Run Text=" is not available." />
     </TextBlock>
     <docs:ParityTable>
       <docs:ParityRow MudBlazor="MudTreeView" Here="TreeView" Status="Same" Note="32px rows, 17px per level; a leaf keeps the arrow's empty 40px slot, so its text lines up with a branch's." />
@@ -71,7 +57,8 @@
       <docs:ParityRow MudBlazor="Disabled" Here="IsEnabled=&quot;False&quot;" Status="Same" Note="Action-disabled." />
       <docs:ParityRow MudBlazor="Color (the selection, default Primary)" Here="primary … dark on the TreeView" Status="Same" Note="The colour as the text over its hover tint." />
       <docs:ParityRow MudBlazor="Dense" Here="dense" Status="Same" Note="No 32px minimum, rows padded 1px 4px." />
-      <docs:ParityRow MudBlazor="SelectionMode.MultiSelection" Here="multi-selection and SelectionMode=&quot;Multiple, Toggle&quot;" Status="Close" Note="A 32px checkbox after the arrow (24 dense), checked while the row is selected; a branch's box is its own selection, never indeterminate from its children." />
+      <docs:ParityRow MudBlazor="SelectionMode.MultiSelection" Here="multi-selection" Status="Same" Note="A 32px checkbox after the arrow (24 dense), checked while the row is selected; no row is marked selected." />
+      <docs:ParityRow MudBlazor="SelectionMode.MultiSelection, set up" Here="multi-selection and SelectionMode=&quot;Multiple, Toggle&quot;" Status="Close" Note="Two settings for one parameter, as on a list; and a branch's box is its own selection, never indeterminate from its children." />
       <docs:ParityRow MudBlazor="CheckBoxColor (default Default)" Here="no class, or primary … dark on the tree while multi-selection is on" Status="Close" Note="As on a list: the tree's Color class doubles as it." />
       <docs:ParityRow MudBlazor="CheckedIcon, UncheckedIcon, IndeterminateIcon" Here="FiliCheckBoxCheckedGeometry, FiliCheckBoxUncheckedGeometry, FiliCheckBoxIndeterminateGeometry" Status="Same" Note="Resource keys set in the tree's Resources, as on a checkbox." />
       <docs:ParityRow MudBlazor="Icon, IconExpanded, EndIcon, EndText, TextTypo" Here="the Header's content" Status="Close" Note="The app lays out the header." />

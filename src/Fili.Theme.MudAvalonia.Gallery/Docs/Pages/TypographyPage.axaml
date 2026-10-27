@@ -1,0 +1,60 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:docs="using:Fili.Theme.MudAvalonia.Gallery.Docs"
+             x:Class="Fili.Theme.MudAvalonia.Gallery.Docs.Pages.TypographyPage">
+  <StackPanel Classes="doc">
+    <docs:DocHeader Title="Typography"
+                    Summary="MudText is a TextBlock with a type class: the thirteen styles of MudBlazor's Typography.cs, in embedded Roboto, and MudText's colours as colour classes."
+                    MudBlazor="Typography"
+                    MudBlazorPath="components/typography" />
+
+    <TextBlock Classes="h5 section" Text="Type styles" />
+    <docs:ExampleCard Title="Typo"
+                      Description="Each Typo is a class of the same name on a TextBlock, labelled with its size and weight: the size, weight, line height and letter spacing of Typography.cs, the line height and tracking converted to pixels."
+                      Source="Typography/Styles" />
+    <TextBlock Classes="body1 p">
+      <Run Text="Body2, 14px, is the default text of every window and user control, so a TextBlock with no class is body2 already. That smaller base, not 16px, is a large part of why the look reads dense and tidy, and the first thing to check if a ported screen feels wrong. Unclassed text keeps the font's own line height; the metrics are on the classes." />
+    </TextBlock>
+
+    <TextBlock Classes="h5 section" Text="Colours" />
+    <docs:ExampleCard Title="Color"
+                      Description="A colour class is MudText's Color: the palette colour, on any type class. inherit is Color.Inherit, the colour round the text, over a colour class too. MudBlazor's grey supporting text is its mud-text-secondary utility class, not a Color; here it is a Foreground of FiliTextSecondaryBrush."
+                      Source="Typography/Colors" />
+    <TextBlock Classes="body1 p">
+      <Run Text="No type class sets a colour of its own, as " /><Run Classes="code" Text=".mud-typography-*" /><Run Text=" sets none: a caption or an overline is the colour round it, as MudText's default Color.Inherit is." />
+    </TextBlock>
+
+    <TextBlock Classes="h5 section" Text="Button text" />
+    <docs:ExampleCard Title="button"
+                      Description="Typo.button is text that reads as a button's label without being one: 14px, 500, a 24px line and 0.4px tracking, in FiliButtonTextTransform's case. The key set to none, lowercase or capitalize in a region's resources changes it there, as CSS's text-transform would."
+                      Source="Typography/ButtonText" />
+    <StackPanel Orientation="Horizontal" Spacing="8" Margin="0,0,0,16">
+      <TextBlock Classes="body1" Text="See also:" VerticalAlignment="Center" />
+      <docs:DocLink Slug="button" Content="Button" />
+    </StackPanel>
+
+    <TextBlock Classes="h5 section" Text="Alignment and spacing" />
+    <TextBlock Classes="body1 p">
+      <Run Text="MudText's " /><Run Classes="code" Text="Align" /><Run Text=" is the TextBlock's " /><Run Classes="code" Text="TextAlignment" /><Run Text=", and " /><Run Classes="code" Text="GutterBottom" /><Run Text=" a bottom " /><Run Classes="code" Text="Margin" /><Run Text=". Inline text is a " /><Run Classes="code" Text="Run" /><Run Text=" inside one TextBlock, which can carry its own type and colour classes." />
+    </TextBlock>
+
+    <TextBlock Classes="h5 section" Text="MudBlazor parity" />
+    <TextBlock Classes="body1 p">
+      <Run Text="Every MudText parameter and Typography.cs setting, and what it is here. " /><Run Classes="code" Text="Same" /><Run Text=" is transcribed from MudBlazor's source; " /><Run Classes="code" Text="Close" /><Run Text=" gets the same result another way." />
+    </TextBlock>
+    <docs:ParityTable>
+      <docs:ParityRow MudBlazor="Typo.h1 … Typo.h6" Here="h1 … h6" Status="Same" Note="Size, weight, line height and letter spacing from Typography.cs." />
+      <docs:ParityRow MudBlazor="Typo.subtitle1 / subtitle2" Here="subtitle1 / subtitle2" Status="Same" />
+      <docs:ParityRow MudBlazor="Typo.body1 / body2" Here="body1 / body2" Status="Same" Note="Body2, 14px, is also the default text of every window and user control." />
+      <docs:ParityRow MudBlazor="Typo.caption / overline" Here="caption / overline" Status="Same" Note="No colour of their own, as .mud-typography-* sets none: the colour round them." />
+      <docs:ParityRow MudBlazor="Typo.button" Here="button" Status="Same" Note="14px, 500, a 24px line, 0.4px tracking, in FiliButtonTextTransform's case." />
+      <docs:ParityRow MudBlazor="Color.Primary … Color.Dark" Here="primary … dark" Status="Same" Note="The palette colour, on any type class." />
+      <docs:ParityRow MudBlazor="Color.Inherit" Here="inherit" Status="Same" Note="The surrounding text colour, over a colour class too." />
+      <docs:ParityRow MudBlazor="mud-text-secondary (grey)" Here="Foreground set to FiliTextSecondaryBrush" Status="Close" Note="A utility class in MudBlazor, not a Color." />
+      <docs:ParityRow MudBlazor="Align, GutterBottom, Inline" Here="TextAlignment, Margin, a Run" Status="Close" Note="Ordinary Avalonia properties." />
+      <docs:ParityRow MudBlazor="Typography.cs" Here="Fili{Style}FontSize, …LineHeight, …LetterSpacing per style" Status="Same" Note="Line height and letter spacing converted to absolute pixels." />
+      <docs:ParityRow MudBlazor="Typography.Button.TextTransform (uppercase)" Here="FiliButtonTextTransform" Status="Same" Note="CSS's words: none, uppercase, lowercase, capitalize, on a button's string label and on the button class." />
+      <docs:ParityRow MudBlazor="the font" Here="Roboto, embedded" Status="Same" Note="Light, Regular and Medium as static faces; FiliFontFamily is the key." />
+    </docs:ParityTable>
+  </StackPanel>
+</UserControl>

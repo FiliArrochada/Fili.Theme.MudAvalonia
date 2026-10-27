@@ -13,20 +13,13 @@
                       Description="The panels become one shape: the group's radius on the first panel's top corners and the last one's bottom, and a lines-default rule under each panel but the last. An open panel moves 16px from its neighbours with every corner rounded. Opening one closes the others."
                       Source="ExpansionPanels/Simple" />
     <TextBlock Classes="body1 p">
-      <Run Text="Opening grows the content into view over .3s " />
-      <Run Classes="code" Text="ease-in-out" />
-      <Run Text=", as MudCollapse does, rather than fading it in; closing shrinks it away, from where it is if turned back half-way. A panel that starts open is open on its first frame. The header is 15px, MudBlazor's own size for it, neither body1 nor body2." />
+      <Run Text="Opening grows the content into view over .3s " /><Run Classes="code" Text="ease-in-out" /><Run Text=", as MudCollapse does, rather than fading it in; closing shrinks it away, from where it is if turned back half-way. A panel that starts open is open on its first frame. The header is 15px, MudBlazor's own size for it, neither body1 nor body2." />
     </TextBlock>
     <TextBlock Classes="body1 p">
-      <Run Text="The group can also be an " />
-      <Run Classes="code" Text="ItemsControl" />
-      <Run Text=" whose items are Expanders or whose " />
-      <Run Classes="code" Text="ItemTemplate" />
-      <Run Text=" makes them, virtualising or not; bind " />
-      <Run Classes="code" Text="IsExpanded" />
-      <Run Text=" to the item there. A " />
-      <Run Classes="code" Text="ListBox" />
-      <Run Text=" is not a group: its rows are list rows." />
+      <Run Text="The group can also be an " /><Run Classes="code" Text="ItemsControl" /><Run Text=" whose items are Expanders or whose " /><Run Classes="code" Text="ItemTemplate" /><Run Text=" makes them, virtualising or not; bind " /><Run Classes="code" Text="IsExpanded" /><Run Text=" to the item there, as a virtualising panel rebuilds and reuses its Expanders. A generated panel's place is its item's index, so the panels on screen are rounded and ruled as their items stand, and a neighbour not yet realised is off screen and counts as closed. A " /><Run Classes="code" Text="ListBox" /><Run Text=" is not a group: its rows are list rows, with their own padding and selection." />
+    </TextBlock>
+    <TextBlock Classes="body1 p">
+      <Run Text="Closing a panel when another opens is a current value, so a binding on " /><Run Classes="code" Text="IsExpanded" /><Run Text=" survives it and hears the change." />
     </TextBlock>
 
     <TextBlock Classes="h5 section" Text="Multiple expanded panels" />
@@ -54,9 +47,7 @@
                       Description="Each panel carries its own elevation, 1 with no class, so an elevation class goes on every Expander. square on the group squares every panel."
                       Source="ExpansionPanels/ElevationSquare" />
     <TextBlock Classes="body1 p">
-      <Run Text="Where two closed panels meet, the lower one's shadow falls faintly on the upper, in MudBlazor too. Use " />
-      <Run Classes="code" Text="elevation0" />
-      <Run Text=" when the panels already sit on a card." />
+      <Run Text="Where two closed panels meet, the lower one's shadow falls faintly on the upper, in MudBlazor too. Use " /><Run Classes="code" Text="elevation0" /><Run Text=" when the panels already sit on a card. In high contrast that edge is the panel's ring." />
     </TextBlock>
 
     <TextBlock Classes="h5 section" Text="A panel on its own" />
@@ -71,11 +62,7 @@
 
     <TextBlock Classes="h5 section" Text="MudBlazor parity" />
     <TextBlock Classes="body1 p">
-      <Run Text="Every MudExpansionPanels and MudExpansionPanel parameter and what it is here. " />
-      <Run Classes="code" Text="Same" />
-      <Run Text=" is transcribed from MudBlazor's source; " />
-      <Run Classes="code" Text="Close" />
-      <Run Text=" gets the same result another way." />
+      <Run Text="Every MudExpansionPanels and MudExpansionPanel parameter and what it is here. " /><Run Classes="code" Text="Same" /><Run Text=" is transcribed from MudBlazor's source; " /><Run Classes="code" Text="Close" /><Run Text=" gets the same result another way." />
     </TextBlock>
     <docs:ParityTable>
       <docs:ParityRow MudBlazor="MudExpansionPanels, the group" Here="expansion-panels on the StackPanel or ItemsControl that holds the Expanders" Status="Same" Note="One shape: the group's radius on the first panel's top and the last one's bottom, square between." />
@@ -87,14 +74,14 @@
       <docs:ParityRow MudBlazor="Gutters (default true)" Here="no-gutters for false" Status="Same" Note="The header and the content lose their 24px sides." />
       <docs:ParityRow MudBlazor="Dense, Gutters on MudExpansionPanels" Here="dense, no-gutters on each panel" Status="Close" Note="The group's values do not cascade: the classes go on every panel." />
       <docs:ParityRow MudBlazor="Outlined (default true)" Here="on in a group; no-outline on the group for false" Status="Same" Note="A 1px lines-default rule under each panel but the last, and under none that is open or comes before one." />
-      <docs:ParityRow MudBlazor="an expanded panel" Here="in a group" Status="Same" Note="16px from its neighbours over .3s, every corner rounded; the panels either side take its corners." />
+      <docs:ParityRow MudBlazor="an expanded panel" Here="in a group" Status="Same" Note="16px from its neighbours (none above the first or below the last) over .3s, every corner rounded; the panel before it takes the bottom corners and the one after it the top." />
       <docs:ParityRow MudBlazor="Square on the group" Here="square on the group" Status="Same" Note="No radius on any panel." />
-      <docs:ParityRow MudBlazor="MultiExpansion (default false)" Here="no class, or multi-expansion for true" Status="Same" Note="Opening a panel closes the others; multi-expansion lets them open independently." />
+      <docs:ParityRow MudBlazor="MultiExpansion (default false)" Here="no class, or multi-expansion for true" Status="Same" Note="Opening a panel closes the others, and of panels written open the first stays open; multi-expansion lets them open independently." />
       <docs:ParityRow MudBlazor="Disabled" Here="IsEnabled=&quot;False&quot;" Status="Same" Note="Text-disabled header, action-disabled chevron." />
       <docs:ParityRow MudBlazor="HideIcon" Here="hide-icon" Status="Same" Note="No chevron." />
       <docs:ParityRow MudBlazor="Icon" Here="FiliExpandMoreGeometry in the panel's Resources" Status="Same" Note="The key reaches every Expander under the one it is set on." />
       <docs:ParityRow MudBlazor="MaxHeight" Here="MaxHeight on the content" Status="Close" Note="An ordinary Avalonia property, on the content rather than the panel." />
-      <docs:ParityRow MudBlazor="opening" Here="the same" Status="Same" Note="MudCollapse: the content grows into view over .3s ease-in-out and shrinks away closing." />
+      <docs:ParityRow MudBlazor="opening" Here="the same" Status="Same" Note="MudCollapse: the content grows into view over .3s ease-in-out and shrinks away closing, from where it is if turned back half-way." />
       <docs:ParityRow MudBlazor="MudCollapse" Here="an Expander's content, or IsVisible" Status="Close" Note="Avalonia has no headerless collapse." />
     </docs:ParityTable>
   </StackPanel>

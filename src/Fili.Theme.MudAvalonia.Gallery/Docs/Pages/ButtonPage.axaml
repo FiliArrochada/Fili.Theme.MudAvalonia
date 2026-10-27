@@ -10,7 +10,7 @@
 
     <TextBlock Classes="h5 section" Text="Variants" />
     <docs:ExampleCard Title="Text, outlined and filled"
-                      Description="MudButton.Variant defaults to Text, so a Button with no class is the text one. flat is DropShadow=&quot;false&quot;: a filled button that stays at elevation 0."
+                      Description="MudButton.Variant defaults to Text, so a Button with no class is the text one. Outlined's line is the colour itself, at full strength, as MudBlazor's BorderOpacity is 1.0. flat is DropShadow=&quot;false&quot;: a filled button that stays at elevation 0."
                       Source="Button/Variants" />
 
     <TextBlock Classes="h5 section" Text="Colours" />
@@ -25,7 +25,7 @@
 
     <TextBlock Classes="h5 section" Text="Icons" />
     <docs:ExampleCard Title="Start and end icons"
-                      Description="MudButton's StartIcon and EndIcon are a PathIcon in the content marked start-icon or end-icon: 20px (18 small, 22 large), 8px from the label."
+                      Description="MudButton's StartIcon and EndIcon are a PathIcon in the content marked start-icon or end-icon: 20px (18 small, 22 large), 8px from the label. Put the class on the icon in markup: it is read when the icon joins its button, so a class added from code later does nothing."
                       Source="Button/Icons" />
 
     <TextBlock Classes="h5 section" Text="Disabled" />
@@ -33,18 +33,58 @@
                       Description="IsEnabled=&quot;False&quot;: action-disabled text, and an action-disabled-background ground or line where the variant has one."
                       Source="Button/Disabled" />
 
+    <TextBlock Classes="h5 section" Text="Split and drop-down buttons" />
+    <docs:ExampleCard Title="SplitButton and DropDownButton"
+                      Description="A SplitButton is a two-part MudButtonGroup and a DropDownButton is a MudMenu whose activator is a button. Both take Button's classes, meaning the same things. The line between a split button's halves is text-primary or the colour on a text one, the colour's line on an outlined one, divider on a filled one with no colour, and the lighten shade on a filled coloured one."
+                      Source="Button/SplitDropDown" />
+    <StackPanel Orientation="Horizontal" Spacing="8" Margin="0,0,0,16">
+      <TextBlock Classes="body1" Text="See also:" VerticalAlignment="Center" />
+      <docs:DocLink Slug="button-group" Content="Button group" />
+      <docs:DocLink Slug="menu" Content="Menu" />
+    </StackPanel>
+
     <TextBlock Classes="h5 section" Text="Label case" />
     <docs:ExampleCard Title="Uppercase labels"
                       Description="MudBlazor's button typography is uppercase. A string label is drawn in FiliButtonTextTransform's case; a label written as runs keeps them as written; the key set to none in a region keeps every label there as written."
                       Source="Button/Case" />
+    <TextBlock Classes="body1 p">
+      <Run Text="MudBlazor's .mud-button, .mud-fab and .mud-tab apply the uppercase, so " /><Run Classes="code" Text="Content=&quot;Save&quot;" /><Run Text=" reads SAVE on a button, a split or drop-down button, a toggle item, an extended FAB and a tab header. A chip, a link, a checkbox, a menu row and an expansion panel's header keep their case, as they do in MudBlazor." />
+    </TextBlock>
+    <TextBlock Classes="body1 p">
+      <Run Text="Avalonia has no text-transform, so the string is transformed on its way into the template, and the case is inherited, as CSS's is. A " /><Run Classes="code" Text="TextBlock" /><Run Text=" in content that is a control, such as the label beside a " /><Run Classes="code" Text="start-icon" /><Run Text=", keeps its " /><Run Classes="code" Text="Text" /><Run Text=", binding and all, and draws it in the case through a run of its own. A " /><Run Classes="code" Text="TextBlock" /><Run Text=" with runs you wrote keeps them as written. " /><Run Classes="code" Text="TextBlock.button" /><Run Text=", MudText's Typo.button, takes the case too. An access key survives: " /><Run Classes="code" Text="_Save" /><Run Text=" reads SAVE and is still Alt+S; double an underscore to show one." />
+    </TextBlock>
+    <TextBlock Classes="body1 p">
+      <Run Classes="code" Text="FiliButtonTextTransform" /><Run Text=" is the switch, in CSS's words, as MudBlazor's typography setting is: " /><Run Classes="code" Text="uppercase" /><Run Text=", " /><Run Classes="code" Text="none" /><Run Text=", " /><Run Classes="code" Text="lowercase" /><Run Text=" or " /><Run Classes="code" Text="capitalize" /><Run Text=". In the application's resources it changes every label:" />
+    </TextBlock>
+    <docs:CodeBlock Code="&lt;Application.Resources&gt;&#10;  &lt;x:String x:Key=&quot;FiliButtonTextTransform&quot;&gt;none&lt;/x:String&gt;&#10;&lt;/Application.Resources&gt;"
+                    Margin="0,0,0,16" />
+    <TextBlock Classes="body1 p">
+      <Run Text="In any control's " /><Run Classes="code" Text="Resources" /><Run Text=" it changes one region, and that region is often needed: in Avalonia a " /><Run Classes="code" Text="Button" /><Run Text=" is also the usual clickable container (a poster card, a list row, a button showing a value such as the current sort), and its text reads in capitals like any button label. Set " /><Run Classes="code" Text="none" /><Run Text=" on the card rail or the list, as MudBlazor would never have put that text in a MudButton." />
+    </TextBlock>
+    <docs:ExampleCard Title="A button with a flyout"
+                      Description="Not the key on a button with a Flyout: the flyout's content finds its resources through the button, so its own buttons would lose their capitals too, where MudBlazor's popover, drawn at the layout root, keeps them. Write that one label as a run instead. Click the button: its label keeps its case and the flyout's buttons are uppercase."
+                      Source="Button/FlyoutLabel" />
+
+    <TextBlock Classes="h5 section" Text="Ripple" />
+    <docs:ExampleCard Title="Ripple on and off"
+                      Description="Press and hold each button. The second has both ripple opacities at 0 in its Resources, which is MudButton's Ripple=&quot;false&quot;."
+                      Source="Button/Ripple" />
+    <TextBlock Classes="body1 p">
+      <Run Text="As in MudBlazor, a circle grows from the pointer over .5s and fades once the button is released, in the label's colour at 10%, or 20% on a filled button, a filled chip or a coloured FAB. Its colour is the label's at the moment of the press; a ripple already growing keeps it. The same ripple is on icon buttons, chips, FABs, split and drop-down buttons, toggle items, tabs, list, select, menu, tree and nav rows, and in the halo of a checkbox, radio or switch, where it takes the glyph's colour. A link and an expansion panel's header do not ripple, as they do not in MudBlazor, and nor does a key press: mudRipple.js answers a pointer only." />
+    </TextBlock>
+    <TextBlock Classes="body1 p">
+      <Run Text="Ripple=&quot;false&quot; is two keys at zero, " /><Run Classes="code" Text="FiliRippleOpacity" /><Run Text=" and " /><Run Classes="code" Text="FiliRippleOpacitySecondary" /><Run Text=", the second being the filled surfaces' 20%. Set both in a control's " /><Run Classes="code" Text="Resources" /><Run Text=", or in the application's to turn the ripple off everywhere; the first alone leaves filled buttons rippling." />
+    </TextBlock>
+    <docs:CodeBlock Code="&lt;Button Classes=&quot;filled primary&quot; Content=&quot;Quiet&quot;&gt;&#10;  &lt;Button.Resources&gt;&#10;    &lt;x:Double x:Key=&quot;FiliRippleOpacity&quot;&gt;0&lt;/x:Double&gt;&#10;    &lt;x:Double x:Key=&quot;FiliRippleOpacitySecondary&quot;&gt;0&lt;/x:Double&gt;&#10;  &lt;/Button.Resources&gt;&#10;&lt;/Button&gt;"
+                    Margin="0,0,0,16" />
+    <StackPanel Orientation="Horizontal" Spacing="8" Margin="0,0,0,16">
+      <TextBlock Classes="body1" Text="See also:" VerticalAlignment="Center" />
+      <docs:DocLink Slug="reduced-motion" Content="Reduced motion" />
+    </StackPanel>
 
     <TextBlock Classes="h5 section" Text="MudBlazor parity" />
     <TextBlock Classes="body1 p">
-      <Run Text="Every MudButton parameter and what it is here. " />
-      <Run Classes="code" Text="Same" />
-      <Run Text=" is transcribed from MudBlazor's source; " />
-      <Run Classes="code" Text="Close" />
-      <Run Text=" gets the same result another way." />
+      <Run Text="Every MudButton parameter and what it is here. " /><Run Classes="code" Text="Same" /><Run Text=" is transcribed from MudBlazor's source; " /><Run Classes="code" Text="Close" /><Run Text=" gets the same result another way." />
     </TextBlock>
     <docs:ParityTable>
       <docs:ParityRow MudBlazor="Variant.Text (default)" Here="no class, or text" Status="Same" />
@@ -53,14 +93,16 @@
       <docs:ParityRow MudBlazor="Color.Default (default)" Here="no class" Status="Same" Note="Text-primary; a grey fill when filled." />
       <docs:ParityRow MudBlazor="Color.Primary … Color.Dark" Here="primary … dark" Status="Same" Note="primary, secondary, tertiary, info, success, warning, error, dark." />
       <docs:ParityRow MudBlazor="Color.Inherit" Here="inherit" Status="Same" Note="Text and line follow the surrounding text colour." />
-      <docs:ParityRow MudBlazor="Size.Small / Medium / Large" Here="small / no class / large" Status="Same" Note="30.75 / 36.5 / 42.25px in every variant." />
+      <docs:ParityRow MudBlazor="Size.Small / Medium / Large" Here="small / no class / large" Status="Same" Note="Per-variant padding, 13 / 14 / 15px text on a 1.75 line: 30.75 / 36.5 / 42.25px in every variant." />
       <docs:ParityRow MudBlazor="Disabled" Here="IsEnabled=&quot;False&quot;" Status="Same" />
       <docs:ParityRow MudBlazor="hover, :focus-visible, :active" Here="the same states" Status="Same" Note="{}{color}-hover for text and outlined, {color}-darken for filled." />
       <docs:ParityRow MudBlazor="DropShadow=&quot;false&quot;" Here="flat" Status="Same" Note="Elevation 0 in every state." />
       <docs:ParityRow MudBlazor="FullWidth" Here="HorizontalAlignment=&quot;Stretch&quot;" Status="Close" />
-      <docs:ParityRow MudBlazor="StartIcon / EndIcon" Here="an icon in Content with start-icon / end-icon" Status="Same" Note="20px (18 small, 22 large), 4px out and 8px from the label." />
-      <docs:ParityRow MudBlazor="Ripple (default true)" Here="on; FiliRippleOpacity at 0 for false" Status="Same" Note="From the pointer, in the text colour, at 0.1 (0.2 filled); off with FiliReducedMotion." />
-      <docs:ParityRow MudBlazor="Typography.Button.TextTransform" Here="FiliButtonTextTransform" Status="Same" Note="Uppercase by default; none, lowercase or capitalize as CSS would. A label written as runs keeps them." />
+      <docs:ParityRow MudBlazor="StartIcon / EndIcon" Here="an icon in Content with start-icon / end-icon" Status="Same" Note="20px (18 small, 22 large), 4px out and 8px from the label; 2px out when small." />
+      <docs:ParityRow MudBlazor="Ripple (default true)" Here="on" Status="Same" Note="As mudRipple.js: from the pointer, a circle twice the button's longer side grows over .5s while it rises to RippleOpacity 0.1 (0.2 filled) in the text colour, then fades over .4s once released and at least .5s old; clipped to the corners. A key press shows the state layer and no ripple, as in MudBlazor. Off with FiliReducedMotion." />
+      <docs:ParityRow MudBlazor="Ripple=&quot;false&quot;" Here="FiliRippleOpacity and FiliRippleOpacitySecondary at 0 in the button's Resources" Status="Close" Note="Two resource keys rather than a parameter." />
+      <docs:ParityRow MudBlazor="uppercase label (Typography.Button.TextTransform)" Here="the same; FiliButtonTextTransform is the switch" Status="Same" Note="A string label is drawn uppercase, and so is a plain TextBlock in content that is a control, such as the label beside a start-icon; none, lowercase or capitalize change it as CSS would." />
+      <docs:ParityRow MudBlazor="text-transform on every piece of text inside" Here="string labels and plain TextBlocks" Status="Close" Note="Avalonia has no text-transform. A TextBlock whose runs the app wrote keeps them as written, and text a nested control draws in its own popup is not reached." />
       <docs:ParityRow MudBlazor="IconColor, IconSize, IconClass" Here="the icon's Foreground, size class, Classes" Status="Close" />
       <docs:ParityRow MudBlazor="Href, Target" Here="HyperlinkButton" Status="Close" Note="No look of their own: a link is a HyperlinkButton." />
     </docs:ParityTable>

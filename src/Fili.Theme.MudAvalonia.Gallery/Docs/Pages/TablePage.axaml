@@ -13,13 +13,7 @@
                       Description="Surface at elevation 1 and the default radius, subtitle2 headers at weight 500 over a table-lines rule, body2 cells 16px round, and a rule under every row but the last."
                       Source="Table/Default" />
     <TextBlock Classes="body1 p">
-      <Run Text="The rows are the app's: an " />
-      <Run Classes="code" Text="ItemsSource" />
-      <Run Text=" and a " />
-      <Run Classes="code" Text="CellTemplate" />
-      <Run Text=" per " />
-      <Run Classes="code" Text="TableViewColumn" />
-      <Run Text=". MudSimpleTable, a table written out row by row, is the same control with the same classes: both MudBlazor components map here. Left to size itself, a table is as tall as its rows; given a Height, it scrolls inside it." />
+      <Run Text="The rows are the app's: an " /><Run Classes="code" Text="ItemsSource" /><Run Text=" and a " /><Run Classes="code" Text="CellTemplate" /><Run Text=" per " /><Run Classes="code" Text="TableViewColumn" /><Run Text=". MudSimpleTable, a table written out row by row, is the same control with the same classes: both MudBlazor components map here. Left to size itself, a table is as tall as its rows; given a Height, it scrolls inside it." />
     </TextBlock>
 
     <TextBlock Classes="h5 section" Text="Dense" />
@@ -42,13 +36,7 @@
                       Description="An elevation class replaces the default 1. outlined is a 1px lines-default border and no elevation, as MudPaper adds none when it is outlined. CornerRadius=&quot;0&quot; is Square."
                       Source="Table/Elevation" />
     <TextBlock Classes="body1 p">
-      <Run Text="The colours are tokens: " />
-      <Run Classes="code" Text="FiliTableLinesColor" />
-      <Run Text=", " />
-      <Run Classes="code" Text="FiliTableStripedColor" />
-      <Run Text=" and " />
-      <Run Classes="code" Text="FiliTableHoverColor" />
-      <Run Text=", MudBlazor's TableLines, TableStriped and TableHover. Sorting, grouping, editing and a checkbox column are the data grid's." />
+      <Run Text="The colours are tokens: " /><Run Classes="code" Text="FiliTableLinesColor" /><Run Text=", " /><Run Classes="code" Text="FiliTableStripedColor" /><Run Text=" and " /><Run Classes="code" Text="FiliTableHoverColor" /><Run Text=", MudBlazor's TableLines, TableStriped and TableHover. Sorting, grouping, editing and a checkbox column are the data grid's." />
     </TextBlock>
     <StackPanel Orientation="Horizontal" Spacing="8" Margin="0,0,0,16">
       <TextBlock Classes="body1" Text="See also:" VerticalAlignment="Center" />
@@ -57,11 +45,7 @@
 
     <TextBlock Classes="h5 section" Text="MudBlazor parity" />
     <TextBlock Classes="body1 p">
-      <Run Text="Every MudTable and MudSimpleTable parameter the theme draws, and what it is here. " />
-      <Run Classes="code" Text="Same" />
-      <Run Text=" is transcribed from MudBlazor's source; " />
-      <Run Classes="code" Text="Close" />
-      <Run Text=" gets the same result another way." />
+      <Run Text="Every MudTable and MudSimpleTable parameter the theme draws, and what it is here. " /><Run Classes="code" Text="Same" /><Run Text=" is transcribed from MudBlazor's source; " /><Run Classes="code" Text="Close" /><Run Text=" gets the same result another way." />
     </TextBlock>
     <docs:ParityTable>
       <docs:ParityRow MudBlazor="MudTable, MudSimpleTable" Here="TableView" Status="Same" Note="The data grid's .mud-table look: text-primary on surface, the default radius." />
