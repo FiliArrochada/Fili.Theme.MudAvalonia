@@ -1,9 +1,12 @@
 <UserControl xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:v="using:Fili.Theme.MudAvalonia.Gallery.Views">
-  <!-- Loading is the app's: a ProgressBar laid over the top of the grid while the rows load. -->
-  <Panel>
-    <DataGrid ItemsSource="{x:Static v:GalleryElement.FirstSix}">
+  <!-- Loading is `loading`: an indeterminate bar under the header, info unless a colour class
+       says otherwise (LoadingProgressColor). The switch toggles the class. -->
+  <StackPanel Spacing="8">
+    <ToggleSwitch x:Name="Loading" Content="Loading" IsChecked="True" />
+    <DataGrid Classes="primary" Classes.loading="{Binding #Loading.IsChecked}"
+              ItemsSource="{x:Static v:GalleryElement.FirstSix}">
       <DataGrid.Columns>
         <DataGridTextColumn Header="Nr" Binding="{Binding Number}" x:DataType="v:GalleryElement" />
         <DataGridTextColumn Header="Sign" Binding="{Binding Sign}" x:DataType="v:GalleryElement" />
@@ -12,6 +15,5 @@
         <DataGridTextColumn Header="Molar mass" Binding="{Binding Molar}" x:DataType="v:GalleryElement" />
       </DataGrid.Columns>
     </DataGrid>
-    <ProgressBar Classes="primary" IsIndeterminate="True" VerticalAlignment="Top" />
-  </Panel>
+  </StackPanel>
 </UserControl>

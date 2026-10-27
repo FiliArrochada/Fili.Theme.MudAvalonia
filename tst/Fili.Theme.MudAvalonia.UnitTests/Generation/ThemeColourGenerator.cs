@@ -40,6 +40,7 @@ public static class ThemeColourGenerator
     public const string BadgeLabel = "badge origins, colours and elevation.";
     public const string AvatarLabel = "avatar colours.";
     public const string DataGridLabel = "data grid elevation.";
+    public const string DataGridLoadingLabel = "data grid loading colours.";
     public const string PaperLabel = "paper elevation.";
     public const string TabBarLabel = "tab bar elevation.";
     public const string ExpanderLabel = "expander elevation.";
@@ -96,6 +97,7 @@ public static class ThemeColourGenerator
             (Controls("Fab.axaml"), FabLabel, FabRegion()),
             (Controls("Badge.axaml"), BadgeLabel, BadgeRegion()),
             (Path.Combine("Themes", "Optional", "DataGrid", "DataGrid.axaml"), DataGridLabel, DataGridRegion()),
+            (Path.Combine("Themes", "Optional", "DataGrid", "DataGrid.axaml"), DataGridLoadingLabel, DataGridLoadingRegion()),
             (FiliThemePath, PaperLabel, PaperRegion()),
             (Controls("TabControl.axaml"), TabBarLabel, ElevationRegion("PART_TabBarHost")),
             (Controls("TabStrip.axaml"), TabBarLabel, ElevationRegion("PART_TabBarHost")),
@@ -1342,6 +1344,11 @@ public static class ThemeColourGenerator
 
     // Optional/DataGrid/DataGrid.axaml: MudDataGrid's Elevation, on the Border its template draws the table with.
     private static string DataGridRegion() => ElevationRegion("DataGridBorder");
+
+    // DataGrid.axaml: MudDataGrid's LoadingProgressColor, a colour class on the grid painting its
+    // loading bar's track and bar as ProgressRegion does a bar's own.
+    private static string DataGridLoadingRegion() =>
+        string.Concat(Colours.Select(c => Style($"^.{c.ToLowerInvariant()} /template/ ProgressBar#PART_LoadingBar", ("Background", Res($"Fili{c}Brush")), ("Foreground", Res($"Fili{c}Brush")))));
 
     /// <summary>`.mud-elevation-{n}` inside a control theme, on the named Border of its template.</summary>
     private static string ElevationRegion(string part) =>

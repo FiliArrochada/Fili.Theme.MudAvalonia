@@ -61,8 +61,8 @@
     </TextBlock>
 
     <TextBlock Classes="h5 section" Text="Loading" />
-    <docs:ExampleCard Title="A progress bar over the grid"
-                      Description="MudDataGrid's Loading and LoadingProgressColor: here a ProgressBar the app lays over the top of the grid while it loads."
+    <docs:ExampleCard Title="Loading"
+                      Description="MudDataGrid's Loading is loading: an indeterminate 4px bar in its own row under the header. LoadingProgressColor is a colour class on the grid; with none the bar is info, MudBlazor's default."
                       Source="DataGrid/Loading" />
 
     <TextBlock Classes="h5 section" Text="Columns" />
@@ -100,7 +100,7 @@
       <docs:ParityRow MudBlazor="MultiSelection" Here="SelectionMode=&quot;Extended&quot;" Status="Close" Note="No checkbox column of its own." />
       <docs:ParityRow MudBlazor="a checkbox in a cell (SelectColumn, a template column's MudCheckBox)" Here="a CheckBox in a cell template" Status="Same" Note="As .mud-table-cell .mud-checkbox: the 32 / 28 / 44px circle of a dense checkbox, pulled in 4px, so a row with one is 57px rather than 81; a DataGridCheckBoxColumn's box in action-default in every row, as a read-only MudCheckBox is, though the column disables all but the current row's." />
       <docs:ParityRow MudBlazor="FixedFooter, footers" Here="—" Status="Missing" Note="Avalonia's DataGrid has no footer row." />
-      <docs:ParityRow MudBlazor="Loading, LoadingProgressColor" Here="a ProgressBar over the grid" Status="Close" Note="The app lays it over the grid." />
+      <docs:ParityRow MudBlazor="Loading, LoadingProgressColor" Here="loading, a colour class" Status="Same" Note="Info with no colour class, as LoadingProgressColor defaults to Color.Info." />
       <docs:ParityRow MudBlazor="Breakpoint (the stacked mobile layout)" Here="—" Status="Missing" Note="Re-laying rows as cards is a layout the DataGrid does not have, not a look." />
     </docs:ParityTable>
   </StackPanel>

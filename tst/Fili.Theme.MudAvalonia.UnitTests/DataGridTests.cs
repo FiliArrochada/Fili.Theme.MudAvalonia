@@ -459,4 +459,41 @@ public class DataGridTests
             Assert.Equal(Matrix.Token("FiliActionDefaultColor"), Matrix.Colour(glyph.Fill));
         }
     });
+
+    /// <summary>
+    /// Loading: MudDataGrid's `.mud-table-loading` row between the header and the rows, an
+    /// indeterminate MudProgressLinear at its 4px default in LoadingProgressColor, Color.Info.
+    /// </summary>
+    [Fact]
+    public Task LoadingIsAnInfoBarUnderTheHeader() => UiThread.RunAsync(() =>
+    {
+        var idle = Matrix.Part<ProgressBar>(Show(), "PART_LoadingBar");
+        Assert.False(idle.IsEffectivelyVisible);
+        Assert.False(idle.IsIndeterminate);
+
+        var grid = Show(null, "loading");
+        var bar = Matrix.Part<ProgressBar>(grid, "PART_LoadingBar");
+        Assert.True(bar.IsEffectivelyVisible);
+        Assert.True(bar.IsIndeterminate);
+        Assert.Equal(4, bar.Bounds.Height);
+        Assert.Equal(grid.Bounds.Width, bar.Bounds.Width);
+        Assert.Equal(Matrix.Token("FiliInfoColor"), Matrix.Colour(bar.Foreground));
+
+        var header = Header(grid, "Name");
+        var top = bar.TranslatePoint(default, grid)!.Value.Y;
+        Assert.Equal(header.TranslatePoint(default, grid)!.Value.Y + header.Bounds.Height, top);
+        Assert.Equal(top + 4, Rows(grid)[0].TranslatePoint(default, grid)!.Value.Y);
+    });
+
+    /// <summary>LoadingProgressColor: a colour class on the grid, track and bar.</summary>
+    [Theory]
+    [InlineData("primary", "FiliPrimaryColor")]
+    [InlineData("error", "FiliErrorColor")]
+    public Task LoadingProgressColorIsAColourClass(string colour, string token) => UiThread.RunAsync(() =>
+    {
+        var bar = Matrix.Part<ProgressBar>(Show(null, "loading", colour), "PART_LoadingBar");
+
+        Assert.Equal(Matrix.Token(token), Matrix.Colour(bar.Foreground));
+        Assert.Equal(Matrix.Token(token), Matrix.Colour(bar.Background));
+    });
 }
