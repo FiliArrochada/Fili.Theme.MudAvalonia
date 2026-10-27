@@ -78,6 +78,28 @@ public class ToggleItemTests
         Assert.Equal(Colors.Transparent, Fill(Layer(on)));
     });
 
+    /// <summary>
+    /// <c>default</c> is Color.Default: unselected, MudButton's outlined with no colour, text-primary
+    /// tinted action-default-hover; selected, its filled grey, action-default-hover under
+    /// text-primary and action-disabled-background under the pointer; outlined, a text-primary line.
+    /// </summary>
+    [Fact]
+    public Task DefaultIsMudButtonsGrey() => UiThread.RunAsync(() =>
+    {
+        var off = Show(false, "default");
+        Assert.Equal(Matrix.Token("FiliTextPrimaryColor"), Matrix.Colour(off.Foreground));
+        Matrix.Hover(off);
+        Assert.Equal(Matrix.Token("FiliActionDefaultHoverColor"), Fill(Layer(off)));
+
+        var on = Show(true, "default");
+        Assert.Equal(Matrix.Token("FiliActionDefaultHoverColor"), Fill(Root(on)));
+        Assert.Equal(Matrix.Token("FiliTextPrimaryColor"), Matrix.Colour(on.Foreground));
+        Matrix.Hover(on);
+        Assert.Equal(Matrix.Token("FiliActionDisabledBackgroundColor"), Fill(Root(on)));
+
+        Assert.Equal(Matrix.Token("FiliTextPrimaryColor"), Matrix.Colour(Show(false, "outlined", "default").BorderBrush));
+    });
+
     /// <summary>The group's line is the colour, selected or not; MudBlazor's border-opacity is 1.</summary>
     [Fact]
     public Task OutlinedIsALineInTheColourWithinThePadding() => UiThread.RunAsync(() =>

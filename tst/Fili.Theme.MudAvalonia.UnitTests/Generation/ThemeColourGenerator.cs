@@ -947,6 +947,11 @@ public static class ThemeColourGenerator
             o.Append(ChipStates($".{cls}", "PART_StateLayer", ("Background", Res($"Fili{c}HoverBrush"))));
         }
 
+        o.Append("    <!-- Color.Default, `default`: `.mud-button-outlined` with no colour, text-primary tinted\n");
+        o.Append("         action-default-hover, since a toggle with no class is the group's default, primary. -->\n");
+        o.Append(Style("^.default", ("Foreground", Res("FiliTextPrimaryBrush"))));
+        o.Append(ChipStates(".default", "PART_StateLayer", ("Background", Res("FiliActionDefaultHoverBrush"))));
+
         o.Append("\n    <!-- Selected, Variant.Filled: the colour with its contrast text, `{color}-darken` under the\n");
         o.Append("         pointer, and no shadow (`.mud-toggle-group > .mud-toggle-item { box-shadow: none }`). -->\n");
         o.Append(Style("^:checked", ("Background", Res("FiliPrimaryBrush")), ("Foreground", Res("FiliPrimaryContrastTextBrush"))));
@@ -958,6 +963,11 @@ public static class ThemeColourGenerator
             o.Append(ChipStates($".{cls}:checked", "PART_Root", ("Background", Res($"Fili{c}DarkenBrush"))));
         }
 
+        o.Append("    <!-- `default` selected: `.mud-button-filled` with no colour, text-primary on\n");
+        o.Append("         action-default-hover, action-disabled-background under the pointer. -->\n");
+        o.Append(Style("^.default:checked", ("Background", Res("FiliActionDefaultHoverBrush")), ("Foreground", Res("FiliTextPrimaryBrush"))));
+        o.Append(ChipStates(".default:checked", "PART_Root", ("Background", Res("FiliActionDisabledBackgroundBrush"))));
+
         o.Append(ChipStates(":checked", "PART_StateLayer", ("Background", "Transparent")));
 
         o.Append("\n    <!-- `.mud-toggle-group-outlined`: a 1px line in the colour (`border-opacity` is 1), absorbed\n");
@@ -967,6 +977,8 @@ public static class ThemeColourGenerator
         {
             o.Append(Style($"^.outlined.{c.ToLowerInvariant()}", ("BorderBrush", Res($"Fili{c}Brush"))));
         }
+
+        o.Append(Style("^.outlined.default", ("BorderBrush", Res("FiliTextPrimaryBrush"))));
 
         o.Append("\n    <!-- `.mud-toggle-item-size-*`: 4px / 8px, at the button's 13px / 15px. -->\n");
         o.Append(Sizes("4", "8"));
@@ -1453,7 +1465,8 @@ public static class ThemeColourGenerator
     // ---------------------------------------------------------------------------------------
     // FiliTheme.axaml region: MudTabs' Color, from _tabs.scss's .mud-tabs-tabbar-{color}: the bar
     // in the colour, every tab and the indicator in its contrast text, a disabled tab still
-    // text-disabled, and {color}-lighten on the active tab's hover. A tab's theme cannot see its
+    // text-disabled, {color}-lighten on the active tab's hover, and the scroll arrows in the
+    // contrast text, ScrollIconColor's default Inherit. A tab's theme cannot see its
     // parent's class, so these are child selectors here rather than nested styles in the theme.
     // ---------------------------------------------------------------------------------------
 
@@ -1475,6 +1488,13 @@ public static class ThemeColourGenerator
                 o.Append(TopStyle($"{tab}:selected /template/ Border#PART_Indicator", ("Background", Res($"Fili{c}ContrastTextBrush"))));
                 o.Append(TopStyle($"{tab}:selected:pointerover /template/ Border#PART_StateLayer", ("Background", Res($"Fili{c}LightenBrush"))));
                 o.Append(TopStyle($"{tab}:selected:focus-visible /template/ Border#PART_StateLayer", ("Background", Res($"Fili{c}LightenBrush"))));
+
+                // ScrollIconColor's default, Color.Inherit: the arrows in the bar's contrast text,
+                // while enabled, so a disabled one stays action-disabled.
+                foreach (var part in new[] { "PART_ScrollPrev", "PART_ScrollNext" })
+                {
+                    o.Append(TopStyle($"{parent}.{cls} /template/ Button#{part}:not(:disabled)", ("Foreground", Res($"Fili{c}ContrastTextBrush"))));
+                }
             }
         }
 

@@ -24,7 +24,7 @@
 
     <TextBlock Classes="h5 section" Text="Colours" />
     <docs:ExampleCard Title="Every palette colour"
-                      Description="A colour class is the group's Color, on each item. There is no Color.Default: a toggle's default is primary."
+                      Description="A colour class is the group's Color, on each item. A toggle with no class is primary, the group's default; default is Color.Default, MudButton's grey: text-primary, and filled with action-default-hover once selected."
                       Source="ToggleGroup/Colors" />
 
     <TextBlock Classes="h5 section" Text="Sizes" />
@@ -61,7 +61,7 @@
       <docs:ParityRow MudBlazor="Color (default Primary)" Here="no class, or primary … dark" Status="Same" Note="On each item." />
       <docs:ParityRow MudBlazor="Outlined (default true)" Here="outlined" Status="Close" Note="Opt-in: the group's 1px line in the colour is a class on each item." />
       <docs:ParityRow MudBlazor="Size.Small / Large" Here="small / large" Status="Same" Note="4px / 8px at 13 / 15px; 3px / 7px when outlined." />
-      <docs:ParityRow MudBlazor="Color.Default" Here="—" Status="Missing" Note="No class names it: a toggle's default is primary." />
+      <docs:ParityRow MudBlazor="Color.Default" Here="default" Status="Same" Note="The one control with a default class, since no class is primary." />
       <docs:ParityRow MudBlazor="Vertical" Here="a vertical StackPanel of toggles" Status="Close" />
       <docs:ParityRow MudBlazor="Delimiters (default true), the group's shape" Here="button-group on the StackPanel" Status="Same" Note="Outlined items share one line between them, and the radius sits on the group's outer corners only." />
       <docs:ParityRow MudBlazor="Delimiters, outside a button-group" Here="outlined items in a plain StackPanel" Status="Close" Note="Each outlined item draws its own line, so two side by side meet in a 2px one; button-group, or Spacing=&quot;-1&quot;, shares it." />

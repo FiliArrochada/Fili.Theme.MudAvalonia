@@ -12,6 +12,7 @@
                     table-lines, none under the last row
     dense           6px 24px 6px 16px a cell, the header too (FiliTheme.axaml)
     striped, hover  table-striped on odd rows, table-hover under the pointer (FiliTheme.axaml)
+    bordered        1px of table-lines between a row's cells, none in the header (FiliTheme.axaml)
     selected        primary-hover: this theme's addition, as on the DataGrid; MudTable draws none
 
   A row's classes cannot be seen by its table's theme, so the row states that answer a class on

@@ -57,8 +57,9 @@ public class ClassVocabularyTests
         "elevation18", "elevation19", "elevation20", "elevation21", "elevation22", "elevation23",
         "elevation24", "elevation25",
 
-        // Colour, from MudBlazor's Color enum.
-        "dark", "error", "info", "inherit", "primary", "secondary", "success", "tertiary",
+        // Colour, from MudBlazor's Color enum. Default only on a toggle, whose no-class colour is
+        // its group's default, Primary; everywhere else no class is Color.Default.
+        "dark", "default", "error", "info", "inherit", "primary", "secondary", "success", "tertiary",
         "warning",
 
         // Shape, from MudBlazor's Variant enum and the per-control parameters.
@@ -99,7 +100,7 @@ public class ClassVocabularyTests
         "card-actions", "card-content", "card-header", "card-header-actions",
         "card-header-avatar", "card-header-content", "card-media",
 
-        // MudFab's Label, and MudBadge's Dot, Bordered, Overlap and Origin.
+        // MudFab's Label, MudBadge's Dot, Bordered, Overlap and Origin, and MudTable's Bordered.
         "bordered", "dot", "extended", "overlap",
         "bottom-center", "bottom-left", "bottom-right", "center-center", "center-left",
         "center-right", "top-center", "top-left",
@@ -109,9 +110,9 @@ public class ClassVocabularyTests
         // Hover, Gutters="false", HideIcon, MudSnackbar's ShowCloseIcon="false", MudTextField's
         // Placeholder in place of its Label,
         // MudExpansionPanels' Outlined="false" and MudTabs' SliderAnimation="false", which is
-        // no-animation too; MudCarousel's ShowArrows="false" and ShowBullets="false"; and
-        // MudTimePicker's Editable.
-        "editable", "helper-on-focus", "hide-close", "hide-icon", "hover", "no-animation", "no-arrows",
+        // no-animation too, and its AlwaysShowScrollButtons; MudCarousel's ShowArrows="false" and
+        // ShowBullets="false"; and MudTimePicker's Editable.
+        "always-show-scroll-buttons", "editable", "helper-on-focus", "hide-close", "hide-icon", "hover", "no-animation", "no-arrows",
         "no-bullets", "no-gutters", "no-outline", "placeholder", "required", "shrink-label", "wave",
 
         // MudSlider's ValueLabel, MudTooltip's Arrow, MudSelect's Dense on its options,

@@ -91,6 +91,24 @@ public class TableViewTests
         Assert.Equal(new Thickness(16, 6, 16, 6), cells[^1].Padding);
     });
 
+    /// <summary>
+    /// `.mud-table-bordered`: 1px of table-lines on the right of every body cell but the last; the
+    /// header is not ruled, as MudTable rules it only for a `table-head-bordered` HeaderClass.
+    /// </summary>
+    [Fact]
+    public Task BorderedRulesBetweenColumns() => UiThread.RunAsync(() =>
+    {
+        var table = Show("bordered");
+        var cells = Rows(table)[0].GetVisualDescendants().OfType<TableViewCell>().ToList();
+        var header = table.GetVisualDescendants().OfType<TableViewColumnHeader>().First();
+
+        Assert.Equal(new Thickness(0, 0, 1, 0), cells[0].BorderThickness);
+        Assert.Equal(Matrix.Token("FiliTableLinesColor"), Matrix.Colour(cells[0].BorderBrush));
+        Assert.Equal(new Thickness(0), cells[^1].BorderThickness);
+        Assert.Equal(new Thickness(0), header.BorderThickness);
+        Assert.Equal(new Thickness(0), Rows(Show())[0].GetVisualDescendants().OfType<TableViewCell>().First().BorderThickness);
+    });
+
     /// <summary>Striped: table-striped on odd rows; a selected row is primary-hover.</summary>
     [Fact]
     public Task StripesAndSelection() => UiThread.RunAsync(() =>

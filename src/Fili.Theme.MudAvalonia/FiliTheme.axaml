@@ -1365,6 +1365,12 @@
   <Style Selector="TabControl.primary > TabItem:selected:focus-visible /template/ theme|PartBorder#PART_StateLayer">
     <Setter Property="Background" Value="{DynamicResource FiliPrimaryLightenBrush}" />
   </Style>
+  <Style Selector="TabControl.primary /template/ Button#PART_ScrollPrev:not(:disabled)">
+    <Setter Property="Foreground" Value="{DynamicResource FiliPrimaryContrastTextBrush}" />
+  </Style>
+  <Style Selector="TabControl.primary /template/ Button#PART_ScrollNext:not(:disabled)">
+    <Setter Property="Foreground" Value="{DynamicResource FiliPrimaryContrastTextBrush}" />
+  </Style>
   <Style Selector="TabStrip.primary > TabStripItem">
     <Setter Property="Foreground" Value="{DynamicResource FiliPrimaryContrastTextBrush}" />
   </Style>
@@ -1382,6 +1388,12 @@
   </Style>
   <Style Selector="TabStrip.primary > TabStripItem:selected:focus-visible /template/ theme|PartBorder#PART_StateLayer">
     <Setter Property="Background" Value="{DynamicResource FiliPrimaryLightenBrush}" />
+  </Style>
+  <Style Selector="TabStrip.primary /template/ Button#PART_ScrollPrev:not(:disabled)">
+    <Setter Property="Foreground" Value="{DynamicResource FiliPrimaryContrastTextBrush}" />
+  </Style>
+  <Style Selector="TabStrip.primary /template/ Button#PART_ScrollNext:not(:disabled)">
+    <Setter Property="Foreground" Value="{DynamicResource FiliPrimaryContrastTextBrush}" />
   </Style>
   <Style Selector="TabControl.secondary /template/ theme|PartBorder#PART_TabBar">
     <Setter Property="Background" Value="{DynamicResource FiliSecondaryBrush}" />
@@ -1407,6 +1419,12 @@
   <Style Selector="TabControl.secondary > TabItem:selected:focus-visible /template/ theme|PartBorder#PART_StateLayer">
     <Setter Property="Background" Value="{DynamicResource FiliSecondaryLightenBrush}" />
   </Style>
+  <Style Selector="TabControl.secondary /template/ Button#PART_ScrollPrev:not(:disabled)">
+    <Setter Property="Foreground" Value="{DynamicResource FiliSecondaryContrastTextBrush}" />
+  </Style>
+  <Style Selector="TabControl.secondary /template/ Button#PART_ScrollNext:not(:disabled)">
+    <Setter Property="Foreground" Value="{DynamicResource FiliSecondaryContrastTextBrush}" />
+  </Style>
   <Style Selector="TabStrip.secondary > TabStripItem">
     <Setter Property="Foreground" Value="{DynamicResource FiliSecondaryContrastTextBrush}" />
   </Style>
@@ -1424,6 +1442,12 @@
   </Style>
   <Style Selector="TabStrip.secondary > TabStripItem:selected:focus-visible /template/ theme|PartBorder#PART_StateLayer">
     <Setter Property="Background" Value="{DynamicResource FiliSecondaryLightenBrush}" />
+  </Style>
+  <Style Selector="TabStrip.secondary /template/ Button#PART_ScrollPrev:not(:disabled)">
+    <Setter Property="Foreground" Value="{DynamicResource FiliSecondaryContrastTextBrush}" />
+  </Style>
+  <Style Selector="TabStrip.secondary /template/ Button#PART_ScrollNext:not(:disabled)">
+    <Setter Property="Foreground" Value="{DynamicResource FiliSecondaryContrastTextBrush}" />
   </Style>
   <Style Selector="TabControl.tertiary /template/ theme|PartBorder#PART_TabBar">
     <Setter Property="Background" Value="{DynamicResource FiliTertiaryBrush}" />
@@ -1449,6 +1473,12 @@
   <Style Selector="TabControl.tertiary > TabItem:selected:focus-visible /template/ theme|PartBorder#PART_StateLayer">
     <Setter Property="Background" Value="{DynamicResource FiliTertiaryLightenBrush}" />
   </Style>
+  <Style Selector="TabControl.tertiary /template/ Button#PART_ScrollPrev:not(:disabled)">
+    <Setter Property="Foreground" Value="{DynamicResource FiliTertiaryContrastTextBrush}" />
+  </Style>
+  <Style Selector="TabControl.tertiary /template/ Button#PART_ScrollNext:not(:disabled)">
+    <Setter Property="Foreground" Value="{DynamicResource FiliTertiaryContrastTextBrush}" />
+  </Style>
   <Style Selector="TabStrip.tertiary > TabStripItem">
     <Setter Property="Foreground" Value="{DynamicResource FiliTertiaryContrastTextBrush}" />
   </Style>
@@ -1466,6 +1496,12 @@
   </Style>
   <Style Selector="TabStrip.tertiary > TabStripItem:selected:focus-visible /template/ theme|PartBorder#PART_StateLayer">
     <Setter Property="Background" Value="{DynamicResource FiliTertiaryLightenBrush}" />
+  </Style>
+  <Style Selector="TabStrip.tertiary /template/ Button#PART_ScrollPrev:not(:disabled)">
+    <Setter Property="Foreground" Value="{DynamicResource FiliTertiaryContrastTextBrush}" />
+  </Style>
+  <Style Selector="TabStrip.tertiary /template/ Button#PART_ScrollNext:not(:disabled)">
+    <Setter Property="Foreground" Value="{DynamicResource FiliTertiaryContrastTextBrush}" />
   </Style>
   <Style Selector="TabControl.info /template/ theme|PartBorder#PART_TabBar">
     <Setter Property="Background" Value="{DynamicResource FiliInfoBrush}" />
@@ -1491,6 +1527,12 @@
   <Style Selector="TabControl.info > TabItem:selected:focus-visible /template/ theme|PartBorder#PART_StateLayer">
     <Setter Property="Background" Value="{DynamicResource FiliInfoLightenBrush}" />
   </Style>
+  <Style Selector="TabControl.info /template/ Button#PART_ScrollPrev:not(:disabled)">
+    <Setter Property="Foreground" Value="{DynamicResource FiliInfoContrastTextBrush}" />
+  </Style>
+  <Style Selector="TabControl.info /template/ Button#PART_ScrollNext:not(:disabled)">
+    <Setter Property="Foreground" Value="{DynamicResource FiliInfoContrastTextBrush}" />
+  </Style>
   <Style Selector="TabStrip.info > TabStripItem">
     <Setter Property="Foreground" Value="{DynamicResource FiliInfoContrastTextBrush}" />
   </Style>
@@ -1508,6 +1550,12 @@
   </Style>
   <Style Selector="TabStrip.info > TabStripItem:selected:focus-visible /template/ theme|PartBorder#PART_StateLayer">
     <Setter Property="Background" Value="{DynamicResource FiliInfoLightenBrush}" />
+  </Style>
+  <Style Selector="TabStrip.info /template/ Button#PART_ScrollPrev:not(:disabled)">
+    <Setter Property="Foreground" Value="{DynamicResource FiliInfoContrastTextBrush}" />
+  </Style>
+  <Style Selector="TabStrip.info /template/ Button#PART_ScrollNext:not(:disabled)">
+    <Setter Property="Foreground" Value="{DynamicResource FiliInfoContrastTextBrush}" />
   </Style>
   <Style Selector="TabControl.success /template/ theme|PartBorder#PART_TabBar">
     <Setter Property="Background" Value="{DynamicResource FiliSuccessBrush}" />
@@ -1533,6 +1581,12 @@
   <Style Selector="TabControl.success > TabItem:selected:focus-visible /template/ theme|PartBorder#PART_StateLayer">
     <Setter Property="Background" Value="{DynamicResource FiliSuccessLightenBrush}" />
   </Style>
+  <Style Selector="TabControl.success /template/ Button#PART_ScrollPrev:not(:disabled)">
+    <Setter Property="Foreground" Value="{DynamicResource FiliSuccessContrastTextBrush}" />
+  </Style>
+  <Style Selector="TabControl.success /template/ Button#PART_ScrollNext:not(:disabled)">
+    <Setter Property="Foreground" Value="{DynamicResource FiliSuccessContrastTextBrush}" />
+  </Style>
   <Style Selector="TabStrip.success > TabStripItem">
     <Setter Property="Foreground" Value="{DynamicResource FiliSuccessContrastTextBrush}" />
   </Style>
@@ -1550,6 +1604,12 @@
   </Style>
   <Style Selector="TabStrip.success > TabStripItem:selected:focus-visible /template/ theme|PartBorder#PART_StateLayer">
     <Setter Property="Background" Value="{DynamicResource FiliSuccessLightenBrush}" />
+  </Style>
+  <Style Selector="TabStrip.success /template/ Button#PART_ScrollPrev:not(:disabled)">
+    <Setter Property="Foreground" Value="{DynamicResource FiliSuccessContrastTextBrush}" />
+  </Style>
+  <Style Selector="TabStrip.success /template/ Button#PART_ScrollNext:not(:disabled)">
+    <Setter Property="Foreground" Value="{DynamicResource FiliSuccessContrastTextBrush}" />
   </Style>
   <Style Selector="TabControl.warning /template/ theme|PartBorder#PART_TabBar">
     <Setter Property="Background" Value="{DynamicResource FiliWarningBrush}" />
@@ -1575,6 +1635,12 @@
   <Style Selector="TabControl.warning > TabItem:selected:focus-visible /template/ theme|PartBorder#PART_StateLayer">
     <Setter Property="Background" Value="{DynamicResource FiliWarningLightenBrush}" />
   </Style>
+  <Style Selector="TabControl.warning /template/ Button#PART_ScrollPrev:not(:disabled)">
+    <Setter Property="Foreground" Value="{DynamicResource FiliWarningContrastTextBrush}" />
+  </Style>
+  <Style Selector="TabControl.warning /template/ Button#PART_ScrollNext:not(:disabled)">
+    <Setter Property="Foreground" Value="{DynamicResource FiliWarningContrastTextBrush}" />
+  </Style>
   <Style Selector="TabStrip.warning > TabStripItem">
     <Setter Property="Foreground" Value="{DynamicResource FiliWarningContrastTextBrush}" />
   </Style>
@@ -1592,6 +1658,12 @@
   </Style>
   <Style Selector="TabStrip.warning > TabStripItem:selected:focus-visible /template/ theme|PartBorder#PART_StateLayer">
     <Setter Property="Background" Value="{DynamicResource FiliWarningLightenBrush}" />
+  </Style>
+  <Style Selector="TabStrip.warning /template/ Button#PART_ScrollPrev:not(:disabled)">
+    <Setter Property="Foreground" Value="{DynamicResource FiliWarningContrastTextBrush}" />
+  </Style>
+  <Style Selector="TabStrip.warning /template/ Button#PART_ScrollNext:not(:disabled)">
+    <Setter Property="Foreground" Value="{DynamicResource FiliWarningContrastTextBrush}" />
   </Style>
   <Style Selector="TabControl.error /template/ theme|PartBorder#PART_TabBar">
     <Setter Property="Background" Value="{DynamicResource FiliErrorBrush}" />
@@ -1617,6 +1689,12 @@
   <Style Selector="TabControl.error > TabItem:selected:focus-visible /template/ theme|PartBorder#PART_StateLayer">
     <Setter Property="Background" Value="{DynamicResource FiliErrorLightenBrush}" />
   </Style>
+  <Style Selector="TabControl.error /template/ Button#PART_ScrollPrev:not(:disabled)">
+    <Setter Property="Foreground" Value="{DynamicResource FiliErrorContrastTextBrush}" />
+  </Style>
+  <Style Selector="TabControl.error /template/ Button#PART_ScrollNext:not(:disabled)">
+    <Setter Property="Foreground" Value="{DynamicResource FiliErrorContrastTextBrush}" />
+  </Style>
   <Style Selector="TabStrip.error > TabStripItem">
     <Setter Property="Foreground" Value="{DynamicResource FiliErrorContrastTextBrush}" />
   </Style>
@@ -1634,6 +1712,12 @@
   </Style>
   <Style Selector="TabStrip.error > TabStripItem:selected:focus-visible /template/ theme|PartBorder#PART_StateLayer">
     <Setter Property="Background" Value="{DynamicResource FiliErrorLightenBrush}" />
+  </Style>
+  <Style Selector="TabStrip.error /template/ Button#PART_ScrollPrev:not(:disabled)">
+    <Setter Property="Foreground" Value="{DynamicResource FiliErrorContrastTextBrush}" />
+  </Style>
+  <Style Selector="TabStrip.error /template/ Button#PART_ScrollNext:not(:disabled)">
+    <Setter Property="Foreground" Value="{DynamicResource FiliErrorContrastTextBrush}" />
   </Style>
   <Style Selector="TabControl.dark /template/ theme|PartBorder#PART_TabBar">
     <Setter Property="Background" Value="{DynamicResource FiliDarkBrush}" />
@@ -1659,6 +1743,12 @@
   <Style Selector="TabControl.dark > TabItem:selected:focus-visible /template/ theme|PartBorder#PART_StateLayer">
     <Setter Property="Background" Value="{DynamicResource FiliDarkLightenBrush}" />
   </Style>
+  <Style Selector="TabControl.dark /template/ Button#PART_ScrollPrev:not(:disabled)">
+    <Setter Property="Foreground" Value="{DynamicResource FiliDarkContrastTextBrush}" />
+  </Style>
+  <Style Selector="TabControl.dark /template/ Button#PART_ScrollNext:not(:disabled)">
+    <Setter Property="Foreground" Value="{DynamicResource FiliDarkContrastTextBrush}" />
+  </Style>
   <Style Selector="TabStrip.dark > TabStripItem">
     <Setter Property="Foreground" Value="{DynamicResource FiliDarkContrastTextBrush}" />
   </Style>
@@ -1676,6 +1766,12 @@
   </Style>
   <Style Selector="TabStrip.dark > TabStripItem:selected:focus-visible /template/ theme|PartBorder#PART_StateLayer">
     <Setter Property="Background" Value="{DynamicResource FiliDarkLightenBrush}" />
+  </Style>
+  <Style Selector="TabStrip.dark /template/ Button#PART_ScrollPrev:not(:disabled)">
+    <Setter Property="Foreground" Value="{DynamicResource FiliDarkContrastTextBrush}" />
+  </Style>
+  <Style Selector="TabStrip.dark /template/ Button#PART_ScrollNext:not(:disabled)">
+    <Setter Property="Foreground" Value="{DynamicResource FiliDarkContrastTextBrush}" />
   </Style>
   <Style Selector="TabControl.indicator-primary > TabItem /template/ theme|PartBorder#PART_Indicator">
     <Setter Property="Background" Value="{DynamicResource FiliPrimaryBrush}" />
@@ -2796,7 +2892,9 @@
     MudTable's row states on a TableView, from _table.scss: here because a row's theme cannot see
     its table's classes. A stripe on odd rows, then `hover` over it as `.mud-table-hover` is, then
     the selection that Themes/Controls/TableView.axaml puts on the row itself; `dense` is
-    6px 24px 6px 16px a cell and the header, 16px on the right of the last.
+    6px 24px 6px 16px a cell and the header, 16px on the right of the last. `bordered` is
+    `.mud-table-bordered`: 1px of table-lines on the right of every body cell but the last, and
+    none in the header, which MudTable rules only for a `table-head-bordered` HeaderClass.
   -->
   <Style Selector="TableView.striped TableViewRow:nth-child(odd)">
     <Setter Property="Background" Value="{DynamicResource FiliTableStripedBrush}" />
@@ -2812,6 +2910,13 @@
   </Style>
   <Style Selector="TableView.dense TableViewCell:nth-last-child(1), TableView.dense TableViewColumnHeader:nth-last-child(1)">
     <Setter Property="Padding" Value="16,6,16,6" />
+  </Style>
+  <Style Selector="TableView.bordered TableViewCell">
+    <Setter Property="BorderBrush" Value="{DynamicResource FiliTableLinesBrush}" />
+    <Setter Property="BorderThickness" Value="0,0,1,0" />
+  </Style>
+  <Style Selector="TableView.bordered TableViewCell:nth-last-child(1)">
+    <Setter Property="BorderThickness" Value="0" />
   </Style>
 
   <!--

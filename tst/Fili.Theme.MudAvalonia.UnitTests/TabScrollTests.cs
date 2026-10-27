@@ -263,7 +263,10 @@ public class TabScrollTests
         Assert.True(Scroller(strip).Offset.X > 0, "The bar scrolled to the selected tab.");
     });
 
-    /// <summary>A scroll button at its end is disabled, and its arrow is action-disabled with it.</summary>
+    /// <summary>
+    /// A scroll button at its end is disabled, and its arrow is action-disabled with it; the other
+    /// is ScrollIconColor's default, Color.Inherit: the bar's text, text-primary.
+    /// </summary>
     [Fact]
     public Task ADisabledScrollButtonsArrowIsGrey() => UiThread.RunAsync(() =>
     {
@@ -272,7 +275,56 @@ public class TabScrollTests
 
         Assert.False(Prev(tabs).IsEnabled);
         Assert.Equal(Matrix.Token("FiliActionDisabledColor"), Matrix.Colour(arrow.Fill));
-        Assert.Equal(Matrix.Token("FiliActionDefaultColor"), Matrix.Colour(Matrix.Part<Avalonia.Controls.Shapes.Path>(tabs, "PART_NextIcon").Fill));
+        Assert.Equal(Matrix.Token("FiliTextPrimaryColor"), Matrix.Colour(Matrix.Part<Avalonia.Controls.Shapes.Path>(tabs, "PART_NextIcon").Fill));
+    });
+
+    /// <summary>On a coloured bar the arrows inherit its contrast text, and a disabled one is still grey.</summary>
+    [Theory]
+    [MemberData(nameof(Matrix.Colours), MemberType = typeof(Matrix))]
+    public Task AColouredBarsArrowsAreItsText(string colour) => UiThread.RunAsync(() =>
+    {
+        var tabs = Tabs(8, 500);
+        tabs.Classes.Add(colour.ToLowerInvariant());
+        var strip = new TabStrip { Width = 400, Classes = { colour.ToLowerInvariant() } };
+        for (var i = 0; i < 8; i++)
+        {
+            strip.Items.Add(new TabStripItem { Content = $"Tab {i}" });
+        }
+
+        Matrix.Show(strip);
+        Dispatcher.UIThread.RunJobs();
+
+        foreach (var bar in new Control[] { tabs, strip })
+        {
+            Assert.Equal(Matrix.Token($"Fili{colour}ContrastTextColor"), Matrix.Colour(Next(bar).Foreground));
+            Assert.Equal(Matrix.Token("FiliActionDisabledColor"), Matrix.Colour(Prev(bar).Foreground));
+        }
+    });
+
+    /// <summary>
+    /// <c>always-show-scroll-buttons</c> is AlwaysShowScrollButtons: tabs that fit keep both
+    /// buttons, disabled, as MudTabs' are; taking the class away hides them again.
+    /// </summary>
+    [Fact]
+    public Task AlwaysShownButtonsStayWhileTheTabsFit() => UiThread.RunAsync(() =>
+    {
+        var tabs = Tabs(2, 500);
+        tabs.Classes.Add("always-show-scroll-buttons");
+        var strip = new TabStrip { Width = 600, Classes = { "always-show-scroll-buttons" }, ItemsSource = new[] { "One", "Two" } };
+        Matrix.Show(strip);
+        Dispatcher.UIThread.RunJobs();
+
+        foreach (var bar in new Control[] { tabs, strip })
+        {
+            Assert.True(Prev(bar).IsVisible);
+            Assert.True(Next(bar).IsVisible);
+            Assert.False(Prev(bar).IsEnabled);
+            Assert.False(Next(bar).IsEnabled);
+        }
+
+        tabs.Classes.Remove("always-show-scroll-buttons");
+        Dispatcher.UIThread.RunJobs();
+        Assert.False(Next(tabs).IsVisible);
     });
 
     /// <summary>An elevation class's shadow falls past the bar: neither tab control clips it.</summary>

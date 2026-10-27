@@ -12,7 +12,8 @@
     label text-primary, going to primary when selected
     a 2px indicator in primary under the selected item, on a surface bar, sliding between items
     (SlidingIndicator, as in TabControl.axaml)
-    the same classes: a colour, border, outlined, rounded, centered, material-fixed-tabs, elevation*, indicator-{colour}
+    the same classes: a colour, border, outlined, rounded, centered, material-fixed-tabs, elevation*, indicator-{colour},
+    always-show-scroll-buttons, and the arrows in the bar's text
     (a strip has no TabStripPlacement; place it with ordinary layout)
 
   If either file changes, change both. The gallery shows them side by side for that reason.
@@ -120,10 +121,19 @@
     <!-- The selected tab is scrolled into view in the bar only (TabBarScroll.cs): the control's
          own BringIntoView scrolled every scroller round it, the page included. -->
     <Setter Property="AutoScrollToSelectedItem" Value="False" />
-    <!-- A scroll button at its end is disabled, and its arrow action-disabled with it, as a
-         disabled MudIconButton's is: the arrow follows the button's Foreground. -->
+    <!-- The arrows are ScrollIconColor's default, Color.Inherit: the bar's text, text-primary,
+         or a colour class's contrast text (FiliTheme.axaml). A scroll button at its end is
+         disabled, and its arrow action-disabled with it, as a disabled MudIconButton's is: the
+         arrow follows the button's Foreground. -->
+    <Style Selector="^ /template/ Button#PART_ScrollPrev:not(:disabled), ^ /template/ Button#PART_ScrollNext:not(:disabled)">
+      <Setter Property="Foreground" Value="{DynamicResource FiliTextPrimaryBrush}" />
+    </Style>
     <Style Selector="^ /template/ Button#PART_ScrollPrev:disabled, ^ /template/ Button#PART_ScrollNext:disabled">
       <Setter Property="Foreground" Value="{DynamicResource FiliActionDisabledBrush}" />
+    </Style>
+    <!-- AlwaysShowScrollButtons: the buttons stay while the tabs fit, both disabled. -->
+    <Style Selector="^.always-show-scroll-buttons">
+      <Setter Property="theme:TabBarScroll.AlwaysShow" Value="True" />
     </Style>
 
     <Setter Property="Template">

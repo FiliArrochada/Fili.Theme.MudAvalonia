@@ -27,6 +27,11 @@
                       Description="striped is Striped, table-striped on the 1st, 3rd, 5th row; hover is Hover, table-hover under the pointer, over the stripe. Both are off by default, as in MudBlazor."
                       Source="Table/StripedHover" />
 
+    <TextBlock Classes="h5 section" Text="Bordered" />
+    <docs:ExampleCard Title="bordered"
+                      Description="MudTable's Bordered: 1px of table-lines between a row's cells, none after the last. The header is not ruled, as MudTable rules it only for a table-head-bordered HeaderClass."
+                      Source="Table/Bordered" />
+
     <TextBlock Classes="h5 section" Text="Selected row" />
     <docs:ExampleCard Title="A row selected"
                       Description="MudTable draws no selected row. Here a selected row is primary-hover, the primary at 6%, as on the data grid, so selection is visible."
@@ -57,7 +62,7 @@
       <docs:ParityRow MudBlazor="Hover" Here="hover" Status="Same" Note="Table-hover under the pointer, over the stripe." />
       <docs:ParityRow MudBlazor="Outlined" Here="outlined" Status="Same" Note="A 1px lines-default border and no elevation." />
       <docs:ParityRow MudBlazor="Elevation (default 1)" Here="no class, or elevation0 … elevation25" Status="Same" />
-      <docs:ParityRow MudBlazor="Bordered" Here="—" Status="Missing" Note="No lines between a table's columns; a data grid draws them with GridLinesVisibility=&quot;All&quot;." />
+      <docs:ParityRow MudBlazor="Bordered" Here="bordered" Status="Same" Note="Table-lines between a row's cells, none in the header." />
       <docs:ParityRow MudBlazor="Square" Here="CornerRadius=&quot;0&quot;" Status="Same" />
       <docs:ParityRow MudBlazor="TableLines, TableStriped, TableHover" Here="FiliTableLinesColor, FiliTableStripedColor, FiliTableHoverColor" Status="Same" Note="Palette tokens, each with its brush." />
       <docs:ParityRow MudBlazor="a selected row" Here="SelectedItem" Status="Close" Note="MudTable draws none; here primary-hover, as on the data grid, so selection is visible." />

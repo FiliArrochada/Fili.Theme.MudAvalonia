@@ -62,6 +62,9 @@
     <docs:ExampleCard Title="Scroll buttons"
                       Description="Tabs that do not fit the bar scroll, as MudTabs' do: ChevronLeft and ChevronRight icon buttons show at the bar's ends only while the row overflows, each disabled at its end and scrolling a bar's length per click. The selected tab is scrolled into view."
                       Source="Tabs/Scrolling" />
+    <docs:ExampleCard Title="always-show-scroll-buttons, and a coloured bar's arrows"
+                      Description="always-show-scroll-buttons is AlwaysShowScrollButtons: the buttons stay while the tabs fit, both disabled. The arrows are ScrollIconColor's default, Color.Inherit: the bar's text, so a coloured bar's are its contrast text."
+                      Source="Tabs/AlwaysShowScrollButtons" />
     <TextBlock Classes="body1 p">
       <Run Text="On a bar at the left or right the buttons sit above and below, the bar's width and 32px high, the chevrons turned a quarter. MudTabs' " /><Run Classes="code" Text="PrevIcon" /><Run Text=" and " /><Run Classes="code" Text="NextIcon" /><Run Text=" are " /><Run Classes="code" Text="FiliNavigateBeforeGeometry" /><Run Text=" and " /><Run Classes="code" Text="FiliChevronRightGeometry" /><Run Text=" in the tabs' Resources." />
     </TextBlock>
@@ -102,7 +105,9 @@
       <docs:ParityRow MudBlazor="ToolTip" Here="ToolTip.Tip on the TabItem" Status="Close" />
       <docs:ParityRow MudBlazor="scroll buttons" Here="the same" Status="Same" Note="ChevronLeft and ChevronRight icon buttons while the tabs overflow, each disabled at its end, a bar's length per click; the selected tab scrolls into view; on a side bar, 32px high and turned." />
       <docs:ParityRow MudBlazor="PrevIcon, NextIcon" Here="FiliNavigateBeforeGeometry, FiliChevronRightGeometry in the tabs' Resources" Status="Same" Note="Drawn at their own size in the 24px box." />
-      <docs:ParityRow MudBlazor="AlwaysShowScrollButtons, ScrollIconColor" Here="—" Status="Missing" Note="The buttons are action-default, and only shown on overflow." />
+      <docs:ParityRow MudBlazor="AlwaysShowScrollButtons" Here="always-show-scroll-buttons" Status="Same" Note="Disabled while there is nothing to scroll." />
+      <docs:ParityRow MudBlazor="ScrollIconColor (default Inherit)" Here="the bar's text" Status="Same" Note="Text-primary, or a coloured bar's contrast text." />
+      <docs:ParityRow MudBlazor="ScrollIconColor, another colour" Here="—" Status="Missing" Note="Not offered: eight classes for one pair of arrows; they follow the bar instead." />
       <docs:ParityRow MudBlazor="ShowCloseIcon" Here="a button in the Header" Status="Close" Note="Closing a tab is the app's." />
       <docs:ParityRow MudBlazor="Header, HeaderPosition, TabPanelHeader" Here="HeaderTemplate, or content beside the bar" Status="Close" />
       <docs:ParityRow MudBlazor="MaxHeight" Here="MaxHeight" Status="Close" />

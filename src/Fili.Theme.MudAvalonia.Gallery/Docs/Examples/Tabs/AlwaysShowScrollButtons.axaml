@@ -1,0 +1,21 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <!-- always-show-scroll-buttons is AlwaysShowScrollButtons: three tabs fit, and the buttons stay,
+       both disabled. On a coloured bar the arrows are its contrast text, as ScrollIconColor's
+       default, Color.Inherit, makes them. -->
+  <StackPanel Spacing="16" HorizontalAlignment="Left" Width="640">
+    <TabControl Classes="border always-show-scroll-buttons">
+      <TabItem Header="One" />
+      <TabItem Header="Two" />
+      <TabItem Header="Three" />
+    </TabControl>
+    <TabControl Classes="primary">
+      <TabItem Header="One" />
+      <TabItem Header="Two" />
+      <TabItem Header="Three" />
+      <TabItem Header="Four" />
+      <TabItem Header="Five" />
+      <TabItem Header="Six" />
+    </TabControl>
+  </StackPanel>
+</UserControl>

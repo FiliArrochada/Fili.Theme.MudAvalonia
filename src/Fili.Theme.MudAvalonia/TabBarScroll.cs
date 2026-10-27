@@ -21,6 +21,11 @@ namespace Fili.Theme.MudAvalonia;
 /// show and do depends on the scroller's extent and offset, which no binding can compare.
 /// </para>
 /// <para>
+/// <c>always-show-scroll-buttons</c> is MudTabs' AlwaysShowScrollButtons: its theme style sets
+/// <see cref="AlwaysShowProperty"/>, and the buttons stay, disabled while there is nothing to
+/// scroll, as MudTabs' are.
+/// </para>
+/// <para>
 /// Internal, like the converters: a template needs it, a consumer does not.
 /// </para>
 /// </remarks>
@@ -35,6 +40,14 @@ internal sealed class TabBarScroll
     public static readonly AttachedProperty<bool> ScrollsProperty =
         AvaloniaProperty.RegisterAttached<TabBarScroll, SelectingItemsControl, bool>("Scrolls");
 
+    /// <summary>Shows the buttons whether or not the tabs overflow: <c>always-show-scroll-buttons</c>.</summary>
+    public static readonly AttachedProperty<bool> AlwaysShowProperty =
+        AvaloniaProperty.RegisterAttached<TabBarScroll, SelectingItemsControl, bool>("AlwaysShow");
+
+    /// <summary>Lays the buttons out again, once the template has been applied.</summary>
+    private static readonly AttachedProperty<Action?> RefreshProperty =
+        AvaloniaProperty.RegisterAttached<TabBarScroll, SelectingItemsControl, Action?>("Refresh");
+
     /// <summary>The bar's own scroller, found when the template is applied.</summary>
     private static readonly AttachedProperty<ScrollViewer?> ScrollerProperty =
         AvaloniaProperty.RegisterAttached<TabBarScroll, SelectingItemsControl, ScrollViewer?>("Scroller");
@@ -42,6 +55,10 @@ internal sealed class TabBarScroll
     public static bool GetScrolls(SelectingItemsControl control) => control.GetValue(ScrollsProperty);
 
     public static void SetScrolls(SelectingItemsControl control, bool value) => control.SetValue(ScrollsProperty, value);
+
+    public static bool GetAlwaysShow(SelectingItemsControl control) => control.GetValue(AlwaysShowProperty);
+
+    public static void SetAlwaysShow(SelectingItemsControl control, bool value) => control.SetValue(AlwaysShowProperty, value);
 
     static TabBarScroll()
     {
@@ -68,27 +85,36 @@ internal sealed class TabBarScroll
 
         var control = (SelectingItemsControl)sender!;
         control.SetValue(ScrollerProperty, scroller);
+        void Refresh() => Update(control, scroller, prev, next);
+        control.SetValue(RefreshProperty, Refresh);
         Dispatcher.UIThread.Post(() => Reveal(control, scroller, control.SelectedIndex), DispatcherPriority.Loaded);
         prev.Click += (_, _) => Page(scroller, -1);
         next.Click += (_, _) => Page(scroller, 1);
-        scroller.ScrollChanged += (_, _) => Update(scroller, prev, next);
+        scroller.ScrollChanged += (_, _) => Refresh();
         scroller.PropertyChanged += (_, args) =>
         {
             if (args.Property == ScrollViewer.ExtentProperty || args.Property == ScrollViewer.ViewportProperty)
             {
-                Update(scroller, prev, next);
+                Refresh();
             }
         };
-        Update(scroller, prev, next);
+        Refresh();
     }
 
     /// <summary>
     /// The selected tab is scrolled into view in the bar, as MudTabs' ScrollToItem does. The bar's
     /// own scroller only: BringIntoView asked every scroller round the bar as well, so a tab bar
-    /// low on a page scrolled the page to itself as soon as a tab was selected.
+    /// low on a page scrolled the page to itself as soon as a tab was selected. And
+    /// <c>always-show-scroll-buttons</c> coming or going lays the buttons out again.
     /// </summary>
     private static void OnPropertyChanged(object? sender, AvaloniaPropertyChangedEventArgs e)
     {
+        if (sender is SelectingItemsControl shown && e.Property == AlwaysShowProperty)
+        {
+            shown.GetValue(RefreshProperty)?.Invoke();
+            return;
+        }
+
         if (sender is SelectingItemsControl control
             && e.Property == SelectingItemsControl.SelectedIndexProperty
             && control.GetValue(ScrollerProperty) is { } scroller)
@@ -123,7 +149,7 @@ internal sealed class TabBarScroll
     private static bool Vertical(ScrollViewer scroller) =>
         scroller.HorizontalScrollBarVisibility == ScrollBarVisibility.Disabled;
 
-    private static void Update(ScrollViewer scroller, Button prev, Button next)
+    private static void Update(SelectingItemsControl control, ScrollViewer scroller, Button prev, Button next)
     {
         var vertical = Vertical(scroller);
         var extent = vertical ? scroller.Extent.Height : scroller.Extent.Width;
@@ -131,8 +157,10 @@ internal sealed class TabBarScroll
         var offset = vertical ? scroller.Offset.Y : scroller.Offset.X;
         var overflows = extent > viewport + Slack;
 
-        prev.IsVisible = overflows;
-        next.IsVisible = overflows;
+        var shown = overflows || GetAlwaysShow(control);
+
+        prev.IsVisible = shown;
+        next.IsVisible = shown;
         prev.IsEnabled = overflows && offset > Slack;
         next.IsEnabled = overflows && offset < extent - viewport - Slack;
     }
