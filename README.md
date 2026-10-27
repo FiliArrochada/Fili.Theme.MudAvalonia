@@ -137,12 +137,12 @@ base became a fork of Simple that this repo owns, the hazard went with it: a `Te
 `Variant.Outlined`, `Variant.Text` and `Variant.Filled` — API familiarity is the point of this
 package, so they are not namespaced to `mud-primary` or hidden behind an attached property.
 
-**All 174 of them, which is the list to grep an app against before adopting:**
+**All 175 of them, which is the list to grep an app against before adopting:**
 
 | | |
 |---|---|
 | Type ramp (`TextBlock`) | `h1`–`h6`, `subtitle1`, `subtitle2`, `body1`, `body2`, `button`, `caption`, `overline` |
-| Surfaces (`Border`) | `paper`, `appbar`, `square`, `elevation0` to `elevation25` (all 26 of MudBlazor's levels) |
+| Surfaces (`Border`; a popover's through `FlyoutPresenterClasses`, or on a `ContextMenu`) | `paper`, `appbar`, `square`, `elevation0` to `elevation25` (all 26 of MudBlazor's levels) |
 | Overlay (`Border`) | `overlay`, `dark-background`, `light-background` |
 | Colour (`Color`) | `primary`, `secondary`, `tertiary`, `info`, `success`, `warning`, `error`, `dark`, `inherit`; `default` on a toggle only, whose no-class colour is primary |
 | Shape (`Variant`) | `text`, `filled`, `outlined`, `rounded`, `flat` |
@@ -151,7 +151,7 @@ package, so they are not namespaced to `mud-primary` or hidden behind an attache
 | Component | `icon`, `button-group`, `chip`, `fab`, `extended`, `list-item`, `alert`, `avatar`, `badge`, `card`, `skeleton`, `circle`, `rectangle`, `counter`, `circular`, `nav`, `toolbar`, `drawer-header`, `normal`, `newest-on-top`, `expansion-panels` |
 | Card parts | `card-header`, `card-header-avatar`, `card-header-content`, `card-header-actions`, `card-media`, `card-content`, `card-actions` |
 | Badge (`Origin`, `Dot`, `Bordered`, `Overlap`), and the table's `Bordered` | `top-left`, `top-center`, `center-left`, `center-center`, `center-right`, `bottom-left`, `bottom-center`, `bottom-right`, `dot`, `bordered`, `overlap` |
-| Behaviour | `always-show-scroll-buttons`, `arrow`, `dense-items`, `editable`, `helper-on-focus`, `hide-close`, `hide-icon`, `hover`, `multi-expansion`, `multi-selection`, `no-animation`, `no-arrows`, `no-bullets`, `no-gutters`, `no-outline`, `placeholder`, `required`, `shrink-label`, `value-label`, `striped`, `wave` |
+| Behaviour | `always-show-scroll-buttons`, `arrow`, `dense-items`, `editable`, `helper-on-focus`, `hide-close`, `hide-icon`, `hover`, `multi-expansion`, `multi-selection`, `no-animation`, `no-arrows`, `no-bullets`, `no-gutters`, `no-outline`, `no-paper`, `placeholder`, `required`, `shrink-label`, `value-label`, `striped`, `wave` |
 | Label placement (`LabelPlacement`) | `label-start`, `label-top`, `label-bottom` |
 | Icons in content | `start-icon`, `end-icon` |
 | Material, not MudBlazor | `material-fixed-tabs`, `material-elevation-overlay` |

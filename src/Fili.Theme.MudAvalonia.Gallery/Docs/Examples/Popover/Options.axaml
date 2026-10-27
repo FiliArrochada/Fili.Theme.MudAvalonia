@@ -1,0 +1,29 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <!-- MudPopover's Elevation, Square, DropShadow="false" and Paper="false" are classes on the
+       presenter: FlyoutPresenterClasses on a Flyout or MenuFlyout, Classes on a ContextMenu.
+       The four open sheets are placed in the page; the button opens one. -->
+  <StackPanel Spacing="8">
+    <WrapPanel Orientation="Horizontal">
+      <FlyoutPresenter Classes="elevation0" Margin="0,0,8,8">
+        <TextBlock Classes="body2" Margin="16" Text="elevation0" />
+      </FlyoutPresenter>
+      <FlyoutPresenter Classes="elevation24" Margin="0,0,8,8">
+        <TextBlock Classes="body2" Margin="16" Text="elevation24" />
+      </FlyoutPresenter>
+      <FlyoutPresenter Classes="square" Margin="0,0,8,8">
+        <TextBlock Classes="body2" Margin="16" Text="square" />
+      </FlyoutPresenter>
+      <FlyoutPresenter Classes="no-paper" Margin="0,0,8,8">
+        <TextBlock Classes="body2" Margin="16" Text="no-paper" />
+      </FlyoutPresenter>
+    </WrapPanel>
+    <Button Classes="outlined" Content="Open a square, flat flyout" HorizontalAlignment="Left">
+      <Button.Flyout>
+        <Flyout FlyoutPresenterClasses="square flat">
+          <TextBlock Classes="body2" Margin="16" Text="No radius, no shadow." />
+        </Flyout>
+      </Button.Flyout>
+    </Button>
+  </StackPanel>
+</UserControl>

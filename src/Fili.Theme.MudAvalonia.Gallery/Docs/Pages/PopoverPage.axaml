@@ -22,6 +22,11 @@
                       Description="A FlyoutPresenter placed in the page, as a flyout looks once open."
                       Source="Popover/Preview" />
 
+    <TextBlock Classes="h5 section" Text="Elevation, square, flat and no paper" />
+    <docs:ExampleCard Title="MudPopover's paper options"
+                      Description="elevation0 to elevation25 are Elevation, square is Square, flat is DropShadow=&quot;false&quot; and no-paper is Paper=&quot;false&quot;: no surface, radius or shadow. On a Flyout or MenuFlyout they go in FlyoutPresenterClasses, on a ContextMenu in its Classes."
+                      Source="Popover/Options" />
+
     <TextBlock Classes="h5 section" Text="Direction and location" />
     <docs:ExampleCard Title="Placement"
                       Description="MudPopover's AnchorOrigin and TransformOrigin are the flyout's Placement: beside the target on any side, or along its edge."
@@ -58,7 +63,10 @@
     <docs:ParityTable>
       <docs:ParityRow MudBlazor="the paper" Here="FlyoutPresenter, MenuFlyoutPresenter, ContextMenu" Status="Same" Note="The surface, the default radius, elevation 8." />
       <docs:ParityRow MudBlazor="padding" Here="none" Status="Same" Note="The content brings its own, as MudPaper Class=&quot;pa-4&quot; does in a popover." />
-      <docs:ParityRow MudBlazor="Elevation, Square, Paper=&quot;false&quot;, DropShadow=&quot;false&quot;" Here="—" Status="Missing" Note="A presenter takes no elevation or shape class." />
+      <docs:ParityRow MudBlazor="Elevation (8)" Here="elevation0 … elevation25" Status="Same" Note="In FlyoutPresenterClasses on a Flyout or MenuFlyout, in Classes on a ContextMenu." />
+      <docs:ParityRow MudBlazor="Square" Here="square" Status="Same" Note="No radius." />
+      <docs:ParityRow MudBlazor="DropShadow=&quot;false&quot;" Here="flat" Status="Same" Note="No shadow, whatever the elevation class." />
+      <docs:ParityRow MudBlazor="Paper=&quot;false&quot;" Here="no-paper" Status="Same" Note="No surface, radius or shadow: the content is the popover." />
       <docs:ParityRow MudBlazor="AnchorOrigin, TransformOrigin" Here="Placement" Status="Close" />
       <docs:ParityRow MudBlazor="MaxHeight" Here="MaxHeight" Status="Close" />
       <docs:ParityRow MudBlazor="the opening fade, Duration (251ms), Delay (0)" Here="the same, on every popup" Status="Same" Note="Opacity 0 to 1 over 251ms at CSS's ease, closing at once: a select's list, a menu, an autocomplete's list, a flyout and a tooltip alike." />

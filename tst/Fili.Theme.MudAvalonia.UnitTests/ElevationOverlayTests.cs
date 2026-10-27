@@ -238,4 +238,37 @@ public class ElevationOverlayTests
         static Border Presenter<T>(Control inside) where T : Control =>
             Matrix.Part<Border>(inside.GetVisualAncestors().OfType<T>().First(), "PART_Border");
     });
+
+    /// <summary>
+    /// MudPopover's Elevation on a flyout takes that level's overlay; `flat` and `no-paper` draw no
+    /// shadow, and so no overlay.
+    /// </summary>
+    [Fact]
+    public Task APopoversElevationClassSetsItsOverlay() => UiThread.RunAsync(() =>
+    {
+        var raised = new TextBlock { Text = "Raised" };
+        var flat = new TextBlock { Text = "Flat" };
+        var bare = new TextBlock { Text = "Bare" };
+        var targets = new[] { new Button { Content = "A" }, new Button { Content = "B" }, new Button { Content = "C" } };
+        Host(ThemeVariant.Dark, new StackPanel { Children = { targets[0], targets[1], targets[2] } });
+
+        Open(raised, targets[0], "elevation4");
+        Open(flat, targets[1], "flat");
+        Open(bare, targets[2], "no-paper");
+
+        Assert.Equal(Expected(4, ThemeVariant.Dark), Shadow(Presenter(raised)));
+        Assert.Equal(Token("FiliElevation0", ThemeVariant.Dark).ToString(), Shadow(Presenter(flat)));
+        Assert.Equal(Token("FiliElevation0", ThemeVariant.Dark).ToString(), Shadow(Presenter(bare)));
+
+        static void Open(TextBlock content, Control target, string classes)
+        {
+            var flyout = new Flyout { Content = content };
+            flyout.FlyoutPresenterClasses.Add(classes);
+            flyout.ShowAt(target);
+            Dispatcher.UIThread.RunJobs();
+        }
+
+        static Border Presenter(Control inside) =>
+            Matrix.Part<Border>(inside.GetVisualAncestors().OfType<FlyoutPresenter>().First(), "PART_Border");
+    });
 }

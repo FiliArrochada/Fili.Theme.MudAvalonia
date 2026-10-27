@@ -43,6 +43,9 @@ public static class ThemeColourGenerator
     public const string PaperLabel = "paper elevation.";
     public const string TabBarLabel = "tab bar elevation.";
     public const string ExpanderLabel = "expander elevation.";
+    public const string FlyoutLabel = "flyout elevation.";
+    public const string MenuFlyoutLabel = "menu flyout elevation.";
+    public const string ContextMenuLabel = "context menu elevation.";
     public const string OverlayLabel = "material elevation overlay.";
     public const string AlertLabel = "alert colours.";
     public const string TabsLabel = "tab bar colours.";
@@ -97,6 +100,9 @@ public static class ThemeColourGenerator
             (Controls("TabControl.axaml"), TabBarLabel, ElevationRegion("PART_TabBarHost")),
             (Controls("TabStrip.axaml"), TabBarLabel, ElevationRegion("PART_TabBarHost")),
             (Controls("Expander.axaml"), ExpanderLabel, ElevationRegion("PART_Root")),
+            (Controls("Overlays.axaml"), FlyoutLabel, ElevationRegion("PART_Border")),
+            (Controls("Overlays.axaml"), MenuFlyoutLabel, ElevationRegion("PART_Border")),
+            (Controls("Menu.axaml"), ContextMenuLabel, ElevationRegion("PART_Border")),
             (FiliThemePath, OverlayLabel, OverlayRegion()),
             (Path.Combine("Themes", "Optional", "DataGrid", "DataGridStyles.axaml"), OverlayLabel, DataGridOverlayRegion()),
             (FiliThemePath, AlertLabel, AlertRegion()),
@@ -1373,10 +1379,22 @@ public static class ThemeColourGenerator
 
         o.Append(TopStyle(
             $"{Overlay("MenuItem")} /template/ Border#PART_PopupBorder, {Overlay("ComboBox")} /template/ Border#PART_PopupBorder, "
-            + $"{Overlay("AutoCompleteBox")} /template/ Border#PART_PopupBorder, {Overlay("ContextMenu")} /template/ Border#PART_Border, "
-            + $"{Overlay("FlyoutPresenter")} /template/ Border#PART_Border, {Overlay("MenuFlyoutPresenter")} /template/ Border#PART_Border",
+            + $"{Overlay("AutoCompleteBox")} /template/ Border#PART_PopupBorder, {Popover("ContextMenu")}, "
+            + $"{Popover("FlyoutPresenter")}, {Popover("MenuFlyoutPresenter")}",
             ("BoxShadow", Res("FiliElevationOverlay8"))));
+
+        // MudPopover's Elevation on the three popover sheets; `flat` (DropShadow="false") and
+        // `no-paper` (Paper="false") draw no shadow, so they take no overlay either.
+        foreach (var level in Elevations)
+        {
+            o.Append(TopStyle(
+                $"{Popover($"ContextMenu.elevation{level}")}, {Popover($"FlyoutPresenter.elevation{level}")}, {Popover($"MenuFlyoutPresenter.elevation{level}")}",
+                ("BoxShadow", Res($"FiliElevationOverlay{level}"))));
+        }
+
         return o.ToString();
+
+        static string Popover(string control) => $"{Overlay(control)}:not(.flat):not(.no-paper) /template/ Border#PART_Border";
     }
 
     // Optional/DataGrid/DataGridStyles.axaml: the overlay on a grid, which is a surface at
