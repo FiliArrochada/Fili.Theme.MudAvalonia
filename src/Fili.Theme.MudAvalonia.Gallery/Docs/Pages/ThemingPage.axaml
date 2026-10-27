@@ -5,7 +5,7 @@
   <StackPanel Classes="doc">
     <docs:DocHeader Title="Theming"
                     Summary="Your colours instead of MudBlazor's, in each variant, and one control's look without touching its template."
-                    MudBlazor="ThemeProvider"
+                    MudBlazor="MudThemeProvider"
                     MudBlazorPath="customization/overview" />
 
     <TextBlock Classes="h5 section" Text="Your colours" />
@@ -14,6 +14,9 @@
     </TextBlock>
     <docs:CodeBlock Code="&lt;!-- xmlns:theme=&quot;using:Fili.Theme.MudAvalonia&quot; on the Application --&gt;&#10;&lt;Application.Resources&gt;&#10;  &lt;ResourceDictionary&gt;&#10;    &lt;ResourceDictionary.ThemeDictionaries&gt;&#10;      &lt;ResourceDictionary x:Key=&quot;Light&quot;&gt;&#10;        &lt;Color x:Key=&quot;FiliPrimaryColor&quot;&gt;#C79A3B&lt;/Color&gt;&#10;        &lt;Color x:Key=&quot;FiliPrimaryHoverColor&quot;&gt;#0FC79A3B&lt;/Color&gt;&#10;        &lt;Color x:Key=&quot;FiliPrimaryDarkenColor&quot;&gt;#AB8431&lt;/Color&gt;&#10;        &lt;Color x:Key=&quot;FiliPrimaryLightenColor&quot;&gt;#D0A959&lt;/Color&gt;&#10;        &lt;Color x:Key=&quot;FiliPrimaryContrastTextColor&quot;&gt;#000000&lt;/Color&gt;&#10;      &lt;/ResourceDictionary&gt;&#10;      &lt;ResourceDictionary x:Key=&quot;Dark&quot;&gt;&#10;        &lt;!-- the same five keys, in dark's colours --&gt;&#10;      &lt;/ResourceDictionary&gt;&#10;      &lt;ResourceDictionary x:Key=&quot;{x:Static theme:FiliThemeVariants.HighContrast}&quot;&gt;&#10;        &lt;!-- and again in high contrast's --&gt;&#10;      &lt;/ResourceDictionary&gt;&#10;    &lt;/ResourceDictionary.ThemeDictionaries&gt;&#10;  &lt;/ResourceDictionary&gt;&#10;&lt;/Application.Resources&gt;"
                     Margin="0,0,0,16" />
+    <TextBlock Classes="body1 p">
+      <Run Text="The palette button in this site's app bar does just that: a swatch sets the five keys, with darken and lighten by MudBlazor's rule, in light and dark, and declares high contrast with the colours it ships, so high contrast is unchanged." />
+    </TextBlock>
     <TextBlock Classes="body1 p">
       <Run Text="A colour is five tokens, not one. Hover, focus and press paint the " /><Run Classes="code" Text="Hover" /><Run Text=" shade (the colour at 6%) on text and outlined controls and the " /><Run Classes="code" Text="Darken" /><Run Text=" shade on filled ones; " /><Run Classes="code" Text="ContrastText" /><Run Text=" is the text on a fill. Leave one out and that state keeps MudBlazor's colour: a gold button that turns purple under the pointer. MudBlazor derives darken and lighten from the colour, its lightness 0.075 down and up." />
     </TextBlock>

@@ -42,6 +42,25 @@
           <!-- Three variants rather than a light/dark switch: high contrast is the one worth
                reaching in one click, the only variant whose tokens are derived. The select's
                text and arrow take the bar's colour; its list keeps its own. -->
+          <!-- mudblazor.com's primary colour picker: the site in another primary, in light and
+               dark, built in code-behind from PrimaryColour's swatches. -->
+          <Button x:Name="PrimaryPicker"
+                  Classes="icon inherit"
+                  ToolTip.Tip="Primary colour"
+                  VerticalAlignment="Center">
+            <PathIcon Data="{DynamicResource DocsPaletteIcon}" />
+            <Button.Flyout>
+              <Flyout Placement="BottomEdgeAlignedRight">
+                <StackPanel Spacing="8" Width="236" Margin="16,12">
+                  <TextBlock Classes="subtitle2" Text="Primary colour" />
+                  <WrapPanel x:Name="Swatches" ItemWidth="44" ItemHeight="44" />
+                  <TextBlock Classes="caption" TextWrapping="Wrap"
+                             Foreground="{DynamicResource FiliTextSecondaryBrush}"
+                             Text="Light and dark. High contrast keeps its own." />
+                </StackPanel>
+              </Flyout>
+            </Button.Flyout>
+          </Button>
           <ComboBox x:Name="VariantSelector"
                     Classes="placeholder adornment-inherit"
                     Width="150"

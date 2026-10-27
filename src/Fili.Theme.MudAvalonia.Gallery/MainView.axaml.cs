@@ -3,7 +3,9 @@ using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.Primitives;
 using Avalonia.Interactivity;
+using Avalonia.Layout;
 using Avalonia.Markup.Xaml;
+using Avalonia.Markup.Xaml.MarkupExtensions;
 using Avalonia.Media;
 using Avalonia.Styling;
 using Avalonia.Threading;
@@ -37,6 +39,8 @@ public partial class MainView : UserControl
         this.FindControl<ComboBox>("VariantSelector")!.SelectedIndex =
             variant == ThemeVariant.Dark ? 1 : variant == FiliThemeVariants.HighContrast ? 2 : 0;
         _ready = true;
+
+        BuildSwatches();
 
         BuildNav(string.Empty);
         Navigate(DocAddress.Current?.Slug is { Length: > 0 } slug && DocCatalog.Find(slug) is not null ? slug : "overview");
@@ -200,4 +204,64 @@ public partial class MainView : UserControl
 
     private void OnRightToLeft(object? sender, RoutedEventArgs e) =>
         _host.FlowDirection = (sender as ToggleButton)?.IsChecked == true ? FlowDirection.RightToLeft : FlowDirection.LeftToRight;
+
+    /// <summary>
+    /// One round button per swatch, ticked when it is the primary on show. The first is the
+    /// theme's own and takes the overrides away rather than setting the same colour over them.
+    /// </summary>
+    private void BuildSwatches()
+    {
+        var panel = this.FindControl<WrapPanel>("Swatches")!;
+        foreach (var (name, colour) in PrimaryColour.Swatches)
+        {
+            var isDefault = panel.Children.Count == 0;
+            var tick = new PathIcon
+            {
+                Width = 16,
+                Height = 16,
+                Foreground = new SolidColorBrush(PrimaryColour.ContrastText(colour)),
+            };
+            // Bound rather than looked up: the view is not in the app's tree yet.
+            tick[!PathIcon.DataProperty] = new DynamicResourceExtension("GalleryDoneIcon");
+            var swatch = new Button
+            {
+                Classes = { "icon" },
+                Tag = isDefault ? null : colour,
+                Content = new Border
+                {
+                    Width = 28,
+                    Height = 28,
+                    CornerRadius = new CornerRadius(14),
+                    Background = new SolidColorBrush(colour),
+                    Child = tick,
+                },
+                HorizontalAlignment = HorizontalAlignment.Center,
+                VerticalAlignment = VerticalAlignment.Center,
+            };
+            ToolTip.SetTip(swatch, name);
+            Avalonia.Automation.AutomationProperties.SetName(swatch, name);
+            swatch.Click += (_, _) =>
+            {
+                if (Application.Current is { } app)
+                {
+                    PrimaryColour.Apply(app, swatch.Tag as Color?);
+                    TickSwatches(panel);
+                }
+            };
+            panel.Children.Add(swatch);
+        }
+
+        TickSwatches(panel);
+    }
+
+    private static void TickSwatches(WrapPanel panel)
+    {
+        foreach (var swatch in panel.Children.OfType<Button>())
+        {
+            if (swatch.Content is Border { Child: PathIcon tick })
+            {
+                tick.IsVisible = Equals(swatch.Tag as Color?, PrimaryColour.Current);
+            }
+        }
+    }
 }
