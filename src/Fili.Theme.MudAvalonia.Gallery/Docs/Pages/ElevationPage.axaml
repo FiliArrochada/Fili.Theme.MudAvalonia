@@ -4,7 +4,9 @@
              x:Class="Fili.Theme.MudAvalonia.Gallery.Docs.Pages.ElevationPage">
   <StackPanel Classes="doc">
     <docs:DocHeader Title="Elevation"
-                    Summary="MudBlazor's shadows: twenty-six levels, each three layers from Shadow.cs, as the classes elevation0 to elevation25 on the surfaces that take an Elevation, and as the fixed shadows of buttons, menus and the rest." />
+                    Summary="MudBlazor's shadows: twenty-six levels, each three layers from Shadow.cs, as the classes elevation0 to elevation25 on the surfaces that take an Elevation, and as the fixed shadows of buttons, menus and the rest."
+                    MudBlazor="Elevation"
+                    MudBlazorPath="features/elevation" />
 
     <TextBlock Classes="h5 section" Text="Levels" />
     <docs:ExampleCard Title="elevation0 to elevation25"

@@ -12,11 +12,14 @@ public partial class DocHeader : UserControl
     public static readonly StyledProperty<string?> SummaryProperty =
         AvaloniaProperty.Register<DocHeader, string?>(nameof(Summary));
 
-    /// <summary>The MudBlazor component this page mirrors, without the Mud: "Button".</summary>
+    /// <summary>
+    /// The MudBlazor component this page mirrors, without the Mud: "Button". For a feature or
+    /// customization page, its title as written: "Elevation", "MudThemeProvider".
+    /// </summary>
     public static readonly StyledProperty<string?> MudBlazorProperty =
         AvaloniaProperty.Register<DocHeader, string?>(nameof(MudBlazor));
 
-    /// <summary>Its page on mudblazor.com: "components/button".</summary>
+    /// <summary>Its page on mudblazor.com: "components/button", "features/elevation".</summary>
     public static readonly StyledProperty<string?> MudBlazorPathProperty =
         AvaloniaProperty.Register<DocHeader, string?>(nameof(MudBlazorPath));
 
@@ -65,7 +68,8 @@ public partial class DocHeader : UserControl
         if (link.IsVisible)
         {
             link.NavigateUri = new Uri($"https://mudblazor.com/{MudBlazorPath}");
-            this.FindControl<TextBlock>("MudBlazorText")!.Text = $"Mud{MudBlazor} on mudblazor.com";
+            var name = MudBlazorPath!.StartsWith("components/", StringComparison.Ordinal) ? $"Mud{MudBlazor}" : MudBlazor;
+            this.FindControl<TextBlock>("MudBlazorText")!.Text = $"{name} on mudblazor.com";
         }
     }
 }

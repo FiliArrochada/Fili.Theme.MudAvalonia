@@ -84,13 +84,13 @@ public class DocsSiteTests
         window.Close();
     });
 
-    /// <summary>A component's page here is in the catalogue, and its MudBlazor page is a route.</summary>
+    /// <summary>A component's page here is in the catalogue, and its MudBlazor page is a docs route.</summary>
     [Fact]
     public void EveryComponentLinksSomewhere()
     {
         foreach (var entry in ComponentIndex.All)
         {
-            Assert.StartsWith("components/", entry.MudBlazorPath);
+            Assert.Matches("^(components|features|customization)/[a-z-]+$", entry.MudBlazorPath);
             if (entry.Slug is { } slug)
             {
                 Assert.NotNull(DocCatalog.Find(slug));

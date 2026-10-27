@@ -4,7 +4,9 @@
              x:Class="Fili.Theme.MudAvalonia.Gallery.Docs.Pages.RightToLeftPage">
   <StackPanel Classes="doc">
     <docs:DocHeader Title="Right to left"
-                    Summary="Set FlowDirection to RightToLeft on a window or any container and every control in it mirrors, as MudRTLProvider does. Nothing else is needed." />
+                    Summary="Set FlowDirection to RightToLeft on a window or any container and every control in it mirrors, as MudRTLProvider does. Nothing else is needed."
+                    MudBlazor="RTL Languages"
+                    MudBlazorPath="features/rtl-languages" />
 
     <TextBlock Classes="h5 section" Text="Everything mirrors" />
     <TextBlock Classes="body1 p">

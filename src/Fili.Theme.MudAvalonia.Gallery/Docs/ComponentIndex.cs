@@ -15,8 +15,9 @@ public sealed record ComponentEntry(string Name, string Here, Parity Status, str
 
 /// <summary>
 /// Every MudBlazor component, in its docs' order, with what it is here. The paths are the @page
-/// routes of MudBlazor's own docs (src/MudBlazor.Docs/Pages/Components/*/*Page.razor), not
-/// guessed: mudblazor.com answers any path, so a wrong one would only show as a blank page.
+/// routes of MudBlazor's own docs (src/MudBlazor.Docs/Pages/Components/*/*Page.razor), or, for
+/// the three documented as a feature or customization page, that page's link in its MenuService.cs;
+/// not guessed: mudblazor.com answers any path, so a wrong one would only show as a blank page.
 /// </summary>
 public static class ComponentIndex
 {
@@ -30,6 +31,7 @@ public static class ComponentIndex
         new("FabMenu", "not here: a control with behaviour of its own", Parity.Missing, "components/buttonfabmenu"),
 
         new("TextField", "TextBox", Parity.Same, "components/textfield", "text-field"),
+        new("Mask", "MaskedTextBox", Parity.Same, "features/masking", "text-field"),
         new("Select", "ComboBox", Parity.Same, "components/select", "select"),
         new("Autocomplete", "AutoCompleteBox", Parity.Same, "components/autocomplete", "autocomplete"),
         new("NumericField", "NumericUpDown", Parity.Same, "components/numericfield", "numeric-field"),
@@ -106,5 +108,8 @@ public static class ComponentIndex
         new("SwipeArea", "not here: not visual", Parity.Missing, "components/swipearea"),
         new("Hotkey", "not here: not visual", Parity.Missing, "components/hotkey"),
         new("ExitPrompt", "not here: not visual", Parity.Missing, "components/exitprompt"),
+
+        new("ThemeProvider", "the theme's two includes and its Fili keys", Parity.Same, "customization/overview", "theming"),
+        new("RTLProvider", "FlowDirection", Parity.Same, "features/rtl-languages", "right-to-left"),
     ];
 }
