@@ -1,6 +1,7 @@
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.Documents;
+using Avalonia.Layout;
 using Avalonia.Media;
 using Avalonia.Threading;
 using Avalonia.VisualTree;
@@ -178,6 +179,61 @@ public class PageTests
         Assert.False(Part<Button>(carousel, "PART_PreviousButton").IsVisible);
         Assert.False(Part<Button>(carousel, "PART_NextButton").IsVisible);
         Assert.False(Part<PipsPager>(carousel, "PART_Bullets").IsVisible);
+    });
+
+    /// <summary>
+    /// ArrowsPosition defaults to Center and BulletsPosition to Bottom; `arrows-top`,
+    /// `arrows-bottom`, `bullets-top` and `bullets-center` are the others, as `align-self-*`.
+    /// </summary>
+    [Fact]
+    public Task TheArrowsAndBulletsMove() => UiThread.RunAsync(() =>
+    {
+        Carousel Show(params string[] classes)
+        {
+            var carousel = new Carousel { Width = 400, Height = 240, ItemsSource = new[] { "One", "Two" } };
+            carousel.Classes.AddRange(classes);
+            return Matrix.Show(carousel);
+        }
+
+        void Arrows(Carousel carousel, VerticalAlignment expected)
+        {
+            Assert.Equal(expected, Part<Button>(carousel, "PART_PreviousButton").VerticalAlignment);
+            Assert.Equal(expected, Part<Button>(carousel, "PART_NextButton").VerticalAlignment);
+        }
+
+        VerticalAlignment Bullets(Carousel carousel) => Part<PipsPager>(carousel, "PART_Bullets").VerticalAlignment;
+
+        var plain = Show();
+        Arrows(plain, VerticalAlignment.Center);
+        Assert.Equal(VerticalAlignment.Bottom, Bullets(plain));
+
+        Arrows(Show("arrows-top"), VerticalAlignment.Top);
+        Arrows(Show("arrows-bottom"), VerticalAlignment.Bottom);
+        Assert.Equal(VerticalAlignment.Top, Bullets(Show("bullets-top")));
+        Assert.Equal(VerticalAlignment.Center, Bullets(Show("bullets-center")));
+    });
+
+    /// <summary>
+    /// The arrows and the bullets are one row in MudCarousel.razor, every bullet a MudIconButton as
+    /// tall as an arrow: on the same edge, the pips' centres are the arrows' centres.
+    /// </summary>
+    [Theory]
+    [InlineData("arrows-top", "bullets-top")]
+    [InlineData("arrows-bottom", "")]
+    [InlineData("", "bullets-center")]
+    public Task TheArrowsAndBulletsShareALine(string arrows, string bullets) => UiThread.RunAsync(() =>
+    {
+        var carousel = new Carousel { Width = 400, Height = 240, ItemsSource = new[] { "One", "Two" } };
+        carousel.Classes.AddRange(new[] { arrows, bullets }.Where(c => c.Length > 0));
+        Matrix.Show(carousel);
+
+        double CentreY(Visual part) => part.TranslatePoint(new Point(0, part.Bounds.Height / 2), carousel)!.Value.Y;
+
+        var arrow = CentreY(Part<Button>(carousel, "PART_PreviousButton"));
+        var pips = Part<PipsPager>(carousel, "PART_Bullets").GetVisualDescendants().OfType<Path>().Where(p => p.Name == "Pip").ToList();
+
+        Assert.NotEmpty(pips);
+        Assert.All(pips, pip => Assert.Equal(arrow, CentreY(pip), 3));
     });
 
     /// <summary>A CarouselPage is a Carousel of pages, with the same bullets.</summary>

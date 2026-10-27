@@ -1,0 +1,32 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <!-- arrows-top is ArrowsPosition="Position.Top" and bullets-top BulletsPosition="Position.Top";
+       arrows-bottom and bullets-center are the other two. -->
+  <Grid ColumnDefinitions="*,24,*" RowDefinitions="Auto,Auto">
+    <TextBlock Classes="caption" Text="arrows-top bullets-top" Margin="0,0,0,8" />
+    <TextBlock Grid.Column="2" Classes="caption" Text="arrows-bottom bullets-center" Margin="0,0,0,8" />
+
+    <Carousel Grid.Row="1" Classes="arrows-top bullets-top" Height="180">
+      <Border Classes="paper outlined">
+        <TextBlock Classes="h5" Text="Slide one" HorizontalAlignment="Center" VerticalAlignment="Center" />
+      </Border>
+      <Border Classes="paper outlined">
+        <TextBlock Classes="h5" Text="Slide two" HorizontalAlignment="Center" VerticalAlignment="Center" />
+      </Border>
+      <Border Classes="paper outlined">
+        <TextBlock Classes="h5" Text="Slide three" HorizontalAlignment="Center" VerticalAlignment="Center" />
+      </Border>
+    </Carousel>
+    <Carousel Grid.Row="1" Grid.Column="2" Classes="arrows-bottom bullets-center" Height="180">
+      <Border Classes="paper outlined">
+        <TextBlock Classes="h5" Text="Slide one" HorizontalAlignment="Center" VerticalAlignment="Center" />
+      </Border>
+      <Border Classes="paper outlined">
+        <TextBlock Classes="h5" Text="Slide two" HorizontalAlignment="Center" VerticalAlignment="Center" />
+      </Border>
+      <Border Classes="paper outlined">
+        <TextBlock Classes="h5" Text="Slide three" HorizontalAlignment="Center" VerticalAlignment="Center" />
+      </Border>
+    </Carousel>
+  </Grid>
+</UserControl>

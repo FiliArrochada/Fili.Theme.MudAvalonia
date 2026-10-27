@@ -18,6 +18,8 @@
                      arrows are for the pointer: the carousel itself is the one Tab stop, and its
                      keys turn it.
                      ShowArrows="false" is `no-arrows` and ShowBullets="false" `no-bullets`.
+                     ArrowsPosition Top and Bottom are `arrows-top` and `arrows-bottom`;
+                     BulletsPosition Top and Center are `bullets-top` and `bullets-center`.
     CarouselPage     a Carousel of pages, so the same arrows and bullets.
 
   How pages slide, push and pop stays Avalonia's: that is behaviour, not a look.
@@ -257,7 +259,10 @@
                   Data="{DynamicResource FiliChevronRightGeometry}"
                   Fill="{Binding $parent[Button].Foreground}" />
           </Button>
+          <!-- Every bullet is a MudIconButton, 48px like an arrow, in the arrows' row: the pips
+               sit in a 48px band, so on the same edge their centres are the arrows'. -->
           <PipsPager x:Name="PART_Bullets"
+                     Height="48"
                      VerticalAlignment="Bottom"
                      HorizontalAlignment="Center"
                      Foreground="{TemplateBinding Foreground}"
@@ -275,6 +280,20 @@
     </Style>
     <Style Selector="^.no-bullets /template/ PipsPager#PART_Bullets">
       <Setter Property="IsVisible" Value="False" />
+    </Style>
+    <!-- ArrowsPosition and BulletsPosition, MudCarousel.razor's `align-self-{start|center|end}`
+         on the arrows and on the bullets' row: Top is start and Bottom end. -->
+    <Style Selector="^.arrows-top /template/ Button#PART_PreviousButton, ^.arrows-top /template/ Button#PART_NextButton">
+      <Setter Property="VerticalAlignment" Value="Top" />
+    </Style>
+    <Style Selector="^.arrows-bottom /template/ Button#PART_PreviousButton, ^.arrows-bottom /template/ Button#PART_NextButton">
+      <Setter Property="VerticalAlignment" Value="Bottom" />
+    </Style>
+    <Style Selector="^.bullets-top /template/ PipsPager#PART_Bullets">
+      <Setter Property="VerticalAlignment" Value="Top" />
+    </Style>
+    <Style Selector="^.bullets-center /template/ PipsPager#PART_Bullets">
+      <Setter Property="VerticalAlignment" Value="Center" />
     </Style>
   </ControlTheme>
 

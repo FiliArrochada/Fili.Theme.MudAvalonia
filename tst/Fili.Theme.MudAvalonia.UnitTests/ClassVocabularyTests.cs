@@ -111,8 +111,9 @@ public class ClassVocabularyTests
         // Placeholder in place of its Label,
         // MudExpansionPanels' Outlined="false" and MudTabs' SliderAnimation="false", which is
         // no-animation too, and its AlwaysShowScrollButtons; MudPopover's Paper="false";
-        // MudCarousel's ShowArrows="false" and ShowBullets="false"; and MudTimePicker's Editable.
-        "always-show-scroll-buttons", "editable", "helper-on-focus", "hide-close", "hide-icon", "hover", "no-animation", "no-arrows",
+        // MudCarousel's ShowArrows="false" and ShowBullets="false", and its ArrowsPosition and
+        // BulletsPosition other than their defaults; and MudTimePicker's Editable.
+        "always-show-scroll-buttons", "arrows-bottom", "arrows-top", "bullets-center", "bullets-top", "editable", "helper-on-focus", "hide-close", "hide-icon", "hover", "no-animation", "no-arrows",
         "no-bullets", "no-gutters", "no-outline", "no-paper", "placeholder", "required", "shrink-label", "wave",
 
         // MudSlider's ValueLabel, MudTooltip's Arrow, MudSelect's Dense on its options,

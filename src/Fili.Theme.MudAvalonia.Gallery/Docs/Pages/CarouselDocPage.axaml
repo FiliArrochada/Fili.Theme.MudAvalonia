@@ -21,6 +21,9 @@
     <docs:ExampleCard Title="no-arrows and no-bullets"
                       Description="no-arrows is ShowArrows=&quot;false&quot; and no-bullets is ShowBullets=&quot;false&quot;."
                       Source="Carousel/Options" />
+    <docs:ExampleCard Title="Where the arrows and bullets sit"
+                      Description="MudCarousel's ArrowsPosition is Center and BulletsPosition Bottom; arrows-top and arrows-bottom move the arrows, bullets-top and bullets-center the bullets."
+                      Source="Carousel/Positions" />
 
     <TextBlock Classes="h5 section" Text="Transitions" />
     <docs:ExampleCard Title="PageSlide and CrossFade"
@@ -46,11 +49,13 @@
     </TextBlock>
     <docs:ParityTable>
       <docs:ParityRow MudBlazor="the arrows, NavigateBefore / NavigateNext" Here="at the sides, centred, .75" Status="Same" Note="Icon buttons in the carousel's text colour, for the pointer; the carousel itself is the Tab stop." />
-      <docs:ParityRow MudBlazor="the bullets" Here="a PipsPager along the bottom" Status="Same" Note="RadioButtonChecked for the current slide, RadioButtonUnchecked for the rest, all in the carousel's text colour (Color.Inherit)." />
+      <docs:ParityRow MudBlazor="the bullets" Here="a PipsPager along the bottom" Status="Same" Note="RadioButtonChecked for the current slide, RadioButtonUnchecked for the rest, all in the carousel's text colour (Color.Inherit), in a 48px band, a MudIconButton's height, so they share the arrows' line." />
       <docs:ParityRow MudBlazor="the bullets on their own" Here="PipsPager" Status="Same" Note="The same glyphs in action-default at .75, with the arrows as its previous and next buttons; MudPagination has no counterpart, as Avalonia has no numbered pager." />
       <docs:ParityRow MudBlazor="ArrowsColor, BulletsColor" Here="Foreground on the carousel" Status="Close" Note="One colour for the arrows and the bullets together." />
       <docs:ParityRow MudBlazor="ShowArrows=&quot;false&quot;, ShowBullets=&quot;false&quot;" Here="no-arrows, no-bullets" Status="Same" Note="Each class hides its part." />
-      <docs:ParityRow MudBlazor="ArrowsPosition, BulletsPosition, AutoCycle" Here="—" Status="Missing" Note="The defaults, Center and Bottom; cycling is the app's." />
+      <docs:ParityRow MudBlazor="ArrowsPosition (Center)" Here="arrows-top, arrows-bottom" Status="Same" Note="Top and Bottom, as align-self-start and align-self-end; Start and End are the same two." />
+      <docs:ParityRow MudBlazor="BulletsPosition (Bottom)" Here="bullets-top, bullets-center" Status="Same" Note="Top and Center, as align-self-start and align-self-center." />
+      <docs:ParityRow MudBlazor="AutoCycle, AutoCycleTime" Here="—" Status="Missing" Note="Cycling is behaviour, the app's." />
     </docs:ParityTable>
   </StackPanel>
 </UserControl>
