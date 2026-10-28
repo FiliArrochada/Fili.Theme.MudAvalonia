@@ -34,7 +34,7 @@
 
     <TextBlock Classes="h5 section" Text="Custom content" />
     <docs:ExampleCard Title="Icons and check marks"
-                      Description="An item's content is anything: an icon alone, or an icon marked start-icon beside a label. CheckMark, SelectedIcon and UnselectedIcon are icons the app shows while IsChecked."
+                      Description="An item's content is anything: an icon alone, or an icon marked start-icon beside a label. check-mark is MudToggleGroup's CheckMark: a check before the content while IsChecked."
                       Source="ToggleGroup/CustomContent" />
 
     <TextBlock Classes="h5 section" Text="Vertical" />
@@ -65,7 +65,10 @@
       <docs:ParityRow MudBlazor="Vertical" Here="a vertical StackPanel of toggles" Status="Close" />
       <docs:ParityRow MudBlazor="Delimiters (default true), the group's shape" Here="button-group on the StackPanel" Status="Same" Note="Outlined items share one line between them, and the radius sits on the group's outer corners only." />
       <docs:ParityRow MudBlazor="Delimiters, outside a button-group" Here="outlined items in a plain StackPanel" Status="Close" Note="Each outlined item draws its own line, so two side by side meet in a 2px one; button-group, or Spacing=&quot;-1&quot;, shares it." />
-      <docs:ParityRow MudBlazor="CheckMark, SelectedIcon, UnselectedIcon, FixedContent, CheckMarkClass" Here="an icon in Content" Status="Close" Note="Shown by the app while IsChecked." />
+      <docs:ParityRow MudBlazor="CheckMark" Here="check-mark on each item" Status="Same" Note="The check shows before the content while IsChecked, in the item's text colour: 20px with 6px each side, 18px and 4px small, 22px and 8px large." />
+      <docs:ParityRow MudBlazor="SelectedIcon" Here="FiliCheckGeometry in the item's Resources" Status="Same" />
+      <docs:ParityRow MudBlazor="UnselectedIcon, FixedContent" Here="an icon in Content" Status="Close" Note="Shown by the app while not IsChecked; a transparent one keeps the content where it is." />
+      <docs:ParityRow MudBlazor="CheckMarkClass" Here="a /template/ Viewbox#PART_CheckMark style" Status="Close" />
       <docs:ParityRow MudBlazor="SelectedClass" Here="a :checked style" Status="Close" />
       <docs:ParityRow MudBlazor="Disabled" Here="IsEnabled=&quot;False&quot;" Status="Same" Note="Action-disabled text, and the line or ground in action-disabled-background." />
       <docs:ParityRow MudBlazor="Ripple (default true)" Here="on" Status="Same" />

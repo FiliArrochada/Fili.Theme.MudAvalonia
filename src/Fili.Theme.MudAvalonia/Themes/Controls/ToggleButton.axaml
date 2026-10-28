@@ -72,20 +72,38 @@
                        Margin="{TemplateBinding Padding}"
                        Height="{Binding FontSize, RelativeSource={RelativeSource TemplatedParent}, Converter={x:Static conv:FactorConverter.Instance}, ConverterParameter=1.75}"
                        IsHitTestVisible="False" />
-            <ContentPresenter x:Name="PART_ContentPresenter"
-                              theme:TextTransform.Case="{DynamicResource FiliButtonTextTransform}"
-                              ContentTemplate="{TemplateBinding ContentTemplate}"
-                              Foreground="{TemplateBinding Foreground}"
-                              Padding="{TemplateBinding Padding}"
-                              HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
-                              VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}">
-              <ContentPresenter.Content>
-                <MultiBinding Converter="{x:Static theme:TextTransform.Converter}">
-                  <TemplateBinding Property="Content" />
-                  <Binding Path="(theme:TextTransform.Case)" RelativeSource="{RelativeSource Self}" />
-                </MultiBinding>
-              </ContentPresenter.Content>
-            </ContentPresenter>
+            <!-- The padding is the row's, so the check mark sits inside it, before the content. -->
+            <DockPanel Margin="{TemplateBinding Padding}"
+                       HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                       VerticalAlignment="{TemplateBinding VerticalContentAlignment}">
+              <!-- MudToggleGroup's CheckMark: MudToggleItem's SelectedIcon, Icons.Material.Filled.Check,
+                   before the content as `.mud-toggle-item-check-icon`, 20px with 6px each side. -->
+              <Viewbox x:Name="PART_CheckMark"
+                       DockPanel.Dock="Left"
+                       Width="20" Height="20"
+                       Margin="6,0,6,0"
+                       VerticalAlignment="Center"
+                       IsVisible="False">
+                <Path x:Name="PART_CheckGlyph"
+                      Width="24" Height="24"
+                      Stretch="None"
+                      Data="{DynamicResource FiliCheckGeometry}"
+                      Fill="{TemplateBinding Foreground}" />
+              </Viewbox>
+              <ContentPresenter x:Name="PART_ContentPresenter"
+                                theme:TextTransform.Case="{DynamicResource FiliButtonTextTransform}"
+                                ContentTemplate="{TemplateBinding ContentTemplate}"
+                                Foreground="{TemplateBinding Foreground}"
+                                HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}">
+                <ContentPresenter.Content>
+                  <MultiBinding Converter="{x:Static theme:TextTransform.Converter}">
+                    <TemplateBinding Property="Content" />
+                    <Binding Path="(theme:TextTransform.Case)" RelativeSource="{RelativeSource Self}" />
+                  </MultiBinding>
+                </ContentPresenter.Content>
+              </ContentPresenter>
+            </DockPanel>
           </Panel>
         </theme:PartBorder>
       </ControlTemplate>
@@ -440,6 +458,26 @@
       <Setter Property="BorderBrush" Value="{DynamicResource FiliActionDisabledBackgroundBrush}" />
     </Style>
     <!-- END GENERATED -->
+
+    <!-- `check-mark`: MudToggleGroup.CheckMark, the check before a selected item's content
+         (MudToggleItem.GetCurrentIcon), at `.mud-toggle-item-check-icon`'s 18px with 4px small
+         and 22px with 8px large, in the item's text colour, action-disabled when disabled. -->
+    <Style Selector="^.check-mark:checked /template/ Viewbox#PART_CheckMark">
+      <Setter Property="IsVisible" Value="True" />
+    </Style>
+    <Style Selector="^.small /template/ Viewbox#PART_CheckMark">
+      <Setter Property="Width" Value="18" />
+      <Setter Property="Height" Value="18" />
+      <Setter Property="Margin" Value="4,0,4,0" />
+    </Style>
+    <Style Selector="^.large /template/ Viewbox#PART_CheckMark">
+      <Setter Property="Width" Value="22" />
+      <Setter Property="Height" Value="22" />
+      <Setter Property="Margin" Value="8,0,8,0" />
+    </Style>
+    <Style Selector="^:disabled /template/ Path#PART_CheckGlyph">
+      <Setter Property="Fill" Value="{DynamicResource FiliActionDisabledBrush}" />
+    </Style>
   </ControlTheme>
 
   <ControlTheme x:Key="FiliRepeatButton" TargetType="RepeatButton">

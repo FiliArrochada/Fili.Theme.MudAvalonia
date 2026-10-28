@@ -7,6 +7,7 @@ using Avalonia.Layout;
 using Avalonia.Media;
 using Avalonia.Threading;
 using Avalonia.VisualTree;
+using Path = Avalonia.Controls.Shapes.Path;
 using Xunit;
 
 namespace Fili.Theme.MudAvalonia.UnitTests;
@@ -450,5 +451,59 @@ public class RemainingOptionsTests
         chip.IsChecked = false;
         Dispatcher.UIThread.RunJobs();
         Assert.True(icon.IsVisible);
+    });
+
+    /// <summary>
+    /// MudToggleGroup's CheckMark (MudToggleItem.razor): a selected item shows its SelectedIcon,
+    /// Icons.Material.Filled.Check, before its content, as `.mud-toggle-item-check-icon`: 20px
+    /// with 6px each side, 18px with 4px small, 22px with 8px large (_togglegroup.scss).
+    /// </summary>
+    [Theory]
+    [InlineData("", 20, 6)]
+    [InlineData("small", 18, 4)]
+    [InlineData("large", 22, 8)]
+    public Task ASelectedCheckMarkToggleShowsItsCheck(string size, double side, double gap) => UiThread.RunAsync(() =>
+    {
+        var item = new ToggleButton { Content = "Bold", Classes = { "check-mark" } };
+        var plain = new ToggleButton { Content = "Bold", IsChecked = true };
+        if (size.Length > 0)
+        {
+            item.Classes.Add(size);
+            plain.Classes.Add(size);
+        }
+
+        Matrix.Show(item);
+        var check = Named<Viewbox>(item, "PART_CheckMark");
+        Assert.False(check.IsEffectivelyVisible);
+
+        item.IsChecked = true;
+        Dispatcher.UIThread.RunJobs();
+        Assert.True(check.IsEffectivelyVisible);
+        Assert.Equal(new Size(side, side), check.Bounds.Size);
+        Assert.Equal(new Thickness(gap, 0, gap, 0), check.Margin);
+
+        var label = Named<ContentPresenter>(item, "PART_ContentPresenter");
+        Assert.True(check.TranslatePoint(default, item)!.Value.X < label.TranslatePoint(default, item)!.Value.X);
+
+        // The check sits on the item's line: it adds width, never height.
+        Matrix.Show(plain);
+        Assert.False(Named<Viewbox>(plain, "PART_CheckMark").IsEffectivelyVisible);
+        Assert.Equal(plain.Bounds.Height, item.Bounds.Height);
+        Assert.Equal(plain.Bounds.Width + side + 2 * gap, item.Bounds.Width, 1);
+    });
+
+    /// <summary>The check is MudIcon in the item's text colour, and MudIcon's Disabled when disabled.</summary>
+    [Fact]
+    public Task TheToggleCheckIsInTheItemsTextColour() => UiThread.RunAsync(() =>
+    {
+        var item = new ToggleButton { Content = "Bold", IsChecked = true, Classes = { "check-mark", "secondary" } };
+        Matrix.Show(item);
+        var glyph = Named<Path>(item, "PART_CheckGlyph");
+        Assert.Same(item.Foreground, glyph.Fill);
+        Assert.Same(item.FindResource("FiliCheckGeometry"), glyph.Data);
+
+        item.IsEnabled = false;
+        Dispatcher.UIThread.RunJobs();
+        Assert.Same(item.FindResource("FiliActionDisabledBrush"), glyph.Fill);
     });
 }

@@ -108,7 +108,7 @@ public class ClassVocabularyTests
 
         // Behaviour parameters named as MudBlazor names them: HelperTextOnFocus, Required and
         // ShrinkLabel on a field, MudSkeleton's Animation.False and Animation.Wave, MudDataGrid's
-        // Hover and Loading, Gutters="false", HideIcon, MudInput's Clearable, MudChipSet's CheckMark, MudSnackbar's ShowCloseIcon="false", MudTextField's
+        // Hover and Loading, Gutters="false", HideIcon, MudInput's Clearable, MudChipSet's and MudToggleGroup's CheckMark, MudSnackbar's ShowCloseIcon="false", MudTextField's
         // Placeholder in place of its Label,
         // MudExpansionPanels' Outlined="false" and MudTabs' SliderAnimation="false", which is
         // no-animation too, and its AlwaysShowScrollButtons; MudPopover's Paper="false";

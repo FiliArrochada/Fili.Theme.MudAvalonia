@@ -16,22 +16,11 @@
         <PathIcon Data="{DynamicResource GalleryFormatAlignJustifyIcon}" />
       </ToggleButton>
     </StackPanel>
-    <!-- CheckMark: an icon the app shows while IsChecked. -->
+    <!-- CheckMark is check-mark: the check shows before the content while IsChecked. -->
     <StackPanel Orientation="Horizontal" Classes="button-group">
-      <ToggleButton Classes="outlined secondary" IsChecked="True">
-        <StackPanel Orientation="Horizontal">
-          <PathIcon Classes="start-icon" Data="{DynamicResource GalleryDoneIcon}"
-                    IsVisible="{Binding $parent[ToggleButton].IsChecked}" />
-          <TextBlock Text="Bold" />
-        </StackPanel>
-      </ToggleButton>
-      <ToggleButton Classes="outlined secondary">
-        <StackPanel Orientation="Horizontal">
-          <PathIcon Classes="start-icon" Data="{DynamicResource GalleryDoneIcon}"
-                    IsVisible="{Binding $parent[ToggleButton].IsChecked}" />
-          <TextBlock Text="Italic" />
-        </StackPanel>
-      </ToggleButton>
+      <ToggleButton Classes="outlined secondary check-mark" Content="Bold" IsChecked="True" />
+      <ToggleButton Classes="outlined secondary check-mark" Content="Italic" />
+      <ToggleButton Classes="outlined secondary check-mark" Content="Underline" />
     </StackPanel>
   </StackPanel>
 </UserControl>
