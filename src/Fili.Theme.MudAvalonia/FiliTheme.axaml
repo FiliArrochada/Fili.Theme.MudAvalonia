@@ -963,7 +963,8 @@
     Variant.Filled is the default: text-primary on lines-inputs with no colour (black in High
     Contrast, where lines-inputs is near-white), the colour with its contrast text otherwise. `outlined` is the colour (text-primary with none) as text and as a 1px
     line on no ground. `text` is the bare `.mud-avatar`: white on gray-light, whatever the colour,
-    since _avatar.scss has no text-variant rule. Size.Medium is the default, 40px with 20px text;
+    since 9.11's _avatar.scss has no text-variant rule. A later one adds `.mud-avatar-text`,
+    text-primary or the colour on no ground, to follow when the theme moves past 9.11. Size.Medium is the default, 40px with 20px text;
     `small` is 24px with 12px and `large` 56px with 24px. `rounded` is the default 4px radius and
     `square` none. Elevation is the elevation classes, which this Border already takes.
 

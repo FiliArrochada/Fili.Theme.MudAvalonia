@@ -19,7 +19,7 @@
 
     <TextBlock Classes="h5 section" Text="Text" />
     <docs:ExampleCard Title="The text variant"
-                      Description="text is the bare .mud-avatar: white on gray-light whatever the colour, since MudBlazor's avatar styles have no rule for the text variant."
+                      Description="text is the bare .mud-avatar: white on gray-light whatever the colour, since MudBlazor 9.11's avatar styles have no rule for the text variant."
                       Source="Avatar/Text" />
 
     <TextBlock Classes="h5 section" Text="Icons" />
@@ -76,7 +76,7 @@
     </TextBlock>
     <docs:ParityTable>
       <docs:ParityRow MudBlazor="MudAvatar" Here="avatar on a Border" Status="Same" Note="Its content centred." />
-      <docs:ParityRow MudBlazor="Variant.Filled (default) / Outlined / Text" Here="no class / outlined / text" Status="Same" Note="Filled is text-primary on lines-inputs; outlined a 1px line on no ground; text is the bare .mud-avatar, white on gray-light whatever the colour, since _avatar.scss has no text-variant rule." />
+      <docs:ParityRow MudBlazor="Variant.Filled (default) / Outlined / Text" Here="no class / outlined / text" Status="Same" Note="Filled is text-primary on lines-inputs; outlined a 1px line on no ground; text is the bare .mud-avatar, white on gray-light whatever the colour, since 9.11's _avatar.scss has no text-variant rule; a later MudBlazor adds one." />
       <docs:ParityRow MudBlazor="Color.Primary … Color.Dark" Here="the colour classes" Status="Same" Note="Filled is the colour with its contrast text; outlined is the colour as text and line." />
       <docs:ParityRow MudBlazor="Size.Medium (default) / Small / Large" Here="no class / small / large" Status="Same" Note="40 / 24 / 56px, with 20 / 12 / 24px text." />
       <docs:ParityRow MudBlazor="Rounded / Square" Here="rounded / square" Status="Same" Note="A 4px radius, or none." />

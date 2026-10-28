@@ -4,7 +4,8 @@
   <!-- MudAvatarGroup Max="4": the first four avatars, then a "+n" avatar for the rest, filled in
        the default colour (MaxColor). AvatarGroup hides the avatars past Max and counts them into
        the IsMore one. The group's look is the app's: Spacing 3 is a -12px overlap, and Outlined
-       (default true, OutlineColor Surface) a 2px ring that _avatar.scss makes a 44px avatar. -->
+       (default true, OutlineColor Surface) a 2px ring that _avatar.scss makes a 44px avatar, 28 and
+       60 when small and large; the styles keep rounded and square, so any avatar may join. -->
   <StackPanel Spacing="16">
     <StackPanel x:Name="group" Orientation="Horizontal" Spacing="-12"
                 c:AvatarGroup.Max="{Binding #max.Value}">
@@ -15,6 +16,22 @@
           <Setter Property="CornerRadius" Value="22" />
           <Setter Property="BorderThickness" Value="2" />
           <Setter Property="BorderBrush" Value="{DynamicResource FiliSurfaceBrush}" />
+        </Style>
+        <Style Selector="Border.avatar.small">
+          <Setter Property="Width" Value="28" />
+          <Setter Property="Height" Value="28" />
+          <Setter Property="CornerRadius" Value="14" />
+        </Style>
+        <Style Selector="Border.avatar.large">
+          <Setter Property="Width" Value="60" />
+          <Setter Property="Height" Value="60" />
+          <Setter Property="CornerRadius" Value="30" />
+        </Style>
+        <Style Selector="Border.avatar.rounded">
+          <Setter Property="CornerRadius" Value="{DynamicResource FiliCornerRadius}" />
+        </Style>
+        <Style Selector="Border.avatar.square">
+          <Setter Property="CornerRadius" Value="0" />
         </Style>
       </StackPanel.Styles>
       <Border Classes="avatar primary"><TextBlock Text="A" /></Border>
@@ -28,7 +45,7 @@
     </StackPanel>
     <StackPanel Orientation="Horizontal" Spacing="16">
       <TextBlock Classes="body1" Text="Max" VerticalAlignment="Center" />
-      <Slider x:Name="max" Width="240" Minimum="1" Maximum="7" Value="4"
+      <Slider x:Name="max" Width="240" Minimum="0" Maximum="7" Value="4"
               TickFrequency="1" IsSnapToTickEnabled="True" />
     </StackPanel>
   </StackPanel>

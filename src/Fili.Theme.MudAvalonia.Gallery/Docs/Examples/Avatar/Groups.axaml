@@ -2,31 +2,45 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
   <!-- MudAvatarGroup: a StackPanel with a negative Spacing, Spacing 3 (the default,
        MudAvatarGroup.razor.cs) its ms-n3, -12px (_spacing.scss). Outlined (default true,
-       OutlineColor Surface) is a 2px ring on an avatar _avatar.scss sizes at 44px, 60px when large,
-       set here with the ring. Each avatar sits over the next, as GetAvatarZindex counts down. -->
+       OutlineColor Surface) is a 2px ring on an avatar _avatar.scss sizes at 28, 44 and 60px for
+       small, medium and large; these styles set the size and ring and keep rounded and square, so
+       any avatar may join. Each avatar sits over the next, as GetAvatarZindex counts down. -->
   <StackPanel Spacing="16">
+    <StackPanel.Styles>
+      <Style Selector="Border.avatar">
+        <Setter Property="Width" Value="44" />
+        <Setter Property="Height" Value="44" />
+        <Setter Property="CornerRadius" Value="22" />
+        <Setter Property="BorderThickness" Value="2" />
+        <Setter Property="BorderBrush" Value="{DynamicResource FiliSurfaceBrush}" />
+      </Style>
+      <Style Selector="Border.avatar.small">
+        <Setter Property="Width" Value="28" />
+        <Setter Property="Height" Value="28" />
+        <Setter Property="CornerRadius" Value="14" />
+      </Style>
+      <Style Selector="Border.avatar.large">
+        <Setter Property="Width" Value="60" />
+        <Setter Property="Height" Value="60" />
+        <Setter Property="CornerRadius" Value="30" />
+      </Style>
+      <Style Selector="Border.avatar.rounded">
+        <Setter Property="CornerRadius" Value="{DynamicResource FiliCornerRadius}" />
+      </Style>
+      <Style Selector="Border.avatar.square">
+        <Setter Property="CornerRadius" Value="0" />
+      </Style>
+    </StackPanel.Styles>
     <StackPanel Orientation="Horizontal" Spacing="-12">
-      <StackPanel.Styles>
-        <Style Selector="Border.avatar">
-          <Setter Property="Width" Value="44" />
-          <Setter Property="Height" Value="44" />
-          <Setter Property="CornerRadius" Value="22" />
-          <Setter Property="BorderThickness" Value="2" />
-          <Setter Property="BorderBrush" Value="{DynamicResource FiliSurfaceBrush}" />
-        </Style>
-      </StackPanel.Styles>
       <Border Classes="avatar primary" ZIndex="4"><TextBlock Text="A" /></Border>
       <Border Classes="avatar secondary" ZIndex="3"><TextBlock Text="B" /></Border>
       <Border Classes="avatar tertiary" ZIndex="2"><TextBlock Text="C" /></Border>
       <Border Classes="avatar info" ZIndex="1"><TextBlock Text="D" /></Border>
     </StackPanel>
+    <!-- OutlineColor="Color.Error": only the ring's colour, on this group alone. -->
     <StackPanel Orientation="Horizontal" Spacing="-12">
       <StackPanel.Styles>
-        <Style Selector="Border.avatar.large">
-          <Setter Property="Width" Value="60" />
-          <Setter Property="Height" Value="60" />
-          <Setter Property="CornerRadius" Value="30" />
-          <Setter Property="BorderThickness" Value="2" />
+        <Style Selector="Border.avatar">
           <Setter Property="BorderBrush" Value="{DynamicResource FiliErrorBrush}" />
         </Style>
       </StackPanel.Styles>

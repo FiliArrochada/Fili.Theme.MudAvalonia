@@ -96,6 +96,13 @@ public class CustomComponentsTests
         Dispatcher.UIThread.RunJobs();
         Assert.Equal(1, avatars.Count(a => a.IsVisible));
         Assert.Equal("+6", ((TextBlock)more.Child!).Text);
+
+        // Max 0, the docs slider's minimum: the "+n" alone.
+        window.GetVisualDescendants().OfType<Slider>().Single().Value = 0;
+        Dispatcher.UIThread.RunJobs();
+        Assert.All(avatars, a => Assert.False(a.IsVisible));
+        Assert.True(more.IsVisible);
+        Assert.Equal("+7", ((TextBlock)more.Child!).Text);
         window.Close();
     });
 
@@ -113,6 +120,10 @@ public class CustomComponentsTests
             .Select(p => p.Children.OfType<Border>().ToList()).ToList();
         Assert.Equal([4, 3], groups.Select(g => g.Count));
 
+        // Hit testing reads a rendered frame: without one, after another class's tests, it finds nothing.
+        AvaloniaHeadlessPlatform.ForceRenderTimerTick();
+        Dispatcher.UIThread.RunJobs();
+
         foreach (var ((avatars, size), ring) in groups.Zip([44.0, 60.0]).Zip(["FiliSurfaceBrush", "FiliErrorBrush"]))
         {
             Assert.All(avatars, a => Assert.Equal(new Size(size, size), a.Bounds.Size));
@@ -129,6 +140,19 @@ public class CustomComponentsTests
                 Assert.Same(avatars[i - 1], hit?.GetSelfAndVisualAncestors().OfType<Border>().First(b => b.Classes.Contains("avatar")));
             }
         }
+
+        // Any avatar may join, its size ringed and its shape kept: the group sets no shape.
+        var row = (StackPanel)groups[0][0].Parent!;
+        var small = new Border { Classes = { "avatar", "small", "rounded" } };
+        var square = new Border { Classes = { "avatar", "large", "square" } };
+        row.Children.Add(small);
+        row.Children.Add(square);
+        Dispatcher.UIThread.RunJobs();
+        Assert.Equal(new Size(28, 28), small.Bounds.Size);
+        Assert.Equal(window.FindResource("FiliCornerRadius"), small.CornerRadius);
+        Assert.Equal(new Size(60, 60), square.Bounds.Size);
+        Assert.Equal(new CornerRadius(0), square.CornerRadius);
+        Assert.Equal(new Thickness(2), square.BorderThickness);
 
         window.Close();
     });
