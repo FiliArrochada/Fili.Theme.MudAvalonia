@@ -287,5 +287,5 @@ can never be replaced: bump `<Version>` in a reviewed commit, add its row to `do
 Work since the last release is kept in an *(unreleased)* row and its Upgrading section as it
 lands; at the bump only the marker goes.
 
-**`docs/testing.md` describes every test class and workflow.** It and the comment in `build.yml`
-carry the unit-test total, so a change that adds tests updates both.
+**`docs/testing.md` describes every test class and workflow.** It carries the test totals, so a
+change that adds tests updates it; the workflows carry none.
