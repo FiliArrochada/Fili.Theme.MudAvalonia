@@ -59,6 +59,45 @@ public class CustomComponentsTests
         window.Close();
     });
 
+    /// <summary>
+    /// MudAvatarGroup's Max: the first Max avatars and a "+n" for the rest, hidden when none are,
+    /// each avatar over the next (MudAvatarGroup.GetAvatarZindex), the 2px ring on 44px.
+    /// </summary>
+    [Fact]
+    public Task AnAvatarGroupShowsMaxAndCountsTheRest() => UiThread.RunAsync(() =>
+    {
+        var window = Show("Custom/AvatarGroupMax");
+        var group = window.GetVisualDescendants().OfType<StackPanel>().Single(p => p.Name == "group");
+        var avatars = group.Children.OfType<Border>().Where(b => !AvatarGroup.GetIsMore(b)).ToList();
+        var more = group.Children.OfType<Border>().Single(AvatarGroup.GetIsMore);
+        Assert.Equal(7, avatars.Count);
+        Assert.Equal(4, AvatarGroup.GetMax(group));
+
+        Assert.Equal([true, true, true, true, false, false, false], avatars.Select(a => a.IsVisible));
+        Assert.True(more.IsVisible);
+        Assert.Equal("+3", ((TextBlock)more.Child!).Text);
+        Assert.Equal([7, 6, 5, 4, 3, 2, 1], avatars.Select(a => a.ZIndex));
+        Assert.Equal(0, more.ZIndex);
+        Assert.Equal(new Size(44, 44), avatars[0].Bounds.Size);
+        Assert.Equal(new Thickness(2), avatars[0].BorderThickness);
+
+        // Spacing 3: each avatar 12px into the one before it.
+        Assert.Equal(avatars[0].Bounds.Right - 12, avatars[1].Bounds.Left);
+        Assert.Equal(avatars[3].Bounds.Right - 12, more.Bounds.Left);
+
+        // The slider is Max: all seven need no "+n".
+        window.GetVisualDescendants().OfType<Slider>().Single().Value = 7;
+        Dispatcher.UIThread.RunJobs();
+        Assert.All(avatars, a => Assert.True(a.IsVisible));
+        Assert.False(more.IsVisible);
+
+        window.GetVisualDescendants().OfType<Slider>().Single().Value = 1;
+        Dispatcher.UIThread.RunJobs();
+        Assert.Equal(1, avatars.Count(a => a.IsVisible));
+        Assert.Equal("+6", ((TextBlock)more.Child!).Text);
+        window.Close();
+    });
+
     /// <summary>MudChip's OnClose: the close button removes its chip, and only its own.</summary>
     [Fact]
     public Task AChipsCloseButtonRemovesIt() => UiThread.RunAsync(() =>

@@ -85,7 +85,7 @@
       <docs:ParityRow MudBlazor="a MudIcon child" Here="a PathIcon inside" Status="Same" Note="24px, MudIcon's default size." />
       <docs:ParityRow MudBlazor="MudAvatarGroup Spacing" Here="a StackPanel with a negative Spacing" Status="Close" />
       <docs:ParityRow MudBlazor="MudAvatarGroup Outlined, OutlineColor" Here="BorderThickness=&quot;2&quot; and a BorderBrush on each avatar" Status="Close" Note="The 2px ring is two ordinary properties." />
-      <docs:ParityRow MudBlazor="MudAvatarGroup Max, the &quot;+n&quot; avatar" Here="—" Status="Missing" Note="Counting the avatars is code." />
+      <docs:ParityRow MudBlazor="MudAvatarGroup Max, the &quot;+n&quot; avatar" Here="an app's code" Status="Close" Note="Counting the avatars is the app's, a few lines on the Custom components page." />
     </docs:ParityTable>
   </StackPanel>
 </UserControl>

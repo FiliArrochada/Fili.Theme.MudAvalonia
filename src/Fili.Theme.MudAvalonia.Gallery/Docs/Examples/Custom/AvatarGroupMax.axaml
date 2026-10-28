@@ -1,0 +1,35 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:c="using:Fili.Theme.MudAvalonia.Gallery.Docs.Custom">
+  <!-- MudAvatarGroup Max="4": the first four avatars, then a "+n" avatar for the rest, filled in
+       the default colour (MaxColor). AvatarGroup hides the avatars past Max and counts them into
+       the IsMore one. The group's look is the app's: Spacing 3 is a -12px overlap, and Outlined
+       (default true, OutlineColor Surface) a 2px ring that _avatar.scss makes a 44px avatar. -->
+  <StackPanel Spacing="16">
+    <StackPanel x:Name="group" Orientation="Horizontal" Spacing="-12"
+                c:AvatarGroup.Max="{Binding #max.Value}">
+      <StackPanel.Styles>
+        <Style Selector="Border.avatar">
+          <Setter Property="Width" Value="44" />
+          <Setter Property="Height" Value="44" />
+          <Setter Property="CornerRadius" Value="22" />
+          <Setter Property="BorderThickness" Value="2" />
+          <Setter Property="BorderBrush" Value="{DynamicResource FiliSurfaceBrush}" />
+        </Style>
+      </StackPanel.Styles>
+      <Border Classes="avatar primary"><TextBlock Text="A" /></Border>
+      <Border Classes="avatar secondary"><TextBlock Text="B" /></Border>
+      <Border Classes="avatar tertiary"><TextBlock Text="C" /></Border>
+      <Border Classes="avatar info"><TextBlock Text="D" /></Border>
+      <Border Classes="avatar success"><TextBlock Text="E" /></Border>
+      <Border Classes="avatar warning"><TextBlock Text="F" /></Border>
+      <Border Classes="avatar error"><TextBlock Text="G" /></Border>
+      <Border Classes="avatar" c:AvatarGroup.IsMore="True" />
+    </StackPanel>
+    <StackPanel Orientation="Horizontal" Spacing="16">
+      <TextBlock Classes="body1" Text="Max" VerticalAlignment="Center" />
+      <Slider x:Name="max" Width="240" Minimum="1" Maximum="7" Value="4"
+              TickFrequency="1" IsSnapToTickEnabled="True" />
+    </StackPanel>
+  </StackPanel>
+</UserControl>

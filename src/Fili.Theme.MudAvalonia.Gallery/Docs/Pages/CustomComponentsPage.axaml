@@ -14,6 +14,15 @@
       <Run Text="The glyphs are MudAlert's: EventNote with no severity, then Info, AlertSuccess, ReportProblem and ErrorOutline. A selector ending in " /><Run Classes="code" Text="PathIcon.severity" /><Run Text=" is matched against every PathIcon, so keep the class to alerts. See " /><docs:DocLink Slug="alert" Content="Alert" /><Run Text="." />
     </TextBlock>
 
+    <TextBlock Classes="h5 section" Text="Avatar group with a maximum" />
+    <docs:ExampleCard Title="A &quot;+n&quot; avatar for the rest"
+                      Description="MudAvatarGroup's Max: the group shows its first Max avatars and one more for the rest, &quot;+3&quot;, filled in the default colour. AvatarGroup on the panel hides the avatars past Max and counts them into the one marked IsMore."
+                      Source="Custom/AvatarGroupMax"
+                      CodeBehind="AvatarGroup" />
+    <TextBlock Classes="body1 p">
+      <Run Text="Each avatar sits over the next and the &quot;+n&quot; one under the last, as MudAvatarGroup's z-index counts down. The overlap and the ring are the group's look, set on the panel: Spacing 3 is a -12px Spacing, and Outlined a 2px border in the surface colour on a 44px avatar, as _avatar.scss grows a ringed one. See " /><docs:DocLink Slug="avatar" Content="Avatar" /><Run Text="." />
+    </TextBlock>
+
     <TextBlock Classes="h5 section" Text="Closable chips" />
     <docs:ExampleCard Title="A chip set the user closes"
                       Description="MudChip's OnClose: each chip's close button removes it from the list behind the chip set. The button is MudChip's, 18px with 1px of padding in the chip's text colour; end-icon gives it the chip's gaps."
