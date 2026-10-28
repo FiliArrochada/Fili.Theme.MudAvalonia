@@ -234,6 +234,27 @@
     <Setter Property="LetterSpacing" Value="{DynamicResource FiliOverlineLetterSpacing}" />
   </Style>
 
+  <!-- MudListSubheader, from _list.scss's .mud-list-subheader: action-default, .875rem at 500 on
+       the body's 1.43 line, 8px above and 20px below, 16px gutters (Gutters defaults to true).
+       Inset is 72px in front, past an icon or avatar column; `no-gutters` drops the 16px. -->
+  <Style Selector="TextBlock.subheader">
+    <Setter Property="Foreground" Value="{DynamicResource FiliActionDefaultBrush}" />
+    <Setter Property="FontSize" Value="{DynamicResource FiliBody2FontSize}" />
+    <Setter Property="LineHeight" Value="{DynamicResource FiliBody2LineHeight}" />
+    <Setter Property="LetterSpacing" Value="{DynamicResource FiliBody2LetterSpacing}" />
+    <Setter Property="FontWeight" Value="Medium" />
+    <Setter Property="Padding" Value="16,8,16,20" />
+  </Style>
+  <Style Selector="TextBlock.subheader.no-gutters">
+    <Setter Property="Padding" Value="0,8,0,20" />
+  </Style>
+  <Style Selector="TextBlock.subheader.inset">
+    <Setter Property="Padding" Value="72,8,16,20" />
+  </Style>
+  <Style Selector="TextBlock.subheader.inset.no-gutters">
+    <Setter Property="Padding" Value="72,8,0,20" />
+  </Style>
+
   <!--
     MudText's Color: `<TextBlock Classes="body2 error" />` is `<MudText Typo="Typo.body2"
     Color="Color.Error">`. A colour class is the palette colour, as everywhere else in this theme -

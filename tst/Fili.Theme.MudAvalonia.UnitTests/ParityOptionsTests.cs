@@ -29,6 +29,29 @@ public class ParityOptionsTests
 
     private static ListBoxItem Row(ListBox list, int index) => Assert.IsType<ListBoxItem>(list.ContainerFromIndex(index));
 
+    /// <summary>
+    /// MudListSubheader (_list.scss): action-default, 14px at 500 on a 20px line, 8px above and
+    /// 20px below, 16px gutters unless Gutters="false", 72px in front when Inset.
+    /// </summary>
+    [Theory]
+    [InlineData("", 16, 16)]
+    [InlineData("no-gutters", 0, 0)]
+    [InlineData("inset", 72, 16)]
+    [InlineData("inset no-gutters", 72, 0)]
+    public Task ASubheaderIsMudListSubheader(string classes, double left, double right) => UiThread.RunAsync(() =>
+    {
+        var text = new TextBlock { Text = "Fruit", Classes = { "subheader" } };
+        text.Classes.AddRange(classes.Split(' ', StringSplitOptions.RemoveEmptyEntries));
+        Matrix.Show(text);
+
+        Assert.Equal(new Thickness(left, 8, right, 20), text.Padding);
+        Assert.Equal(Matrix.Token("FiliActionDefaultColor"), Matrix.Colour(text.Foreground));
+        Assert.Equal(14, text.FontSize);
+        Assert.Equal(20, text.LineHeight);
+        Assert.Equal(FontWeight.Medium, text.FontWeight);
+        Assert.Equal(48, text.Bounds.Height);
+    });
+
     /// <summary>MudListItem's text is body1, and body2 when dense; so is a select's option.</summary>
     [Fact]
     public Task ARowIsBody1AndBody2WhenDense() => UiThread.RunAsync(() =>

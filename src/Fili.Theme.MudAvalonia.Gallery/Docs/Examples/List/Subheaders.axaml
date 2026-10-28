@@ -1,17 +1,17 @@
 <UserControl xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-  <!-- MudListSubheader is a TextBlock with a Margin, outside the ListBox so that it is not a row
-       that can be chosen. A Separator between two lists divides them; IsEnabled="False" on a row
+  <!-- MudListSubheader is a TextBlock.subheader, outside the ListBox so that it is not a row
+       that can be chosen; inset and no-gutters are its Inset and Gutters="false". A Separator between two lists divides them; IsEnabled="False" on a row
        is Disabled, in action-disabled. -->
   <Border Classes="paper" Width="360" HorizontalAlignment="Left" Padding="0,8">
     <StackPanel>
-      <TextBlock Classes="body2" Text="Fruit" Foreground="{DynamicResource FiliTextSecondaryBrush}" Margin="16,8,16,0" />
+      <TextBlock Classes="subheader" Text="Fruit" />
       <ListBox SelectedIndex="0">
         <ListBoxItem>Apples</ListBoxItem>
         <ListBoxItem IsEnabled="False">Pears (out of season)</ListBoxItem>
       </ListBox>
       <Separator />
-      <TextBlock Classes="body2" Text="Vegetables" Foreground="{DynamicResource FiliTextSecondaryBrush}" Margin="16,16,16,0" />
+      <TextBlock Classes="subheader" Text="Vegetables" />
       <ListBox>
         <ListBoxItem>Carrots</ListBoxItem>
         <ListBoxItem>Leeks</ListBoxItem>

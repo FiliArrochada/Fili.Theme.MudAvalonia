@@ -52,7 +52,7 @@
 
     <TextBlock Classes="h5 section" Text="Subheaders and disabled rows" />
     <docs:ExampleCard Title="Subheaders, dividers and Disabled"
-                      Description="A subheader is a TextBlock with a Margin, outside the ListBox so it is not a row that can be chosen. IsEnabled=&quot;False&quot; is Disabled, in action-disabled."
+                      Description="MudListSubheader is TextBlock.subheader, outside the ListBox so it is not a row that can be chosen. IsEnabled=&quot;False&quot; is Disabled, in action-disabled."
                       Source="List/Subheaders" />
 
     <TextBlock Classes="h5 section" Text="Clickable rows" />
@@ -91,7 +91,7 @@
       <docs:ParityRow MudBlazor="SelectionMode.MultiSelection, set up" Here="multi-selection and SelectionMode=&quot;Multiple, Toggle&quot;" Status="Close" Note="Two settings for one parameter: a XAML list pins SelectionMode before any style can set it." />
       <docs:ParityRow MudBlazor="CheckBoxColor (default Default)" Here="no class, or primary … dark on the list while multi-selection is on" Status="Close" Note="Both glyphs and the halo; the list's Color class doubles as it, the selection colour being unused while selecting many." />
       <docs:ParityRow MudBlazor="CheckedIcon, UncheckedIcon, IndeterminateIcon" Here="FiliCheckBoxCheckedGeometry, FiliCheckBoxUncheckedGeometry, FiliCheckBoxIndeterminateGeometry" Status="Same" Note="Resource keys set in the list's Resources, as on a checkbox." />
-      <docs:ParityRow MudBlazor="MudListSubheader" Here="a TextBlock with Margin" Status="Close" Note="Outside the ListBox, so it is not a row that can be chosen." />
+      <docs:ParityRow MudBlazor="MudListSubheader, its Inset and Gutters" Here="TextBlock.subheader, inset, no-gutters" Status="Same" Note="Outside the ListBox, so it is not a row that can be chosen." />
       <docs:ParityRow MudBlazor="Ripple (default true)" Here="on" Status="Same" Note="On every row, and on a select's options, which are MudListItems." />
     </docs:ParityTable>
   </StackPanel>
