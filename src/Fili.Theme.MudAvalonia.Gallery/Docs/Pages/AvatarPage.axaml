@@ -52,7 +52,7 @@
 
     <TextBlock Classes="h5 section" Text="Groups" />
     <docs:ExampleCard Title="Overlapping avatars"
-                      Description="MudAvatarGroup is a StackPanel with a negative Spacing. Its Outlined ring is BorderThickness=&quot;2&quot; and a BorderBrush on each avatar: surface above, error below."
+                      Description="MudAvatarGroup is a StackPanel with a negative Spacing. Its Outlined ring is a 2px border on a 44px avatar, 60px when large: surface above, error below."
                       Source="Avatar/Groups" />
     <TextBlock Classes="body1 p">
       <Run Text="MudAvatarGroup's " /><Run Classes="code" Text="Max" /><Run Text=" and its &quot;+n&quot; avatar are not here: counting the avatars is the app's code." />
@@ -83,8 +83,8 @@
       <docs:ParityRow MudBlazor="Elevation" Here="the elevation classes" Status="Same" Note="The avatar never clips itself, so its shadow survives." />
       <docs:ParityRow MudBlazor="a MudImage child" Here="an Image inside, or an ImageBrush as Background" Status="Same" Note="Covers the avatar and is clipped to its shape; an ImageBrush needs nothing more at a size of your own." />
       <docs:ParityRow MudBlazor="a MudIcon child" Here="a PathIcon inside" Status="Same" Note="24px, MudIcon's default size." />
-      <docs:ParityRow MudBlazor="MudAvatarGroup Spacing" Here="a StackPanel with a negative Spacing" Status="Close" />
-      <docs:ParityRow MudBlazor="MudAvatarGroup Outlined, OutlineColor" Here="BorderThickness=&quot;2&quot; and a BorderBrush on each avatar" Status="Close" Note="The 2px ring is two ordinary properties." />
+      <docs:ParityRow MudBlazor="MudAvatarGroup Spacing" Here="a StackPanel with a negative Spacing" Status="Close" Note="4px a step: the default of 3 is -12. Each avatar sits over the next through a ZIndex counting down, as MudAvatarGroup's z-index does." />
+      <docs:ParityRow MudBlazor="MudAvatarGroup Outlined, OutlineColor" Here="BorderThickness=&quot;2&quot;, a BorderBrush and a size on each avatar" Status="Close" Note="The ring is ordinary properties, and the size the app's to set: MudAvatarGroup makes an outlined avatar 28, 44 and 60px for small, medium and large." />
       <docs:ParityRow MudBlazor="MudAvatarGroup Max, the &quot;+n&quot; avatar" Here="an app's code" Status="Close" Note="Counting the avatars is the app's, a few lines on the Custom components page." />
     </docs:ParityTable>
   </StackPanel>

@@ -14,6 +14,7 @@ namespace Fili.Theme.MudAvalonia.PixelTests;
 /// <summary>
 /// The examples built in the app with C# of their own, the Custom components page's and the text
 /// field's validation, do what MudBlazor's do: clicked with the headless mouse, as a reader would.
+/// The Avatar page's groups, the half of MudAvatarGroup that needs no C#, are measured beside Max.
 /// </summary>
 public class CustomComponentsTests
 {
@@ -95,6 +96,40 @@ public class CustomComponentsTests
         Dispatcher.UIThread.RunJobs();
         Assert.Equal(1, avatars.Count(a => a.IsVisible));
         Assert.Equal("+6", ((TextBlock)more.Child!).Text);
+        window.Close();
+    });
+
+    /// <summary>
+    /// The Avatar page's groups, MudAvatarGroup without Max: Spacing 3 a 12px overlap, the
+    /// Outlined ring, surface and error, on a 44px avatar and a large one of 60 (_avatar.scss), and
+    /// each avatar drawn over the next.
+    /// </summary>
+    [Fact]
+    public Task AnAvatarGroupOverlapsAsMudBlazors() => UiThread.RunAsync(() =>
+    {
+        var window = Show("Avatar/Groups");
+        var groups = window.GetVisualDescendants().OfType<StackPanel>()
+            .Where(p => p.Children.Count > 0 && p.Children.All(c => c.Classes.Contains("avatar")))
+            .Select(p => p.Children.OfType<Border>().ToList()).ToList();
+        Assert.Equal([4, 3], groups.Select(g => g.Count));
+
+        foreach (var ((avatars, size), ring) in groups.Zip([44.0, 60.0]).Zip(["FiliSurfaceBrush", "FiliErrorBrush"]))
+        {
+            Assert.All(avatars, a => Assert.Equal(new Size(size, size), a.Bounds.Size));
+            Assert.All(avatars, a => Assert.Equal(new Thickness(2), a.BorderThickness));
+            Assert.All(avatars, a => Assert.Same(window.FindResource(ring), a.BorderBrush));
+            Assert.Equal(Enumerable.Range(1, avatars.Count).Reverse(), avatars.Select(a => a.ZIndex));
+            for (var i = 1; i < avatars.Count; i++)
+            {
+                Assert.Equal(avatars[i - 1].Bounds.Right - 12, avatars[i].Bounds.Left);
+
+                // The middle of the overlap is the earlier avatar's: it is drawn on top.
+                var overlap = avatars[i - 1].TranslatePoint(new Point(size - 6, size / 2), window)!.Value;
+                var hit = window.InputHitTest(overlap) as Visual;
+                Assert.Same(avatars[i - 1], hit?.GetSelfAndVisualAncestors().OfType<Border>().First(b => b.Classes.Contains("avatar")));
+            }
+        }
+
         window.Close();
     });
 
