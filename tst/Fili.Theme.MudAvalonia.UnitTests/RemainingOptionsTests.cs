@@ -395,4 +395,60 @@ public class RemainingOptionsTests
         Assert.Equal(plain.Height, marked.Height);
         Assert.Equal(default, marked.Margin);
     });
+
+    /// <summary>
+    /// MudChipSet's CheckMark (MudChip.razor): a selected chip shows Icons.Material.Filled.Check
+    /// as a MudIcon at Size.Small with `.mud-chip-icon`'s gaps, the start icon's size and margin.
+    /// </summary>
+    [Theory]
+    [InlineData("", 20, -4)]
+    [InlineData("small", 18, -4)]
+    [InlineData("large", 24, -6)]
+    public Task ASelectedCheckMarkChipShowsItsCheck(string size, double side, double lead) => UiThread.RunAsync(() =>
+    {
+        var chip = new ToggleButton { Content = "Indie", Classes = { "chip", "check-mark" } };
+        if (size.Length > 0)
+        {
+            chip.Classes.Add(size);
+        }
+
+        Matrix.Show(chip);
+        var check = Named<Viewbox>(chip, "PART_CheckMark");
+        Assert.False(check.IsEffectivelyVisible);
+
+        chip.IsChecked = true;
+        Dispatcher.UIThread.RunJobs();
+        Assert.True(check.IsEffectivelyVisible);
+        Assert.Equal(new Size(side, side), check.Bounds.Size);
+        Assert.Equal(new Thickness(lead, 0, -lead, 0), check.Margin);
+
+        var label = Named<ContentPresenter>(chip, "PART_ContentPresenter");
+        Assert.True(check.TranslatePoint(default, chip)!.Value.X < label.TranslatePoint(default, chip)!.Value.X);
+
+        var plain = new ToggleButton { Content = "Indie", IsChecked = true, Classes = { "chip" } };
+        Matrix.Show(plain);
+        Assert.False(Named<Viewbox>(plain, "PART_CheckMark").IsEffectivelyVisible);
+    });
+
+    /// <summary>`!string.IsNullOrEmpty(Icon) &amp;&amp; !ShowCheckMark`: the check takes the icon's place.</summary>
+    [Fact]
+    public Task TheCheckTakesTheStartIconsPlace() => UiThread.RunAsync(() =>
+    {
+        var icon = new PathIcon { Classes = { "start-icon" } };
+        var chip = new ToggleButton
+        {
+            Classes = { "chip", "check-mark" },
+            Content = new StackPanel { Orientation = Orientation.Horizontal, Children = { icon, new TextBlock { Text = "Indie" } } },
+        };
+        Matrix.Show(chip);
+        Assert.True(icon.IsEffectivelyVisible);
+
+        chip.IsChecked = true;
+        Dispatcher.UIThread.RunJobs();
+        Assert.False(icon.IsVisible);
+
+        chip.IsChecked = false;
+        Dispatcher.UIThread.RunJobs();
+        Assert.True(icon.IsVisible);
+    });
 }

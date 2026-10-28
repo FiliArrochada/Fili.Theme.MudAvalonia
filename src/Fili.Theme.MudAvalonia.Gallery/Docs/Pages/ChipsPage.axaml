@@ -61,7 +61,7 @@
 
     <TextBlock Classes="h5 section" Text="Chip set" />
     <docs:ExampleCard Title="Selected chips"
-                      Description="chip on a ToggleButton is a chip in a MudChipSet, and IsChecked is selected. A selected filled chip draws as text and a selected text chip as filled; an outlined one keeps its line and gains the tint. A check mark is an icon the app shows while IsChecked."
+                      Description="chip on a ToggleButton is a chip in a MudChipSet, and IsChecked is selected. A selected filled chip draws as text and a selected text chip as filled; an outlined one keeps its line and gains the tint. check-mark is MudChipSet's CheckMark: a check while IsChecked, in place of the chip's start icon."
                       Source="Chips/Selection" />
     <TextBlock Classes="body1 p">
       <Run Text="A chip set is a panel of chips, and nothing cascades: put the variant, colour and size on each chip, or one " /><Run Classes="code" Text="Style" /><Run Text=" over the container. Single or multiple selection is the app's, through " /><Run Classes="code" Text="IsChecked" /><Run Text=" bindings." />
@@ -87,7 +87,8 @@
       <docs:ParityRow MudBlazor="Label" Here="CornerRadius=&quot;4&quot;" Status="Close" Note="The chip label's default radius in place of the pill." />
       <docs:ParityRow MudBlazor="SelectedColor" Here="a colour class the app sets while IsChecked" Status="Close" />
       <docs:ParityRow MudBlazor="IconColor" Here="the icon's Foreground" Status="Close" />
-      <docs:ParityRow MudBlazor="CheckedIcon, MudChipSet.CheckMark" Here="an icon in Content" Status="Close" Note="Shown by the app while IsChecked." />
+      <docs:ParityRow MudBlazor="MudChipSet.CheckMark" Here="check-mark on each chip" Status="Same" Note="The check shows while IsChecked and hides a start icon, as it takes MudChip's Icon's place." />
+      <docs:ParityRow MudBlazor="CheckedIcon" Here="FiliCheckGeometry in the chip's Resources" Status="Same" />
       <docs:ParityRow MudBlazor="MudChipSet's Variant, Color, Size, Label, CloseIcon, AllClosable, Disabled" Here="the classes on each chip, or one Style over the container" Status="Close" Note="A chip set is a panel of chips; nothing cascades." />
       <docs:ParityRow MudBlazor="Ripple (default true)" Here="on" Status="Same" Note="0.2 on a filled chip, 0.1 on outlined and text; a selected chip keeps its variant's." />
     </docs:ParityTable>

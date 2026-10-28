@@ -10,20 +10,14 @@
       <ToggleButton Classes="chip outlined success" Content="Rice" IsChecked="True" Margin="0,0,8,8" />
       <ToggleButton Classes="chip outlined success" Content="Pasta" Margin="0,0,8,8" />
     </WrapPanel>
-    <!-- CheckMark: an icon the app shows while IsChecked. -->
+    <!-- CheckMark is check-mark: the check shows while IsChecked, in the start icon's place. -->
     <WrapPanel Orientation="Horizontal">
-      <ToggleButton Classes="chip primary" IsChecked="True" Margin="0,0,8,8">
+      <ToggleButton Classes="chip primary check-mark" Content="Checked" IsChecked="True" Margin="0,0,8,8" />
+      <ToggleButton Classes="chip primary check-mark" Content="Unchecked" Margin="0,0,8,8" />
+      <ToggleButton Classes="chip outlined check-mark" IsChecked="True" Margin="0,0,8,8">
         <StackPanel Orientation="Horizontal">
-          <PathIcon Classes="start-icon" Data="{DynamicResource GalleryDoneIcon}"
-                    IsVisible="{Binding $parent[ToggleButton].IsChecked}" />
-          <TextBlock Text="Checked" />
-        </StackPanel>
-      </ToggleButton>
-      <ToggleButton Classes="chip primary" Margin="0,0,8,8">
-        <StackPanel Orientation="Horizontal">
-          <PathIcon Classes="start-icon" Data="{DynamicResource GalleryDoneIcon}"
-                    IsVisible="{Binding $parent[ToggleButton].IsChecked}" />
-          <TextBlock Text="Unchecked" />
+          <PathIcon Classes="start-icon" Data="{DynamicResource GalleryFavoriteIcon}" />
+          <TextBlock Text="Icon when unchecked" />
         </StackPanel>
       </ToggleButton>
     </WrapPanel>

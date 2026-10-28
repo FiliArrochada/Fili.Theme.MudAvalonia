@@ -76,6 +76,13 @@ internal sealed class IconSlot
     public static readonly AttachedProperty<IBrush?> BrushProperty =
         AvaloniaProperty.RegisterAttached<IconSlot, Control, IBrush?>("Brush", inherits: true);
 
+    /// <summary>
+    /// A start icon hidden: a chip's own icon while its check mark shows, as MudChip renders its
+    /// check in the Icon's place.
+    /// </summary>
+    public static readonly AttachedProperty<bool> StartHiddenProperty =
+        AvaloniaProperty.RegisterAttached<IconSlot, Control, bool>("StartHidden", inherits: true);
+
     static IconSlot()
     {
         StartSizeProperty.Changed.AddClassHandler<Control>((c, e) =>
@@ -91,6 +98,7 @@ internal sealed class IconSlot
         StartMarginProperty.Changed.AddClassHandler<Control>((c, e) => Apply(c, StartIcon, e.GetNewValue<Thickness?>(), Layoutable.MarginProperty));
         EndMarginProperty.Changed.AddClassHandler<Control>((c, e) => Apply(c, EndIcon, e.GetNewValue<Thickness?>(), Layoutable.MarginProperty));
         BrushProperty.Changed.AddClassHandler<Control>((c, e) => Apply(c, StartIcon, e.GetNewValue<IBrush?>(), TextElement.ForegroundProperty));
+        StartHiddenProperty.Changed.AddClassHandler<Control>((c, e) => Apply(c, StartIcon, e.GetNewValue<bool>() ? (object)false : null, Visual.IsVisibleProperty));
         AvatarSizeProperty.Changed.AddClassHandler<Control>((c, e) =>
         {
             Apply(c, Avatar, e.GetNewValue<double?>(), Layoutable.WidthProperty, Layoutable.HeightProperty);
@@ -127,6 +135,10 @@ internal sealed class IconSlot
     public static double? GetAvatarFontSize(Control c) => c.GetValue(AvatarFontSizeProperty);
 
     public static void SetAvatarFontSize(Control c, double? value) => c.SetValue(AvatarFontSizeProperty, value);
+
+    public static bool GetStartHidden(Control c) => c.GetValue(StartHiddenProperty);
+
+    public static void SetStartHidden(Control c, bool value) => c.SetValue(StartHiddenProperty, value);
 
     public static IBrush? GetBrush(Control c) => c.GetValue(BrushProperty);
 
