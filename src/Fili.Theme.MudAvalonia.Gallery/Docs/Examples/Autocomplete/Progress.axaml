@@ -2,6 +2,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:generic="using:System.Collections.Generic">
   <WrapPanel ItemSpacing="16" LineSpacing="16">
+    <!-- The spinner takes the arrow's place while the app searches; afterwards
+         ClearValue(AutoCompleteBox.InnerRightContentProperty) brings the arrow back. -->
     <AutoCompleteBox Width="220" VerticalAlignment="Top" PlaceholderText="Loading" Text="Ari">
       <AutoCompleteBox.ItemsSource>
         <generic:List x:TypeArguments="x:String">

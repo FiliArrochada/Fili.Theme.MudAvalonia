@@ -2,7 +2,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:generic="using:System.Collections.Generic">
   <WrapPanel ItemSpacing="16" LineSpacing="16">
-    <AutoCompleteBox Classes="outlined" Width="220" VerticalAlignment="Top" PlaceholderText="With an arrow">
+    <!-- The arrow is there unless InnerRightContent is set: Adornment.End by default. -->
+    <AutoCompleteBox Classes="outlined" Width="220" VerticalAlignment="Top" PlaceholderText="With the arrow">
       <AutoCompleteBox.ItemsSource>
         <generic:List x:TypeArguments="x:String">
           <x:String>Alabama</x:String>
@@ -12,10 +13,8 @@
           <x:String>California</x:String>
         </generic:List>
       </AutoCompleteBox.ItemsSource>
-      <AutoCompleteBox.InnerRightContent>
-        <PathIcon Classes="end-icon" Data="{DynamicResource FiliArrowDropDownGeometry}" />
-      </AutoCompleteBox.InnerRightContent>
     </AutoCompleteBox>
+    <!-- AdornmentIcon: an icon of the app's own replaces it. -->
     <AutoCompleteBox Classes="filled" Width="220" VerticalAlignment="Top" PlaceholderText="Search">
       <AutoCompleteBox.ItemsSource>
         <generic:List x:TypeArguments="x:String">
@@ -26,9 +25,21 @@
           <x:String>California</x:String>
         </generic:List>
       </AutoCompleteBox.ItemsSource>
-      <AutoCompleteBox.InnerLeftContent>
-        <PathIcon Classes="start-icon" Data="{DynamicResource GallerySearchIcon}" />
-      </AutoCompleteBox.InnerLeftContent>
+      <AutoCompleteBox.InnerRightContent>
+        <PathIcon Classes="end-icon" Data="{DynamicResource GallerySearchIcon}" />
+      </AutoCompleteBox.InnerRightContent>
+    </AutoCompleteBox>
+    <!-- Adornment.None: no content at all. -->
+    <AutoCompleteBox Width="220" VerticalAlignment="Top" PlaceholderText="No adornment" InnerRightContent="{x:Null}">
+      <AutoCompleteBox.ItemsSource>
+        <generic:List x:TypeArguments="x:String">
+          <x:String>Alabama</x:String>
+          <x:String>Alaska</x:String>
+          <x:String>Arizona</x:String>
+          <x:String>Arkansas</x:String>
+          <x:String>California</x:String>
+        </generic:List>
+      </AutoCompleteBox.ItemsSource>
     </AutoCompleteBox>
   </WrapPanel>
 </UserControl>

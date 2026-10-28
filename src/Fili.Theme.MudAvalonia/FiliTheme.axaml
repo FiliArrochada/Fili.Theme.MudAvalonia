@@ -2759,6 +2759,13 @@
     <Setter Property="Padding" Value="0,4" />
   </Style>
 
+  <!-- A disabled autocomplete's arrow is text-disabled, as the select's is (`.mud-input.mud-disabled
+       > .mud-input-adornment`), not a disabled icon button's action-disabled. Here, since a
+       control theme may not reach a descendant, and the arrow is the field's content, not a part. -->
+  <Style Selector="AutoCompleteBox:disabled Button#PART_DropDownArrow PathIcon">
+    <Setter Property="Foreground" Value="{DynamicResource FiliTextDisabledBrush}" />
+  </Style>
+
   <!-- MudSelect's Dense, on every option: `dense-items`, since `dense` on a select is its field's
        Margin.Dense. -->
   <Style Selector="ComboBox.dense-items ComboBoxItem">

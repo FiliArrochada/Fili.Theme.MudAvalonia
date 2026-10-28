@@ -356,6 +356,11 @@ for something XAML cannot express on its own:
   an icon is centred on a filled or outlined box; and a field with no `PlaceholderText` gets
   `:no-label`, which drops the label's room. A selector cannot ask whether a property is null, or
   what type its value is.
+- **`AutoCompleteField`** marks the `TextBox` inside an `AutoCompleteBox` `:select-input`, which
+  takes the 8px off its end adornment as `.mud-select-input` does, two templates down from the
+  `AutoCompleteBox`'s selectors; and makes the drop-down arrow's click toggle the list, focusing
+  the field first. A button rather than a toggle bound to `IsDropDownOpen`: the box can refuse to
+  open, and a two-way binding never hears it, so the arrow said open over a closed list.
 - **`CalendarView`** makes the date picker's toolbar buttons change the calendar's view - the
   year to the years, the date back to the selected month - and gives the toolbar the paper's top
   corners. A template cannot set another control's property on a click.

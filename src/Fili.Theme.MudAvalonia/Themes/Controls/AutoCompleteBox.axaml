@@ -13,7 +13,8 @@
   So this theme exists for the third thing, which neither of those covers: the popup SURFACE.
   MudBlazor renders it through MudPopover, which is a MudPaper - surface colour, the default 4px
   radius and elevation 8, the same drop the select and the menu use. The substrate's version is a
-  1px grey rectangle with no shadow, which reads as a different component entirely.
+  1px grey rectangle with no shadow, which reads as a different component entirely. And the
+  drop-down arrow MudAutocomplete adds as its end adornment, which an AutoCompleteBox has none of.
 
   PART_TextBox, PART_Popup and PART_SelectingItemsControl are all required by name.
 -->
@@ -35,6 +36,35 @@
     <Setter Property="Padding" Value="0" />
     <Setter Property="FontFamily" Value="{DynamicResource FiliFontFamily}" />
     <Setter Property="FontSize" Value="{DynamicResource FiliBody1FontSize}" />
+    <!-- MudAutocomplete.MinCharacters defaults to 0, so the arrow opens the whole list over an
+         empty field; Avalonia's MinimumPrefixLength defaults to 1, which refuses to open. A
+         setter, so an app's own value still wins. -->
+    <Setter Property="MinimumPrefixLength" Value="0" />
+    <!-- MudAutocomplete's Adornment.End: OpenIcon ArrowDropDown, CloseIcon ArrowDropUp while open,
+         in the clickable adornment's MudIconButton - Edge.End, action-default, tabindex -1 - which
+         toggles the list (AutoCompleteField). Pulled into the text line as the date picker's
+         button is. A setter, built per field, so an app's own InnerRightContent replaces it and
+         InnerRightContent="{x:Null}" is Adornment.None. The glyphs are the select's two keys, so
+         FiliArrowDropDownGeometry in the field's Resources is AdornmentIcon with the toggle kept.
+         Raw to automation: the AutoCompleteBox's own peer already expands and collapses, and an
+         icon has no name to give a second control. Disabled, its colour is FiliTheme.axaml's. -->
+    <Setter Property="InnerRightContent">
+      <Template>
+        <Button Name="PART_DropDownArrow"
+                Classes="icon"
+                Margin="0,-14,-12,-14"
+                Focusable="False"
+                AutomationProperties.AccessibilityView="Raw"
+                theme:AutoCompleteField.TogglesDropDown="True">
+          <Panel>
+            <PathIcon Data="{DynamicResource FiliArrowDropDownGeometry}"
+                      IsVisible="{Binding !$parent[AutoCompleteBox].IsDropDownOpen}" />
+            <PathIcon Data="{DynamicResource FiliArrowDropUpGeometry}"
+                      IsVisible="{Binding $parent[AutoCompleteBox].IsDropDownOpen}" />
+          </Panel>
+        </Button>
+      </Template>
+    </Setter>
 
     <Setter Property="Template">
       <ControlTemplate>
@@ -43,6 +73,7 @@
                outlined variants' own, and the standard field's are already none. -->
           <TextBox x:Name="PART_TextBox"
                    theme:FieldClasses.Mirrors="True"
+                   theme:AutoCompleteField.IsSelectInput="True"
                    AutomationProperties.HelpText="{TemplateBinding (AutomationProperties.HelpText)}"
                    Padding="{TemplateBinding Padding}"
                    CaretIndex="{TemplateBinding CaretIndex, Mode=TwoWay}"

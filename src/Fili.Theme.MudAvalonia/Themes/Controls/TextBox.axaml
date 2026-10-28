@@ -444,6 +444,11 @@
     <Style Selector="^:end-adornment /template/ ContentPresenter#PART_InnerRightContent">
       <Setter Property="Margin" Value="8,0,0,0" />
     </Style>
+    <!-- An autocomplete's field, `.mud-select-input`: `.mud-input-adornment-end` margin-left 0
+         (_select.scss), so its end adornment sits right against the text. -->
+    <Style Selector="^:select-input:end-adornment /template/ ContentPresenter#PART_InnerRightContent">
+      <Setter Property="Margin" Value="0,0,0,0" />
+    </Style>
     <Style Selector="^:spin-end:end-adornment /template/ ContentPresenter#PART_InnerRightContent">
       <Setter Property="Margin" Value="8,0,24,0" />
     </Style>
@@ -569,6 +574,9 @@
     </Style>
     <Style Selector="^:end-adornment /template/ ContentPresenter#PART_InnerRightContent">
       <Setter Property="Margin" Value="8,-12,0,0" />
+    </Style>
+    <Style Selector="^:select-input:end-adornment /template/ ContentPresenter#PART_InnerRightContent">
+      <Setter Property="Margin" Value="0,-12,0,0" />
     </Style>
     <Style Selector="^:spin-end:end-adornment /template/ ContentPresenter#PART_InnerRightContent">
       <Setter Property="Margin" Value="8,-12,12,0" />
@@ -710,6 +718,9 @@
     </Style>
     <Style Selector="^:end-adornment /template/ ContentPresenter#PART_InnerRightContent">
       <Setter Property="Margin" Value="8,-4,0,0" />
+    </Style>
+    <Style Selector="^:select-input:end-adornment /template/ ContentPresenter#PART_InnerRightContent">
+      <Setter Property="Margin" Value="0,-4,0,0" />
     </Style>
     <Style Selector="^:spin-end:end-adornment /template/ ContentPresenter#PART_InnerRightContent">
       <Setter Property="Margin" Value="8,-4,10,0" />

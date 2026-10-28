@@ -33,15 +33,15 @@
 
     <TextBlock Classes="h5 section" Text="Adornments" />
     <docs:ExampleCard Title="Drop-down arrow and icons"
-                      Description="An AutoCompleteBox shows no arrow of its own: MudAutocomplete's is a PathIcon in InnerRightContent, here the theme's own FiliArrowDropDownGeometry. Start and end icons are a text field's adornments."
+                      Description="MudAutocomplete's Adornment.End: ArrowDropDown in an edge-end icon button, ArrowDropUp while open, out of the Tab order and right against the text; clicking it opens or closes the list, the whole list over an empty field. An app's own InnerRightContent replaces the button, and InnerRightContent=&quot;{x:Null}&quot; is Adornment.None. Start and end icons are a text field's adornments."
                       Source="Autocomplete/Adornments" />
     <TextBlock Classes="body1 p">
-      <Run Text="MudAutocomplete's " /><Run Classes="code" Text="Clearable" /><Run Text=" is " /><Run Classes="code" Text="clearable" /><Run Text=", as on a text field." />
+      <Run Text="MudAutocomplete's " /><Run Classes="code" Text="AdornmentIcon" /><Run Text=" with the toggle kept is the arrow's key in the field's " /><Run Classes="code" Text="Resources" /><Run Text=": " /><Run Classes="code" Text="FiliArrowDropDownGeometry" /><Run Text=", and " /><Run Classes="code" Text="FiliArrowDropUpGeometry" /><Run Text=" for while it is open. Content of the app's own replaces the button, click and all. The theme sets " /><Run Classes="code" Text="MinimumPrefixLength" /><Run Text=" to 0, MudAutocomplete's " /><Run Classes="code" Text="MinCharacters" /><Run Text=", so typing nothing lists everything; an app's own value wins, and at 1 the arrow does nothing over an empty field. MudAutocomplete's " /><Run Classes="code" Text="Clearable" /><Run Text=" is " /><Run Classes="code" Text="clearable" /><Run Text=", as on a text field, left of the arrow." />
     </TextBlock>
 
     <TextBlock Classes="h5 section" Text="Progress" />
     <docs:ExampleCard Title="Progress indicator"
-                      Description="ShowProgressIndicator is a small circular ProgressBar in InnerRightContent, shown while the app searches. Its colour class is ProgressIndicatorColor."
+                      Description="ShowProgressIndicator is a small circular ProgressBar in InnerRightContent while the app searches, in place of the arrow, as MudAutocomplete hides its arrow while loading. Its colour class is ProgressIndicatorColor. Afterwards ClearValue(InnerRightContentProperty) brings the arrow back; setting null leaves none."
                       Source="Autocomplete/Progress" />
 
     <TextBlock Classes="h5 section" Text="Disabled" />
@@ -64,8 +64,12 @@
       <docs:ParityRow MudBlazor="Underline, Required, ShrinkLabel" Here="no-underline, required, shrink-label" Status="Same" Note="As on a text field." />
       <docs:ParityRow MudBlazor="MaxHeight (default 300)" Here="MaxDropDownHeight" Status="Same" Note="300, where Avalonia's default is 200." />
       <docs:ParityRow MudBlazor="Clearable" Here="clearable" Status="Same" Note="As on a text field: the class reaches the field inside." />
-      <docs:ParityRow MudBlazor="the drop-down arrow" Here="an arrow in InnerRightContent" Status="Close" Note="An AutoCompleteBox shows none of its own." />
-      <docs:ParityRow MudBlazor="ShowProgressIndicator, ProgressIndicatorColor" Here="a ProgressBar.circular.small in InnerRightContent" Status="Close" />
+      <docs:ParityRow MudBlazor="Adornment.End, OpenIcon, CloseIcon, the adornment's click" Here="the default InnerRightContent" Status="Same" Note="ArrowDropDown, ArrowDropUp while open, in an action-default edge-end icon button that toggles the list and focuses the field; text-disabled on a disabled field, as the select's arrow." />
+      <docs:ParityRow MudBlazor="MinCharacters (default 0)" Here="MinimumPrefixLength" Status="Same" Note="0, where Avalonia's default is 1." />
+      <docs:ParityRow MudBlazor=".mud-select-input .mud-input-adornment-end" Here="the field inside" Status="Same" Note="No 8px between the text and the end adornment." />
+      <docs:ParityRow MudBlazor="AdornmentIcon" Here="FiliArrowDropDownGeometry in the field's Resources, or InnerRightContent" Status="Close" Note="The key changes the glyph and keeps the toggle; content of the app's own replaces the button and its click." />
+      <docs:ParityRow MudBlazor="Adornment.None, OnAdornmentClick" Here="InnerRightContent=&quot;{x:Null}&quot;, or a button of the app's own" Status="Close" Note="An own button is the click; the arrow's is not exposed." />
+      <docs:ParityRow MudBlazor="ShowProgressIndicator, ProgressIndicatorColor" Here="a ProgressBar.circular.small in InnerRightContent" Status="Close" Note="In place of the arrow, as MudBlazor's hides it while loading; ClearValue, not null, brings the arrow back." />
     </docs:ParityTable>
   </StackPanel>
 </UserControl>

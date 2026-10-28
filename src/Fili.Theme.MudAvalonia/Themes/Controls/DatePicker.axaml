@@ -339,11 +339,14 @@
             <TextBox.InnerRightContent>
               <!-- MudBlazor's edge-end icon button: 48px, pulled 12px into the field's end. Pulled
                    14px in at the top and bottom, so its 20px is inside the text line's 21px and the
-                   field keeps a text field's height, as the button does in MudInput's 32px slot. -->
+                   field keeps a text field's height, as the button does in MudInput's 32px slot.
+                   Raw to automation: the picker's own peer expands and collapses, and an icon
+                   has no name to give a second control. -->
               <Button x:Name="PART_Button"
                       Classes="icon"
                       Margin="0,-14,-12,-14"
-                      Focusable="False">
+                      Focusable="False"
+                      AutomationProperties.AccessibilityView="Raw">
                 <PathIcon Data="{DynamicResource FiliEventGeometry}" />
               </Button>
             </TextBox.InnerRightContent>
