@@ -68,7 +68,7 @@
       <docs:ParityRow MudBlazor="Dense" Here="dense" Status="Same" />
       <docs:ParityRow MudBlazor=".mud-alert-message, .mud-alert-icon" Here="the alert's padding, a PathIcon inside" Status="Same" Note="9px round the message inside the 6px, so one line is 50px (38 dense); the icon 22px, 12px before the message, on its first line at .9 opacity." />
       <docs:ParityRow MudBlazor="ShowCloseIcon, CloseIcon, ContentAlignment" Here="a button in the content; ordinary layout" Status="Close" Note="Put a button in the content and align with ordinary layout." />
-      <docs:ParityRow MudBlazor="Icon, NoIcon" Here="a PathIcon in the content, or none" Status="Close" Note="There is no default icon per severity." />
+      <docs:ParityRow MudBlazor="Icon, NoIcon" Here="a PathIcon in the content, or none" Status="Close" Note="An alert is a Border, with no template to give it a default icon per severity; an app style gives one, on the Custom components page." />
       <docs:ParityRow MudBlazor="Elevation" Here="the elevation classes" Status="Same" Note="Any Border takes them." />
       <docs:ParityRow MudBlazor="Square" Here="CornerRadius=&quot;0&quot;" Status="Same" Note="No radius." />
     </docs:ParityTable>

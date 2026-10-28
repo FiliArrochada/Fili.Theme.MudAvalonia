@@ -33,9 +33,11 @@
     <!--
       The docs show each example's own XAML beside it: the file that renders the example is also
       embedded as text, so the code on the page cannot drift from what runs. ExampleCard finds it
-      by its path under Docs/Examples.
+      by its path under Docs/Examples. The C# an example built in the app uses, under Docs/Custom,
+      is embedded the same way and shown under its XAML.
     -->
     <EmbeddedResource Include="Docs\Examples\**\*.axaml" LogicalName="Examples/%(RecursiveDir)%(Filename)%(Extension)" />
+    <EmbeddedResource Include="Docs\Custom\*.cs" LogicalName="Custom/%(Filename)%(Extension)" />
   </ItemGroup>
 
   <ItemGroup>

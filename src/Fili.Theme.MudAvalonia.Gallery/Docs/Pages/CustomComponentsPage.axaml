@@ -1,0 +1,44 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:docs="using:Fili.Theme.MudAvalonia.Gallery.Docs"
+             x:Class="Fili.Theme.MudAvalonia.Gallery.Docs.Pages.CustomComponentsPage">
+  <StackPanel Classes="doc">
+    <docs:DocHeader Title="Custom components"
+                    Summary="The MudBlazor pieces a theme cannot give, built in the app as worked examples: a theme draws controls, and these need markup the control has no place for, or behaviour that is the app's. Each is a few lines to copy, the C# shown under its XAML." />
+
+    <TextBlock Classes="h5 section" Text="Alert icons" />
+    <docs:ExampleCard Title="An icon for each severity"
+                      Description="MudAlert shows a default icon for its Severity. An alert here is a Border, with no template to put one in, so the icon is a PathIcon in the content; an app style gives every PathIcon.severity its alert's glyph, from the theme's own keys."
+                      Source="Custom/AlertIcons" />
+    <TextBlock Classes="body1 p">
+      <Run Text="The glyphs are MudAlert's: EventNote with no severity, then Info, AlertSuccess, ReportProblem and ErrorOutline. A selector ending in " /><Run Classes="code" Text="PathIcon.severity" /><Run Text=" is matched against every PathIcon, so keep the class to alerts. See " /><docs:DocLink Slug="alert" Content="Alert" /><Run Text="." />
+    </TextBlock>
+
+    <TextBlock Classes="h5 section" Text="Closable chips" />
+    <docs:ExampleCard Title="A chip set the user closes"
+                      Description="MudChip's OnClose: each chip's close button removes it from the list behind the chip set. The button is MudChip's, 18px with 1px of padding in the chip's text colour; end-icon gives it the chip's gaps."
+                      Source="Custom/ClosableChips"
+                      CodeBehind="ClosableList" />
+    <TextBlock Classes="body1 p">
+      <Run Text="The chip is a static one, a ContentControl, so the close button is the only thing to click; on a Button chip the close button takes its own clicks and the chip the rest. See " /><docs:DocLink Slug="chips" Content="Chips" /><Run Text="." />
+    </TextBlock>
+
+    <TextBlock Classes="h5 section" Text="Closable tabs" />
+    <docs:ExampleCard Title="Tabs the user adds and closes"
+                      Description="MudDynamicTabs: a close button on each tab, CloseTab, and an add button after the bar, AddTab, over a list of tabs. Closing the selected tab selects a neighbour."
+                      Source="Custom/ClosableTabs"
+                      CodeBehind="ClosableList" />
+    <TextBlock Classes="body1 p">
+      <Run Text="The close button is MudDynamicTabs' icon button, 4px of padding pulled 4px into the tab's end, and out of the Tab order so the bar stays one stop. See " /><docs:DocLink Slug="tabs" Content="Tabs" /><Run Text="." />
+    </TextBlock>
+
+    <TextBlock Classes="h5 section" Text="Select column" />
+    <docs:ExampleCard Title="Rows selected by checkbox"
+                      Description="MudDataGrid's SelectColumn: a checkbox in each row that is the row's selection, and one in the header that is every row's, indeterminate while some are selected. The grid's own selection is the state."
+                      Source="Custom/SelectColumn"
+                      CodeBehind="RowSelect" />
+    <TextBlock Classes="body1 p">
+      <Run Text="A header click selects every row, or none once all are, as MudDataGrid's select-all does; the checkboxes are the table's dense ones the theme gives a CheckBox in a cell. See " /><docs:DocLink Slug="data-grid" Content="Data grid" /><Run Text="." />
+    </TextBlock>
+  </StackPanel>
+</UserControl>

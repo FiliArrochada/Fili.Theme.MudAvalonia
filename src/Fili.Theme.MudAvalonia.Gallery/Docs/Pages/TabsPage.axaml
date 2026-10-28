@@ -108,7 +108,7 @@
       <docs:ParityRow MudBlazor="AlwaysShowScrollButtons" Here="always-show-scroll-buttons" Status="Same" Note="Disabled while there is nothing to scroll." />
       <docs:ParityRow MudBlazor="ScrollIconColor (default Inherit)" Here="the bar's text" Status="Same" Note="Text-primary, or a coloured bar's contrast text." />
       <docs:ParityRow MudBlazor="ScrollIconColor, another colour" Here="—" Status="Missing" Note="Not offered: eight classes for one pair of arrows; they follow the bar instead." />
-      <docs:ParityRow MudBlazor="ShowCloseIcon" Here="a button in the Header" Status="Close" Note="Closing a tab is the app's." />
+      <docs:ParityRow MudBlazor="ShowCloseIcon, MudDynamicTabs" Here="a button in the Header" Status="Close" Note="Closing and adding tabs is the app's, a list the tabs bind, on the Custom components page." />
       <docs:ParityRow MudBlazor="Header, HeaderPosition, TabPanelHeader" Here="HeaderTemplate, or content beside the bar" Status="Close" />
       <docs:ParityRow MudBlazor="MaxHeight" Here="MaxHeight" Status="Close" />
       <docs:ParityRow MudBlazor="ApplyEffectsToContainer" Here="a Border.paper with an elevation class round the control" Status="Close" />

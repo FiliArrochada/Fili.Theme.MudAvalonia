@@ -1,0 +1,35 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:c="using:Fili.Theme.MudAvalonia.Gallery.Docs.Custom">
+  <!-- MudChip's OnClose: each chip's close button removes it from the list. The button is
+       .mud-chip-close-button: 18px with 1px padding and 6px before it, pulled 4px into the
+       chip's end, in the chip's text colour (inherit), out of the Tab order. An icon button sizes
+       its own icons, so its size and gaps are set on it; end-icon centres it on the label. -->
+  <StackPanel Spacing="8" DataContext="{x:Static c:ClosableList.Chips}" x:DataType="c:ClosableList">
+    <ItemsControl ItemsSource="{Binding}">
+      <ItemsControl.ItemsPanel>
+        <ItemsPanelTemplate>
+          <WrapPanel Orientation="Horizontal" />
+        </ItemsPanelTemplate>
+      </ItemsControl.ItemsPanel>
+      <ItemsControl.ItemTemplate>
+        <DataTemplate x:DataType="c:ClosableItem">
+          <ContentControl Classes="chip outlined primary" Margin="0,0,8,8">
+            <StackPanel Orientation="Horizontal">
+              <TextBlock Text="{Binding Header}" />
+              <Button Classes="icon inherit end-icon"
+                      Width="18" Height="18" Padding="1"
+                      Margin="6,0,-4,0"
+                      Focusable="False"
+                      ToolTip.Tip="Close"
+                      Command="{Binding Close}">
+                <PathIcon Width="16" Height="16" Data="{DynamicResource GalleryCancelIcon}" />
+              </Button>
+            </StackPanel>
+          </ContentControl>
+        </DataTemplate>
+      </ItemsControl.ItemTemplate>
+    </ItemsControl>
+    <Button Classes="outlined" Content="Reset" HorizontalAlignment="Left" Command="{Binding Reset}" />
+  </StackPanel>
+</UserControl>

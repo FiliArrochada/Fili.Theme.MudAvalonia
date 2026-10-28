@@ -1,0 +1,54 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <!-- MudAlert's default Icon for each Severity (MudAlert.razor.cs), as an app style: put these
+       in App.axaml's Styles once, and every alert's PathIcon.severity draws its severity's glyph. -->
+  <StackPanel Spacing="8">
+    <StackPanel.Styles>
+      <Style Selector="Border.alert PathIcon.severity">
+        <Setter Property="Data" Value="{DynamicResource FiliEventNoteGeometry}" />
+      </Style>
+      <Style Selector="Border.alert.info PathIcon.severity">
+        <Setter Property="Data" Value="{DynamicResource FiliInfoOutlinedGeometry}" />
+      </Style>
+      <Style Selector="Border.alert.success PathIcon.severity">
+        <Setter Property="Data" Value="{DynamicResource FiliAlertSuccessGeometry}" />
+      </Style>
+      <Style Selector="Border.alert.warning PathIcon.severity">
+        <Setter Property="Data" Value="{DynamicResource FiliReportProblemGeometry}" />
+      </Style>
+      <Style Selector="Border.alert.error PathIcon.severity">
+        <Setter Property="Data" Value="{DynamicResource FiliErrorOutlineGeometry}" />
+      </Style>
+    </StackPanel.Styles>
+    <Border Classes="alert">
+      <DockPanel>
+        <PathIcon Classes="severity" DockPanel.Dock="Left" />
+        <TextBlock Text="The reactor is running at optimal temperature" TextWrapping="Wrap" />
+      </DockPanel>
+    </Border>
+    <Border Classes="alert info">
+      <DockPanel>
+        <PathIcon Classes="severity" DockPanel.Dock="Left" />
+        <TextBlock Text="Reactor temperature is rising" TextWrapping="Wrap" />
+      </DockPanel>
+    </Border>
+    <Border Classes="alert success">
+      <DockPanel>
+        <PathIcon Classes="severity" DockPanel.Dock="Left" />
+        <TextBlock Text="The reactor is cooling down" TextWrapping="Wrap" />
+      </DockPanel>
+    </Border>
+    <Border Classes="alert warning">
+      <DockPanel>
+        <PathIcon Classes="severity" DockPanel.Dock="Left" />
+        <TextBlock Text="Reactor temperature exceeds 80%" TextWrapping="Wrap" />
+      </DockPanel>
+    </Border>
+    <Border Classes="alert error">
+      <DockPanel>
+        <PathIcon Classes="severity" DockPanel.Dock="Left" />
+        <TextBlock Text="Meltdown is imminent" TextWrapping="Wrap" />
+      </DockPanel>
+    </Border>
+  </StackPanel>
+</UserControl>

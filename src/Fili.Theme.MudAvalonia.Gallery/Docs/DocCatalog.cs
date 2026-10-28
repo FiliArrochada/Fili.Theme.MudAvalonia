@@ -100,6 +100,7 @@ public static class DocCatalog
 
         new(Showcase, "Control states", "control-states", () => new ControlStatesView(), Scrolls: true),
         new(Showcase, "Custom styles", "custom-styles", () => new CustomStylesView(), Scrolls: true),
+        new(Showcase, "Custom components", "custom-components", () => new CustomComponentsPage()),
         new(Showcase, "Sample screen", "sample-screen", () => new SampleScreenView(), Scrolls: true),
     ];
 

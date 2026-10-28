@@ -36,6 +36,16 @@
             <docs:CodeBlock Code="{TemplateBinding Code}"
                             Margin="16,0,16,16"
                             IsVisible="{Binding #PART_ShowCode.IsChecked}" />
+            <!-- The C# an example built in the app uses, under its XAML. -->
+            <docs:CodeBlock Code="{TemplateBinding CSharp}"
+                            Margin="16,0,16,16">
+              <docs:CodeBlock.IsVisible>
+                <MultiBinding Converter="{x:Static BoolConverters.And}">
+                  <Binding Path="#PART_ShowCode.IsChecked" />
+                  <TemplateBinding Property="CSharp" Converter="{x:Static ObjectConverters.IsNotNull}" />
+                </MultiBinding>
+              </docs:CodeBlock.IsVisible>
+            </docs:CodeBlock>
           </StackPanel>
         </Border>
       </ControlTemplate>

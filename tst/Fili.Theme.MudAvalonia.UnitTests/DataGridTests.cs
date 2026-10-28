@@ -427,6 +427,36 @@ public class DataGridTests
         Assert.Equal(48, Matrix.Part<Panel>(loose, "PART_Box").Bounds.Width);
     });
 
+    /// <summary>
+    /// A header is a `.mud-table-cell` too, so a select-all checkbox in one is the table's
+    /// compact checkbox, as SelectColumn's header box is.
+    /// </summary>
+    [Fact]
+    public Task ACheckBoxInAHeaderIsTheTablesCompactOne() => UiThread.RunAsync(() =>
+    {
+        var header = new CheckBox();
+        var grid = new DataGrid
+        {
+            ItemsSource = Elements,
+            Width = 400,
+            Columns =
+            {
+                new DataGridTemplateColumn
+                {
+                    Header = header,
+                    Width = DataGridLength.Auto,
+                    CellTemplate = new Avalonia.Controls.Templates.FuncDataTemplate<Element>((_, _) => new CheckBox()),
+                },
+                new DataGridTextColumn { Header = "Name", Binding = new Binding(nameof(Element.Name)) },
+            },
+        };
+        Matrix.Show(grid);
+        Dispatcher.UIThread.RunJobs();
+
+        Assert.Equal(32, Matrix.Part<Panel>(header, "PART_Box").Bounds.Width);
+        Assert.Equal(new Thickness(-4), header.Margin);
+    });
+
     public sealed record Chore(bool Done, string Title);
 
     /// <summary>

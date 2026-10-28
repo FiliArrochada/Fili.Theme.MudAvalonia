@@ -1,0 +1,25 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:c="using:Fili.Theme.MudAvalonia.Gallery.Docs.Custom"
+             xmlns:v="using:Fili.Theme.MudAvalonia.Gallery.Views">
+  <!-- MudDataGrid's SelectColumn: a checkbox in each row that is the row's selection, and one in
+       the header that is every row's. RowSelect does the wiring; the grid's selection is the
+       state, so clicking a row, Ctrl+A and the boxes agree. -->
+  <DataGrid ItemsSource="{x:Static v:GalleryTask.Some}" SelectionMode="Extended">
+    <DataGrid.Columns>
+      <DataGridTemplateColumn CanUserSort="False" CanUserResize="False" Width="Auto">
+        <DataGridTemplateColumn.Header>
+          <CheckBox c:RowSelect.IsAll="True" HorizontalAlignment="Left" ToolTip.Tip="Select all" />
+        </DataGridTemplateColumn.Header>
+        <DataGridTemplateColumn.CellTemplate>
+          <DataTemplate x:DataType="v:GalleryTask">
+            <CheckBox c:RowSelect.IsRow="True" HorizontalAlignment="Left" />
+          </DataTemplate>
+        </DataGridTemplateColumn.CellTemplate>
+      </DataGridTemplateColumn>
+      <DataGridTextColumn Header="Task" Binding="{Binding Title}" x:DataType="v:GalleryTask" Width="*" />
+      <DataGridTextColumn Header="Area" Binding="{Binding Owner}" x:DataType="v:GalleryTask" Width="120" />
+      <DataGridTextColumn Header="Due" Binding="{Binding Due}" x:DataType="v:GalleryTask" Width="104" />
+    </DataGrid.Columns>
+  </DataGrid>
+</UserControl>

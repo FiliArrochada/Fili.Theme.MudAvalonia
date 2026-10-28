@@ -1,0 +1,38 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:c="using:Fili.Theme.MudAvalonia.Gallery.Docs.Custom">
+  <!-- MudDynamicTabs: a close button on each tab (CloseTab) and an add button after the bar
+       (AddTab). The close button is MudDynamicTabs' icon button, 4px of padding pulled 4px into
+       the tab's end, out of the Tab order. -->
+  <DockPanel DataContext="{x:Static c:ClosableList.Tabs}" x:DataType="c:ClosableList">
+    <Button DockPanel.Dock="Right"
+            VerticalAlignment="Top"
+            Classes="icon"
+            ToolTip.Tip="Add tab"
+            Command="{Binding AddNew}">
+      <PathIcon Data="{DynamicResource GalleryAddIcon}" />
+    </Button>
+    <TabControl ItemsSource="{Binding}" Height="160">
+      <TabControl.ItemTemplate>
+        <DataTemplate x:DataType="c:ClosableItem">
+          <StackPanel Orientation="Horizontal" Spacing="8">
+            <TextBlock Text="{Binding Header}" VerticalAlignment="Center" />
+            <Button Classes="icon inherit"
+                    Padding="4"
+                    Margin="0,-4,-4,-4"
+                    Focusable="False"
+                    ToolTip.Tip="Close tab"
+                    Command="{Binding Close}">
+              <PathIcon Data="{DynamicResource FiliCloseGeometry}" />
+            </Button>
+          </StackPanel>
+        </DataTemplate>
+      </TabControl.ItemTemplate>
+      <TabControl.ContentTemplate>
+        <DataTemplate x:DataType="c:ClosableItem">
+          <TextBlock Classes="body1" Margin="16" Text="{Binding Content}" />
+        </DataTemplate>
+      </TabControl.ContentTemplate>
+    </TabControl>
+  </DockPanel>
+</UserControl>

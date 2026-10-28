@@ -81,7 +81,7 @@
       <docs:ParityRow MudBlazor="selected (in a MudChipSet)" Here="IsChecked on a ToggleButton.chip" Status="Same" Note="MudChip.GetVariant's swap: a selected filled chip draws as text, a selected text chip as filled." />
       <docs:ParityRow MudBlazor="Disabled" Here="IsEnabled=&quot;False&quot;" Status="Same" />
       <docs:ParityRow MudBlazor="Icon" Here="an icon in Content with start-icon" Status="Same" Note="20px (18 small, 24 large), 4px out and 4px in (6px on a large chip)." />
-      <docs:ParityRow MudBlazor="close icon" Here="an icon or button in Content with end-icon" Status="Close" Note="The close button's 18px and spacing; closing is the app's." />
+      <docs:ParityRow MudBlazor="close icon" Here="an icon or button in Content with end-icon" Status="Close" Note="The close button's 18px and spacing; closing is the app's, a list the chip set binds, on the Custom components page." />
       <docs:ParityRow MudBlazor="Avatar" Here="a Border.avatar in Content" Status="Same" Note="As .mud-chip .mud-avatar: 24px, 8px out and 8px in, 12px text; on a small chip 18px, 4px out and 4px in, 10px text; on a large one 32px, 12px out and 8px in, 16px text." />
       <docs:ParityRow MudBlazor="MudChipSet selection rules" Here="—" Status="Missing" Note="Single or multiple selection is the app's, through IsChecked bindings." />
       <docs:ParityRow MudBlazor="Label" Here="CornerRadius=&quot;4&quot;" Status="Close" Note="The chip label's default radius in place of the pill." />

@@ -8,7 +8,9 @@ namespace Fili.Theme.MudAvalonia.Gallery.Docs;
 /// One live example on a docs page, as mudblazor.com shows them: a title and a line on what it
 /// shows, the example itself, and its XAML behind a code button. The example is the card's
 /// content; <see cref="Source"/> names the file it came from under Docs/Examples, whose text is
-/// embedded, so the code shown is the code that runs. DocsTheme.axaml draws it.
+/// embedded, so the code shown is the code that runs. An example built in the app, with C# of
+/// its own, names that file under Docs/Custom in <see cref="CodeBehind"/>, shown under the XAML.
+/// DocsTheme.axaml draws it.
 /// </summary>
 public sealed class ExampleCard : ContentControl
 {
@@ -24,7 +26,14 @@ public sealed class ExampleCard : ContentControl
     public static readonly DirectProperty<ExampleCard, string?> CodeProperty =
         AvaloniaProperty.RegisterDirect<ExampleCard, string?>(nameof(Code), o => o.Code);
 
+    public static readonly StyledProperty<string?> CodeBehindProperty =
+        AvaloniaProperty.Register<ExampleCard, string?>(nameof(CodeBehind));
+
+    public static readonly DirectProperty<ExampleCard, string?> CSharpProperty =
+        AvaloniaProperty.RegisterDirect<ExampleCard, string?>(nameof(CSharp), o => o.CSharp);
+
     private string? _code;
+    private string? _cSharp;
 
     public string? Title
     {
@@ -52,6 +61,20 @@ public sealed class ExampleCard : ContentControl
         private set => SetAndRaise(CodeProperty, ref _code, value);
     }
 
+    /// <summary>The C# file under Docs/Custom the example uses, without the extension: "RowSelect".</summary>
+    public string? CodeBehind
+    {
+        get => GetValue(CodeBehindProperty);
+        set => SetValue(CodeBehindProperty, value);
+    }
+
+    /// <summary>That file's text, as the page shows it.</summary>
+    public string? CSharp
+    {
+        get => _cSharp;
+        private set => SetAndRaise(CSharpProperty, ref _cSharp, value);
+    }
+
     protected override void OnPropertyChanged(AvaloniaPropertyChangedEventArgs change)
     {
         base.OnPropertyChanged(change);
@@ -75,13 +98,22 @@ public sealed class ExampleCard : ContentControl
 
             Code = Inner(Read(source));
         }
+
+        if (change.Property == CodeBehindProperty)
+        {
+            CSharp = CodeBehind is { } file ? ReadCustom(file).Replace("\r\n", "\n").Trim() : null;
+        }
     }
 
+    /// <summary>The embedded text of Docs/Custom/<paramref name="file"/>.cs.</summary>
+    public static string ReadCustom(string file) => ReadResource($"Custom/{file}.cs");
+
     /// <summary>The embedded text of Docs/Examples/<paramref name="source"/>.axaml.</summary>
-    public static string Read(string source)
+    public static string Read(string source) => ReadResource($"Examples/{source}.axaml");
+
+    private static string ReadResource(string wanted)
     {
         var assembly = typeof(ExampleCard).Assembly;
-        var wanted = $"Examples/{source}.axaml";
         var name = assembly.GetManifestResourceNames().Single(n => n.Replace('\\', '/') == wanted);
         using var reader = new StreamReader(assembly.GetManifestResourceStream(name)!);
         return reader.ReadToEnd();

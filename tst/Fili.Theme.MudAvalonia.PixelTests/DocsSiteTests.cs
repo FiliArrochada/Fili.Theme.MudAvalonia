@@ -63,7 +63,7 @@ public class DocsSiteTests
         window.Close();
     });
 
-    /// <summary>Each example card loaded its file, and shows that file's content as its code.</summary>
+    /// <summary>Each example card loaded its file, and shows that file's content as its code, and its C# file's where it names one.</summary>
     [Theory]
     [MemberData(nameof(Slugs))]
     public Task EveryExampleIsItsOwnCode(string slug) => UiThread.RunAsync(() =>
@@ -80,6 +80,10 @@ public class DocsSiteTests
             Assert.False(string.IsNullOrWhiteSpace(card.Code), $"{card.Source} shows no code.");
             Assert.Equal(ExampleCard.Inner(ExampleCard.Read(card.Source!)), card.Code);
             Assert.DoesNotContain("<UserControl", card.Code);
+            if (card.CodeBehind is { } file)
+            {
+                Assert.Equal(ExampleCard.ReadCustom(file).Replace("\r\n", "\n").Trim(), card.CSharp);
+            }
         }
 
         window.Close();
