@@ -6,8 +6,8 @@
         Width="1440" Height="900"
         Background="{DynamicResource FiliBackgroundGrayBrush}">
 
-  <!-- The docs drawer's 260px wider than the 1180px screenshot frames: the control states page then
-       lays its samples out beside its index exactly as the frames do. -->
+  <!-- The docs drawer's 260px wider than the 1180px screenshot frames: a page then lays its
+       samples out exactly as the frames do. -->
 
   <local:MainView />
 

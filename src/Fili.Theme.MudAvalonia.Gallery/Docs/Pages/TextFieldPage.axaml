@@ -48,13 +48,15 @@
 
     <TextBlock Classes="h5 section" Text="Errors and validation" />
     <docs:ExampleCard Title="Error"
-                      Description="error is MudTextField's Error: the rule, the label and the helper line in the error colour. A counter turns red with the field."
+                      Description="error is MudTextField's Error: the rule, the label and the helper line in the error colour. A counter turns red with the field, and stays red past its limit."
                       Source="TextField/Error" />
     <TextBlock Classes="body1 p">
       <Run Text="The other way to be invalid fires on its own: when a binding fails validation, Avalonia sets " /><Run Classes="code" Text="DataValidationErrors.HasErrors" /><Run Text=" and the field paints as " /><Run Classes="code" Text="error" /><Run Text=" does, with the message under the field at 12px in the helper text's place. A field can fail two rules at once, and both messages show." />
     </TextBlock>
-    <docs:CodeBlock Code="&lt;!-- Email's setter throws, or the view model implements INotifyDataErrorInfo --&gt;&#10;&lt;TextBox Classes=&quot;outlined&quot; PlaceholderText=&quot;Email&quot; Text=&quot;{Binding Email}&quot; /&gt;"
-                    Margin="0,0,0,16" />
+    <docs:ExampleCard Title="Validation"
+                      Description="A binding that fails validation, with no error class: the view model implements INotifyDataErrorInfo (a setter that throws does the same), and the field shows its message under it, the helper text hidden. Type an address to clear it, or empty the field for the other rule."
+                      Source="TextField/Validation"
+                      CodeBehind="EmailForm" />
 
     <TextBlock Classes="h5 section" Text="Adornments" />
     <docs:ExampleCard Title="Icon adornments"

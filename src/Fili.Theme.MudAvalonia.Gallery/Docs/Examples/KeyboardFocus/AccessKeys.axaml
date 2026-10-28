@@ -5,6 +5,7 @@
     <Button Classes="filled primary" Content="_Save" Margin="0,0,16,16" VerticalAlignment="Center" />
     <Button Classes="primary" Content="_Cancel" Margin="0,0,16,16" VerticalAlignment="Center" />
     <CheckBox Content="_Remember me" IsChecked="True" Margin="0,0,16,16" VerticalAlignment="Center" />
+    <ToggleSwitch Content="_Notifications" IsChecked="True" Margin="0,0,16,16" VerticalAlignment="Center" />
     <!-- A doubled underscore is an underscore. -->
     <Button Classes="outlined" Content="snake__case" Margin="0,0,16,16" VerticalAlignment="Center" />
   </WrapPanel>

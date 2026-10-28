@@ -7,16 +7,30 @@
     <StackPanel Grid.Row="1" Spacing="16" Width="320">
       <StackPanel Orientation="Horizontal" Spacing="16">
         <CheckBox Content="Enabled" IsChecked="True" />
+        <CheckBox Content="Some" IsChecked="{x:Null}" IsThreeState="True" />
+      </StackPanel>
+      <StackPanel Orientation="Horizontal" Spacing="16">
+        <RadioButton Content="Option" GroupName="ltr" IsChecked="True" />
         <ToggleSwitch Content="On" IsChecked="True" />
       </StackPanel>
+      <StackPanel Orientation="Horizontal" Spacing="16">
+        <TextBox Width="152" PlaceholderText="Email" Text="Content" />
+        <ComboBox Width="152" PlaceholderText="Select" SelectedIndex="0">
+          <ComboBoxItem>Item</ComboBoxItem>
+        </ComboBox>
+      </StackPanel>
       <NumericUpDown Width="160" Value="42" HorizontalAlignment="Left" />
-      <SplitButton Classes="outlined" Content="Save" HorizontalAlignment="Left">
-        <SplitButton.Flyout>
-          <MenuFlyout>
-            <MenuItem Header="Option" />
-          </MenuFlyout>
-        </SplitButton.Flyout>
-      </SplitButton>
+      <StackPanel Orientation="Horizontal" Spacing="16">
+        <Button Classes="filled primary" Content="Save" />
+        <Separator Classes="vertical" />
+        <SplitButton Classes="outlined" Content="Save">
+          <SplitButton.Flyout>
+            <MenuFlyout>
+              <MenuItem Header="Option" />
+            </MenuFlyout>
+          </SplitButton.Flyout>
+        </SplitButton>
+      </StackPanel>
       <TreeView Width="200" HorizontalAlignment="Left">
         <TreeViewItem Header="Library" IsExpanded="True">
           <TreeViewItem Header="Pinned" />
@@ -32,16 +46,30 @@
     <StackPanel Grid.Row="1" Grid.Column="1" FlowDirection="RightToLeft" Spacing="16" Width="320">
       <StackPanel Orientation="Horizontal" Spacing="16">
         <CheckBox Content="مفعل" IsChecked="True" />
+        <CheckBox Content="غير محدد" IsChecked="{x:Null}" IsThreeState="True" />
+      </StackPanel>
+      <StackPanel Orientation="Horizontal" Spacing="16">
+        <RadioButton Content="خيار" GroupName="rtl" IsChecked="True" />
         <ToggleSwitch Content="تشغيل" IsChecked="True" />
       </StackPanel>
+      <StackPanel Orientation="Horizontal" Spacing="16">
+        <TextBox Width="152" PlaceholderText="البريد" Text="محتوى" />
+        <ComboBox Width="152" PlaceholderText="اختر" SelectedIndex="0">
+          <ComboBoxItem>عنصر</ComboBoxItem>
+        </ComboBox>
+      </StackPanel>
       <NumericUpDown Width="160" Value="42" HorizontalAlignment="Left" />
-      <SplitButton Classes="outlined" Content="حفظ" HorizontalAlignment="Left">
-        <SplitButton.Flyout>
-          <MenuFlyout>
-            <MenuItem Header="خيار" />
-          </MenuFlyout>
-        </SplitButton.Flyout>
-      </SplitButton>
+      <StackPanel Orientation="Horizontal" Spacing="16">
+        <Button Classes="filled primary" Content="حفظ" />
+        <Separator Classes="vertical" />
+        <SplitButton Classes="outlined" Content="حفظ">
+          <SplitButton.Flyout>
+            <MenuFlyout>
+              <MenuItem Header="خيار" />
+            </MenuFlyout>
+          </SplitButton.Flyout>
+        </SplitButton>
+      </StackPanel>
       <TreeView Width="200" HorizontalAlignment="Left">
         <TreeViewItem Header="المكتبة" IsExpanded="True">
           <TreeViewItem Header="مثبت" />

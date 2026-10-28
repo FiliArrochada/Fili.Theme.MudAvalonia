@@ -5,14 +5,15 @@ using Avalonia.Input;
 using Avalonia.Logging;
 using Avalonia.Threading;
 using Avalonia.VisualTree;
-using Fili.Theme.MudAvalonia.Gallery.Desktop;
+using Avalonia.Styling;
+using Fili.Theme.MudAvalonia.Gallery.Docs;
 using Xunit;
 
 namespace Fili.Theme.MudAvalonia.PixelTests;
 
 /// <summary>
 /// The unit suite's behaviour checks - no binding error, one Tab stop per control, access keys
-/// recognised - run over every gallery page in every variant, rather than over a list of controls.
+/// recognised - run over every docs page in every variant, rather than over a list of controls.
 /// <para>
 /// The list holds each control once, bare and unclassed, as it was thought of. The gallery holds
 /// it in every class, state and combination a sample shows, and in all three variants, which is
@@ -22,33 +23,50 @@ namespace Fili.Theme.MudAvalonia.PixelTests;
 /// </summary>
 public class GalleryAuditTests
 {
-    public static TheoryData<string> Frames
+    private static readonly (string Name, ThemeVariant Variant)[] Variants =
+        [("light", ThemeVariant.Light), ("dark", ThemeVariant.Dark), ("highcontrast", FiliThemeVariants.HighContrast)];
+
+    /// <summary>Every docs page in every variant, as <c>{slug}-{variant}</c>.</summary>
+    public static TheoryData<string> Pages
     {
         get
         {
             var data = new TheoryData<string>();
 
-            foreach (var frame in GalleryFrames.All)
+            foreach (var page in DocCatalog.Pages)
             {
-                data.Add(frame.ToString());
+                foreach (var (variant, _) in Variants)
+                {
+                    data.Add($"{page.Slug}-{variant}");
+                }
             }
 
             return data;
         }
     }
 
-    /// <summary>Opens a frame's view, logging every binding warning made while it builds and settles.</summary>
+    /// <summary>
+    /// Opens a docs page in a variant as the shell hosts it, logging every binding warning made
+    /// while it builds and settles. 1180px wide: the desktop window less the docs drawer.
+    /// </summary>
     private static (Window Window, List<string> BindingErrors) Open(string name)
     {
-        var frame = GalleryFrames.All.Single(f => f.ToString() == name);
-        Avalonia.Application.Current!.RequestedThemeVariant = frame.Variant;
+        var (suffix, variant) = Variants.Single(v => name.EndsWith($"-{v.Name}", StringComparison.Ordinal));
+        var page = DocCatalog.Find(name[..^(suffix.Length + 1)])!;
+        Avalonia.Application.Current!.RequestedThemeVariant = variant;
 
         var sink = new BindingSink();
         var previous = Logger.Sink;
         Logger.Sink = sink;
         try
         {
-            var window = new Window { Content = GalleryFrames.Build(frame.View), Width = 1180, Height = 800 };
+            var content = page.Create();
+            var window = new Window
+            {
+                Content = page.Scrolls ? content : new ScrollViewer { Content = content },
+                Width = 1180,
+                Height = 800,
+            };
             window.Show();
 
             for (var i = 0; i < 3; i++)
@@ -65,7 +83,7 @@ public class GalleryAuditTests
     }
 
     [Theory]
-    [MemberData(nameof(Frames))]
+    [MemberData(nameof(Pages))]
     public Task NoBindingFailsOnThePage(string name) => UiThread.RunAsync(() =>
     {
         var (window, errors) = Open(name);
@@ -81,17 +99,18 @@ public class GalleryAuditTests
     /// Two things that look like a second stop are not. A part marked
     /// <c>TemplatedControl.IsTemplateFocusTarget</c> is where the control's own focus lands - a
     /// tree row's selection border - so the two are one stop. And a pager's previous and next
-    /// buttons are actions of their own, each a stop as MudPagination's buttons are.
+    /// buttons are actions of their own, each a stop as MudPagination's buttons are, as are a
+    /// time picker presenter's columns and buttons: it is the picker's dialog, shown inline.
     /// </para>
     /// </summary>
     [Theory]
-    [MemberData(nameof(Frames))]
+    [MemberData(nameof(Pages))]
     public Task EveryControlOnThePageIsOneTabStopAtMost(string name) => UiThread.RunAsync(() =>
     {
         var (window, _) = Open(name);
 
         var extra = window.GetVisualDescendants().OfType<TemplatedControl>()
-            .Where(c => c.IsEffectivelyVisible && c.IsEffectivelyEnabled)
+            .Where(c => c.IsEffectivelyVisible && c.IsEffectivelyEnabled && c is not TimePickerPresenter)
             .Select(c => (Control: c, Stops: c.GetSelfAndVisualDescendants().OfType<InputElement>()
                 .Where(e => e == c || (e.TemplatedParent == c && !(e is Control part && TemplatedControl.GetIsTemplateFocusTarget(part))))
                 .Where(e => c is not PipsPager || e is not Button)
@@ -110,17 +129,17 @@ public class GalleryAuditTests
     /// No control on the page shows an access key's underscore: a string it presents is drawn
     /// through an <see cref="AccessText"/>, which takes the underscore as the key and underlines
     /// its letter. Only presented text is checked - a TextBlock a presenter made for a string -
-    /// since a caption's own underscores, a file name's, are just text.
+    /// since a caption's own underscores, a file name's or a code block's, are just text.
     /// </summary>
     [Theory]
-    [MemberData(nameof(Frames))]
+    [MemberData(nameof(Pages))]
     public Task NoTextShowsAnAccessKeysUnderscore(string name) => UiThread.RunAsync(() =>
     {
         var (window, _) = Open(name);
 
         var raw = window.GetVisualDescendants().OfType<TextBlock>()
             .Where(t => t is not AccessText && t.IsEffectivelyVisible && t.Text?.Contains('_') == true)
-            .Where(t => t.GetVisualParent() is ContentPresenter)
+            .Where(t => t.GetVisualParent() is ContentPresenter { Content: string })
             .Select(t => $"\"{t.Text}\" in {Describe(t)}")
             .ToList();
         window.Close();

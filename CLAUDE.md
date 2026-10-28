@@ -189,7 +189,7 @@ One line each; [`docs/traps.md`](docs/traps.md) has the full account and the tes
   `ErrorMessageConverter`.
 - A template binding through a value that can be null (`Text.Length`) logs an error in every app
   that leaves it null, hidden or not; bind the value and convert. `BindingErrorTests` sweeps for it, and
-  `GalleryAuditTests` (pixel project) sweeps every gallery page in every variant.
+  `GalleryAuditTests` (pixel project) sweeps every docs page in every variant.
 - A control inside a template is a Tab stop unless it sets `Focusable="False"`; a control is
   one stop at most (`TabStopTests`, and page-wide `GalleryAuditTests`). A part marked
   `TemplatedControl.IsTemplateFocusTarget` is where the control's own focus lands, not a second stop.

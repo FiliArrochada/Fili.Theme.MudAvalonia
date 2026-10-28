@@ -12,8 +12,8 @@ using Xunit;
 namespace Fili.Theme.MudAvalonia.PixelTests;
 
 /// <summary>
-/// The Custom components page's examples, the pieces of MudBlazor an app builds here, do what
-/// MudBlazor's do: clicked with the headless mouse, as a reader would.
+/// The examples built in the app with C# of their own, the Custom components page's and the text
+/// field's validation, do what MudBlazor's do: clicked with the headless mouse, as a reader would.
 /// </summary>
 public class CustomComponentsTests
 {
@@ -95,6 +95,34 @@ public class CustomComponentsTests
         Dispatcher.UIThread.RunJobs();
         Assert.Equal(1, avatars.Count(a => a.IsVisible));
         Assert.Equal("+6", ((TextBlock)more.Child!).Text);
+        window.Close();
+    });
+
+    /// <summary>
+    /// The text field page's validation example, whose C# is a view model: the binding's error
+    /// paints the field and shows its message, follows the text, and clears.
+    /// </summary>
+    [Fact]
+    public Task AFieldShowsItsBindingsValidationError() => UiThread.RunAsync(() =>
+    {
+        var window = Show("TextField/Validation");
+        var field = window.GetVisualDescendants().OfType<TextBox>().First();
+        string[] Shown() => field.GetVisualDescendants().OfType<TextBlock>()
+            .Where(t => t.IsEffectivelyVisible && t.Text is { Length: > 0 })
+            .Select(t => t.Text!).ToArray();
+
+        Assert.True(DataValidationErrors.GetHasErrors(field));
+        Assert.Contains("Must be a valid email address", Shown());
+        Assert.DoesNotContain("Hidden in error", Shown());
+
+        field.Text = "";
+        Dispatcher.UIThread.RunJobs();
+        Assert.Contains("Email is required", Shown());
+
+        field.Text = "someone@example.com";
+        Dispatcher.UIThread.RunJobs();
+        Assert.False(DataValidationErrors.GetHasErrors(field));
+        Assert.Contains("Hidden in error", Shown());
         window.Close();
     });
 

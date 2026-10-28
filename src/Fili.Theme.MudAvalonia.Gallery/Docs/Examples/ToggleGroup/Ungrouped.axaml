@@ -1,0 +1,17 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <!-- Toggles in a plain StackPanel, no button-group: each item keeps its own corners, and each
+       outlined item its own line, so two side by side meet in a 2px one. -->
+  <StackPanel Spacing="16">
+    <StackPanel Orientation="Horizontal" Spacing="4">
+      <ToggleButton Content="Bold" IsChecked="True" />
+      <ToggleButton Content="Italic" />
+      <ToggleButton Content="Underline" IsEnabled="False" />
+    </StackPanel>
+    <StackPanel Orientation="Horizontal">
+      <ToggleButton Classes="outlined" Content="Day" IsChecked="True" />
+      <ToggleButton Classes="outlined" Content="Week" />
+      <ToggleButton Classes="outlined" Content="Month" />
+    </StackPanel>
+  </StackPanel>
+</UserControl>

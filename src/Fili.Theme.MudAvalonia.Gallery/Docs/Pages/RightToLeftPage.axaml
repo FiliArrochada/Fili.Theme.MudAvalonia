@@ -13,7 +13,7 @@
       <Run Text="No template in this package does anything to make right to left happen. Avalonia mirrors a whole subtree with one transform, where the flow direction changes, so grid columns, dock sides and Left and Right alignment flip on their own. MudBlazor reaches the same place with logical CSS properties such as " /><Run Classes="code" Text="margin-inline-end" /><Run Text=", which is why those need no counterpart here." />
     </TextBlock>
     <docs:ExampleCard Title="FlowDirection"
-                      Description="The same controls, the second set under FlowDirection=&quot;RightToLeft&quot;: the switch's thumb travels to the left, the numeric field's spin column moves to the left, the split button's rounded corners swap ends, the tree indents from the right and the inset divider indents from the right."
+                      Description="The same controls, the second set under FlowDirection=&quot;RightToLeft&quot;: the boxes and the radio sit right of their labels, the switch's thumb travels to the left, the text starts on the right and the select's arrow moves to the left, the numeric field's spin column moves to the left, the split button's rounded corners swap ends, the tree indents from the right and the inset divider indents from the right."
                       Source="RightToLeft/Mirrored" />
 
     <TextBlock Classes="h5 section" Text="What does not mirror" />

@@ -1,0 +1,14 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:c="using:Fili.Theme.MudAvalonia.Gallery.Docs.Custom">
+  <!-- No error class: the binding fails validation, so the field paints as error does and the
+       message takes the helper text's place. Clear the field for the other rule. -->
+  <WrapPanel ItemSpacing="16" LineSpacing="16">
+    <TextBox Width="220" VerticalAlignment="Top" PlaceholderText="Email"
+             DataContext="{x:Static c:EmailForm.Sample}" x:DataType="c:EmailForm"
+             Text="{Binding Email}" AutomationProperties.HelpText="Hidden in error" />
+    <TextBox Classes="outlined" Width="220" VerticalAlignment="Top" PlaceholderText="Email"
+             DataContext="{x:Static c:EmailForm.Sample}" x:DataType="c:EmailForm"
+             Text="{Binding Email}" />
+  </WrapPanel>
+</UserControl>

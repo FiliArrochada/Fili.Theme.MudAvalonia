@@ -51,14 +51,6 @@ public static class GalleryFrames
 {
     private static readonly (string Name, Func<Control> Build)[] Views =
     [
-        // The whole page, before it is shown: the gallery adds its later sections one dispatcher
-        // pass at a time, and a frame must not depend on how many had arrived.
-        ("controls", () =>
-        {
-            var view = new ControlStatesView();
-            view.LoadAllSections();
-            return view;
-        }),
         ("screen", () => new SampleScreenView()),
         ("palette", () => new PaletteView()),
         ("custom", () => new CustomStylesView()),
@@ -82,8 +74,8 @@ public static class GalleryFrames
     ];
 
     /// <summary>
-    /// A frame's view, built as its frame shows it - every section of the controls page loaded -
-    /// for a check that walks the page rather than its pixels.
+    /// A frame's view, built as its frame shows it, for a check that walks the page rather than
+    /// its pixels.
     /// </summary>
     public static Control Build(string view) => Views.Single(v => v.Name == view).Build();
 
@@ -162,8 +154,8 @@ public static class GalleryFrames
         // Now that the templates exist, ask the content how tall it actually wants to be and
         // grow the window to fit. The cap is a guard against a runaway measurement producing a
         // gigabyte of PNG, not a layout decision - and a page past it fails rather than being cut
-        // off at the cap, which is the quiet truncation above in another form: the controls page
-        // outgrew 12,000px and its last section went missing from every frame without a failure.
+        // off at the cap, which is the quiet truncation above in another form: a page that outgrew
+        // 12,000px lost its last section from every frame without a failure.
         view.Measure(new Size(window.Width, double.PositiveInfinity));
         var wanted = Math.Ceiling(view.DesiredSize.Height);
         if (wanted > MaxFrameHeight)

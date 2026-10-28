@@ -1,14 +1,16 @@
 <UserControl xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-  <!-- Orientation="Vertical" fills from the bottom, in every size. -->
-  <Grid ColumnDefinitions="112,112,112,144" RowDefinitions="120,Auto">
+  <!-- Orientation="Vertical" fills from the bottom, in every size, and shows its value either way up. -->
+  <Grid ColumnDefinitions="112,112,112,144,144" RowDefinitions="120,Auto">
     <ProgressBar Grid.Column="0" Classes="primary" Orientation="Vertical" Value="40" HorizontalAlignment="Center" />
     <ProgressBar Grid.Column="1" Classes="primary medium" Orientation="Vertical" Value="60" HorizontalAlignment="Center" />
     <ProgressBar Grid.Column="2" Classes="primary large" Orientation="Vertical" Value="80" HorizontalAlignment="Center" />
     <ProgressBar Grid.Column="3" Classes="primary large striped" Orientation="Vertical" Value="70" HorizontalAlignment="Center" />
+    <ProgressBar Grid.Column="4" Classes="secondary" Orientation="Vertical" Value="60" ShowProgressText="True" HorizontalAlignment="Center" />
     <TextBlock Grid.Row="1" Grid.Column="0" Classes="caption" Text="primary" HorizontalAlignment="Center" Margin="0,8,0,0" />
     <TextBlock Grid.Row="1" Grid.Column="1" Classes="caption" Text="primary medium" HorizontalAlignment="Center" Margin="0,8,0,0" />
     <TextBlock Grid.Row="1" Grid.Column="2" Classes="caption" Text="primary large" HorizontalAlignment="Center" Margin="0,8,0,0" />
     <TextBlock Grid.Row="1" Grid.Column="3" Classes="caption" Text="primary large striped" HorizontalAlignment="Center" Margin="0,8,0,0" />
+    <TextBlock Grid.Row="1" Grid.Column="4" Classes="caption" Text="ShowProgressText" HorizontalAlignment="Center" Margin="0,8,0,0" />
   </Grid>
 </UserControl>

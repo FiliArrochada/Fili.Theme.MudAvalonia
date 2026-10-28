@@ -18,6 +18,9 @@
     <docs:ExampleCard Title="Every palette colour"
                       Description="A colour class is only a colour: primary alone is a primary text button, filled primary the filled one. With no class a button is Color.Default, text-primary - not primary."
                       Source="Button/Colors" />
+    <docs:ExampleCard Title="Inherit"
+                      Description="inherit is Color.Inherit: the label, and an outlined button's line, are the colour of the text around the button, so one button reads on any app bar."
+                      Source="Button/Inherit" />
 
     <TextBlock Classes="h5 section" Text="Sizes" />
     <docs:ExampleCard Title="Small, medium and large"

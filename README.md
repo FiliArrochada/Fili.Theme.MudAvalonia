@@ -363,8 +363,8 @@ pixel baselines are compared on.
 dotnet run --project src/Fili.Theme.MudAvalonia.Gallery.Desktop
 ```
 
-Six tabs: palette swatches with computed WCAG contrast ratios, the elevation ladder, the type
-ramp, a control-state matrix, a realistic sample screen, and **custom styles**: worked examples
+Beside a page per component: palette swatches with computed WCAG contrast ratios, the elevation
+ladder, the type ramp, a realistic sample screen, and **custom styles**: worked examples
 rather than parity. One is an Avalonia control MudBlazor has no counterpart for, where the theme
 styles only the part that matters: `DrawerPage`, with MudBlazor's drawer button and mini drawer.
 The other is a pattern built from the theme's pieces: a page loader, MudOverlay with a spinning
@@ -374,7 +374,7 @@ switches between light, dark and high contrast at runtime — which is the faste
 token that was wired statically, or one that high contrast never got its own value for.
 
 `--capture <dir>` renders every view in every variant to PNG without a display, for reviewing
-without running the app. They are the same twelve frames the pixel suite compares.
+without running the app. They are the same nine frames the pixel suite compares.
 
 There used to be a substrate selector beside the variant one, flipping the base under the forked
 controls between this package's Simple fork and Avalonia's Fluent. It mattered while the package

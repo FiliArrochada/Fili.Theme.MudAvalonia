@@ -3,7 +3,7 @@
              x:Class="Fili.Theme.MudAvalonia.Gallery.Views.CustomStylesView">
 
   <!--
-    Examples rather than parity, kept apart from the control states on purpose: an Avalonia control
+    Examples rather than parity, kept apart from the component pages on purpose: an Avalonia control
     MudBlazor has no counterpart for, which the theme reaches into with a targeted style, and
     compositions an app builds out of the theme's pieces where MudBlazor has a pattern but no
     single component. Each is also a pixel frame, so the examples are verified like the rest.

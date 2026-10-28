@@ -5,5 +5,8 @@
     <TextBox Classes="filled error" Width="220" VerticalAlignment="Top" PlaceholderText="Email" Text="nope" />
     <TextBox Classes="outlined error counter" Width="220" VerticalAlignment="Top" PlaceholderText="Code"
              MaxLength="6" Text="12345" />
+    <!-- In error the helper text gives way to nothing, and a counter past its limit stays red. -->
+    <TextBox Classes="filled error counter" Width="220" VerticalAlignment="Top" PlaceholderText="Code"
+             MaxLength="6" Text="1234567" AutomationProperties.HelpText="Hidden in error" />
   </WrapPanel>
 </UserControl>
