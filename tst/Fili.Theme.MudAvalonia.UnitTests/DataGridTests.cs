@@ -504,7 +504,7 @@ public class DataGridTests
         Assert.Contains(boxes, b => !b.IsEffectivelyEnabled);
         foreach (var box in boxes)
         {
-            var glyph = Matrix.Part<Avalonia.Controls.Shapes.Path>(box, box.IsChecked == true ? "PART_Checked" : "PART_Unchecked");
+            var glyph = Matrix.Part<Avalonia.Controls.Shapes.Path>(box, "PART_Glyph");
             Assert.Equal(Matrix.Token("FiliActionDefaultColor"), Matrix.Colour(glyph.Fill));
         }
     });

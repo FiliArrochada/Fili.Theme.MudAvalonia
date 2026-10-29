@@ -231,19 +231,24 @@ public class ThemeCompositionTests
     /// than MudBlazor's *implementation*, and could match neither the glyph corners nor the
     /// indeterminate bar. These assertions pin the swap so that cannot quietly come back.
     /// </para>
+    /// <para>
+    /// The three glyphs are one Path whose geometry follows the state, not three Paths with two
+    /// hidden: built and styled on every checkbox, the hidden two cost a fifth of its time.
+    /// </para>
     /// </summary>
     [Theory]
-    [InlineData(true, "PART_Checked", "PART_Unchecked")]
-    [InlineData(false, "PART_Unchecked", "PART_Checked")]
-    public Task CheckBoxSwapsGlyphs(bool isChecked, string shown, string hidden) =>
+    [InlineData(true, "FiliCheckBoxCheckedGeometry")]
+    [InlineData(false, "FiliCheckBoxUncheckedGeometry")]
+    [InlineData(null, "FiliCheckBoxIndeterminateGeometry")]
+    public Task CheckBoxSwapsGlyphs(bool? isChecked, string geometry) =>
         UiThread.RunAsync(() =>
         {
-            var box = Templated(new CheckBox { IsChecked = isChecked });
+            var box = Templated(new CheckBox { IsThreeState = true, IsChecked = isChecked });
 
-            var glyphs = box.GetVisualDescendants().OfType<Shapes.Path>().ToList();
+            var glyph = Assert.Single(box.GetVisualDescendants().OfType<Shapes.Path>());
 
-            Assert.True(glyphs.Single(p => p.Name == shown).IsVisible, $"{shown} should be shown.");
-            Assert.False(glyphs.Single(p => p.Name == hidden).IsVisible, $"{hidden} should be hidden.");
+            Assert.Equal("PART_Glyph", glyph.Name);
+            Assert.Same(box.FindResource(geometry), glyph.Data);
         });
 
     /// <summary>
@@ -256,7 +261,7 @@ public class ThemeCompositionTests
     {
         var box = Templated(new CheckBox { IsChecked = true });
 
-        var glyph = box.GetVisualDescendants().OfType<Shapes.Path>().Single(p => p.Name == "PART_Checked");
+        var glyph = box.GetVisualDescendants().OfType<Shapes.Path>().Single(p => p.Name == "PART_Glyph");
 
         Assert.Equal(ActionDefault(), Assert.IsAssignableFrom<ISolidColorBrush>(glyph.Fill).Color);
     });

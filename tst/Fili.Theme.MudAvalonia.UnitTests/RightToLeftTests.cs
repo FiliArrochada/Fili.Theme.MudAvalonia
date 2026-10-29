@@ -92,12 +92,9 @@ public class RightToLeftTests
             Children = { box, tree },
         });
 
-        foreach (var name in new[] { "PART_Unchecked", "PART_Checked", "PART_Indeterminate" })
-        {
-            var glyph = box.GetVisualDescendants().OfType<Shapes.Path>().First(p => p.Name == name);
-
-            Assert.Equal(FlowDirection.LeftToRight, glyph.FlowDirection);
-        }
+        // One Path draws every state's glyph, so pinning it pins the tick, the box and the dash.
+        var glyph = box.GetVisualDescendants().OfType<Shapes.Path>().Single(p => p.Name == "PART_Glyph");
+        Assert.Equal(FlowDirection.LeftToRight, glyph.FlowDirection);
 
         // The disclosure arrow is directional, so it inherits the mirror and points the other
         // way. Opting it out would leave it pointing away from the content it opens.

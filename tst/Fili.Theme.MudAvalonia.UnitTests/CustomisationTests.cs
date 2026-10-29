@@ -33,8 +33,8 @@ public class CustomisationTests
         var plain = new CheckBox { IsChecked = true };
         Matrix.Show(new StackPanel { Children = { box, plain } });
 
-        Assert.Same(Heart, Matrix.Part<Path>(box, "PART_Checked").Data);
-        Assert.NotSame(Heart, Matrix.Part<Path>(plain, "PART_Checked").Data);
+        Assert.Same(Heart, Matrix.Part<Path>(box, "PART_Glyph").Data);
+        Assert.NotSame(Heart, Matrix.Part<Path>(plain, "PART_Glyph").Data);
     });
 
     /// <summary>MudSelect's OpenIcon / CloseIcon: the two arrow keys, set on the select.</summary>

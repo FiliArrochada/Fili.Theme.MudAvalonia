@@ -120,6 +120,13 @@ internal sealed class Accent
     public static readonly AttachedProperty<IBrush?> OffColourProperty =
         AvaloniaProperty.RegisterAttached<Accent, Control, IBrush?>("OffColour");
 
+    /// <summary>
+    /// Worked out: a checkbox's glyph colour for the current state, the colour while checked and
+    /// the unchecked colour otherwise. Its one glyph Path binds it, where three Paths bound the two.
+    /// </summary>
+    public static readonly AttachedProperty<IBrush?> GlyphProperty =
+        AvaloniaProperty.RegisterAttached<Accent, Control, IBrush?>("Glyph");
+
     /// <summary>Worked out: the halo for the current state.</summary>
     public static readonly AttachedProperty<IBrush?> HaloProperty =
         AvaloniaProperty.RegisterAttached<Accent, Control, IBrush?>("Halo");
@@ -200,6 +207,8 @@ internal sealed class Accent
 
     public static IBrush? GetOffColour(Control c) => c.GetValue(OffColourProperty);
 
+    public static IBrush? GetGlyph(Control c) => c.GetValue(GlyphProperty);
+
     public static IBrush? GetHalo(Control c) => c.GetValue(HaloProperty);
 
     public static IBrush? GetRippleNow(Control c) => c.GetValue(RippleNowProperty);
@@ -231,7 +240,13 @@ internal sealed class Accent
         var colour = control.GetValue(ColourProperty);
         var hover = control.GetValue(HoverProperty);
         var ripple = control.GetValue(RippleProperty);
-        Write(control, OffColourProperty, control.GetValue(UncheckedColourProperty) ?? colour);
+        var off = control.GetValue(UncheckedColourProperty) ?? colour;
+        Write(control, OffColourProperty, off);
+        if (control is CheckBox)
+        {
+            Write(control, GlyphProperty, on ? colour : off);
+        }
+
         Write(control, HaloProperty, on ? hover : control.GetValue(UncheckedHoverProperty) ?? hover);
         Write(control, RippleNowProperty, on ? ripple : control.GetValue(UncheckedRippleProperty) ?? ripple);
     }

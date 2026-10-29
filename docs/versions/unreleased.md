@@ -11,6 +11,13 @@ sized on its own. One visual less on each; building 200 of them takes about 15% 
 rows and 9% less for checkboxes and radios. A template part named `PART_Scale` is now a `Panel`,
 and a list row's template has no `DockPanel` unless it is a `multi-selection` row.
 
+A checkbox draws its unchecked, checked and indeterminate glyphs with one Path, which swaps its
+glyph and colour with the state, instead of three with two of them hidden; the size classes scale
+that Path itself. Three visuals less on each checkbox: building 200 takes about a quarter less
+time and allocates a quarter less memory. The template parts `PART_Unchecked`, `PART_Checked`,
+`PART_Indeterminate` and `PART_Scale` are one `PART_Glyph` on a checkbox; a `/template/` selector
+of an app's that named them names it instead. A radio keeps its two glyphs.
+
 An indeterminate progress bar no longer re-lays out the window as it moves. Its two bars grow and
 shrink as MudBlazor's do, and a bar longer than the rail made the rail, the progress bar and every
 control round it measure again on each frame; now only the bar does. In a desktop window, 60

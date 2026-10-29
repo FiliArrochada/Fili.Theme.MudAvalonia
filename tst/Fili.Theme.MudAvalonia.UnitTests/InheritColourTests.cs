@@ -69,13 +69,13 @@ public class InheritColourTests
     /// `.mud-icon-button` hover (_iconbutton.scss) stays.
     /// </summary>
     [Theory]
-    [InlineData(true, "PART_Checked")]
-    [InlineData(false, "PART_Unchecked")]
-    public Task ACheckBoxGlyphTakesTheSurroundingColour(bool isChecked, string glyph) => UiThread.RunAsync(() =>
+    [InlineData(true)]
+    [InlineData(false)]
+    public Task ACheckBoxGlyphTakesTheSurroundingColour(bool isChecked) => UiThread.RunAsync(() =>
     {
         var box = InHost(new CheckBox { IsChecked = isChecked, Content = "Box", Classes = { "inherit" } }, Brushes.OrangeRed);
 
-        Assert.Equal(Colors.OrangeRed, Matrix.Colour(Matrix.Part<Path>(box, glyph).Fill));
+        Assert.Equal(Colors.OrangeRed, Matrix.Colour(Matrix.Part<Path>(box, "PART_Glyph").Fill));
         Assert.Equal(Matrix.Token("FiliTextPrimaryColor"), Matrix.Colour(box.Foreground));
 
         Matrix.Hover(box);
@@ -91,12 +91,12 @@ public class InheritColourTests
     public Task UncheckedInheritHoldsOnlyWhileUnchecked() => UiThread.RunAsync(() =>
     {
         var off = InHost(new CheckBox { IsChecked = false, Content = "Off", Classes = { "primary", "unchecked-inherit" } }, Brushes.OrangeRed);
-        Assert.Equal(Colors.OrangeRed, Matrix.Colour(Matrix.Part<Path>(off, "PART_Unchecked").Fill));
+        Assert.Equal(Colors.OrangeRed, Matrix.Colour(Matrix.Part<Path>(off, "PART_Glyph").Fill));
         Matrix.Hover(off);
         Assert.Equal(Matrix.Token("FiliActionDefaultHoverColor"), Matrix.Colour(Matrix.Part<Ellipse>(off, "PART_StateLayer").Fill));
 
         var on = InHost(new CheckBox { IsChecked = true, Content = "On", Classes = { "primary", "unchecked-inherit" } }, Brushes.OrangeRed);
-        Assert.Equal(Matrix.Token("FiliPrimaryColor"), Matrix.Colour(Matrix.Part<Path>(on, "PART_Checked").Fill));
+        Assert.Equal(Matrix.Token("FiliPrimaryColor"), Matrix.Colour(Matrix.Part<Path>(on, "PART_Glyph").Fill));
     });
 
     [Fact]
@@ -115,7 +115,7 @@ public class InheritColourTests
     {
         var box = InHost(new CheckBox { IsChecked = true, IsEnabled = false, Content = "Box", Classes = { "inherit" } }, Brushes.OrangeRed);
 
-        Assert.NotEqual(Colors.OrangeRed, Matrix.Colour(Matrix.Part<Path>(box, "PART_Checked").Fill));
+        Assert.NotEqual(Colors.OrangeRed, Matrix.Colour(Matrix.Part<Path>(box, "PART_Glyph").Fill));
     });
 
     [Fact]

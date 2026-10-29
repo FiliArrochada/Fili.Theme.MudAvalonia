@@ -19,8 +19,8 @@ public class UncheckedColourTests
     {
         var box = Matrix.Show(new CheckBox { IsChecked = false, Content = "Box", Classes = { "primary", $"unchecked-{colour.ToLowerInvariant()}" } });
 
-        Assert.Equal(Matrix.Token($"Fili{colour}Color"), Matrix.Colour(Matrix.Part<Path>(box, "PART_Unchecked").Fill));
-        Assert.Equal(Matrix.Token($"Fili{colour}Color"), Matrix.Colour(Matrix.Part<Path>(box, "PART_Indeterminate").Fill));
+        Assert.Equal(Matrix.Token($"Fili{colour}Color"), Matrix.Colour(Matrix.Part<Path>(box, "PART_Glyph").Fill));
+        Assert.Equal(Matrix.Token($"Fili{colour}Color"), Matrix.Colour(Matrix.GlyphFill(box, null)));
 
         Matrix.Hover(box);
         Assert.Equal(Matrix.Token($"Fili{colour}HoverColor"), Matrix.Colour(Matrix.Part<Ellipse>(box, "PART_StateLayer").Fill));
@@ -32,7 +32,7 @@ public class UncheckedColourTests
     {
         var box = Matrix.Show(new CheckBox { IsChecked = true, Content = "Box", Classes = { "primary", "unchecked-error" } });
 
-        Assert.Equal(Matrix.Token("FiliPrimaryColor"), Matrix.Colour(Matrix.Part<Path>(box, "PART_Checked").Fill));
+        Assert.Equal(Matrix.Token("FiliPrimaryColor"), Matrix.Colour(Matrix.Part<Path>(box, "PART_Glyph").Fill));
         Matrix.Hover(box);
         Assert.Equal(Matrix.Token("FiliPrimaryHoverColor"), Matrix.Colour(Matrix.Part<Ellipse>(box, "PART_StateLayer").Fill));
     });

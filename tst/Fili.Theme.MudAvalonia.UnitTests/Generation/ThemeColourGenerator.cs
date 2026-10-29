@@ -76,8 +76,8 @@ public static class ThemeColourGenerator
             (SplitButtonPath, SplitLabel, SplitRegion()),
             (SplitButtonPath, DropDownLabel, DropDownRegion()),
             (FiliThemePath, TextLabel, TextBlockRegion()),
-            (Controls("CheckBox.axaml"), CheckBoxLabel, GlyphRegion()),
-            (Controls("RadioButton.axaml"), RadioLabel, GlyphRegion()),
+            (Controls("CheckBox.axaml"), CheckBoxLabel, GlyphRegion("Path#PART_Glyph")),
+            (Controls("RadioButton.axaml"), RadioLabel, GlyphRegion("Panel#PART_Scale")),
             (Controls("ToggleSwitch.axaml"), SwitchLabel, SwitchRegion()),
             (Controls("Slider.axaml"), SliderLabel, SliderRegion()),
             (Controls("ProgressBar.axaml"), ProgressLabel, ProgressRegion()),
@@ -705,11 +705,13 @@ public static class ThemeColourGenerator
     // tint to the halo. Size is MudIcon's: 20 / 24 / 36px, scaled with its halo.
     // ---------------------------------------------------------------------------------------
 
-    private static string GlyphRegion()
+    private static string GlyphRegion(string scaled)
     {
-        // The template paints from Accent: the checked glyph in Accent.Colour, the unchecked ones
-        // in Accent.OffColour, the halo in Accent.Halo and the ripple in Accent.RippleNow, which
-        // Accent works out for the current state. So a colour is one style here, not one per glyph
+        // The template paints from Accent: a radio's checked glyph in Accent.Colour and its
+        // unchecked one in Accent.OffColour, a checkbox's one glyph in Accent.Glyph, the halo in
+        // Accent.Halo and the ripple in Accent.RippleNow, which Accent works out for the current
+        // state. `scaled` is the part the size classes scale: the checkbox's glyph, or the panel
+        // holding the radio's two. So a colour is one style here, not one per glyph
         // and state; the halo shows on hover, focus and press by its opacity.
         var o = new StringBuilder();
         o.Append("    <!-- No colour: action-default glyphs and halo; the ripple is the control's own text-primary. -->\n");
@@ -740,8 +742,8 @@ public static class ThemeColourGenerator
         o.Append(InheritLook("unchecked-inherit", "UncheckedColour", "UncheckedHover"));
 
         o.Append("\n    <!-- `mud-icon-size-small` / `-large`: 1.25rem and 2.25rem against 1.5rem. -->\n");
-        o.Append(Style("^.small /template/ Panel#PART_Scale", ("RenderTransform", "scale(0.8333333)")));
-        o.Append(Style("^.large /template/ Panel#PART_Scale", ("RenderTransform", "scale(1.5)")));
+        o.Append(Style($"^.small /template/ {scaled}", ("RenderTransform", "scale(0.8333333)")));
+        o.Append(Style($"^.large /template/ {scaled}", ("RenderTransform", "scale(1.5)")));
         return o.ToString();
     }
 

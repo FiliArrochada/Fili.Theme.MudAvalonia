@@ -215,7 +215,7 @@ public class ParityOptionsTests
         {
             control.IsEnabled = false;
             Matrix.Show(control);
-            Assert.Equal(Matrix.Token("FiliTextDisabledColor"), Matrix.Colour(Matrix.Part<Path>(control, "PART_Unchecked").Fill));
+            Assert.Equal(Matrix.Token("FiliTextDisabledColor"), Matrix.Colour(Matrix.GlyphFill(control, false)));
             Assert.Equal(Matrix.Token("FiliTextDisabledColor"), Matrix.Colour(control.Foreground));
         }
     });

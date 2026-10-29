@@ -57,6 +57,27 @@ public static class Matrix
 
     public static Color Colour(IBrush? brush) => Assert.IsAssignableFrom<ISolidColorBrush>(brush).Color;
 
+    /// <summary>
+    /// The fill of the glyph a checkbox or radio shows while <paramref name="isChecked"/>. A radio
+    /// keeps a Path per state, read as it is; a checkbox has one Path whose glyph and colour follow
+    /// its state, so it is put in that state to read it, and put back.
+    /// </summary>
+    public static IBrush? GlyphFill(ToggleButton control, bool? isChecked)
+    {
+        if (control is not CheckBox)
+        {
+            return Part<Shapes.Path>(control, isChecked == true ? "PART_Checked" : "PART_Unchecked").Fill;
+        }
+
+        var was = control.IsChecked;
+        control.IsChecked = isChecked;
+        Dispatcher.UIThread.RunJobs();
+        var fill = Part<Shapes.Path>(control, "PART_Glyph").Fill;
+        control.IsChecked = was;
+        Dispatcher.UIThread.RunJobs();
+        return fill;
+    }
+
     public static Color Token(string key)
     {
         Assert.True(Application.Current!.TryFindResource(key, ThemeVariant.Light, out var value), $"{key} did not resolve.");
@@ -127,8 +148,8 @@ public class SelectionGlyphMatrixTests
     {
         var control = Matrix.Show((ToggleButton)Activator.CreateInstance(type)!);
 
-        Assert.Equal(Matrix.Token("FiliActionDefaultColor"), Matrix.Colour(Matrix.Part<Shapes.Path>(control, "PART_Unchecked").Fill));
-        Assert.Equal(Matrix.Token("FiliActionDefaultColor"), Matrix.Colour(Matrix.Part<Shapes.Path>(control, "PART_Checked").Fill));
+        Assert.Equal(Matrix.Token("FiliActionDefaultColor"), Matrix.Colour(Matrix.GlyphFill(control, false)));
+        Assert.Equal(Matrix.Token("FiliActionDefaultColor"), Matrix.Colour(Matrix.GlyphFill(control, true)));
 
         // The halo is hidden at rest and shown on hover, in its state's colour.
         Assert.Equal(0, Matrix.Part<Shapes.Ellipse>(control, "PART_StateLayer").Opacity);
@@ -147,8 +168,8 @@ public class SelectionGlyphMatrixTests
             Matrix.Show(control);
 
             // UncheckedColor is null in MudBlazor, so the colour reaches the unchecked glyph too.
-            Assert.Equal(Matrix.Token($"Fili{colour}Color"), Matrix.Colour(Matrix.Part<Shapes.Path>(control, "PART_Unchecked").Fill));
-            Assert.Equal(Matrix.Token($"Fili{colour}Color"), Matrix.Colour(Matrix.Part<Shapes.Path>(control, "PART_Checked").Fill));
+            Assert.Equal(Matrix.Token($"Fili{colour}Color"), Matrix.Colour(Matrix.GlyphFill(control, false)));
+            Assert.Equal(Matrix.Token($"Fili{colour}Color"), Matrix.Colour(Matrix.GlyphFill(control, true)));
 
             Matrix.Hover(control);
             Assert.Equal(1, Matrix.Part<Shapes.Ellipse>(control, "PART_StateLayer").Opacity);
@@ -165,7 +186,8 @@ public class SelectionGlyphMatrixTests
         {
             control.Classes.Add(size);
             Matrix.Show(control);
-            var scale = Matrix.Part<Panel>(control, "PART_Scale");
+            // A checkbox scales its one glyph; a radio, the panel holding its two.
+            var scale = Matrix.Part<Control>(control, control is CheckBox ? "PART_Glyph" : "PART_Scale");
 
             Assert.Equal(glyph, 24 * scale.RenderTransform!.Value.M11, 2);
             Assert.Equal(halo, Matrix.Part<Shapes.Ellipse>(control, "PART_StateLayer").Bounds.Height);

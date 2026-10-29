@@ -39,52 +39,30 @@
             <!-- The ripple, clipped to the halo: every corner is clamped to half the box. -->
             <theme:PartBorder x:Name="PART_Ripple" theme:Ripple.IsLayer="True" theme:Ripple.Brush="{TemplateBinding (theme:Accent.RippleNow)}" CornerRadius="999" />
 
-            <!-- Scaled by a RenderTransform about its centre, not a LayoutTransformControl: the
-                 glyph sits centred in a box sized on its own, so layout never needs the scale. -->
-            <Panel x:Name="PART_Scale"
-                   HorizontalAlignment="Center"
-                   VerticalAlignment="Center">
-              <!--
-                Unchecked and checked are separate glyphs, not one box that fills.
+            <!--
+              MudCheckBox's three icons - unchecked, checked, indeterminate - as ONE Path: the
+              state styles below swap its glyph, and Accent works out its colour for the state
+              (Accent.Glyph). Three Paths, two of them hidden, built and styled on every checkbox
+              for nothing. The size classes scale it by a RenderTransform about its centre: it
+              sits centred in a box sized on its own, so layout never needs the scale.
 
-                FlowDirection="LeftToRight" on each is the RIGHT-TO-LEFT opt-out. Avalonia mirrors
-                a whole subtree with one transform wherever the flow direction changes, so under RTL
-                the tick would come out reversed - and a checkmark is not a directional symbol, so
-                Material's bidirectionality guidance says it must not mirror. Avalonia's own Simple
-                theme pins its check path the same way, which is how this was found.
+              FlowDirection="LeftToRight" is the RIGHT-TO-LEFT opt-out. Avalonia mirrors a whole
+              subtree with one transform wherever the flow direction changes, so under RTL the
+              tick would come out reversed - and a checkmark is not a directional symbol, so
+              Material's bidirectionality guidance says it must not mirror. Avalonia's own Simple
+              theme pins its check path the same way, which is how this was found.
 
-                Arrows and chevrons are deliberately NOT opted out: a tree's disclosure arrow SHOULD
-                point left in RTL, and the mirror gives that for free.
-              -->
-              <Path x:Name="PART_Unchecked"
-                    Width="24" Height="24"
-                    Stretch="None"
-                    Data="{DynamicResource FiliCheckBoxUncheckedGeometry}"
-                    Fill="{TemplateBinding (theme:Accent.OffColour)}"
-                    FlowDirection="LeftToRight"
-                    HorizontalAlignment="Center"
-                    VerticalAlignment="Center" />
-
-              <Path x:Name="PART_Checked"
-                    Width="24" Height="24"
-                    Stretch="None"
-                    Data="{DynamicResource FiliCheckBoxCheckedGeometry}"
-                    Fill="{TemplateBinding (theme:Accent.Colour)}"
-                    FlowDirection="LeftToRight"
-                    HorizontalAlignment="Center"
-                    VerticalAlignment="Center"
-                    IsVisible="False" />
-
-              <Path x:Name="PART_Indeterminate"
-                    Width="24" Height="24"
-                    Stretch="None"
-                    Data="{DynamicResource FiliCheckBoxIndeterminateGeometry}"
-                    Fill="{TemplateBinding (theme:Accent.OffColour)}"
-                    FlowDirection="LeftToRight"
-                    HorizontalAlignment="Center"
-                    VerticalAlignment="Center"
-                    IsVisible="False" />
-            </Panel>
+              Arrows and chevrons are deliberately NOT opted out: a tree's disclosure arrow SHOULD
+              point left in RTL, and the mirror gives that for free.
+            -->
+            <Path x:Name="PART_Glyph"
+                  Width="24" Height="24"
+                  Stretch="None"
+                  Data="{DynamicResource FiliCheckBoxUncheckedGeometry}"
+                  Fill="{TemplateBinding (theme:Accent.Glyph)}"
+                  FlowDirection="LeftToRight"
+                  HorizontalAlignment="Center"
+                  VerticalAlignment="Center" />
           </Panel>
 
           <ContentPresenter x:Name="PART_ContentPresenter"
@@ -99,18 +77,11 @@
       </ControlTemplate>
     </Setter>
 
-    <Style Selector="^:checked /template/ Path#PART_Unchecked">
-      <Setter Property="IsVisible" Value="False" />
+    <Style Selector="^:checked /template/ Path#PART_Glyph">
+      <Setter Property="Data" Value="{DynamicResource FiliCheckBoxCheckedGeometry}" />
     </Style>
-    <Style Selector="^:checked /template/ Path#PART_Checked">
-      <Setter Property="IsVisible" Value="True" />
-    </Style>
-
-    <Style Selector="^:indeterminate /template/ Path#PART_Unchecked">
-      <Setter Property="IsVisible" Value="False" />
-    </Style>
-    <Style Selector="^:indeterminate /template/ Path#PART_Indeterminate">
-      <Setter Property="IsVisible" Value="True" />
+    <Style Selector="^:indeterminate /template/ Path#PART_Glyph">
+      <Setter Property="Data" Value="{DynamicResource FiliCheckBoxIndeterminateGeometry}" />
     </Style>
 
     <!-- The icon button round the glyph: `.mud-icon-button` pads it 12px at every size, so the halo is
@@ -282,21 +253,15 @@
     </Style>
 
     <!-- `mud-icon-size-small` / `-large`: 1.25rem and 2.25rem against 1.5rem. -->
-    <Style Selector="^.small /template/ Panel#PART_Scale">
+    <Style Selector="^.small /template/ Path#PART_Glyph">
       <Setter Property="RenderTransform" Value="scale(0.8333333)" />
     </Style>
-    <Style Selector="^.large /template/ Panel#PART_Scale">
+    <Style Selector="^.large /template/ Path#PART_Glyph">
       <Setter Property="RenderTransform" Value="scale(1.5)" />
     </Style>
     <!-- END GENERATED -->
 
-    <Style Selector="^:disabled /template/ Path#PART_Unchecked">
-      <Setter Property="Fill" Value="{DynamicResource FiliTextDisabledBrush}" />
-    </Style>
-    <Style Selector="^:disabled /template/ Path#PART_Checked">
-      <Setter Property="Fill" Value="{DynamicResource FiliTextDisabledBrush}" />
-    </Style>
-    <Style Selector="^:disabled /template/ Path#PART_Indeterminate">
+    <Style Selector="^:disabled /template/ Path#PART_Glyph">
       <Setter Property="Fill" Value="{DynamicResource FiliTextDisabledBrush}" />
     </Style>
     <!-- `.mud-checkbox.mud-disabled *`: the glyph and the label both in text-disabled. -->
