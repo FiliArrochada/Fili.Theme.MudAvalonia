@@ -59,8 +59,8 @@ public class ReducedMotionTests
         window.MouseDown(centre, MouseButton.Left);
         Dispatcher.UIThread.RunJobs();
 
-        var waves = Assert.IsType<Canvas>(Matrix.Part<Border>(button, "PART_Ripple").Child);
-        Assert.Empty(waves.Children);
+        // The layer makes its canvas on its first ripple, so none is made at all.
+        Assert.Null(Matrix.Part<Border>(button, "PART_Ripple").Child);
         window.MouseUp(centre, MouseButton.Left);
     });
 

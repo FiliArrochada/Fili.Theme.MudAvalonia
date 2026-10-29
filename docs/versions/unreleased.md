@@ -47,7 +47,9 @@ button, chip, field, badge or nav menu to its variant's control theme no longer 
 up front. And an `overlay` whose class is removed gives its content its own alignment back, where
 it stayed centred and kept a stale entry for each time the class came and went. A striped
 progress bar's bands stand still with `FiliReducedMotion`, the indeterminate bar still moving, and
-only a `dense` data grid's cells look for the grid's last column. See [Upgrading from 0.24.0 to 0.25.0](#upgrading-from-0240-to-0250-unreleased).
+only a `dense` data grid's cells look for the grid's last column. And a control that ripples
+builds its ripple's canvas on its first press rather than when it is shown, a typical screen
+building 5% fewer visuals. See [Upgrading from 0.24.0 to 0.25.0](#upgrading-from-0240-to-0250-unreleased).
 
 ## Upgrading from 0.24.0 to 0.25.0 *(unreleased)*
 

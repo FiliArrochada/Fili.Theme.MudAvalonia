@@ -37,6 +37,11 @@ namespace Fili.Theme.MudAvalonia;
 /// <c>closest('.mud-ripple')</c> picks one. Internal, like the converters: a theme needs it, a
 /// consumer does not.
 /// </para>
+/// <para>
+/// Every button, checkbox, row and tab has a layer, and most are never pressed: a layer listens
+/// for presses alone until one ripples, creates its canvas on that first ripple, listens for the
+/// release only while a wave is held, and drops its clip once the last wave is gone.
+/// </para>
 /// </remarks>
 internal sealed class Ripple
 {
@@ -106,15 +111,14 @@ internal sealed class Ripple
     private sealed class Layer
     {
         private readonly Border _border;
-        private readonly Canvas _canvas = new();
         private readonly List<(Panel Wave, long Started)> _held = [];
+        private Canvas? _canvas;
         private InputElement? _host;
 
         public Layer(Border border)
         {
             _border = border;
             border.IsHitTestVisible = false;
-            border.Child = _canvas;
             border.AttachedToVisualTree += (_, _) => Attach();
             border.DetachedFromVisualTree += (_, _) => Detach();
             if (border.IsAttachedToVisualTree())
@@ -133,9 +137,6 @@ internal sealed class Ripple
             }
 
             _host.AddHandler(InputElement.PointerPressedEvent, OnPressed, RoutingStrategies.Bubble, handledEventsToo: true);
-            _host.AddHandler(InputElement.PointerReleasedEvent, OnReleased, RoutingStrategies.Bubble, handledEventsToo: true);
-            _host.AddHandler(InputElement.PointerCaptureLostEvent, OnReleased, handledEventsToo: true);
-            _host.AddHandler(InputElement.PointerExitedEvent, OnReleased, handledEventsToo: true);
         }
 
         private void Detach()
@@ -143,14 +144,28 @@ internal sealed class Ripple
             if (_host is not null)
             {
                 _host.RemoveHandler(InputElement.PointerPressedEvent, OnPressed);
-                _host.RemoveHandler(InputElement.PointerReleasedEvent, OnReleased);
-                _host.RemoveHandler(InputElement.PointerCaptureLostEvent, OnReleased);
-                _host.RemoveHandler(InputElement.PointerExitedEvent, OnReleased);
+                StopListening();
                 _host = null;
             }
 
             _held.Clear();
-            _canvas.Children.Clear();
+            _canvas?.Children.Clear();
+            _border.Clip = null;
+        }
+
+        /// <summary>A release, capture loss or exit ends the held waves; listened for while any are.</summary>
+        private void Listen()
+        {
+            _host!.AddHandler(InputElement.PointerReleasedEvent, OnReleased, RoutingStrategies.Bubble, handledEventsToo: true);
+            _host.AddHandler(InputElement.PointerCaptureLostEvent, OnReleased, handledEventsToo: true);
+            _host.AddHandler(InputElement.PointerExitedEvent, OnReleased, handledEventsToo: true);
+        }
+
+        private void StopListening()
+        {
+            _host?.RemoveHandler(InputElement.PointerReleasedEvent, OnReleased);
+            _host?.RemoveHandler(InputElement.PointerCaptureLostEvent, OnReleased);
+            _host?.RemoveHandler(InputElement.PointerExitedEvent, OnReleased);
         }
 
         private void OnPressed(object? sender, PointerPressedEventArgs e)
@@ -197,10 +212,21 @@ internal sealed class Ripple
             };
             Canvas.SetLeft(wave, point.Position.X - diameter / 2);
             Canvas.SetTop(wave, point.Position.Y - diameter / 2);
+            if (_canvas is null)
+            {
+                _canvas = new Canvas();
+                _border.Child = _canvas;
+            }
+
             _canvas.Children.Add(wave);
 
             dot.Opacity = opacity;
             dot.RenderTransform = Grown;
+            if (_held.Count == 0)
+            {
+                Listen();
+            }
+
             _held.Add((wave, Stopwatch.GetTimestamp()));
         }
 
@@ -220,12 +246,19 @@ internal sealed class Ripple
             }
 
             _held.Clear();
+            StopListening();
         }
 
         private void Fade(Panel wave)
         {
             wave.Opacity = 0;
-            DispatcherTimer.RunOnce(() => _canvas.Children.Remove(wave), FadeDuration);
+            DispatcherTimer.RunOnce(() =>
+            {
+                if (_canvas is { } canvas && canvas.Children.Remove(wave) && canvas.Children.Count == 0)
+                {
+                    _border.Clip = null;
+                }
+            }, FadeDuration);
         }
     }
 

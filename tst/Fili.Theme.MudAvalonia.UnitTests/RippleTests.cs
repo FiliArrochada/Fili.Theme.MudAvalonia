@@ -55,13 +55,14 @@ public class RippleTests
         }
     }
 
-    private static Canvas Waves(Control control, string layer = "PART_Ripple") =>
-        Assert.IsType<Canvas>(Matrix.Part<Border>(control, layer).Child);
+    /// <summary>The waves in a layer: none before its canvas is made, on the first ripple.</summary>
+    private static Avalonia.Controls.Controls Waves(Control control, string layer = "PART_Ripple") =>
+        Matrix.Part<Border>(control, layer).Child is { } child ? Assert.IsType<Canvas>(child).Children : [];
 
     /// <summary>The one ripple a press drew in <paramref name="control"/>: its wave and its circle.</summary>
     private static (Panel Wave, Ellipse Dot) Single(Control control, string layer = "PART_Ripple")
     {
-        var wave = Assert.IsAssignableFrom<Panel>(Assert.Single(Waves(control, layer).Children));
+        var wave = Assert.IsAssignableFrom<Panel>(Assert.Single(Waves(control, layer)));
         return (wave, Assert.IsType<Ellipse>(Assert.Single(wave.Children)));
     }
 
@@ -165,11 +166,16 @@ public class RippleTests
         Assert.Equal(new Rect(0, 0, 120, 36), clip.Bounds);
     });
 
-    /// <summary>Released, the ripple fades to nothing and is taken out of the layer.</summary>
+    /// <summary>
+    /// Released, the ripple fades to nothing and is taken out of the layer, which lets go of its
+    /// clip; the layer has no canvas until its first ripple, and ripples again after.
+    /// </summary>
     [Fact]
     public Task ReleasedItFadesAndIsGone() => UiThread.RunAsync(() =>
     {
         var button = Matrix.Show(new Button { Content = "Save" });
+        var layer = Matrix.Part<Border>(button, "PART_Ripple");
+        Assert.Null(layer.Child);
         Panel wave;
         using (Press(button))
         {
@@ -178,7 +184,7 @@ public class RippleTests
         }
 
         var elapsed = System.Diagnostics.Stopwatch.StartNew();
-        while (Waves(button).Children.Count > 0 && elapsed.ElapsedMilliseconds < 3000)
+        while (Waves(button).Count > 0 && elapsed.ElapsedMilliseconds < 3000)
         {
             Thread.Sleep(20);
             AvaloniaHeadlessPlatform.ForceRenderTimerTick();
@@ -186,7 +192,14 @@ public class RippleTests
         }
 
         Assert.Equal(0, wave.GetBaseValue(Visual.OpacityProperty).GetValueOrDefault());
-        Assert.Empty(Waves(button).Children);
+        Assert.Empty(Waves(button));
+        Assert.Null(layer.Clip);
+
+        using (Press(button))
+        {
+            Assert.NotSame(wave, Single(button).Wave);
+            Assert.NotNull(layer.Clip);
+        }
     });
 
     [Fact]
@@ -195,7 +208,7 @@ public class RippleTests
         var button = Matrix.Show(new Button { Content = "Save" });
         using var _ = Press(button, button: MouseButton.Right);
 
-        Assert.Empty(Waves(button).Children);
+        Assert.Empty(Waves(button));
     });
 
     /// <summary>closest('.mud-ripple'): a button in a list row ripples, and the row does not.</summary>
@@ -215,13 +228,13 @@ public class RippleTests
 
         using (Press(button))
         {
-            Assert.Single(Waves(button).Children);
-            Assert.Empty(Waves(row).Children);
+            Assert.Single(Waves(button));
+            Assert.Empty(Waves(row));
         }
 
         using (Press(row, new Point(20, row.Bounds.Height / 2)))
         {
-            Assert.Single(Waves(row).Children);
+            Assert.Single(Waves(row));
         }
     });
 
@@ -232,7 +245,7 @@ public class RippleTests
         var box = Matrix.Show(new CheckBox { Content = "Remember me" });
         using (Press(Matrix.Part<Control>(box, "PART_ContentPresenter")))
         {
-            Assert.Empty(Waves(box).Children);
+            Assert.Empty(Waves(box));
         }
 
         var halo = Matrix.Part<Border>(box, "PART_Ripple");
@@ -438,7 +451,7 @@ public class RippleTests
 
         using (Press(quiet))
         {
-            Assert.Empty(Waves(quiet).Children);
+            Assert.Empty(Waves(quiet));
         }
 
         Assert.Equal(0.1, Pressed(loud), 3);
@@ -468,7 +481,7 @@ public class RippleTests
         host.Children.Remove(button);
         Dispatcher.UIThread.RunJobs();
 
-        Assert.Empty(Waves(button).Children);
+        Assert.Empty(Waves(button));
     });
 
     /// <summary>A ripple is the text's colour at the moment of the press: an app's own foreground too.</summary>

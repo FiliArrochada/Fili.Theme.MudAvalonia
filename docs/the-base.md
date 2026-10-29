@@ -356,7 +356,9 @@ for something XAML cannot express on its own:
   cannot ask about siblings, and `:nth-child` cannot see past an `ItemsControl`'s presenters.
 - **`Ripple`** draws MudBlazor's ripple in a template's `PART_Ripple` border: a circle from the
   pointer, its opacity inherited from the control's theme. Avalonia has no ripple, and a style
-  cannot follow a pointer.
+  cannot follow a pointer. Most layers are never pressed, so a layer holds nothing and listens
+  for presses alone until its first ripple makes its canvas; it listens for the release only
+  while a wave is held, and drops its clip once the last wave has gone.
 - **`TextTransform`** draws a button's label in `FiliButtonTextTransform`'s case: a string on
   its way into the presenter, and any plain `TextBlock` in the content, which the inherited case
   reaches, through a run that leaves its `Text` alone. Avalonia has no text-transform, and a
