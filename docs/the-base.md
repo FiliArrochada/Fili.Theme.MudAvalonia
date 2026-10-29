@@ -258,8 +258,9 @@ taking on anyone else's vocabulary.
 ## In the browser
 
 The same gallery runs in a browser, from `src/Fili.Theme.MudAvalonia.Gallery.Browser`, and
-`.github/workflows/pages.yml` publishes it to
-[GitHub Pages](https://filiarrochada.github.io/Fili.Theme.MudAvalonia/) on every push to `master`.
+`.github/workflows/build.yml` publishes it to
+[GitHub Pages](https://filiarrochada.github.io/Fili.Theme.MudAvalonia/) on every push to `master`
+that passes the tests.
 Both heads share one `MainView`; the desktop's `MainWindow` only hosts it.
 
 ```powershell

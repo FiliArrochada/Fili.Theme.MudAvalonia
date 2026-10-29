@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk.WebAssembly">
 
   <!--
-    The gallery in the browser, published to GitHub Pages by .github/workflows/pages.yml.
+    The gallery in the browser, published to GitHub Pages by .github/workflows/build.yml.
 
     Building it needs the wasm-tools workload (`dotnet workload install wasm-tools`): Avalonia.Browser
     ships Skia and HarfBuzz as native static libraries that are linked into dotnet.wasm, and that

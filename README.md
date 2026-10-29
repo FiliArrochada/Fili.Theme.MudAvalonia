@@ -3,7 +3,7 @@
 [![NuGet](https://img.shields.io/nuget/v/Fili.MudAvalonia.Theme?logo=nuget&label=NuGet)](https://www.nuget.org/packages/Fili.MudAvalonia.Theme)
 [![Downloads](https://img.shields.io/nuget/dt/Fili.MudAvalonia.Theme?logo=nuget&label=downloads)](https://www.nuget.org/packages/Fili.MudAvalonia.Theme)
 [![Build](https://github.com/FiliArrochada/Fili.Theme.MudAvalonia/actions/workflows/build.yml/badge.svg?branch=master)](https://github.com/FiliArrochada/Fili.Theme.MudAvalonia/actions/workflows/build.yml)
-[![Gallery](https://github.com/FiliArrochada/Fili.Theme.MudAvalonia/actions/workflows/pages.yml/badge.svg?branch=master)](https://filiarrochada.github.io/Fili.Theme.MudAvalonia/)
+[![Gallery](https://img.shields.io/badge/gallery-live-594AE2)](https://filiarrochada.github.io/Fili.Theme.MudAvalonia/)
 [![Avalonia](https://img.shields.io/badge/Avalonia-12.1-8B44AC)](https://avaloniaui.net/)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue)](LICENSE)
 
@@ -396,8 +396,9 @@ theme, and only a real layout exposes flat hierarchy and wrong spacing.
 ### In the browser
 
 The same gallery runs in a browser, from `src/Fili.Theme.MudAvalonia.Gallery.Browser`, and
-`.github/workflows/pages.yml` publishes it to
-[GitHub Pages](https://filiarrochada.github.io/Fili.Theme.MudAvalonia/) on every push to `master`.
+`.github/workflows/build.yml` publishes it to
+[GitHub Pages](https://filiarrochada.github.io/Fili.Theme.MudAvalonia/) on every push to `master`
+that passes the tests.
 Both heads share one `MainView`; the desktop's `MainWindow` only hosts it.
 
 ```powershell

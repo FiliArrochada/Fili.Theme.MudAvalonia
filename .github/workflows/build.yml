@@ -1,8 +1,16 @@
 name: build
 
-# Builds the theme, the gallery and both test suites. Nothing here packs and nothing here
-# publishes: pushing a NuGet package is a deliberate human step, not a side effect of a green
-# build.
+# Builds the theme, the gallery and the test suites, publishes the gallery's browser build, and,
+# on a push to master, deploys it as the repository's GitHub Pages site:
+# https://filiarrochada.github.io/Fili.Theme.MudAvalonia/
+#
+# Nothing here packs: pushing a NuGet package is a deliberate human step (release.yml, on a tag),
+# not a side effect of a green build. The site is deployed only once every test leg has passed.
+#
+# Pages one-time setup: Settings -> Pages -> Build and deployment -> Source = "GitHub Actions".
+# Until that is switched, the deploy job fails. No base-path rewriting is needed: Pages serves a
+# project site under /Fili.Theme.MudAvalonia/, and every URL the page loads (./main.js,
+# ./_framework/...) is relative, so the same output works there and at the root of a local server.
 
 on:
   push:
@@ -13,8 +21,9 @@ on:
 
 # Least privilege for GITHUB_TOKEN. Without this block a workflow inherits the repository
 # default, which is often read/write across contents and packages - so a pipeline whose whole
-# purpose is to build and test would hold a token that can push commits. Nothing here needs more
-# than reading the checkout; upload-artifact uses the Actions runtime token, not this one.
+# purpose is to build and test would hold a token that can push commits. The test jobs need no
+# more than reading the checkout; upload-artifact uses the Actions runtime token, not this one.
+# Only the deploy job is granted the Pages permissions, below.
 permissions:
   contents: read
 
@@ -24,7 +33,7 @@ env:
 
 jobs:
   # ---------------------------------------------------------------------------------------
-  # Linux builds the whole solution; Windows builds what it tests and runs the pixel suite.
+  # Linux builds and publishes; Windows builds what it tests and runs the pixel suite.
   #
   # Linux is not here for symmetry. This is a library other people will build on whatever they
   # have, and a Linux job is the only thing that would catch a Windows-only assumption creeping
@@ -34,10 +43,11 @@ jobs:
   # for that day is a second committed set of baselines per platform, not a wider tolerance -
   # one wide enough to cover a different rasteriser would be wide enough to hide a real change.
   #
-  # Only Linux builds the browser gallery. Its build links Skia and HarfBuzz into dotnet.wasm,
-  # which needs the wasm-tools workload, and installing that on Windows cost every run time for
-  # a project no Windows step uses. Windows builds the three test projects instead, which between
-  # them reference every other project in the solution.
+  # Only Linux builds the browser gallery, and it builds it once, by publishing it: the publish
+  # is what the site serves, and building it beforehand as well linked Skia and HarfBuzz into
+  # dotnet.wasm twice. That link needs the wasm-tools workload, and installing it on Windows cost
+  # every run time for a project no Windows step uses. Windows builds the three test projects
+  # instead, which between them reference every other project in the solution.
   # ---------------------------------------------------------------------------------------
   test:
     name: Test (${{ matrix.os }})
@@ -47,11 +57,18 @@ jobs:
       matrix:
         include:
           - os: ubuntu-latest
-            projects: Fili.Theme.MudAvalonia.sln
-            wasm: true
+            # Every project in the solution but the browser gallery, which the publish builds.
+            projects: >-
+              src/Fili.Theme.MudAvalonia
+              src/Fili.Theme.MudAvalonia.Gallery
+              src/Fili.Theme.MudAvalonia.Gallery.Desktop
+              tst/Fili.Theme.MudAvalonia.UnitTests
+              tst/Fili.Theme.MudAvalonia.PixelTests
+              tst/Fili.Theme.MudAvalonia.NoDataGridTests
+            publish: true
           - os: windows-latest
             projects: tst/Fili.Theme.MudAvalonia.UnitTests tst/Fili.Theme.MudAvalonia.PixelTests tst/Fili.Theme.MudAvalonia.NoDataGridTests
-            wasm: false
+            publish: false
 
     env:
       # Somewhere the artifact upload below can actually reach. The default is the system temp
@@ -75,12 +92,6 @@ jobs:
           path: ~/.nuget/packages
           key: nuget-${{ runner.os }}-${{ hashFiles('Directory.Packages.props', '**/*.csproj') }}
           restore-keys: nuget-${{ runner.os }}-
-
-      # Only where the browser gallery is built; see the job comment above. Without it, even
-      # restoring that project fails.
-      - name: Install wasm-tools workload
-        if: matrix.wasm
-        run: dotnet workload install wasm-tools
 
       - name: Restore
         shell: bash
@@ -123,6 +134,34 @@ jobs:
           --report-xunit-trx
           --results-directory ${{ github.workspace }}/artifacts/test-results
 
+      # Avalonia.Browser links Skia and HarfBuzz into dotnet.wasm, and that native link is what
+      # this workload provides. Without it, even restoring the browser project fails.
+      - name: Install wasm-tools workload
+        if: matrix.publish
+        run: dotnet workload install wasm-tools
+
+      # On every push and pull request, not only before a deploy: the browser build is trimmed,
+      # and what trimming breaks shows up here and nowhere else.
+      - name: Publish the browser gallery
+        if: matrix.publish
+        run: >
+          dotnet publish src/Fili.Theme.MudAvalonia.Gallery.Browser
+          --configuration Release
+          --output publish
+
+      # XAML loaded by its path at runtime is found by reflection, so trimming strips it unless a
+      # DynamicDependency keeps it - and every test above runs untrimmed. Every docs example once
+      # failed on the live site with "No precompiled XAML found" while all of them passed.
+      - name: Check the published gallery
+        if: matrix.publish
+        run: python3 tools/check-gallery-publish.py publish
+
+      - name: Upload Pages artifact
+        if: matrix.publish && github.event_name != 'pull_request' && github.ref == 'refs/heads/master'
+        uses: actions/upload-pages-artifact@v5
+        with:
+          path: publish/wwwroot
+
       - name: Upload test results
         if: always()
         uses: actions/upload-artifact@v7
@@ -143,3 +182,26 @@ jobs:
           path: artifacts/pixel-diff/
           if-no-files-found: ignore
           retention-days: 14
+
+  # Deploys the gallery the Linux leg published, once every test leg has passed: a master that
+  # fails its tests keeps the site it had.
+  deploy:
+    name: Deploy the gallery
+    needs: test
+    if: github.event_name != 'pull_request' && github.ref == 'refs/heads/master'
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    # One deployment at a time, and never cancel one halfway: a cancelled deploy can leave the
+    # site pointing at a half-uploaded artifact.
+    concurrency:
+      group: pages
+      cancel-in-progress: false
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v5

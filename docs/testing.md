@@ -186,24 +186,34 @@ mistaken for this run's.
 
 ## In CI
 
-Three workflows, in `.github/workflows/`.
+Two workflows, in `.github/workflows/`.
 
 ### `build.yml` - every push and pull request to `master`
 
 | Runner | Builds | Runs |
 |---|---|---|
-| `ubuntu-latest` | the whole solution, the WebAssembly gallery included | the unit and no-DataGrid tests |
+| `ubuntu-latest` | every project but the browser gallery, then publishes that | the unit and no-DataGrid tests, and the check of the published gallery |
 | `windows-latest` | the three test projects, which reference every other project | the unit and no-DataGrid tests **and** the pixel tests |
 
 - **Linux** is there to catch a Windows-only assumption in a library other people will build on
-  whatever they have, and to build the browser gallery, which needs the `wasm-tools` workload.
-  It does not run the pixel tests, for the rasterisation reason above.
+  whatever they have, and to publish the browser gallery, which needs the `wasm-tools` workload.
+  The publish is the gallery's only build, so Skia and HarfBuzz are linked into `dotnet.wasm`
+  once a run. It does not run the pixel tests, for the rasterisation reason above.
+- **The published gallery is checked** by `tools/check-gallery-publish.py`: the browser build is
+  trimmed, and XAML loaded by its path is found by reflection, so trimming can strip it while
+  every test, run untrimmed, passes. The script fails the run unless the gallery's compiled XAML
+  loader and every docs example's path, and the theme's DataGrid styles, survive. Run it locally
+  after `dotnet publish src/Fili.Theme.MudAvalonia.Gallery.Browser --configuration Release
+  --output publish` with `python3 tools/check-gallery-publish.py publish`.
 - **Windows** runs the pixel tests because the baselines were rendered there.
 - Every run uploads the test results (`.trx`) as `test-results-{os}`. A failing pixel run also
   uploads **`pixel-diffs`**, the rendered frames and diff images, kept for 14 days - so a change
   can be judged from the run page instead of reproduced locally first.
 - `fail-fast` is off, so one runner failing does not cancel the other's answer.
-- Nothing in it packs or publishes; the token is read-only.
+- **On a push to `master`**, the Linux leg uploads the published gallery and the `deploy` job
+  puts it on GitHub Pages - only once both legs have passed, so a master that fails its tests
+  keeps the site it had. Deploys run one at a time and are never cancelled halfway.
+- Nothing in it packs. The token is read-only, save the deploy job's Pages permissions.
 
 ### `release.yml` - a `v*` tag
 
@@ -211,12 +221,6 @@ Before anything is published, it **reruns both suites on Windows**. A tag on a c
 not pass does not reach nuget.org - and a nuget.org version can never be replaced, only unlisted,
 so this is the last check that matters. It then refuses a tag that differs from `<Version>`,
 packs, pushes through trusted publishing and creates the GitHub release.
-
-### `pages.yml` - every push to `master`
-
-Publishes the browser gallery to GitHub Pages. It runs no tests, but it is the check that the
-WebAssembly build still works *as a page* - a font that only exists on desktop, or a style
-include that trimming strips, shows up there and nowhere else.
 
 ## Running them
 
