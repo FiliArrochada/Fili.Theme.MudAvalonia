@@ -330,6 +330,13 @@ one.
 - **Joined segments drop their inner corners and pull back 1px**, as `_buttongroup.scss` does, so
   two outlines share one line. On a `SplitButton` the -1px does not appear, because Avalonia's
   separator sits between the halves; a `button-group` keeps it (`ButtonGroup`).
+- **A part whose length animates must not reach its parent's desired size.** A `Panel` desires
+  its largest child, so the indeterminate bars, growing to twice the rail, re-measured every
+  ancestor up to the window as they moved: in a desktop window, 60 bars cost 60 ms of CPU a
+  second and the root was measured 8 times a second. A negative margin on the side away from
+  the anchor holds the bar's desired size at zero, and it is still laid out at its length:
+  46 ms, no root measures (`ThemeCompositionTests.IndeterminateBarsDoNotResizeTheRail`). A headless
+  clock cannot show this; the numbers are from a real window.
 
 ## Writing tests
 

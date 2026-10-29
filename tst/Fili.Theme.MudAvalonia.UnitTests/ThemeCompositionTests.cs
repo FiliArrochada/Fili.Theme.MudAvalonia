@@ -3,6 +3,7 @@ using Avalonia.Controls;
 using Avalonia.Controls.Presenters;
 using Avalonia.Controls.Primitives;
 using Avalonia.Input;
+using Avalonia.Layout;
 using Shapes = Avalonia.Controls.Shapes;
 using Avalonia.Media;
 using Avalonia.Styling;
@@ -474,6 +475,39 @@ public class ThemeCompositionTests
         // flashes a solid full-width block for the first second.
         var second = bars.Single(b => b.Name == "PART_IndeterminateIndicator2");
         Assert.Equal(0d, second.Width);
+    });
+
+    /// <summary>
+    /// The indeterminate bars animate their length, out to twice the rail, and a length that
+    /// reached the rail's desired size re-measured the bar and every ancestor up to the window on
+    /// every frame. A negative margin on the far side holds each bar's desired size at zero, so a
+    /// frame re-measures the bar alone; the bar is still laid out at its full length from the
+    /// rail's start, and as thick as the rail, in either orientation.
+    /// </summary>
+    [Theory]
+    [InlineData(Orientation.Horizontal)]
+    [InlineData(Orientation.Vertical)]
+    public Task IndeterminateBarsDoNotResizeTheRail(Orientation orientation) => UiThread.RunAsync(() =>
+    {
+        var horizontal = orientation == Orientation.Horizontal;
+        var bar = Templated(new ProgressBar
+        {
+            IsIndeterminate = true,
+            Orientation = orientation,
+            Width = horizontal ? 200 : double.NaN,
+            Height = horizontal ? double.NaN : 200,
+        });
+        var first = bar.GetVisualDescendants().OfType<Border>().Single(b => b.Name == "PART_IndeterminateIndicator");
+        var rail = (Control)first.GetVisualParent()!;
+        TopLevel.GetTopLevel(bar)!.UpdateLayout();
+
+        Assert.Equal(default, first.DesiredSize);
+        Assert.Equal(default, first.Bounds.Position);
+        // A range, as the animation moves on with the clock, even within a layout pass: what it
+        // rules out is a bar laid out at nothing, or stretched across its margin.
+        Assert.InRange(horizontal ? first.Bounds.Width : first.Bounds.Height, 69d, 181d);
+        Assert.Equal(horizontal ? rail.Bounds.Height : rail.Bounds.Width, horizontal ? first.Bounds.Height : first.Bounds.Width);
+        Assert.True(horizontal ? rail.Bounds.Height > 0 : rail.Bounds.Width > 0);
     });
 
     /// <summary>

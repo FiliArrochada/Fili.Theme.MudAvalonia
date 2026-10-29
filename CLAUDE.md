@@ -226,6 +226,9 @@ One line each; [`docs/traps.md`](docs/traps.md) has the full account and the tes
   every row but the current one.
 - A template whose rows are Auto sits at the top of a control stretched taller; centre it on
   `VerticalContentAlignment` (the switch).
+- A part whose length animates re-measures every ancestor each frame once it reaches its
+  parent's desired size: hold it at zero with a negative margin away from its anchor (the
+  indeterminate bars).
 - A template part works only under the exact `[TemplatePart]` name its control looks for; any
   other name is silently ignored (the DataGrid's group row and `PART_RowHeader`).
 

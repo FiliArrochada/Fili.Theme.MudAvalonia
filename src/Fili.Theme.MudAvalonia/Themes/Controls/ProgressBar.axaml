@@ -198,9 +198,15 @@
       converter at all.
 
       MudBlazor's timing is kept exactly: 2.1s, the two cubic-beziers, bar 2 delayed by 1.15s.
+
+      Each bar takes a negative margin on the side away from its anchor, far longer than it can
+      grow. Its desired size is then zero whatever its length, so a frame re-measures the bar
+      alone; a length that reached the rail's desired size re-measured every ancestor up to the
+      window as the bar moved. The bar is still laid out at its length from the rail's start.
     -->
     <Style Selector="^:horizontal:indeterminate /template/ theme|PartBorder#PART_IndeterminateIndicator">
       <Setter Property="HorizontalAlignment" Value="Left" />
+      <Setter Property="Margin" Value="0,0,-100000,0" />
       <Style.Animations>
         <Animation IterationCount="Infinite" Duration="0:0:2.1">
           <Animation.Easing>
@@ -227,6 +233,7 @@
            zero - which is also where the web has it, off-screen at left -200%. -->
       <Setter Property="Width" Value="0" />
       <Setter Property="HorizontalAlignment" Value="Left" />
+      <Setter Property="Margin" Value="0,0,-100000,0" />
       <Style.Animations>
         <Animation IterationCount="Infinite" Duration="0:0:2.1" Delay="0:0:1.15">
           <Animation.Easing>
@@ -252,6 +259,7 @@
          dimension the orientation makes the long one, so the factors carry over unchanged. -->
     <Style Selector="^:vertical:indeterminate /template/ theme|PartBorder#PART_IndeterminateIndicator">
       <Setter Property="VerticalAlignment" Value="Top" />
+      <Setter Property="Margin" Value="0,0,0,-100000" />
       <Style.Animations>
         <Animation IterationCount="Infinite" Duration="0:0:2.1">
           <Animation.Easing>
@@ -275,6 +283,7 @@
     <Style Selector="^:vertical:indeterminate /template/ theme|PartBorder#PART_IndeterminateIndicator2">
       <Setter Property="Height" Value="0" />
       <Setter Property="VerticalAlignment" Value="Top" />
+      <Setter Property="Margin" Value="0,0,0,-100000" />
       <Style.Animations>
         <Animation IterationCount="Infinite" Duration="0:0:2.1" Delay="0:0:1.15">
           <Animation.Easing>
