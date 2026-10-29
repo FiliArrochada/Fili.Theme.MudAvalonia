@@ -4,6 +4,7 @@ using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Data.Converters;
 using Avalonia.Interactivity;
+using Avalonia.VisualTree;
 using Calendar = Avalonia.Controls.Calendar;
 
 namespace Fili.Theme.MudAvalonia;
@@ -85,7 +86,10 @@ internal sealed class CalendarView
     private static void OnFieldClick(object? sender, RoutedEventArgs e)
     {
         var field = (TextBox)sender!;
-        if (e.Source is Button { Name: "PART_ClearButton" } button && button.TemplatedParent == field
+        // The clear button is built into the field's PART_ClearHost by `clearable`'s style, so
+        // it is the content of the field's template rather than a part of it: its own field is
+        // the nearest one above it.
+        if (e.Source is Button { Name: "PART_ClearButton" } button && button.FindAncestorOfType<TextBox>() == field
             && field.TemplatedParent is CalendarDatePicker picker)
         {
             picker.SelectedDate = null;

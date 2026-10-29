@@ -192,6 +192,10 @@ One line each; [`docs/traps.md`](docs/traps.md) has the full account and the tes
   `EndInit`. `multi-selection` is the look; the app sets the mode.
 - Every glyph is a `DynamicResource`, so a key in a control's `Resources` swaps its icon; a
   `StaticResource` glyph takes that away.
+- A part a control rarely shows is built by a style (a `ContentTemplate` given content, or a
+  `<Template>` in a setter), not held hidden in its template: the text field's helper line and
+  clear button. What is built so is not reached by `/template/`, has no `TemplatedParent`, and
+  takes values written on it in a `DataTemplate` as LOCAL values that beat styles (`docs/traps.md`).
 - A forked template's part that needs another variant gets it from a `/template/` style setting
   `Theme` and that variant's class values (a style cannot add a class), never by editing the
   fork: `DrawerPage`'s pane toggles.

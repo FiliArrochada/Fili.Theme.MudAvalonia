@@ -1,7 +1,9 @@
 using Avalonia;
 using Avalonia.Controls;
+using Avalonia.Controls.Presenters;
 using Avalonia.Controls.Primitives;
 using Avalonia.Threading;
+using Avalonia.VisualTree;
 using Xunit;
 
 namespace Fili.Theme.MudAvalonia.UnitTests;
@@ -15,6 +17,12 @@ public class ClearableTests
 {
     private static Button ClearButton(TextBox box) => Matrix.Part<Button>(box, "PART_ClearButton");
 
+    /// <summary>The button is built only on a field that can show it, so most fields have none.</summary>
+    private static bool HasButton(TextBox box) => box.GetVisualDescendants().Any(v => v is Button { Name: "PART_ClearButton" });
+
+    /// <summary>Where the button sits: its presenter's margin, as the button is that presenter's content.</summary>
+    private static Thickness Place(TextBox box) => Matrix.Part<ContentPresenter>(box, "PART_ClearHost").Margin;
+
     private static TextBox Show(string? text, params string[] classes)
     {
         var box = new TextBox { Width = 220, PlaceholderText = "Search", Text = text };
@@ -25,7 +33,7 @@ public class ClearableTests
     [Fact]
     public Task WithoutTheClassThereIsNoButton() => UiThread.RunAsync(() =>
     {
-        Assert.False(ClearButton(Show("Avalonia")).IsEffectivelyVisible);
+        Assert.False(HasButton(Show("Avalonia")));
     });
 
     /// <summary>`!string.IsNullOrWhiteSpace(stringValue)`: no button over nothing or spaces.</summary>
@@ -66,8 +74,12 @@ public class ClearableTests
         readOnly.IsReadOnly = true;
         Dispatcher.UIThread.RunJobs();
 
-        Assert.False(ClearButton(disabled).IsEffectivelyVisible);
-        Assert.False(ClearButton(readOnly).IsEffectivelyVisible);
+        Assert.False(HasButton(disabled));
+        Assert.False(HasButton(readOnly));
+
+        disabled.IsEnabled = true;
+        Dispatcher.UIThread.RunJobs();
+        Assert.True(ClearButton(disabled).IsEffectivelyVisible);
     });
 
     /// <summary>
@@ -91,14 +103,14 @@ public class ClearableTests
     [Fact]
     public Task ItSitsBeforeAnEndAdornment() => UiThread.RunAsync(() =>
     {
-        Assert.Equal(new Thickness(0, 0, 8, 0), ClearButton(Show("Avalonia", "clearable")).Margin);
+        Assert.Equal(new Thickness(0, 0, 8, 0), Place(Show("Avalonia", "clearable")));
 
         var icon = new Border { Width = 24, Height = 24 };
         var box = new TextBox { Width = 220, Text = "Avalonia", Classes = { "clearable" }, InnerRightContent = icon };
         Matrix.Show(box);
         var button = ClearButton(box);
 
-        Assert.Equal(new Thickness(0, 0, -3, 0), button.Margin);
+        Assert.Equal(new Thickness(0, 0, -3, 0), Place(box));
         Assert.True(button.TranslatePoint(default, box)!.Value.X < icon.TranslatePoint(default, box)!.Value.X);
     });
 

@@ -51,6 +51,87 @@
                     xmlns:theme="using:Fili.Theme.MudAvalonia">
 
   <!-- Standard / Variant.Text: no fill, no box, just the rule. MudTextField's default. -->
+  <!--
+    The helper line: MudInputControl's one row under the field. The error replaces the helper
+    text on the left and the counter sits on the right, so each part carries its own 3px top
+    margin and an empty line takes no room at all.
+
+    Helper text is AutomationProperties.HelpText, Avalonia's own attached property, so it needs no
+    API of this package's and reaches a screen reader too, as MudBlazor wires HelperText into
+    aria-describedby. The counter is the `counter` class over MaxLength: "12 / 50", or "12" when
+    MaxLength is 0, MudBlazor's Counter="0".
+
+    A template the field's PART_HelperLine builds only when the field has a use for it (the
+    styles at the foot of FiliStandardTextBox). Its parts are that presenter's content, not the
+    field's template, so the field's state reaches them through the styles here.
+  -->
+  <DataTemplate x:Key="FiliTextFieldHelperLine">
+    <Grid ColumnDefinitions="*,Auto">
+      <Grid.Styles>
+        <Style Selector="TextBox:disabled TextBlock#PART_HelperText">
+          <Setter Property="Foreground" Value="{DynamicResource FiliTextDisabledBrush}" />
+        </Style>
+        <!-- A value written on an element here is a local value, which no style outranks, so the
+             counter's default is a style too. -->
+        <Style Selector="StackPanel#PART_Counter">
+          <Setter Property="IsVisible" Value="False" />
+        </Style>
+        <Style Selector="TextBox.counter StackPanel#PART_Counter">
+          <Setter Property="IsVisible" Value="True" />
+        </Style>
+        <Style Selector="TextBox[MaxLength=0] TextBlock#PART_CounterLimit">
+          <Setter Property="IsVisible" Value="False" />
+        </Style>
+        <!-- The error takes the helper text's place. -->
+        <Style Selector="TextBox[(DataValidationErrors.HasErrors)=True] TextBlock#PART_HelperText">
+          <Setter Property="IsVisible" Value="False" />
+        </Style>
+        <Style Selector="TextBox.error TextBlock#PART_HelperText">
+          <Setter Property="IsVisible" Value="False" />
+        </Style>
+        <!-- HelperTextOnFocus: `helper-on-focus`. The helper text keeps its room and shows only
+             while the field has focus, as MudBlazor's slides into view inside a container that
+             keeps its height. An error still takes its place. -->
+        <Style Selector="TextBox.helper-on-focus:not(:focus-within) TextBlock#PART_HelperText">
+          <Setter Property="Opacity" Value="0" />
+        </Style>
+      </Grid.Styles>
+      <ContentControl x:Name="PART_Errors"
+                      Margin="0,3,0,0"
+                      Content="{Binding $parent[TextBox].(DataValidationErrors.Errors)}"
+                      ContentTemplate="{DynamicResource FiliValidationErrorsTemplate}"
+                      IsVisible="{Binding $parent[TextBox].(DataValidationErrors.HasErrors)}" />
+      <!-- The binding is on this Panel, not on the TextBlock: a {Binding} binds at LocalValue and
+           outranks every style, so the error could not hide it. -->
+      <Panel IsVisible="{Binding $parent[TextBox].(AutomationProperties.HelpText), Converter={x:Static StringConverters.IsNotNullOrEmpty}}">
+        <TextBlock x:Name="PART_HelperText"
+                   Margin="0,3,0,0"
+                   FontFamily="{DynamicResource FiliFontFamily}"
+                   FontSize="{DynamicResource FiliCaptionFontSize}"
+                   FontWeight="Normal"
+                   LineHeight="20"
+                   LetterSpacing="0.4"
+                   TextWrapping="Wrap"
+                   Text="{Binding $parent[TextBox].(AutomationProperties.HelpText)}" />
+      </Panel>
+      <StackPanel x:Name="PART_Counter" Grid.Column="1" Orientation="Horizontal" Margin="0,3,0,0">
+        <TextBlock Text="{Binding $parent[TextBox].Text, Converter={x:Static fili:TextLengthConverter.Instance}}"
+                   FontFamily="{DynamicResource FiliFontFamily}"
+                   FontSize="{DynamicResource FiliCaptionFontSize}"
+                   FontWeight="Normal"
+                   LineHeight="20"
+                   LetterSpacing="0.4" />
+        <TextBlock x:Name="PART_CounterLimit"
+                   FontFamily="{DynamicResource FiliFontFamily}"
+                   FontSize="{DynamicResource FiliCaptionFontSize}"
+                   FontWeight="Normal"
+                   LineHeight="20"
+                   LetterSpacing="0.4"
+                   Text="{Binding $parent[TextBox].MaxLength, StringFormat=' / {0}'}" />
+      </StackPanel>
+    </Grid>
+  </DataTemplate>
+
   <ControlTheme x:Key="FiliStandardTextBox" TargetType="TextBox">
     <!-- Avalonia clips a TextBox to its bounds by default, and the outlined label floats onto the
          stroke - MudBlazor's translate(14px, -6px) - so its top 6px, mask and all, sat outside and
@@ -85,54 +166,16 @@
     <Setter Property="Template">
       <ControlTemplate>
         <!--
-          The helper line: MudInputControl's one row under the field. The error replaces the
-          helper text on the left and the counter sits on the right, so each part carries its own
-          3px top margin and an empty line takes no room at all.
-
-          Helper text is AutomationProperties.HelpText, Avalonia's own attached property, so it
-          needs no API of this package's and reaches a screen reader too, as MudBlazor wires
-          HelperText into aria-describedby. The counter is the `counter` class over MaxLength:
-          "12 / 50", or "12" when MaxLength is 0, MudBlazor's Counter="0".
+          The helper line: MudInputControl's one row under the field, built from
+          FiliTextFieldHelperLine above only on a field with helper text, an error or `counter`.
+          Most fields have none of the three, and the line was seven elements in each of them.
         -->
         <DockPanel>
-          <Grid x:Name="PART_HelperLine"
-                DockPanel.Dock="Bottom"
-                ColumnDefinitions="*,Auto"
-                TextElement.Foreground="{DynamicResource FiliTextSecondaryBrush}">
-            <ContentControl x:Name="PART_Errors"
-                            Margin="0,3,0,0"
-                            Content="{TemplateBinding (DataValidationErrors.Errors)}"
-                            ContentTemplate="{DynamicResource FiliValidationErrorsTemplate}"
-                            IsVisible="{TemplateBinding (DataValidationErrors.HasErrors)}" />
-            <!-- The binding is on this Panel, not on the TextBlock: a {Binding} in a template
-                 binds at LocalValue and outranks every style, so the error could not hide it. -->
-            <Panel IsVisible="{Binding $parent[TextBox].(AutomationProperties.HelpText), Converter={x:Static StringConverters.IsNotNullOrEmpty}}">
-              <TextBlock x:Name="PART_HelperText"
-                         Margin="0,3,0,0"
-                         FontFamily="{DynamicResource FiliFontFamily}"
-                         FontSize="{DynamicResource FiliCaptionFontSize}"
-                         FontWeight="Normal"
-                         LineHeight="20"
-                         LetterSpacing="0.4"
-                         TextWrapping="Wrap"
-                         Text="{TemplateBinding (AutomationProperties.HelpText)}" />
-            </Panel>
-            <StackPanel x:Name="PART_Counter" Grid.Column="1" Orientation="Horizontal" Margin="0,3,0,0" IsVisible="False">
-              <TextBlock Text="{Binding $parent[TextBox].Text, Converter={x:Static fili:TextLengthConverter.Instance}}"
-                         FontFamily="{DynamicResource FiliFontFamily}"
-                         FontSize="{DynamicResource FiliCaptionFontSize}"
-                         FontWeight="Normal"
-                         LineHeight="20"
-                         LetterSpacing="0.4" />
-              <TextBlock x:Name="PART_CounterLimit"
-                         FontFamily="{DynamicResource FiliFontFamily}"
-                         FontSize="{DynamicResource FiliCaptionFontSize}"
-                         FontWeight="Normal"
-                         LineHeight="20"
-                         LetterSpacing="0.4"
-                         Text="{Binding $parent[TextBox].MaxLength, StringFormat=' / {0}'}" />
-            </StackPanel>
-          </Grid>
+          <ContentPresenter x:Name="PART_HelperLine"
+                            DockPanel.Dock="Bottom"
+                            IsVisible="False"
+                            TextElement.Foreground="{DynamicResource FiliTextSecondaryBrush}"
+                            ContentTemplate="{StaticResource FiliTextFieldHelperLine}" />
         <theme:PartBorder x:Name="PART_Root"
                 Background="{TemplateBinding Background}"
                 BorderBrush="{TemplateBinding BorderBrush}"
@@ -151,29 +194,13 @@
                                 Content="{TemplateBinding InnerRightContent}"
                                 DockPanel.Dock="Right"
                                 VerticalAlignment="Center" />
-              <!-- Clearable: MudInput's clear button, a small default-colour MudIconButton between
-                   the text and an end adornment, out of the Tab order (tabindex -1). The Panel
-                   holds MudInput.ShowClearButton's "not blank" as a binding, which a style cannot
-                   outrank; `clearable` and the field's state show the button inside it. -->
-              <Panel DockPanel.Dock="Right"
-                     VerticalAlignment="Center"
-                     IsVisible="{Binding $parent[TextBox].Text, Converter={x:Static fili:NotBlankConverter.Instance}}">
-                <Button x:Name="PART_ClearButton"
-                        Classes="icon small"
-                        Focusable="False"
-                        IsVisible="False"
-                        Margin="0,0,8,0"
-                        Command="{Binding $parent[TextBox].Clear}"
-                        AutomationProperties.Name="Clear">
-                  <!-- Icons.Material.Filled.Clear is Close's path. 20px, the small icon button's. -->
-                  <Viewbox Width="20" Height="20">
-                    <Path Width="24" Height="24"
-                          Stretch="None"
-                          Data="{DynamicResource FiliCloseGeometry}"
-                          Fill="{Binding $parent[Button].Foreground}" />
-                  </Viewbox>
-                </Button>
-              </Panel>
+              <!-- Clearable: MudInput's clear button, built here by `clearable`'s style below
+                   only on a field that can show it; every other field holds an empty presenter. -->
+              <ContentPresenter x:Name="PART_ClearHost"
+                                DockPanel.Dock="Right"
+                                VerticalAlignment="Center"
+                                IsVisible="False"
+                                Margin="0,0,8,0" />
               <ScrollViewer x:Name="PART_ScrollViewer"
                             HorizontalScrollBarVisibility="{TemplateBinding (ScrollViewer.HorizontalScrollBarVisibility)}"
                             VerticalScrollBarVisibility="{TemplateBinding (ScrollViewer.VerticalScrollBarVisibility)}">
@@ -340,9 +367,6 @@
     <Style Selector="^:disabled /template/ TextBlock#PART_FloatingLabel">
       <Setter Property="Foreground" Value="{DynamicResource FiliTextDisabledBrush}" />
     </Style>
-    <Style Selector="^:disabled /template/ TextBlock#PART_HelperText">
-      <Setter Property="Foreground" Value="{DynamicResource FiliTextDisabledBrush}" />
-    </Style>
 
     <!--
       Two ways to be invalid, and both paint the same.
@@ -384,28 +408,17 @@
          .mud-input-helper-text: caption size at weight 400, line-height 1.66 (20px), 0.03333em
          (0.4px) and text-secondary. In error the whole row takes the error colour, and the error
          takes the helper text's place. -->
-    <Style Selector="^.counter /template/ StackPanel#PART_Counter">
+    <!-- The line is built only on a field with a use for it (FiliTextFieldHelperLine): helper
+         text (Adornments' :helper-text), `counter`, or an error. Its content is any non-null
+         value, for the template to show; the parts bind to the field itself. -->
+    <Style Selector="^:helper-text /template/ ContentPresenter#PART_HelperLine, ^.counter /template/ ContentPresenter#PART_HelperLine, ^[(DataValidationErrors.HasErrors)=True] /template/ ContentPresenter#PART_HelperLine">
       <Setter Property="IsVisible" Value="True" />
+      <Setter Property="Content" Value="helper" />
     </Style>
-    <Style Selector="^[MaxLength=0] /template/ TextBlock#PART_CounterLimit">
-      <Setter Property="IsVisible" Value="False" />
-    </Style>
-    <Style Selector="^[(DataValidationErrors.HasErrors)=True] /template/ TextBlock#PART_HelperText">
-      <Setter Property="IsVisible" Value="False" />
-    </Style>
-    <Style Selector="^.error /template/ TextBlock#PART_HelperText">
-      <Setter Property="IsVisible" Value="False" />
-    </Style>
-    <!-- HelperTextOnFocus: `helper-on-focus`. The helper text keeps its room and shows only while
-         the field has focus, as MudBlazor's slides into view inside a container that keeps its
-         height. An error still takes its place. -->
-    <Style Selector="^.helper-on-focus:not(:focus-within) /template/ TextBlock#PART_HelperText">
-      <Setter Property="Opacity" Value="0" />
-    </Style>
-    <Style Selector="^[(DataValidationErrors.HasErrors)=True] /template/ Grid#PART_HelperLine">
+    <Style Selector="^[(DataValidationErrors.HasErrors)=True] /template/ ContentPresenter#PART_HelperLine">
       <Setter Property="TextElement.Foreground" Value="{DynamicResource FiliErrorBrush}" />
     </Style>
-    <Style Selector="^.error /template/ Grid#PART_HelperLine">
+    <Style Selector="^.error /template/ ContentPresenter#PART_HelperLine">
       <Setter Property="TextElement.Foreground" Value="{DynamicResource FiliErrorBrush}" />
     </Style>
 
@@ -501,16 +514,40 @@
          `mud-icon-button-edge-margin-end`, 8px, alone; `mud-icon-button-edge-end`, -3px, before an
          end adornment; beside a spin column `me-6` and `me-n1`, the column's 24px being the
          adornment presenter's already. -->
-    <Style Selector="^.clearable[IsReadOnly=False]:not(:disabled) /template/ Button#PART_ClearButton">
+    <Style Selector="^.clearable[IsReadOnly=False]:not(:disabled) /template/ ContentPresenter#PART_ClearHost">
+      <!-- A small default-colour MudIconButton between the text and an end adornment, out of the
+           Tab order (tabindex -1). The Panel holds MudInput.ShowClearButton's "not blank" as a
+           binding. Built per field, as a Template, and only while this style applies: the
+           button is the presenter's content, not a part of the field's template, so its margin
+           is the presenter's, below. -->
       <Setter Property="IsVisible" Value="True" />
+      <Setter Property="Content">
+        <Template>
+          <Panel IsVisible="{Binding $parent[TextBox].Text, Converter={x:Static fili:NotBlankConverter.Instance}}">
+            <Button x:Name="PART_ClearButton"
+                    Classes="icon small"
+                    Focusable="False"
+                    Command="{Binding $parent[TextBox].Clear}"
+                    AutomationProperties.Name="Clear">
+              <!-- Icons.Material.Filled.Clear is Close's path. 20px, the small icon button's. -->
+              <Viewbox Width="20" Height="20">
+                <Path Width="24" Height="24"
+                      Stretch="None"
+                      Data="{DynamicResource FiliCloseGeometry}"
+                      Fill="{Binding $parent[Button].Foreground}" />
+              </Viewbox>
+            </Button>
+          </Panel>
+        </Template>
+      </Setter>
     </Style>
-    <Style Selector="^:end-adornment /template/ Button#PART_ClearButton">
+    <Style Selector="^:end-adornment /template/ ContentPresenter#PART_ClearHost">
       <Setter Property="Margin" Value="0,0,-3,0" />
     </Style>
-    <Style Selector="^:spin-end /template/ Button#PART_ClearButton">
+    <Style Selector="^:spin-end /template/ ContentPresenter#PART_ClearHost">
       <Setter Property="Margin" Value="0" />
     </Style>
-    <Style Selector="^:spin-end:end-adornment /template/ Button#PART_ClearButton">
+    <Style Selector="^:spin-end:end-adornment /template/ ContentPresenter#PART_ClearHost">
       <Setter Property="Margin" Value="0,0,-4,0" />
     </Style>
   </ControlTheme>
@@ -547,7 +584,7 @@
     </Style>
 
     <!-- MudInputControl's helper container is px-1 under a filled field. -->
-    <Style Selector="^ /template/ Grid#PART_HelperLine">
+    <Style Selector="^ /template/ ContentPresenter#PART_HelperLine">
       <Setter Property="Margin" Value="4,0" />
     </Style>
 
@@ -706,7 +743,7 @@
     </Style>
 
     <!-- MudInputControl's helper container is px-2 under an outlined field. -->
-    <Style Selector="^ /template/ Grid#PART_HelperLine">
+    <Style Selector="^ /template/ ContentPresenter#PART_HelperLine">
       <Setter Property="Margin" Value="8,0" />
     </Style>
 

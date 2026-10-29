@@ -53,7 +53,10 @@ building 5% fewer visuals. A list or tree row is built without the multi-selecti
 unless its list has `multi-selection`, where every row carried it hidden: 200 list rows allocate
 a quarter less and build a fifth faster. A list's colour class sets its selected row's colour
 on the list for its rows to inherit, where three styles per colour reached every row: a list
-row carries a quarter fewer style entries and allocates 8% less. See [Upgrading from 0.24.0 to 0.25.0](#upgrading-from-0240-to-0250-unreleased).
+row carries a quarter fewer style entries and allocates 8% less. A text field builds its helper
+line only when it has helper text, an error or `counter`, and its clear button only with
+`clearable`, where every field carried both hidden: 200 fields build a third faster in 40% less
+memory, and a typical screen 14% faster. See [Upgrading from 0.24.0 to 0.25.0](#upgrading-from-0240-to-0250-unreleased).
 
 ## Upgrading from 0.24.0 to 0.25.0 *(unreleased)*
 
@@ -96,6 +99,13 @@ and their brushes are new keys. These look or behave differently, as MudBlazor's
   control in the window, 40% of a screen's style instances with the avatar's and the toolbar's
   child styles. A part on another control loses its margin and docking: wrap it in a `Border`, or
   put the class on the panel round it.
+- **A text field's helper line and clear button are no longer parts of its template.** An app's
+  style that reached into them with `/template/` - `TextBox /template/ Grid#PART_HelperLine`,
+  `/template/ TextBlock#PART_HelperText`, `/template/ Button#PART_ClearButton` - no longer
+  matches. `PART_HelperLine` is now a `ContentPresenter`, which `/template/` still reaches for
+  the line's margin and colour; the helper text, counter, error and clear button are built inside
+  it, or inside `PART_ClearHost`, on a field that shows them: reach them with a descendant
+  selector, `TextBox TextBlock#PART_HelperText`.
 - **Quieter details**: the switch thumb's shadow is elevation 1, a filled snackbar's message is
   Regular weight, a dense numeric field's spin column is 20px, an `inherit` checkbox or radio
   keeps the grey hover halo, and `TextBlock.button` is a 24.5px line.

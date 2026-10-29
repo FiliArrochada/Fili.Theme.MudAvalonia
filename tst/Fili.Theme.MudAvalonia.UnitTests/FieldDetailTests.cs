@@ -27,7 +27,7 @@ public class FieldDetailTests
 
     /// <summary>The visible texts under the field, in the helper line.</summary>
     private static List<string?> HelperTexts(Control field) =>
-        Named<Grid>(field, "PART_HelperLine").GetVisualDescendants()
+        Named<Control>(field, "PART_HelperLine").GetVisualDescendants()
             .OfType<TextBlock>()
             .Where(t => t.IsEffectivelyVisible)
             .Select(t => t.Text)
@@ -65,6 +65,37 @@ public class FieldDetailTests
 
         Assert.Equal(Named<Border>(box, "PART_Root").Bounds.Height, box.Bounds.Height);
         Assert.Empty(HelperTexts(box));
+    });
+
+    /// <summary>
+    /// The line is built only on a field with a use for it, and comes and goes with helper text or
+    /// an error set on a field already shown: a plain field has nothing under it at all. Once
+    /// gone, the line is hidden and takes no room; a presenter swaps its child when next measured.
+    /// </summary>
+    [Fact]
+    public Task TheLineIsBuiltOnlyWhenNeeded() => UiThread.RunAsync(() =>
+    {
+        var box = Matrix.Show(new TextBox { Width = 220, PlaceholderText = "Email" });
+        var line = Named<Control>(box, "PART_HelperLine");
+        Assert.Empty(line.GetVisualDescendants());
+
+        DataValidationErrors.SetError(box, new InvalidOperationException("Must be an email"));
+        Dispatcher.UIThread.RunJobs();
+        Assert.Equal(["Must be an email"], HelperTexts(box));
+
+        DataValidationErrors.ClearErrors(box);
+        Dispatcher.UIThread.RunJobs();
+        Assert.False(line.IsVisible);
+        Assert.Equal(Named<Border>(box, "PART_Root").Bounds.Height, box.Bounds.Height);
+
+        AutomationProperties.SetHelpText(box, "We never share it");
+        Dispatcher.UIThread.RunJobs();
+        Assert.Equal(["We never share it"], HelperTexts(box));
+
+        AutomationProperties.SetHelpText(box, null);
+        Dispatcher.UIThread.RunJobs();
+        Assert.False(line.IsVisible);
+        Assert.Equal(Named<Border>(box, "PART_Root").Bounds.Height, box.Bounds.Height);
     });
 
     /// <summary>MudInputControl: the error takes the helper text's place, and the row goes red.</summary>
@@ -123,7 +154,7 @@ public class FieldDetailTests
         AutomationProperties.SetHelpText(box, "Help");
         Matrix.Show(box);
 
-        Assert.Equal(new Thickness(inset, 0), Named<Grid>(box, "PART_HelperLine").Margin);
+        Assert.Equal(new Thickness(inset, 0), Named<Control>(box, "PART_HelperLine").Margin);
     });
 
     // --------------------------------------------------------------------------------------

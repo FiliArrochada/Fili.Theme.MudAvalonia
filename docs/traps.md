@@ -379,6 +379,21 @@ one.
   include in an `.axaml` file is not affected, which is why the gallery and the pixel suite never
   noticed.
 
+- **A part a field rarely shows is built by a style, not held hidden in the template.** A text
+  field's helper line and clear button were nine elements in every field, shown on few: they were
+  a third of a field's cost, and a field is the most expensive control there is. The helper line
+  is now a `ContentPresenter` whose `ContentTemplate` is built once a style gives it content (on
+  `:helper-text`, `counter` or an error), and the clear button a `<Template>` in `clearable`'s
+  setter: 200 fields build in 310ms rather than 500, in 61MB rather than 101. Three things change
+  for what is built that way. It is the presenter's content, not the template's, so a
+  `/template/` selector does not reach it and its `TemplatedParent` is not the field: style it
+  from styles inside the built content (`TextBox.error TextBlock#PART_HelperText`), and put a
+  margin on the presenter. A value written on an element in a `DataTemplate` is a LOCAL value,
+  which no style outranks, where the same attribute in a `ControlTemplate` sits below the styles:
+  a default a style must change is a style too. And a hidden presenter is not measured, so it
+  keeps its old child until shown again; hidden, it takes no room (`FieldDetailTests`,
+  `ClearableTests`).
+
 ## The browser build and fonts
 
 - **A browser build has no system fonts.** Text in any script Roboto lacks — the
