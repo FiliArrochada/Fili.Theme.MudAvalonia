@@ -93,6 +93,11 @@ because later styles win for overlapping setters:
 No `FluentTheme`, no `SimpleTheme`, no `Avalonia.Themes.*` package reference at all. The base is
 this package's own fork of Avalonia Simple templates - see [The base](docs/the-base.md).
 
+**Publish with ReadyToRun** for a faster start. Loading the theme the first time is mostly the
+JIT compiling its XAML, about 300 ms on a desktop; precompiled with
+`<PublishReadyToRun>true</PublishReadyToRun>` in the app's project, it is under 100. The app's
+own code starts faster for the same reason.
+
 Then use the tokens by key, and the type ramp by class:
 
 ```xml
@@ -149,12 +154,12 @@ package, so they are not namespaced to `mud-primary` or hidden behind an attache
 | Size (`Size`) | `small`, `medium`, `large`, `dense` |
 | Placement | `inset`, `middle`, `vertical`, `light`, `underline`, `no-underline`, `border`, `centered`, `hide-indicator` |
 | Component | `icon`, `button-group`, `chip`, `fab`, `extended`, `list-item`, `alert`, `avatar`, `badge`, `card`, `skeleton`, `subheader`, `circle`, `rectangle`, `counter`, `circular`, `nav`, `toolbar`, `drawer-header`, `normal`, `newest-on-top`, `expansion-panels` |
-| Card parts | `card-header`, `card-header-avatar`, `card-header-content`, `card-header-actions`, `card-media`, `card-content`, `card-actions` |
+| Card parts (a `StackPanel`, `DockPanel`, `Grid`, `WrapPanel`, `Border`, `TextBlock`, `Button` or `Image`) | `card-header`, `card-header-avatar`, `card-header-content`, `card-header-actions`, `card-media`, `card-content`, `card-actions` |
 | Badge (`Origin`, `Dot`, `Bordered`, `Overlap`), and the table's `Bordered` | `top-left`, `top-center`, `center-left`, `center-center`, `center-right`, `bottom-left`, `bottom-center`, `bottom-right`, `dot`, `bordered`, `overlap` |
 | Behaviour | `always-show-scroll-buttons`, `arrow`, `arrows-top`, `arrows-bottom`, `bullets-top`, `bullets-center`, `check-mark`, `clearable`, `dense-items`, `editable`, `helper-on-focus`, `hide-close`, `hide-icon`, `hover`, `loading`, `multi-expansion`, `multi-selection`, `no-animation`, `no-arrows`, `no-bullets`, `no-gutters`, `no-outline`, `no-paper`, `placeholder`, `required`, `shrink-label`, `value-label`, `striped`, `wave` |
 | Label placement (`LabelPlacement`) | `label-start`, `label-top`, `label-bottom` |
 | Icons in content | `start-icon`, `end-icon` |
-| Material, not MudBlazor | `material-fixed-tabs`, `material-elevation-overlay` |
+| Material, not MudBlazor (the overlay on a window, a `UserControl`, a layout panel, `Border`, `ScrollViewer` or `ContentControl`) | `material-fixed-tabs`, `material-elevation-overlay` |
 | Tab indicator colour (`SliderColor`) | `indicator-primary`, `indicator-secondary`, `indicator-tertiary`, `indicator-info`, `indicator-success`, `indicator-warning`, `indicator-error`, `indicator-dark` |
 | Unchecked colour (`UncheckedColor`) | `unchecked-primary`, `unchecked-secondary`, `unchecked-tertiary`, `unchecked-info`, `unchecked-success`, `unchecked-warning`, `unchecked-error`, `unchecked-dark`, `unchecked-inherit` |
 | Select arrow colour (`AdornmentColor`) | `adornment-primary`, `adornment-secondary`, `adornment-tertiary`, `adornment-info`, `adornment-success`, `adornment-warning`, `adornment-error`, `adornment-dark`, `adornment-inherit` |

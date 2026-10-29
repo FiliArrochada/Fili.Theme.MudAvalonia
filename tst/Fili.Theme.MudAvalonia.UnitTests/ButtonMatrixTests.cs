@@ -37,6 +37,7 @@ public class ButtonMatrixTests
 
         Hover(button);
         Assert.Equal(Token($"Fili{colour}HoverColor"), Colour(Part(button, "PART_StateLayer").Background));
+        Assert.Equal(1, Part(button, "PART_StateLayer").Opacity);
     });
 
     [Theory]
@@ -51,6 +52,7 @@ public class ButtonMatrixTests
 
         Hover(button);
         Assert.Equal(Token($"Fili{colour}HoverColor"), Colour(Part(button, "PART_StateLayer").Background));
+        Assert.Equal(1, Part(button, "PART_StateLayer").Opacity);
     });
 
     [Theory]
@@ -65,7 +67,8 @@ public class ButtonMatrixTests
 
         Hover(button);
         Assert.Equal(Token($"Fili{colour}DarkenColor"), Colour(root.Background));
-        Assert.Equal(Colors.Transparent, Colour(Part(button, "PART_StateLayer").Background));
+        // The darken shade is the fill itself: the state layer stays hidden.
+        Assert.Equal(0, Part(button, "PART_StateLayer").Opacity);
     });
 
     /// <summary>Color.Default: text-primary, and action-default-hover as the tint.</summary>
@@ -85,6 +88,7 @@ public class ButtonMatrixTests
 
         Hover(button);
         Assert.Equal(Token("FiliActionDefaultHoverColor"), Colour(Part(button, "PART_StateLayer").Background));
+        Assert.Equal(1, Part(button, "PART_StateLayer").Opacity);
     });
 
     [Fact]

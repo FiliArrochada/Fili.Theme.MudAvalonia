@@ -327,6 +327,16 @@ for something XAML cannot express on its own:
   drop-down buttons, toggle items, chips, FABs, nav links, links, tabs and text fields. A
   style ending in the icon would be matched against every control in the window; the class is
   read when the icon joins its host, so put it on the icon in markup.
+- **`Accent`** holds the colour a colour class sets, for the template to paint with: a
+  checkbox's or radio's glyph colour, halo and ripple, and their unchecked colour; a switch's
+  thumb, track, halo and ripple for its state; a button's hover tint and a filled button's
+  darken and group seam; a tab bar's ground, contrast text and lighten tint; a multi-selection
+  list's checkbox colours. A colour is one style setting these, and one set of state styles
+  reads them, where each colour had a style per part and state.
+- **`ChildAlignment`** centres a host's children: an `avatar`'s content both ways, a `toolbar`'s
+  row and its items, a `card-actions` panel's items. The host's style sets it, and it follows
+  the children as they come and go. They were child selectors ending in `:is(Control)`, matched
+  against every control in the window to centre the children of a few.
 - **`ButtonGroup`** marks each button of a `button-group` with where it sits: before another,
   after one, in a vertical group. A selector from the panel to its buttons would end in Button
   and be matched against every button in the window, and `:nth-child` counts hidden ones.

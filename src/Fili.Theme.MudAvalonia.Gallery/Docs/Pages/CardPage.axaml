@@ -11,7 +11,7 @@
 
     <TextBlock Classes="h5 section" Text="Simple card" />
     <docs:ExampleCard Title="Content and actions"
-                      Description="card is a paper at elevation 1 in text-primary. card-content is 16px round; card-actions on a StackPanel is a row, 8px round, its items centred."
+                      Description="card is a paper at elevation 1 in text-primary. card-content is 16px round; card-actions on a StackPanel is a row, 8px round, its items centred. A part goes on a StackPanel, DockPanel, Grid, WrapPanel, Border, TextBlock, Button or Image."
                       Source="Card/Simple" />
     <TextBlock Classes="body1 p">
       <Run Text="The parts' paddings are margins here, since a " /><Run Classes="code" Text="Panel" /><Run Text=" has none; nothing paints behind them, so they look the same. MudCardContent's " /><Run Classes="code" Text="ContentPadding=&quot;false&quot;" /><Run Text=" is " /><Run Classes="code" Text="Margin=&quot;0&quot;" /><Run Text=" on the part." />

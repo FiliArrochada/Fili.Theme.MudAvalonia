@@ -444,6 +444,15 @@ its own, so tune against the gallery rather than against an app.
   are `PartBorder`s now, which those styles pass over by type, and the overlay sets an inherited
   property each surface reads on itself: 2.2 seconds. `StyleCostTests` keeps a plain Border out
   of the templates; measure a new top-level style that ends in a common type before keeping it.
+- **A style ending in `:is(Control)` is an instance on every control, and so is each colour's
+  style on a part.** On a typical screen of 380 controls, ten selectors ending in `:is(Control)`
+  - the card parts, the avatar's, toolbar's and card-actions' children, the elevation overlay -
+  were 40% of the 45,000 style instances, and a checkbox carried 176 nested styles, one per
+  colour, part and state. A class now names the controls it goes on and a host centres its
+  children in code (`ChildAlignment`); a colour class sets `Accent`'s values in one style and the
+  template binds them, so a checkbox has 43 and a tab is matched against one set of bar styles
+  rather than each colour's. The screen went to 25,000 instances, 39 MB of allocations to 31 and
+  hover to half its cost (`StyleCostTests.NoSelectorEndsInEveryControl`).
 - **A property selector on an inherited value watches every control too.** The 23 descendant
   styles that sized `start-icon` and `end-icon` per host (`Button.small :is(Control).start-icon`)
   were rewritten as three, `:is(Control).start-icon[(theme|IconSlot.StartsSized)=True]` and two

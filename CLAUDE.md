@@ -52,7 +52,9 @@ rationale and the internal helpers in `docs/the-base.md`, the traps in `docs/tra
   inside its box; `CollapsePanel`, an expansion panel growing open; `ElevationOverlay`, the
   inherited property `material-elevation-overlay` sets; `PartBorder`, every Border in a
   hand-written template; `IconSlot`, the icon size, gap, colour and hiding a host gives a `start-icon` or
-  `end-icon`, and a chip gives an `avatar`; `OverlayScrim`, an `overlay`'s centring, corners and
+  `end-icon`, and a chip gives an `avatar`; `ChildAlignment`, the children an avatar, a toolbar
+  and a card-actions row centre; `Accent`, the colour a colour class sets once for a template to
+  paint with, and a checkbox's, radio's or switch's colours for its state; `OverlayScrim`, an `overlay`'s centring, corners and
   fade; `ButtonGroup`, where each button of a `button-group` sits; `MenuIconGutter`, a menu's shared icon
   column; `Adornments`, a text field's `:start-adornment` and `:end-adornment`;
   `AutoCompleteField`, an autocomplete field's `:select-input` and its drop-down arrow's click; `TabBarScroll`, the tab bar's
@@ -133,7 +135,12 @@ One line each; [`docs/traps.md`](docs/traps.md) has the full account and the tes
   (`.material-elevation-overlay Border.card`): it watches every ancestor of every Border; read an
   inherited property on the control instead (`StyleCostTests`). Not with a property selector on
   an inherited value either, `:is(Control)[(theme|X)=True]`: that watches every control too, and
-  cost more than the descendant styles it replaced; set it from the host in code (`IconSlot`).
+  cost more than the descendant styles it replaced; set it from the host in code (`IconSlot`,
+  `ChildAlignment`). No selector ends in `:is(Control)` or `:is(Panel)` at all: a class names the
+  controls it goes on (`StyleCostTests.NoSelectorEndsInEveryControl`).
+- A colour class sets `Accent`'s values on the control in ONE style; the template binds them
+  and a state style shows them. Never a style per colour per part per state: a checkbox carried
+  176 of them, each an instance on every checkbox (`docs/traps.md`).
 - A selector may cross only ONE `/template/` boundary; two throw at load and take other themes
   down with them.
 - A ControlTheme may not hold a child or descendant selector (`^.hover TreeViewItem`): it throws

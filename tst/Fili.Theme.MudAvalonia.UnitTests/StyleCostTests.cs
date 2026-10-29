@@ -64,6 +64,31 @@ public class StyleCostTests
         Assert.True(stale.Count == 0, "Looks for a Border a hand-written template no longer has: " + string.Join("; ", stale));
     });
 
+    /// <summary>
+    /// No selector ends in a base every control derives from, <c>:is(Control)</c> or
+    /// <c>:is(Panel)</c> and their kin: it is matched against every control in the window,
+    /// template parts included, and a class or a parent after it makes each one an instance. Ten
+    /// such styles, the card parts', the avatar's and the toolbar's children and
+    /// <c>material-elevation-overlay</c>, were 40% of every style instance on a screen. A class
+    /// names the controls it goes on; a host that aligns its children does it in code
+    /// (<see cref="ChildAlignment"/>).
+    /// </summary>
+    [Fact]
+    public Task NoSelectorEndsInEveryControl() => UiThread.RunAsync(() =>
+    {
+        var theme = GeneratedThemeTests.ThemeDirectory();
+        var universal = Directory.GetFiles(theme, "*.axaml", SearchOption.AllDirectories)
+            .Where(file => !file.Contains(Path.Combine("Themes", "Base")))
+            .SelectMany(file => Regex.Matches(File.ReadAllText(file), "Selector=\"([^\"]*)\"")
+                .SelectMany(m => m.Groups[1].Value.Split(','))
+                .Where(part => Regex.IsMatch(Regex.Split(part.Trim(), @"\s+|>|/template/").Last(e => e.Length > 0),
+                    @"^:is\((Control|Panel|Layoutable|Visual|InputElement|Interactive|StyledElement|TemplatedControl)\)"))
+                .Select(part => $"{Path.GetFileName(file)}: {part.Trim()}"))
+            .ToList();
+
+        Assert.True(universal.Count == 0, "Matched against every control: " + string.Join("; ", universal));
+    });
+
     private static IEnumerable<string> TemplateFiles()
     {
         var theme = GeneratedThemeTests.ThemeDirectory();

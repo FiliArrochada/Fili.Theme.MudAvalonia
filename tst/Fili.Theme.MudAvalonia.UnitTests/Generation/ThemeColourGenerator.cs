@@ -76,12 +76,8 @@ public static class ThemeColourGenerator
             (SplitButtonPath, SplitLabel, SplitRegion()),
             (SplitButtonPath, DropDownLabel, DropDownRegion()),
             (FiliThemePath, TextLabel, TextBlockRegion()),
-            (Controls("CheckBox.axaml"), CheckBoxLabel, GlyphRegion("CheckBox",
-                ["PART_Unchecked", "PART_Checked", "PART_Indeterminate"],
-                ["PART_Unchecked", "PART_Indeterminate"], [":unchecked", ":indeterminate"])),
-            (Controls("RadioButton.axaml"), RadioLabel, GlyphRegion("RadioButton",
-                ["PART_Unchecked", "PART_Checked"],
-                ["PART_Unchecked"], [":unchecked"])),
+            (Controls("CheckBox.axaml"), CheckBoxLabel, GlyphRegion()),
+            (Controls("RadioButton.axaml"), RadioLabel, GlyphRegion()),
             (Controls("ToggleSwitch.axaml"), SwitchLabel, SwitchRegion()),
             (Controls("Slider.axaml"), SliderLabel, SliderRegion()),
             (Controls("ProgressBar.axaml"), ProgressLabel, ProgressRegion()),
@@ -274,10 +270,12 @@ public static class ThemeColourGenerator
             + "\n                CornerRadius=\"{TemplateBinding CornerRadius}\"" + sh + ">\n"
             + """
           <Panel>
-            <!-- State layer. Sits under the content, over the fill. -->
+            <!-- State layer. Sits under the content, over the fill: the colour's hover tint
+                 (Accent.Hover), shown on hover, focus and press. -->
             <theme:PartBorder x:Name="PART_StateLayer"
                     CornerRadius="{TemplateBinding CornerRadius}"
-                    Background="Transparent" />
+                    Background="{TemplateBinding (theme:Accent.Hover)}"
+                    Opacity="0" />
             <theme:PartBorder x:Name="PART_Ripple"
                     theme:Ripple.IsLayer="True"
                     CornerRadius="{TemplateBinding CornerRadius}" />
@@ -395,6 +393,7 @@ public static class ThemeColourGenerator
     <Setter Property="BorderBrush" Value="Transparent" />
     <Setter Property="BorderThickness" Value="0" />
     <Setter Property="Padding" Value="8,6" />
+    <Setter Property="theme:Accent.Hover" Value="{DynamicResource FiliActionDefaultHoverBrush}" />
 
 """.Replace("x:Key=\"FiliTextButton\" TargetType=\"Button\"", $"x:Key=\"{key}\" TargetType=\"{target}\""));
         o.Append(Common).Append(Template(false, target == "Button"));
@@ -404,7 +403,7 @@ public static class ThemeColourGenerator
          affordance in MudBlazor, whose _reset.scss drops the browser focus ring. -->
 
 """);
-        o.Append(ButtonStates("", "PART_StateLayer", "Background", Res("FiliActionDefaultHoverBrush"))).Append('\n');
+        o.Append(string.Concat(States.Select(st => Style($"^{st} /template/ Border#PART_StateLayer", ("Opacity", "1"))))).Append('\n');
         o.Append("    <!-- MudIconButton, Variant.Text: round, 12px round a 24px icon, and action-default rather\n");
         o.Append("         than text-primary - `.mud-icon-button` comes after `.mud-button` in MudBlazor's\n");
         o.Append("         bundle, so its colour wins. Before the colours, so a colour class still beats it. -->\n");
@@ -419,8 +418,7 @@ public static class ThemeColourGenerator
         {
             foreach (var p in Prefixes(c, prefixes))
             {
-                o.Append(Style($"^{p}", ("Foreground", Res($"Fili{c}Brush"))));
-                o.Append(ButtonStates(p, "PART_StateLayer", "Background", Res($"Fili{c}HoverBrush")));
+                o.Append(Style($"^{p}", ("Foreground", Res($"Fili{c}Brush")), ("theme:Accent.Hover", Res($"Fili{c}HoverBrush"))));
             }
         }
 
@@ -437,7 +435,7 @@ public static class ThemeColourGenerator
         o.Append(Style("^.icon.small", ("Padding", "3")));
         o.Append(Style("^.icon.large", ("Padding", "12"))).Append('\n');
         o.Append(Style("^:disabled /template/ ContentPresenter#PART_ContentPresenter", ("Foreground", Res("FiliActionDisabledBrush"))));
-        o.Append(Style("^:disabled /template/ Border#PART_StateLayer", ("Background", "Transparent")));
+        o.Append(Style("^:disabled /template/ Border#PART_StateLayer", ("Opacity", "0")));
         o.Append("  </ControlTheme>\n\n");
         return o.ToString();
     }
@@ -496,6 +494,8 @@ public static class ThemeColourGenerator
     <Setter Property="BorderBrush" Value="Transparent" />
     <Setter Property="BorderThickness" Value="0" />
     <Setter Property="Padding" Value="16,6" />
+    <Setter Property="theme:Accent.Hover" Value="{DynamicResource FiliActionDisabledBackgroundBrush}" />
+    <Setter Property="theme:Accent.Seam" Value="{DynamicResource FiliDividerBrush}" />
     <!-- Every TemplatedControl clips to its bounds in Avalonia 12, which would cut the shadow
          off at the edge it is drawn past. -->
     <Setter Property="ClipToBounds" Value="False" />
@@ -505,8 +505,10 @@ public static class ThemeColourGenerator
         o.Append(Style("^:pointerover /template/ Border#PART_Root", ("BoxShadow", Res("FiliElevation4"))));
         o.Append(Style("^:focus-visible /template/ Border#PART_Root", ("BoxShadow", Res("FiliElevation4"))));
         o.Append(Style("^:pressed /template/ Border#PART_Root", ("BoxShadow", Res("FiliElevation8"))));
-        o.Append("\n    <!-- No colour: grey, going to action-disabled-background. -->\n");
-        o.Append(ButtonStates("", "PART_Root", "Background", Res("FiliActionDisabledBackgroundBrush"))).Append('\n');
+        o.Append("\n    <!-- Hover, focus and press switch the fill to Accent.Hover: with no colour, grey going to\n");
+        o.Append("         action-disabled-background; with one, the colour's darken shade. -->\n");
+        o.Append(string.Concat(States.Select(st => Style($"^{st} /template/ Border#PART_Root",
+            ("Background", "{Binding (theme:Accent.Hover), RelativeSource={RelativeSource TemplatedParent}}"))))).Append('\n');
         o.Append("    <!-- `.mud-button-filled.mud-icon-button`: 5px inside a transparent 1px border. -->\n");
         o.Append(Style("^.icon", ("MinWidth", "0"), ("Padding", "5"), ("BorderThickness", "1"), ("BorderBrush", "Transparent"), ("Foreground", Res("FiliActionDefaultBrush")))).Append('\n');
         if (target == "Button")
@@ -519,8 +521,7 @@ public static class ThemeColourGenerator
         {
             foreach (var p in Prefixes(c, prefixes))
             {
-                o.Append(Style($"^{p}", ("Background", Res($"Fili{c}Brush")), ("Foreground", Res($"Fili{c}ContrastTextBrush"))));
-                o.Append(ButtonStates(p, "PART_Root", "Background", Res($"Fili{c}DarkenBrush")));
+                o.Append(Style($"^{p}", ("Background", Res($"Fili{c}Brush")), ("Foreground", Res($"Fili{c}ContrastTextBrush")), ("theme:Accent.Hover", Res($"Fili{c}DarkenBrush")), ("theme:Accent.Seam", Res($"Fili{c}LightenBrush"))));
             }
         }
 
@@ -704,40 +705,39 @@ public static class ThemeColourGenerator
     // tint to the halo. Size is MudIcon's: 20 / 24 / 36px, scaled with its halo.
     // ---------------------------------------------------------------------------------------
 
-    private static string GlyphRegion(string owner, string[] glyphs, string[] uncheckedGlyphs, string[] uncheckedStates)
+    private static string GlyphRegion()
     {
+        // The template paints from Accent: the checked glyph in Accent.Colour, the unchecked ones
+        // in Accent.OffColour, the halo in Accent.Halo and the ripple in Accent.RippleNow, which
+        // Accent works out for the current state. So a colour is one style here, not one per glyph
+        // and state; the halo shows on hover, focus and press by its opacity.
         var o = new StringBuilder();
-        o.Append("    <!-- No colour: the action-default halo. -->\n");
-        o.Append(string.Concat(States.Select(s => Style($"^{s} /template/ Ellipse#PART_StateLayer", ("Fill", Res("FiliActionDefaultHoverBrush"))))));
+        o.Append("    <!-- No colour: action-default glyphs and halo; the ripple is the control's own text-primary. -->\n");
+        o.Append(Style("^", ("theme:Accent.Colour", Res("FiliActionDefaultBrush")), ("theme:Accent.Hover", Res("FiliActionDefaultHoverBrush"))));
+        o.Append(string.Concat(States.Select(s => Style($"^{s} /template/ Ellipse#PART_StateLayer", ("Opacity", "1")))));
         o.Append("\n    <!-- Colours: every glyph, checked or not, the halo, and the ripple (`.mud-{color}-text`'s\n");
-        o.Append("         ripple colour). With no colour the ripple is text-primary, the control's own. -->\n");
+        o.Append("         ripple colour). -->\n");
 
         foreach (var c in Colours)
         {
-            var cls = c.ToLowerInvariant();
-            o.Append(string.Concat(glyphs.Select(g => Style($"^.{cls} /template/ Path#{g}", ("Fill", Res($"Fili{c}Brush"))))));
-            o.Append(string.Concat(States.Select(s => Style($"^.{cls}{s} /template/ Ellipse#PART_StateLayer", ("Fill", Res($"Fili{c}HoverBrush"))))));
-            o.Append(Style($"^.{cls} /template/ Border#PART_Ripple", ("theme:Ripple.Brush", Res($"Fili{c}Brush"))));
+            o.Append(Style($"^.{c.ToLowerInvariant()}",
+                ("theme:Accent.Colour", Res($"Fili{c}Brush")), ("theme:Accent.Hover", Res($"Fili{c}HoverBrush")), ("theme:Accent.Ripple", Res($"Fili{c}Brush"))));
         }
 
-        o.Append(InheritLook("inherit", owner, glyphs, [""]));
+        o.Append(InheritLook("inherit", "Colour", "Hover"));
 
         // After the colours, so it wins where both are set: `primary unchecked-error` is
         // Color.Primary with UncheckedColor.Error, the unchecked glyph and its halo in error.
-        o.Append("\n    <!-- UncheckedColor: `unchecked-{colour}`, the colour of the glyph and its halo while NOT\n");
-        o.Append("         checked (MudCheckBox: false or null), in place of the colour class. -->\n");
+        o.Append("\n    <!-- UncheckedColor: `unchecked-{colour}`, the colour of the glyph, its halo and its ripple\n");
+        o.Append("         while NOT checked (MudCheckBox: false or null), in place of the colour class. -->\n");
 
         foreach (var c in Colours)
         {
-            var cls = $"unchecked-{c.ToLowerInvariant()}";
-            o.Append(string.Concat(uncheckedGlyphs.Select(g => Style($"^.{cls} /template/ Path#{g}", ("Fill", Res($"Fili{c}Brush"))))));
-            o.Append(string.Concat(uncheckedStates.SelectMany(u => States.Select(s =>
-                Style($"^.{cls}{u}{s} /template/ Ellipse#PART_StateLayer", ("Fill", Res($"Fili{c}HoverBrush")))))));
-            o.Append(string.Concat(uncheckedStates.Select(u =>
-                Style($"^.{cls}{u} /template/ Border#PART_Ripple", ("theme:Ripple.Brush", Res($"Fili{c}Brush"))))));
+            o.Append(Style($"^.unchecked-{c.ToLowerInvariant()}",
+                ("theme:Accent.UncheckedColour", Res($"Fili{c}Brush")), ("theme:Accent.UncheckedHover", Res($"Fili{c}HoverBrush")), ("theme:Accent.UncheckedRipple", Res($"Fili{c}Brush"))));
         }
 
-        o.Append(InheritLook("unchecked-inherit", owner, uncheckedGlyphs, uncheckedStates));
+        o.Append(InheritLook("unchecked-inherit", "UncheckedColour", "UncheckedHover"));
 
         o.Append("\n    <!-- `mud-icon-size-small` / `-large`: 1.25rem and 2.25rem against 1.5rem. -->\n");
         o.Append(Style("^.small /template/ LayoutTransformControl#PART_Scale", ("LayoutTransform", "scale(0.8333333)")));
@@ -749,21 +749,13 @@ public static class ThemeColourGenerator
     /// Color.Inherit, `.mud-inherit-text { color: inherit }`: the glyphs in the colour the control
     /// sits in, and the grey action-default-hover halo: `hover:mud-inherit-hover` names no rule
     /// ($mud-palette-colors in abstracts/_variables.scss has no inherit), so the glyph's
-    /// `.mud-icon-button` hover, focus and press (_iconbutton.scss) stay. The ripple keeps the
-    /// control's own text-primary, as `mud-inherit-text` sets no ripple colour.
+    /// `.mud-icon-button` hover, focus and press (_iconbutton.scss) stay. The ripple is left as it
+    /// was, as `mud-inherit-text` sets no ripple colour.
     /// </summary>
-    private static string InheritLook(string cls, string owner, string[] glyphs, string[] states)
-    {
-        var o = new StringBuilder();
-        o.Append($"\n    <!-- `{cls}`: Color.Inherit, the colour round the control, and the action-default halo\n");
-        o.Append("         `.mud-icon-button` keeps, as `hover:mud-inherit-hover` names no rule. -->\n");
-        o.Append(Style($"^.{cls}", ("theme:InheritedColour.Brush", "{Binding $parent[Control].(TextElement.Foreground)}")));
-        o.Append(string.Concat(glyphs.Select(g =>
-            Style($"^.{cls} /template/ Path#{g}", ("Fill", $"{{Binding $parent[{owner}].(theme:InheritedColour.Brush)}}")))));
-        o.Append(string.Concat(states.SelectMany(u => States.Select(s =>
-            Style($"^.{cls}{u}{s} /template/ Ellipse#PART_StateLayer", ("Fill", Res("FiliActionDefaultHoverBrush")))))));
-        return o.ToString();
-    }
+    private static string InheritLook(string cls, string colour, string hover) =>
+        $"\n    <!-- `{cls}`: Color.Inherit, the colour round the control, and the action-default halo\n"
+        + "         `.mud-icon-button` keeps, as `hover:mud-inherit-hover` names no rule. -->\n"
+        + Style($"^.{cls}", ($"theme:Accent.{colour}", "{Binding $parent[Control].(TextElement.Foreground)}"), ($"theme:Accent.{hover}", Res("FiliActionDefaultHoverBrush")));
 
     // ---------------------------------------------------------------------------------------
     // ToggleSwitch.axaml: MudSwitch, from _switch.scss. Sizes are the `-small` / `-large` rules:
@@ -785,8 +777,11 @@ public static class ThemeColourGenerator
         o.Append(Style("^:checked /template/ Border#PART_Thumb", ("RenderTransform", "translateX(14px)")));
         o.Append(Style(Halo(":checked"), ("RenderTransform", "translateX(14px)")));
         o.Append(Style("^:checked /template/ Border#PART_Track", ("Opacity", "0.5")));
-        o.Append("\n    <!-- `.mud-switch-base:hover`: action-default-hover; keyboard focus and press the same. -->\n");
-        o.Append(string.Concat(States.Select(s => Style($"^{s} /template/ Ellipse#PART_ThumbStateLayer", ("Fill", Res("FiliActionDefaultHoverBrush"))))));
+        o.Append("\n    <!-- At rest, with no colour for the state: switch-thumb, an action-default track and the\n");
+        o.Append("         `.mud-switch-base:hover` halo, action-default-hover, shown on hover, focus and press.\n");
+        o.Append("         The template paints from Accent, which picks the state's colour or these. -->\n");
+        o.Append(Style("^", ("theme:Accent.RestThumb", Res("FiliSwitchThumbBrush")), ("theme:Accent.RestTrack", Res("FiliActionDefaultBrush")), ("theme:Accent.RestHover", Res("FiliActionDefaultHoverBrush"))));
+        o.Append(string.Concat(States.Select(s => Style($"^{s} /template/ Ellipse#PART_ThumbStateLayer", ("Opacity", "1")))));
 
         foreach (var (size, trackWidth, trackHeight, thumb) in SwitchSizes)
         {
@@ -804,14 +799,11 @@ public static class ThemeColourGenerator
         }
 
         o.Append("\n    <!-- Colours paint the thumb and the track only when ON, with the colour's hover tint and\n");
-        o.Append("         ripple. -->\n");
+        o.Append("         ripple (Accent). -->\n");
         foreach (var c in Colours)
         {
-            var cls = c.ToLowerInvariant();
-            o.Append(Style($"^.{cls}:checked /template/ Border#PART_Thumb", ("Background", Res($"Fili{c}Brush"))));
-            o.Append(Style($"^.{cls}:checked /template/ Border#PART_Track", ("Background", Res($"Fili{c}Brush"))));
-            o.Append(string.Concat(States.Select(s => Style($"^.{cls}:checked{s} /template/ Ellipse#PART_ThumbStateLayer", ("Fill", Res($"Fili{c}HoverBrush"))))));
-            o.Append(Style($"^.{cls}:checked /template/ Border#PART_ThumbRipple", ("theme:Ripple.Brush", Res($"Fili{c}Brush"))));
+            o.Append(Style($"^.{c.ToLowerInvariant()}",
+                ("theme:Accent.Colour", Res($"Fili{c}Brush")), ("theme:Accent.Hover", Res($"Fili{c}HoverBrush")), ("theme:Accent.Ripple", Res($"Fili{c}Brush"))));
         }
 
         // MudSwitch's UncheckedColor: `mud-{color}-text` on the thumb (its currentColor) and
@@ -820,11 +812,8 @@ public static class ThemeColourGenerator
         o.Append("         colour's hover tint and ripple. -->\n");
         foreach (var c in Colours)
         {
-            var cls = $"unchecked-{c.ToLowerInvariant()}";
-            o.Append(Style($"^.{cls}:not(:checked) /template/ Border#PART_Thumb", ("Background", Res($"Fili{c}Brush"))));
-            o.Append(Style($"^.{cls}:not(:checked) /template/ Border#PART_Track", ("Background", Res($"Fili{c}Brush"))));
-            o.Append(string.Concat(States.Select(s => Style($"^.{cls}:not(:checked){s} /template/ Ellipse#PART_ThumbStateLayer", ("Fill", Res($"Fili{c}HoverBrush"))))));
-            o.Append(Style($"^.{cls}:not(:checked) /template/ Border#PART_ThumbRipple", ("theme:Ripple.Brush", Res($"Fili{c}Brush"))));
+            o.Append(Style($"^.unchecked-{c.ToLowerInvariant()}",
+                ("theme:Accent.UncheckedColour", Res($"Fili{c}Brush")), ("theme:Accent.UncheckedHover", Res($"Fili{c}HoverBrush")), ("theme:Accent.UncheckedRipple", Res($"Fili{c}Brush"))));
         }
 
         return o.ToString();
@@ -1509,29 +1498,41 @@ public static class ThemeColourGenerator
 
     private static string TabsRegion()
     {
+        // A colour is one style on the bar, setting Accent's values; one set of styles below reads
+        // them for every colour, so a tab is matched against those rather than against each
+        // colour's. The ground is the colour, the tabs and the indicator its contrast text, a
+        // selected tab's hover its lighten tint.
         var o = new StringBuilder();
         foreach (var c in Colours)
         {
             var cls = c.ToLowerInvariant();
-            o.Append(TopStyle($"TabControl.{cls} /template/ Border#PART_TabBar", ("Background", Res($"Fili{c}Brush"))));
-            o.Append(TopStyle($"TabStrip.{cls}", ("Background", Res($"Fili{c}Brush"))));
+            (string, string)[] bar =
+            [
+                ("theme:Accent.Bar", "True"), ("theme:Accent.Ground", Res($"Fili{c}Brush")),
+                ("theme:Accent.Colour", Res($"Fili{c}ContrastTextBrush")), ("theme:Accent.Hover", Res($"Fili{c}LightenBrush")),
+            ];
+            o.Append(TopStyle($"TabControl.{cls}", bar));
+            o.Append(TopStyle($"TabStrip.{cls}", [.. bar, ("Background", Res($"Fili{c}Brush"))]));
+        }
 
-            foreach (var (parent, item) in new[] { ("TabControl", "TabItem"), ("TabStrip", "TabStripItem") })
+        static string Read(string parent, string value) => $"{{Binding $parent[{parent}].(theme:Accent.{value})}}";
+        static string Own(string value) => $"{{Binding (theme:Accent.{value}), RelativeSource={{RelativeSource TemplatedParent}}}}";
+        o.Append(TopStyle("TabControl[(theme|Accent.Bar)=True] /template/ Border#PART_TabBar", ("Background", Own("Ground"))));
+        foreach (var (parent, item) in new[] { ("TabControl", "TabItem"), ("TabStrip", "TabStripItem") })
+        {
+            var tab = $"{parent}[(theme|Accent.Bar)=True] > {item}";
+            o.Append(TopStyle(tab, ("Foreground", Read(parent, "Colour"))));
+            o.Append(TopStyle($"{tab}:selected", ("Foreground", Read(parent, "Colour"))));
+            o.Append(TopStyle($"{tab}:disabled", ("Foreground", Res("FiliTextDisabledBrush"))));
+            o.Append(TopStyle($"{tab}:selected /template/ Border#PART_Indicator", ("Background", Read(parent, "Colour"))));
+            o.Append(TopStyle($"{tab}:selected:pointerover /template/ Border#PART_StateLayer", ("Background", Read(parent, "Hover"))));
+            o.Append(TopStyle($"{tab}:selected:focus-visible /template/ Border#PART_StateLayer", ("Background", Read(parent, "Hover"))));
+
+            // ScrollIconColor's default, Color.Inherit: the arrows in the bar's contrast text,
+            // while enabled, so a disabled one stays action-disabled.
+            foreach (var part in new[] { "PART_ScrollPrev", "PART_ScrollNext" })
             {
-                var tab = $"{parent}.{cls} > {item}";
-                o.Append(TopStyle(tab, ("Foreground", Res($"Fili{c}ContrastTextBrush"))));
-                o.Append(TopStyle($"{tab}:selected", ("Foreground", Res($"Fili{c}ContrastTextBrush"))));
-                o.Append(TopStyle($"{tab}:disabled", ("Foreground", Res("FiliTextDisabledBrush"))));
-                o.Append(TopStyle($"{tab}:selected /template/ Border#PART_Indicator", ("Background", Res($"Fili{c}ContrastTextBrush"))));
-                o.Append(TopStyle($"{tab}:selected:pointerover /template/ Border#PART_StateLayer", ("Background", Res($"Fili{c}LightenBrush"))));
-                o.Append(TopStyle($"{tab}:selected:focus-visible /template/ Border#PART_StateLayer", ("Background", Res($"Fili{c}LightenBrush"))));
-
-                // ScrollIconColor's default, Color.Inherit: the arrows in the bar's contrast text,
-                // while enabled, so a disabled one stays action-disabled.
-                foreach (var part in new[] { "PART_ScrollPrev", "PART_ScrollNext" })
-                {
-                    o.Append(TopStyle($"{parent}.{cls} /template/ Button#{part}:not(:disabled)", ("Foreground", Res($"Fili{c}ContrastTextBrush"))));
-                }
+                o.Append(TopStyle($"{parent}[(theme|Accent.Bar)=True] /template/ Button#{part}:not(:disabled)", ("Foreground", Own("Colour"))));
             }
         }
 
@@ -1605,14 +1606,24 @@ public static class ThemeColourGenerator
     // the disabled rule, which must win.
     private static string MultiSelectionRegion()
     {
+        // The list's colour class sets Accent's colour and hover on the list; the rows' checkboxes
+        // read them, so a row is matched against two styles rather than each colour's.
         var o = new StringBuilder();
+        o.Append(TopStyle("ListBox.multi-selection, TreeView.multi-selection",
+            ("theme:Accent.Colour", Res("FiliActionDefaultBrush")), ("theme:Accent.Hover", Res("FiliActionDefaultHoverBrush"))));
         foreach (var c in Colours)
         {
             var lc = c.ToLowerInvariant();
-            string Both(string tail) =>
-                $"ListBox.multi-selection.{lc} ListBoxItem /template/ {tail}, TreeView.multi-selection.{lc} TreeViewItem /template/ {tail}";
-            o.Append(TopStyle(Both("Panel#PART_CheckBox > Path"), ("Fill", Res($"Fili{c}Brush"))));
-            o.Append(TopStyle(Both("Panel#PART_CheckBox:pointerover > Ellipse#PART_CheckHalo"), ("Fill", Res($"Fili{c}HoverBrush"))));
+            o.Append(TopStyle($"ListBox.multi-selection.{lc}, TreeView.multi-selection.{lc}",
+                ("theme:Accent.Colour", Res($"Fili{c}Brush")), ("theme:Accent.Hover", Res($"Fili{c}HoverBrush"))));
+        }
+
+        foreach (var (list, row) in new[] { ("ListBox", "ListBoxItem"), ("TreeView", "TreeViewItem") })
+        {
+            o.Append(TopStyle($"{list}.multi-selection {row} /template/ Panel#PART_CheckBox > Path",
+                ("Fill", $"{{Binding $parent[{list}].(theme:Accent.Colour)}}")));
+            o.Append(TopStyle($"{list}.multi-selection {row} /template/ Panel#PART_CheckBox:pointerover > Ellipse#PART_CheckHalo",
+                ("Fill", $"{{Binding $parent[{list}].(theme:Accent.Hover)}}")));
         }
 
         return o.ToString();

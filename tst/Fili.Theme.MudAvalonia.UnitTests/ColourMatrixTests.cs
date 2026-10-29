@@ -130,7 +130,10 @@ public class SelectionGlyphMatrixTests
         Assert.Equal(Matrix.Token("FiliActionDefaultColor"), Matrix.Colour(Matrix.Part<Shapes.Path>(control, "PART_Unchecked").Fill));
         Assert.Equal(Matrix.Token("FiliActionDefaultColor"), Matrix.Colour(Matrix.Part<Shapes.Path>(control, "PART_Checked").Fill));
 
+        // The halo is hidden at rest and shown on hover, in its state's colour.
+        Assert.Equal(0, Matrix.Part<Shapes.Ellipse>(control, "PART_StateLayer").Opacity);
         Matrix.Hover(control);
+        Assert.Equal(1, Matrix.Part<Shapes.Ellipse>(control, "PART_StateLayer").Opacity);
         Assert.Equal(Matrix.Token("FiliActionDefaultHoverColor"), Matrix.Colour(Matrix.Part<Shapes.Ellipse>(control, "PART_StateLayer").Fill));
     });
 
@@ -148,6 +151,7 @@ public class SelectionGlyphMatrixTests
             Assert.Equal(Matrix.Token($"Fili{colour}Color"), Matrix.Colour(Matrix.Part<Shapes.Path>(control, "PART_Checked").Fill));
 
             Matrix.Hover(control);
+            Assert.Equal(1, Matrix.Part<Shapes.Ellipse>(control, "PART_StateLayer").Opacity);
             Assert.Equal(Matrix.Token($"Fili{colour}HoverColor"), Matrix.Colour(Matrix.Part<Shapes.Ellipse>(control, "PART_StateLayer").Fill));
         }
     });

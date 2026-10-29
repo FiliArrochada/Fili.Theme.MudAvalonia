@@ -38,7 +38,11 @@ data grid's sort button among them, 26px round a 20px icon, the alert's 24px ico
 at elevation 1, a filled snackbar's message at 400, tooltips centred on a 1.4em line, a dense
 numeric field's 20px spin column, the grey halo on an `inherit` checkbox and radio, a selected
 chip's ripple, `TextBlock.button`'s 24.5px line, and tabs always uppercase. The published class list
-grows to 183. See [Upgrading from 0.24.0 to 0.25.0](#upgrading-from-0240-to-0250-unreleased).
+grows to 183. And the theme costs less to apply: on a typical screen it attaches 45% fewer styles,
+allocates a fifth less and handles hover in half the time, as a colour class now sets its colour
+once for the template to read instead of a style per colour, part and state, and no style is
+matched against every control; and the docs say that publishing with ReadyToRun cuts the theme's
+first load to a third. See [Upgrading from 0.24.0 to 0.25.0](#upgrading-from-0240-to-0250-unreleased).
 
 ## Upgrading from 0.24.0 to 0.25.0 *(unreleased)*
 
@@ -72,6 +76,15 @@ and their brushes are new keys. These look or behave differently, as MudBlazor's
   a small toggle icon button and the snackbar's close button with it), and a tooltip's line is
   1.4em, centred, so its chip is 25px. An alert's icon is 24px, its height unchanged. A data grid's
   sort button is the same small icon button: its arrow grows to 20px and the button shrinks to 26px.
+- **Card parts and `material-elevation-overlay` name the controls they go on.** A card part
+  (`card-header`, `card-header-avatar`, `card-header-content`, `card-header-actions`,
+  `card-content`, `card-actions`) takes a `StackPanel`, `DockPanel`, `Grid`, `WrapPanel`,
+  `Border`, `TextBlock`, `Button` or `Image`, and `card-actions` centres its items on a panel;
+  `material-elevation-overlay` takes a window, a `UserControl`, one of those panels, a `Border`, a
+  `ScrollViewer` or a `ContentControl`. On any control they were styles matched against every
+  control in the window, 40% of a screen's style instances with the avatar's and the toolbar's
+  child styles. A part on another control loses its margin and docking: wrap it in a `Border`, or
+  put the class on the panel round it.
 - **Quieter details**: the switch thumb's shadow is elevation 1, a filled snackbar's message is
   Regular weight, a dense numeric field's spin column is 20px, an `inherit` checkbox or radio
   keeps the grey hover halo, and `TextBlock.button` is a 24.5px line.

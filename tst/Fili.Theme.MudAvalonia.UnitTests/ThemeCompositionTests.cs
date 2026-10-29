@@ -658,10 +658,12 @@ public class ThemeCompositionTests
         // Material overlay the circular halos below use.
         Assert.True(Application.Current!.TryFindResource("FiliActionDefaultHoverColor", ThemeVariant.Light, out var tint));
         Assert.Equal((Color)tint!, Of(Layer(keyboard).Background));
+        Assert.Equal(1, Layer(keyboard).Opacity);
 
+        // The layer holds the tint always and shows it by its opacity.
         pointer.Focus(NavigationMethod.Pointer);
         Dispatcher.UIThread.RunJobs();
-        Assert.Equal(Colors.Transparent, Of(Layer(pointer).Background));
+        Assert.Equal(0, Layer(pointer).Opacity);
     });
 
     /// <summary>
@@ -680,12 +682,14 @@ public class ThemeCompositionTests
         var halo = control.GetVisualDescendants()
             .OfType<Shapes.Ellipse>()
             .Single(e => e.Name == part);
+        Assert.Equal(0, halo.Opacity);
 
         ((InputElement)control).Focus(NavigationMethod.Tab);
         Dispatcher.UIThread.RunJobs();
 
         // `.mud-icon-button:focus-visible` and `.mud-switch-base`'s hover: action-default-hover.
         Application.Current!.TryFindResource("FiliActionDefaultHoverColor", ThemeVariant.Light, out var tint);
+        Assert.Equal(1, halo.Opacity);
         Assert.Equal((Color)tint!, ((ISolidColorBrush)halo.Fill!).Color);
     });
 

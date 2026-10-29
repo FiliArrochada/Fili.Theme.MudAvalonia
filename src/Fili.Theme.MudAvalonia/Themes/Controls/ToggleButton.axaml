@@ -547,6 +547,7 @@
     <Setter Property="BorderBrush" Value="Transparent" />
     <Setter Property="BorderThickness" Value="0" />
     <Setter Property="Padding" Value="8,6" />
+    <Setter Property="theme:Accent.Hover" Value="{DynamicResource FiliActionDefaultHoverBrush}" />
     <Setter Property="CornerRadius" Value="{DynamicResource FiliCornerRadius}" />
     <Setter Property="MinWidth" Value="64" />
     <Setter Property="FontFamily" Value="{DynamicResource FiliFontFamily}" />
@@ -566,10 +567,12 @@
                 BorderThickness="{TemplateBinding BorderThickness}"
                 CornerRadius="{TemplateBinding CornerRadius}">
           <Panel>
-            <!-- State layer. Sits under the content, over the fill. -->
+            <!-- State layer. Sits under the content, over the fill: the colour's hover tint
+                 (Accent.Hover), shown on hover, focus and press. -->
             <theme:PartBorder x:Name="PART_StateLayer"
                     CornerRadius="{TemplateBinding CornerRadius}"
-                    Background="Transparent" />
+                    Background="{TemplateBinding (theme:Accent.Hover)}"
+                    Opacity="0" />
             <theme:PartBorder x:Name="PART_Ripple"
                     theme:Ripple.IsLayer="True"
                     CornerRadius="{TemplateBinding CornerRadius}" />
@@ -595,13 +598,13 @@
     <!-- No colour: action-default-hover. Keyboard focus paints the same tint - that IS the
          affordance in MudBlazor, whose _reset.scss drops the browser focus ring. -->
     <Style Selector="^:pointerover /template/ theme|PartBorder#PART_StateLayer">
-      <Setter Property="Background" Value="{DynamicResource FiliActionDefaultHoverBrush}" />
+      <Setter Property="Opacity" Value="1" />
     </Style>
     <Style Selector="^:focus-visible /template/ theme|PartBorder#PART_StateLayer">
-      <Setter Property="Background" Value="{DynamicResource FiliActionDefaultHoverBrush}" />
+      <Setter Property="Opacity" Value="1" />
     </Style>
     <Style Selector="^:pressed /template/ theme|PartBorder#PART_StateLayer">
-      <Setter Property="Background" Value="{DynamicResource FiliActionDefaultHoverBrush}" />
+      <Setter Property="Opacity" Value="1" />
     </Style>
 
     <!-- MudIconButton, Variant.Text: round, 12px round a 24px icon, and action-default rather
@@ -616,195 +619,67 @@
 
     <Style Selector="^.primary:checked">
       <Setter Property="Foreground" Value="{DynamicResource FiliPrimaryBrush}" />
-    </Style>
-    <Style Selector="^.primary:checked:pointerover /template/ theme|PartBorder#PART_StateLayer">
-      <Setter Property="Background" Value="{DynamicResource FiliPrimaryHoverBrush}" />
-    </Style>
-    <Style Selector="^.primary:checked:focus-visible /template/ theme|PartBorder#PART_StateLayer">
-      <Setter Property="Background" Value="{DynamicResource FiliPrimaryHoverBrush}" />
-    </Style>
-    <Style Selector="^.primary:checked:pressed /template/ theme|PartBorder#PART_StateLayer">
-      <Setter Property="Background" Value="{DynamicResource FiliPrimaryHoverBrush}" />
+      <Setter Property="theme:Accent.Hover" Value="{DynamicResource FiliPrimaryHoverBrush}" />
     </Style>
     <Style Selector="^.unchecked-primary:unchecked">
       <Setter Property="Foreground" Value="{DynamicResource FiliPrimaryBrush}" />
-    </Style>
-    <Style Selector="^.unchecked-primary:unchecked:pointerover /template/ theme|PartBorder#PART_StateLayer">
-      <Setter Property="Background" Value="{DynamicResource FiliPrimaryHoverBrush}" />
-    </Style>
-    <Style Selector="^.unchecked-primary:unchecked:focus-visible /template/ theme|PartBorder#PART_StateLayer">
-      <Setter Property="Background" Value="{DynamicResource FiliPrimaryHoverBrush}" />
-    </Style>
-    <Style Selector="^.unchecked-primary:unchecked:pressed /template/ theme|PartBorder#PART_StateLayer">
-      <Setter Property="Background" Value="{DynamicResource FiliPrimaryHoverBrush}" />
+      <Setter Property="theme:Accent.Hover" Value="{DynamicResource FiliPrimaryHoverBrush}" />
     </Style>
     <Style Selector="^.secondary:checked">
       <Setter Property="Foreground" Value="{DynamicResource FiliSecondaryBrush}" />
-    </Style>
-    <Style Selector="^.secondary:checked:pointerover /template/ theme|PartBorder#PART_StateLayer">
-      <Setter Property="Background" Value="{DynamicResource FiliSecondaryHoverBrush}" />
-    </Style>
-    <Style Selector="^.secondary:checked:focus-visible /template/ theme|PartBorder#PART_StateLayer">
-      <Setter Property="Background" Value="{DynamicResource FiliSecondaryHoverBrush}" />
-    </Style>
-    <Style Selector="^.secondary:checked:pressed /template/ theme|PartBorder#PART_StateLayer">
-      <Setter Property="Background" Value="{DynamicResource FiliSecondaryHoverBrush}" />
+      <Setter Property="theme:Accent.Hover" Value="{DynamicResource FiliSecondaryHoverBrush}" />
     </Style>
     <Style Selector="^.unchecked-secondary:unchecked">
       <Setter Property="Foreground" Value="{DynamicResource FiliSecondaryBrush}" />
-    </Style>
-    <Style Selector="^.unchecked-secondary:unchecked:pointerover /template/ theme|PartBorder#PART_StateLayer">
-      <Setter Property="Background" Value="{DynamicResource FiliSecondaryHoverBrush}" />
-    </Style>
-    <Style Selector="^.unchecked-secondary:unchecked:focus-visible /template/ theme|PartBorder#PART_StateLayer">
-      <Setter Property="Background" Value="{DynamicResource FiliSecondaryHoverBrush}" />
-    </Style>
-    <Style Selector="^.unchecked-secondary:unchecked:pressed /template/ theme|PartBorder#PART_StateLayer">
-      <Setter Property="Background" Value="{DynamicResource FiliSecondaryHoverBrush}" />
+      <Setter Property="theme:Accent.Hover" Value="{DynamicResource FiliSecondaryHoverBrush}" />
     </Style>
     <Style Selector="^.tertiary:checked">
       <Setter Property="Foreground" Value="{DynamicResource FiliTertiaryBrush}" />
-    </Style>
-    <Style Selector="^.tertiary:checked:pointerover /template/ theme|PartBorder#PART_StateLayer">
-      <Setter Property="Background" Value="{DynamicResource FiliTertiaryHoverBrush}" />
-    </Style>
-    <Style Selector="^.tertiary:checked:focus-visible /template/ theme|PartBorder#PART_StateLayer">
-      <Setter Property="Background" Value="{DynamicResource FiliTertiaryHoverBrush}" />
-    </Style>
-    <Style Selector="^.tertiary:checked:pressed /template/ theme|PartBorder#PART_StateLayer">
-      <Setter Property="Background" Value="{DynamicResource FiliTertiaryHoverBrush}" />
+      <Setter Property="theme:Accent.Hover" Value="{DynamicResource FiliTertiaryHoverBrush}" />
     </Style>
     <Style Selector="^.unchecked-tertiary:unchecked">
       <Setter Property="Foreground" Value="{DynamicResource FiliTertiaryBrush}" />
-    </Style>
-    <Style Selector="^.unchecked-tertiary:unchecked:pointerover /template/ theme|PartBorder#PART_StateLayer">
-      <Setter Property="Background" Value="{DynamicResource FiliTertiaryHoverBrush}" />
-    </Style>
-    <Style Selector="^.unchecked-tertiary:unchecked:focus-visible /template/ theme|PartBorder#PART_StateLayer">
-      <Setter Property="Background" Value="{DynamicResource FiliTertiaryHoverBrush}" />
-    </Style>
-    <Style Selector="^.unchecked-tertiary:unchecked:pressed /template/ theme|PartBorder#PART_StateLayer">
-      <Setter Property="Background" Value="{DynamicResource FiliTertiaryHoverBrush}" />
+      <Setter Property="theme:Accent.Hover" Value="{DynamicResource FiliTertiaryHoverBrush}" />
     </Style>
     <Style Selector="^.info:checked">
       <Setter Property="Foreground" Value="{DynamicResource FiliInfoBrush}" />
-    </Style>
-    <Style Selector="^.info:checked:pointerover /template/ theme|PartBorder#PART_StateLayer">
-      <Setter Property="Background" Value="{DynamicResource FiliInfoHoverBrush}" />
-    </Style>
-    <Style Selector="^.info:checked:focus-visible /template/ theme|PartBorder#PART_StateLayer">
-      <Setter Property="Background" Value="{DynamicResource FiliInfoHoverBrush}" />
-    </Style>
-    <Style Selector="^.info:checked:pressed /template/ theme|PartBorder#PART_StateLayer">
-      <Setter Property="Background" Value="{DynamicResource FiliInfoHoverBrush}" />
+      <Setter Property="theme:Accent.Hover" Value="{DynamicResource FiliInfoHoverBrush}" />
     </Style>
     <Style Selector="^.unchecked-info:unchecked">
       <Setter Property="Foreground" Value="{DynamicResource FiliInfoBrush}" />
-    </Style>
-    <Style Selector="^.unchecked-info:unchecked:pointerover /template/ theme|PartBorder#PART_StateLayer">
-      <Setter Property="Background" Value="{DynamicResource FiliInfoHoverBrush}" />
-    </Style>
-    <Style Selector="^.unchecked-info:unchecked:focus-visible /template/ theme|PartBorder#PART_StateLayer">
-      <Setter Property="Background" Value="{DynamicResource FiliInfoHoverBrush}" />
-    </Style>
-    <Style Selector="^.unchecked-info:unchecked:pressed /template/ theme|PartBorder#PART_StateLayer">
-      <Setter Property="Background" Value="{DynamicResource FiliInfoHoverBrush}" />
+      <Setter Property="theme:Accent.Hover" Value="{DynamicResource FiliInfoHoverBrush}" />
     </Style>
     <Style Selector="^.success:checked">
       <Setter Property="Foreground" Value="{DynamicResource FiliSuccessBrush}" />
-    </Style>
-    <Style Selector="^.success:checked:pointerover /template/ theme|PartBorder#PART_StateLayer">
-      <Setter Property="Background" Value="{DynamicResource FiliSuccessHoverBrush}" />
-    </Style>
-    <Style Selector="^.success:checked:focus-visible /template/ theme|PartBorder#PART_StateLayer">
-      <Setter Property="Background" Value="{DynamicResource FiliSuccessHoverBrush}" />
-    </Style>
-    <Style Selector="^.success:checked:pressed /template/ theme|PartBorder#PART_StateLayer">
-      <Setter Property="Background" Value="{DynamicResource FiliSuccessHoverBrush}" />
+      <Setter Property="theme:Accent.Hover" Value="{DynamicResource FiliSuccessHoverBrush}" />
     </Style>
     <Style Selector="^.unchecked-success:unchecked">
       <Setter Property="Foreground" Value="{DynamicResource FiliSuccessBrush}" />
-    </Style>
-    <Style Selector="^.unchecked-success:unchecked:pointerover /template/ theme|PartBorder#PART_StateLayer">
-      <Setter Property="Background" Value="{DynamicResource FiliSuccessHoverBrush}" />
-    </Style>
-    <Style Selector="^.unchecked-success:unchecked:focus-visible /template/ theme|PartBorder#PART_StateLayer">
-      <Setter Property="Background" Value="{DynamicResource FiliSuccessHoverBrush}" />
-    </Style>
-    <Style Selector="^.unchecked-success:unchecked:pressed /template/ theme|PartBorder#PART_StateLayer">
-      <Setter Property="Background" Value="{DynamicResource FiliSuccessHoverBrush}" />
+      <Setter Property="theme:Accent.Hover" Value="{DynamicResource FiliSuccessHoverBrush}" />
     </Style>
     <Style Selector="^.warning:checked">
       <Setter Property="Foreground" Value="{DynamicResource FiliWarningBrush}" />
-    </Style>
-    <Style Selector="^.warning:checked:pointerover /template/ theme|PartBorder#PART_StateLayer">
-      <Setter Property="Background" Value="{DynamicResource FiliWarningHoverBrush}" />
-    </Style>
-    <Style Selector="^.warning:checked:focus-visible /template/ theme|PartBorder#PART_StateLayer">
-      <Setter Property="Background" Value="{DynamicResource FiliWarningHoverBrush}" />
-    </Style>
-    <Style Selector="^.warning:checked:pressed /template/ theme|PartBorder#PART_StateLayer">
-      <Setter Property="Background" Value="{DynamicResource FiliWarningHoverBrush}" />
+      <Setter Property="theme:Accent.Hover" Value="{DynamicResource FiliWarningHoverBrush}" />
     </Style>
     <Style Selector="^.unchecked-warning:unchecked">
       <Setter Property="Foreground" Value="{DynamicResource FiliWarningBrush}" />
-    </Style>
-    <Style Selector="^.unchecked-warning:unchecked:pointerover /template/ theme|PartBorder#PART_StateLayer">
-      <Setter Property="Background" Value="{DynamicResource FiliWarningHoverBrush}" />
-    </Style>
-    <Style Selector="^.unchecked-warning:unchecked:focus-visible /template/ theme|PartBorder#PART_StateLayer">
-      <Setter Property="Background" Value="{DynamicResource FiliWarningHoverBrush}" />
-    </Style>
-    <Style Selector="^.unchecked-warning:unchecked:pressed /template/ theme|PartBorder#PART_StateLayer">
-      <Setter Property="Background" Value="{DynamicResource FiliWarningHoverBrush}" />
+      <Setter Property="theme:Accent.Hover" Value="{DynamicResource FiliWarningHoverBrush}" />
     </Style>
     <Style Selector="^.error:checked">
       <Setter Property="Foreground" Value="{DynamicResource FiliErrorBrush}" />
-    </Style>
-    <Style Selector="^.error:checked:pointerover /template/ theme|PartBorder#PART_StateLayer">
-      <Setter Property="Background" Value="{DynamicResource FiliErrorHoverBrush}" />
-    </Style>
-    <Style Selector="^.error:checked:focus-visible /template/ theme|PartBorder#PART_StateLayer">
-      <Setter Property="Background" Value="{DynamicResource FiliErrorHoverBrush}" />
-    </Style>
-    <Style Selector="^.error:checked:pressed /template/ theme|PartBorder#PART_StateLayer">
-      <Setter Property="Background" Value="{DynamicResource FiliErrorHoverBrush}" />
+      <Setter Property="theme:Accent.Hover" Value="{DynamicResource FiliErrorHoverBrush}" />
     </Style>
     <Style Selector="^.unchecked-error:unchecked">
       <Setter Property="Foreground" Value="{DynamicResource FiliErrorBrush}" />
-    </Style>
-    <Style Selector="^.unchecked-error:unchecked:pointerover /template/ theme|PartBorder#PART_StateLayer">
-      <Setter Property="Background" Value="{DynamicResource FiliErrorHoverBrush}" />
-    </Style>
-    <Style Selector="^.unchecked-error:unchecked:focus-visible /template/ theme|PartBorder#PART_StateLayer">
-      <Setter Property="Background" Value="{DynamicResource FiliErrorHoverBrush}" />
-    </Style>
-    <Style Selector="^.unchecked-error:unchecked:pressed /template/ theme|PartBorder#PART_StateLayer">
-      <Setter Property="Background" Value="{DynamicResource FiliErrorHoverBrush}" />
+      <Setter Property="theme:Accent.Hover" Value="{DynamicResource FiliErrorHoverBrush}" />
     </Style>
     <Style Selector="^.dark:checked">
       <Setter Property="Foreground" Value="{DynamicResource FiliDarkBrush}" />
-    </Style>
-    <Style Selector="^.dark:checked:pointerover /template/ theme|PartBorder#PART_StateLayer">
-      <Setter Property="Background" Value="{DynamicResource FiliDarkHoverBrush}" />
-    </Style>
-    <Style Selector="^.dark:checked:focus-visible /template/ theme|PartBorder#PART_StateLayer">
-      <Setter Property="Background" Value="{DynamicResource FiliDarkHoverBrush}" />
-    </Style>
-    <Style Selector="^.dark:checked:pressed /template/ theme|PartBorder#PART_StateLayer">
-      <Setter Property="Background" Value="{DynamicResource FiliDarkHoverBrush}" />
+      <Setter Property="theme:Accent.Hover" Value="{DynamicResource FiliDarkHoverBrush}" />
     </Style>
     <Style Selector="^.unchecked-dark:unchecked">
       <Setter Property="Foreground" Value="{DynamicResource FiliDarkBrush}" />
-    </Style>
-    <Style Selector="^.unchecked-dark:unchecked:pointerover /template/ theme|PartBorder#PART_StateLayer">
-      <Setter Property="Background" Value="{DynamicResource FiliDarkHoverBrush}" />
-    </Style>
-    <Style Selector="^.unchecked-dark:unchecked:focus-visible /template/ theme|PartBorder#PART_StateLayer">
-      <Setter Property="Background" Value="{DynamicResource FiliDarkHoverBrush}" />
-    </Style>
-    <Style Selector="^.unchecked-dark:unchecked:pressed /template/ theme|PartBorder#PART_StateLayer">
-      <Setter Property="Background" Value="{DynamicResource FiliDarkHoverBrush}" />
+      <Setter Property="theme:Accent.Hover" Value="{DynamicResource FiliDarkHoverBrush}" />
     </Style>
 
     <!-- Color.Inherit: `color: inherit`. Bound to the parent's inherited text colour, because a
@@ -852,7 +727,7 @@
       <Setter Property="Foreground" Value="{DynamicResource FiliActionDisabledBrush}" />
     </Style>
     <Style Selector="^:disabled /template/ theme|PartBorder#PART_StateLayer">
-      <Setter Property="Background" Value="Transparent" />
+      <Setter Property="Opacity" Value="0" />
     </Style>
   </ControlTheme>
 
@@ -976,6 +851,8 @@
     <Setter Property="BorderBrush" Value="Transparent" />
     <Setter Property="BorderThickness" Value="0" />
     <Setter Property="Padding" Value="16,6" />
+    <Setter Property="theme:Accent.Hover" Value="{DynamicResource FiliActionDisabledBackgroundBrush}" />
+    <Setter Property="theme:Accent.Seam" Value="{DynamicResource FiliDividerBrush}" />
     <!-- Every TemplatedControl clips to its bounds in Avalonia 12, which would cut the shadow
          off at the edge it is drawn past. -->
     <Setter Property="ClipToBounds" Value="False" />
@@ -999,10 +876,12 @@
                 CornerRadius="{TemplateBinding CornerRadius}"
                 BoxShadow="{DynamicResource FiliElevation2}">
           <Panel>
-            <!-- State layer. Sits under the content, over the fill. -->
+            <!-- State layer. Sits under the content, over the fill: the colour's hover tint
+                 (Accent.Hover), shown on hover, focus and press. -->
             <theme:PartBorder x:Name="PART_StateLayer"
                     CornerRadius="{TemplateBinding CornerRadius}"
-                    Background="Transparent" />
+                    Background="{TemplateBinding (theme:Accent.Hover)}"
+                    Opacity="0" />
             <theme:PartBorder x:Name="PART_Ripple"
                     theme:Ripple.IsLayer="True"
                     CornerRadius="{TemplateBinding CornerRadius}" />
@@ -1035,15 +914,16 @@
       <Setter Property="BoxShadow" Value="{DynamicResource FiliElevation8}" />
     </Style>
 
-    <!-- No colour: grey, going to action-disabled-background. -->
+    <!-- Hover, focus and press switch the fill to Accent.Hover: with no colour, grey going to
+         action-disabled-background; with one, the colour's darken shade. -->
     <Style Selector="^:pointerover /template/ theme|PartBorder#PART_Root">
-      <Setter Property="Background" Value="{DynamicResource FiliActionDisabledBackgroundBrush}" />
+      <Setter Property="Background" Value="{Binding (theme:Accent.Hover), RelativeSource={RelativeSource TemplatedParent}}" />
     </Style>
     <Style Selector="^:focus-visible /template/ theme|PartBorder#PART_Root">
-      <Setter Property="Background" Value="{DynamicResource FiliActionDisabledBackgroundBrush}" />
+      <Setter Property="Background" Value="{Binding (theme:Accent.Hover), RelativeSource={RelativeSource TemplatedParent}}" />
     </Style>
     <Style Selector="^:pressed /template/ theme|PartBorder#PART_Root">
-      <Setter Property="Background" Value="{DynamicResource FiliActionDisabledBackgroundBrush}" />
+      <Setter Property="Background" Value="{Binding (theme:Accent.Hover), RelativeSource={RelativeSource TemplatedParent}}" />
     </Style>
 
     <!-- `.mud-button-filled.mud-icon-button`: 5px inside a transparent 1px border. -->
@@ -1058,210 +938,98 @@
     <Style Selector="^.primary:checked">
       <Setter Property="Background" Value="{DynamicResource FiliPrimaryBrush}" />
       <Setter Property="Foreground" Value="{DynamicResource FiliPrimaryContrastTextBrush}" />
-    </Style>
-    <Style Selector="^.primary:checked:pointerover /template/ theme|PartBorder#PART_Root">
-      <Setter Property="Background" Value="{DynamicResource FiliPrimaryDarkenBrush}" />
-    </Style>
-    <Style Selector="^.primary:checked:focus-visible /template/ theme|PartBorder#PART_Root">
-      <Setter Property="Background" Value="{DynamicResource FiliPrimaryDarkenBrush}" />
-    </Style>
-    <Style Selector="^.primary:checked:pressed /template/ theme|PartBorder#PART_Root">
-      <Setter Property="Background" Value="{DynamicResource FiliPrimaryDarkenBrush}" />
+      <Setter Property="theme:Accent.Hover" Value="{DynamicResource FiliPrimaryDarkenBrush}" />
+      <Setter Property="theme:Accent.Seam" Value="{DynamicResource FiliPrimaryLightenBrush}" />
     </Style>
     <Style Selector="^.unchecked-primary:unchecked">
       <Setter Property="Background" Value="{DynamicResource FiliPrimaryBrush}" />
       <Setter Property="Foreground" Value="{DynamicResource FiliPrimaryContrastTextBrush}" />
-    </Style>
-    <Style Selector="^.unchecked-primary:unchecked:pointerover /template/ theme|PartBorder#PART_Root">
-      <Setter Property="Background" Value="{DynamicResource FiliPrimaryDarkenBrush}" />
-    </Style>
-    <Style Selector="^.unchecked-primary:unchecked:focus-visible /template/ theme|PartBorder#PART_Root">
-      <Setter Property="Background" Value="{DynamicResource FiliPrimaryDarkenBrush}" />
-    </Style>
-    <Style Selector="^.unchecked-primary:unchecked:pressed /template/ theme|PartBorder#PART_Root">
-      <Setter Property="Background" Value="{DynamicResource FiliPrimaryDarkenBrush}" />
+      <Setter Property="theme:Accent.Hover" Value="{DynamicResource FiliPrimaryDarkenBrush}" />
+      <Setter Property="theme:Accent.Seam" Value="{DynamicResource FiliPrimaryLightenBrush}" />
     </Style>
     <Style Selector="^.secondary:checked">
       <Setter Property="Background" Value="{DynamicResource FiliSecondaryBrush}" />
       <Setter Property="Foreground" Value="{DynamicResource FiliSecondaryContrastTextBrush}" />
-    </Style>
-    <Style Selector="^.secondary:checked:pointerover /template/ theme|PartBorder#PART_Root">
-      <Setter Property="Background" Value="{DynamicResource FiliSecondaryDarkenBrush}" />
-    </Style>
-    <Style Selector="^.secondary:checked:focus-visible /template/ theme|PartBorder#PART_Root">
-      <Setter Property="Background" Value="{DynamicResource FiliSecondaryDarkenBrush}" />
-    </Style>
-    <Style Selector="^.secondary:checked:pressed /template/ theme|PartBorder#PART_Root">
-      <Setter Property="Background" Value="{DynamicResource FiliSecondaryDarkenBrush}" />
+      <Setter Property="theme:Accent.Hover" Value="{DynamicResource FiliSecondaryDarkenBrush}" />
+      <Setter Property="theme:Accent.Seam" Value="{DynamicResource FiliSecondaryLightenBrush}" />
     </Style>
     <Style Selector="^.unchecked-secondary:unchecked">
       <Setter Property="Background" Value="{DynamicResource FiliSecondaryBrush}" />
       <Setter Property="Foreground" Value="{DynamicResource FiliSecondaryContrastTextBrush}" />
-    </Style>
-    <Style Selector="^.unchecked-secondary:unchecked:pointerover /template/ theme|PartBorder#PART_Root">
-      <Setter Property="Background" Value="{DynamicResource FiliSecondaryDarkenBrush}" />
-    </Style>
-    <Style Selector="^.unchecked-secondary:unchecked:focus-visible /template/ theme|PartBorder#PART_Root">
-      <Setter Property="Background" Value="{DynamicResource FiliSecondaryDarkenBrush}" />
-    </Style>
-    <Style Selector="^.unchecked-secondary:unchecked:pressed /template/ theme|PartBorder#PART_Root">
-      <Setter Property="Background" Value="{DynamicResource FiliSecondaryDarkenBrush}" />
+      <Setter Property="theme:Accent.Hover" Value="{DynamicResource FiliSecondaryDarkenBrush}" />
+      <Setter Property="theme:Accent.Seam" Value="{DynamicResource FiliSecondaryLightenBrush}" />
     </Style>
     <Style Selector="^.tertiary:checked">
       <Setter Property="Background" Value="{DynamicResource FiliTertiaryBrush}" />
       <Setter Property="Foreground" Value="{DynamicResource FiliTertiaryContrastTextBrush}" />
-    </Style>
-    <Style Selector="^.tertiary:checked:pointerover /template/ theme|PartBorder#PART_Root">
-      <Setter Property="Background" Value="{DynamicResource FiliTertiaryDarkenBrush}" />
-    </Style>
-    <Style Selector="^.tertiary:checked:focus-visible /template/ theme|PartBorder#PART_Root">
-      <Setter Property="Background" Value="{DynamicResource FiliTertiaryDarkenBrush}" />
-    </Style>
-    <Style Selector="^.tertiary:checked:pressed /template/ theme|PartBorder#PART_Root">
-      <Setter Property="Background" Value="{DynamicResource FiliTertiaryDarkenBrush}" />
+      <Setter Property="theme:Accent.Hover" Value="{DynamicResource FiliTertiaryDarkenBrush}" />
+      <Setter Property="theme:Accent.Seam" Value="{DynamicResource FiliTertiaryLightenBrush}" />
     </Style>
     <Style Selector="^.unchecked-tertiary:unchecked">
       <Setter Property="Background" Value="{DynamicResource FiliTertiaryBrush}" />
       <Setter Property="Foreground" Value="{DynamicResource FiliTertiaryContrastTextBrush}" />
-    </Style>
-    <Style Selector="^.unchecked-tertiary:unchecked:pointerover /template/ theme|PartBorder#PART_Root">
-      <Setter Property="Background" Value="{DynamicResource FiliTertiaryDarkenBrush}" />
-    </Style>
-    <Style Selector="^.unchecked-tertiary:unchecked:focus-visible /template/ theme|PartBorder#PART_Root">
-      <Setter Property="Background" Value="{DynamicResource FiliTertiaryDarkenBrush}" />
-    </Style>
-    <Style Selector="^.unchecked-tertiary:unchecked:pressed /template/ theme|PartBorder#PART_Root">
-      <Setter Property="Background" Value="{DynamicResource FiliTertiaryDarkenBrush}" />
+      <Setter Property="theme:Accent.Hover" Value="{DynamicResource FiliTertiaryDarkenBrush}" />
+      <Setter Property="theme:Accent.Seam" Value="{DynamicResource FiliTertiaryLightenBrush}" />
     </Style>
     <Style Selector="^.info:checked">
       <Setter Property="Background" Value="{DynamicResource FiliInfoBrush}" />
       <Setter Property="Foreground" Value="{DynamicResource FiliInfoContrastTextBrush}" />
-    </Style>
-    <Style Selector="^.info:checked:pointerover /template/ theme|PartBorder#PART_Root">
-      <Setter Property="Background" Value="{DynamicResource FiliInfoDarkenBrush}" />
-    </Style>
-    <Style Selector="^.info:checked:focus-visible /template/ theme|PartBorder#PART_Root">
-      <Setter Property="Background" Value="{DynamicResource FiliInfoDarkenBrush}" />
-    </Style>
-    <Style Selector="^.info:checked:pressed /template/ theme|PartBorder#PART_Root">
-      <Setter Property="Background" Value="{DynamicResource FiliInfoDarkenBrush}" />
+      <Setter Property="theme:Accent.Hover" Value="{DynamicResource FiliInfoDarkenBrush}" />
+      <Setter Property="theme:Accent.Seam" Value="{DynamicResource FiliInfoLightenBrush}" />
     </Style>
     <Style Selector="^.unchecked-info:unchecked">
       <Setter Property="Background" Value="{DynamicResource FiliInfoBrush}" />
       <Setter Property="Foreground" Value="{DynamicResource FiliInfoContrastTextBrush}" />
-    </Style>
-    <Style Selector="^.unchecked-info:unchecked:pointerover /template/ theme|PartBorder#PART_Root">
-      <Setter Property="Background" Value="{DynamicResource FiliInfoDarkenBrush}" />
-    </Style>
-    <Style Selector="^.unchecked-info:unchecked:focus-visible /template/ theme|PartBorder#PART_Root">
-      <Setter Property="Background" Value="{DynamicResource FiliInfoDarkenBrush}" />
-    </Style>
-    <Style Selector="^.unchecked-info:unchecked:pressed /template/ theme|PartBorder#PART_Root">
-      <Setter Property="Background" Value="{DynamicResource FiliInfoDarkenBrush}" />
+      <Setter Property="theme:Accent.Hover" Value="{DynamicResource FiliInfoDarkenBrush}" />
+      <Setter Property="theme:Accent.Seam" Value="{DynamicResource FiliInfoLightenBrush}" />
     </Style>
     <Style Selector="^.success:checked">
       <Setter Property="Background" Value="{DynamicResource FiliSuccessBrush}" />
       <Setter Property="Foreground" Value="{DynamicResource FiliSuccessContrastTextBrush}" />
-    </Style>
-    <Style Selector="^.success:checked:pointerover /template/ theme|PartBorder#PART_Root">
-      <Setter Property="Background" Value="{DynamicResource FiliSuccessDarkenBrush}" />
-    </Style>
-    <Style Selector="^.success:checked:focus-visible /template/ theme|PartBorder#PART_Root">
-      <Setter Property="Background" Value="{DynamicResource FiliSuccessDarkenBrush}" />
-    </Style>
-    <Style Selector="^.success:checked:pressed /template/ theme|PartBorder#PART_Root">
-      <Setter Property="Background" Value="{DynamicResource FiliSuccessDarkenBrush}" />
+      <Setter Property="theme:Accent.Hover" Value="{DynamicResource FiliSuccessDarkenBrush}" />
+      <Setter Property="theme:Accent.Seam" Value="{DynamicResource FiliSuccessLightenBrush}" />
     </Style>
     <Style Selector="^.unchecked-success:unchecked">
       <Setter Property="Background" Value="{DynamicResource FiliSuccessBrush}" />
       <Setter Property="Foreground" Value="{DynamicResource FiliSuccessContrastTextBrush}" />
-    </Style>
-    <Style Selector="^.unchecked-success:unchecked:pointerover /template/ theme|PartBorder#PART_Root">
-      <Setter Property="Background" Value="{DynamicResource FiliSuccessDarkenBrush}" />
-    </Style>
-    <Style Selector="^.unchecked-success:unchecked:focus-visible /template/ theme|PartBorder#PART_Root">
-      <Setter Property="Background" Value="{DynamicResource FiliSuccessDarkenBrush}" />
-    </Style>
-    <Style Selector="^.unchecked-success:unchecked:pressed /template/ theme|PartBorder#PART_Root">
-      <Setter Property="Background" Value="{DynamicResource FiliSuccessDarkenBrush}" />
+      <Setter Property="theme:Accent.Hover" Value="{DynamicResource FiliSuccessDarkenBrush}" />
+      <Setter Property="theme:Accent.Seam" Value="{DynamicResource FiliSuccessLightenBrush}" />
     </Style>
     <Style Selector="^.warning:checked">
       <Setter Property="Background" Value="{DynamicResource FiliWarningBrush}" />
       <Setter Property="Foreground" Value="{DynamicResource FiliWarningContrastTextBrush}" />
-    </Style>
-    <Style Selector="^.warning:checked:pointerover /template/ theme|PartBorder#PART_Root">
-      <Setter Property="Background" Value="{DynamicResource FiliWarningDarkenBrush}" />
-    </Style>
-    <Style Selector="^.warning:checked:focus-visible /template/ theme|PartBorder#PART_Root">
-      <Setter Property="Background" Value="{DynamicResource FiliWarningDarkenBrush}" />
-    </Style>
-    <Style Selector="^.warning:checked:pressed /template/ theme|PartBorder#PART_Root">
-      <Setter Property="Background" Value="{DynamicResource FiliWarningDarkenBrush}" />
+      <Setter Property="theme:Accent.Hover" Value="{DynamicResource FiliWarningDarkenBrush}" />
+      <Setter Property="theme:Accent.Seam" Value="{DynamicResource FiliWarningLightenBrush}" />
     </Style>
     <Style Selector="^.unchecked-warning:unchecked">
       <Setter Property="Background" Value="{DynamicResource FiliWarningBrush}" />
       <Setter Property="Foreground" Value="{DynamicResource FiliWarningContrastTextBrush}" />
-    </Style>
-    <Style Selector="^.unchecked-warning:unchecked:pointerover /template/ theme|PartBorder#PART_Root">
-      <Setter Property="Background" Value="{DynamicResource FiliWarningDarkenBrush}" />
-    </Style>
-    <Style Selector="^.unchecked-warning:unchecked:focus-visible /template/ theme|PartBorder#PART_Root">
-      <Setter Property="Background" Value="{DynamicResource FiliWarningDarkenBrush}" />
-    </Style>
-    <Style Selector="^.unchecked-warning:unchecked:pressed /template/ theme|PartBorder#PART_Root">
-      <Setter Property="Background" Value="{DynamicResource FiliWarningDarkenBrush}" />
+      <Setter Property="theme:Accent.Hover" Value="{DynamicResource FiliWarningDarkenBrush}" />
+      <Setter Property="theme:Accent.Seam" Value="{DynamicResource FiliWarningLightenBrush}" />
     </Style>
     <Style Selector="^.error:checked">
       <Setter Property="Background" Value="{DynamicResource FiliErrorBrush}" />
       <Setter Property="Foreground" Value="{DynamicResource FiliErrorContrastTextBrush}" />
-    </Style>
-    <Style Selector="^.error:checked:pointerover /template/ theme|PartBorder#PART_Root">
-      <Setter Property="Background" Value="{DynamicResource FiliErrorDarkenBrush}" />
-    </Style>
-    <Style Selector="^.error:checked:focus-visible /template/ theme|PartBorder#PART_Root">
-      <Setter Property="Background" Value="{DynamicResource FiliErrorDarkenBrush}" />
-    </Style>
-    <Style Selector="^.error:checked:pressed /template/ theme|PartBorder#PART_Root">
-      <Setter Property="Background" Value="{DynamicResource FiliErrorDarkenBrush}" />
+      <Setter Property="theme:Accent.Hover" Value="{DynamicResource FiliErrorDarkenBrush}" />
+      <Setter Property="theme:Accent.Seam" Value="{DynamicResource FiliErrorLightenBrush}" />
     </Style>
     <Style Selector="^.unchecked-error:unchecked">
       <Setter Property="Background" Value="{DynamicResource FiliErrorBrush}" />
       <Setter Property="Foreground" Value="{DynamicResource FiliErrorContrastTextBrush}" />
-    </Style>
-    <Style Selector="^.unchecked-error:unchecked:pointerover /template/ theme|PartBorder#PART_Root">
-      <Setter Property="Background" Value="{DynamicResource FiliErrorDarkenBrush}" />
-    </Style>
-    <Style Selector="^.unchecked-error:unchecked:focus-visible /template/ theme|PartBorder#PART_Root">
-      <Setter Property="Background" Value="{DynamicResource FiliErrorDarkenBrush}" />
-    </Style>
-    <Style Selector="^.unchecked-error:unchecked:pressed /template/ theme|PartBorder#PART_Root">
-      <Setter Property="Background" Value="{DynamicResource FiliErrorDarkenBrush}" />
+      <Setter Property="theme:Accent.Hover" Value="{DynamicResource FiliErrorDarkenBrush}" />
+      <Setter Property="theme:Accent.Seam" Value="{DynamicResource FiliErrorLightenBrush}" />
     </Style>
     <Style Selector="^.dark:checked">
       <Setter Property="Background" Value="{DynamicResource FiliDarkBrush}" />
       <Setter Property="Foreground" Value="{DynamicResource FiliDarkContrastTextBrush}" />
-    </Style>
-    <Style Selector="^.dark:checked:pointerover /template/ theme|PartBorder#PART_Root">
-      <Setter Property="Background" Value="{DynamicResource FiliDarkDarkenBrush}" />
-    </Style>
-    <Style Selector="^.dark:checked:focus-visible /template/ theme|PartBorder#PART_Root">
-      <Setter Property="Background" Value="{DynamicResource FiliDarkDarkenBrush}" />
-    </Style>
-    <Style Selector="^.dark:checked:pressed /template/ theme|PartBorder#PART_Root">
-      <Setter Property="Background" Value="{DynamicResource FiliDarkDarkenBrush}" />
+      <Setter Property="theme:Accent.Hover" Value="{DynamicResource FiliDarkDarkenBrush}" />
+      <Setter Property="theme:Accent.Seam" Value="{DynamicResource FiliDarkLightenBrush}" />
     </Style>
     <Style Selector="^.unchecked-dark:unchecked">
       <Setter Property="Background" Value="{DynamicResource FiliDarkBrush}" />
       <Setter Property="Foreground" Value="{DynamicResource FiliDarkContrastTextBrush}" />
-    </Style>
-    <Style Selector="^.unchecked-dark:unchecked:pointerover /template/ theme|PartBorder#PART_Root">
-      <Setter Property="Background" Value="{DynamicResource FiliDarkDarkenBrush}" />
-    </Style>
-    <Style Selector="^.unchecked-dark:unchecked:focus-visible /template/ theme|PartBorder#PART_Root">
-      <Setter Property="Background" Value="{DynamicResource FiliDarkDarkenBrush}" />
-    </Style>
-    <Style Selector="^.unchecked-dark:unchecked:pressed /template/ theme|PartBorder#PART_Root">
-      <Setter Property="Background" Value="{DynamicResource FiliDarkDarkenBrush}" />
+      <Setter Property="theme:Accent.Hover" Value="{DynamicResource FiliDarkDarkenBrush}" />
+      <Setter Property="theme:Accent.Seam" Value="{DynamicResource FiliDarkLightenBrush}" />
     </Style>
 
     <!-- `.mud-button-color-inherit`: the text inherits and the grey fill stays, as in MudBlazor,
