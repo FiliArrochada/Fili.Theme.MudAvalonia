@@ -8,15 +8,14 @@
 
   <ItemGroup>
     <PackageReference Include="Avalonia" />
-    <PackageReference Include="Avalonia.Fonts.Inter" />
     <!-- The theme only builds against the DataGrid; an app shows one by referencing it, as here. -->
     <PackageReference Include="Avalonia.Controls.DataGrid" />
   </ItemGroup>
 
   <ItemGroup>
     <!--
-      Noto Sans Arabic, the fallback for the Right to left page's Arabic samples. Roboto and
-      Inter have no Arabic glyphs. A browser has no system fonts to fall back on, so there the
+      Noto Sans Arabic, the fallback for the Right to left page's Arabic samples. Roboto has no
+      Arabic glyphs. A browser has no system fonts to fall back on, so there the
       labels rendered as nothing; on desktop they fell back to whatever Arabic face the OS had,
       which made the pixel baselines depend on the machine's installed fonts. Every head
       registers it through GalleryFonts.

@@ -92,7 +92,6 @@ public static class GalleryFrames
         AppBuilder.Configure<App>()
             .UseSkia()
             .UseHeadless(new AvaloniaHeadlessPlatformOptions { UseHeadlessDrawing = false })
-            .WithInterFont()
             .WithGalleryFonts();
 
     /// <summary>

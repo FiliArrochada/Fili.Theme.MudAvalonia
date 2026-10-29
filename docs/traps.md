@@ -381,7 +381,7 @@ one.
 
 ## The browser build and fonts
 
-- **A browser build has no system fonts.** Text in any script Roboto and Inter lack — the
+- **A browser build has no system fonts.** Text in any script Roboto lacks — the
   gallery's Arabic, first — renders as nothing there while looking fine on desktop, where the OS
   falls back silently. The gallery embeds static Noto Sans Arabic in its own `Assets/Fonts` and
   `GalleryFonts.WithGalleryFonts()` registers it as a `FontManagerOptions.FontFallbacks` entry for

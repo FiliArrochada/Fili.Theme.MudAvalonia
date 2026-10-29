@@ -12,7 +12,6 @@ internal static class Program
     {
         DocAddress.Current = new BrowserDocAddress();
         return BuildAvaloniaApp()
-            .WithInterFont()
             .StartBrowserAppAsync("out");
     }
 

@@ -12,8 +12,7 @@ public static class GalleryFonts
     /// Registers Noto Sans Arabic as the fallback for characters the requested font lacks.
     ///
     /// <para>
-    /// The gallery's right-to-left section is Arabic, and neither Roboto nor Inter has those
-    /// glyphs. Without a registered fallback, the browser build drew those labels as nothing,
+    /// The gallery's right-to-left section is Arabic, and Roboto has none of those glyphs. Without a registered fallback, the browser build drew those labels as nothing,
     /// because a browser has no system fonts, and the desktop drew them with whatever Arabic
     /// face the OS happened to have, so a pixel baseline recorded on one Windows machine was only
     /// a guess about another. Registered here, every head and the pixel suite use the same face.
