@@ -25,7 +25,7 @@ compiled to WebAssembly and served by GitHub Pages; every page has its own addre
 | use one control | its page on [the docs site](https://filiarrochada.github.io/Fili.Theme.MudAvalonia/): examples, code and behaviour |
 | find the class or key for one parameter | the parity table on its component's page; [MudBlazor parity](https://filiarrochada.github.io/Fili.Theme.MudAvalonia/#parity) lists every component |
 | know what is not there | [MudBlazor parity](https://filiarrochada.github.io/Fili.Theme.MudAvalonia/#parity), "What is not here", and each page's Missing rows |
-| upgrade | [Versions](docs/versions.md): what changed, and what to change; [Compatibility](docs/compatibility.md): what a version promises not to change |
+| upgrade | [Versions](docs/versions/README.md): what changed, and what to change; [Compatibility](docs/compatibility.md): what a version promises not to change |
 | work on the theme itself | [Traps](docs/traps.md), [The base](docs/the-base.md), [Testing](docs/testing.md), [Releasing](docs/releasing.md) |
 
 The token values are MudBlazor's defaults, transcribed from its source rather than eyeballed. The
@@ -74,7 +74,7 @@ version-less.
 | Licence | MIT |
 
 What changed in each version, and what to change when upgrading, is in
-[Versions](docs/versions.md).
+[Versions](docs/versions/README.md).
 
 Then add the two includes under [Using it](#using-it).
 
@@ -413,7 +413,7 @@ browser build's trimming can strip, and the page would then render with no base 
 
 [Testing](docs/testing.md) walks through every test class, the pixel baselines and the CI
 workflows, and what each one guards. [Releasing](docs/releasing.md) covers the tag-driven
-publish to nuget.org and its one-time setup. [Versions](docs/versions.md) is the release history.
+publish to nuget.org and its one-time setup. [Versions](docs/versions/README.md) is the release history.
 
 ## Known gaps
 

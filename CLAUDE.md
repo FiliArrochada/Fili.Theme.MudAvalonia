@@ -282,10 +282,12 @@ $env:FILI_REGENERATE = "1"; dotnet test tst/Fili.Theme.MudAvalonia.UnitTests --f
 **Releasing is a tag, and the tag is the human's to push.** `release.yml` runs on `v*` tags,
 reruns both suites, refuses a tag that differs from `<Version>` in `Directory.Build.props`, then
 publishes to nuget.org via trusted publishing and creates the GitHub release. A nuget.org version
-can never be replaced: bump `<Version>` in a reviewed commit, add its row to `docs/versions.md`
-(plus an "Upgrading" section when existing markup changes look), and leave the tag to the human.
-Work since the last release is kept in an *(unreleased)* row and its Upgrading section as it
-lands; at the bump only the marker goes.
+can never be replaced: bump `<Version>` in a reviewed commit, with the version's page in
+`docs/versions/` (plus an "Upgrading" section when existing markup changes look) and its row in
+`docs/versions/README.md`, and leave the tag to the human. Work since the last release is kept in
+`docs/versions/unreleased.md` and its Upgrading section as it lands; at the bump that page is
+renamed to `<version>.md` and its heading and Upgrading heading lose the marker, and the index's
+bold moves from the previous release to the new one.
 
 **`docs/testing.md` describes every test class and workflow.** It carries the test totals, so a
 change that adds tests updates it; the workflows carry none.

@@ -29,7 +29,42 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		docs\testing.md = docs\testing.md
 		docs\the-base.md = docs\the-base.md
 		docs\traps.md = docs\traps.md
-		docs\versions.md = docs\versions.md
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Versions", "Versions", "{F780EF58-BFE4-430E-8B35-7CBABE3C1B95}"
+	ProjectSection(SolutionItems) = preProject
+		docs\versions\README.md = docs\versions\README.md
+		docs\versions\0.1.0.md = docs\versions\0.1.0.md
+		docs\versions\0.1.1.md = docs\versions\0.1.1.md
+		docs\versions\0.10.0.md = docs\versions\0.10.0.md
+		docs\versions\0.11.0.md = docs\versions\0.11.0.md
+		docs\versions\0.12.0.md = docs\versions\0.12.0.md
+		docs\versions\0.13.0.md = docs\versions\0.13.0.md
+		docs\versions\0.14.0.md = docs\versions\0.14.0.md
+		docs\versions\0.15.0.md = docs\versions\0.15.0.md
+		docs\versions\0.16.0.md = docs\versions\0.16.0.md
+		docs\versions\0.17.0.md = docs\versions\0.17.0.md
+		docs\versions\0.18.0.md = docs\versions\0.18.0.md
+		docs\versions\0.19.0.md = docs\versions\0.19.0.md
+		docs\versions\0.2.0.md = docs\versions\0.2.0.md
+		docs\versions\0.20.0.md = docs\versions\0.20.0.md
+		docs\versions\0.21.0.md = docs\versions\0.21.0.md
+		docs\versions\0.22.0.md = docs\versions\0.22.0.md
+		docs\versions\0.23.0.md = docs\versions\0.23.0.md
+		docs\versions\0.24.0.md = docs\versions\0.24.0.md
+		docs\versions\0.3.0.md = docs\versions\0.3.0.md
+		docs\versions\0.4.0.md = docs\versions\0.4.0.md
+		docs\versions\0.5.0.md = docs\versions\0.5.0.md
+		docs\versions\0.5.1.md = docs\versions\0.5.1.md
+		docs\versions\0.6.0.md = docs\versions\0.6.0.md
+		docs\versions\0.7.0.md = docs\versions\0.7.0.md
+		docs\versions\0.8.0.md = docs\versions\0.8.0.md
+		docs\versions\0.9.0.md = docs\versions\0.9.0.md
+		docs\versions\0.9.1.md = docs\versions\0.9.1.md
+		docs\versions\0.9.2.md = docs\versions\0.9.2.md
+		docs\versions\0.9.3.md = docs\versions\0.9.3.md
+		docs\versions\0.9.4.md = docs\versions\0.9.4.md
+		docs\versions\unreleased.md = docs\versions\unreleased.md
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Pipelines", "Pipelines", "{6C4B1D93-2A78-4F5E-9C31-D8E07A61B4F2}"
@@ -144,6 +179,7 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
+		{F780EF58-BFE4-430E-8B35-7CBABE3C1B95} = {3F1C8A7E-5D42-4B96-9E1A-7C0D2B84F6A1}
 		{735E15A1-7D09-4E02-A186-668D6F31ABC3} = {827E0CD3-B72D-47B6-A68D-7590B98EB39B}
 		{B9E6B4DA-64EA-4566-93B5-169927A9E87B} = {827E0CD3-B72D-47B6-A68D-7590B98EB39B}
 		{F736A4BE-A692-49D1-B473-B1E2B87FA296} = {827E0CD3-B72D-47B6-A68D-7590B98EB39B}

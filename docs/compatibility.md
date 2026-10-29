@@ -2,7 +2,7 @@
 
 What an app can rely on from one version of `Fili.MudAvalonia.Theme` to the next. From 1.0 the
 package follows semantic versioning over the interface below; before 1.0, a minor version could
-break it, and each one that did has an "Upgrading" section in [Versions](versions.md).
+break it, and each one that did has an "Upgrading" section in [Versions](versions/README.md).
 
 A theme's interface is mostly not C#. It is the names an app writes in its own XAML: the two
 include paths, the classes, the resource keys. Those are what this page promises, and each is
@@ -28,7 +28,7 @@ until the next major version.
 
 - **Additions.** A new class, key or optional package. A new class is not free - class names are
   MudBlazor's ordinary words, and one an app already uses picks up the theme's setters - so each
-  is named in [Versions](versions.md).
+  is named in [Versions](versions/README.md).
 - **A look moving closer to MudBlazor.** A value transcribed wrongly is corrected, and a pixel
   baseline moves with it. A change an app would notice on screen gets a line in Versions.
 - **The MudBlazor version tracked.** The theme transcribes MudBlazor 9.11; following a newer one
