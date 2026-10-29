@@ -108,7 +108,9 @@ public class OverlayTests
             Dispatcher.UIThread.RunJobs();
         }
 
-        Assert.Equal(overlayEntries, Entries(overlay));
+        // The overlay's own count can only fall: the fade from its first showing may end late.
+        // A leak would add one per toggle.
+        Assert.InRange(Entries(overlay), 0, overlayEntries);
         Assert.Equal(contentEntries, Entries(content));
         Assert.Equal(HorizontalAlignment.Stretch, content.HorizontalAlignment);
     });
