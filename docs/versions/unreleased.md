@@ -51,7 +51,9 @@ only a `dense` data grid's cells look for the grid's last column. And a control 
 builds its ripple's canvas on its first press rather than when it is shown, a typical screen
 building 5% fewer visuals. A list or tree row is built without the multi-selection checkbox
 unless its list has `multi-selection`, where every row carried it hidden: 200 list rows allocate
-a quarter less and build a fifth faster. See [Upgrading from 0.24.0 to 0.25.0](#upgrading-from-0240-to-0250-unreleased).
+a quarter less and build a fifth faster. A list's colour class sets its selected row's colour
+on the list for its rows to inherit, where three styles per colour reached every row: a list
+row carries a quarter fewer style entries and allocates 8% less. See [Upgrading from 0.24.0 to 0.25.0](#upgrading-from-0240-to-0250-unreleased).
 
 ## Upgrading from 0.24.0 to 0.25.0 *(unreleased)*
 

@@ -140,6 +140,8 @@ One line each; [`docs/traps.md`](docs/traps.md) has the full account and the tes
   cost more than the descendant styles it replaced; set it from the host in code (`IconSlot`,
   `ChildAlignment`). No selector ends in `:is(Control)` or `:is(Panel)` at all: a class names the
   controls it goes on (`StyleCostTests.NoSelectorEndsInEveryControl`).
+- Fewer style instances is not always less time: a tree built 55% slower with 14 of its styles
+  deleted. Keep a style-cost change only on a timed benchmark (`docs/traps.md`).
 - A style's `Theme` setter names its control theme with `DynamicResource`: a `StaticResource`
   builds the theme, nested styles and all, at load in every app (`StyleCostTests`).
 - A helper's `SetValue` below LocalValue returns an entry: keep it and dispose it to let go.

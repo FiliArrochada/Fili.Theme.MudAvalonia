@@ -158,11 +158,13 @@
       <Setter Property="Background" Value="{DynamicResource FiliOverlayHoverBrush}" />
     </Style>
 
+    <!-- The list's colour, inherited from it (Accent.RowColour and RowHover): primary, or its
+         colour class's. -->
     <Style Selector="^:selected">
-      <Setter Property="Foreground" Value="{DynamicResource FiliPrimaryBrush}" />
+      <Setter Property="Foreground" Value="{Binding $self.(theme:Accent.RowColour)}" />
     </Style>
     <Style Selector="^:selected /template/ theme|PartBorder#PART_StateLayer">
-      <Setter Property="Background" Value="{DynamicResource FiliPrimaryHoverBrush}" />
+      <Setter Property="Background" Value="{Binding $self.(theme:Accent.RowHover)}" />
     </Style>
     <!-- Hovering an already-selected row deepens the same tint rather than swapping to grey. -->
     <Style Selector="^:selected:pointerover /template/ theme|PartBorder#PART_StateLayer">
@@ -185,6 +187,9 @@
     <Setter Property="FontFamily" Value="{DynamicResource FiliFontFamily}" />
     <Setter Property="FontSize" Value="{DynamicResource FiliBody1FontSize}" />
     <Setter Property="ItemContainerTheme" Value="{StaticResource FiliListBoxItem}" />
+    <!-- MudList's Color, primary by default: its rows read it, and a colour class sets it. -->
+    <Setter Property="theme:Accent.RowColour" Value="{DynamicResource FiliPrimaryBrush}" />
+    <Setter Property="theme:Accent.RowHover" Value="{DynamicResource FiliPrimaryHoverBrush}" />
     <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Disabled" />
 
     <Setter Property="Template">

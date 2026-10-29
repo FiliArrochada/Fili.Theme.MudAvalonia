@@ -332,7 +332,11 @@ for something XAML cannot express on its own:
   thumb, track, halo and ripple for its state; a button's hover tint and a filled button's
   darken and group seam; a tab bar's ground, contrast text and lighten tint; a multi-selection
   list's checkbox colours. A colour is one style setting these, and one set of state styles
-  reads them, where each colour had a style per part and state.
+  reads them, where each colour had a style per part and state. A list's selected-row colour and
+  tint (`RowColour`, `RowHover`) are inherited: the list's theme sets primary, a colour class its
+  colour, and the row's own theme reads them, so no style reaches from a list to its rows for a
+  colour. A row in a list whose theme is an app's own, not based on the theme's, has no colour
+  to read; base the list's theme on the theme's, or set the two values on it.
 - **`ChildAlignment`** centres a host's children: an `avatar`'s content both ways, a `toolbar`'s
   row and its items, a `card-actions` panel's items. The host's style sets it, and it follows
   the children as they come and go. They were child selectors ending in `:is(Control)`, matched

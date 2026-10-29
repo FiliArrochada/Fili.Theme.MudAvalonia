@@ -95,6 +95,30 @@ public class ParityOptionsTests
         Assert.Equal(Matrix.Token($"Fili{colour}HoverColor"), Matrix.Colour(ground));
     });
 
+    /// <summary>
+    /// The colour is set on the list and inherited by its rows, so a class changed while a row is
+    /// selected recolours it, and a list with no colour class is primary.
+    /// </summary>
+    [Fact]
+    public Task AListsColourFollowsItsClass() => UiThread.RunAsync(() =>
+    {
+        var list = List();
+        list.SelectedIndex = 0;
+        Dispatcher.UIThread.RunJobs();
+        var row = Row(list, 0);
+        Assert.Equal(Matrix.Token("FiliPrimaryColor"), Matrix.Colour(row.Foreground));
+
+        list.Classes.Add("error");
+        Dispatcher.UIThread.RunJobs();
+        Assert.Equal(Matrix.Token("FiliErrorColor"), Matrix.Colour(row.Foreground));
+        Assert.Equal(Matrix.Token("FiliErrorHoverColor"),
+            Matrix.Colour(Matrix.Part<Border>(row, "PART_StateLayer").GetBaseValue(Border.BackgroundProperty).GetValueOrDefault()));
+
+        list.Classes.Remove("error");
+        Dispatcher.UIThread.RunJobs();
+        Assert.Equal(Matrix.Token("FiliPrimaryColor"), Matrix.Colour(row.Foreground));
+    });
+
     [Theory]
     [InlineData("Primary")]
     [InlineData("Warning")]

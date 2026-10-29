@@ -87,8 +87,8 @@ public static class ThemeColourGenerator
             (Controls("ComboBox.axaml"), SelectAdornmentLabel, SelectAdornmentRegion()),
             (Controls("ToggleButton.axaml"), ToggleLabel, ToggleRegion()),
             (Controls("HyperlinkButton.axaml"), LinkLabel, LinkRegion()),
-            (FiliThemePath, ListLabel, SelectionRegion("ListBox", "ListBoxItem", "Border#PART_StateLayer", list: true)),
-            (FiliThemePath, TreeLabel, SelectionRegion("TreeView", "TreeViewItem", "Border#SelectionBorder", list: false)),
+            (FiliThemePath, ListLabel, ListSelectionRegion()),
+            (FiliThemePath, TreeLabel, SelectionRegion("TreeView", "TreeViewItem", "Border#SelectionBorder")),
             (FiliThemePath, NavLabel, NavRegion()),
             (Controls("Fab.axaml"), FabLabel, FabRegion()),
             (Controls("Badge.axaml"), BadgeLabel, BadgeRegion()),
@@ -999,26 +999,40 @@ public static class ThemeColourGenerator
         string.Concat(Colours.Select(c => Style($"^.{c.ToLowerInvariant()}", ("Foreground", Res($"Fili{c}Brush")))));
 
     /// <summary>
-    /// MudList's and MudTreeView's Color on the selected row: the colour as the text over its
-    /// hover tint. Styles, since they reach from the list to its rows, so they sit at the top
-    /// level of FiliTheme.axaml; Primary is the rows' own theme. A list row's text is its
-    /// Foreground and its theme deepens a selected row under the pointer, which a Style would
-    /// otherwise override; a tree row's text is its header presenter's.
+    /// MudTreeView's Color on the selected row: the colour as the header's text over its hover
+    /// tint. Styles, since they reach from the tree to its rows, so they sit at the top level of
+    /// FiliTheme.axaml; Primary is the rows' own theme.
     /// </summary>
-    private static string SelectionRegion(string owner, string row, string ground, bool list)
+    /// <remarks>
+    /// Not moved onto inherited values as the list's were: measured on a plain 200-row tree,
+    /// taking these styles out, with nothing in their place, built it 55% slower (docs/traps.md).
+    /// </remarks>
+    private static string SelectionRegion(string owner, string row, string ground)
     {
         var o = new StringBuilder();
         foreach (var c in Colours.Where(c => c != "Primary"))
         {
             var sel = $"{owner}.{c.ToLowerInvariant()} {row}:selected";
-            o.Append(list
-                ? Style(sel, ("Foreground", Res($"Fili{c}Brush")))
-                : Style($"{sel} /template/ ContentPresenter#PART_HeaderPresenter", ("Foreground", Res($"Fili{c}Brush"))));
+            o.Append(Style($"{sel} /template/ ContentPresenter#PART_HeaderPresenter", ("Foreground", Res($"Fili{c}Brush"))));
             o.Append(Style($"{sel} /template/ {ground}", ("Background", Res($"Fili{c}HoverBrush"))));
-            if (list)
-            {
-                o.Append(Style($"{sel}:pointerover /template/ {ground}", ("Background", Res("FiliOverlayPressedBrush"))));
-            }
+        }
+
+        return TopLevel(o.ToString());
+    }
+
+    /// <summary>
+    /// MudList's Color on the selected row: the colour as the text over its hover tint. A colour
+    /// is one style on the list, setting the inherited Accent.RowColour and RowHover that its
+    /// rows' own theme reads; no style reaches from the list to its rows, so a row is matched
+    /// against none of them. Primary is the list's own theme's.
+    /// </summary>
+    private static string ListSelectionRegion()
+    {
+        var o = new StringBuilder();
+        foreach (var c in Colours.Where(c => c != "Primary"))
+        {
+            o.Append(Style($"ListBox.{c.ToLowerInvariant()}",
+                ("theme:Accent.RowColour", Res($"Fili{c}Brush")), ("theme:Accent.RowHover", Res($"Fili{c}HoverBrush"))));
         }
 
         return TopLevel(o.ToString());

@@ -465,6 +465,12 @@ its own, so tune against the gallery rather than against an app.
   centred after the class went, and grew by an entry with every toggle. Keep the `IDisposable`
   `SetValue` returns and dispose it (`OverlayTests.TogglingTheClassLeavesNothingBehind`), as
   `IconSlot` and `ChildAlignment` do.
+- **Fewer style instances is not always less time: measure the build.** Moving a list's colours
+  onto inherited values took its rows from 82 instances to 61 and built 200 of them 4% faster.
+  The same move on a tree took its rows from 117 to 90 and built a plain 200-row tree 30% SLOWER;
+  just deleting the tree's 14 colour styles, with nothing in their place, made it 55% slower
+  (113ms to 172), repeatably. The tree's colours stay as they were. A style-cost change keeps
+  only what a timed benchmark shows, not what an instance count promises.
 - **A property selector on an inherited value watches every control too.** The 23 descendant
   styles that sized `start-icon` and `end-icon` per host (`Button.small :is(Control).start-icon`)
   were rewritten as three, `:is(Control).start-icon[(theme|IconSlot.StartsSized)=True]` and two

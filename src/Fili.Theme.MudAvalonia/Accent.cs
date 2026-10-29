@@ -30,7 +30,10 @@ namespace Fili.Theme.MudAvalonia;
 /// A tab bar's colour class sets <see cref="BarProperty"/>, <see cref="GroundProperty"/> and the
 /// contrast text and lighten tint as <see cref="ColourProperty"/> and <see cref="HoverProperty"/>;
 /// one set of styles reads them for every colour, where each colour had its own styles on every
-/// tab. A multi-selection list's colour class sets the colour and hover of its rows' checkboxes
+/// tab. A list's selected row is <see cref="RowColourProperty"/> over <see cref="RowHoverProperty"/>,
+/// inherited from the list: its theme sets primary and a colour class its colour, and the row's
+/// own theme reads them, so no style reaches from the list to its rows for a colour. A
+/// multi-selection list's colour class sets the colour and hover of its rows' checkboxes
 /// the same way, and a filled button's the line between it and the button before it in a group
 /// (<see cref="SeamProperty"/>).
 /// </para>
@@ -76,6 +79,14 @@ internal sealed class Accent
     /// <summary>A tab bar with a colour class: the styles that read its colours apply.</summary>
     public static readonly AttachedProperty<bool> BarProperty =
         AvaloniaProperty.RegisterAttached<Accent, Control, bool>("Bar");
+
+    /// <summary>A list's selected row's text: primary, or the colour class's. Inherited.</summary>
+    public static readonly AttachedProperty<IBrush?> RowColourProperty =
+        AvaloniaProperty.RegisterAttached<Accent, Control, IBrush?>("RowColour", inherits: true);
+
+    /// <summary>A list's selected row's tint: primary's hover, or the colour's. Inherited.</summary>
+    public static readonly AttachedProperty<IBrush?> RowHoverProperty =
+        AvaloniaProperty.RegisterAttached<Accent, Control, IBrush?>("RowHover", inherits: true);
 
     /// <summary>A coloured tab bar's ground.</summary>
     public static readonly AttachedProperty<IBrush?> GroundProperty =
@@ -154,6 +165,14 @@ internal sealed class Accent
     public static bool GetBar(Control c) => c.GetValue(BarProperty);
 
     public static void SetBar(Control c, bool value) => c.SetValue(BarProperty, value);
+
+    public static IBrush? GetRowColour(Control c) => c.GetValue(RowColourProperty);
+
+    public static void SetRowColour(Control c, IBrush? value) => c.SetValue(RowColourProperty, value);
+
+    public static IBrush? GetRowHover(Control c) => c.GetValue(RowHoverProperty);
+
+    public static void SetRowHover(Control c, IBrush? value) => c.SetValue(RowHoverProperty, value);
 
     public static IBrush? GetGround(Control c) => c.GetValue(GroundProperty);
 
