@@ -89,6 +89,24 @@ public class StyleCostTests
         Assert.True(universal.Count == 0, "Matched against every control: " + string.Join("; ", universal));
     });
 
+    /// <summary>
+    /// A top-level style that switches a control's theme names it with <c>DynamicResource</c>. A
+    /// <c>StaticResource</c> is resolved as the styles load, which builds the control theme and
+    /// every style nested in it, the chip's 395 among them, in every app whether it shows one or
+    /// not: the 20 such setters were 80 of a 300ms cold load, and a control's first showing costs
+    /// the same either way.
+    /// </summary>
+    [Fact]
+    public Task NoStyleBuildsAControlThemeAtLoad() => UiThread.RunAsync(() =>
+    {
+        var file = Path.Combine(GeneratedThemeTests.ThemeDirectory(), "FiliTheme.axaml");
+        var eager = Regex.Matches(File.ReadAllText(file), @"<Setter Property=""Theme"" Value=""\{StaticResource ([^}]*)\}""")
+            .Select(m => m.Groups[1].Value)
+            .ToList();
+
+        Assert.True(eager.Count == 0, "Built at load: " + string.Join(", ", eager));
+    });
+
     private static IEnumerable<string> TemplateFiles()
     {
         var theme = GeneratedThemeTests.ThemeDirectory();

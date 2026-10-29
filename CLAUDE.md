@@ -138,6 +138,10 @@ One line each; [`docs/traps.md`](docs/traps.md) has the full account and the tes
   cost more than the descendant styles it replaced; set it from the host in code (`IconSlot`,
   `ChildAlignment`). No selector ends in `:is(Control)` or `:is(Panel)` at all: a class names the
   controls it goes on (`StyleCostTests.NoSelectorEndsInEveryControl`).
+- A style's `Theme` setter names its control theme with `DynamicResource`: a `StaticResource`
+  builds the theme, nested styles and all, at load in every app (`StyleCostTests`).
+- A helper's `SetValue` below LocalValue returns an entry: keep it and dispose it to let go.
+  Writing `UnsetValue` at that priority adds an entry and leaves the old value showing.
 - A colour class sets `Accent`'s values on the control in ONE style; the template binds them
   and a state style shows them. Never a style per colour per part per state: a checkbox carried
   176 of them, each an instance on every checkbox (`docs/traps.md`).

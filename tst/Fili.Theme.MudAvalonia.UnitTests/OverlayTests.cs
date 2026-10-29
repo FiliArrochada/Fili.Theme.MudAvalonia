@@ -82,6 +82,48 @@ public class OverlayTests
         Assert.Equal(new CornerRadius(0), overlay.CornerRadius);
     });
 
+    /// <summary>
+    /// Losing the class gives the content its own alignment back, and toggling it leaves nothing
+    /// behind: each value the helper sets is an entry in the content's value store, and writing
+    /// UnsetValue over them added a third rather than removing them, so the content stayed centred
+    /// and grew by an entry with every toggle.
+    /// </summary>
+    [Fact]
+    public Task TogglingTheClassLeavesNothingBehind() => UiThread.RunAsync(() =>
+    {
+        var (_, overlay, content) = Covering("dark-background");
+        overlay.Classes.Remove("overlay");
+        Settle();
+        Settle();
+        Assert.Equal(HorizontalAlignment.Stretch, content.HorizontalAlignment);
+        Assert.Equal(VerticalAlignment.Stretch, content.VerticalAlignment);
+
+        var (overlayEntries, contentEntries) = (Entries(overlay), Entries(content));
+        for (var i = 0; i < 5; i++)
+        {
+            // Each showing fades in, and a running animation is an entry until it ends.
+            overlay.Classes.Add("overlay");
+            Settle();
+            overlay.Classes.Remove("overlay");
+            Dispatcher.UIThread.RunJobs();
+        }
+
+        Assert.Equal(overlayEntries, Entries(overlay));
+        Assert.Equal(contentEntries, Entries(content));
+        Assert.Equal(HorizontalAlignment.Stretch, content.HorizontalAlignment);
+    });
+
+    /// <summary>
+    /// How many entries a control's value store holds: Avalonia keeps them in an internal list,
+    /// so this reads it, as nothing public counts them.
+    /// </summary>
+    private static int Entries(AvaloniaObject control)
+    {
+        const System.Reflection.BindingFlags Hidden = System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance;
+        var store = typeof(AvaloniaObject).GetMethod("GetValueStore", Hidden)!.Invoke(control, null)!;
+        return ((System.Collections.IList)store.GetType().GetField("_frames", Hidden)!.GetValue(store)!).Count;
+    }
+
     /// <summary>A Border without the class is untouched: no centring, no corners taken.</summary>
     [Fact]
     public Task APlainBorderIsLeftAlone() => UiThread.RunAsync(() =>
@@ -137,15 +179,16 @@ public class OverlayTests
             Assert.True(seen.Any(o => o < 0.9), $"Show {show} never faded: {string.Join(", ", seen.Distinct())}.");
             Settle();
         }
-
-        static void Settle()
-        {
-            for (var i = 0; i < 30; i++)
-            {
-                Thread.Sleep(10);
-                AvaloniaHeadlessPlatform.ForceRenderTimerTick();
-                Dispatcher.UIThread.RunJobs();
-            }
-        }
     });
+
+    /// <summary>Lets a fade run out: headless, the animation clock moves only on a render tick.</summary>
+    private static void Settle()
+    {
+        for (var i = 0; i < 30; i++)
+        {
+            Thread.Sleep(10);
+            AvaloniaHeadlessPlatform.ForceRenderTimerTick();
+            Dispatcher.UIThread.RunJobs();
+        }
+    }
 }

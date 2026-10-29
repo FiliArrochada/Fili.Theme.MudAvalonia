@@ -453,6 +453,18 @@ its own, so tune against the gallery rather than against an app.
   template binds them, so a checkbox has 43 and a tab is matched against one set of bar styles
   rather than each colour's. The screen went to 25,000 instances, 39 MB of allocations to 31 and
   hover to half its cost (`StyleCostTests.NoSelectorEndsInEveryControl`).
+- **A `StaticResource` in a style's `Theme` setter builds that control theme at load.** It is
+  resolved as the styles load, so the theme and every style nested in it are built in every app,
+  whether it shows one or not: the 20 setters that switch a button, chip, field, badge or nav
+  menu to its variant's theme were 80ms of a 300ms cold load. As `DynamicResource` the theme is
+  built when a control first uses it, and a screen showing one of each first showed in the same
+  time either way (`StyleCostTests.NoStyleBuildsAControlThemeAtLoad`).
+- **A value set below LocalValue is an entry of its own, which UnsetValue does not remove.** A
+  helper that centred an overlay's content at StyleTrigger and "released" it by writing
+  `UnsetValue` at the same priority added a third entry above the two: the content stayed
+  centred after the class went, and grew by an entry with every toggle. Keep the `IDisposable`
+  `SetValue` returns and dispose it (`OverlayTests.TogglingTheClassLeavesNothingBehind`), as
+  `IconSlot` and `ChildAlignment` do.
 - **A property selector on an inherited value watches every control too.** The 23 descendant
   styles that sized `start-icon` and `end-icon` per host (`Button.small :is(Control).start-icon`)
   were rewritten as three, `:is(Control).start-icon[(theme|IconSlot.StartsSized)=True]` and two

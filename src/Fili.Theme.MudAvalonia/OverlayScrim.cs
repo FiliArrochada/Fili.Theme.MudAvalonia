@@ -1,3 +1,4 @@
+using System.Runtime.CompilerServices;
 using Avalonia;
 using Avalonia.Animation;
 using Avalonia.Animation.Easings;
@@ -120,16 +121,39 @@ internal sealed class OverlayScrim
         }
     }
 
+    /// <summary>
+    /// The centring set on each child: a value set below LocalValue priority is an entry of its
+    /// own, which a second SetValue adds to rather than replaces, so it is disposed to let go.
+    /// Writing UnsetValue instead left both entries behind on every toggle of the class.
+    /// </summary>
+    private static readonly ConditionalWeakTable<Control, IDisposable[]> Centred = new();
+
     private static void Centre(Control? child)
     {
-        child?.SetValue(Layoutable.HorizontalAlignmentProperty, HorizontalAlignment.Center, BindingPriority.StyleTrigger);
-        child?.SetValue(Layoutable.VerticalAlignmentProperty, VerticalAlignment.Center, BindingPriority.StyleTrigger);
+        if (child is null)
+        {
+            return;
+        }
+
+        Release(child);
+        IDisposable?[] set =
+        [
+            child.SetValue(Layoutable.HorizontalAlignmentProperty, HorizontalAlignment.Center, BindingPriority.StyleTrigger),
+            child.SetValue(Layoutable.VerticalAlignmentProperty, VerticalAlignment.Center, BindingPriority.StyleTrigger),
+        ];
+        Centred.AddOrUpdate(child, [.. set.OfType<IDisposable>()]);
     }
 
     private static void Release(Control? child)
     {
-        child?.SetValue(Layoutable.HorizontalAlignmentProperty, AvaloniaProperty.UnsetValue, BindingPriority.StyleTrigger);
-        child?.SetValue(Layoutable.VerticalAlignmentProperty, AvaloniaProperty.UnsetValue, BindingPriority.StyleTrigger);
+        if (child is not null && Centred.TryGetValue(child, out var set))
+        {
+            Centred.Remove(child);
+            foreach (var entry in set)
+            {
+                entry.Dispose();
+            }
+        }
     }
 
     private static void TakeCorners(Border border)

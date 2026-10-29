@@ -1676,15 +1676,15 @@
     itself (Themes/Controls/Button.axaml), so `filled primary small` composes.
   -->
   <Style Selector="Button.text">
-    <Setter Property="Theme" Value="{StaticResource FiliTextButton}" />
+    <Setter Property="Theme" Value="{DynamicResource FiliTextButton}" />
   </Style>
 
   <Style Selector="Button.outlined">
-    <Setter Property="Theme" Value="{StaticResource FiliOutlinedButton}" />
+    <Setter Property="Theme" Value="{DynamicResource FiliOutlinedButton}" />
   </Style>
 
   <Style Selector="Button.filled">
-    <Setter Property="Theme" Value="{StaticResource FiliFilledButton}" />
+    <Setter Property="Theme" Value="{DynamicResource FiliFilledButton}" />
   </Style>
 
   <!--
@@ -1693,17 +1693,17 @@
     as ITS variants. Themes/Controls/Chip.axaml.
   -->
   <Style Selector="Button.chip">
-    <Setter Property="Theme" Value="{StaticResource FiliChip}" />
+    <Setter Property="Theme" Value="{DynamicResource FiliChip}" />
   </Style>
   <!-- A chip with nothing to do: MudChip with neither OnClick nor Href. A type selector matches
        its type exactly, so this never reaches a Button, a ContentControl itself. -->
   <Style Selector="ContentControl.chip">
-    <Setter Property="Theme" Value="{StaticResource FiliStaticChip}" />
+    <Setter Property="Theme" Value="{DynamicResource FiliStaticChip}" />
   </Style>
   <!-- MudListItem with OnClick or Href: a row that acts, outside a selecting list.
        Themes/Controls/ListBox.axaml. After the variants and the chip, so `list-item` wins. -->
   <Style Selector="Button.list-item">
-    <Setter Property="Theme" Value="{StaticResource FiliListItemButton}" />
+    <Setter Property="Theme" Value="{DynamicResource FiliListItemButton}" />
   </Style>
 
   <!--
@@ -1714,13 +1714,13 @@
     and the second shows only while checked. Before the chip's, so `chip` wins over `icon`.
   -->
   <Style Selector="ToggleButton.icon">
-    <Setter Property="Theme" Value="{StaticResource FiliToggleIconButton}" />
+    <Setter Property="Theme" Value="{DynamicResource FiliToggleIconButton}" />
   </Style>
   <Style Selector="ToggleButton.icon.outlined">
-    <Setter Property="Theme" Value="{StaticResource FiliOutlinedToggleIconButton}" />
+    <Setter Property="Theme" Value="{DynamicResource FiliOutlinedToggleIconButton}" />
   </Style>
   <Style Selector="ToggleButton.icon.filled">
-    <Setter Property="Theme" Value="{StaticResource FiliFilledToggleIconButton}" />
+    <Setter Property="Theme" Value="{DynamicResource FiliFilledToggleIconButton}" />
   </Style>
   <Style Selector="ToggleButton.icon:checked :is(Panel) > PathIcon:nth-child(1):nth-last-child(2)">
     <Setter Property="IsVisible" Value="False" />
@@ -1729,7 +1729,7 @@
     <Setter Property="IsVisible" Value="False" />
   </Style>
   <Style Selector="ToggleButton.chip">
-    <Setter Property="Theme" Value="{StaticResource FiliChip}" />
+    <Setter Property="Theme" Value="{DynamicResource FiliChip}" />
   </Style>
 
   <!--
@@ -1741,7 +1741,7 @@
     add: a style cannot add a class. No colour class, so checked looks as unchecked does.
   -->
   <Style Selector="DrawerPage /template/ ToggleButton#PART_PaneButton, DrawerPage /template/ ToggleButton#PART_BottomPaneButton, DrawerPage /template/ ToggleButton#PART_CompactPaneToggle">
-    <Setter Property="Theme" Value="{StaticResource FiliToggleIconButton}" />
+    <Setter Property="Theme" Value="{DynamicResource FiliToggleIconButton}" />
     <Setter Property="CornerRadius" Value="999" />
     <Setter Property="Padding" Value="12" />
     <Setter Property="MinWidth" Value="0" />
@@ -1767,19 +1767,19 @@
   <!-- MudFab is a theme a Button takes, like a chip, and reads `outlined` and `text` itself as ITS
        variants - filled being its default. Themes/Controls/Fab.axaml. -->
   <Style Selector="Button.fab">
-    <Setter Property="Theme" Value="{StaticResource FiliFab}" />
+    <Setter Property="Theme" Value="{DynamicResource FiliFab}" />
   </Style>
 
   <!-- MudBadge is a theme a HeaderedContentControl takes: Content is what it decorates, Header the
        badge. Themes/Controls/Badge.axaml. -->
   <Style Selector="HeaderedContentControl.badge">
-    <Setter Property="Theme" Value="{StaticResource FiliBadge}" />
+    <Setter Property="Theme" Value="{DynamicResource FiliBadge}" />
   </Style>
 
   <!-- MudProgressCircular is a theme a ProgressBar takes, as a chip is one a Button takes; it reads
        the size, colour and `rounded` classes itself. Themes/Controls/ProgressCircular.axaml. -->
   <Style Selector="ProgressBar.circular">
-    <Setter Property="Theme" Value="{StaticResource FiliProgressCircular}" />
+    <Setter Property="Theme" Value="{DynamicResource FiliProgressCircular}" />
   </Style>
 
   <!--
@@ -1906,19 +1906,19 @@
   </Style>
 
   <Style Selector="TextBox.filled">
-    <Setter Property="Theme" Value="{StaticResource FiliFilledTextBox}" />
+    <Setter Property="Theme" Value="{DynamicResource FiliFilledTextBox}" />
   </Style>
 
   <Style Selector="TextBox.outlined">
-    <Setter Property="Theme" Value="{StaticResource FiliOutlinedTextBox}" />
+    <Setter Property="Theme" Value="{DynamicResource FiliOutlinedTextBox}" />
   </Style>
 
   <Style Selector="ComboBox.filled">
-    <Setter Property="Theme" Value="{StaticResource FiliFilledComboBox}" />
+    <Setter Property="Theme" Value="{DynamicResource FiliFilledComboBox}" />
   </Style>
 
   <Style Selector="ComboBox.outlined">
-    <Setter Property="Theme" Value="{StaticResource FiliOutlinedComboBox}" />
+    <Setter Property="Theme" Value="{DynamicResource FiliOutlinedComboBox}" />
   </Style>
 
   <!--
@@ -2215,10 +2215,10 @@
     and the colours, which share the tree's selection colours below and add their own.
   -->
   <Style Selector="TreeView.nav">
-    <Setter Property="Theme" Value="{StaticResource FiliNavMenu}" />
+    <Setter Property="Theme" Value="{DynamicResource FiliNavMenu}" />
   </Style>
   <Style Selector="TreeView.nav TreeViewItem">
-    <Setter Property="Theme" Value="{StaticResource FiliNavItem}" />
+    <Setter Property="Theme" Value="{DynamicResource FiliNavItem}" />
   </Style>
   <Style Selector="TreeView.nav.rounded TreeViewItem">
     <Setter Property="CornerRadius" Value="{DynamicResource FiliCornerRadius}" />
