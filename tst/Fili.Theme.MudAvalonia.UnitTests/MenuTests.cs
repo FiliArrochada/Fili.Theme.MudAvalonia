@@ -2,6 +2,7 @@ using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.Presenters;
 using Avalonia.Threading;
+using Avalonia.VisualTree;
 using Xunit;
 
 namespace Fili.Theme.MudAvalonia.UnitTests;
@@ -32,6 +33,20 @@ public class MenuTests
         new() { Header = header, Icon = icon ? new PathIcon { Data = Avalonia.Media.Geometry.Parse("M0,0 L24,24") } : null };
 
     private static ContentPresenter IconColumn(MenuItem row) => Matrix.Part<ContentPresenter>(row, "PART_IconPresenter");
+
+    /// <summary>
+    /// `.mud-popover` scrolls: a menu longer than the screen scrolls in its sheet, as the forked
+    /// base's did, rather than being measured in full and running off the edge.
+    /// </summary>
+    [Fact]
+    public Task ALongMenuScrollsInItsSheet() => UiThread.RunAsync(() =>
+    {
+        var rows = Open(Enumerable.Range(0, 100).Select(i => Row("Row " + i)).ToArray());
+        var scroller = rows[0].GetVisualAncestors().OfType<ScrollViewer>().First();
+
+        Assert.True(scroller.Extent.Height > scroller.Viewport.Height,
+            $"100 rows of 48px should overflow the sheet: extent {scroller.Extent.Height}, viewport {scroller.Viewport.Height}");
+    });
 
     [Fact]
     public Task ARowIsMudMenuItemsBody1At48px() => UiThread.RunAsync(() =>

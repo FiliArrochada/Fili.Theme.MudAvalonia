@@ -114,8 +114,12 @@
                       Padding="0,4"
                       MinWidth="112"
                       Margin="8">
-                <ItemsPresenter x:Name="PART_ItemsPresenter"
-                                ItemsPanel="{TemplateBinding ItemsPanel}" />
+                <!-- `.mud-popover` scrolls (overflow-y: auto): a menu longer than the screen
+                     scrolls in its sheet rather than running off it. -->
+                <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
+                  <ItemsPresenter x:Name="PART_ItemsPresenter"
+                                  ItemsPanel="{TemplateBinding ItemsPanel}" />
+                </ScrollViewer>
               </theme:PartBorder>
             </Popup>
           </Panel>
@@ -230,8 +234,12 @@
                       Padding="0,4"
                       MinWidth="112"
                       Margin="8">
-                <ItemsPresenter x:Name="PART_ItemsPresenter"
-                                ItemsPanel="{TemplateBinding ItemsPanel}" />
+                <!-- `.mud-popover` scrolls (overflow-y: auto): a menu longer than the screen
+                     scrolls in its sheet rather than running off it. -->
+                <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
+                  <ItemsPresenter x:Name="PART_ItemsPresenter"
+                                  ItemsPanel="{TemplateBinding ItemsPanel}" />
+                </ScrollViewer>
               </theme:PartBorder>
             </Popup>
           </Panel>
@@ -289,8 +297,12 @@
                 BoxShadow="{DynamicResource FiliElevation8}"
                 Padding="0,4"
                 MinWidth="112">
-          <ItemsPresenter x:Name="PART_ItemsPresenter"
-                          ItemsPanel="{TemplateBinding ItemsPanel}" />
+          <!-- `.mud-popover` scrolls (overflow-y: auto): a menu longer than the screen
+               scrolls in its sheet rather than running off it. -->
+          <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
+            <ItemsPresenter x:Name="PART_ItemsPresenter"
+                            ItemsPanel="{TemplateBinding ItemsPanel}" />
+          </ScrollViewer>
         </theme:PartBorder>
       </ControlTemplate>
     </Setter>

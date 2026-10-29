@@ -56,7 +56,9 @@ on the list for its rows to inherit, where three styles per colour reached every
 row carries a quarter fewer style entries and allocates 8% less. A text field builds its helper
 line only when it has helper text, an error or `counter`, and its clear button only with
 `clearable`, where every field carried both hidden: 200 fields build a third faster in 40% less
-memory, and a typical screen 14% faster. A select builds its helper line the same way. See [Upgrading from 0.24.0 to 0.25.0](#upgrading-from-0240-to-0250-unreleased).
+memory, and a typical screen 14% faster. A select builds its helper line the same way. And a
+menu longer than the screen - a context menu, a flyout's or a submenu - scrolls in its sheet, as
+`.mud-popover` does, where it was measured in full and ran off the edge. See [Upgrading from 0.24.0 to 0.25.0](#upgrading-from-0240-to-0250-unreleased).
 
 ## Upgrading from 0.24.0 to 0.25.0 *(unreleased)*
 
