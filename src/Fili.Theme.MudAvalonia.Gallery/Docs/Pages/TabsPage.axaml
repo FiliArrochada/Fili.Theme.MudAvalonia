@@ -79,6 +79,8 @@
                       Description="Avalonia's TabbedPage is MudTabs: its pages' headers are the theme's own tabs, sliding indicator and all. How pages switch stays Avalonia's."
                       Source="Tabs/TabbedPage" />
 
+    <TextBlock Classes="body1 p" Text="MudBlazor's sorting, drag and drop, visibility and keep-alive examples are behaviour, with no look of their own: the tabs' order is the app's ItemsSource, IsVisible hides a tab, and a TabControl's tabs cannot be dragged." />
+
     <TextBlock Classes="h5 section" Text="MudBlazor parity" />
     <TextBlock Classes="body1 p">
       <Run Text="Every MudTabs parameter and what it is here, with the page type that draws tabs. " /><Run Classes="code" Text="Same" /><Run Text=" is transcribed from MudBlazor's source; " /><Run Classes="code" Text="Close" /><Run Text=" gets the same result another way." />
@@ -100,8 +102,12 @@
       <docs:ParityRow MudBlazor="sliding indicator, SliderAnimation (default true)" Here="the indicator slides; no-animation for false" Status="Same" Note=".3s on cubic-bezier(.64,.09,.08,1) with the width jumping; no-animation puts the new tab's indicator under it at once." />
       <docs:ParityRow MudBlazor="uppercase tab text (.mud-tab)" Here="the same" Status="Same" Note="A string Header is uppercase whatever FiliButtonTextTransform says: .mud-tab's text-transform is a literal, not the button typography's." />
       <docs:ParityRow MudBlazor="Disabled on the tabs" Here="IsEnabled=&quot;False&quot;" Status="Same" Note="Text-disabled." />
+      <docs:ParityRow MudBlazor="MudTabPanel.Text" Here="Header" Status="Same" />
+      <docs:ParityRow MudBlazor="ActivePanelIndex" Here="SelectedIndex" Status="Same" />
+      <docs:ParityRow MudBlazor="MudTabPanel.Visible" Here="IsVisible on the TabItem" Status="Same" />
       <docs:ParityRow MudBlazor="MudTabPanel.Icon, IconColor" Here="an icon in the Header marked start-icon" Status="Same" Note="MudIcon's 24px, 8px from the text, in the tab's colour unless set." />
-      <docs:ParityRow MudBlazor="BadgeData, BadgeDot, BadgeColor, BadgeMax" Here="a HeaderedContentControl.badge as the Header" Status="Close" />
+      <docs:ParityRow MudBlazor="MudTabs.IconColor (default Inherit)" Here="the tab's colour; Foreground on each icon otherwise" Status="Close" Note="No class sets every tab's icon at once." />
+      <docs:ParityRow MudBlazor="BadgeData, BadgeDot, BadgeColor, BadgeMax, BadgeIcon" Here="a HeaderedContentControl.badge as the Header" Status="Close" Note="The badge's own classes and content." />
       <docs:ParityRow MudBlazor="ToolTip" Here="ToolTip.Tip on the TabItem" Status="Close" />
       <docs:ParityRow MudBlazor="scroll buttons" Here="the same" Status="Same" Note="ChevronLeft and ChevronRight icon buttons while the tabs overflow, each disabled at its end, a bar's length per click; the selected tab scrolls into view; on a side bar, 32px high and turned." />
       <docs:ParityRow MudBlazor="PrevIcon, NextIcon" Here="FiliNavigateBeforeGeometry, FiliChevronRightGeometry in the tabs' Resources" Status="Same" Note="Drawn at their own size in the 24px box." />
@@ -112,6 +118,11 @@
       <docs:ParityRow MudBlazor="Header, HeaderPosition, TabPanelHeader" Here="HeaderTemplate, or content beside the bar" Status="Close" />
       <docs:ParityRow MudBlazor="MaxHeight" Here="MaxHeight" Status="Close" />
       <docs:ParityRow MudBlazor="ApplyEffectsToContainer" Here="a Border.paper with an elevation class round the control" Status="Close" />
+      <docs:ParityRow MudBlazor="KeepPanelsAlive, LazyLoadPanels" Here="—" Status="Missing" Note="Behaviour: when a panel's content is made and kept is the TabControl's." />
+      <docs:ParityRow MudBlazor="SortDirection, SortComparer, MudTabPanel.SortKey" Here="the order of the items" Status="Close" Note="Sorting the tabs is the app's, through its ItemsSource." />
+      <docs:ParityRow MudBlazor="EnableDragAndDrop" Here="—" Status="Missing" Note="Behaviour: a TabControl's tabs cannot be dragged." />
+      <docs:ParityRow MudBlazor="PrePanelContent, TabPanelHeaderPosition, TabWrapperContent" Here="HeaderTemplate" Status="Close" Note="What sits round a tab's header is its template." />
+      <docs:ParityRow MudBlazor="MudDynamicTabs (AddTabIcon, CloseTabIcon and their tooltips)" Here="icon buttons beside the bar and in each Header" Status="Close" Note="Adding and closing tabs is the app's; the buttons are ordinary icon buttons." />
       <docs:ParityRow MudBlazor="Ripple (default true)" Here="on" Status="Same" Note="In the tab's text colour." />
       <docs:ParityRow MudBlazor="MudTabs in a layout" Here="TabbedPage" Status="Same" Note="The theme's own tabs." />
     </docs:ParityTable>

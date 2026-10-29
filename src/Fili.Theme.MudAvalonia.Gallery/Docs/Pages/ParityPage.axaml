@@ -11,7 +11,7 @@
     </TextBlock>
 
     <TextBlock Classes="h5 section" Text="Scope" />
-    <TextBlock Classes="body1 p" Text="Every parameter of a MudBlazor 9.11 component that changes how it looks has a row on its component's page, and every component is listed below. Parameters that only change behaviour (events, binding, validation logic, Class, Style, UserAttributes) do not." />
+    <TextBlock Classes="body1 p" Text="Every parameter of a MudBlazor 9.11 component that changes how it looks or behaves has a row on its component's page, and every component is listed below. Where an Avalonia property or class does the same, the row names it, Same or Close; where nothing does, the row is Missing, with the reason in its note. Pure plumbing has no row: ChildContent, Class, Style, UserAttributes, Tag, and callbacks that only report an event." />
 
     <TextBlock Classes="h5 section" Text="Properties, not classes" />
     <TextBlock Classes="body1 p">
@@ -25,7 +25,7 @@
     </TextBlock>
 
     <TextBlock Classes="h5 section" Text="What is not here, and why" />
-    <TextBlock Classes="body1 p" Text="The aim is the look. A MudBlazor component that needs a control of its own (a colour picker, a chart, a rating, a stepper), a service (a dialog), behaviour (selection rules, closing, lazy loading) or layout Avalonia's panels already do is not here, and each component page marks such parameters Missing with the reason. Data a control has no property for, such as a slider's tick labels or a progress bar's buffer value, would need a public attached property, and this package's public API is one type." />
+    <TextBlock Classes="body1 p" Text="The aim is the look. A MudBlazor component that needs a control of its own (a colour picker, a chart, a rating, a stepper), a service (a dialog) or layout Avalonia's panels already do is not here, and is listed Missing below. Within a component, behaviour the Avalonia control does not have, such as a selection rule, closing on its own or lazy loading, is a Missing row on its page, as is data a control has no property for, such as a slider's tick labels or a progress bar's buffer value: passing it would need a public attached property, and this package's public API is one type." />
     <TextBlock Classes="body1 p" Text="Two Avalonia controls are deliberately left on their forked templates: GridSplitter, because MudBlazor's split-panel divider is invisible on its own, and GroupBox, which MudBlazor has no counterpart for. The spinner DatePicker wears the theme's palette but not MudBlazor's shape; MudDatePicker is CalendarDatePicker. A DrawerPage's drawer is themed, its top bar and title keep the forked template." />
     <StackPanel Orientation="Horizontal" Spacing="8" Margin="0,0,0,16">
       <TextBlock Classes="body1" Text="See also:" VerticalAlignment="Center" />
@@ -35,6 +35,7 @@
     </StackPanel>
 
     <TextBlock Classes="h5 section" Text="Every component" />
+    <TextBlock Classes="body1 p" Text="A component's parity here sums up its page: Same when its rows are Same, or Close only in how a property is spelt; Close when some of what it looks like or does is reached another way, or is missing; Missing when the component is not here at all." />
     <Border Classes="paper elevation0"
             BorderBrush="{DynamicResource FiliLinesDefaultBrush}"
             BorderThickness="1">

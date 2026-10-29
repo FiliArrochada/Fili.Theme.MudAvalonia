@@ -65,7 +65,6 @@
       <docs:ParityRow MudBlazor="MudCardContent" Here="card-content" Status="Same" Note="16px round." />
       <docs:ParityRow MudBlazor="MudCardActions" Here="card-actions, on a StackPanel" Status="Same" Note="A row, 8px round, its items centred." />
       <docs:ParityRow MudBlazor="ContentPadding=&quot;false&quot;" Here="Margin=&quot;0&quot; on the part" Status="Close" Note="The paddings are margins here, since a panel has none." />
-      <docs:ParityRow MudBlazor="Width, Height, MinWidth, MaxWidth, MinHeight, MaxHeight" Here="the same" Status="Close" Note="Ordinary Avalonia properties." />
       <docs:ParityRow MudBlazor="(none: Material's dark-theme overlay)" Here="material-elevation-overlay on a window or container" Status="Extra" Note="In dark, a card is lightened by white at its level's opacity, as a paper is." />
     </docs:ParityTable>
   </StackPanel>

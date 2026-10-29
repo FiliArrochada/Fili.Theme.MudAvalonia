@@ -64,18 +64,39 @@
     <docs:ExampleCard Title="MinuteIncrement"
                       Description="Avalonia's MinuteIncrement fills the minute column in steps, as MudTimePicker's MinuteSelectionStep moves its hand."
                       Source="TimePicker/MinuteIncrement" />
+    <TextBlock Classes="body1 p" Text="MudBlazor's dialog mode, colours, elevation, open-to-minutes, hours-only and minutes-only examples have no counterpart: the popover is always the primary one at elevation 8, both columns show at once, and a dialog is a service. Its static mode is the TimePickerPresenter above, on its own." />
 
     <TextBlock Classes="h5 section" Text="MudBlazor parity" />
     <TextBlock Classes="body1 p">
-      <Run Text="Every MudTimePicker parameter the theme carries and what it is here. " /><Run Classes="code" Text="Same" /><Run Text=" is transcribed from MudBlazor's source; " /><Run Classes="code" Text="Close" /><Run Text=" gets the same result another way." />
+      <Run Text="Every MudTimePicker and MudPicker parameter and what it is here. " /><Run Classes="code" Text="Same" /><Run Text=" is transcribed from MudBlazor's source; " /><Run Classes="code" Text="Close" /><Run Text=" gets the same result another way." />
     </TextBlock>
     <docs:ParityTable>
       <docs:ParityRow MudBlazor="MudTimePicker" Here="TimePicker" Status="Same" Note="The standard field with the AccessTime adornment, full width as a field is, and the toolbar's popover." />
-      <docs:ParityRow MudBlazor="AmPm, TimeFormat" Here="ClockIdentifier, UseSeconds" Status="Same" Note="HH:mm or hh:mm tt; UseSeconds adds :ss." />
+      <docs:ParityRow MudBlazor="Time" Here="SelectedTime" Status="Same" />
+      <docs:ParityRow MudBlazor="AmPm" Here="ClockIdentifier=&quot;12HourClock&quot;" Status="Same" Note="hh:mm tt rather than HH:mm." />
+      <docs:ParityRow MudBlazor="TimeFormat" Here="ClockIdentifier, UseSeconds" Status="Close" Note="Only HH:mm or hh:mm tt, with :ss under UseSeconds; any other format string, such as H.mm, has no counterpart." />
+      <docs:ParityRow MudBlazor="MinuteSelectionStep" Here="MinuteIncrement" Status="Same" />
+      <docs:ParityRow MudBlazor="Variant, Margin, HelperText, HelperTextOnFocus, Underline, Required, ShrinkLabel, Error" Here="the text field's classes on the picker" Status="Same" Note="They reach the field inside, as on a date picker." />
+      <docs:ParityRow MudBlazor="Placeholder" Here="—" Status="Missing" Note="TimePicker has no PlaceholderText; the label takes AutomationProperties.Name." />
       <docs:ParityRow MudBlazor="Label" Here="AutomationProperties.Name" Status="Same" Note="The floating label." />
       <docs:ParityRow MudBlazor="Editable" Here="editable" Status="Same" Note="Taken on Enter or when the field loses focus." />
       <docs:ParityRow MudBlazor="the clock face" Here="Avalonia's hour and minute columns" Status="Close" Note="Looping columns with the chosen row on a primary band, under MudTimePicker's toolbar. The clock face is a control of its own, so the toolbar's hour and minute are not buttons switching the view, and AM and PM are set by the period column." />
       <docs:ParityRow MudBlazor="AdornmentIcon (AccessTime)" Here="FiliAccessTimeGeometry" Status="Same" Note="In the picker's Resources to swap it." />
+      <docs:ParityRow MudBlazor="Adornment (End), AdornmentColor, IconSize" Here="the icon button at the end, action-default" Status="Close" Note="Fixed: no class moves or colours it." />
+      <docs:ParityRow MudBlazor="Disabled" Here="IsEnabled=&quot;False&quot;" Status="Same" />
+      <docs:ParityRow MudBlazor="ReadOnly" Here="IsHitTestVisible=&quot;False&quot;" Status="Close" Note="A TimePicker has no IsReadOnly." />
+      <docs:ParityRow MudBlazor="Clearable, ClearIcon" Here="—" Status="Missing" Note="No clear button on a read-only picker; an editable one's empty text clears the time." />
+      <docs:ParityRow MudBlazor="PickerVariant.Inline (default)" Here="the popover" Status="Same" />
+      <docs:ParityRow MudBlazor="PickerVariant.Static" Here="a TimePickerPresenter on its own" Status="Close" Note="Drawn the same, as the picker example shows; its Close and Check are the app's to handle." />
+      <docs:ParityRow MudBlazor="PickerVariant.Dialog" Here="—" Status="Missing" Note="A dialog service, not a look." />
+      <docs:ParityRow MudBlazor="Color (Primary)" Here="the same" Status="Same" Note="The toolbar and the chosen rows' band." />
+      <docs:ParityRow MudBlazor="Color, another colour" Here="—" Status="Missing" Note="The picker takes no colour class; it is always primary." />
+      <docs:ParityRow MudBlazor="Elevation (8), Square, Rounded" Here="—" Status="Missing" Note="The popover is always a paper at elevation 8 with the default radius." />
+      <docs:ParityRow MudBlazor="Orientation.Landscape, ShowToolbar=&quot;false&quot;" Here="—" Status="Missing" Note="The toolbar is always shown, above the columns." />
+      <docs:ParityRow MudBlazor="OpenTo, TimeEditMode (OnlyHours, OnlyMinutes)" Here="—" Status="Missing" Note="The columns show at once, so there is no view to open to or leave out." />
+      <docs:ParityRow MudBlazor="AutoClose, ClosingDelay, PickerActions" Here="Close and Check" Status="Close" Note="Avalonia's picker commits on Check; its actions are fixed." />
+      <docs:ParityRow MudBlazor="Mask, ImmediateText" Here="—" Status="Missing" Note="Typed text is taken on Enter or when the field loses focus, without a mask." />
+      <docs:ParityRow MudBlazor="AnchorOrigin, TransformOrigin, RelativeWidth, Modal" Here="—" Status="Missing" Note="The popover opens where Avalonia's TimePicker places it, and closes on a click outside." />
     </docs:ParityTable>
   </StackPanel>
 </UserControl>

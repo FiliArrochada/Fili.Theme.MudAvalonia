@@ -42,6 +42,9 @@
       <docs:ParityRow MudBlazor="Variant, Size, DropShadow=&quot;false&quot;" Here="outlined / filled, small / large, flat" Status="Same" Note="As on Button.icon." />
       <docs:ParityRow MudBlazor="ToggledSize, ToggledVariant" Here="the classes, bound to IsChecked" Status="Close" Note="One size and one variant unless the app swaps them." />
       <docs:ParityRow MudBlazor="Disabled" Here="IsEnabled=&quot;False&quot;" Status="Same" Note="Action-disabled." />
+      <docs:ParityRow MudBlazor="Edge" Here="Margin" Status="Close" Note="An ordinary Avalonia property, as on an icon button." />
+      <docs:ParityRow MudBlazor="Ripple (default true)" Here="on" Status="Same" Note="As on an icon button: 0.1, 0.2 when filled." />
+      <docs:ParityRow MudBlazor="Ripple=&quot;false&quot;" Here="FiliRippleOpacity and FiliRippleOpacitySecondary at 0 in its Resources" Status="Close" Note="Two resource keys rather than a parameter." />
     </docs:ParityTable>
   </StackPanel>
 </UserControl>

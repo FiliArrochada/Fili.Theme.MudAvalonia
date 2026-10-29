@@ -74,7 +74,9 @@
       <docs:ParityRow MudBlazor="Anchor" Here="PanePlacement" Status="Close" />
       <docs:ParityRow MudBlazor="Width, MiniWidth, Height" Here="OpenPaneLength, CompactPaneLength, Height" Status="Close" />
       <docs:ParityRow MudBlazor="Variant (Temporary, Persistent, Mini, Responsive)" Here="DisplayMode (Overlay, Inline, CompactInline, CompactOverlay)" Status="Close" Note="Responsive's breakpoints are the app's." />
-      <docs:ParityRow MudBlazor="Overlay" Here="the scrim behind an overlay pane" Status="Same" Note="overlay-dark." />
+      <docs:ParityRow MudBlazor="Overlay (default true)" Here="the scrim behind an overlay pane" Status="Same" Note="overlay-dark." />
+      <docs:ParityRow MudBlazor="Overlay=&quot;false&quot;" Here="—" Status="Missing" Note="Every open overlay pane has its scrim; no class hides it." />
+      <docs:ParityRow MudBlazor="OverlayAutoClose (default true)" Here="the default" Status="Close" Note="A click on the scrim closes the pane; false is cancelling PaneClosing." />
       <docs:ParityRow MudBlazor="ClipMode, Fixed" Here="the app's layout" Status="Close" Note="Layout." />
       <docs:ParityRow MudBlazor="Color" Here="primary … dark on the SplitView" Status="Same" Note="The pane in the colour, its content in the contrast text." />
       <docs:ParityRow MudBlazor="OpenMiniOnHover" Here="none" Status="Missing" Note="Behaviour." />

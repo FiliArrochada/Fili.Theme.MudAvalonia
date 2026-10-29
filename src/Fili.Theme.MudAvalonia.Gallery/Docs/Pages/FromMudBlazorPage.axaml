@@ -403,12 +403,12 @@
     <docs:CodeBlock Margin="0,0,0,16"
                     Code="&lt;CheckBox IsChecked=&quot;{Binding Fav}&quot; Classes=&quot;error label-start&quot; Content=&quot;Favourite&quot;&gt;&#10;  &lt;CheckBox.Resources&gt;&#10;    &lt;StreamGeometry x:Key=&quot;FiliCheckBoxCheckedGeometry&quot;&gt;M12 21.35l-1.45-1.32C5.4 15.36 …&lt;/StreamGeometry&gt;&#10;    &lt;StreamGeometry x:Key=&quot;FiliCheckBoxUncheckedGeometry&quot;&gt;M16.5 3c-1.74 0-3.41.81-4.5 2.09 …&lt;/StreamGeometry&gt;&#10;  &lt;/CheckBox.Resources&gt;&#10;&lt;/CheckBox&gt;&#10;&lt;ToggleSwitch IsChecked=&quot;{Binding Wifi}&quot; Classes=&quot;thumb-success&quot; Content=&quot;Wi-Fi&quot;&gt;&#10;  &lt;ToggleSwitch.Resources&gt;&#10;    &lt;StreamGeometry x:Key=&quot;FiliSwitchThumbIconGeometry&quot;&gt;M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z&lt;/StreamGeometry&gt;&#10;  &lt;/ToggleSwitch.Resources&gt;&#10;&lt;/ToggleSwitch&gt;" />
     <TextBlock Classes="body1 p">
-      <Run FontWeight="Bold" Text="Every MudBlazor icon parameter is a resource key"
-      /><Run Text=", set in the control's "
+      <Run FontWeight="Bold" Text="An icon parameter is a resource key"
+      /><Run Text=" wherever the theme draws the icon, set in the control's "
       /><Run Classes="code" Text="Resources"
       /><Run Text=" with the path string from "
       /><Run Classes="code" Text="Icons.Material"
-      /><Run Text=" pasted in. Put it on a parent and every control inside takes it. The Icons page lists the keys. "
+      /><Run Text=" pasted in. Put it on a parent and every control inside takes it. The Icons page lists the keys; an icon the theme does not draw, such as MudRadio's IndeterminateIcon, has none. "
       /><Run Classes="code" Text="LabelPlacement"
       /><Run Text=" is "
       /><Run Classes="code" Text="label-start"

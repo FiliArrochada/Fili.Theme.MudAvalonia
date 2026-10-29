@@ -18,6 +18,9 @@
     <TextBlock Classes="body1 p">
       <Run Text="Show(INotification) takes no classes, so a card made that way is filled, with its icon and close button. A notification's Title and Message are shown as a Medium title over the message." />
     </TextBlock>
+    <TextBlock Classes="body1 p">
+      <Run Text="Show's expiration is VisibleStateDuration, five seconds when left out; " /><Run Classes="code" Text="TimeSpan.Zero" /><Run Text=" keeps the card until it is closed, as RequireInteraction does. The manager does not prevent duplicates: the app checks before it shows one." />
+    </TextBlock>
 
     <TextBlock Classes="h5 section" Text="Alerts and severity" />
     <docs:ExampleCard Title="Severities"
@@ -80,8 +83,8 @@
       <docs:ParityRow MudBlazor="ISnackbar.Add(msg, Severity.X)" Here="WindowNotificationManager.Show(…) with NotificationType.X" Status="Same" Note="A filled alert at elevation 6, 288 to 500px wide, 6px 16px; the text is the severity's contrast token, white, or black in high contrast." />
       <docs:ParityRow MudBlazor="a card's classes" Here="WindowNotificationManager.Show(content, type, …, classes)" Status="Close" Note="The variants are classes on the card; Show(INotification) takes none." />
       <docs:ParityRow MudBlazor="Severity.Normal" Here="normal" Status="Same" Note="Filled dark with its contrast text; text-primary on a text or outlined card." />
-      <docs:ParityRow MudBlazor="SnackbarVariant.Filled (default)" Here="no class" Status="Same" />
-      <docs:ParityRow MudBlazor="SnackbarVariant.Text / Outlined" Here="text / outlined" Status="Same" Note="The surface and the text in the colour's darken shade at 400; outlined adds a 1px line in the colour." />
+      <docs:ParityRow MudBlazor="SnackbarVariant = Variant.Filled (default)" Here="no class" Status="Same" />
+      <docs:ParityRow MudBlazor="SnackbarVariant = Variant.Text / Outlined" Here="text / outlined" Status="Same" Note="The surface and the text in the colour's darken shade at 400; outlined adds a 1px line in the colour." />
       <docs:ParityRow MudBlazor="the severity icon" Here="the same" Status="Same" Note="CommonSnackbarOptions' severity icons, 24px at .9 opacity, 12px before the message." />
       <docs:ParityRow MudBlazor="HideIcon" Here="hide-icon" Status="Same" />
       <docs:ParityRow MudBlazor="CommonSnackbarOptions' severity icons" Here="the icon keys on the WindowNotificationManager" Status="Same" Note="FiliInfoOutlinedGeometry, FiliAlertSuccessGeometry, FiliReportProblemGeometry, FiliErrorOutlineGeometry and FiliEventNoteGeometry." />
@@ -89,6 +92,10 @@
       <docs:ParityRow MudBlazor="ShowCloseIcon (default true)" Here="the same; hide-close for false" Status="Same" Note="Filled.Close in a small icon button at the card's end, in the card's colour when filled and action-default otherwise; it closes the card." />
       <docs:ParityRow MudBlazor="CloseIcon" Here="FiliCloseGeometry on the WindowNotificationManager" Status="Same" />
       <docs:ParityRow MudBlazor="Action, ActionColor, ActionVariant" Here="a control as the notification's content" Status="Close" />
+      <docs:ParityRow MudBlazor="VisibleStateDuration (5000ms)" Here="Show's expiration" Status="Same" Note="Five seconds when it is left null." />
+      <docs:ParityRow MudBlazor="RequireInteraction" Here="an expiration of TimeSpan.Zero" Status="Close" Note="The card stays until closed. MudBlazor's null default does this for a message with an Action; here the app passes Zero itself." />
+      <docs:ParityRow MudBlazor="PreventDuplicates, DuplicatesBehavior" Here="—" Status="Missing" Note="Behaviour: the manager shows whatever it is given; the app checks for a duplicate first." />
+      <docs:ParityRow MudBlazor="ClearAfterNavigation, CloseAfterNavigation" Here="CloseAll, Close" Status="Close" Note="There is no navigation for the manager to follow; the app closes the cards." />
       <docs:ParityRow MudBlazor="PositionClass" Here="WindowNotificationManager.Position" Status="Same" Note="Every position, 24px from its edges." />
       <docs:ParityRow MudBlazor="NewestOnTop (default false)" Here="no class; newest-on-top on the manager" Status="Same" Note="The newest at the bottom of the stack wherever it is anchored, or at the top." />
       <docs:ParityRow MudBlazor="MaxDisplayedSnackbars" Here="MaxItems" Status="Close" />

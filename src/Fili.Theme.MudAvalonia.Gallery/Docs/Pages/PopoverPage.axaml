@@ -67,7 +67,10 @@
       <docs:ParityRow MudBlazor="Square" Here="square" Status="Same" Note="No radius." />
       <docs:ParityRow MudBlazor="DropShadow=&quot;false&quot;" Here="flat" Status="Same" Note="No shadow, whatever the elevation class." />
       <docs:ParityRow MudBlazor="Paper=&quot;false&quot;" Here="no-paper" Status="Same" Note="No surface, radius or shadow: the content is the popover." />
+      <docs:ParityRow MudBlazor="Open" Here="IsOpen on a Popup; ShowAt and Hide on a Flyout" Status="Same" />
       <docs:ParityRow MudBlazor="AnchorOrigin, TransformOrigin" Here="Placement" Status="Close" />
+      <docs:ParityRow MudBlazor="OverflowBehavior (FlipOnOpen, FlipAlways, FlipNever)" Here="PlacementConstraintAdjustment on a Popup, Flyout or ContextMenu" Status="Close" Note="Avalonia flips or slides a popup that would leave the screen, by its own rules." />
+      <docs:ParityRow MudBlazor="Fixed" Here="—" Status="Missing" Note="Behaviour: where an open popup stays as its anchor scrolls is Avalonia's." />
       <docs:ParityRow MudBlazor="MaxHeight" Here="MaxHeight" Status="Close" />
       <docs:ParityRow MudBlazor="the opening fade, Duration (251ms), Delay (0)" Here="the same, on every popup" Status="Same" Note="Opacity 0 to 1 over 251ms at CSS's ease, closing at once: a select's list, a menu, an autocomplete's list, a flyout and a tooltip alike." />
       <docs:ParityRow MudBlazor="a dense MudMenu's fade" Here="the same fade" Status="Close" Note="A dense MudMenu opens without it; here it fades too." />

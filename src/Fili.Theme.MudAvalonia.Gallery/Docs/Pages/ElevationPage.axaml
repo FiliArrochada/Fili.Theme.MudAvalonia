@@ -28,6 +28,11 @@
       <docs:ParityRow MudBlazor="MudTabs" Here="TabControl, TabStrip" Status="Same" Note="Default 0. The shadow sits outside the bar, so rounded does not clip it." />
       <docs:ParityRow MudBlazor="MudBadge" Here="badge" Status="Same" Note="Default 0, on the badge, not what it decorates." />
       <docs:ParityRow MudBlazor="MudAppBar" Here="Border.appbar" Status="Same" Note="Default 4; an elevation class replaces it." />
+      <docs:ParityRow MudBlazor="MudPopover" Here="Flyout, MenuFlyout, ContextMenu" Status="Same" Note="Default 8: every menu and flyout. In FlyoutPresenterClasses on a flyout, in Classes on a ContextMenu." />
+      <docs:ParityRow MudBlazor="MudAlert, MudAvatar" Here="Border.alert, Border.avatar" Status="Same" Note="Default 0." />
+      <docs:ParityRow MudBlazor="MudImage" Here="a Border with the class, the Image inside" Status="Close" Note="Default 0; an Image has no shadow of its own." />
+      <docs:ParityRow MudBlazor="MudSplitPanel" Here="a Border.paper in each panel" Status="Close" Note="Default 0; the panels' papers take the class." />
+      <docs:ParityRow MudBlazor="MudPicker" Here="—" Status="Missing" Note="The date and time pickers' drop-downs are fixed at the default 8; no class changes it." />
     </docs:ParityTable>
     <StackPanel Orientation="Horizontal" Spacing="8" Margin="0,0,0,16">
       <TextBlock Classes="body1" Text="See also:" VerticalAlignment="Center" />
@@ -39,7 +44,7 @@
 
     <TextBlock Classes="h5 section" Text="Fixed shadows" />
     <TextBlock Classes="body1 p">
-      <Run Text="The rest have the level MudBlazor gives them, with no class to change it: a filled button 2, 4 under the pointer or focus and 8 pressed, unless it is " /><Run Classes="code" Text="flat" /><Run Text="; a FAB 6, 8 and 12; the switch's thumb 1 (_switch.scss draws every thumb at Shadow.cs's level 1); a snackbar 6; a navigation page's bar 4; and the menus, selects, autocomplete lists, picker popups and flyouts 8. To change one everywhere, override its level's resource." />
+      <Run Text="The rest have the level MudBlazor gives them, with no class to change it: a filled button 2, 4 under the pointer or focus and 8 pressed, unless it is " /><Run Classes="code" Text="flat" /><Run Text="; a FAB 6, 8 and 12; the switch's thumb 1 (_switch.scss draws every thumb at Shadow.cs's level 1); a snackbar 6; a navigation page's bar 4; and the selects, autocomplete lists and picker popups 8. Menus and flyouts rest at 8 too, but take a class, as the table above says. To change one everywhere, override its level's resource." />
     </TextBlock>
     <StackPanel Orientation="Horizontal" Spacing="8" Margin="0,0,0,16">
       <TextBlock Classes="body1" Text="See also:" VerticalAlignment="Center" />

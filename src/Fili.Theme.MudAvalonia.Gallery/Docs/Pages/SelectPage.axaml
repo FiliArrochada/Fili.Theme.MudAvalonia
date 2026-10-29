@@ -52,6 +52,11 @@
                       Description="MudSelect's MaxHeight defaults to 300, and so does MaxDropDownHeight here, where Avalonia's default is 200. A longer list scrolls."
                       Source="Select/MaxHeight" />
 
+    <TextBlock Classes="h5 section" Text="Templates and keys" />
+    <TextBlock Classes="body1 p">
+      <Run Text="MudBlazor's value presentation, custom converter and complex object examples have no look of their own: here " /><Run Classes="code" Text="ItemTemplate" /><Run Text=" or " /><Run Classes="code" Text="DisplayMemberBinding" /><Run Text=" draws each item and " /><Run Classes="code" Text="SelectionBoxItemTemplate" /><Run Text=" the chosen one, and the keyboard is ComboBox's own." />
+    </TextBlock>
+
     <TextBlock Classes="h5 section" Text="MudBlazor parity" />
     <TextBlock Classes="body1 p">
       <Run Text="Every MudSelect parameter and what it is here. " /><Run Classes="code" Text="Same" /><Run Text=" is transcribed from MudBlazor's source; " /><Run Classes="code" Text="Close" /><Run Text=" gets the same result another way. The field it shares with a text field is described on that page." />
@@ -72,10 +77,20 @@
       <docs:ParityRow MudBlazor="AdornmentColor" Here="adornment-primary … adornment-dark, adornment-inherit" Status="Same" Note="The arrow in the colour, or the colour round the select; text-disabled when disabled." />
       <docs:ParityRow MudBlazor="OpenIcon / CloseIcon set to other glyphs" Here="FiliArrowDropDownGeometry / FiliArrowDropUpGeometry in the select's Resources" Status="Same" />
       <docs:ParityRow MudBlazor="Underline, Required, ShrinkLabel" Here="no-underline, required, shrink-label" Status="Same" Note="As on a text field." />
-      <docs:ParityRow MudBlazor="Clearable" Here="—" Status="Missing" Note="A ComboBox has no InnerRightContent to put a clear button in." />
+      <docs:ParityRow MudBlazor="Clearable, ClearIcon" Here="—" Status="Missing" Note="A ComboBox has no InnerRightContent to put a clear button in." />
+      <docs:ParityRow MudBlazor="ReadOnly" Here="IsHitTestVisible=&quot;False&quot;" Status="Close" Note="A ComboBox has no IsReadOnly." />
+      <docs:ParityRow MudBlazor="Open" Here="IsDropDownOpen" Status="Same" />
+      <docs:ParityRow MudBlazor="MudSelectItem" Here="ComboBoxItem, or an item of ItemsSource" Status="Same" />
+      <docs:ParityRow MudBlazor="MudSelectItem.Disabled" Here="IsEnabled=&quot;False&quot; on the ComboBoxItem" Status="Same" />
+      <docs:ParityRow MudBlazor="ToStringFunc, a custom Converter" Here="DisplayMemberBinding or ItemTemplate, and SelectionBoxItemTemplate" Status="Close" Note="How an item reads is a binding or template, as with a complex object." />
+      <docs:ParityRow MudBlazor="Strict" Here="the same" Status="Close" Note="A ComboBox only ever shows one of its items; a value outside them shows nothing." />
+      <docs:ParityRow MudBlazor="RelativeWidth (default Relative), FitContent" Here="the list at least the field's width" Status="Close" Note="As DropdownWidth.Adaptive; the field's own width is Width or HorizontalAlignment." />
+      <docs:ParityRow MudBlazor="AnchorOrigin, TransformOrigin" Here="—" Status="Missing" Note="The list opens below the field, or above where there is no room, as ComboBox places it." />
+      <docs:ParityRow MudBlazor="SelectionOnEnter, QuickSearchInterval" Here="ComboBox's own keys; IsTextSearchEnabled" Status="Close" Note="Behaviour: arrow keys and type-to-search work as Avalonia's ComboBox does." />
+      <docs:ParityRow MudBlazor="Modal, LockScroll, PopoverFixed" Here="—" Status="Missing" Note="Behaviour: the list is Avalonia's light-dismiss popup." />
       <docs:ParityRow MudBlazor="Dense on the items" Here="dense-items on the select, or dense on one ComboBoxItem" Status="Same" Note="4px top and bottom, body2: 36px rows; dense on the select is its field's Margin.Dense." />
       <docs:ParityRow MudBlazor="an option's height" Here="the same" Status="Same" Note="48px: MudListItem's 8px and the item text's 4px round a body1 line." />
-      <docs:ParityRow MudBlazor="MultiSelection, SelectAll" Here="—" Status="Missing" Note="A ComboBox holds one value." />
+      <docs:ParityRow MudBlazor="MultiSelection, SelectAll, SelectAllText, Delimiter, MultiSelectionTextFunc, and the CheckedIcon, UncheckedIcon and IndeterminateIcon they draw" Here="—" Status="Missing" Note="A ComboBox holds one value; a multi-selection ListBox in a Flyout is the nearest." />
     </docs:ParityTable>
   </StackPanel>
 </UserControl>

@@ -54,6 +54,9 @@
     <docs:ExampleCard Title="Disabled"
                       Description="IsEnabled=&quot;False&quot;: the glyph and the label in text-disabled, whatever the colour. IsHitTestVisible=&quot;False&quot; is ReadOnly, which looks the same as an enabled check box, as in MudBlazor."
                       Source="CheckBox/Disabled" />
+    <TextBlock Classes="body1 p">
+      <Run Text="MudBlazor's ReadOnly Mode and Keyboard Navigation sections show behaviour, not a look, so they have no example here. A read-only check box still takes the keyboard while it is a Tab stop; add " /><Run Classes="code" Text="Focusable=&quot;False&quot;" /><Run Text=" to keep its keys off it too. Space and Enter toggle a check box, as Avalonia's button does." />
+    </TextBlock>
 
     <TextBlock Classes="h5 section" Text="MudBlazor parity" />
     <TextBlock Classes="body1 p">
@@ -78,6 +81,8 @@
       <docs:ParityRow MudBlazor="the hit circle" Here="the same" Status="Same" Note="48px, the icon button's 12px round the 24px glyph; 44 small, 60 large." />
       <docs:ParityRow MudBlazor="LabelPlacement End (default)" Here="no class" Status="Same" />
       <docs:ParityRow MudBlazor="LabelPlacement Start, Top, Bottom" Here="label-start, label-top, label-bottom" Status="Same" Note="Row-reverse, column-reverse and column, the two centred when stacked." />
+      <docs:ParityRow MudBlazor="LabelPlacement Left, Right" Here="label-start, no class" Status="Same" Note="MudBlazor reads Left as Start and Right as End, in either direction." />
+      <docs:ParityRow MudBlazor="KeyboardEnabled (default true)" Here="Space and Enter toggle" Status="Close" Note="Delete clearing, Enter setting and Backspace's indeterminate are the app's; Focusable=&quot;False&quot; takes the keys away, and the Tab stop with them." />
       <docs:ParityRow MudBlazor="CheckedIcon, UncheckedIcon, IndeterminateIcon" Here="the glyph keys in the check box's Resources" Status="Same" Note="FiliCheckBoxCheckedGeometry, FiliCheckBoxUncheckedGeometry, FiliCheckBoxIndeterminateGeometry." />
       <docs:ParityRow MudBlazor="Ripple (default true)" Here="on" Status="Same" Note="In the halo only, in the glyph's colour (the unchecked colour while off), text-primary with no colour." />
     </docs:ParityTable>

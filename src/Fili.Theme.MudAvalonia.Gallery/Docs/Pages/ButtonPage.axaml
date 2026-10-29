@@ -37,6 +37,14 @@
                       Description="IsEnabled=&quot;False&quot;: action-disabled text, and an action-disabled-background ground or line where the variant has one."
                       Source="Button/Disabled" />
 
+    <TextBlock Classes="h5 section" Text="Loading" />
+    <docs:ExampleCard Title="Loading button"
+                      Description="MudBlazor's loading button is a disabled button holding a small MudProgressCircular and the label, and so is this: a ProgressBar.circular.small, 4px into the start padding and 8px from the label."
+                      Source="Button/Loading" />
+    <TextBlock Classes="body1 p">
+      <Run Text="MudBlazor's Drop Shadow, Full Width and Link Button sections need no example of their own: " /><Run Classes="code" Text="flat" /><Run Text=" is in the variants above, FullWidth is " /><Run Classes="code" Text="HorizontalAlignment=&quot;Stretch&quot;" /><Run Text=", and a button with an Href is a " /><Run Classes="code" Text="HyperlinkButton" /><Run Text=", on the Link page." />
+    </TextBlock>
+
     <TextBlock Classes="h5 section" Text="Split and drop-down buttons" />
     <docs:ExampleCard Title="SplitButton and DropDownButton"
                       Description="A SplitButton is a two-part MudButtonGroup and a DropDownButton is a MudMenu whose activator is a button. Both take Button's classes, meaning the same things. The line between a split button's halves is text-primary or the colour on a text one, the colour's line on an outlined one, divider on a filled one with no colour, and the lighten shade on a filled coloured one."

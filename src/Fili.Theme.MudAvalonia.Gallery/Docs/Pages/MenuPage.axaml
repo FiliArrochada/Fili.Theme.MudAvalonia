@@ -64,6 +64,9 @@
     <docs:ExampleCard Title="ContextMenu"
                       Description="A ContextMenu is the same list on the same surface, opened at the pointer by a right-click or the menu key."
                       Source="Menu/ContextMenu" />
+    <TextBlock Classes="body1 p">
+      <Run Text="That is MudBlazor's Context Menu and Cursor Position sections. Its Mouse Events, Placement and Modal vs Non-modal sections are behaviour, so they have no example here: a right-click is a ContextMenu, a hover has no counterpart, where the list opens is the flyout's " /><Run Classes="code" Text="Placement" /><Run Text=", and " /><Run Classes="code" Text="OverlayDismissEventPassThrough" /><Run Text=" lets the closing click through." />
+    </TextBlock>
 
     <TextBlock Classes="h5 section" Text="MudBlazor parity" />
     <TextBlock Classes="body1 p">
@@ -83,6 +86,14 @@
       <docs:ParityRow MudBlazor="a submenu's arrow" Here="the same" Status="Same" Note="Filled.ArrowRight at 24px in action-default, mirrored under right to left as MudBlazor swaps in ArrowLeft; action-disabled when disabled." />
       <docs:ParityRow MudBlazor="HideSubMenuArrow" Here="hide-icon on the item whose submenu it is" Status="Same" />
       <docs:ParityRow MudBlazor="Ripple (default true)" Here="on" Status="Same" Note="On drop-down buttons and menu rows." />
+      <docs:ParityRow MudBlazor="AnchorOrigin, TransformOrigin" Here="the flyout's Placement" Status="Close" Note="As on a popover." />
+      <docs:ParityRow MudBlazor="PositionAtCursor" Here="Placement=&quot;Pointer&quot;, or a ContextMenu" Status="Close" />
+      <docs:ParityRow MudBlazor="ActivationEvent.RightClick" Here="a ContextMenu or ContextFlyout" Status="Close" Note="Opened by a right-click, or the menu key." />
+      <docs:ParityRow MudBlazor="ActivationEvent.MouseOver" Here="—" Status="Missing" Note="No flyout opens on hover; the app opens one from PointerEntered." />
+      <docs:ParityRow MudBlazor="RelativeWidth" Here="—" Status="Missing" Note="Its width relative to the activator is the app's to bind." />
+      <docs:ParityRow MudBlazor="Modal" Here="OverlayDismissEventPassThrough" Status="Close" Note="By default the click that closes a flyout goes no further, as a modal menu's; True passes it on, as a non-modal one does." />
+      <docs:ParityRow MudBlazor="MudMenuItem.AutoClose (default true)" Here="StaysOpenOnClick" Status="Close" Note="A click closes the menu; StaysOpenOnClick=&quot;True&quot; is AutoClose=&quot;false&quot;." />
+      <docs:ParityRow MudBlazor="MudMenuItem.Href, Target" Here="a MenuItem whose Click or Command opens the address" Status="Close" Note="No look of their own; Target means nothing outside a browser." />
     </docs:ParityTable>
   </StackPanel>
 </UserControl>

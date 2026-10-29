@@ -36,12 +36,14 @@
       <docs:ParityRow MudBlazor="Variant.Outlined / Filled" Here="icon outlined / icon filled" Status="Same" Note="The default border radius and 5px padding; filled lifts like a filled button." />
       <docs:ParityRow MudBlazor="Color.Default (default)" Here="no colour class" Status="Same" Note="Action-default grey, which beats a text button's text-primary." />
       <docs:ParityRow MudBlazor="Color.Primary … Color.Dark" Here="the colour classes" Status="Same" />
+      <docs:ParityRow MudBlazor="Color.Inherit" Here="inherit" Status="Same" Note="The icon follows the surrounding text colour, as on an app bar." />
       <docs:ParityRow MudBlazor="Size.Small / Large" Here="small / large" Status="Same" Note="3px round 20px (MudIcon's .mud-icon-size-small), 26px in all; 12px round 36px (32px when outlined or filled)." />
       <docs:ParityRow MudBlazor="Edge" Here="Margin" Status="Close" Note="An ordinary Avalonia property." />
       <docs:ParityRow MudBlazor="Icon" Here="a PathIcon in Content" Status="Close" Note="The theme ships no icon set; the gallery carries a few Material glyphs." />
       <docs:ParityRow MudBlazor="DropShadow=&quot;false&quot;" Here="icon filled flat" Status="Same" />
       <docs:ParityRow MudBlazor="Disabled" Here="IsEnabled=&quot;False&quot;" Status="Same" Note="Action-disabled." />
       <docs:ParityRow MudBlazor="Ripple (default true)" Here="on" Status="Same" Note="As on a button: 0.1, 0.2 when filled." />
+      <docs:ParityRow MudBlazor="Href, Target" Here="HyperlinkButton" Status="Close" Note="No look of their own: a link is a HyperlinkButton, as on a button." />
     </docs:ParityTable>
   </StackPanel>
 </UserControl>

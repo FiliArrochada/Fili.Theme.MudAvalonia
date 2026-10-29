@@ -46,6 +46,7 @@
     <docs:ExampleCard Title="Disabled"
                       Description="IsEnabled=&quot;False&quot;: action-disabled text, and the line or ground in action-disabled-background."
                       Source="ToggleGroup/Disabled" />
+    <TextBlock Classes="body1 p" Text="MudBlazor's selection modes are behaviour, not a look. ToggleButtons check on their own, which is MultiSelection; for SingleSelection, the default, or ToggleSelection, the app unchecks the other items when one is checked." />
 
     <TextBlock Classes="h5 section" Text="Without a group" />
     <docs:ExampleCard Title="Toggles side by side"
@@ -76,6 +77,10 @@
       <docs:ParityRow MudBlazor="CheckMarkClass" Here="a /template/ Viewbox#PART_CheckMark style" Status="Close" />
       <docs:ParityRow MudBlazor="SelectedClass" Here="a :checked style" Status="Close" />
       <docs:ParityRow MudBlazor="Disabled" Here="IsEnabled=&quot;False&quot;" Status="Same" Note="Action-disabled text, and the line or ground in action-disabled-background." />
+      <docs:ParityRow MudBlazor="MudToggleItem.Text" Here="Content" Status="Same" />
+      <docs:ParityRow MudBlazor="Value, Values, MudToggleItem.Value" Here="IsChecked on each item" Status="Close" Note="Which items are checked is the app's to bind." />
+      <docs:ParityRow MudBlazor="SelectionMode.MultiSelection" Here="the same" Status="Same" Note="Each ToggleButton checks and unchecks on its own." />
+      <docs:ParityRow MudBlazor="SelectionMode.SingleSelection (default), ToggleSelection" Here="—" Status="Missing" Note="Behaviour: ToggleButtons do not group, so the app unchecks the others when one is checked, and for SingleSelection keeps one checked." />
       <docs:ParityRow MudBlazor="Ripple (default true)" Here="on" Status="Same" />
     </docs:ParityTable>
   </StackPanel>

@@ -39,6 +39,7 @@
     <docs:ExampleCard Title="ToolTip.ShowDelay"
                       Description="MudTooltip's Delay is ToolTip.ShowDelay, in milliseconds. A tooltip fades in over MudTooltip's 251ms Duration, as every popup does."
                       Source="Tooltip/Delay" />
+    <TextBlock Classes="body1 p" Text="MudBlazor's activation events have no look of their own: Avalonia opens a tooltip on hover, and ToolTip.IsOpen opens it on focus or a click when the app sets it." />
     <TextBlock Classes="body1 p">
       <Run Text="The fade is the one every popup here has; with FiliReducedMotion on, a tooltip appears at once." />
     </TextBlock>
@@ -57,6 +58,13 @@
       <docs:ParityRow MudBlazor="Placement Top, Bottom (default), Left, Right" Here="ToolTip.Placement" Status="Same" Note="Centred on that side, 10px from the target; Avalonia's 20px ToolTip.VerticalOffset is set to 0 for these four. Start and End are Left and Right. MudTooltip defaults to Bottom, ToolTip.Placement to Pointer, which the theme leaves: set Bottom for MudBlazor's default." />
       <docs:ParityRow MudBlazor="Delay" Here="ToolTip.ShowDelay" Status="Same" Note="In milliseconds." />
       <docs:ParityRow MudBlazor="Duration (251ms)" Here="the same" Status="Same" Note="The tooltip fades in as every popup does." />
+      <docs:ParityRow MudBlazor="Duration, another value" Here="—" Status="Missing" Note="The fade is the same on every popup." />
+      <docs:ParityRow MudBlazor="Text, TooltipContent" Here="ToolTip.Tip, a string or any content" Status="Same" />
+      <docs:ParityRow MudBlazor="ShowOnHover (default true)" Here="the same" Status="Same" />
+      <docs:ParityRow MudBlazor="ShowOnFocus, ShowOnClick" Here="ToolTip.IsOpen, set by the app" Status="Close" Note="Behaviour: Avalonia opens a tooltip on hover; other triggers are the app's." />
+      <docs:ParityRow MudBlazor="Visible" Here="ToolTip.IsOpen" Status="Same" />
+      <docs:ParityRow MudBlazor="Disabled" Here="ToolTip.ServiceEnabled=&quot;False&quot;" Status="Same" />
+      <docs:ParityRow MudBlazor="Inline (default true)" Here="nothing" Status="Same" Note="Layout: an attached ToolTip wraps no element, so there is no root to make inline or block." />
       <docs:ParityRow MudBlazor="Color (default Default)" Here="a ToolTip as the Tip, with primary … dark" Status="Same" Note="The colour and its contrast text; ToolTip.Tip uses a ToolTip as it is, so its classes survive." />
       <docs:ParityRow MudBlazor="Arrow" Here="arrow on that ToolTip" Status="Same" Note="A 6px triangle in the chip's colour facing the target, for Top, Bottom, Left and Right; none for Pointer, which MudBlazor lacks. Without arrow its place is still the gap." />
     </docs:ParityTable>

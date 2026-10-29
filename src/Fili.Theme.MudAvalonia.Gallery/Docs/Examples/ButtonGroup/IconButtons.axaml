@@ -1,0 +1,15 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <WrapPanel Orientation="Horizontal">
+    <StackPanel Classes="button-group" Orientation="Horizontal" Margin="0,0,16,16">
+      <Button Classes="icon outlined primary"><PathIcon Data="{DynamicResource GalleryNotificationsIcon}" /></Button>
+      <Button Classes="icon outlined primary"><PathIcon Data="{DynamicResource GalleryHistoryIcon}" /></Button>
+      <Button Classes="outlined primary">
+        <StackPanel Orientation="Horizontal">
+          <PathIcon Classes="start-icon" Data="{DynamicResource GalleryAddIcon}" />
+          <TextBlock Text="Add alarm" />
+        </StackPanel>
+      </Button>
+    </StackPanel>
+  </WrapPanel>
+</UserControl>

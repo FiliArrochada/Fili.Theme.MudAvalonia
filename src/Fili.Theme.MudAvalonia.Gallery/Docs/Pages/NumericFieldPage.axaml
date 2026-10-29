@@ -36,7 +36,7 @@
 
     <TextBlock Classes="h5 section" Text="Range and formatting" />
     <docs:ExampleCard Title="Minimum, maximum, step and format"
-                      Description="Min, Max, Step and Format are Avalonia's own Minimum, Maximum, Increment and FormatString."
+                      Description="Min, Max, Step and Format are Avalonia's own Minimum, Maximum, Increment and FormatString; Culture is NumberFormat, a NumberFormatInfo. Value is a decimal?, empty when null, so one field serves MudBlazor's value and nullable types alike."
                       Source="NumericField/Range" />
 
     <TextBlock Classes="h5 section" Text="Adornments" />
@@ -58,8 +58,17 @@
       <docs:ParityRow MudBlazor="Variant, Margin.Dense, Error, Counter, HelperText, HelperTextOnFocus" Here="the text field's classes and AutomationProperties.HelpText, on the outer control" Status="Same" Note="Passed to the TextBox inside; a validation error shows in its helper line. dense narrows the spin column and its glyphs to 20px." />
       <docs:ParityRow MudBlazor="Underline, Required, ShrinkLabel" Here="no-underline, required, shrink-label" Status="Same" Note="As on a text field." />
       <docs:ParityRow MudBlazor="HideSpinButtons" Here="ShowButtonSpinner=&quot;False&quot;" Status="Close" />
-      <docs:ParityRow MudBlazor="NumericUpIcon, NumericDownIcon" Here="FiliKeyboardArrowUpGeometry, FiliKeyboardArrowDownGeometry in the field's Resources" Status="Same" Note="Drawn at their own size in the 24px box, scaled to 20px when dense." />
+      <docs:ParityRow MudBlazor="the spin arrows (MudInput's NumericUpIcon, NumericDownIcon)" Here="FiliKeyboardArrowUpGeometry, FiliKeyboardArrowDownGeometry in the field's Resources" Status="Same" Note="Fixed on a MudNumericField, which does not pass them on; here the keys change them. Drawn at their own size in the 24px box, scaled to 20px when dense." />
+      <docs:ParityRow MudBlazor="Label, Placeholder" Here="PlaceholderText, placeholder" Status="Close" Note="As on a text field: the placeholder is the floating label." />
+      <docs:ParityRow MudBlazor="Min, Max, Step" Here="Minimum, Maximum, Increment" Status="Same" Note="Avalonia's own properties." />
+      <docs:ParityRow MudBlazor="Format, Culture" Here="FormatString, NumberFormat" Status="Close" Note="A .NET format string and a NumberFormatInfo rather than a culture." />
+      <docs:ParityRow MudBlazor="T, and a nullable T" Here="Value, a decimal?" Status="Close" Note="One type: an empty field is null, as with a nullable T." />
+      <docs:ParityRow MudBlazor="Adornment, AdornmentIcon, AdornmentText, AdornmentColor, IconSize" Here="InnerLeftContent / InnerRightContent" Status="Same" Note="As on a text field." />
+      <docs:ParityRow MudBlazor="Disabled, ReadOnly" Here="IsEnabled=&quot;False&quot;, IsReadOnly" Status="Same" />
+      <docs:ParityRow MudBlazor="Typo, FullWidth, MaxLength" Here="as on a text field" Status="Close" />
+      <docs:ParityRow MudBlazor="Immediate, DebounceInterval" Here="none" Status="Missing" Note="Behaviour: when Value follows the typed text is NumericUpDown's own; a debounce is the app's." />
       <docs:ParityRow MudBlazor="Clearable" Here="clearable" Status="Same" Note="As on a text field: the class reaches the field inside." />
+      <docs:ParityRow MudBlazor="ClearIcon" Here="FiliCloseGeometry in the field's Resources" Status="Same" />
     </docs:ParityTable>
   </StackPanel>
 </UserControl>

@@ -1,0 +1,25 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:v="using:Fili.Theme.MudAvalonia.Gallery.Views">
+  <!-- MudTable's FixedHeader with a Height: given a Height, the rows scroll inside it and the
+       header row stays where it is. -->
+  <TableView ItemsSource="{x:Static v:GalleryElement.FirstSix}" Height="200">
+    <TableView.Columns>
+      <TableViewColumn Header="Nr" Width="64">
+        <TableViewColumn.CellTemplate>
+          <DataTemplate x:DataType="v:GalleryElement"><TextBlock Text="{Binding Number}" /></DataTemplate>
+        </TableViewColumn.CellTemplate>
+      </TableViewColumn>
+      <TableViewColumn Header="Name" Width="*">
+        <TableViewColumn.CellTemplate>
+          <DataTemplate x:DataType="v:GalleryElement"><TextBlock Text="{Binding Name}" /></DataTemplate>
+        </TableViewColumn.CellTemplate>
+      </TableViewColumn>
+      <TableViewColumn Header="Molar mass" Width="120">
+        <TableViewColumn.CellTemplate>
+          <DataTemplate x:DataType="v:GalleryElement"><TextBlock Text="{Binding Molar}" /></DataTemplate>
+        </TableViewColumn.CellTemplate>
+      </TableViewColumn>
+    </TableView.Columns>
+  </TableView>
+</UserControl>

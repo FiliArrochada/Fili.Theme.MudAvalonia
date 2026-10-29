@@ -1,0 +1,27 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:v="using:Fili.Theme.MudAvalonia.Gallery.Views">
+  <!-- MudTable's MultiSelection: a TableView is a ListBox, so SelectionMode="Multiple, Toggle"
+       lets a click add or remove a row, each selected row in primary-hover. There is no checkbox
+       column. -->
+  <TableView Classes="hover" ItemsSource="{x:Static v:GalleryElement.FirstSix}"
+             SelectionMode="Multiple, Toggle" SelectedIndex="1">
+    <TableView.Columns>
+      <TableViewColumn Header="Name" Width="*">
+        <TableViewColumn.CellTemplate>
+          <DataTemplate x:DataType="v:GalleryElement"><TextBlock Text="{Binding Name}" /></DataTemplate>
+        </TableViewColumn.CellTemplate>
+      </TableViewColumn>
+      <TableViewColumn Header="Sign" Width="96">
+        <TableViewColumn.CellTemplate>
+          <DataTemplate x:DataType="v:GalleryElement"><TextBlock Text="{Binding Sign}" /></DataTemplate>
+        </TableViewColumn.CellTemplate>
+      </TableViewColumn>
+      <TableViewColumn Header="Group" Width="200">
+        <TableViewColumn.CellTemplate>
+          <DataTemplate x:DataType="v:GalleryElement"><TextBlock Text="{Binding Group}" /></DataTemplate>
+        </TableViewColumn.CellTemplate>
+      </TableViewColumn>
+    </TableView.Columns>
+  </TableView>
+</UserControl>

@@ -71,7 +71,7 @@
 
     <TextBlock Classes="h5 section" Text="Multiline" />
     <docs:ExampleCard Title="Several lines"
-                      Description="Lines and AutoGrow are AcceptsReturn, TextWrapping, MinLines and MaxLines: the text starts at the top and the label sits above it, as a textarea's do."
+                      Description="Lines, MaxLines and Sizing are AcceptsReturn, TextWrapping, MinLines and MaxLines: Sizing.Fixed is MinLines and MaxLines both at Lines, Sizing.Auto, once AutoGrow, MinLines at Lines and MaxLines at MaxLines. The text starts at the top and the label sits above it, as a textarea's do."
                       Source="TextField/Multiline" />
 
     <TextBlock Classes="h5 section" Text="Disabled and read-only" />
@@ -113,13 +113,17 @@
       <docs:ParityRow MudBlazor="Required" Here="required" Status="Same" Note="An asterisk straight after the label." />
       <docs:ParityRow MudBlazor="ShrinkLabel" Here="shrink-label" Status="Same" Note="The label floated with nothing typed, in text-primary." />
       <docs:ParityRow MudBlazor="the label over text" Here="the same" Status="Same" Note="Text-primary once floated by its text, primary while focused." />
-      <docs:ParityRow MudBlazor="Lines, AutoGrow, MaxLines" Here="AcceptsReturn, TextWrapping, MinLines, MaxLines" Status="Close" Note="Ordinary Avalonia properties; the text starts at the top and the label sits above it." />
+      <docs:ParityRow MudBlazor="Lines, MaxLines, Sizing (Fixed / Auto, once AutoGrow)" Here="AcceptsReturn, TextWrapping, MinLines, MaxLines" Status="Close" Note="Ordinary Avalonia properties: Fixed is MinLines and MaxLines at Lines, Auto grows from Lines to MaxLines. The text starts at the top and the label sits above it." />
+      <docs:ParityRow MudBlazor="MaxLength" Here="MaxLength" Status="Same" />
+      <docs:ParityRow MudBlazor="Immediate, DebounceInterval" Here="the binding's UpdateSourceTrigger and Delay" Status="Close" Note="Text follows each key press by default, as Immediate; LostFocus and a binding Delay are the rest." />
+      <docs:ParityRow MudBlazor="AutoFocus" Here="—" Status="Missing" Note="Behaviour: the app calls Focus() once the field is shown." />
+      <docs:ParityRow MudBlazor="InputMode, Pattern" Here="TextInputOptions.ContentType" Status="Close" Note="The on-screen keyboard's hint; a pattern check is validation." />
       <docs:ParityRow MudBlazor="Clearable" Here="clearable" Status="Same" Note="Shown over text that is not blank, never disabled or read-only; out of the Tab order." />
       <docs:ParityRow MudBlazor="ClearIcon" Here="FiliCloseGeometry in the field's Resources" Status="Same" Note="Icons.Material.Filled.Clear is Close's path." />
       <docs:ParityRow MudBlazor="Typo" Here="FontSize, LineHeight from the Fili{Style} tokens" Status="Close" />
       <docs:ParityRow MudBlazor="FullWidth" Here="HorizontalAlignment=&quot;Stretch&quot;" Status="Close" />
       <docs:ParityRow MudBlazor="InputType.Password" Here="PasswordChar" Status="Close" />
-      <docs:ParityRow MudBlazor="MudMask" Here="MaskedTextBox" Status="Same" Note="A TextBox to the theme, so every row above applies." />
+      <docs:ParityRow MudBlazor="MudMask, MudTextField.Mask" Here="MaskedTextBox and its Mask" Status="Same" Note="A TextBox to the theme, so every row above applies; the mask's syntax is .NET's MaskedTextProvider rather than IMask." />
       <docs:ParityRow MudBlazor="MudField" Here="a Label over any content" Status="Close" Note="There is no input box without an input." />
     </docs:ParityTable>
   </StackPanel>

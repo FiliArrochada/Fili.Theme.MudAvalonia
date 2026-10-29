@@ -65,9 +65,15 @@
       <docs:ParityRow MudBlazor="Margin" Here="Margin on the rows, through a Style" Status="Close" />
       <docs:ParityRow MudBlazor="MudNavLink.Icon, IconColor" Here="a PathIcon with start-icon in the Header" Status="Same" Note="24px in drawer-icon, 12px before the text, the colour when active; IconColor is its Foreground." />
       <docs:ParityRow MudBlazor="MudNavLink.Disabled" Here="IsEnabled=&quot;False&quot;" Status="Same" Note="Text-disabled." />
-      <docs:ParityRow MudBlazor="Href, Match, Target" Here="SelectedItem" Status="Close" Note="Which link is active is the app's to set." />
+      <docs:ParityRow MudBlazor="Href, Match, Target, Rel, ForceLoad" Here="SelectedItem" Status="Close" Note="Navigation is the app's, and so is which link is active." />
       <docs:ParityRow MudBlazor="MudNavGroup" Here="a row with children" Status="Same" Note="Opens on a click on its row; ArrowDropDown at its end turns -180 degrees and takes the colour once open; a top-level title at 500, a nested one at 400 until it opens." />
       <docs:ParityRow MudBlazor="nesting" Here="rows inside a group" Status="Same" Note="36px in, then 48, 60 and 72." />
+      <docs:ParityRow MudBlazor="MudNavGroup.Title, TitleContent" Here="the group's Header" Status="Same" />
+      <docs:ParityRow MudBlazor="MudNavGroup.Icon, IconColor" Here="a PathIcon with start-icon in the group's Header" Status="Same" Note="As a link's; IconColor is its Foreground." />
+      <docs:ParityRow MudBlazor="MudNavGroup.Expanded" Here="IsExpanded" Status="Same" />
+      <docs:ParityRow MudBlazor="MudNavGroup.Disabled" Here="IsEnabled=&quot;False&quot;" Status="Same" />
+      <docs:ParityRow MudBlazor="MudNavMenu.MultiExpansion (default true)" Here="every group opens on its own" Status="Same" />
+      <docs:ParityRow MudBlazor="MultiExpansion=&quot;false&quot;" Here="none" Status="Missing" Note="Behaviour: a TreeView has no single expansion; the app collapses the other groups when one expands." />
       <docs:ParityRow MudBlazor="MudNavGroup.HideExpandIcon" Here="hide-icon on the group's row" Status="Same" />
       <docs:ParityRow MudBlazor="MudNavGroup.ExpandIcon (default Filled.ArrowDropDown)" Here="FiliArrowDropDownGeometry in the group's Resources" Status="Same" />
       <docs:ParityRow MudBlazor="MudNavGroup.MaxHeight" Here="none" Status="Missing" Note="A tree item's children have no scroller of their own, so a cap would clip them rather than scroll." />

@@ -46,13 +46,15 @@
     <docs:ParityTable>
       <docs:ParityRow MudBlazor="Typo.h1 … Typo.h6" Here="h1 … h6" Status="Same" Note="Size, weight, line height and letter spacing from Typography.cs." />
       <docs:ParityRow MudBlazor="Typo.subtitle1 / subtitle2" Here="subtitle1 / subtitle2" Status="Same" />
-      <docs:ParityRow MudBlazor="Typo.body1 / body2" Here="body1 / body2" Status="Same" Note="Body2, 14px, is also the default text of every window and user control." />
+      <docs:ParityRow MudBlazor="Typo.body1 (default) / body2" Here="body1 / body2" Status="Same" Note="MudText with no Typo is body1, so put the class on; Body2, 14px, is the default text of every window and user control." />
+      <docs:ParityRow MudBlazor="Typo.inherit" Here="no class" Status="Same" Note="The font, size and spacing of the text round it." />
       <docs:ParityRow MudBlazor="Typo.caption / overline" Here="caption / overline" Status="Same" Note="No colour of their own, as .mud-typography-* sets none: the colour round them." />
       <docs:ParityRow MudBlazor="Typo.button" Here="button" Status="Same" Note="14px, 500, a 24.5px line (1.75 of 14, kept to the half pixel), 0.4px tracking, in FiliButtonTextTransform's case." />
       <docs:ParityRow MudBlazor="Color.Primary … Color.Dark" Here="primary … dark" Status="Same" Note="The palette colour, on any type class." />
-      <docs:ParityRow MudBlazor="Color.Inherit" Here="inherit" Status="Same" Note="The surrounding text colour, over a colour class too." />
+      <docs:ParityRow MudBlazor="Color.Inherit (default), Color.Default, Color.Surface" Here="no class" Status="Same" Note="MudText adds no colour for these (mud-surface-text has no rule), so the text takes the colour round it." />
+      <docs:ParityRow MudBlazor="Color.Inherit over a colour class" Here="inherit" Status="Same" Note="The surrounding text colour, over a colour class too." />
       <docs:ParityRow MudBlazor="mud-text-secondary (grey)" Here="Foreground set to FiliTextSecondaryBrush" Status="Close" Note="A utility class in MudBlazor, not a Color." />
-      <docs:ParityRow MudBlazor="Align, GutterBottom, Inline" Here="TextAlignment, Margin, a Run" Status="Close" Note="Ordinary Avalonia properties." />
+      <docs:ParityRow MudBlazor="Align, GutterBottom, Inline, HtmlTag" Here="TextAlignment, Margin, a Run" Status="Close" Note="Ordinary Avalonia properties; HtmlTag has no counterpart outside HTML." />
       <docs:ParityRow MudBlazor="Typography.cs" Here="Fili{Style}FontSize, …LineHeight, …LetterSpacing per style" Status="Same" Note="Line height and letter spacing converted to absolute pixels." />
       <docs:ParityRow MudBlazor="Typography.Button.TextTransform (uppercase)" Here="FiliButtonTextTransform" Status="Same" Note="CSS's words: none, uppercase, lowercase, capitalize, on a button's string label and on the button class." />
       <docs:ParityRow MudBlazor="the font" Here="Roboto, embedded" Status="Same" Note="Light, Regular and Medium as static faces; FiliFontFamily is the key." />

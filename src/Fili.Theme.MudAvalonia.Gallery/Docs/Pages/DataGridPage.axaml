@@ -69,6 +69,9 @@
     <TextBlock Classes="body1 p">
       <Run Text="Resizing, reordering and hiding are Avalonia's: " /><Run Classes="code" Text="CanUserResizeColumns" /><Run Text=", " /><Run Classes="code" Text="CanUserReorderColumns" /><Run Text=" and a column's " /><Run Classes="code" Text="IsVisible" /><Run Text=". Resizing works and shows its cursor, but MudBlazor's 2px primary line down the grid does not appear. The header never scrolls and the rows always virtualize. There is no column menu, filter row, pager or footer: each is a control of its own, not a look." />
     </TextBlock>
+    <TextBlock Classes="body1 p">
+      <Run Text="MudBlazor's other sections are Avalonia's own, so they have no example here. Column Types are " /><Run Classes="code" Text="DataGridTextColumn" /><Run Text=", " /><Run Classes="code" Text="DataGridCheckBoxColumn" /><Run Text=" and " /><Run Classes="code" Text="DataGridTemplateColumn" /><Run Text="; Column Sizing is a column's " /><Run Classes="code" Text="Width" /><Run Text=", star or pixels; Sticky Columns is " /><Run Classes="code" Text="FrozenColumnCount" /><Run Text="; Row Detail View is " /><Run Classes="code" Text="RowDetailsTemplate" /><Run Text=", with no expand button; a Context Menu is a " /><Run Classes="code" Text="ContextMenu" /><Run Text=" on the grid, or on its rows or cells by a style, drawn as a menu. Data Aggregation lives in a footer, which the DataGrid has none of." />
+    </TextBlock>
     <StackPanel Orientation="Horizontal" Spacing="8" Margin="0,0,0,16">
       <TextBlock Classes="body1" Text="See also:" VerticalAlignment="Center" />
       <docs:DocLink Slug="table" Content="Table" />
@@ -103,6 +106,17 @@
       <docs:ParityRow MudBlazor="FixedFooter, footers" Here="—" Status="Missing" Note="Avalonia's DataGrid has no footer row." />
       <docs:ParityRow MudBlazor="Loading, LoadingProgressColor" Here="loading, a colour class" Status="Same" Note="Info with no colour class, as LoadingProgressColor defaults to Color.Info." />
       <docs:ParityRow MudBlazor="Breakpoint (the stacked mobile layout)" Here="—" Status="Missing" Note="Re-laying rows as cards is a layout the DataGrid does not have, not a look." />
+      <docs:ParityRow MudBlazor="SortMode (default Multiple), AllowUnsorted" Here="CanUserSortColumns, and the header's own clicks" Status="Close" Note="SortMode.None is CanUserSortColumns=&quot;False&quot;. Single and AllowUnsorted have no switch: which clicks and keys sort is the grid's, and SortDescriptions in code sets any sort." />
+      <docs:ParityRow MudBlazor="ReadOnly (default true), a column's Editable" Here="IsReadOnly, a column's IsReadOnly" Status="Close" Note="Avalonia's grid is editable by default, MudDataGrid read-only." />
+      <docs:ParityRow MudBlazor="EditMode.Cell, EditTrigger" Here="editing in the cell, on a double-click or F2" Status="Close" Note="The grid's own gestures; EditTrigger's edit button is a template column's button of the app's." />
+      <docs:ParityRow MudBlazor="EditMode.Form, EditMode.Inline" Here="—" Status="Missing" Note="No edit dialog and no whole-row editing: a cell is edited on its own." />
+      <docs:ParityRow MudBlazor="SelectOnRowClick (default true)" Here="the default" Status="Close" Note="A click always selects its row; false has no switch." />
+      <docs:ParityRow MudBlazor="RowClass, RowClassFunc, RowStyle, RowStyleFunc, CellClass, CellClassFunc, CellStyle, CellStyleFunc" Here="a style on DataGridRow or DataGridCell, or the LoadingRow event" Status="Close" Note="A look from the row's data is a style with a binding, or set as each row loads." />
+      <docs:ParityRow MudBlazor="HierarchyColumn, ExpandSingleRow" Here="RowDetailsTemplate with RowDetailsVisibilityMode" Status="Close" Note="No expand button: VisibleWhenSelected shows the selected row's details only, as ExpandSingleRow does, and Visible every row's; ClosedIcon, OpenIcon, IconSize and InitiallyExpandedFunc have no counterpart." />
+      <docs:ParityRow MudBlazor="a column's StickyLeft, StickyRight" Here="FrozenColumnCount" Status="Close" Note="Columns freeze from the start only; StickyRight has no counterpart." />
+      <docs:ParityRow MudBlazor="ColumnsPanelReordering, DragIndicatorIcon" Here="—" Status="Missing" Note="No columns panel; CanUserReorderColumns drags the headers themselves." />
+      <docs:ParityRow MudBlazor="QuickFilter" Here="a DataGridCollectionView's Filter" Status="Close" Note="No search field of its own; the app binds one to the filter." />
+      <docs:ParityRow MudBlazor="a column's HideSmall" Here="—" Status="Missing" Note="No breakpoints; bind a column's IsVisible to the width instead." />
     </docs:ParityTable>
   </StackPanel>
 </UserControl>

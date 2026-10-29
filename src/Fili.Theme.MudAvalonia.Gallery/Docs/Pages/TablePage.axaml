@@ -37,12 +37,22 @@
                       Description="MudTable draws no selected row. Here a selected row is primary-hover, the primary at 6%, as on the data grid, so selection is visible."
                       Source="Table/Selection" />
 
+    <TextBlock Classes="h5 section" Text="Multi-selection" />
+    <docs:ExampleCard Title="SelectionMode=&quot;Multiple, Toggle&quot;"
+                      Description="MudTable's MultiSelection. A TableView is a ListBox, so a click adds or removes a row, each selected one in primary-hover. MudTable's checkbox column is not here: a CheckBox in a CellTemplate is the app's to bind."
+                      Source="Table/MultiSelection" />
+
+    <TextBlock Classes="h5 section" Text="Fixed header" />
+    <docs:ExampleCard Title="A Height"
+                      Description="MudTable's and MudSimpleTable's FixedHeader with a Height: the rows scroll inside it under a header that stays. The header is always fixed; a TableView has no footer to fix."
+                      Source="Table/FixedHeader" />
+
     <TextBlock Classes="h5 section" Text="Elevation, outlined and square" />
     <docs:ExampleCard Title="elevation0 to elevation25, outlined, CornerRadius 0"
                       Description="An elevation class replaces the default 1. outlined is a 1px lines-default border and no elevation, as MudPaper adds none when it is outlined. CornerRadius=&quot;0&quot; is Square."
                       Source="Table/Elevation" />
     <TextBlock Classes="body1 p">
-      <Run Text="The colours are tokens: " /><Run Classes="code" Text="FiliTableLinesColor" /><Run Text=", " /><Run Classes="code" Text="FiliTableStripedColor" /><Run Text=" and " /><Run Classes="code" Text="FiliTableHoverColor" /><Run Text=", MudBlazor's TableLines, TableStriped and TableHover. Sorting, grouping, editing and a checkbox column are the data grid's." />
+      <Run Text="The colours are tokens: " /><Run Classes="code" Text="FiliTableLinesColor" /><Run Text=", " /><Run Classes="code" Text="FiliTableStripedColor" /><Run Text=" and " /><Run Classes="code" Text="FiliTableHoverColor" /><Run Text=", MudBlazor's TableLines, TableStriped and TableHover. A TableView is read-only and has no sort labels, pager, groups or loading bar: sorting, grouping and editing are the data grid's, and a pager, a tool bar or a ProgressBar beside the table is the app's to lay out." />
     </TextBlock>
     <StackPanel Orientation="Horizontal" Spacing="8" Margin="0,0,0,16">
       <TextBlock Classes="body1" Text="See also:" VerticalAlignment="Center" />
@@ -51,7 +61,7 @@
 
     <TextBlock Classes="h5 section" Text="MudBlazor parity" />
     <TextBlock Classes="body1 p">
-      <Run Text="Every MudTable and MudSimpleTable parameter the theme draws, and what it is here. " /><Run Classes="code" Text="Same" /><Run Text=" is transcribed from MudBlazor's source; " /><Run Classes="code" Text="Close" /><Run Text=" gets the same result another way." />
+      <Run Text="Every MudTable and MudSimpleTable parameter and what it is here. " /><Run Classes="code" Text="Same" /><Run Text=" is transcribed from MudBlazor's source; " /><Run Classes="code" Text="Close" /><Run Text=" gets the same result another way." />
     </TextBlock>
     <docs:ParityTable>
       <docs:ParityRow MudBlazor="MudTable, MudSimpleTable" Here="TableView" Status="Same" Note="The data grid's .mud-table look: text-primary on surface, the default radius." />
@@ -66,6 +76,25 @@
       <docs:ParityRow MudBlazor="Square" Here="CornerRadius=&quot;0&quot;" Status="Same" />
       <docs:ParityRow MudBlazor="TableLines, TableStriped, TableHover" Here="FiliTableLinesColor, FiliTableStripedColor, FiliTableHoverColor" Status="Same" Note="Palette tokens, each with its brush." />
       <docs:ParityRow MudBlazor="a selected row" Here="SelectedItem" Status="Close" Note="MudTable draws none; here primary-hover, as on the data grid, so selection is visible." />
+      <docs:ParityRow MudBlazor="Items, Filter, ServerData" Here="ItemsSource" Status="Close" Note="Filtering and loading the rows are the app's." />
+      <docs:ParityRow MudBlazor="HeaderContent, CustomHeader, ColGroup" Here="each TableViewColumn's Header or HeaderTemplate, and its Width" Status="Close" Note="One header row." />
+      <docs:ParityRow MudBlazor="FixedHeader, Height" Here="Height" Status="Same" Note="The header always stays while the rows scroll." />
+      <docs:ParityRow MudBlazor="FooterContent, CustomFooter, FixedFooter" Here="—" Status="Missing" Note="A TableView has no footer row." />
+      <docs:ParityRow MudBlazor="HorizontalScrollbar" Here="ScrollViewer.HorizontalScrollBarVisibility" Status="Close" Note="Auto by default: columns wider than the table scroll sideways." />
+      <docs:ParityRow MudBlazor="Virtualize, OverscanCount, ItemSize" Here="the same" Status="Close" Note="Rows are always virtualized, recycled in a VirtualizingStackPanel." />
+      <docs:ParityRow MudBlazor="MultiSelection, SelectedItems, SelectOnRowClick" Here="SelectionMode=&quot;Multiple&quot;, SelectedItems" Status="Close" Note="Each selected row in primary-hover; no checkbox column, and no select-all box in the header." />
+      <docs:ParityRow MudBlazor="SelectionChangeable, MudTr.Checkable" Here="—" Status="Missing" Note="No checkbox column to lock." />
+      <docs:ParityRow MudBlazor="RowClass, RowStyle, RowClassFunc, RowStyleFunc, CellClass" Here="ItemContainerTheme, and the CellTemplate" Status="Close" Note="A row's look per item is a style binding the item; a cell's is its template." />
+      <docs:ParityRow MudBlazor="RowDisabledFunc, MudTr.Disabled" Here="IsEnabled on the row, through ItemContainerTheme" Status="Close" />
+      <docs:ParityRow MudBlazor="SortLabel, AllowUnsorted, MudTableSortLabel (SortDirection, InitialDirection, SortIcon, AppendIcon, Enabled)" Here="—" Status="Missing" Note="A TableView does not sort; the data grid does." />
+      <docs:ParityRow MudBlazor="MudTablePager, PagerContent, PagerPosition, RowsPerPage, CurrentPage, and its icons" Here="—" Status="Missing" Note="A control of its own, which Avalonia does not have; paging is the app's." />
+      <docs:ParityRow MudBlazor="ToolBarContent" Here="a tool bar above the table" Status="Close" Note="Layout: put both in one paper." />
+      <docs:ParityRow MudBlazor="Loading, LoadingProgressColor (Info), LoadingContent, NoRecordsContent" Here="—" Status="Missing" Note="The table draws no loading bar or empty state; a linear ProgressBar with info, or a TextBlock, beside it is the app's." />
+      <docs:ParityRow MudBlazor="GroupBy, GroupHeaderTemplate, GroupFooterTemplate, MudTableGroupRow (ExpandIcon, CollapseIcon)" Here="—" Status="Missing" Note="A TableView has no groups; the data grid groups." />
+      <docs:ParityRow MudBlazor="RowEditingTemplate, EditTrigger, ReadOnly, CanCancelEdit, CommitEditIcon, CancelEditIcon, EditButtonPosition, ApplyButtonPosition, RowEditableFunc" Here="—" Status="Missing" Note="A TableView is read-only; the data grid edits." />
+      <docs:ParityRow MudBlazor="ChildRowContent, MudTr.Expandable" Here="—" Status="Missing" Note="A row has no detail area; the data grid's RowDetailsTemplate is the nearest." />
+      <docs:ParityRow MudBlazor="Breakpoint (Xs), MudTd.DataLabel" Here="—" Status="Missing" Note="No stacked layout on a narrow window: the table scrolls sideways." />
+      <docs:ParityRow MudBlazor="MudTd.HideSmall" Here="the column's IsVisible" Status="Close" Note="Set by the app from the window's width." />
     </docs:ParityTable>
   </StackPanel>
 </UserControl>

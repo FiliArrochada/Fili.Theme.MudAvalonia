@@ -33,6 +33,9 @@
     <docs:ExampleCard Title="Clickable and static"
                       Description="chip on a Button is a clickable MudChip: hover, ripple, hand cursor and focus. chip on a ContentControl is MudChip with neither OnClick nor Href: the same variants, colours and sizes at rest, with nothing to click."
                       Source="Chips/Clickable" />
+    <TextBlock Classes="body1 p">
+      <Run Text="MudBlazor's Link Chip and Custom Rel Content sections are a chip with an Href. Here that is a clickable chip whose Click opens the address, so it looks like the one above; Rel has no counterpart outside a browser." />
+    </TextBlock>
 
     <TextBlock Classes="h5 section" Text="Icons" />
     <docs:ExampleCard Title="Start icons"
@@ -83,7 +86,10 @@
       <docs:ParityRow MudBlazor="Icon" Here="an icon in Content with start-icon" Status="Same" Note="20px (18 small, 24 large), 4px out and 4px in (6px on a large chip)." />
       <docs:ParityRow MudBlazor="close icon" Here="an icon or button in Content with end-icon" Status="Close" Note="The close button's 18px and spacing; closing is the app's, a list the chip set binds, on the Custom components page." />
       <docs:ParityRow MudBlazor="Avatar" Here="a Border.avatar in Content" Status="Same" Note="As .mud-chip .mud-avatar: 24px, 8px out and 8px in, 12px text; on a small chip 18px, 4px out and 4px in, 10px text; on a large one 32px, 12px out and 8px in, 16px text." />
-      <docs:ParityRow MudBlazor="MudChipSet selection rules" Here="—" Status="Missing" Note="Single or multiple selection is the app's, through IsChecked bindings." />
+      <docs:ParityRow MudBlazor="MudChipSet SelectionMode: SingleSelection (default), ToggleSelection, MultiSelection" Here="—" Status="Missing" Note="Each ToggleButton.chip toggles on its own, which is MultiSelection; single selection, with or without deselecting, is the app's, through IsChecked bindings." />
+      <docs:ParityRow MudBlazor="MudChipSet ReadOnly" Here="IsHitTestVisible=&quot;False&quot; on the chips' panel" Status="Close" Note="Looks the same, as in MudBlazor; the chips stay Tab stops unless Focusable=&quot;False&quot;." />
+      <docs:ParityRow MudBlazor="MudChip Default" Here="IsChecked=&quot;True&quot; to start with" Status="Close" />
+      <docs:ParityRow MudBlazor="Href, Target, Rel" Here="a Button.chip whose Click opens the address" Status="Close" Note="A HyperlinkButton wears the link's look, not the chip's; Rel means nothing outside a browser." />
       <docs:ParityRow MudBlazor="Label" Here="CornerRadius=&quot;4&quot;" Status="Close" Note="The chip label's default radius in place of the pill." />
       <docs:ParityRow MudBlazor="SelectedColor" Here="a colour class the app sets while IsChecked" Status="Close" />
       <docs:ParityRow MudBlazor="IconColor" Here="the icon's Foreground" Status="Close" />

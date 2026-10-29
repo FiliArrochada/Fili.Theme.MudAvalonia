@@ -26,6 +26,7 @@
     <docs:ExampleCard Title="A paper in each cell"
                       Description="MudSplitPanel's Rounded, Elevation, Padding and Transparent are the panels' own look: put a Border.paper in each cell, with an elevation class, outlined or CornerRadius as it needs, or leave the paper out for Transparent. PanelGap is the papers' Margin."
                       Source="SplitPanel/Papers" />
+    <TextBlock Classes="body1 p" Text="MudBlazor's overlay and functions examples have no look of their own: an overlaid split panel is the Grid in a Panel above the content, and setting or resetting the sizes is the column's or row's Width or Height from code." />
 
     <StackPanel Orientation="Horizontal" Spacing="8" Margin="0,0,0,16">
       <TextBlock Classes="body1" Text="See also:" VerticalAlignment="Center" />
@@ -41,6 +42,10 @@
       <docs:ParityRow MudBlazor="the divider" Here="GridSplitter" Status="Close" Note="A visible hairline, kept from the forked template on purpose: MudBlazor's is invisible and relies on the panels' backgrounds." />
       <docs:ParityRow MudBlazor="Horizontal, MinPanelSize" Here="ResizeDirection, the columns' or rows' MinWidth / MinHeight" Status="Close" Note="Ordinary Avalonia properties." />
       <docs:ParityRow MudBlazor="Rounded, Elevation, PanelGap, Padding, Transparent" Here="a Border.paper round each panel" Status="Close" Note="The panels' look is the papers', the gap their Margin; no paper for Transparent." />
+      <docs:ParityRow MudBlazor="FirstPanel, SecondPanel" Here="the Grid's cells either side of the splitter" Status="Same" />
+      <docs:ParityRow MudBlazor="FirstPanelInitialSize" Here="the first column's or row's Width / Height" Status="Close" Note="An ordinary Avalonia property." />
+      <docs:ParityRow MudBlazor="ResetOnDoubleClick (default true)" Here="—" Status="Missing" Note="Behaviour: a GridSplitter has no reset; the app restores the sizes on its DoubleTapped." />
+      <docs:ParityRow MudBlazor="UseAsOverlay" Here="the Grid in a Panel over the content" Status="Close" Note="Layout, which Avalonia's panels do: overlap is a Panel or a ZIndex." />
     </docs:ParityTable>
   </StackPanel>
 </UserControl>

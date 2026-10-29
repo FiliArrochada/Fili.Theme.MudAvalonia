@@ -19,6 +19,9 @@
     <TextBlock Classes="body1 p">
       <Run Text="Size, weight and spacing are inherited from the surrounding text, so the theme sets no " /><Run Classes="code" Text="FontSize" /><Run Text=": a link inside body2 is body2, and a link inside a heading is the heading." />
     </TextBlock>
+    <TextBlock Classes="body1 p">
+      <Run Text="MudBlazor's Inline Links section puts a MudLink in the middle of a sentence. Avalonia's text holds a control only in an " /><Run Classes="code" Text="InlineUIContainer" /><Run Text=" among a TextBlock's " /><Run Classes="code" Text="Inlines" /><Run Text=", where the link takes the sentence's type but is placed by its own box rather than its text's baseline, so it has no example here; a link beside a sentence, in a WrapPanel, lines up as text does." />
+    </TextBlock>
 
     <TextBlock Classes="h5 section" Text="Underlines" />
     <docs:ExampleCard Title="Hover, always and none"
@@ -53,6 +56,8 @@
       <docs:ParityRow MudBlazor="Disabled" Here="IsEnabled=&quot;False&quot;" Status="Same" Note="Action-disabled." />
       <docs:ParityRow MudBlazor="Typo" Here="a type class on a TextBlock inside" Status="Close" />
       <docs:ParityRow MudBlazor="StartIcon, EndIcon" Here="an icon in the content marked start-icon / end-icon" Status="Same" Note="As .mud-link-icon-start and -end: the link's own font size and 4px from the text." />
+      <docs:ParityRow MudBlazor="IconClass" Here="Classes on the icon" Status="Close" Note="Beside start-icon or end-icon, such as a colour class." />
+      <docs:ParityRow MudBlazor="Href, Target" Here="NavigateUri" Status="Close" Note="Avalonia opens the address itself; Target means nothing outside a browser." />
     </docs:ParityTable>
   </StackPanel>
 </UserControl>

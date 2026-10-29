@@ -86,11 +86,15 @@
       <docs:ParityRow MudBlazor="Padding (default true)" Here="Padding=&quot;0&quot;" Status="Close" Note="An ordinary Avalonia property." />
       <docs:ParityRow MudBlazor="Icon" Here="a PathIcon in the content marked start-icon" Status="Same" Note="24px in a 56px column, action-default (action-disabled on a disabled row), the text centred beside it." />
       <docs:ParityRow MudBlazor="IconColor, AvatarContent, SecondaryText, Inset" Here="content in the item" Status="Close" Note="The app lays out the row. SecondaryText is a subtitle2 TextBlock in text-secondary: .mud-list-item-secondary-text is subtitle2 at 500." />
-      <docs:ParityRow MudBlazor="NestedList, Expanded, ExpandMoreIcon, ExpandLessIcon" Here="TreeView" Status="Close" Note="A ListBox is flat; a tree nests." />
+      <docs:ParityRow MudBlazor="IconSize" Here="small or large on the icon" Status="Close" Note="The icon's own size class: 20 or 36px." />
+      <docs:ParityRow MudBlazor="NestedList, Expanded, ExpandMoreIcon, ExpandLessIcon, ExpandIconColor" Here="TreeView" Status="Close" Note="A ListBox is flat; a tree nests." />
+      <docs:ParityRow MudBlazor="SelectionMode.SingleSelection (default)" Here="SelectionMode=&quot;Single&quot;, the default" Status="Close" Note="Clicking the selected row keeps it, as in MudBlazor." />
+      <docs:ParityRow MudBlazor="SelectionMode.ToggleSelection" Here="SelectionMode=&quot;Single, Toggle&quot;" Status="Close" Note="A second click clears the row." />
+      <docs:ParityRow MudBlazor="ReadOnly" Here="IsHitTestVisible=&quot;False&quot;" Status="Close" Note="The rows look the same and the pointer cannot change them; the list stays a Tab stop unless Focusable=&quot;False&quot;." />
       <docs:ParityRow MudBlazor="SelectionMode.MultiSelection" Here="multi-selection" Status="Same" Note="A 48px checkbox on each row, 8px into the gutter, checked while the row is selected; no row is marked selected." />
       <docs:ParityRow MudBlazor="SelectionMode.MultiSelection, set up" Here="multi-selection and SelectionMode=&quot;Multiple, Toggle&quot;" Status="Close" Note="Two settings for one parameter: a XAML list pins SelectionMode before any style can set it." />
       <docs:ParityRow MudBlazor="CheckBoxColor (default Default)" Here="no class, or primary … dark on the list while multi-selection is on" Status="Close" Note="Both glyphs and the halo; the list's Color class doubles as it, the selection colour being unused while selecting many." />
-      <docs:ParityRow MudBlazor="CheckedIcon, UncheckedIcon, IndeterminateIcon" Here="FiliCheckBoxCheckedGeometry, FiliCheckBoxUncheckedGeometry, FiliCheckBoxIndeterminateGeometry" Status="Same" Note="Resource keys set in the list's Resources, as on a checkbox." />
+      <docs:ParityRow MudBlazor="CheckedIcon, UncheckedIcon" Here="FiliCheckBoxCheckedGeometry, FiliCheckBoxUncheckedGeometry" Status="Same" Note="Resource keys set in the list's Resources, as on a checkbox. MudList has no IndeterminateIcon." />
       <docs:ParityRow MudBlazor="MudListSubheader, its Inset and Gutters" Here="TextBlock.subheader, inset, no-gutters" Status="Same" Note="Outside the ListBox, so it is not a row that can be chosen." />
       <docs:ParityRow MudBlazor="Ripple (default true)" Here="on" Status="Same" Note="On every row, and on a select's options, which are MudListItems." />
     </docs:ParityTable>

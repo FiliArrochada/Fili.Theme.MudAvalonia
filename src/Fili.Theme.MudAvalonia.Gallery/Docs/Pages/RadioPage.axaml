@@ -71,9 +71,13 @@
       <docs:ParityRow MudBlazor="ReadOnly" Here="IsHitTestVisible=&quot;False&quot;" Status="Close" Note="Looks the same, as in MudBlazor." />
       <docs:ParityRow MudBlazor="Dense" Here="dense" Status="Same" Note="4px round the glyph: 32px; 28 small, 44 large." />
       <docs:ParityRow MudBlazor="the hit circle" Here="the same" Status="Same" Note="48px, the icon button's 12px round the 24px glyph; 44 small, 60 large." />
-      <docs:ParityRow MudBlazor="LabelPlacement End (default)" Here="no class" Status="Same" />
-      <docs:ParityRow MudBlazor="LabelPlacement Start, Top, Bottom" Here="label-start, label-top, label-bottom" Status="Same" Note="Row-reverse, column-reverse and column, the two centred when stacked." />
+      <docs:ParityRow MudBlazor="Label" Here="Content" Status="Same" />
+      <docs:ParityRow MudBlazor="LabelPlacement End (default), Right" Here="no class" Status="Same" Note="MudBlazor reads Right as End and Left as Start." />
+      <docs:ParityRow MudBlazor="LabelPlacement Start or Left, Top, Bottom" Here="label-start, label-top, label-bottom" Status="Same" Note="Row-reverse, column-reverse and column, the two centred when stacked." />
       <docs:ParityRow MudBlazor="CheckedIcon, UncheckedIcon" Here="the glyph keys in the radio's Resources" Status="Same" Note="FiliRadioCheckedGeometry, FiliRadioUncheckedGeometry." />
+      <docs:ParityRow MudBlazor="IndeterminateIcon" Here="nothing" Status="Same" Note="Never drawn in 9.11: a radio shows only CheckedIcon or UncheckedIcon." />
+      <docs:ParityRow MudBlazor="MudRadioGroup.Value, MudRadio.Value" Here="IsChecked on each RadioButton" Status="Close" Note="Which option is chosen is the app's to bind." />
+      <docs:ParityRow MudBlazor="MudRadioGroup.Disabled, ReadOnly" Here="IsEnabled, IsHitTestVisible on the panel" Status="Close" />
       <docs:ParityRow MudBlazor="Ripple (default true)" Here="on" Status="Same" Note="In the halo only, in the glyph's colour (the unchecked colour while off), text-primary with no colour." />
     </docs:ParityTable>
   </StackPanel>

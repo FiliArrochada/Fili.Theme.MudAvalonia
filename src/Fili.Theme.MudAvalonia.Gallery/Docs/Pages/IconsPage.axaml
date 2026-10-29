@@ -16,6 +16,9 @@
     <TextBlock Classes="body1 p">
       <Run Text="The theme ships no icon set: paste a path from MudBlazor's " /><Run Classes="code" Text="Icons.Material" /><Run Text=" as it is, dropping the transparent " /><Run Classes="code" Text="M0 0h24v24H0z" /><Run Text=" spacer, which a filled geometry would paint as a square. The glyphs on these pages are the gallery's own, transcribed from MudBlazor's Material icons." />
     </TextBlock>
+    <TextBlock Classes="body1 p">
+      <Run Text="MudBlazor's Material Variants are the paths in " /><Run Classes="code" Text="Icons.Material.Outlined" /><Run Text=", " /><Run Classes="code" Text="Rounded" /><Run Text=", " /><Run Classes="code" Text="Sharp" /><Run Text=" and " /><Run Classes="code" Text="TwoTone" /><Run Text=", pasted the same way, and Custom SVG Icons are any path of your own in a 24px box. Font icons, class-based or text-based, have no counterpart in a PathIcon: draw one as a " /><Run Classes="code" Text="TextBlock" /><Run Text=" in the icon font instead." />
+    </TextBlock>
 
     <TextBlock Classes="h5 section" Text="Colour" />
     <docs:ExampleCard Title="Every palette colour"
@@ -73,14 +76,15 @@
       <Run Text="Every icon the theme draws, the MudBlazor parameter it stands for where there is one, and its key. Set the key in the control's " /><Run Classes="code" Text="Resources" /><Run Text=", or a parent's to reach every control inside it. Each glyph is drawn at its own size in the 24px box." />
     </TextBlock>
     <docs:ParityTable>
-      <docs:ParityRow MudBlazor="MudCheckBox CheckedIcon, UncheckedIcon, IndeterminateIcon; MudList's and MudTreeView's the same" Here="FiliCheckBoxCheckedGeometry, FiliCheckBoxUncheckedGeometry, FiliCheckBoxIndeterminateGeometry" Status="Same" />
+      <docs:ParityRow MudBlazor="MudCheckBox and MudTreeView CheckedIcon, UncheckedIcon, IndeterminateIcon; MudList CheckedIcon, UncheckedIcon" Here="FiliCheckBoxCheckedGeometry, FiliCheckBoxUncheckedGeometry, FiliCheckBoxIndeterminateGeometry" Status="Same" Note="MudList has no IndeterminateIcon." />
       <docs:ParityRow MudBlazor="MudRadio CheckedIcon, UncheckedIcon" Here="FiliRadioCheckedGeometry, FiliRadioUncheckedGeometry" Status="Same" Note="A carousel's bullets draw the same two." />
       <docs:ParityRow MudBlazor="MudSwitch ThumbIcon (none by default)" Here="FiliSwitchThumbIconGeometry" Status="Same" Note="Empty unless set." />
       <docs:ParityRow MudBlazor="MudSelect OpenIcon (shown while closed), CloseIcon (shown while open)" Here="FiliArrowDropDownGeometry, FiliArrowDropUpGeometry" Status="Same" />
       <docs:ParityRow MudBlazor="MudNavGroup ExpandIcon" Here="FiliArrowDropDownGeometry, in the group's Resources" Status="Same" Note="Filled.ArrowDropDown by default, the solid triangle, not ExpandMore's chevron." />
       <docs:ParityRow MudBlazor="MudNumericField NumericUpIcon, NumericDownIcon" Here="FiliKeyboardArrowUpGeometry, FiliKeyboardArrowDownGeometry" Status="Same" Note="The time picker's column arrows draw the same two." />
       <docs:ParityRow MudBlazor="MudExpansionPanel Icon" Here="FiliExpandMoreGeometry" Status="Same" />
-      <docs:ParityRow MudBlazor="MudTreeView ExpandButtonIcon" Here="FiliChevronRightGeometry" Status="Same" />
+      <docs:ParityRow MudBlazor="MudTreeViewItem ExpandButtonIcon" Here="FiliChevronRightGeometry" Status="Same" />
+      <docs:ParityRow MudBlazor="MudCarousel PreviousIcon, NextIcon" Here="FiliNavigateBeforeGeometry, FiliChevronRightGeometry" Status="Same" Note="NavigateNext is ChevronRight's path." />
       <docs:ParityRow MudBlazor="MudTabs PrevIcon, NextIcon" Here="FiliNavigateBeforeGeometry, FiliChevronRightGeometry" Status="Same" />
       <docs:ParityRow MudBlazor="MudDatePicker AdornmentIcon, PreviousIcon, NextIcon; MudTimePicker AdornmentIcon" Here="FiliEventGeometry; FiliNavigateBeforeGeometry, FiliChevronRightGeometry; FiliAccessTimeGeometry" Status="Same" />
       <docs:ParityRow MudBlazor="MudSnackbar CloseIcon; CommonSnackbarOptions' InfoIcon, SuccessIcon, WarningIcon, ErrorIcon, NormalIcon" Here="on the WindowNotificationManager: FiliCloseGeometry; FiliInfoOutlinedGeometry, FiliAlertSuccessGeometry, FiliReportProblemGeometry, FiliErrorOutlineGeometry, FiliEventNoteGeometry" Status="Same" />

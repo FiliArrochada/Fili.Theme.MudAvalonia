@@ -54,6 +54,11 @@
       <Run Text="MudAutocomplete's " /><Run Classes="code" Text="MaxHeight" /><Run Text=" defaults to 300, and so does " /><Run Classes="code" Text="MaxDropDownHeight" /><Run Text=" here, where Avalonia's default is 200." />
     </TextBlock>
 
+    <TextBlock Classes="h5 section" Text="Behaviour" />
+    <TextBlock Classes="body1 p">
+      <Run Text="Search, keys and templates are AutoCompleteBox's own, so MudBlazor's Strict Mode, Keyboard Navigation, Cancellation Token and Presentation Extras sections have no example here. " /><Run Classes="code" Text="AsyncPopulator" /><Run Text=" is SearchFunc, given a CancellationToken as MudBlazor's is; " /><Run Classes="code" Text="ItemTemplate" /><Run Text=" draws every suggestion; Up and Down move through the list, Enter chooses and Escape closes it." />
+    </TextBlock>
+
     <TextBlock Classes="h5 section" Text="MudBlazor parity" />
     <TextBlock Classes="body1 p">
       <Run Text="Every MudAutocomplete parameter and what it is here. " /><Run Classes="code" Text="Same" /><Run Text=" is transcribed from MudBlazor's source; " /><Run Classes="code" Text="Close" /><Run Text=" gets the same result another way." />
@@ -70,6 +75,21 @@
       <docs:ParityRow MudBlazor="AdornmentIcon" Here="FiliArrowDropDownGeometry in the field's Resources, or InnerRightContent" Status="Close" Note="The key changes the glyph and keeps the toggle; content of the app's own replaces the button and its click." />
       <docs:ParityRow MudBlazor="Adornment.None, OnAdornmentClick" Here="InnerRightContent=&quot;{x:Null}&quot;, or a button of the app's own" Status="Close" Note="An own button is the click; the arrow's is not exposed." />
       <docs:ParityRow MudBlazor="ShowProgressIndicator, ProgressIndicatorColor" Here="a ProgressBar.circular.small in InnerRightContent" Status="Close" Note="In place of the arrow, as MudBlazor's hides it while loading; ClearValue, not null, brings the arrow back." />
+      <docs:ParityRow MudBlazor="ClearIcon" Here="FiliCloseGeometry in the field's Resources" Status="Same" Note="As on a text field." />
+      <docs:ParityRow MudBlazor="Dense" Here="—" Status="Missing" Note="The list's dense rows. dense on the AutoCompleteBox is Margin.Dense, and no class reaches the ListBox in its popup." />
+      <docs:ParityRow MudBlazor="AnchorOrigin, TransformOrigin, RelativeWidth" Here="below the field, at least its width" Status="Close" Note="Fixed, as the popup is a template part; at least the field's width is DropdownWidth.Adaptive, not the default Relative." />
+      <docs:ParityRow MudBlazor="SearchFunc" Here="AsyncPopulator, or ItemsSource with FilterMode" Status="Close" Note="AsyncPopulator is given a CancellationToken too." />
+      <docs:ParityRow MudBlazor="DebounceInterval (default 100)" Here="MinimumPopulateDelay" Status="Close" Note="Avalonia's default is none; 0:0:0.1 is MudBlazor's." />
+      <docs:ParityRow MudBlazor="MaxItems (default 10), MoreItemsTemplate" Here="—" Status="Missing" Note="Every match is listed; an AsyncPopulator can return fewer, but nothing says more exist." />
+      <docs:ParityRow MudBlazor="NoItemsTemplate" Here="—" Status="Missing" Note="With no match the list closes; AutoCompleteBox has no slot for an empty one." />
+      <docs:ParityRow MudBlazor="ItemTemplate" Here="ItemTemplate" Status="Close" Note="A DataTemplate for every suggestion." />
+      <docs:ParityRow MudBlazor="ItemSelectedTemplate, ItemDisabledTemplate, ItemDisabledFunc, BeforeItemsTemplate, AfterItemsTemplate" Here="—" Status="Missing" Note="One template for every row and nothing above or below the list; a suggestion cannot be disabled." />
+      <docs:ParityRow MudBlazor="ToStringFunc" Here="ValueMemberBinding, or the item's ToString" Status="Close" />
+      <docs:ParityRow MudBlazor="Strict (default true)" Here="the default" Status="Close" Note="The arrow over a chosen value lists what its text matches, as Strict does; false, listing everything, has no counterpart." />
+      <docs:ParityRow MudBlazor="CoerceText, CoerceValue, ResetValueOnEmptyText" Here="Text and SelectedItem, bound separately" Status="Close" Note="Choosing an item writes its text; SelectedItem is the exact match or null, so an empty field resets it, and CoerceValue is binding Text." />
+      <docs:ParityRow MudBlazor="SelectOnActivation (default true)" Here="—" Status="Missing" Note="Focus does not select the text; an app does it on GotFocus." />
+      <docs:ParityRow MudBlazor="SelectValueOnTab" Here="the default" Status="Close" Note="Arrowing through the list chooses each row as it goes, so Tab leaves the last one chosen." />
+      <docs:ParityRow MudBlazor="OpenOnFocus (default true)" Here="—" Status="Missing" Note="The list opens on typing or the arrow, not on focus." />
     </docs:ParityTable>
   </StackPanel>
 </UserControl>

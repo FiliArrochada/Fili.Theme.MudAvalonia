@@ -42,6 +42,8 @@
     <TextBlock Classes="body1 p">
       <Run Text="As on a list, the class is the look and " /><Run Classes="code" Text="SelectionMode=&quot;Multiple, Toggle&quot;" /><Run Text=" the behaviour, which the app sets. A branch's box is its own selection: it is never indeterminate from its children." />
     </TextBlock>
+    <TextBlock Classes="body1 p" Text="MudBlazor's auto-expand, server-side data, filtering, item template and custom body examples are behaviour or the app's own content: a TreeDataTemplate draws each row, the app sets IsExpanded and filters its ItemsSource, and children added on Expanded load with no glyph of their own." />
+
     <StackPanel Orientation="Horizontal" Spacing="8" Margin="0,0,0,16">
       <TextBlock Classes="body1" Text="See also:" VerticalAlignment="Center" />
       <docs:DocLink Slug="list" Content="List" />
@@ -58,13 +60,26 @@
       <docs:ParityRow MudBlazor="Disabled" Here="IsEnabled=&quot;False&quot;" Status="Same" Note="Action-disabled." />
       <docs:ParityRow MudBlazor="Color (the selection, default Primary)" Here="primary … dark on the TreeView" Status="Same" Note="The colour as the text over its hover tint." />
       <docs:ParityRow MudBlazor="Dense" Here="dense" Status="Same" Note="No 32px minimum, rows padded 1px 4px." />
+      <docs:ParityRow MudBlazor="SelectionMode.SingleSelection (default)" Here="SelectionMode Single, Avalonia's default" Status="Same" />
+      <docs:ParityRow MudBlazor="SelectionMode.ToggleSelection" Here="SelectionMode=&quot;Single, Toggle&quot;" Status="Same" Note="A click on the selected row clears it." />
+      <docs:ParityRow MudBlazor="SelectedValue, SelectedValues, MudTreeViewItem.Selected" Here="SelectedItem, SelectedItems, IsSelected" Status="Same" />
       <docs:ParityRow MudBlazor="SelectionMode.MultiSelection" Here="multi-selection" Status="Same" Note="A 32px checkbox after the arrow (24 dense), checked while the row is selected; no row is marked selected." />
       <docs:ParityRow MudBlazor="SelectionMode.MultiSelection, set up" Here="multi-selection and SelectionMode=&quot;Multiple, Toggle&quot;" Status="Close" Note="Two settings for one parameter, as on a list; and a branch's box is its own selection, never indeterminate from its children." />
       <docs:ParityRow MudBlazor="CheckBoxColor (default Default)" Here="no class, or primary … dark on the tree while multi-selection is on" Status="Close" Note="As on a list: the tree's Color class doubles as it." />
-      <docs:ParityRow MudBlazor="CheckedIcon, UncheckedIcon, IndeterminateIcon" Here="FiliCheckBoxCheckedGeometry, FiliCheckBoxUncheckedGeometry, FiliCheckBoxIndeterminateGeometry" Status="Same" Note="Resource keys set in the tree's Resources, as on a checkbox." />
-      <docs:ParityRow MudBlazor="Icon, IconExpanded, EndIcon, EndText, TextTypo" Here="the Header's content" Status="Close" Note="The app lays out the header." />
+      <docs:ParityRow MudBlazor="TriState, AutoSelectParent (both default true)" Here="—" Status="Missing" Note="Behaviour: a branch's box is its own selection, so checking does not cascade and no box is indeterminate; the app selects parents and children itself." />
+      <docs:ParityRow MudBlazor="CheckedIcon, UncheckedIcon" Here="FiliCheckBoxCheckedGeometry, FiliCheckBoxUncheckedGeometry" Status="Same" Note="Resource keys set in the tree's Resources, as on a checkbox." />
+      <docs:ParityRow MudBlazor="IndeterminateIcon" Here="FiliCheckBoxIndeterminateGeometry" Status="Close" Note="The key is there, but without TriState no box is drawn indeterminate." />
+      <docs:ParityRow MudBlazor="ExpandOnDoubleClick" Here="always on" Status="Close" Note="A double click on a row's header toggles its branch, which MudBlazor does only when asked." />
+      <docs:ParityRow MudBlazor="ExpandOnClick, AutoExpand" Here="IsExpanded, set by the app" Status="Close" Note="Behaviour: the arrow expands a branch; expanding on a click or to show a selected child is the app's." />
+      <docs:ParityRow MudBlazor="MudTreeViewItem.Expanded" Here="IsExpanded" Status="Same" />
+      <docs:ParityRow MudBlazor="MudTreeViewItem.CanExpand" Here="a branch with no children" Status="Close" Note="A row shows its arrow only while it has children." />
+      <docs:ParityRow MudBlazor="MudTreeViewItem.Visible, FilterFunc" Here="IsVisible on the item, or a filtered ItemsSource" Status="Close" Note="Filtering is the app's." />
+      <docs:ParityRow MudBlazor="ReadOnly, MudTreeViewItem.ReadOnly" Here="IsHitTestVisible=&quot;False&quot;" Status="Close" Note="Selection is locked; a TreeView has no IsReadOnly." />
+      <docs:ParityRow MudBlazor="Items, ItemTemplate, MudTreeViewItem.Text, Content, BodyContent" Here="ItemsSource and a TreeDataTemplate, or Header" Status="Close" Note="How a row reads is its template." />
+      <docs:ParityRow MudBlazor="Icon, IconExpanded, IconColor, EndIcon, EndIconColor, EndText, TextTypo, EndTextTypo" Here="the Header's content" Status="Close" Note="The app lays out the header: an icon's Foreground is its colour, a type class its Typo." />
       <docs:ParityRow MudBlazor="ExpandButtonIcon" Here="FiliChevronRightGeometry in the tree's Resources" Status="Same" Note="The key swaps every arrow in that tree." />
-      <docs:ParityRow MudBlazor="ExpandButtonIconColor, LoadingIcon" Here="—" Status="Missing" Note="The arrow is action-default, and nothing loads lazily." />
+      <docs:ParityRow MudBlazor="ExpandButtonIconColor" Here="—" Status="Missing" Note="The arrow is action-default." />
+      <docs:ParityRow MudBlazor="ServerData, LoadingIcon, LoadingIconColor" Here="—" Status="Missing" Note="Behaviour: nothing loads lazily; an app that adds children on Expanded shows no loading glyph." />
       <docs:ParityRow MudBlazor="Width, Height, MaxHeight" Here="the same" Status="Close" Note="Ordinary Avalonia properties." />
       <docs:ParityRow MudBlazor="Ripple (default true)" Here="on" Status="Same" Note="On each row, and on its expand arrow." />
     </docs:ParityTable>

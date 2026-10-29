@@ -35,6 +35,14 @@
                       Description="small and large, and every palette colour. A filled group with no colour draws the divider colour between its buttons."
                       Source="ButtonGroup/SizesColors" />
 
+    <TextBlock Classes="h5 section" Text="Icon buttons" />
+    <docs:ExampleCard Title="Icon buttons in a group"
+                      Description="An icon button is a Button, so it joins a group as any other does and gives up its own corners to the group's. Each carries its own classes, here icon outlined primary."
+                      Source="ButtonGroup/IconButtons" />
+    <TextBlock Classes="body1 p">
+      <Run Text="MudBlazor's Custom Styles section sets Class and Style on the group; here that is an app's own style on the buttons." />
+    </TextBlock>
+
     <TextBlock Classes="h5 section" Text="Split button" />
     <docs:ExampleCard Title="SplitButton"
                       Description="Avalonia's SplitButton is a two-part MudButtonGroup whose second part opens a menu. It takes Button's classes: text by default, outlined, filled, any colour, small and large."
@@ -54,6 +62,7 @@
       <docs:ParityRow MudBlazor="MudButtonGroup Vertical" Here="Orientation=&quot;Vertical&quot; on the StackPanel" Status="Same" Note="The same joins, top to bottom." />
       <docs:ParityRow MudBlazor="MudButtonGroup Variant.Filled's elevation" Here="—" Status="Close" Note="Each filled button rests flat and lifts to 4; the group's own elevation 2 is the app's, as a StackPanel has no shadow." />
       <docs:ParityRow MudBlazor="MudButtonGroup FullWidth" Here="HorizontalAlignment=&quot;Stretch&quot;" Status="Close" />
+      <docs:ParityRow MudBlazor="MudButtonGroup Color, Size, Variant" Here="the classes on each button" Status="Close" Note="MudBlazor hands them down while OverrideStyles is true, its default; here each button carries its own." />
       <docs:ParityRow MudBlazor="MudButtonGroup OverrideStyles" Here="—" Status="Missing" Note="Nothing cascades; put the classes on each button." />
       <docs:ParityRow MudBlazor="a two-part MudButtonGroup" Here="SplitButton" Status="Same" Note="Button's classes: outlined or filled, any colour, small or large." />
       <docs:ParityRow MudBlazor="group separator" Here="the same" Status="Same" Note="Text-primary or the colour; divider when filled; the lighten shade between filled coloured segments." />
