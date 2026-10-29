@@ -52,6 +52,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Versions", "Versions", "{F7
 		docs\versions\0.22.0.md = docs\versions\0.22.0.md
 		docs\versions\0.23.0.md = docs\versions\0.23.0.md
 		docs\versions\0.24.0.md = docs\versions\0.24.0.md
+		docs\versions\0.25.0.md = docs\versions\0.25.0.md
 		docs\versions\0.3.0.md = docs\versions\0.3.0.md
 		docs\versions\0.4.0.md = docs\versions\0.4.0.md
 		docs\versions\0.5.0.md = docs\versions\0.5.0.md
@@ -64,7 +65,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Versions", "Versions", "{F7
 		docs\versions\0.9.2.md = docs\versions\0.9.2.md
 		docs\versions\0.9.3.md = docs\versions\0.9.3.md
 		docs\versions\0.9.4.md = docs\versions\0.9.4.md
-		docs\versions\unreleased.md = docs\versions\unreleased.md
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Pipelines", "Pipelines", "{6C4B1D93-2A78-4F5E-9C31-D8E07A61B4F2}"
