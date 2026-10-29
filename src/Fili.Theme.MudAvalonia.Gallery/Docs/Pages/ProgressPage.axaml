@@ -103,7 +103,7 @@
       <docs:DocLink Slug="reduced-motion" Content="Reduced motion" />
     </StackPanel>
     <TextBlock Classes="body1 p">
-      <Run Text="A progress indicator keeps moving with " /><Run Classes="code" Text="FiliReducedMotion" /><Run Text=" set, as it is the only sign that work is going on." />
+      <Run Text="A progress indicator keeps moving with " /><Run Classes="code" Text="FiliReducedMotion" /><Run Text=" set, as it is the only sign that work is going on; a striped bar's bands stand still, its length showing the work." />
     </TextBlock>
 
     <TextBlock Classes="h5 section" Text="MudBlazor parity" />

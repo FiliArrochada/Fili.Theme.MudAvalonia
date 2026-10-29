@@ -4,6 +4,7 @@ using Avalonia.Controls.Presenters;
 using Avalonia.Controls.Primitives;
 using Avalonia.Headless;
 using Avalonia.Input;
+using Avalonia.Styling;
 using Avalonia.Threading;
 using Avalonia.VisualTree;
 using Xunit;
@@ -75,6 +76,30 @@ public class ReducedMotionTests
         Dispatcher.UIThread.RunJobs();
 
         Assert.Equal(1d, collapse.GetValue(openness));
+    });
+
+    /// <summary>
+    /// A striped bar's bands stand still, still drawn: the bar's length shows the work going on.
+    /// An indeterminate bar keeps moving, as its movement is the only sign of it. Read from the
+    /// styles, as a key-frame animation ticked headless stalls wherever it happens to be.
+    /// </summary>
+    [Fact]
+    public Task StripesStandStill() => UiThread.RunAsync(() =>
+    {
+        var bar = Calm(new ProgressBar { Width = 200, Value = 60, Classes = { "large", "striped" } });
+        Assert.True(bar.GetVisualDescendants().OfType<Panel>().Single(p => p.Name == "PART_Stripes").IsVisible);
+
+        var theme = Assert.IsType<ControlTheme>(Application.Current!.FindResource(typeof(ProgressBar)));
+        var animated = Styles(Chain(theme).SelectMany(t => t.Children)).Where(s => s.Animations.Count > 0).Select(s => s.Selector!.ToString()).ToList();
+        Assert.Contains(animated, s => s.Contains("PART_Stripes"));
+        Assert.All(animated.Where(s => s.Contains("PART_Stripes")), s => Assert.Contains("Motion.Reduced", s));
+        Assert.All(animated.Where(s => s.Contains("IndeterminateIndicator")), s => Assert.DoesNotContain("Reduced", s));
+
+        // The type's theme is an alias, BasedOn the one that holds the styles.
+        static IEnumerable<ControlTheme> Chain(ControlTheme? t) => t is null ? [] : Chain(t.BasedOn).Prepend(t);
+
+        static IEnumerable<Style> Styles(IEnumerable<IStyle> styles) =>
+            styles.OfType<Style>().SelectMany(s => new[] { s }.Concat(Styles(s.Children)));
     });
 
     /// <summary>Without the token the theme moves as before: a press ripples.</summary>

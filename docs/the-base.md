@@ -389,7 +389,8 @@ for something XAML cannot express on its own:
   distance under the pointer, applied whatever the placement, and the offset is read from the
   target, which no style on the tooltip can reach.
 - **`DataGridLastColumn`** marks the cells and header of a grid's last visible column, for
-  `dense`'s 16px on the right. The grid knows which column is last, but tells no one.
+  `dense`'s 16px on the right. The grid knows which column is last, but tells no one. Only a
+  dense grid tracks it, so only its cells and headers carry the binding.
 - **`GroupIndentConverter`** indents a nested group's header 48px per level. A header's level is
   internal to the DataGrid, so it is counted from the public group tree.
 - **`OptionalStyleInclude`** loads the DataGrid's files only when the app has the package, at

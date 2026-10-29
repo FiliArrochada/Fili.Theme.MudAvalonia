@@ -121,9 +121,12 @@
       </ControlTemplate>
     </Setter>
 
-    <!-- Striped. -->
+    <!-- Striped. The bands stand still with FiliReducedMotion: the bar's length shows the work
+         going on, where an indeterminate bar's movement is the only sign of it and keeps going. -->
     <Style Selector="^.striped /template/ Panel#PART_Stripes">
       <Setter Property="IsVisible" Value="True" />
+    </Style>
+    <Style Selector="^.striped[(theme|Motion.Reduced)=False] /template/ Panel#PART_Stripes">
       <Style.Animations>
         <Animation Duration="0:0:1.25" IterationCount="Infinite">
           <KeyFrame Cue="0%">

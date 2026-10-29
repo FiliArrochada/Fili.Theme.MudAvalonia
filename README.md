@@ -217,7 +217,8 @@ set to `0` in a control's resources, or the application's.
 
 **Reduced motion is one key**, which MudBlazor does not have: `FiliReducedMotion` set to `True` in
 the application's resources stops everything the theme moves or fades on its own - the ripple,
-popup fades, skeletons, snackbar slides, expansion panels, overlays and the tab indicator - in
+popup fades, skeletons, snackbar slides, expansion panels, overlays, the tab indicator and a
+striped progress bar's bands - in
 every window and popup ([Reduced motion](https://filiarrochada.github.io/Fili.Theme.MudAvalonia/#reduced-motion)).
 
 The raised variants step elevation 2 → 4 → 8 across rest, hover and press, and drop to 0 when

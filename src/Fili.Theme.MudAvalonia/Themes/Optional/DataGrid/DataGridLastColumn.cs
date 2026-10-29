@@ -17,12 +17,14 @@ namespace Fili.Theme.MudAvalonia.Optional;
 /// <para>
 /// A cell cannot tell it is last: the DataGrid knows (it hides the last cell's right grid line
 /// from code), but says so through no pseudo-class or public property, and a cell's column is
-/// internal. The grid's theme sets <see cref="TracksProperty"/>, which keeps
+/// internal. A <c>dense</c> grid's style sets <see cref="TracksProperty"/>, which keeps
 /// <see cref="LastProperty"/> on the grid current as columns are added, removed, reordered,
 /// hidden or shown; each cell and header binds <see cref="IsLastProperty"/> to it through
 /// <see cref="IsLastConverter"/>, which finds the element's column with the public
 /// <c>DataGridColumn.GetColumnContainingElement</c>. A cell keeps its column for life, so the
-/// binding needs to move only when the last column does.
+/// binding needs to move only when the last column does. Only <c>dense</c> pads the last column
+/// differently, so only a dense grid's cells and headers carry the binding, and its walk up to
+/// the grid.
 /// </para>
 /// <para>
 /// Names the DataGrid's types, so it lives in <c>Themes/Optional/DataGrid/</c> and is reached only

@@ -13,7 +13,7 @@
                     Margin="0,0,0,16" />
 
     <TextBlock Classes="h5 section" Text="What stops" />
-    <TextBlock Classes="body1 p" Text="The ripple on a press. The fade of a popup, a menu and a tooltip. A skeleton's pulse and wave. A snackbar's slide in and out. An expansion panel's grow and an overlay's fade, which show at once. A tab indicator's slide, which jumps to the new tab." />
+    <TextBlock Classes="body1 p" Text="The ripple on a press. The fade of a popup, a menu and a tooltip. A skeleton's pulse and wave. A snackbar's slide in and out. An expansion panel's grow and an overlay's fade, which show at once. A tab indicator's slide, which jumps to the new tab. A striped progress bar's sliding bands, which stand still." />
 
     <TextBlock Classes="h5 section" Text="What keeps moving" />
     <TextBlock Classes="body1 p" Text="A progress indicator, the only sign that work is going on, and the 150ms colour fades of hover and focus, which move nothing." />

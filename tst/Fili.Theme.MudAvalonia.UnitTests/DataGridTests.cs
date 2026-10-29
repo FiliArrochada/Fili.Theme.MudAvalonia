@@ -143,12 +143,31 @@ public class DataGridTests
         Assert.Equal(new Thickness(16, 6, 16, 6), Cell(1).Padding);
     });
 
-    /// <summary>Without `dense` every cell keeps the 16px all round.</summary>
+    /// <summary>
+    /// Without `dense` every cell keeps the 16px all round, and nothing tracks the last column:
+    /// only a dense grid pads it differently, so only a dense grid's cells and headers pay for the
+    /// binding that finds it. A grid made dense once shown pads it all the same.
+    /// </summary>
     [Fact]
     public Task TheLastColumnIsPaddedLikeTheRestWhenNotDense() => UiThread.RunAsync(() =>
     {
         var grid = Show();
-        Assert.All(Rows(grid)[0].GetVisualDescendants().OfType<DataGridCell>(), cell => Assert.Equal(new Thickness(16), cell.Padding));
+        var cells = Rows(grid)[0].GetVisualDescendants().OfType<DataGridCell>().ToList();
+        // Internal to the theme, as every helper is: found by name.
+        AvaloniaProperty Helper(Type host, string name) => AvaloniaPropertyRegistry.Instance.GetRegisteredAttached(host)
+            .Single(p => p.OwnerType.Name == "DataGridLastColumn" && p.Name == name);
+        var tracks = Helper(typeof(DataGrid), "Tracks");
+        var isLast = Helper(typeof(DataGridCell), "IsLast");
+
+        Assert.All(cells, cell => Assert.Equal(new Thickness(16), cell.Padding));
+        Assert.False(grid.IsSet(tracks));
+        Assert.All(cells, cell => Assert.False(cell.IsSet(isLast)));
+        Assert.False(Header(grid, "Nr").IsSet(isLast));
+
+        grid.Classes.Add("dense");
+        Dispatcher.UIThread.RunJobs();
+        Assert.Equal(new Thickness(16, 6, 16, 6), cells.Single(c => DataGridColumn.GetColumnContainingElement(c) == grid.Columns[1]).Padding);
+        Assert.Equal(new Thickness(16, 0, 16, 0), Header(grid, "Nr").Padding);
     });
 
     /// <summary>`:nth-of-type(odd)` counts from one: the rows at index 0 and 2.</summary>

@@ -45,7 +45,9 @@ matched against every control; and the docs say that publishing with ReadyToRun 
 first load to a third. The theme itself loads a quarter faster, as the styles that switch a
 button, chip, field, badge or nav menu to its variant's control theme no longer build that theme
 up front. And an `overlay` whose class is removed gives its content its own alignment back, where
-it stayed centred and kept a stale entry for each time the class came and went. See [Upgrading from 0.24.0 to 0.25.0](#upgrading-from-0240-to-0250-unreleased).
+it stayed centred and kept a stale entry for each time the class came and went. A striped
+progress bar's bands stand still with `FiliReducedMotion`, the indeterminate bar still moving, and
+only a `dense` data grid's cells look for the grid's last column. See [Upgrading from 0.24.0 to 0.25.0](#upgrading-from-0240-to-0250-unreleased).
 
 ## Upgrading from 0.24.0 to 0.25.0 *(unreleased)*
 

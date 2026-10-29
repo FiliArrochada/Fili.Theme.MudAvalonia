@@ -90,13 +90,6 @@
     <Setter Property="Background" Value="Transparent" />
     <!-- `.mud-table-cell`: padding 16px. -->
     <Setter Property="Padding" Value="16" />
-    <!-- `:last-child`, which `dense` pads differently: see DataGridLastColumn. -->
-    <Setter Property="optional:DataGridLastColumn.IsLast">
-      <MultiBinding Converter="{x:Static optional:DataGridLastColumn.IsLastConverter}">
-        <Binding RelativeSource="{RelativeSource Self}" />
-        <Binding Path="(optional:DataGridLastColumn.Last)" RelativeSource="{RelativeSource AncestorType=DataGrid}" />
-      </MultiBinding>
-    </Setter>
     <Setter Property="HorizontalContentAlignment" Value="Stretch" />
     <Setter Property="VerticalContentAlignment" Value="Center" />
     <Setter Property="Template">
@@ -143,12 +136,6 @@
     <Setter Property="VerticalContentAlignment" Value="Center" />
     <Setter Property="SeparatorBrush" Value="{DynamicResource FiliTableLinesBrush}" />
     <Setter Property="Padding" Value="16,0" />
-    <Setter Property="optional:DataGridLastColumn.IsLast">
-      <MultiBinding Converter="{x:Static optional:DataGridLastColumn.IsLastConverter}">
-        <Binding RelativeSource="{RelativeSource Self}" />
-        <Binding Path="(optional:DataGridLastColumn.Last)" RelativeSource="{RelativeSource AncestorType=DataGrid}" />
-      </MultiBinding>
-    </Setter>
     <!-- $header-height: 59px, the line under the headers included. -->
     <Setter Property="MinHeight" Value="59" />
     <Setter Property="Template">
@@ -436,7 +423,6 @@
   </ControlTheme>
 
   <ControlTheme x:Key="FiliDataGrid" TargetType="DataGrid">
-    <Setter Property="optional:DataGridLastColumn.Tracks" Value="True" />
     <!-- `.mud-table`: text-primary on surface, the default radius, at MudDataGrid.Elevation's 1. -->
     <Setter Property="Background" Value="{DynamicResource FiliSurfaceBrush}" />
     <Setter Property="Foreground" Value="{DynamicResource FiliTextPrimaryBrush}" />
