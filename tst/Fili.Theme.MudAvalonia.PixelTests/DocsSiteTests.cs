@@ -1,3 +1,5 @@
+using System.Diagnostics.CodeAnalysis;
+using System.Reflection;
 using Avalonia.Controls;
 using Avalonia.LogicalTree;
 using Avalonia.Threading;
@@ -129,6 +131,24 @@ public class DocsSiteTests
     [Fact]
     public void SlugsAreUnique() =>
         Assert.Equal(DocCatalog.Pages.Count, DocCatalog.Pages.Select(p => p.Slug).Distinct().Count());
+
+    /// <summary>
+    /// An example is loaded by its path, which finds its compiled XAML by reflection, through the
+    /// type the XAML compiler generates; the trimmed browser build dropped that type and every
+    /// example on the site threw "No precompiled XAML found". Untrimmed, as here, it always loads,
+    /// so the guard is the DynamicDependency that keeps the type, and that the type is there.
+    /// </summary>
+    [Fact]
+    public void ExamplesKeepTheirCompiledXamlThroughTrimming()
+    {
+        var gallery = typeof(ExampleCard).Assembly;
+        var load = typeof(ExampleCard).GetMethod("OnPropertyChanged", BindingFlags.Instance | BindingFlags.NonPublic)!;
+
+        var keep = Assert.Single(load.GetCustomAttributes<DynamicDependencyAttribute>());
+        Assert.Equal(gallery.GetName().Name, keep.AssemblyName);
+        Assert.NotNull(gallery.GetType(keep.TypeName!));
+        Assert.True(keep.MemberTypes.HasFlag(DynamicallyAccessedMemberTypes.PublicMethods) && keep.MemberTypes.HasFlag(DynamicallyAccessedMemberTypes.NonPublicMethods));
+    }
 
     /// <summary>The address names a page: the site opens on it rather than on the overview.</summary>
     [Fact]

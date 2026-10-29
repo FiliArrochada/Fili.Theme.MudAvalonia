@@ -15,3 +15,7 @@ An indeterminate progress bar no longer re-lays out the window as it moves. Its 
 shrink as MudBlazor's do, and a bar longer than the rail made the rail, the progress bar and every
 control round it measure again on each frame; now only the bar does. In a desktop window, 60
 indeterminate bars take about a quarter less CPU. They look and move exactly as before.
+
+And the docs site shows its examples again: the browser build is trimmed, and trimming dropped the
+compiled XAML every example is loaded from by its path, so each one failed with "No precompiled
+XAML found".

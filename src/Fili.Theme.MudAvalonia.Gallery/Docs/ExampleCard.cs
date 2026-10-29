@@ -1,3 +1,4 @@
+using System.Diagnostics.CodeAnalysis;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
@@ -75,6 +76,14 @@ public sealed class ExampleCard : ContentControl
         private set => SetAndRaise(CSharpProperty, ref _cSharp, value);
     }
 
+    /// <remarks>
+    /// Loading an example by URI finds its compiled XAML through reflection, by the name of the
+    /// type the XAML compiler generates, so the trimmed browser build dropped that type and every
+    /// example threw "No precompiled XAML found". The dependency keeps it, and every file it can
+    /// load, in this assembly.
+    /// </remarks>
+    [DynamicDependency(DynamicallyAccessedMemberTypes.PublicMethods | DynamicallyAccessedMemberTypes.NonPublicMethods, "CompiledAvaloniaXaml.!XamlLoader", "Fili.Theme.MudAvalonia.Gallery")]
+    [UnconditionalSuppressMessage("Trimming", "IL2026", Justification = "The compiled XAML the URI names is kept by the DynamicDependency above.")]
     protected override void OnPropertyChanged(AvaloniaPropertyChangedEventArgs change)
     {
         base.OnPropertyChanged(change);

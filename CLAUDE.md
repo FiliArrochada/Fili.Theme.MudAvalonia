@@ -259,8 +259,10 @@ One line each; [`docs/traps.md`](docs/traps.md) has the full account and the tes
   after it, as a layout transition changes the page's height.
 - A frame must not depend on the locale; `GalleryFrames.Render` pins the invariant culture.
 - A frame taller than `MaxFrameHeight` fails rather than being cut off; split the view or raise it.
-- Anything loaded by URI at runtime is invisible to trimming: `OptionalStyleInclude` keeps the
-  compiled XAML with a `DynamicDependency`, or the browser gallery and trimmed apps fail at startup.
+- Anything loaded by URI at runtime is invisible to trimming: `OptionalStyleInclude` and the
+  gallery's `ExampleCard` keep the compiled XAML with a `DynamicDependency`, or the browser gallery
+  and trimmed apps fail ("No precompiled XAML found"). Desktop tests cannot see it; a trimmed
+  publish can.
 - Capture with `RenderTargetBitmap`, never `CaptureRenderedFrame`.
 
 ## The base is forked, not depended on
