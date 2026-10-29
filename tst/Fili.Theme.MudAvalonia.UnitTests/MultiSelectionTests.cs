@@ -1,6 +1,7 @@
 using Avalonia.Controls;
 using Avalonia.Media;
 using Avalonia.Threading;
+using Avalonia.VisualTree;
 using Xunit;
 using Ellipse = Avalonia.Controls.Shapes.Ellipse;
 using Path = Avalonia.Controls.Shapes.Path;
@@ -33,19 +34,58 @@ public class MultiSelectionTests
 
     private static Path Glyph(Control row, string name) => Matrix.Part<Path>(row, name);
 
+    /// <summary>
+    /// A plain list's rows are built without the checkbox at all, not with it hidden: four of a
+    /// row's dozen visuals, for a look few lists use.
+    /// </summary>
     [Fact]
     public Task APlainListHasNoCheckboxes() => UiThread.RunAsync(() =>
     {
         var list = List();
 
         Assert.Equal(SelectionMode.Single, list.SelectionMode);
-        Assert.False(Box(Row(list, 0)).IsVisible);
+        Assert.DoesNotContain(Row(list, 0).GetVisualDescendants(), v => v is Control { Name: "PART_CheckBox" });
     });
 
+    /// <summary>The class gives the rows their boxes, and taking it away takes them back.</summary>
     [Fact]
     public Task TheClassShowsTheBoxes() => UiThread.RunAsync(() =>
     {
-        Assert.True(Box(Row(List("multi-selection"), 0)).IsVisible);
+        var list = List("multi-selection");
+        Assert.True(Box(Row(list, 0)).IsVisible);
+
+        list.Classes.Remove("multi-selection");
+        Dispatcher.UIThread.RunJobs();
+        Assert.DoesNotContain(Row(list, 0).GetVisualDescendants(), v => v is Control { Name: "PART_CheckBox" });
+
+        list.Classes.Add("multi-selection");
+        Dispatcher.UIThread.RunJobs();
+        Assert.True(Box(Row(list, 0)).IsVisible);
+    });
+
+    /// <summary>
+    /// A multi-selection row's template is the plain one with the checkbox added, and nothing
+    /// else: the two are written out in full, so a change to one that misses the other fails here.
+    /// </summary>
+    [Fact]
+    public Task TheTwoTemplatesDifferOnlyByTheCheckbox() => UiThread.RunAsync(() =>
+    {
+        static string Shape(Control row) => string.Join(" ", row.GetVisualDescendants()
+            .Where(v => !v.GetVisualAncestors().Prepend(v).Any(a => a is Control { Name: "PART_CheckBox" }))
+            .Select(v => $"{v.GetType().Name}#{(v as Control)?.Name}/{(v as Control)?.Margin}"));
+
+        Assert.Equal(Shape(Row(List(), 0)), Shape(Row(List("multi-selection"), 0)));
+
+        TreeViewItem Leaf(params string[] classes)
+        {
+            var leaf = new TreeViewItem { Header = "Leaf" };
+            var tree = new TreeView { Width = 240, Items = { leaf } };
+            tree.Classes.AddRange(classes);
+            Matrix.Show(tree);
+            return leaf;
+        }
+
+        Assert.Equal(Shape(Leaf()), Shape(Leaf("multi-selection")));
     });
 
     /// <summary>

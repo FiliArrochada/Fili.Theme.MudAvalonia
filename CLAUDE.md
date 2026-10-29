@@ -54,7 +54,9 @@ rationale and the internal helpers in `docs/the-base.md`, the traps in `docs/tra
   hand-written template; `IconSlot`, the icon size, gap, colour and hiding a host gives a `start-icon` or
   `end-icon`, and a chip gives an `avatar`; `ChildAlignment`, the children an avatar, a toolbar
   and a card-actions row centre; `Accent`, the colour a colour class sets once for a template to
-  paint with, and a checkbox's, radio's or switch's colours for its state; `OverlayScrim`, an `overlay`'s centring, corners and
+  paint with, and a checkbox's, radio's or switch's colours for its state; `MultiSelection`,
+  the inherited flag on which a `multi-selection` row swaps in the template with its checkbox;
+  `OverlayScrim`, an `overlay`'s centring, corners and
   fade; `ButtonGroup`, where each button of a `button-group` sits; `MenuIconGutter`, a menu's shared icon
   column; `Adornments`, a text field's `:start-adornment` and `:end-adornment`;
   `AutoCompleteField`, an autocomplete field's `:select-input` and its drop-down arrow's click; `TabBarScroll`, the tab bar's

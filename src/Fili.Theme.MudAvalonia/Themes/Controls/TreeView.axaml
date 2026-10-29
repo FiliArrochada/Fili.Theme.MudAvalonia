@@ -134,36 +134,6 @@
                               Theme="{StaticResource FiliTreeViewChevron}"
                               IsChecked="{TemplateBinding IsExpanded, Mode=TwoWay}" />
 
-                <!--
-                  MudTreeView's MultiSelection checkbox, shown by `multi-selection` on the TreeView
-                  (FiliTheme.axaml): `.mud-treeview-item-checkbox` pads its icon button 4px, so 32px
-                  (24 dense). A click on it is a click on the row.
-                -->
-                <Panel x:Name="PART_CheckBox"
-                       Grid.Column="1"
-                       IsVisible="False"
-                       Width="32" Height="32"
-                       VerticalAlignment="Center">
-                  <Ellipse x:Name="PART_CheckHalo" Fill="Transparent" />
-                  <Path x:Name="PART_CheckUnchecked"
-                        Width="24" Height="24"
-                        Stretch="None"
-                        Data="{DynamicResource FiliCheckBoxUncheckedGeometry}"
-                        Fill="{DynamicResource FiliActionDefaultBrush}"
-                        FlowDirection="LeftToRight"
-                        HorizontalAlignment="Center"
-                        VerticalAlignment="Center" />
-                  <Path x:Name="PART_CheckChecked"
-                        Width="24" Height="24"
-                        Stretch="None"
-                        Data="{DynamicResource FiliCheckBoxCheckedGeometry}"
-                        Fill="{DynamicResource FiliActionDefaultBrush}"
-                        FlowDirection="LeftToRight"
-                        HorizontalAlignment="Center"
-                        VerticalAlignment="Center"
-                        IsVisible="False" />
-                </Panel>
-
                 <ContentPresenter x:Name="PART_HeaderPresenter"
                                   Grid.Column="2"
                                   Background="Transparent"
@@ -183,6 +153,92 @@
         </StackPanel>
       </ControlTemplate>
     </Setter>
+
+    <!-- The template again, with MudTreeView's MultiSelection checkbox after the arrow.
+         Only the rows of a `multi-selection` tree carry it; every other row is built
+         without it (MultiSelection.cs). -->
+    <Style Selector="^[(theme|MultiSelection.IsOn)=True]">
+      <Setter Property="Template">
+        <ControlTemplate>
+          <StackPanel>
+            <theme:PartBorder x:Name="SelectionBorder"
+                    Background="{TemplateBinding Background}"
+                    MinHeight="{TemplateBinding MinHeight}"
+                    Focusable="True"
+                    TemplatedControl.IsTemplateFocusTarget="True">
+              <theme:PartBorder.Transitions>
+                <Transitions>
+                  <BrushTransition Property="Background" Duration="0:0:0.15" />
+                </Transitions>
+              </theme:PartBorder.Transitions>
+
+              <Panel>
+                <theme:PartBorder x:Name="PART_Ripple" theme:Ripple.IsLayer="True" />
+                <!-- Level x 17px of left margin. Avalonia computes it; the converter is the framework's
+                     own, and without it every level would sit at the same indent. -->
+                <Grid x:Name="PART_Header" ColumnDefinitions="Auto,Auto,*">
+                  <Grid.Margin>
+                    <MultiBinding Converter="{x:Static converters:TreeViewItemIndentConverter.Instance}">
+                      <Binding Path="Level" RelativeSource="{RelativeSource TemplatedParent}" />
+                      <DynamicResource ResourceKey="FiliTreeViewItemIndent" />
+                    </MultiBinding>
+                  </Grid.Margin>
+
+                  <ToggleButton x:Name="PART_ExpandCollapseChevron"
+                                Grid.Column="0"
+                                Focusable="False"
+                                Theme="{StaticResource FiliTreeViewChevron}"
+                                IsChecked="{TemplateBinding IsExpanded, Mode=TwoWay}" />
+
+                  <!--
+                    MudTreeView's MultiSelection checkbox, shown by `multi-selection` on the TreeView
+                    (FiliTheme.axaml): `.mud-treeview-item-checkbox` pads its icon button 4px, so 32px
+                    (24 dense). A click on it is a click on the row.
+                  -->
+                  <Panel x:Name="PART_CheckBox"
+                         Grid.Column="1"
+                         Width="32" Height="32"
+                         VerticalAlignment="Center">
+                    <Ellipse x:Name="PART_CheckHalo" Fill="Transparent" />
+                    <Path x:Name="PART_CheckUnchecked"
+                          Width="24" Height="24"
+                          Stretch="None"
+                          Data="{DynamicResource FiliCheckBoxUncheckedGeometry}"
+                          Fill="{DynamicResource FiliActionDefaultBrush}"
+                          FlowDirection="LeftToRight"
+                          HorizontalAlignment="Center"
+                          VerticalAlignment="Center" />
+                    <Path x:Name="PART_CheckChecked"
+                          Width="24" Height="24"
+                          Stretch="None"
+                          Data="{DynamicResource FiliCheckBoxCheckedGeometry}"
+                          Fill="{DynamicResource FiliActionDefaultBrush}"
+                          FlowDirection="LeftToRight"
+                          HorizontalAlignment="Center"
+                          VerticalAlignment="Center"
+                          IsVisible="False" />
+                  </Panel>
+
+                  <ContentPresenter x:Name="PART_HeaderPresenter"
+                                    Grid.Column="2"
+                                    Background="Transparent"
+                                    Padding="{TemplateBinding Padding}"
+                                    Content="{TemplateBinding Header}"
+                                    ContentTemplate="{TemplateBinding HeaderTemplate}"
+                                    Foreground="{TemplateBinding Foreground}"
+                                    VerticalAlignment="Center"
+                                    Focusable="False" />
+                </Grid>
+              </Panel>
+            </theme:PartBorder>
+
+            <ItemsPresenter x:Name="PART_ItemsPresenter"
+                            IsVisible="{TemplateBinding IsExpanded}"
+                            ItemsPanel="{TemplateBinding ItemsPanel}" />
+          </StackPanel>
+        </ControlTemplate>
+      </Setter>
+    </Style>
 
     <!-- A leaf has nothing to disclose, so it keeps the arrow's 40px slot for alignment and hides
          the glyph: MudBlazor renders an empty `.mud-treeview-item-arrow` there, 2rem with 4px

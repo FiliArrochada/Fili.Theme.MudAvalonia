@@ -337,6 +337,12 @@ for something XAML cannot express on its own:
   row and its items, a `card-actions` panel's items. The host's style sets it, and it follows
   the children as they come and go. They were child selectors ending in `:is(Control)`, matched
   against every control in the window to centre the children of a few.
+- **`MultiSelection`** tells a row it is in a `multi-selection` list or tree: the class sets it
+  on the list, the rows inherit it, and a row's theme swaps in the template with the checkbox.
+  Every row of every list carried the checkbox hidden, four of its dozen visuals; a template of
+  the theme's own is the only one that reads it, so an app's own row template is left alone.
+  The two templates are written out in full, and `MultiSelectionTests` fails if they differ in
+  anything but the checkbox.
 - **`ButtonGroup`** marks each button of a `button-group` with where it sits: before another,
   after one, in a vertical group. A selector from the panel to its buttons would end in Button
   and be matched against every button in the window, and `:nth-child` counts hidden ones.

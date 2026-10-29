@@ -57,38 +57,6 @@
           <theme:PartBorder x:Name="PART_Ripple"
                   theme:Ripple.IsLayer="True" />
           <DockPanel Margin="{TemplateBinding Padding}">
-            <!--
-              MudList's MultiSelection checkbox, shown by `multi-selection` on the ListBox
-              (FiliTheme.axaml): a 48px icon button pulled 8px into the gutter and 8px out of the
-              row above and below (`my-n2 ms-n2`), the text straight after it. Drawn here rather
-              than as a CheckBox so the list's colour can reach it across one template boundary;
-              a click on it is a click on the row, which toggles the selection.
-            -->
-            <Panel x:Name="PART_CheckBox"
-                   DockPanel.Dock="Left"
-                   IsVisible="False"
-                   Width="48" Height="48"
-                   Margin="-8,-8,0,-8"
-                   VerticalAlignment="Center">
-              <Ellipse x:Name="PART_CheckHalo" Fill="Transparent" />
-              <Path x:Name="PART_CheckUnchecked"
-                    Width="24" Height="24"
-                    Stretch="None"
-                    Data="{DynamicResource FiliCheckBoxUncheckedGeometry}"
-                    Fill="{DynamicResource FiliActionDefaultBrush}"
-                    FlowDirection="LeftToRight"
-                    HorizontalAlignment="Center"
-                    VerticalAlignment="Center" />
-              <Path x:Name="PART_CheckChecked"
-                    Width="24" Height="24"
-                    Stretch="None"
-                    Data="{DynamicResource FiliCheckBoxCheckedGeometry}"
-                    Fill="{DynamicResource FiliActionDefaultBrush}"
-                    FlowDirection="LeftToRight"
-                    HorizontalAlignment="Center"
-                    VerticalAlignment="Center"
-                    IsVisible="False" />
-            </Panel>
             <!-- `.mud-list-item-text`: 4px above and below whatever the row holds. -->
             <ContentPresenter x:Name="PART_ContentPresenter"
                               Content="{TemplateBinding Content}"
@@ -101,6 +69,69 @@
         </Panel>
       </ControlTemplate>
     </Setter>
+
+    <!-- The template again, with MudList's MultiSelection checkbox before the content.
+         Only the rows of a `multi-selection` list carry it; every other row is built
+         without it (MultiSelection.cs). -->
+    <Style Selector="^[(theme|MultiSelection.IsOn)=True]">
+      <Setter Property="Template">
+        <ControlTemplate>
+          <Panel>
+            <theme:PartBorder x:Name="PART_StateLayer" Background="Transparent">
+              <theme:PartBorder.Transitions>
+                <Transitions>
+                  <!-- transition: background-color 150ms cubic-bezier(0.4, 0, 0.2, 1) -->
+                  <BrushTransition Property="Background" Duration="0:0:0.15" />
+                </Transitions>
+              </theme:PartBorder.Transitions>
+            </theme:PartBorder>
+            <theme:PartBorder x:Name="PART_Ripple"
+                    theme:Ripple.IsLayer="True" />
+            <DockPanel Margin="{TemplateBinding Padding}">
+              <!--
+                MudList's MultiSelection checkbox, shown by `multi-selection` on the ListBox
+                (FiliTheme.axaml): a 48px icon button pulled 8px into the gutter and 8px out of the
+                row above and below (`my-n2 ms-n2`), the text straight after it. Drawn here rather
+                than as a CheckBox so the list's colour can reach it across one template boundary;
+                a click on it is a click on the row, which toggles the selection.
+              -->
+              <Panel x:Name="PART_CheckBox"
+                     DockPanel.Dock="Left"
+                     Width="48" Height="48"
+                     Margin="-8,-8,0,-8"
+                     VerticalAlignment="Center">
+                <Ellipse x:Name="PART_CheckHalo" Fill="Transparent" />
+                <Path x:Name="PART_CheckUnchecked"
+                      Width="24" Height="24"
+                      Stretch="None"
+                      Data="{DynamicResource FiliCheckBoxUncheckedGeometry}"
+                      Fill="{DynamicResource FiliActionDefaultBrush}"
+                      FlowDirection="LeftToRight"
+                      HorizontalAlignment="Center"
+                      VerticalAlignment="Center" />
+                <Path x:Name="PART_CheckChecked"
+                      Width="24" Height="24"
+                      Stretch="None"
+                      Data="{DynamicResource FiliCheckBoxCheckedGeometry}"
+                      Fill="{DynamicResource FiliActionDefaultBrush}"
+                      FlowDirection="LeftToRight"
+                      HorizontalAlignment="Center"
+                      VerticalAlignment="Center"
+                      IsVisible="False" />
+              </Panel>
+              <!-- `.mud-list-item-text`: 4px above and below whatever the row holds. -->
+              <ContentPresenter x:Name="PART_ContentPresenter"
+                                Content="{TemplateBinding Content}"
+                                ContentTemplate="{TemplateBinding ContentTemplate}"
+                                Foreground="{TemplateBinding Foreground}"
+                                Margin="0,4"
+                                HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" />
+            </DockPanel>
+          </Panel>
+        </ControlTemplate>
+      </Setter>
+    </Style>
 
     <!-- .mud-list-item-dense, in body2; Gutters="false" drops the 16px sides. The same on the
          ListBox reach every row: they are Styles in FiliTheme.axaml. -->

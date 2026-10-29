@@ -2564,10 +2564,12 @@
     the text colour and takes the hover and focus tints like any other. The checkbox is
     CheckBoxColor: action-default with no colour class, or the colour class on the list - which
     names the selection's Color otherwise, unused while selecting many. A tree's branch does not
-    work out its children's state: its box is checked or not, never indeterminate.
+    work out its children's state: its box is checked or not, never indeterminate. The class sets
+    MultiSelection.IsOn, which the rows inherit and their theme swaps in the template with the
+    checkbox for: a row of any other list is built without it.
   -->
-  <Style Selector="ListBox.multi-selection ListBoxItem /template/ Panel#PART_CheckBox, TreeView.multi-selection TreeViewItem /template/ Panel#PART_CheckBox">
-    <Setter Property="IsVisible" Value="True" />
+  <Style Selector="ListBox.multi-selection, TreeView.multi-selection">
+    <Setter Property="theme:MultiSelection.IsOn" Value="True" />
   </Style>
   <Style Selector="ListBox.multi-selection ListBoxItem:selected /template/ Path#PART_CheckUnchecked, TreeView.multi-selection TreeViewItem:selected /template/ Path#PART_CheckUnchecked">
     <Setter Property="IsVisible" Value="False" />
