@@ -105,7 +105,7 @@
       <docs:ParityRow MudBlazor="Orientation.Landscape" Here="—" Status="Missing" Note="The toolbar is always above the calendar." />
       <docs:ParityRow MudBlazor="ShowToolbar=&quot;false&quot;" Here="—" Status="Missing" Note="The drop-down always has its toolbar; a static Calendar has none." />
       <docs:ParityRow MudBlazor="Elevation, Square, Rounded" Here="—" Status="Missing" Note="The drop-down is elevation 8 with the default radius, fixed in the template; a static Calendar takes its paper's." />
-      <docs:ParityRow MudBlazor="Clearable" Here="clearable" Status="Close" Note="Mirrored to the field inside: it clears the text, and the date follows as typed text does." />
+      <docs:ParityRow MudBlazor="Clearable" Here="clearable" Status="Same" Note="Mirrored to the field inside; its button clears the date at once, as MudPicker's Clear does." />
       <docs:ParityRow MudBlazor="ReadOnly" Here="—" Status="Missing" Note="CalendarDatePicker has no read-only state; IsHitTestVisible=&quot;False&quot; stops only the pointer." />
       <docs:ParityRow MudBlazor="AdornmentColor" Here="—" Status="Missing" Note="The icon button is a template part, coloured by the theme." />
       <docs:ParityRow MudBlazor="Mask" Here="—" Status="Missing" Note="No input mask; the typed text is parsed as a date." />

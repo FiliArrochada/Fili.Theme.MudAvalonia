@@ -333,6 +333,7 @@
           <TextBox x:Name="PART_TextBox"
                    TemplatedControl.IsTemplateFocusTarget="True"
                    theme:FieldClasses.Mirrors="True"
+                   theme:CalendarView.ClearsDate="True"
                    DataValidationErrors.Errors="{TemplateBinding (DataValidationErrors.Errors)}"
                    AutomationProperties.HelpText="{TemplateBinding (AutomationProperties.HelpText)}"
                    PlaceholderText="{TemplateBinding PlaceholderText}">

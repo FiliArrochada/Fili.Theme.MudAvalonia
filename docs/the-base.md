@@ -365,7 +365,9 @@ for something XAML cannot express on its own:
   open, and a two-way binding never hears it, so the arrow said open over a closed list.
 - **`CalendarView`** makes the date picker's toolbar buttons change the calendar's view - the
   year to the years, the date back to the selected month - and gives the toolbar the paper's top
-  corners. A template cannot set another control's property on a click.
+  corners. A template cannot set another control's property on a click. And on the picker's field,
+  `ClearsDate` makes the clear button clear the date at once, which the picker otherwise reads from
+  the emptied text only when the field loses focus.
 - **`TimeView`** keeps the time picker's text: the field's value as MudTimePicker writes it, and
   the toolbar's hour, minute and period following Avalonia's columns as they turn, before the time
   is accepted. A column's selection is not a property a binding can watch.

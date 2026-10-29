@@ -2,6 +2,8 @@ using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.Presenters;
 using Avalonia.Controls.Primitives;
+using Avalonia.Headless;
+using Avalonia.Input;
 using Path = Avalonia.Controls.Shapes.Path;
 using Avalonia.Threading;
 using Avalonia.VisualTree;
@@ -310,5 +312,31 @@ public class DatePickerTests
 
         Assert.Null(field.InnerRightContent);
         Assert.DoesNotContain(":end-adornment", field.Classes);
+    });
+
+    /// <summary>
+    /// MudPicker's Clearable: the clear button sets the date to null at once. The field's own
+    /// button only empties the text, which a CalendarDatePicker reads when the field loses focus.
+    /// </summary>
+    [Fact]
+    public Task TheClearButtonClearsTheDateAtOnce() => UiThread.RunAsync(() =>
+    {
+        var picker = Show("clearable");
+        Dispatcher.UIThread.RunJobs();
+        var field = Matrix.Part<TextBox>(picker, "PART_TextBox");
+        var clear = Matrix.Part<Button>(field, "PART_ClearButton");
+        Assert.True(clear.IsEffectivelyVisible);
+
+        var window = (Window)TopLevel.GetTopLevel(clear)!;
+        var centre = clear.TranslatePoint(new Point(clear.Bounds.Width / 2, clear.Bounds.Height / 2), window)!.Value;
+        window.MouseDown(centre, MouseButton.Left);
+        window.MouseUp(centre, MouseButton.Left);
+        Dispatcher.UIThread.RunJobs();
+
+        // The press focuses the field, so the date went with the click, not on losing focus.
+        Assert.True(field.IsFocused);
+        Assert.Null(picker.SelectedDate);
+        Assert.Equal("", field.Text ?? "");
+        Assert.False(clear.IsEffectivelyVisible);
     });
 }
