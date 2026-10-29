@@ -44,6 +44,13 @@ jobs:
         with:
           global-json-file: global.json
 
+      - name: Cache NuGet packages
+        uses: actions/cache@v6
+        with:
+          path: ~/.nuget/packages
+          key: nuget-${{ runner.os }}-${{ hashFiles('Directory.Packages.props', '**/*.csproj') }}
+          restore-keys: nuget-${{ runner.os }}-
+
       # Avalonia.Browser links Skia and HarfBuzz into dotnet.wasm, and that native link is what
       # this workload provides.
       - name: Install wasm-tools workload
