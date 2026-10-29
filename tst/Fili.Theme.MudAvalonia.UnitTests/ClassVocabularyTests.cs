@@ -153,6 +153,13 @@ public class ClassVocabularyTests
     private static readonly string[] ReadInCode = ["end-icon", "start-icon"];
 
     /// <summary>
+    /// Classes read only by the styles inside content a field builds on demand: a text field's and
+    /// a select's helper line (FiliTextFieldHelperLine, FiliSelectHelperLine), whose styles exist
+    /// only once a line is built, so no walk of the theme reaches them.
+    /// </summary>
+    private static readonly string[] ReadInBuiltContent = ["helper-on-focus"];
+
+    /// <summary>
     /// The classes the theme actually uses must match the declared list exactly, in both
     /// directions. An undeclared class is a collision nobody signed off on; a declared one that
     /// no selector uses means the list is lying to adopters.
@@ -180,6 +187,7 @@ public class ClassVocabularyTests
             .Select(s => Regex.Replace(s, @"\[[^\]]*\]", string.Empty))
             .SelectMany(s => Regex.Matches(s, @"\.([A-Za-z][A-Za-z0-9-]*)").Select(m => m.Groups[1].Value))
             .Concat(ReadInCode)
+            .Concat(ReadInBuiltContent)
             .Distinct()
             .OrderBy(c => c, StringComparer.Ordinal)
             .ToArray();

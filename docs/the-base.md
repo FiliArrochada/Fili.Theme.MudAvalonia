@@ -379,8 +379,9 @@ for something XAML cannot express on its own:
   also gets `:start-text-adornment` or `:end-text-adornment`, which keeps it on the text line where
   an icon is centred on a filled or outlined box; and a field with no `PlaceholderText` gets
   `:no-label`, which drops the label's room; one with `AutomationProperties.HelpText` gets
-  `:helper-text`, on which its theme builds the helper line. A selector cannot ask whether a
-  property is null, or what type its value is.
+  `:helper-text`, on which its theme builds the helper line; a select's theme sets
+  `TracksHelpText` for that mark alone. A selector cannot ask whether a property is null, or what
+  type its value is.
 - **`AutoCompleteField`** marks the `TextBox` inside an `AutoCompleteBox` `:select-input`, which
   takes the 8px off its end adornment as `.mud-select-input` does, two templates down from the
   `AutoCompleteBox`'s selectors; and makes the drop-down arrow's click toggle the list, focusing

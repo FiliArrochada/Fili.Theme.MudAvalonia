@@ -98,6 +98,28 @@ public class FieldDetailTests
         Assert.Equal(Named<Border>(box, "PART_Root").Bounds.Height, box.Bounds.Height);
     });
 
+    /// <summary>A select builds its helper line the same way: none on a plain one.</summary>
+    [Fact]
+    public Task ASelectsLineIsBuiltOnlyWhenNeeded() => UiThread.RunAsync(() =>
+    {
+        var select = Matrix.Show(new ComboBox { Width = 220, ItemsSource = new[] { "One" } });
+        var line = Named<Control>(select, "PART_HelperLine");
+        Assert.Empty(line.GetVisualDescendants());
+
+        AutomationProperties.SetHelpText(select, "Pick one");
+        Dispatcher.UIThread.RunJobs();
+        Assert.Equal(["Pick one"], HelperTexts(select));
+
+        AutomationProperties.SetHelpText(select, null);
+        DataValidationErrors.SetError(select, new InvalidOperationException("Required"));
+        Dispatcher.UIThread.RunJobs();
+        Assert.Equal(["Required"], HelperTexts(select));
+
+        DataValidationErrors.ClearErrors(select);
+        Dispatcher.UIThread.RunJobs();
+        Assert.False(line.IsVisible);
+    });
+
     /// <summary>MudInputControl: the error takes the helper text's place, and the row goes red.</summary>
     [Fact]
     public Task AnErrorReplacesTheHelperText() => UiThread.RunAsync(() =>

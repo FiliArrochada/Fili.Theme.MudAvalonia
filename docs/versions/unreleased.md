@@ -56,7 +56,7 @@ on the list for its rows to inherit, where three styles per colour reached every
 row carries a quarter fewer style entries and allocates 8% less. A text field builds its helper
 line only when it has helper text, an error or `counter`, and its clear button only with
 `clearable`, where every field carried both hidden: 200 fields build a third faster in 40% less
-memory, and a typical screen 14% faster. See [Upgrading from 0.24.0 to 0.25.0](#upgrading-from-0240-to-0250-unreleased).
+memory, and a typical screen 14% faster. A select builds its helper line the same way. See [Upgrading from 0.24.0 to 0.25.0](#upgrading-from-0240-to-0250-unreleased).
 
 ## Upgrading from 0.24.0 to 0.25.0 *(unreleased)*
 
@@ -105,7 +105,8 @@ and their brushes are new keys. These look or behave differently, as MudBlazor's
   matches. `PART_HelperLine` is now a `ContentPresenter`, which `/template/` still reaches for
   the line's margin and colour; the helper text, counter, error and clear button are built inside
   it, or inside `PART_ClearHost`, on a field that shows them: reach them with a descendant
-  selector, `TextBox TextBlock#PART_HelperText`.
+  selector, `TextBox TextBlock#PART_HelperText`. A select's helper line has changed the same way:
+  `ComboBox TextBlock#PART_HelperText`.
 - **Quieter details**: the switch thumb's shadow is elevation 1, a filled snackbar's message is
   Regular weight, a dense numeric field's spin column is 20px, an `inherit` checkbox or radio
   keeps the grey hover halo, and `TextBlock.button` is a 24.5px line.

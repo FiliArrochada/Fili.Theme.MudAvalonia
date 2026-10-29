@@ -392,7 +392,9 @@ one.
   which no style outranks, where the same attribute in a `ControlTemplate` sits below the styles:
   a default a style must change is a style too. And a hidden presenter is not measured, so it
   keeps its old child until shown again; hidden, it takes no room (`FieldDetailTests`,
-  `ClearableTests`).
+  `ClearableTests`). A select's helper line is built the same way: 200 selects in 18% less
+  memory. A class read only by styles in built content is invisible to a walk of the theme;
+  `ClassVocabularyTests` lists it in `ReadInBuiltContent`.
 
 ## The browser build and fonts
 

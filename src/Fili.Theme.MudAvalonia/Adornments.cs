@@ -1,6 +1,7 @@
 using Avalonia;
 using Avalonia.Automation;
 using Avalonia.Controls;
+using Avalonia.Controls.Primitives;
 
 namespace Fili.Theme.MudAvalonia;
 
@@ -10,7 +11,8 @@ namespace Fili.Theme.MudAvalonia;
 /// <c>:end-adornment</c>. Set on every text field by its theme, which floats the label on the
 /// first and keeps each adornment 8px from the text. And whether it has a label at all: one with
 /// no <c>PlaceholderText</c>, which doubles as the label, gets <c>:no-label</c>; and whether it has
-/// helper text, <c>:helper-text</c>, for which its theme builds the helper line.
+/// helper text, <c>:helper-text</c>, for which its theme builds the helper line. A select, which
+/// has a helper line and no adornments, sets <see cref="TracksHelpTextProperty"/> for that alone.
 /// </summary>
 /// <remarks>
 /// <para>
@@ -53,6 +55,14 @@ internal sealed class Adornments
     public static readonly AttachedProperty<bool> TracksProperty =
         AvaloniaProperty.RegisterAttached<Adornments, TextBox, bool>("Tracks");
 
+    /// <summary>On a control other than a text field: track its helper text alone.</summary>
+    public static readonly AttachedProperty<bool> TracksHelpTextProperty =
+        AvaloniaProperty.RegisterAttached<Adornments, TemplatedControl, bool>("TracksHelpText");
+
+    public static bool GetTracksHelpText(TemplatedControl control) => control.GetValue(TracksHelpTextProperty);
+
+    public static void SetTracksHelpText(TemplatedControl control, bool value) => control.SetValue(TracksHelpTextProperty, value);
+
     public static bool GetTracks(TextBox box) => box.GetValue(TracksProperty);
 
     public static void SetTracks(TextBox box, bool value) => box.SetValue(TracksProperty, value);
@@ -63,8 +73,22 @@ internal sealed class Adornments
         TextBox.InnerLeftContentProperty.Changed.AddClassHandler<TextBox>((box, _) => Refresh(box));
         TextBox.InnerRightContentProperty.Changed.AddClassHandler<TextBox>((box, _) => Refresh(box));
         TextBox.PlaceholderTextProperty.Changed.AddClassHandler<TextBox>((box, _) => Refresh(box));
-        AutomationProperties.HelpTextProperty.Changed.AddClassHandler<TextBox>((box, _) => Refresh(box));
+        TracksHelpTextProperty.Changed.AddClassHandler<TemplatedControl>((control, _) => RefreshHelpText(control));
+        AutomationProperties.HelpTextProperty.Changed.AddClassHandler<TemplatedControl>((control, _) =>
+        {
+            if (control is TextBox box)
+            {
+                Refresh(box);
+            }
+            else
+            {
+                RefreshHelpText(control);
+            }
+        });
     }
+
+    private static void RefreshHelpText(TemplatedControl control) =>
+        ((IPseudoClasses)control.Classes).Set(HelperText, GetTracksHelpText(control) && !string.IsNullOrEmpty(AutomationProperties.GetHelpText(control)));
 
     private static void Refresh(TextBox box)
     {
