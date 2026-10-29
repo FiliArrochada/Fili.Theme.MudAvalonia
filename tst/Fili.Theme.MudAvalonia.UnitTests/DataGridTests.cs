@@ -242,7 +242,7 @@ public class DataGridTests
         Assert.Equal(FabTests.Shadow(8), border.BoxShadow);
     });
 
-    /// <summary>MudIconButton's ArrowUpward: hidden until sorted, turned for descending.</summary>
+    /// <summary>MudIconButton's ArrowUpward, 20px in 3px: hidden until sorted, turned for descending.</summary>
     [Fact]
     public Task TheSortArrowShowsOnlyOnTheSortedColumn() => UiThread.RunAsync(() =>
     {
@@ -258,8 +258,8 @@ public class DataGridTests
         Assert.Equal(TransformOperations.Parse("rotate(180deg)").Value, turn.Value);
 
         var icon = Matrix.Part<Viewbox>(sorted, "PART_SortIcon");
-        Assert.Equal(18, icon.Width);
-        Assert.Equal(new Thickness(5), Matrix.Part<Border>(sorted, "PART_SortButton").Padding);
+        Assert.Equal(20, icon.Width);
+        Assert.Equal(new Thickness(3), Matrix.Part<Border>(sorted, "PART_SortButton").Padding);
     });
 
     /// <summary>`.mud-datagrid-group`: background-gray, "Title: Key", no count, no row indent.</summary>

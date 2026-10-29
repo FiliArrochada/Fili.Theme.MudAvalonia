@@ -28,7 +28,7 @@
     Striped         `striped`: table-striped on the 1st, 3rd, 5th… row; hover still wins
     Bordered        `GridLinesVisibility="All"`: a table-lines line between body cells, never
                     after the last
-    the sort icon   MudIconButton Size.Small with ArrowUpward: 18px inside 5px, 4px from the title
+    the sort icon   MudIconButton Size.Small with ArrowUpward: 20px inside 3px, 4px from the title
                     and at the far end of the cell, as `.sortable-column-header` takes the width;
                     action-default, hidden until sorted, 0.8 while the header is hovered, turned
                     180 degrees for descending - 300ms on the opacity and 200ms on the turn
@@ -171,12 +171,14 @@
                                 Content="{TemplateBinding Content}"
                                 ContentTemplate="{TemplateBinding ContentTemplate}" />
 
-              <!-- `.sort-direction-icon` on a small MudIconButton: 5px round an 18px icon, 4px
-                   from the title, action-default. Opacity and turn are transitioned. -->
+              <!-- `.sort-direction-icon` on a small MudIconButton: 3px round a 20px icon, 4px
+                   from the title, action-default. Opacity and turn are transitioned. Its
+                   `font-size: 18px` is the button's; the svg sets its own, mud-icon-size-small's
+                   1.25rem. -->
               <theme:PartBorder x:Name="PART_SortButton"
                       Grid.Column="1"
                       Margin="4,0,0,0"
-                      Padding="5"
+                      Padding="3"
                       VerticalAlignment="Center"
                       Opacity="0">
                 <theme:PartBorder.Transitions>
@@ -185,7 +187,7 @@
                   </Transitions>
                 </theme:PartBorder.Transitions>
                 <Viewbox x:Name="PART_SortIcon"
-                         Width="18" Height="18"
+                         Width="20" Height="20"
                          RenderTransformOrigin="50%,50%"
                          RenderTransform="rotate(0deg)">
                   <Viewbox.Transitions>
