@@ -38,28 +38,28 @@
             <!-- The ripple, clipped to the halo: every corner is clamped to half the box. -->
             <theme:PartBorder x:Name="PART_Ripple" theme:Ripple.IsLayer="True" theme:Ripple.Brush="{TemplateBinding (theme:Accent.RippleNow)}" CornerRadius="999" />
 
-            <LayoutTransformControl x:Name="PART_Scale"
-                                    HorizontalAlignment="Center"
-                                    VerticalAlignment="Center">
-              <Panel>
-                <Path x:Name="PART_Unchecked"
-                      Width="24" Height="24"
-                      Stretch="None"
-                      Data="{DynamicResource FiliRadioUncheckedGeometry}"
-                      Fill="{TemplateBinding (theme:Accent.OffColour)}"
-                      HorizontalAlignment="Center"
-                      VerticalAlignment="Center" />
+            <!-- Scaled by a RenderTransform about its centre, not a LayoutTransformControl: the
+                 glyph sits centred in a box sized on its own, so layout never needs the scale. -->
+            <Panel x:Name="PART_Scale"
+                   HorizontalAlignment="Center"
+                   VerticalAlignment="Center">
+              <Path x:Name="PART_Unchecked"
+                    Width="24" Height="24"
+                    Stretch="None"
+                    Data="{DynamicResource FiliRadioUncheckedGeometry}"
+                    Fill="{TemplateBinding (theme:Accent.OffColour)}"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center" />
 
-                <Path x:Name="PART_Checked"
-                      Width="24" Height="24"
-                      Stretch="None"
-                      Data="{DynamicResource FiliRadioCheckedGeometry}"
-                      Fill="{TemplateBinding (theme:Accent.Colour)}"
-                      HorizontalAlignment="Center"
-                      VerticalAlignment="Center"
-                      IsVisible="False" />
-              </Panel>
-            </LayoutTransformControl>
+              <Path x:Name="PART_Checked"
+                    Width="24" Height="24"
+                    Stretch="None"
+                    Data="{DynamicResource FiliRadioCheckedGeometry}"
+                    Fill="{TemplateBinding (theme:Accent.Colour)}"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    IsVisible="False" />
+            </Panel>
           </Panel>
 
           <ContentPresenter x:Name="PART_ContentPresenter"
@@ -250,11 +250,11 @@
     </Style>
 
     <!-- `mud-icon-size-small` / `-large`: 1.25rem and 2.25rem against 1.5rem. -->
-    <Style Selector="^.small /template/ LayoutTransformControl#PART_Scale">
-      <Setter Property="LayoutTransform" Value="scale(0.8333333)" />
+    <Style Selector="^.small /template/ Panel#PART_Scale">
+      <Setter Property="RenderTransform" Value="scale(0.8333333)" />
     </Style>
-    <Style Selector="^.large /template/ LayoutTransformControl#PART_Scale">
-      <Setter Property="LayoutTransform" Value="scale(1.5)" />
+    <Style Selector="^.large /template/ Panel#PART_Scale">
+      <Setter Property="RenderTransform" Value="scale(1.5)" />
     </Style>
     <!-- END GENERATED -->
 

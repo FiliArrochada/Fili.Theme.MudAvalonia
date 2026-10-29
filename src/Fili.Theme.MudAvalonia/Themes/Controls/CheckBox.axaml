@@ -39,52 +39,52 @@
             <!-- The ripple, clipped to the halo: every corner is clamped to half the box. -->
             <theme:PartBorder x:Name="PART_Ripple" theme:Ripple.IsLayer="True" theme:Ripple.Brush="{TemplateBinding (theme:Accent.RippleNow)}" CornerRadius="999" />
 
-            <LayoutTransformControl x:Name="PART_Scale"
-                                    HorizontalAlignment="Center"
-                                    VerticalAlignment="Center">
-              <Panel>
-                <!--
-                  Unchecked and checked are separate glyphs, not one box that fills.
+            <!-- Scaled by a RenderTransform about its centre, not a LayoutTransformControl: the
+                 glyph sits centred in a box sized on its own, so layout never needs the scale. -->
+            <Panel x:Name="PART_Scale"
+                   HorizontalAlignment="Center"
+                   VerticalAlignment="Center">
+              <!--
+                Unchecked and checked are separate glyphs, not one box that fills.
 
-                  FlowDirection="LeftToRight" on each is the RIGHT-TO-LEFT opt-out. Avalonia mirrors
-                  a whole subtree with one transform wherever the flow direction changes, so under RTL
-                  the tick would come out reversed - and a checkmark is not a directional symbol, so
-                  Material's bidirectionality guidance says it must not mirror. Avalonia's own Simple
-                  theme pins its check path the same way, which is how this was found.
+                FlowDirection="LeftToRight" on each is the RIGHT-TO-LEFT opt-out. Avalonia mirrors
+                a whole subtree with one transform wherever the flow direction changes, so under RTL
+                the tick would come out reversed - and a checkmark is not a directional symbol, so
+                Material's bidirectionality guidance says it must not mirror. Avalonia's own Simple
+                theme pins its check path the same way, which is how this was found.
 
-                  Arrows and chevrons are deliberately NOT opted out: a tree's disclosure arrow SHOULD
-                  point left in RTL, and the mirror gives that for free.
-                -->
-                <Path x:Name="PART_Unchecked"
-                      Width="24" Height="24"
-                      Stretch="None"
-                      Data="{DynamicResource FiliCheckBoxUncheckedGeometry}"
-                      Fill="{TemplateBinding (theme:Accent.OffColour)}"
-                      FlowDirection="LeftToRight"
-                      HorizontalAlignment="Center"
-                      VerticalAlignment="Center" />
+                Arrows and chevrons are deliberately NOT opted out: a tree's disclosure arrow SHOULD
+                point left in RTL, and the mirror gives that for free.
+              -->
+              <Path x:Name="PART_Unchecked"
+                    Width="24" Height="24"
+                    Stretch="None"
+                    Data="{DynamicResource FiliCheckBoxUncheckedGeometry}"
+                    Fill="{TemplateBinding (theme:Accent.OffColour)}"
+                    FlowDirection="LeftToRight"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center" />
 
-                <Path x:Name="PART_Checked"
-                      Width="24" Height="24"
-                      Stretch="None"
-                      Data="{DynamicResource FiliCheckBoxCheckedGeometry}"
-                      Fill="{TemplateBinding (theme:Accent.Colour)}"
-                      FlowDirection="LeftToRight"
-                      HorizontalAlignment="Center"
-                      VerticalAlignment="Center"
-                      IsVisible="False" />
+              <Path x:Name="PART_Checked"
+                    Width="24" Height="24"
+                    Stretch="None"
+                    Data="{DynamicResource FiliCheckBoxCheckedGeometry}"
+                    Fill="{TemplateBinding (theme:Accent.Colour)}"
+                    FlowDirection="LeftToRight"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    IsVisible="False" />
 
-                <Path x:Name="PART_Indeterminate"
-                      Width="24" Height="24"
-                      Stretch="None"
-                      Data="{DynamicResource FiliCheckBoxIndeterminateGeometry}"
-                      Fill="{TemplateBinding (theme:Accent.OffColour)}"
-                      FlowDirection="LeftToRight"
-                      HorizontalAlignment="Center"
-                      VerticalAlignment="Center"
-                      IsVisible="False" />
-              </Panel>
-            </LayoutTransformControl>
+              <Path x:Name="PART_Indeterminate"
+                    Width="24" Height="24"
+                    Stretch="None"
+                    Data="{DynamicResource FiliCheckBoxIndeterminateGeometry}"
+                    Fill="{TemplateBinding (theme:Accent.OffColour)}"
+                    FlowDirection="LeftToRight"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    IsVisible="False" />
+            </Panel>
           </Panel>
 
           <ContentPresenter x:Name="PART_ContentPresenter"
@@ -282,11 +282,11 @@
     </Style>
 
     <!-- `mud-icon-size-small` / `-large`: 1.25rem and 2.25rem against 1.5rem. -->
-    <Style Selector="^.small /template/ LayoutTransformControl#PART_Scale">
-      <Setter Property="LayoutTransform" Value="scale(0.8333333)" />
+    <Style Selector="^.small /template/ Panel#PART_Scale">
+      <Setter Property="RenderTransform" Value="scale(0.8333333)" />
     </Style>
-    <Style Selector="^.large /template/ LayoutTransformControl#PART_Scale">
-      <Setter Property="LayoutTransform" Value="scale(1.5)" />
+    <Style Selector="^.large /template/ Panel#PART_Scale">
+      <Setter Property="RenderTransform" Value="scale(1.5)" />
     </Style>
     <!-- END GENERATED -->
 

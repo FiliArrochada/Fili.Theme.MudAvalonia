@@ -740,8 +740,8 @@ public static class ThemeColourGenerator
         o.Append(InheritLook("unchecked-inherit", "UncheckedColour", "UncheckedHover"));
 
         o.Append("\n    <!-- `mud-icon-size-small` / `-large`: 1.25rem and 2.25rem against 1.5rem. -->\n");
-        o.Append(Style("^.small /template/ LayoutTransformControl#PART_Scale", ("LayoutTransform", "scale(0.8333333)")));
-        o.Append(Style("^.large /template/ LayoutTransformControl#PART_Scale", ("LayoutTransform", "scale(1.5)")));
+        o.Append(Style("^.small /template/ Panel#PART_Scale", ("RenderTransform", "scale(0.8333333)")));
+        o.Append(Style("^.large /template/ Panel#PART_Scale", ("RenderTransform", "scale(1.5)")));
         return o.ToString();
     }
 

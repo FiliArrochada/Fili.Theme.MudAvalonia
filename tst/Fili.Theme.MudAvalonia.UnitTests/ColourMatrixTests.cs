@@ -165,9 +165,9 @@ public class SelectionGlyphMatrixTests
         {
             control.Classes.Add(size);
             Matrix.Show(control);
-            var scale = Matrix.Part<LayoutTransformControl>(control, "PART_Scale");
+            var scale = Matrix.Part<Panel>(control, "PART_Scale");
 
-            Assert.Equal(glyph, 24 * scale.LayoutTransform!.Value.M11, 2);
+            Assert.Equal(glyph, 24 * scale.RenderTransform!.Value.M11, 2);
             Assert.Equal(halo, Matrix.Part<Shapes.Ellipse>(control, "PART_StateLayer").Bounds.Height);
         }
     });

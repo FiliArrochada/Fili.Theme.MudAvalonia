@@ -56,16 +56,17 @@
           </theme:PartBorder>
           <theme:PartBorder x:Name="PART_Ripple"
                   theme:Ripple.IsLayer="True" />
-          <DockPanel Margin="{TemplateBinding Padding}">
-            <!-- `.mud-list-item-text`: 4px above and below whatever the row holds. -->
-            <ContentPresenter x:Name="PART_ContentPresenter"
-                              Content="{TemplateBinding Content}"
-                              ContentTemplate="{TemplateBinding ContentTemplate}"
-                              Foreground="{TemplateBinding Foreground}"
-                              Margin="0,4"
-                              HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
-                              VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" />
-          </DockPanel>
+          <!-- `.mud-list-item-text`: 4px above and below whatever the row holds. The row's
+               Padding is the presenter's own, not a panel round it: one visual less a row. -->
+          <ContentPresenter x:Name="PART_ContentPresenter"
+                            Content="{TemplateBinding Content}"
+                            ContentTemplate="{TemplateBinding ContentTemplate}"
+                            Foreground="{TemplateBinding Foreground}"
+                            Padding="{TemplateBinding Padding}"
+                            Margin="0,4"
+                            HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                            VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" />
+
         </Panel>
       </ControlTemplate>
     </Setter>

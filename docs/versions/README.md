@@ -9,6 +9,7 @@ Each version has its own page: what changed, and, where existing markup changes 
 
 | Version | Upgrading |
 |---|---|
+| *[Unreleased](unreleased.md)* | Nothing to change |
 | **[0.25.0](0.25.0.md)** | [Upgrading from 0.24.0](0.25.0.md#upgrading-from-0240-to-0250) |
 | [0.24.0](0.24.0.md) | [Upgrading from 0.23.0](0.24.0.md#upgrading-from-0230-to-0240) |
 | [0.23.0](0.23.0.md) | [Upgrading from 0.22.0](0.23.0.md#upgrading-from-0220-to-0230) |
