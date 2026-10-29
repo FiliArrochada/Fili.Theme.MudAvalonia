@@ -10,6 +10,10 @@
     .mud-input-showspin input     padding-right: 24px   ("This must be the same width of the
                                   spinners" - so the column is 24 wide, and that is where the
                                   number below comes from rather than from taste)
+    .mud-input-root-margin-dense  padding-right: 20px under Margin.Dense, where MudInput.razor.cs's
+                                  GetButtonSize() makes the spin icons Size.Small, 20px
+                                  (_icons.scss): `dense` is a 20px column of 20px glyphs, and the
+                                  text 20px clear of it
 
   Everything else - the underline, the floating label, the accent rule, the helper line and a
   validation error - belongs to the TextBox inside, which already wears Controls/TextBox.axaml.
@@ -31,14 +35,14 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:theme="using:Fili.Theme.MudAvalonia">
 
-  <!-- One spin button: a 24px-wide RepeatButton with 2px of vertical padding and no minimums. -->
+  <!-- One spin button: as wide as its column, 24px (20 dense), with 2px of vertical padding and
+       no minimums. -->
   <ControlTheme x:Key="FiliSpinnerButton" TargetType="RepeatButton">
     <Setter Property="Background" Value="Transparent" />
     <Setter Property="BorderThickness" Value="0" />
     <Setter Property="Padding" Value="0,2" />
     <Setter Property="MinWidth" Value="0" />
     <Setter Property="MinHeight" Value="0" />
-    <Setter Property="Width" Value="24" />
     <Setter Property="Cursor" Value="Hand" />
     <Setter Property="Template">
       <ControlTemplate>
@@ -97,28 +101,36 @@
                    field, so every variant was 56px tall and `dense` had no effect. -->
               <UniformGrid x:Name="PART_SpinnerPanel"
                            Rows="2"
-                           Width="24"
+                           Width="{TemplateBinding (theme:SpinColumn.Size)}"
                            Height="0"
                            ZIndex="1"
                            TabIndex="2"
                            DockPanel.Dock="Right"
                            VerticalAlignment="Stretch"
                            IsVisible="{TemplateBinding ShowButtonSpinner}">
+                <!-- Each glyph is the 24px glyph in a Viewbox the column's size: MudIcon
+                     Size.Medium, 24px, or Size.Small, 20px, in a dense field (SpinColumn.Size). -->
                 <RepeatButton x:Name="PART_IncreaseButton"
                               Theme="{StaticResource FiliSpinnerButton}"
                               IsTabStop="{TemplateBinding IsTabStop}">
-                  <Path Width="24" Height="24"
-                        Stretch="None"
-                        Data="{DynamicResource FiliKeyboardArrowUpGeometry}"
-                        Fill="{DynamicResource FiliActionDefaultBrush}" />
+                  <Viewbox Width="{TemplateBinding (theme:SpinColumn.Size)}"
+                           Height="{TemplateBinding (theme:SpinColumn.Size)}">
+                    <Path Width="24" Height="24"
+                          Stretch="None"
+                          Data="{DynamicResource FiliKeyboardArrowUpGeometry}"
+                          Fill="{DynamicResource FiliActionDefaultBrush}" />
+                  </Viewbox>
                 </RepeatButton>
                 <RepeatButton x:Name="PART_DecreaseButton"
                               Theme="{StaticResource FiliSpinnerButton}"
                               IsTabStop="{TemplateBinding IsTabStop}">
-                  <Path Width="24" Height="24"
-                        Stretch="None"
-                        Data="{DynamicResource FiliKeyboardArrowDownGeometry}"
-                        Fill="{DynamicResource FiliActionDefaultBrush}" />
+                  <Viewbox Width="{TemplateBinding (theme:SpinColumn.Size)}"
+                           Height="{TemplateBinding (theme:SpinColumn.Size)}">
+                    <Path Width="24" Height="24"
+                          Stretch="None"
+                          Data="{DynamicResource FiliKeyboardArrowDownGeometry}"
+                          Fill="{DynamicResource FiliActionDefaultBrush}" />
+                  </Viewbox>
                 </RepeatButton>
               </UniformGrid>
               <ContentPresenter x:Name="PART_ContentPresenter"
@@ -203,6 +215,17 @@
     </Style>
     <Style Selector="^[ShowButtonSpinner=True][ButtonSpinnerLocation=Left] /template/ TextBox#PART_TextBox">
       <Setter Property="Margin" Value="-24,0,0,0" />
+    </Style>
+    <!-- Margin.Dense: the spin icons at Size.Small, a 20px column of 20px glyphs
+         (MudInput.razor.cs GetButtonSize, _icons.scss). -->
+    <Style Selector="^.dense /template/ ButtonSpinner#PART_Spinner">
+      <Setter Property="theme:SpinColumn.Size" Value="20" />
+    </Style>
+    <Style Selector="^.dense[ShowButtonSpinner=True] /template/ TextBox#PART_TextBox">
+      <Setter Property="Margin" Value="0,0,-20,0" />
+    </Style>
+    <Style Selector="^.dense[ShowButtonSpinner=True][ButtonSpinnerLocation=Left] /template/ TextBox#PART_TextBox">
+      <Setter Property="Margin" Value="-20,0,0,0" />
     </Style>
   </ControlTheme>
 

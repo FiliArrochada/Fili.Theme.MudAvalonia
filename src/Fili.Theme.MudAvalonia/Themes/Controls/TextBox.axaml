@@ -165,8 +165,8 @@
                         Margin="0,0,8,0"
                         Command="{Binding $parent[TextBox].Clear}"
                         AutomationProperties.Name="Clear">
-                  <!-- Icons.Material.Filled.Clear is Close's path. 18px, the small icon button's. -->
-                  <Viewbox Width="18" Height="18">
+                  <!-- Icons.Material.Filled.Clear is Close's path. 20px, the small icon button's. -->
+                  <Viewbox Width="20" Height="20">
                     <Path Width="24" Height="24"
                           Stretch="None"
                           Data="{DynamicResource FiliCloseGeometry}"
@@ -455,6 +455,20 @@
     <Style Selector="^:spin-start:start-adornment /template/ ContentPresenter#PART_InnerLeftContent">
       <Setter Property="Margin" Value="24,0,8,0" />
     </Style>
+    <!-- Margin.Dense: `.mud-input-root-margin-dense` padding-right: 20px, the dense field's 20px
+         column (_inputcontrol.scss). -->
+    <Style Selector="^.dense:spin-end /template/ ContentPresenter#PART_InnerRightContent">
+      <Setter Property="Margin" Value="0,0,20,0" />
+    </Style>
+    <Style Selector="^.dense:spin-start /template/ ContentPresenter#PART_InnerLeftContent">
+      <Setter Property="Margin" Value="20,0,0,0" />
+    </Style>
+    <Style Selector="^.dense:spin-end:end-adornment /template/ ContentPresenter#PART_InnerRightContent">
+      <Setter Property="Margin" Value="8,0,20,0" />
+    </Style>
+    <Style Selector="^.dense:spin-start:start-adornment /template/ ContentPresenter#PART_InnerLeftContent">
+      <Setter Property="Margin" Value="20,0,8,0" />
+    </Style>
 
     <!-- No label, MudInput: no `mud-input-text-with-label`, so no 16px above the text - 6px and
          7px round a 21px line, 32px; dense, 3px above, 29px. Every variant derives from this one
@@ -592,6 +606,22 @@
     </Style>
     <Style Selector="^:spin-end:end-text-adornment /template/ ContentPresenter#PART_InnerRightContent">
       <Setter Property="Margin" Value="8,0,12,0" />
+    </Style>
+    <!-- Margin.Dense: 20px from the box's edge, the 12px of padding and 8. -->
+    <Style Selector="^.dense:spin-end /template/ ContentPresenter#PART_InnerRightContent">
+      <Setter Property="Margin" Value="0,0,8,0" />
+    </Style>
+    <Style Selector="^.dense:spin-start /template/ ContentPresenter#PART_InnerLeftContent">
+      <Setter Property="Margin" Value="8,0,0,0" />
+    </Style>
+    <Style Selector="^.dense:spin-end:end-adornment /template/ ContentPresenter#PART_InnerRightContent">
+      <Setter Property="Margin" Value="8,-12,8,0" />
+    </Style>
+    <Style Selector="^.dense:spin-start:start-adornment /template/ ContentPresenter#PART_InnerLeftContent">
+      <Setter Property="Margin" Value="8,0,8,0" />
+    </Style>
+    <Style Selector="^.dense:spin-end:end-text-adornment /template/ ContentPresenter#PART_InnerRightContent">
+      <Setter Property="Margin" Value="8,0,8,0" />
     </Style>
 
     <!-- No label: `.mud-input-root-hidden-label`, 18px above and 19px below in place of 27 and
@@ -740,6 +770,25 @@
     </Style>
     <Style Selector="^:spin-start:start-text-adornment /template/ ContentPresenter#PART_InnerLeftContent">
       <Setter Property="Margin" Value="10,0,8,0" />
+    </Style>
+    <!-- Margin.Dense: 20px from the box's edge, the 14px of padding and 6. -->
+    <Style Selector="^.dense:spin-end /template/ ContentPresenter#PART_InnerRightContent">
+      <Setter Property="Margin" Value="0,0,6,0" />
+    </Style>
+    <Style Selector="^.dense:spin-start /template/ ContentPresenter#PART_InnerLeftContent">
+      <Setter Property="Margin" Value="6,0,0,0" />
+    </Style>
+    <Style Selector="^.dense:spin-end:end-adornment /template/ ContentPresenter#PART_InnerRightContent">
+      <Setter Property="Margin" Value="8,-4,6,0" />
+    </Style>
+    <Style Selector="^.dense:spin-start:start-adornment /template/ ContentPresenter#PART_InnerLeftContent">
+      <Setter Property="Margin" Value="6,-4,8,0" />
+    </Style>
+    <Style Selector="^.dense:spin-end:end-text-adornment /template/ ContentPresenter#PART_InnerRightContent">
+      <Setter Property="Margin" Value="8,0,6,0" />
+    </Style>
+    <Style Selector="^.dense:spin-start:start-text-adornment /template/ ContentPresenter#PART_InnerLeftContent">
+      <Setter Property="Margin" Value="6,0,8,0" />
     </Style>
 
     <!-- No label: the box is the same, its label's room being the 8px MudBlazor puts outside it,

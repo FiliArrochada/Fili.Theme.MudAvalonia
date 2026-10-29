@@ -64,8 +64,9 @@ public class InheritColourTests
     });
 
     /// <summary>
-    /// Every glyph in the surrounding colour, the label keeping its own text-primary, and no halo:
-    /// `hover:mud-inherit-hover` names no rule.
+    /// Every glyph in the surrounding colour, the label keeping its own text-primary, and the grey
+    /// action-default-hover halo: `hover:mud-inherit-hover` names no rule, so the glyph's
+    /// `.mud-icon-button` hover (_iconbutton.scss) stays.
     /// </summary>
     [Theory]
     [InlineData(true, "PART_Checked")]
@@ -78,15 +79,21 @@ public class InheritColourTests
         Assert.Equal(Matrix.Token("FiliTextPrimaryColor"), Matrix.Colour(box.Foreground));
 
         Matrix.Hover(box);
-        Assert.Equal(Colors.Transparent, Matrix.Colour(Matrix.Part<Ellipse>(box, "PART_StateLayer").Fill));
+        Assert.Equal(Matrix.Token("FiliActionDefaultHoverColor"), Matrix.Colour(Matrix.Part<Ellipse>(box, "PART_StateLayer").Fill));
     });
 
-    /// <summary>UncheckedColor.Inherit: while not checked only; checked, the colour class is back.</summary>
+    /// <summary>
+    /// UncheckedColor.Inherit: while not checked only; checked, the colour class is back. Unchecked,
+    /// the halo is the grey one, not the colour class's: MudCheckBox drops `hover:mud-{Color}-hover`
+    /// when UncheckedColor is set and the box is off (MudCheckBox.razor.cs).
+    /// </summary>
     [Fact]
     public Task UncheckedInheritHoldsOnlyWhileUnchecked() => UiThread.RunAsync(() =>
     {
         var off = InHost(new CheckBox { IsChecked = false, Content = "Off", Classes = { "primary", "unchecked-inherit" } }, Brushes.OrangeRed);
         Assert.Equal(Colors.OrangeRed, Matrix.Colour(Matrix.Part<Path>(off, "PART_Unchecked").Fill));
+        Matrix.Hover(off);
+        Assert.Equal(Matrix.Token("FiliActionDefaultHoverColor"), Matrix.Colour(Matrix.Part<Ellipse>(off, "PART_StateLayer").Fill));
 
         var on = InHost(new CheckBox { IsChecked = true, Content = "On", Classes = { "primary", "unchecked-inherit" } }, Brushes.OrangeRed);
         Assert.Equal(Matrix.Token("FiliPrimaryColor"), Matrix.Colour(Matrix.Part<Path>(on, "PART_Checked").Fill));
@@ -98,6 +105,9 @@ public class InheritColourTests
         var radio = InHost(new RadioButton { IsChecked = true, Content = "On", GroupName = "inherit", Classes = { "inherit" } }, Brushes.OrangeRed);
 
         Assert.Equal(Colors.OrangeRed, Matrix.Colour(Matrix.Part<Path>(radio, "PART_Checked").Fill));
+
+        Matrix.Hover(radio);
+        Assert.Equal(Matrix.Token("FiliActionDefaultHoverColor"), Matrix.Colour(Matrix.Part<Ellipse>(radio, "PART_StateLayer").Fill));
     });
 
     [Fact]

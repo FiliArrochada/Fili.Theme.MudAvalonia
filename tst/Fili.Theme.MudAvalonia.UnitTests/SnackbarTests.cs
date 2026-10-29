@@ -64,7 +64,7 @@ public class SnackbarTests
         Assert.True(close.IsVisible);
         Assert.True(NotificationCard.GetCloseOnClick(close));
         Assert.Equal(new Thickness(3), close.Padding);
-        Assert.Equal(18, Assert.IsType<Viewbox>(close.Content).Bounds.Width);
+        Assert.Equal(20, Assert.IsType<Viewbox>(close.Content).Bounds.Width);
         Assert.Equal(Matrix.Token("FiliSuccessContrastTextColor"), Matrix.Colour(close.Foreground));
     });
 
@@ -103,13 +103,17 @@ public class SnackbarTests
         Assert.Equal(new Thickness(1), card.BorderThickness);
     });
 
+    /// <summary>
+    /// Filled, and Regular: `.mud-snackbar`'s 400 and `.mud-alert-filled-*`'s 500 are one class
+    /// each, and _snackbar comes after _alert in MudBlazor.scss, so 400 wins.
+    /// </summary>
     [Fact]
     public Task FilledStaysTheDefault() => UiThread.RunAsync(() =>
     {
         var card = Card(NotificationType.Information);
 
         Assert.Equal(Matrix.Token("FiliInfoColor"), Matrix.Colour(card.Background));
-        Assert.Equal(FontWeight.Medium, card.FontWeight);
+        Assert.Equal(FontWeight.Normal, card.FontWeight);
     });
 
     /// <summary>The card's elevation 6 shadow falls past its edge: nothing round the card clips it.</summary>

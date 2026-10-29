@@ -19,7 +19,8 @@
 -->
 <ResourceDictionary xmlns="https://github.com/avaloniaui"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:theme="using:Fili.Theme.MudAvalonia">
+                    xmlns:theme="using:Fili.Theme.MudAvalonia"
+                    xmlns:conv="using:Fili.Theme.MudAvalonia.Converters">
 
   <ControlTheme x:Key="FiliToolTip" TargetType="ToolTip">
     <!--
@@ -67,10 +68,15 @@
           <theme:PartBorder Background="{TemplateBinding Background}"
                   CornerRadius="{TemplateBinding CornerRadius}"
                   Padding="{TemplateBinding Padding}">
+            <!-- `.mud-tooltip`: `line-height: 1.4em`, 16.8px at 12px, so a one-line chip is
+                 4 + 16.8 + 4 = 24.8px, and `text-align: center` for the lines of a long one
+                 (_tooltip.scss). Without them the text had its font's own 15px line, start-aligned. -->
             <ContentPresenter Content="{TemplateBinding Content}"
                               ContentTemplate="{TemplateBinding ContentTemplate}"
                               Foreground="{TemplateBinding Foreground}"
-                              TextBlock.TextWrapping="Wrap" />
+                              TextBlock.TextWrapping="Wrap"
+                              TextBlock.TextAlignment="Center"
+                              TextBlock.LineHeight="{Binding FontSize, RelativeSource={RelativeSource TemplatedParent}, Converter={x:Static conv:FactorConverter.Instance}, ConverterParameter=1.4}" />
           </theme:PartBorder>
         </DockPanel>
       </ControlTemplate>

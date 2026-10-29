@@ -535,6 +535,93 @@ public class ThemeCompositionTests
     });
 
     /// <summary>
+    /// Margin.Dense: MudInput draws the spin icons at Size.Small (GetButtonSize), 20px, and
+    /// `.mud-input-root-margin-dense` keeps the text 20px clear - a 20px column of 20px glyphs, in
+    /// every variant, the input box still running on under it.
+    /// </summary>
+    [Theory]
+    [InlineData("", 20)]
+    [InlineData("filled", 8)]
+    [InlineData("outlined", 6)]
+    public Task ADenseNumericFieldsSpinColumnIsTwentyWide(string variant, double clearance) => UiThread.RunAsync(() =>
+    {
+        var numeric = new NumericUpDown { Value = 42, Width = 190, Classes = { "dense" } };
+        if (variant.Length > 0)
+        {
+            numeric.Classes.Add(variant);
+        }
+
+        Templated(numeric);
+
+        var spinners = numeric.GetVisualDescendants()
+            .OfType<UniformGrid>()
+            .Single(g => g.Name == "PART_SpinnerPanel");
+        var glyphs = spinners.GetVisualDescendants().OfType<Viewbox>().ToList();
+        var box = numeric.GetVisualDescendants().OfType<TextBox>().Single(t => t.Name == "PART_TextBox");
+        var inner = box.GetVisualDescendants().OfType<ContentPresenter>().Single(p => p.Name == "PART_InnerRightContent");
+
+        Assert.Equal(20d, spinners.Bounds.Width);
+        Assert.True(spinners.Bounds.Height > 0, "The dense column was not sized to the input box.");
+        Assert.Equal(2, glyphs.Count);
+        Assert.All(glyphs, g => Assert.Equal(20d, g.Bounds.Width));
+        Assert.Equal(new Thickness(0, 0, -20, 0), box.Margin);
+        Assert.Equal(clearance, inner.Margin.Right);
+    });
+
+    /// <summary>
+    /// The scroll bar MudThemeProvider injects (BuildMudBlazorScrollbar): 8px either way, a
+    /// transparent track, the thumb filling it, rounded 1px, #c4c4c4 and #a6a6a6 under the pointer.
+    /// </summary>
+    [Fact]
+    public Task AScrollBarIsMudThemeProvidersEightPixelRail() => UiThread.RunAsync(() =>
+    {
+        var viewer = Templated(new ScrollViewer
+        {
+            Width = 200,
+            Height = 100,
+            HorizontalScrollBarVisibility = Avalonia.Controls.Primitives.ScrollBarVisibility.Auto,
+            Content = new Border { Width = 400, Height = 400 },
+        });
+        var bars = viewer.GetVisualDescendants().OfType<ScrollBar>().Where(b => b.IsVisible).ToList();
+        var vertical = bars.Single(b => b.Orientation == Avalonia.Layout.Orientation.Vertical);
+        var horizontal = bars.Single(b => b.Orientation == Avalonia.Layout.Orientation.Horizontal);
+        var thumb = vertical.GetVisualDescendants().OfType<Thumb>().Single();
+        var ground = thumb.GetVisualDescendants().OfType<Border>().First();
+
+        Assert.Equal(8d, vertical.Bounds.Width);
+        Assert.Equal(8d, horizontal.Bounds.Height);
+        Assert.Equal(Colors.Transparent, ((ISolidColorBrush)vertical.Background!).Color);
+        Assert.Equal(8d, thumb.Bounds.Width);
+        Assert.Equal(new CornerRadius(1), ground.CornerRadius);
+        Assert.True(Application.Current!.TryFindResource("FiliScrollbarThumbColor", ThemeVariant.Light, out var rest));
+        Assert.Equal(Color.Parse("#C4C4C4"), (Color)rest!);
+        Assert.Equal((Color)rest!, ((ISolidColorBrush)thumb.Background!).Color);
+
+        ((IPseudoClasses)thumb.Classes).Set(":pointerover", true);
+        Dispatcher.UIThread.RunJobs();
+        Assert.True(Application.Current!.TryFindResource("FiliScrollbarThumbHoverColor", ThemeVariant.Light, out var hover));
+        Assert.Equal(Color.Parse("#A6A6A6"), (Color)hover!);
+        Assert.Equal((Color)hover!, ((ISolidColorBrush)thumb.Background!).Color);
+    });
+
+    /// <summary>Turning `dense` on later narrows the column, still the input box's height.</summary>
+    [Fact]
+    public Task ANumericFieldTurnedDenseSizesItsNewColumn() => UiThread.RunAsync(() =>
+    {
+        var numeric = Templated(new NumericUpDown { Value = 42, Width = 190 });
+
+        numeric.Classes.Add("dense");
+        Dispatcher.UIThread.RunJobs();
+        numeric.UpdateLayout();
+
+        var spinners = numeric.GetVisualDescendants()
+            .OfType<UniformGrid>()
+            .Single(g => g.Name == "PART_SpinnerPanel");
+        Assert.Equal(20d, spinners.Bounds.Width);
+        Assert.True(spinners.Bounds.Height > 0, "The column was left 0px tall.");
+    });
+
+    /// <summary>
     /// Keyboard focus lights the state layer, and a pointer click does not.
     /// <para>
     /// This is the test that matters most in this file, because <c>:focus-visible</c> compiles

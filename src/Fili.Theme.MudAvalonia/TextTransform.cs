@@ -12,8 +12,9 @@ namespace Fili.Theme.MudAvalonia;
 
 /// <summary>
 /// CSS's <c>text-transform</c> for a button's label: MudBlazor's
-/// <c>Typography.Button.TextTransform</c>, <c>uppercase</c> by default, which <c>.mud-button</c>,
-/// <c>.mud-fab</c> and <c>.mud-tab</c> apply to their text.
+/// <c>Typography.Button.TextTransform</c>, <c>uppercase</c> by default, which <c>.mud-button</c>
+/// and <c>.mud-fab</c> apply to their text. <c>.mud-tab</c> hard-codes <c>uppercase</c> instead
+/// (_tabs.scss), so a tab's presenter sets that case itself rather than the resource.
 /// </summary>
 /// <remarks>
 /// <para>

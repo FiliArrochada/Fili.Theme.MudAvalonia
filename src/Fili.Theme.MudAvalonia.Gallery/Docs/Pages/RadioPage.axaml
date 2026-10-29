@@ -22,7 +22,7 @@
                       Description="unchecked-primary … unchecked-dark is UncheckedColor: the glyph and its halo while not checked, in place of the colour class."
                       Source="Radio/UncheckedColor" />
     <docs:ExampleCard Title="Inherit"
-                      Description="inherit is Color.Inherit: the glyph in the text colour the radio sits in, with no halo. unchecked-inherit is the same while not checked only."
+                      Description="inherit is Color.Inherit: the glyph in the text colour the radio sits in, with the grey action-default halo. unchecked-inherit is the same while not checked only."
                       Source="Radio/Inherit" />
 
     <TextBlock Classes="h5 section" Text="Dense" />
@@ -66,7 +66,7 @@
       <docs:ParityRow MudBlazor="Color.Primary … Color.Dark" Here="primary … dark" Status="Same" Note="Every glyph and the halo." />
       <docs:ParityRow MudBlazor="Size.Small / Large" Here="small / large" Status="Same" Note="The glyph at 20 / 36px." />
       <docs:ParityRow MudBlazor="UncheckedColor" Here="unchecked-primary … unchecked-dark" Status="Same" Note="The glyph and its halo while not checked, in place of the colour class." />
-      <docs:ParityRow MudBlazor="Color.Inherit, UncheckedColor.Inherit" Here="inherit, unchecked-inherit" Status="Same" Note="The glyph in the surrounding text colour, with no halo, as MudBlazor has no inherit hover rule." />
+      <docs:ParityRow MudBlazor="Color.Inherit, UncheckedColor.Inherit" Here="inherit, unchecked-inherit" Status="Same" Note="The glyph in the surrounding text colour. The halo stays the grey action-default-hover: MudBlazor has no inherit hover rule, so the icon button's own hover remains." />
       <docs:ParityRow MudBlazor="Disabled" Here="IsEnabled=&quot;False&quot;" Status="Same" Note="The glyph and the label in text-disabled." />
       <docs:ParityRow MudBlazor="ReadOnly" Here="IsHitTestVisible=&quot;False&quot;" Status="Close" Note="Looks the same, as in MudBlazor." />
       <docs:ParityRow MudBlazor="Dense" Here="dense" Status="Same" Note="4px round the glyph: 32px; 28 small, 44 large." />

@@ -71,7 +71,7 @@ public class ClearableTests
     });
 
     /// <summary>
-    /// Color.Default, Size.Small: the small icon button, 3px round an 18px icon. tabindex -1: not a
+    /// Color.Default, Size.Small: the small icon button, 3px round a 20px icon. tabindex -1: not a
     /// Tab stop, so Tab leaves the field for the next one.
     /// </summary>
     [Fact]
@@ -80,7 +80,7 @@ public class ClearableTests
         var button = ClearButton(Show("Avalonia", "clearable"));
 
         Assert.Equal(["icon", "small"], button.Classes.Where(c => !c.StartsWith(':')));
-        Assert.Equal(new Size(24, 24), button.Bounds.Size);
+        Assert.Equal(new Size(26, 26), button.Bounds.Size);
         Assert.False(button.Focusable);
     });
 

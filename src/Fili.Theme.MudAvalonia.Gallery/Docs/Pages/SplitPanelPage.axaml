@@ -19,7 +19,7 @@
 
     <TextBlock Classes="h5 section" Text="Why the divider shows" />
     <TextBlock Classes="body1 p">
-      <Run Classes="code" Text="GridSplitter" /><Run Text=" is left on its forked template on purpose. MudBlazor's divider is a cursor, a 12px invisible hit area and a focus outline, and nothing else: the separation comes from the two panels having different backgrounds, which Avalonia does not guarantee. Transcribed faithfully, the splitter would be invisible, so it keeps its visible hairline." />
+      <Run Classes="code" Text="GridSplitter" /><Run Text=" is left on its forked template on purpose. MudBlazor's divider is a cursor, an invisible hit area reaching 12px past it on every side (24px plus the divider's own width, the PanelGap, 4px by default) and a focus outline, and nothing else: the separation comes from the two panels having different backgrounds, which Avalonia does not guarantee. Transcribed faithfully, the splitter would be invisible, so it keeps its visible hairline." />
     </TextBlock>
 
     <TextBlock Classes="h5 section" Text="Panels" />

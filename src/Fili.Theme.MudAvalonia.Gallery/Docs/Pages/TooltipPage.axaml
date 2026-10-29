@@ -11,7 +11,7 @@
 
     <TextBlock Classes="h5 section" Text="Simple tooltips" />
     <docs:ExampleCard Title="ToolTip.Tip and ToolTip.Placement"
-                      Description="ToolTip.Tip on any control is MudTooltip's Text, and ToolTip.Placement its Placement: hover each icon for Top, Bottom, Left and Right. Each sits centred on that side, 10px from the target, as MudBlazor's does. The tooltip is a solid gray-darker chip, 12px at weight 500, padded 4px 8px."
+                      Description="ToolTip.Tip on any control is MudTooltip's Text, and ToolTip.Placement its Placement: hover each icon for Top, Bottom, Left and Right. Each sits centred on that side, 10px from the target, as MudBlazor's does. The tooltip is a solid gray-darker chip, 12px at weight 500 on a 1.4em line, centred, padded 4px 8px. MudTooltip's Placement defaults to Bottom, where ToolTip.Placement defaults to Pointer: write ToolTip.Placement=&quot;Bottom&quot; for MudBlazor's default."
                       Source="Tooltip/Simple" />
     <TextBlock Classes="body1 p">
       <Run Text="The tooltip is deliberately not theme-varying: a Material tooltip is a dark chip in light and dark alike, so it reads as an annotation above the UI rather than another surface of it. Its fill is " /><Run Classes="code" Text="_tooltip.scss" /><Run Text="'s gray-darker, #616161, solid; in high contrast it is black, with the white text. It has no width of its own, so a long tooltip wraps only at the edge of the screen, or of the page in a browser." />
@@ -27,7 +27,7 @@
                       Description="A ToolTip used as the Tip keeps its classes: arrow is MudTooltip's Arrow, a 6px triangle in the chip's colour on the side facing the target, for Placement Top, Bottom, Left and Right."
                       Source="Tooltip/Arrow" />
     <TextBlock Classes="body1 p">
-      <Run Text="The arrow and the 4px beyond it are the 10px gap every tooltip on a side keeps, arrow or not. Pointer, Avalonia's default placement and not one of MudBlazor's, draws no arrow and keeps Avalonia's " /><Run Classes="code" Text="ToolTip.VerticalOffset" /><Run Text=" of 20 under the pointer; on the four sides the theme sets it to 0, where a style would, so an offset the app sets moves the tooltip from MudBlazor's place." />
+      <Run Text="The arrow and the 4px beyond it are the 10px gap every tooltip on a side keeps, arrow or not. Pointer, Avalonia's default placement and not one of MudBlazor's (whose default is Bottom), draws no arrow and keeps Avalonia's " /><Run Classes="code" Text="ToolTip.VerticalOffset" /><Run Text=" of 20 under the pointer; on the four sides the theme sets it to 0, where a style would, so an offset the app sets moves the tooltip from MudBlazor's place." />
     </TextBlock>
 
     <TextBlock Classes="h5 section" Text="Coloured tooltips" />
@@ -53,8 +53,8 @@
       <Run Text="Every MudTooltip parameter and what it is here. " /><Run Classes="code" Text="Same" /><Run Text=" is transcribed from MudBlazor's source; " /><Run Classes="code" Text="Close" /><Run Text=" gets the same result another way." />
     </TextBlock>
     <docs:ParityTable>
-      <docs:ParityRow MudBlazor="MudTooltip" Here="ToolTip.Tip" Status="Same" Note="A solid gray-darker chip in light and dark, black in high contrast, 12px at weight 500, 4px 8px; no width of its own, so it wraps only at the screen's edge, or the page's in a browser." />
-      <docs:ParityRow MudBlazor="Placement Top, Bottom, Left, Right" Here="ToolTip.Placement" Status="Same" Note="Centred on that side, 10px from the target; Avalonia's 20px ToolTip.VerticalOffset is set to 0 for these four. Start and End are Left and Right." />
+      <docs:ParityRow MudBlazor="MudTooltip" Here="ToolTip.Tip" Status="Same" Note="A solid gray-darker chip in light and dark, black in high contrast, 12px at weight 500 on a 1.4em line (16.8px), centred, 4px 8px; no width of its own, so it wraps only at the screen's edge, or the page's in a browser." />
+      <docs:ParityRow MudBlazor="Placement Top, Bottom (default), Left, Right" Here="ToolTip.Placement" Status="Same" Note="Centred on that side, 10px from the target; Avalonia's 20px ToolTip.VerticalOffset is set to 0 for these four. Start and End are Left and Right. MudTooltip defaults to Bottom, ToolTip.Placement to Pointer, which the theme leaves: set Bottom for MudBlazor's default." />
       <docs:ParityRow MudBlazor="Delay" Here="ToolTip.ShowDelay" Status="Same" Note="In milliseconds." />
       <docs:ParityRow MudBlazor="Duration (251ms)" Here="the same" Status="Same" Note="The tooltip fades in as every popup does." />
       <docs:ParityRow MudBlazor="Color (default Default)" Here="a ToolTip as the Tip, with primary … dark" Status="Same" Note="The colour and its contrast text; ToolTip.Tip uses a ToolTip as it is, so its classes survive." />

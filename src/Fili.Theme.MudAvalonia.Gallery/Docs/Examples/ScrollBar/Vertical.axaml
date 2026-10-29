@@ -7,9 +7,9 @@
       <StackPanel Margin="16" Spacing="8">
         <TextBlock Classes="subtitle2" Text="A scrolling panel" />
         <TextBlock Classes="body2" TextWrapping="Wrap"
-                   Text="The rail is 12px wide with no line buttons, and the thumb is a rounded bar 2px inside it." />
+                   Text="The rail is 8px wide with no line buttons, and the thumb fills it, rounded 1px." />
         <TextBlock Classes="body2" TextWrapping="Wrap"
-                   Text="At rest the thumb is action-disabled. Under the pointer it darkens to action-default, and while it is dragged to text-primary." />
+                   Text="At rest the thumb is #c4c4c4. Under the pointer, and while it is dragged, it darkens to #a6a6a6." />
         <TextBlock Classes="body2" TextWrapping="Wrap"
                    Text="The wheel, a drag, the keyboard and touch all scroll the panel, as they do in any ScrollViewer." />
       </StackPanel>

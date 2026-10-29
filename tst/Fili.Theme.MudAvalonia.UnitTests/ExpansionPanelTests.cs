@@ -141,7 +141,10 @@ public class ExpansionPanelTests
         Assert.Equal(BoxShadows.Parse("0 5 5 -3 #0F000000, 0 8 10 1 #0B000000, 0 3 14 2 #09000000"), FabTests.Shadow(25));
     });
 
-    /// <summary>Typo.button: 14px, 500, a 24px line, 0.4px tracking. Uppercase is Avalonia's to lack.</summary>
+    /// <summary>
+    /// Typo.button: 14px, 500, a 24.5px line (1.75 of 14, Typography.cs, as a button's own label), 0.4px
+    /// tracking. Uppercase is Avalonia's to lack.
+    /// </summary>
     [Fact]
     public Task TheButtonTypeClass() => UiThread.RunAsync(() =>
     {
@@ -150,7 +153,7 @@ public class ExpansionPanelTests
         Matrix.Show(text);
 
         Assert.Equal(14, text.FontSize);
-        Assert.Equal(24, text.LineHeight);
+        Assert.Equal(24.5, text.LineHeight);
         Assert.Equal(0.4, text.LetterSpacing);
         Assert.Equal(FontWeight.Medium, text.FontWeight);
     });

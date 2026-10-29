@@ -14,7 +14,7 @@
                       Description="The bar is the surface colour with no rule under it, as MudTabs' Border defaults to false. Tabs are at least 160px, MudTabs' MinimumTabWidth, in text-primary with uppercase labels; the selected one is primary, a disabled one text-disabled."
                       Source="Tabs/Simple" />
     <TextBlock Classes="body1 p">
-      <Run Text="The theme sets the TabControl's " /><Run Classes="code" Text="ItemContainerTheme" /><Run Text=", which is what carries the header look down to a bare " /><Run Classes="code" Text="TabItem" /><Run Text=". A string header is uppercase; " /><Run Classes="code" Text="FiliButtonTextTransform" /><Run Text=" is the switch, as it is for buttons." />
+      <Run Text="The theme sets the TabControl's " /><Run Classes="code" Text="ItemContainerTheme" /><Run Text=", which is what carries the header look down to a bare " /><Run Classes="code" Text="TabItem" /><Run Text=". A string header is uppercase, always: MudBlazor's .mud-tab hard-codes the uppercase rather than reading the button typography's, so " /><Run Classes="code" Text="FiliButtonTextTransform" /><Run Text=", the switch for buttons, does not reach tabs." />
     </TextBlock>
 
     <TextBlock Classes="h5 section" Text="TabStrip" />
@@ -98,7 +98,7 @@
       <docs:ParityRow MudBlazor="Elevation" Here="elevation0 … elevation25" Status="Same" Note="On the bar, outside rounded's clip." />
       <docs:ParityRow MudBlazor="SliderColor" Here="indicator-primary … indicator-dark" Status="Same" Note="The indicator alone, over any bar colour." />
       <docs:ParityRow MudBlazor="sliding indicator, SliderAnimation (default true)" Here="the indicator slides; no-animation for false" Status="Same" Note=".3s on cubic-bezier(.64,.09,.08,1) with the width jumping; no-animation puts the new tab's indicator under it at once." />
-      <docs:ParityRow MudBlazor="uppercase tab text (.mud-tab)" Here="the same" Status="Same" Note="A string Header is uppercase; FiliButtonTextTransform is the switch, as for buttons." />
+      <docs:ParityRow MudBlazor="uppercase tab text (.mud-tab)" Here="the same" Status="Same" Note="A string Header is uppercase whatever FiliButtonTextTransform says: .mud-tab's text-transform is a literal, not the button typography's." />
       <docs:ParityRow MudBlazor="Disabled on the tabs" Here="IsEnabled=&quot;False&quot;" Status="Same" Note="Text-disabled." />
       <docs:ParityRow MudBlazor="MudTabPanel.Icon, IconColor" Here="an icon in the Header marked start-icon" Status="Same" Note="MudIcon's 24px, 8px from the text, in the tab's colour unless set." />
       <docs:ParityRow MudBlazor="BadgeData, BadgeDot, BadgeColor, BadgeMax" Here="a HeaderedContentControl.badge as the Header" Status="Close" />

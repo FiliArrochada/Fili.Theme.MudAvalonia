@@ -92,11 +92,12 @@
                   </theme:PartBorder.Transitions>
                 </theme:PartBorder>
 
+                <!-- Every `.mud-switch-thumb-*` box-shadow is Shadow.cs's level 1 (_switch.scss). -->
                 <theme:PartBorder x:Name="PART_Thumb"
                         Width="20" Height="20"
                         CornerRadius="10"
                         Background="{DynamicResource FiliSwitchThumbBrush}"
-                        BoxShadow="{DynamicResource FiliElevation2}"
+                        BoxShadow="{DynamicResource FiliElevation1}"
                         HorizontalAlignment="Left"
                         VerticalAlignment="Center"
                         RenderTransform="translateX(0px)">

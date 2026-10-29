@@ -26,7 +26,7 @@
 
     <TextBlock Classes="h5 section" Text="Image fit" />
     <docs:ExampleCard Title="Stretch"
-                      Description="ObjectFit is Stretch: None, Fill, Uniform (contain) and UniformToFill (cover); scale-down is Uniform with StretchDirection=&quot;DownOnly&quot;. Each caption names the CSS value in brackets."
+                      Description="ObjectFit is Stretch: None, Fill, Uniform (contain) and UniformToFill (cover); scale-down is Uniform with StretchDirection=&quot;DownOnly&quot;. Each caption names the CSS value in brackets. MudImage's ObjectFit defaults to Fill, where an Image defaults to Uniform: a parameter-free MudImage given a Width and Height stretches to them, so write Stretch=&quot;Fill&quot; to match it."
                       Source="Image/Fit" />
 
     <TextBlock Classes="h5 section" Text="Image position" />
@@ -51,7 +51,7 @@
     </TextBlock>
     <docs:ParityTable>
       <docs:ParityRow MudBlazor="Src, Width, Height" Here="Source, Width, Height" Status="Close" Note="Ordinary Avalonia properties." />
-      <docs:ParityRow MudBlazor="ObjectFit, ObjectPosition, Fluid" Here="Stretch, alignment, MaxWidth" Status="Close" Note="Ordinary Avalonia properties." />
+      <docs:ParityRow MudBlazor="ObjectFit, ObjectPosition, Fluid" Here="Stretch, alignment, MaxWidth" Status="Close" Note="Ordinary Avalonia properties. ObjectFit defaults to Fill, Stretch to Uniform: set Stretch=&quot;Fill&quot; for MudImage's default." />
       <docs:ParityRow MudBlazor="Elevation" Here="a Border with an elevation class and the image inside" Status="Close" Note="An Image has no shadow." />
       <docs:ParityRow MudBlazor="FallbackSrc" Here="—" Status="Missing" Note="It is behaviour, not a look." />
     </docs:ParityTable>

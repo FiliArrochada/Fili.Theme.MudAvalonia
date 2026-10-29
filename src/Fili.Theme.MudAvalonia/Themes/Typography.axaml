@@ -67,9 +67,13 @@
 
   <!-- Button text is uppercase with wide tracking. Small detail, very load-bearing. -->
   <sys:Double x:Key="FiliButtonFontSize">14</sys:Double>
-  <sys:Double x:Key="FiliButtonLineHeight">24</sys:Double>
+  <!-- ButtonTypography: .875rem at line-height 1.75, 24.5px, kept to the half pixel rather than
+       rounded: a button's own label line is 1.75 of its size (Button.axaml), and Typo.button
+       matches it. -->
+  <sys:Double x:Key="FiliButtonLineHeight">24.5</sys:Double>
   <sys:Double x:Key="FiliButtonLetterSpacing">0.4</sys:Double>
-  <!-- ButtonTypography.TextTransform, which .mud-button, .mud-fab and .mud-tab apply. CSS's words:
+  <!-- ButtonTypography.TextTransform, which .mud-button and .mud-fab apply (.mud-tab hard-codes
+       uppercase instead, _tabs.scss). CSS's words:
        none, uppercase, lowercase or capitalize. An app that sets it to none keeps its labels as
        written, as MudBlazor's TextTransform = "none" does. TextTransform.cs applies it. -->
   <sys:String x:Key="FiliButtonTextTransform">uppercase</sys:String>

@@ -1104,6 +1104,15 @@
       <Setter Property="Background" Value="Transparent" />
     </Style>
 
+    <!-- The ripple follows the swap too: only `.mud-chip-filled` raises it to the secondary
+         opacity (_chip.scss), and GetVariant swaps that class (MudChip.razor.cs). -->
+    <Style Selector="^:checked">
+      <Setter Property="theme:Ripple.Opacity" Value="{DynamicResource FiliRippleOpacity}" />
+    </Style>
+    <Style Selector="^.text:checked">
+      <Setter Property="theme:Ripple.Opacity" Value="{DynamicResource FiliRippleOpacitySecondary}" />
+    </Style>
+
     <!-- A selected outlined chip keeps its line and gains the tint, 12% on hover. -->
     <Style Selector="^.outlined:checked">
       <Setter Property="Background" Value="Transparent" />

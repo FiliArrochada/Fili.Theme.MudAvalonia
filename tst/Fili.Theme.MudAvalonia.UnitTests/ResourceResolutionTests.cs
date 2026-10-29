@@ -42,6 +42,7 @@ public class ResourceResolutionTests
         "FiliInputFilledColor",
         "FiliOverlayDarkColor", "FiliOverlayLightColor", "FiliTooltipBackgroundColor",
         "FiliSwitchThumbColor",
+        "FiliScrollbarThumbColor", "FiliScrollbarThumbHoverColor",
         "FiliDividerLightColor",
         "FiliGrayDefaultColor",
         "FiliGrayLightColor",
@@ -76,6 +77,7 @@ public class ResourceResolutionTests
         // DynamicResource is not type-checked, so the mistake compiles and ships.
         "FiliTooltipBackgroundBrush",
         "FiliSwitchThumbBrush",
+        "FiliScrollbarThumbBrush", "FiliScrollbarThumbHoverBrush",
         "FiliDividerLightBrush",
         // Animation.Wave's key frames: gradients whose stops are the skeleton tokens.
         "FiliSkeletonWaveStartBrush", "FiliSkeletonWaveEndBrush",

@@ -1,7 +1,8 @@
 <UserControl xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
   <Border Background="{DynamicResource FiliBackgroundGrayBrush}" Padding="24">
-    <!-- light is the divider-light colour, fainter than the divider one. -->
+    <!-- light is the divider-light colour: black at 80% in the light palette, darker than the
+         divider's #E0E0E0; white at 6% in dark, fainter than its 12%. -->
     <Border Classes="paper" CornerRadius="0" Width="300" HorizontalAlignment="Left">
       <StackPanel Margin="0,8">
         <TextBlock Classes="body1" Text="Inbox" Margin="16,8" />

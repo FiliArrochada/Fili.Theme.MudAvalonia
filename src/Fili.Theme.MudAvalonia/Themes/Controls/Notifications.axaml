@@ -24,15 +24,18 @@
 
   Every one of those contrast-text tokens is Colors.Shades.White in MudBlazor's palette, which is why
   the foreground below is the palette's white rather than four near-identical contrast tokens.
-  Note the weight: 500 on a filled alert, against the 400 the snackbar's own rule gives - the
-  more specific one wins there, so these cards are Medium.
+  Note the weight: 500 on a filled alert, against the 400 the snackbar's own rule gives. The card
+  carries both classes, `mud-snackbar mud-alert-filled-<severity>` (SnackBarMessageState.cs), and
+  the two rules are one class each, so neither is more specific: the later one wins, and
+  MudBlazor.scss imports _snackbar after _alert. These cards are Regular, 400.
 
   THE CARD IS MudSnackbarElement.razor: the severity icon, the message, then the close button.
 
     .mud-snackbar-icon            padding: 7px 0; margin-right: 12px; opacity: 0.9 - a 24px glyph,
                                   since the MudIcon's own mud-icon-size-medium beats the 22px
     .mud-snackbar-content-action  padding-left: 16px; margin-right: -8px
-    the close button              a small MudIconButton (3px round 18px), `ms-2`, Filled.Close;
+    the close button              a small MudIconButton (3px round MudIcon's 20px), `ms-2`,
+                                  Filled.Close;
                                   `color: currentColor` on a filled card, action-default otherwise
 
   The variants are classes on the card, passed as WindowNotificationManager.Show's `classes`:
@@ -54,7 +57,8 @@
     <Setter Property="Foreground" Value="{DynamicResource FiliInfoContrastTextBrush}" />
     <Setter Property="FontFamily" Value="{DynamicResource FiliFontFamily}" />
     <Setter Property="FontSize" Value="{DynamicResource FiliBody2FontSize}" />
-    <Setter Property="FontWeight" Value="Medium" />
+    <!-- `.mud-snackbar { font-weight: 400 }`, after `.mud-alert-filled-*`'s 500 in the bundle. -->
+    <Setter Property="FontWeight" Value="Normal" />
     <Setter Property="CornerRadius" Value="{DynamicResource FiliCornerRadius}" />
     <Setter Property="Padding" Value="16,6" />
     <Setter Property="BorderBrush" Value="Transparent" />
@@ -102,8 +106,8 @@
                 <Button x:Name="PART_CloseButton"
                         Classes="icon small inherit"
                         NotificationCard.CloseOnClick="True">
-                  <!-- 18px, the small icon button's: the 24px glyph scaled to it. -->
-                  <Viewbox Width="18" Height="18">
+                  <!-- 20px, the small icon button's: the 24px glyph scaled to it. -->
+                  <Viewbox Width="20" Height="20">
                     <Path Width="24" Height="24"
                           Stretch="None"
                           Data="{DynamicResource FiliCloseGeometry}"

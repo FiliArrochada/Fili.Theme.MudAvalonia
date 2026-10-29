@@ -21,7 +21,7 @@
 
     <TextBlock Classes="h5 section" Text="Alerts and severity" />
     <docs:ExampleCard Title="Severities"
-                      Description="A snackbar is a filled alert: the palette colour as ground, its contrast text at Medium weight, and the severity's icon at 24px and .9 opacity. NotificationType is the severity; Severity.Normal, which NotificationType lacks, is normal: filled dark with the EventNote icon."
+                      Description="A snackbar is a filled alert: the palette colour as ground, its contrast text at Regular weight (the snackbar's 400 comes after the filled alert's 500 and wins), and the severity's icon at 24px and .9 opacity. NotificationType is the severity; Severity.Normal, which NotificationType lacks, is normal: filled dark with the EventNote icon."
                       Source="Snackbar/Severities" />
     <TextBlock Classes="body1 p">
       <Run Text="These cards sit in the page rather than in a manager; the manager puts the message in a TextBlock with 8px above and below it, as the examples do. A card's close button closes it." />

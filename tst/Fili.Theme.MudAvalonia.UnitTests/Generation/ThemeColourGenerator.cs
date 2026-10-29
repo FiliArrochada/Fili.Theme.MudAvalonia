@@ -747,18 +747,21 @@ public static class ThemeColourGenerator
 
     /// <summary>
     /// Color.Inherit, `.mud-inherit-text { color: inherit }`: the glyphs in the colour the control
-    /// sits in, and no halo, since `hover:mud-inherit-hover` names no rule. The ripple keeps the
+    /// sits in, and the grey action-default-hover halo: `hover:mud-inherit-hover` names no rule
+    /// ($mud-palette-colors in abstracts/_variables.scss has no inherit), so the glyph's
+    /// `.mud-icon-button` hover, focus and press (_iconbutton.scss) stay. The ripple keeps the
     /// control's own text-primary, as `mud-inherit-text` sets no ripple colour.
     /// </summary>
     private static string InheritLook(string cls, string owner, string[] glyphs, string[] states)
     {
         var o = new StringBuilder();
-        o.Append($"\n    <!-- `{cls}`: Color.Inherit, the colour round the control, and no halo. -->\n");
+        o.Append($"\n    <!-- `{cls}`: Color.Inherit, the colour round the control, and the action-default halo\n");
+        o.Append("         `.mud-icon-button` keeps, as `hover:mud-inherit-hover` names no rule. -->\n");
         o.Append(Style($"^.{cls}", ("theme:InheritedColour.Brush", "{Binding $parent[Control].(TextElement.Foreground)}")));
         o.Append(string.Concat(glyphs.Select(g =>
             Style($"^.{cls} /template/ Path#{g}", ("Fill", $"{{Binding $parent[{owner}].(theme:InheritedColour.Brush)}}")))));
         o.Append(string.Concat(states.SelectMany(u => States.Select(s =>
-            Style($"^.{cls}{u}{s} /template/ Ellipse#PART_StateLayer", ("Fill", "Transparent"))))));
+            Style($"^.{cls}{u}{s} /template/ Ellipse#PART_StateLayer", ("Fill", Res("FiliActionDefaultHoverBrush")))))));
         return o.ToString();
     }
 
@@ -1102,6 +1105,15 @@ public static class ThemeColourGenerator
         {
             o.Append(ChipFilledLook($".text.{c.ToLowerInvariant()}:checked", c));
         }
+
+        // The ripple follows the swapped variant too: GetVariant swaps the CSS class itself
+        // (MudChip.razor.cs), and only `.mud-chip-filled` raises --mud-ripple-opacity to the
+        // secondary one (_chip.scss). A selected filled chip ripples at 0.1, a selected text chip
+        // at 0.2; a selected outlined chip stays outlined, at 0.1.
+        o.Append("\n    <!-- The ripple follows the swap too: only `.mud-chip-filled` raises it to the secondary\n");
+        o.Append("         opacity (_chip.scss), and GetVariant swaps that class (MudChip.razor.cs). -->\n");
+        o.Append(Style("^:checked", ("theme:Ripple.Opacity", Res("FiliRippleOpacity"))));
+        o.Append(Style("^.text:checked", ("theme:Ripple.Opacity", Res("FiliRippleOpacitySecondary"))));
 
         o.Append("\n    <!-- A selected outlined chip keeps its line and gains the tint, 12% on hover. -->\n");
         o.Append(Style("^.outlined:checked", ("Background", "Transparent"), ("Foreground", Res("FiliTextPrimaryBrush")), ("BorderThickness", "1")));

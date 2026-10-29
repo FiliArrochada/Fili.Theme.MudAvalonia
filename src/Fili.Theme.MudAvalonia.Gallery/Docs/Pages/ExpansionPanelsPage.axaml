@@ -35,7 +35,7 @@
 
     <TextBlock Classes="h5 section" Text="Padding" />
     <docs:ExampleCard Title="Gutters and dense"
-                      Description="The header and content have 24px sides; no-gutters is Gutters=&quot;false&quot; and takes them off. dense takes the 16px off the top and bottom of the content. Both go on each panel."
+                      Description="The header and content have 24px sides; no-gutters is Gutters=&quot;false&quot; and takes them off. dense takes the 16px off the bottom of the content, the only padding it has above or below. Both go on each panel."
                       Source="ExpansionPanels/Padding" />
 
     <TextBlock Classes="h5 section" Text="Borders" />
@@ -71,7 +71,7 @@
       <docs:ParityRow MudBlazor="15px header" Here="the same" Status="Same" Note="MudBlazor's .9375rem, sized on its own." />
       <docs:ParityRow MudBlazor="Elevation (default 1)" Here="no class, or elevation0 … elevation25" Status="Same" Note="On the panel; elevation0 keeps the surface." />
       <docs:ParityRow MudBlazor="Square" Here="CornerRadius=&quot;0&quot;" Status="Same" Note="No radius." />
-      <docs:ParityRow MudBlazor="Dense" Here="dense" Status="Same" Note="The content loses its 16px top and bottom." />
+      <docs:ParityRow MudBlazor="Dense" Here="dense" Status="Same" Note="The content loses its 16px bottom padding; it has none at the top for dense to remove." />
       <docs:ParityRow MudBlazor="Gutters (default true)" Here="no-gutters for false" Status="Same" Note="The header and the content lose their 24px sides." />
       <docs:ParityRow MudBlazor="Dense, Gutters on MudExpansionPanels" Here="dense, no-gutters on each panel" Status="Close" Note="The group's values do not cascade: the classes go on every panel." />
       <docs:ParityRow MudBlazor="Outlined (default true)" Here="on in a group; no-outline on the group for false" Status="Same" Note="A 1px lines-default rule under each panel but the last, and under none that is open or comes before one." />

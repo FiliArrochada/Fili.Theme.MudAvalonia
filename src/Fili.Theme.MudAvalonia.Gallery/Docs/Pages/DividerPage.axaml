@@ -19,7 +19,7 @@
 
     <TextBlock Classes="h5 section" Text="Light" />
     <docs:ExampleCard Title="Light"
-                      Description="light is MudDivider's Light: the divider-light colour, fainter than the divider one."
+                      Description="light is MudDivider's Light: the divider-light colour. Despite its name it is not the fainter one everywhere: in the light palette it is black at 80%, far darker than the divider's #E0E0E0; only in dark is it fainter, white at 6% against 12%."
                       Source="Divider/Light" />
 
     <TextBlock Classes="h5 section" Text="Inset dividers" />
@@ -48,7 +48,7 @@
       <docs:ParityRow MudBlazor="MudDivider (default)" Here="Separator, no class" Status="Same" Note="1px, no margin." />
       <docs:ParityRow MudBlazor="DividerType.Inset / Middle" Here="inset / middle" Status="Same" Note="72px at the start / 16px either side." />
       <docs:ParityRow MudBlazor="Vertical" Here="vertical" Status="Same" Note="1px wide, stretched to its parent's height." />
-      <docs:ParityRow MudBlazor="Light" Here="light" Status="Same" Note="The divider-light colour." />
+      <docs:ParityRow MudBlazor="Light" Here="light" Status="Same" Note="The divider-light colour: darker than the divider in light (black at 80% against #E0E0E0), fainter in dark (6% against 12%)." />
       <docs:ParityRow MudBlazor="Absolute, FlexItem" Here="a Panel overlay; alignment" Status="Close" Note="Layout, which Avalonia's panels already do." />
     </docs:ParityTable>
   </StackPanel>

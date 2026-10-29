@@ -47,7 +47,7 @@
 
     <TextBlock Classes="h5 section" Text="Avatars" />
     <docs:ExampleCard Title="Avatars and secondary text"
-                      Description="A Border.avatar before the text is AvatarContent; a body2 line in text-secondary under it is SecondaryText."
+                      Description="A Border.avatar before the text is AvatarContent; a subtitle2 line in text-secondary under it is SecondaryText, which MudListItem renders as mud-typography-subtitle2 at weight 500: 14px Medium on a 22px line."
                       Source="List/Avatars" />
 
     <TextBlock Classes="h5 section" Text="Subheaders and disabled rows" />
@@ -85,7 +85,7 @@
       <docs:ParityRow MudBlazor="Gutters (default true)" Here="no-gutters on the ListBox or an item" Status="Same" Note="No 16px sides." />
       <docs:ParityRow MudBlazor="Padding (default true)" Here="Padding=&quot;0&quot;" Status="Close" Note="An ordinary Avalonia property." />
       <docs:ParityRow MudBlazor="Icon" Here="a PathIcon in the content marked start-icon" Status="Same" Note="24px in a 56px column, action-default (action-disabled on a disabled row), the text centred beside it." />
-      <docs:ParityRow MudBlazor="IconColor, AvatarContent, SecondaryText, Inset" Here="content in the item" Status="Close" Note="The app lays out the row." />
+      <docs:ParityRow MudBlazor="IconColor, AvatarContent, SecondaryText, Inset" Here="content in the item" Status="Close" Note="The app lays out the row. SecondaryText is a subtitle2 TextBlock in text-secondary: .mud-list-item-secondary-text is subtitle2 at 500." />
       <docs:ParityRow MudBlazor="NestedList, Expanded, ExpandMoreIcon, ExpandLessIcon" Here="TreeView" Status="Close" Note="A ListBox is flat; a tree nests." />
       <docs:ParityRow MudBlazor="SelectionMode.MultiSelection" Here="multi-selection" Status="Same" Note="A 48px checkbox on each row, 8px into the gutter, checked while the row is selected; no row is marked selected." />
       <docs:ParityRow MudBlazor="SelectionMode.MultiSelection, set up" Here="multi-selection and SelectionMode=&quot;Multiple, Toggle&quot;" Status="Close" Note="Two settings for one parameter: a XAML list pins SelectionMode before any style can set it." />

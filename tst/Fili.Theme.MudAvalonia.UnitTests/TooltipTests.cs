@@ -42,6 +42,21 @@ public class TooltipTests
         Assert.Equal(double.PositiveInfinity, tip.MaxWidth);
     });
 
+    /// <summary>
+    /// `.mud-tooltip`: `line-height: 1.4em` and `text-align: center` (_tooltip.scss). A one-line
+    /// chip is 4 + 16.8 + 4px; the text had its font's own 15px line, start-aligned.
+    /// </summary>
+    [Fact]
+    public Task TheTextIsCentredOnA1Point4EmLine() => UiThread.RunAsync(() =>
+    {
+        var tip = Open(PlacementMode.Bottom);
+        var text = tip.GetVisualDescendants().OfType<TextBlock>().First();
+
+        Assert.Equal(12 * 1.4, text.LineHeight, 6);
+        Assert.Equal(Avalonia.Media.TextAlignment.Center, text.TextAlignment);
+        Assert.Equal(Math.Ceiling(4 + 12 * 1.4 + 4), tip.GetVisualDescendants().OfType<Border>().First().Bounds.Height);
+    });
+
     /// <summary>Without `arrow` the arrow's place is kept, as the gap, but nothing is drawn in it.</summary>
     [Fact]
     public Task NoArrowByDefault() => UiThread.RunAsync(() =>

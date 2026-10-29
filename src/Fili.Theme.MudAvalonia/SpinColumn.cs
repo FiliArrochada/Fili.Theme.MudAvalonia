@@ -30,6 +30,12 @@ namespace Fili.Theme.MudAvalonia;
 /// line below the box runs the field's full width, its counter at the far end.</item>
 /// </list>
 /// <para>
+/// <see cref="SizeProperty"/> is the column's width and its glyphs' size, 24px, or 20px in a
+/// <c>dense</c> field: MudInput's Margin.Dense draws the spin icons at Size.Small. The
+/// NumericUpDown's theme sets it on its ButtonSpinner, one template down, and the spinner's own
+/// template binds to it, as a style cannot reach the column two templates down.
+/// </para>
+/// <para>
 /// Internal, like the other helpers: a template needs it, a consumer does not.
 /// </para>
 /// </remarks>
@@ -50,6 +56,14 @@ internal sealed class SpinColumn
     public static bool GetFollows(TextBox box) => box.GetValue(FollowsProperty);
 
     public static void SetFollows(TextBox box, bool value) => box.SetValue(FollowsProperty, value);
+
+    /// <summary>The spin column's width and its glyphs' size: MudIcon Size.Medium, 24px.</summary>
+    public static readonly AttachedProperty<double> SizeProperty =
+        AvaloniaProperty.RegisterAttached<SpinColumn, ButtonSpinner, double>("Size", 24);
+
+    public static double GetSize(ButtonSpinner spinner) => spinner.GetValue(SizeProperty);
+
+    public static void SetSize(ButtonSpinner spinner, double value) => spinner.SetValue(SizeProperty, value);
 
     static SpinColumn()
     {

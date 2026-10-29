@@ -98,12 +98,13 @@ public class NavMenuTests
     });
 
     /// <summary>
-    /// Every row is 44px, `.mud-nav-link`'s 8px and 28px line, whatever its header holds. A
-    /// control written in the Header - the icon and text the mini drawer needs - was 40px beside
-    /// a string header's 44: the presenter's line-height style never reached it.
+    /// Every row is 40.5px, `.mud-nav-link`'s 8px and its 24.5px line (1.75 of the inherited
+    /// 14px), whatever its header holds. A control written in the Header - the icon and text the
+    /// mini drawer needs - was shorter than a string header's row: the presenter's line-height
+    /// style never reached it.
     /// </summary>
     [Fact]
-    public Task ARowIs44PxWhateverItsHeaderHolds() => UiThread.RunAsync(() =>
+    public Task ARowIsTheSameHeightWhateverItsHeaderHolds() => UiThread.RunAsync(() =>
     {
         var panel = new StackPanel { Orientation = Avalonia.Layout.Orientation.Horizontal, Children = { new PathIcon { Classes = { "start-icon" }, Data = Geometry.Parse("M0 0h2v2H0z") }, new TextBlock { Text = "Inbox" } } };
         var control = new TreeViewItem { Header = panel };
@@ -112,14 +113,14 @@ public class NavMenuTests
         tree.Classes.Add("nav");
         Matrix.Show(tree);
 
-        Assert.Equal(44, control.Bounds.Height);
-        Assert.Equal(44, text.Bounds.Height);
+        Assert.Equal(Math.Ceiling(8 + 24.5 + 8), control.Bounds.Height);
+        Assert.Equal(Math.Ceiling(8 + 24.5 + 8), text.Bounds.Height);
     });
 
     /// <summary>
     /// A label in a DockPanel or Grid written straight into the Header wraps too. The template's
     /// presenter only reaches text it makes or templates; a panel in the Header is the row's own
-    /// child, so its label ran on at one line, cut off at the drawer's edge. Two lines of 28px: 72.
+    /// child, so its label ran on at one line, cut off at the drawer's edge. Two lines of 24.5px: 65.
     /// </summary>
     [Theory]
     [InlineData("DockPanel")]
@@ -143,14 +144,15 @@ public class NavMenuTests
         tree.Classes.Add("nav");
         Matrix.Show(tree);
 
-        Assert.Equal(44, shortRow.Bounds.Height);
-        Assert.Equal(72, longRow.Bounds.Height);
+        Assert.Equal(Math.Ceiling(8 + 24.5 + 8), shortRow.Bounds.Height);
+        Assert.Equal(8 + 24.5 + 24.5 + 8, longRow.Bounds.Height);
     });
 
     /// <summary>
-    /// The 28px line is `.mud-nav-link`'s, which CSS inherits: a TextBlock with a type class keeps
-    /// its class's own line, as `.mud-typography-caption` does. A caption under a title was given
-    /// 28px, in a panel header and in a templated one alike. A plain label keeps the link's 28.
+    /// The 24.5px line is `.mud-nav-link`'s, which CSS inherits: a TextBlock with a type class
+    /// keeps its class's own line, as `.mud-typography-caption` does. A caption under a title was
+    /// given the link's line, in a panel header and in a templated one alike. A plain label keeps
+    /// the link's 24.5.
     /// </summary>
     [Theory]
     [InlineData(false)]
@@ -170,12 +172,13 @@ public class NavMenuTests
 
         Assert.True(Application.Current!.TryGetResource("FiliCaptionLineHeight", Application.Current.ActualThemeVariant, out var line));
         Assert.Equal((double)line!, caption.LineHeight);
-        Assert.Equal(28, title.LineHeight);
+        Assert.Equal(24.5, title.LineHeight);
     });
 
     /// <summary>
-    /// A group whose label wraps keeps its arrow on the first line, centred in its 28px, as
-    /// `.mud-nav-link`'s `align-items: flex-start` does; it was centred on the whole label.
+    /// A group whose label wraps keeps its arrow on the first line, its top on the line's, as
+    /// `.mud-nav-link`'s `align-items: flex-start` does for the svg; it was centred on the whole
+    /// label.
     /// </summary>
     [Fact]
     public Task AWrappedGroupsArrowStaysOnTheFirstLine() => UiThread.RunAsync(() =>
@@ -187,16 +190,20 @@ public class NavMenuTests
         var arrow = Matrix.Part<Path>(group, "PART_ExpandIcon");
 
         Assert.True(group.Bounds.Height > 60, "The label did not wrap.");
-        Assert.Equal(8 + 2, arrow.TranslatePoint(default, group)!.Value.Y);
+        Assert.Equal(8, arrow.TranslatePoint(default, group)!.Value.Y);
     });
 
+    /// <summary>
+    /// `.mud-nav-link` sets no font-size, so a link is the body's Default typography, 14px
+    /// (_base.scss, Typography.cs), not body1's 16.
+    /// </summary>
     [Fact]
-    public Task ALinkIsBody1At8By16WithTheText12pxIn() => UiThread.RunAsync(() =>
+    public Task ALinkIsTheDefault14pxAt8By16WithTheText12pxIn() => UiThread.RunAsync(() =>
     {
         var menu = Show();
 
         Assert.Equal(new Thickness(16, 8), menu.Home.Padding);
-        Assert.Equal(16, menu.Home.FontSize);
+        Assert.Equal(14, menu.Home.FontSize);
         Assert.Equal(new Thickness(12, 0, 0, 0), Text(menu.Home).Margin);
         Assert.Equal(FontWeight.Normal, Text(menu.Home).FontWeight);
         Assert.False(Matrix.Part<Path>(menu.Home, "PART_ExpandIcon").IsVisible);
@@ -296,7 +303,10 @@ public class NavMenuTests
         Assert.Null(menu.Tree.SelectedItem);
     });
 
-    /// <summary>ExpandMore in drawer-icon, turned 180 degrees and primary once open.</summary>
+    /// <summary>
+    /// MudNavGroup.ExpandIcon's default, Filled.ArrowDropDown, in drawer-icon; `.mud-transform`
+    /// turns it -180 degrees and makes it primary once open.
+    /// </summary>
     [Fact]
     public Task AnOpenGroupsArrowTurnsAndTakesTheColour() => UiThread.RunAsync(() =>
     {
@@ -306,7 +316,8 @@ public class NavMenuTests
 
         Assert.Equal(Matrix.Token("FiliDrawerIconColor"), Matrix.Colour(closed.Fill));
         Assert.Equal(Matrix.Token("FiliPrimaryColor"), Matrix.Colour(open.Fill));
-        Assert.Equal(TransformOperations.Parse("rotate(180deg)").Value, Assert.IsType<TransformOperations>(open.GetBaseValue(Visual.RenderTransformProperty).GetValueOrDefault()).Value);
+        Assert.Same(open.FindResource("FiliArrowDropDownGeometry"), closed.Data);
+        Assert.Equal(TransformOperations.Parse("rotate(-180deg)").Value, Assert.IsType<TransformOperations>(open.GetBaseValue(Visual.RenderTransformProperty).GetValueOrDefault()).Value);
     });
 
     /// <summary>MudNavGroup.HideExpandIcon: `hide-icon` on the group's row.</summary>

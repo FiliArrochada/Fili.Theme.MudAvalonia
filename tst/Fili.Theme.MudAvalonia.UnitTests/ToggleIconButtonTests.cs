@@ -54,6 +54,20 @@ public class ToggleIconButtonTests
         Assert.Equal(Matrix.Token("FiliActionDefaultColor"), Matrix.Colour(toggle.Foreground));
     });
 
+    /// <summary>
+    /// MudToggleIconButton passes its Size to a MudIconButton, whose MudIcon's Size.Small (1.25rem)
+    /// is the icon: 3px round 20px, a 26px button.
+    /// </summary>
+    [Fact]
+    public Task SmallIsThreePixelsRoundATwentyPixelIcon() => UiThread.RunAsync(() =>
+    {
+        var toggle = Toggle("small");
+
+        Assert.Equal(new Avalonia.Thickness(3), toggle.Padding);
+        Assert.Equal(20, Assert.IsType<PathIcon>(toggle.Content).Width);
+        Assert.Equal(26, toggle.Bounds.Height);
+    });
+
     /// <summary>Toggled ? (ToggledColor ?? Color) : Color, with Color.Default as action-default.</summary>
     [Fact]
     public Task TheColourIsToggledColorWhileCheckedAndColorWhileNot() => UiThread.RunAsync(() =>

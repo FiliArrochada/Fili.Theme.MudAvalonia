@@ -99,12 +99,14 @@ public class ButtonHeightTests
     });
 
     /// <summary>
-    /// `.mud-icon-button` is its padding round the icon, with no label line: 48px, 24 small, and
-    /// a chip and a FAB keep their own fixed heights.
+    /// `.mud-icon-button` is its padding round the icon, with no label line: 48px, 26 small (3px
+    /// round MudIcon's 20px Size.Small), and a chip and a FAB keep their own fixed heights.
     /// </summary>
     [Theory]
     [InlineData("icon", 48)]
-    [InlineData("icon small", 24)]
+    [InlineData("icon small", 26)]
+    [InlineData("outlined icon small", 30)]
+    [InlineData("filled icon small", 30)]
     [InlineData("outlined icon", 36)]
     [InlineData("filled icon", 36)]
     [InlineData("chip", 32)]

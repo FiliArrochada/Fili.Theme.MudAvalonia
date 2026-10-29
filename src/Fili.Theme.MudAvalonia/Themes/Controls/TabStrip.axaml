@@ -53,8 +53,11 @@
           <theme:PartBorder x:Name="PART_Ripple"
                   theme:Ripple.IsLayer="True" />
 
+          <!-- `.mud-tab` hard-codes `text-transform: uppercase` (_tabs.scss), where `.mud-button`
+               and `.mud-fab` read the button typography's: a tab is uppercase whatever
+               FiliButtonTextTransform says. -->
           <ContentPresenter x:Name="PART_ContentPresenter"
-                            theme:TextTransform.Case="{DynamicResource FiliButtonTextTransform}"
+                            theme:TextTransform.Case="uppercase"
                             ContentTemplate="{TemplateBinding ContentTemplate}"
                             Foreground="{TemplateBinding Foreground}"
                             Padding="{TemplateBinding Padding}"

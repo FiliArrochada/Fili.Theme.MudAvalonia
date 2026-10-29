@@ -12,11 +12,12 @@ using Xunit;
 namespace Fili.Theme.MudAvalonia.UnitTests;
 
 /// <summary>
-/// MudBlazor's <c>ButtonTypography.TextTransform</c> is <c>uppercase</c>, and <c>.mud-button</c>,
-/// <c>.mud-fab</c> and <c>.mud-tab</c> apply it: every button, the toggle items and menu
-/// activators that are MudButtons, an extended FAB and a tab. A chip, a link, a checkbox and a menu
-/// row are not buttons in its sense and keep their case. <c>FiliButtonTextTransform</c> is the
-/// switch, as the typography setting is; an app that sets it to <c>none</c> keeps its labels.
+/// MudBlazor's <c>ButtonTypography.TextTransform</c> is <c>uppercase</c>, and <c>.mud-button</c>
+/// and <c>.mud-fab</c> apply it: every button, the toggle items and menu activators that are
+/// MudButtons, and an extended FAB. A tab is uppercase too, but <c>.mud-tab</c> hard-codes it
+/// (_tabs.scss). A chip, a link, a checkbox and a menu row are not buttons in its sense and keep
+/// their case. <c>FiliButtonTextTransform</c> is the switch, as the typography setting is; an app
+/// that sets it to <c>none</c> keeps its button labels, and its tabs stay uppercase.
 /// </summary>
 public class TextTransformTests
 {
@@ -203,11 +204,31 @@ public class TextTransformTests
         region.Resources["FiliButtonTextTransform"] = "none";
         Dispatcher.UIThread.RunJobs();
         Assert.Contains("Save changes", Drawn(button));
-        Assert.Contains("Inbox", Drawn(tab));
+        // `.mud-tab { text-transform: uppercase }` is a literal: the switch does not reach a tab.
+        Assert.Contains("INBOX", Drawn(tab));
 
         region.Resources.Remove("FiliButtonTextTransform");
         Dispatcher.UIThread.RunJobs();
         Assert.Contains("SAVE CHANGES", Drawn(button));
+    });
+
+    /// <summary>
+    /// `.mud-tab` hard-codes `text-transform: uppercase` (_tabs.scss) where `.mud-button` reads the
+    /// typography's: a tab and a tab strip's item stay uppercase under any FiliButtonTextTransform.
+    /// </summary>
+    [Theory]
+    [InlineData("TabItem", "none")]
+    [InlineData("TabItem", "capitalize")]
+    [InlineData("TabStripItem", "none")]
+    [InlineData("TabStripItem", "lowercase")]
+    public Task ATabIsUppercaseWhateverTheSwitchSays(string spec, string textCase) => UiThread.RunAsync(() =>
+    {
+        var tabs = Create(spec, "Inbox");
+        var region = new StackPanel { Children = { tabs } };
+        region.Resources["FiliButtonTextTransform"] = textCase;
+        Matrix.Show(region);
+
+        Assert.Contains("INBOX", Drawn(tabs));
     });
 
     [Fact]

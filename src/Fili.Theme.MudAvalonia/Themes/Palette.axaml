@@ -173,6 +173,12 @@
            property, so it is the same in light and dark. It is the thumb of every switch
            with no colour, on and off; a coloured switch replaces it only when on. -->
       <Color x:Key="FiliSwitchThumbColor">#FAFAFA</Color>
+      <!-- The scroll bar MudThemeProvider injects unless DefaultScrollbar is set
+           (MudThemeProvider.razor.cs BuildMudBlazorScrollbar): `::-webkit-scrollbar-thumb`
+           #c4c4c4, #a6a6a6 under the pointer. Literals, not palette properties, so the same in
+           light and dark. -->
+      <Color x:Key="FiliScrollbarThumbColor">#C4C4C4</Color>
+      <Color x:Key="FiliScrollbarThumbHoverColor">#A6A6A6</Color>
 
     </ResourceDictionary>
 
@@ -280,6 +286,8 @@
       <Color x:Key="FiliOverlayLightColor">#80FFFFFF</Color>
       <Color x:Key="FiliTooltipBackgroundColor">#616161</Color>
       <Color x:Key="FiliSwitchThumbColor">#FAFAFA</Color>
+      <Color x:Key="FiliScrollbarThumbColor">#C4C4C4</Color>
+      <Color x:Key="FiliScrollbarThumbHoverColor">#A6A6A6</Color>
 
     </ResourceDictionary>
 
@@ -441,6 +449,11 @@
       <Color x:Key="FiliTooltipBackgroundColor">#000000</Color>
       <!-- Pure white: the #fafafa thumb is the brightest thing on the black ground. -->
       <Color x:Key="FiliSwitchThumbColor">#FFFFFF</Color>
+      <!-- The scroll bar's thumb in this variant's divider and line greys: visible on the black
+           ground at rest, and, as MudBlazor's darker hover does on a light page, moving away
+           from the ground under the pointer. -->
+      <Color x:Key="FiliScrollbarThumbColor">#9C9CA8</Color>
+      <Color x:Key="FiliScrollbarThumbHoverColor">#E8E8EE</Color>
 
     </ResourceDictionary>
 
@@ -566,6 +579,8 @@
   -->
   <SolidColorBrush x:Key="FiliTooltipBackgroundBrush" Color="{DynamicResource FiliTooltipBackgroundColor}" />
   <SolidColorBrush x:Key="FiliSwitchThumbBrush" Color="{DynamicResource FiliSwitchThumbColor}" />
+  <SolidColorBrush x:Key="FiliScrollbarThumbBrush" Color="{DynamicResource FiliScrollbarThumbColor}" />
+  <SolidColorBrush x:Key="FiliScrollbarThumbHoverBrush" Color="{DynamicResource FiliScrollbarThumbHoverColor}" />
 
   <SolidColorBrush x:Key="FiliInputFilledBrush"    Color="{DynamicResource FiliInputFilledColor}" />
 

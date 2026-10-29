@@ -77,8 +77,9 @@
       <docs:ParityRow MudBlazor="MudRadio CheckedIcon, UncheckedIcon" Here="FiliRadioCheckedGeometry, FiliRadioUncheckedGeometry" Status="Same" Note="A carousel's bullets draw the same two." />
       <docs:ParityRow MudBlazor="MudSwitch ThumbIcon (none by default)" Here="FiliSwitchThumbIconGeometry" Status="Same" Note="Empty unless set." />
       <docs:ParityRow MudBlazor="MudSelect OpenIcon (shown while closed), CloseIcon (shown while open)" Here="FiliArrowDropDownGeometry, FiliArrowDropUpGeometry" Status="Same" />
+      <docs:ParityRow MudBlazor="MudNavGroup ExpandIcon" Here="FiliArrowDropDownGeometry, in the group's Resources" Status="Same" Note="Filled.ArrowDropDown by default, the solid triangle, not ExpandMore's chevron." />
       <docs:ParityRow MudBlazor="MudNumericField NumericUpIcon, NumericDownIcon" Here="FiliKeyboardArrowUpGeometry, FiliKeyboardArrowDownGeometry" Status="Same" Note="The time picker's column arrows draw the same two." />
-      <docs:ParityRow MudBlazor="MudExpansionPanel Icon, MudNavGroup ExpandIcon" Here="FiliExpandMoreGeometry" Status="Same" />
+      <docs:ParityRow MudBlazor="MudExpansionPanel Icon" Here="FiliExpandMoreGeometry" Status="Same" />
       <docs:ParityRow MudBlazor="MudTreeView ExpandButtonIcon" Here="FiliChevronRightGeometry" Status="Same" />
       <docs:ParityRow MudBlazor="MudTabs PrevIcon, NextIcon" Here="FiliNavigateBeforeGeometry, FiliChevronRightGeometry" Status="Same" />
       <docs:ParityRow MudBlazor="MudDatePicker AdornmentIcon, PreviousIcon, NextIcon; MudTimePicker AdornmentIcon" Here="FiliEventGeometry; FiliNavigateBeforeGeometry, FiliChevronRightGeometry; FiliAccessTimeGeometry" Status="Same" />

@@ -1,9 +1,17 @@
 <!--
-  ScrollBar: a thin, buttonless rail.
+  ScrollBar: the scroll bar MudThemeProvider injects into the page unless its DefaultScrollbar is
+  set, which it is not by default (MudThemeProvider.razor, MudThemeProvider.razor.cs
+  BuildMudBlazorScrollbar):
 
-  Material has no scrollbar of its own - the web hands that to the browser - so this follows what
-  MudBlazor apps actually look like: a narrow track with a rounded thumb, no line buttons, and a
-  thumb that darkens rather than changes shape.
+    ::-webkit-scrollbar             width: 8px; height: 8px
+    ::-webkit-scrollbar-track       background: transparent
+    ::-webkit-scrollbar-thumb       background: #c4c4c4; border-radius: 1px
+    ::-webkit-scrollbar-thumb:hover background: #a6a6a6
+    (Firefox)                       scrollbar-color: #c4c4c4 transparent; scrollbar-width: thin
+
+  An 8px rail, the thumb filling it, no line buttons (an unstyled ::-webkit-scrollbar-button is
+  not drawn), and no pressed colour of its own: a dragged thumb is under the pointer, so it keeps
+  the hover grey. The greys are literals, the same in light and dark; high contrast has its own.
 
   Dropping the line buttons is safe. ScrollBar.OnApplyTemplate looks PART_LineUpButton and
   PART_LineDownButton up and wires them if present; the lookups are null-safe, and the scroll
@@ -17,39 +25,31 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:theme="using:Fili.Theme.MudAvalonia">
 
+  <!-- The thumb fills the rail, rounded 1px: no transition, as the CSS names none. -->
   <ControlTheme x:Key="FiliScrollBarThumb" TargetType="Thumb">
-    <Setter Property="Background" Value="{DynamicResource FiliActionDisabledBrush}" />
+    <Setter Property="Background" Value="{DynamicResource FiliScrollbarThumbBrush}" />
     <Setter Property="Template">
       <ControlTemplate>
         <theme:PartBorder Background="{TemplateBinding Background}"
-                CornerRadius="4"
-                Margin="2">
-          <theme:PartBorder.Transitions>
-            <Transitions>
-              <BrushTransition Property="Background" Duration="0:0:0.1" />
-            </Transitions>
-          </theme:PartBorder.Transitions>
-        </theme:PartBorder>
+                CornerRadius="1" />
       </ControlTemplate>
     </Setter>
 
-    <Style Selector="^:pointerover">
-      <Setter Property="Background" Value="{DynamicResource FiliActionDefaultBrush}" />
-    </Style>
-    <Style Selector="^:pressed">
-      <Setter Property="Background" Value="{DynamicResource FiliTextPrimaryBrush}" />
+    <Style Selector="^:pointerover, ^:pressed">
+      <Setter Property="Background" Value="{DynamicResource FiliScrollbarThumbHoverBrush}" />
     </Style>
   </ControlTheme>
 
   <ControlTheme x:Key="FiliScrollBar" TargetType="ScrollBar">
+    <!-- `::-webkit-scrollbar-track { background: transparent }` -->
     <Setter Property="Background" Value="Transparent" />
-    <Setter Property="MinWidth" Value="12" />
-    <Setter Property="MinHeight" Value="12" />
+    <Setter Property="MinWidth" Value="8" />
+    <Setter Property="MinHeight" Value="8" />
 
     <!-- Vertical is the default orientation for a ScrollBar. -->
     <Setter Property="Template">
       <ControlTemplate>
-        <theme:PartBorder Background="{TemplateBinding Background}" Width="12">
+        <theme:PartBorder Background="{TemplateBinding Background}" Width="8">
           <Track x:Name="PART_Track"
                  Minimum="{TemplateBinding Minimum}"
                  Maximum="{TemplateBinding Maximum}"
@@ -66,7 +66,7 @@
     <Style Selector="^:horizontal">
       <Setter Property="Template">
         <ControlTemplate>
-          <theme:PartBorder Background="{TemplateBinding Background}" Height="12">
+          <theme:PartBorder Background="{TemplateBinding Background}" Height="8">
             <Track x:Name="PART_Track"
                    Minimum="{TemplateBinding Minimum}"
                    Maximum="{TemplateBinding Maximum}"

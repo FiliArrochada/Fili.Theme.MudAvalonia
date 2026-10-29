@@ -1,14 +1,15 @@
 <UserControl xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
   <!-- MudListItem's AvatarContent and SecondaryText are content the app lays out: a Border.avatar,
-       then the text with a body2 line under it in text-secondary. -->
+       then the text with a subtitle2 line under it in text-secondary, as MudListItem renders
+       SecondaryText: mud-typography-subtitle2, weight 500. -->
   <ListBox Classes="paper" Width="360" HorizontalAlignment="Left" SelectedIndex="0">
     <ListBoxItem>
       <StackPanel Orientation="Horizontal" Spacing="16">
         <Border Classes="avatar primary"><TextBlock Text="AL" /></Border>
         <StackPanel>
           <TextBlock Text="Ada Lovelace" />
-          <TextBlock Classes="body2" Text="Analytical engine" Foreground="{DynamicResource FiliTextSecondaryBrush}" />
+          <TextBlock Classes="subtitle2" Text="Analytical engine" Foreground="{DynamicResource FiliTextSecondaryBrush}" />
         </StackPanel>
       </StackPanel>
     </ListBoxItem>
@@ -17,7 +18,7 @@
         <Border Classes="avatar secondary"><PathIcon Data="{DynamicResource GalleryPersonIcon}" /></Border>
         <StackPanel>
           <TextBlock Text="Grace Hopper" />
-          <TextBlock Classes="body2" Text="Compilers" Foreground="{DynamicResource FiliTextSecondaryBrush}" />
+          <TextBlock Classes="subtitle2" Text="Compilers" Foreground="{DynamicResource FiliTextSecondaryBrush}" />
         </StackPanel>
       </StackPanel>
     </ListBoxItem>
@@ -26,7 +27,7 @@
         <Border Classes="avatar"><TextBlock Text="AT" /></Border>
         <StackPanel>
           <TextBlock Text="Alan Turing" />
-          <TextBlock Classes="body2" Text="Computability" Foreground="{DynamicResource FiliTextSecondaryBrush}" />
+          <TextBlock Classes="subtitle2" Text="Computability" Foreground="{DynamicResource FiliTextSecondaryBrush}" />
         </StackPanel>
       </StackPanel>
     </ListBoxItem>

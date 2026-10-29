@@ -27,7 +27,7 @@
 
     <TextBlock Classes="h5 section" Text="Button text" />
     <docs:ExampleCard Title="button"
-                      Description="Typo.button is text that reads as a button's label without being one: 14px, 500, a 24px line and 0.4px tracking, in FiliButtonTextTransform's case. The key set to none, lowercase or capitalize in a region's resources changes it there, as CSS's text-transform would."
+                      Description="Typo.button is text that reads as a button's label without being one: 14px, 500, a 24.5px line (1.75, as a button's label) and 0.4px tracking, in FiliButtonTextTransform's case. The key set to none, lowercase or capitalize in a region's resources changes it there, as CSS's text-transform would."
                       Source="Typography/ButtonText" />
     <StackPanel Orientation="Horizontal" Spacing="8" Margin="0,0,0,16">
       <TextBlock Classes="body1" Text="See also:" VerticalAlignment="Center" />
@@ -48,7 +48,7 @@
       <docs:ParityRow MudBlazor="Typo.subtitle1 / subtitle2" Here="subtitle1 / subtitle2" Status="Same" />
       <docs:ParityRow MudBlazor="Typo.body1 / body2" Here="body1 / body2" Status="Same" Note="Body2, 14px, is also the default text of every window and user control." />
       <docs:ParityRow MudBlazor="Typo.caption / overline" Here="caption / overline" Status="Same" Note="No colour of their own, as .mud-typography-* sets none: the colour round them." />
-      <docs:ParityRow MudBlazor="Typo.button" Here="button" Status="Same" Note="14px, 500, a 24px line, 0.4px tracking, in FiliButtonTextTransform's case." />
+      <docs:ParityRow MudBlazor="Typo.button" Here="button" Status="Same" Note="14px, 500, a 24.5px line (1.75 of 14, kept to the half pixel), 0.4px tracking, in FiliButtonTextTransform's case." />
       <docs:ParityRow MudBlazor="Color.Primary … Color.Dark" Here="primary … dark" Status="Same" Note="The palette colour, on any type class." />
       <docs:ParityRow MudBlazor="Color.Inherit" Here="inherit" Status="Same" Note="The surrounding text colour, over a colour class too." />
       <docs:ParityRow MudBlazor="mud-text-secondary (grey)" Here="Foreground set to FiliTextSecondaryBrush" Status="Close" Note="A utility class in MudBlazor, not a Color." />

@@ -4,17 +4,17 @@
              x:Class="Fili.Theme.MudAvalonia.Gallery.Docs.Pages.NumericFieldPage">
   <StackPanel Classes="doc">
     <docs:DocHeader Title="Numeric field"
-                    Summary="A numeric field takes a number, with spin buttons to step it: Avalonia's NumericUpDown, drawn as MudNumericField. Its field is a text field with a 24px spin column inside the box."
+                    Summary="A numeric field takes a number, with spin buttons to step it: Avalonia's NumericUpDown, drawn as MudNumericField. Its field is a text field with a 24px spin column inside the box, 20px when dense."
                     MudBlazor="NumericField"
                     MudBlazorPath="components/numericfield"
                     AvaloniaControls="NumericUpDown" />
 
     <TextBlock Classes="h5 section" Text="Basic usage" />
     <docs:ExampleCard Title="Standard, filled and outlined"
-                      Description="The spin column sits inside the input box, top to bottom: the underline, the filled ground and the outline run on under it to the field's edge, and the text keeps 24px clear."
+                      Description="The spin column sits inside the input box, top to bottom: the underline, the filled ground and the outline run on under it to the field's edge, and the text keeps 24px clear; 20px in a dense field, whose column is 20px of 20px glyphs."
                       Source="NumericField/Variants" />
     <TextBlock Classes="body1 p">
-      <Run Text="The 24px is not a guess: MudBlazor's input styles reserve exactly that for the spinners. The text field's classes go on the " /><Run Classes="code" Text="NumericUpDown" /><Run Text=" itself and reach the TextBox inside, as does its helper text." />
+      <Run Text="The 24px is not a guess: MudBlazor's input styles reserve exactly that for the spinners, and 20px under Margin.Dense, where MudInput draws the spin icons at Size.Small. The text field's classes go on the " /><Run Classes="code" Text="NumericUpDown" /><Run Text=" itself and reach the TextBox inside, as does its helper text." />
     </TextBlock>
     <StackPanel Orientation="Horizontal" Spacing="8" Margin="0,0,0,16">
       <TextBlock Classes="body1" Text="See also:" VerticalAlignment="Center" />
@@ -23,7 +23,7 @@
 
     <TextBlock Classes="h5 section" Text="Common properties" />
     <docs:ExampleCard Title="Helper text, dense, required, shrink label, error and no underline"
-                      Description="AutomationProperties.HelpText, dense, required, shrink-label, error and no-underline are the text field's. The helper line below runs the field's full width."
+                      Description="AutomationProperties.HelpText, dense, required, shrink-label, error and no-underline are the text field's. The helper line below runs the field's full width. dense also narrows the spin column to 20px, its glyphs to 20px and the text's clearance to 20px."
                       Source="NumericField/CommonProperties" />
     <TextBlock Classes="body1 p">
       <Run Text="A failing binding on " /><Run Classes="code" Text="Value" /><Run Text=" shows its message in the field's helper line, with the red rule, as MudInputControl does." />
@@ -41,7 +41,7 @@
 
     <TextBlock Classes="h5 section" Text="Adornments" />
     <docs:ExampleCard Title="Text and icon adornments"
-                      Description="InnerLeftContent and InnerRightContent are the field's adornments, 8px from the text; beside the spin column an adornment keeps the column's 24px too."
+                      Description="InnerLeftContent and InnerRightContent are the field's adornments, 8px from the text; beside the spin column an adornment keeps the column's 24px too, 20px when dense."
                       Source="NumericField/Adornments" />
 
     <TextBlock Classes="h5 section" Text="Disabled and read-only" />
@@ -54,11 +54,11 @@
       <Run Text="Every MudNumericField parameter and what it is here. " /><Run Classes="code" Text="Same" /><Run Text=" is transcribed from MudBlazor's source; " /><Run Classes="code" Text="Close" /><Run Text=" gets the same result another way." />
     </TextBlock>
     <docs:ParityTable>
-      <docs:ParityRow MudBlazor="MudNumericField" Here="NumericUpDown" Status="Same" Note="A 24px spin column inside the input box, top to bottom; the underline, filled ground and outline run on under it, and the text keeps 24px clear." />
-      <docs:ParityRow MudBlazor="Variant, Margin.Dense, Error, Counter, HelperText, HelperTextOnFocus" Here="the text field's classes and AutomationProperties.HelpText, on the outer control" Status="Same" Note="Passed to the TextBox inside; a validation error shows in its helper line." />
+      <docs:ParityRow MudBlazor="MudNumericField" Here="NumericUpDown" Status="Same" Note="A 24px spin column inside the input box, top to bottom; the underline, filled ground and outline run on under it, and the text keeps 24px clear. Under dense, 20px: Size.Small spin icons and .mud-input-root-margin-dense's 20px." />
+      <docs:ParityRow MudBlazor="Variant, Margin.Dense, Error, Counter, HelperText, HelperTextOnFocus" Here="the text field's classes and AutomationProperties.HelpText, on the outer control" Status="Same" Note="Passed to the TextBox inside; a validation error shows in its helper line. dense narrows the spin column and its glyphs to 20px." />
       <docs:ParityRow MudBlazor="Underline, Required, ShrinkLabel" Here="no-underline, required, shrink-label" Status="Same" Note="As on a text field." />
       <docs:ParityRow MudBlazor="HideSpinButtons" Here="ShowButtonSpinner=&quot;False&quot;" Status="Close" />
-      <docs:ParityRow MudBlazor="NumericUpIcon, NumericDownIcon" Here="FiliKeyboardArrowUpGeometry, FiliKeyboardArrowDownGeometry in the field's Resources" Status="Same" Note="Drawn at their own size in the 24px box." />
+      <docs:ParityRow MudBlazor="NumericUpIcon, NumericDownIcon" Here="FiliKeyboardArrowUpGeometry, FiliKeyboardArrowDownGeometry in the field's Resources" Status="Same" Note="Drawn at their own size in the 24px box, scaled to 20px when dense." />
       <docs:ParityRow MudBlazor="Clearable" Here="clearable" Status="Same" Note="As on a text field: the class reaches the field inside." />
     </docs:ParityTable>
   </StackPanel>

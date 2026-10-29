@@ -19,7 +19,7 @@
 
     <TextBlock Classes="h5 section" Text="Sizes" />
     <docs:ExampleCard Title="Small, medium and large"
-                      Description="small is 3px round an 18px icon, large 12px round a 36px one."
+                      Description="small is 3px round a 20px icon, a 26px button: the icon is MudIcon's own Size.Small, 1.25rem, which wins over the button's 1.125rem. large is 12px round a 36px one."
                       Source="IconButton/Sizes" />
 
     <TextBlock Classes="h5 section" Text="Variant and size" />
@@ -36,7 +36,7 @@
       <docs:ParityRow MudBlazor="Variant.Outlined / Filled" Here="icon outlined / icon filled" Status="Same" Note="The default border radius and 5px padding; filled lifts like a filled button." />
       <docs:ParityRow MudBlazor="Color.Default (default)" Here="no colour class" Status="Same" Note="Action-default grey, which beats a text button's text-primary." />
       <docs:ParityRow MudBlazor="Color.Primary … Color.Dark" Here="the colour classes" Status="Same" />
-      <docs:ParityRow MudBlazor="Size.Small / Large" Here="small / large" Status="Same" Note="3px round 18px; 12px round 36px (32px when outlined or filled)." />
+      <docs:ParityRow MudBlazor="Size.Small / Large" Here="small / large" Status="Same" Note="3px round 20px (MudIcon's .mud-icon-size-small), 26px in all; 12px round 36px (32px when outlined or filled)." />
       <docs:ParityRow MudBlazor="Edge" Here="Margin" Status="Close" Note="An ordinary Avalonia property." />
       <docs:ParityRow MudBlazor="Icon" Here="a PathIcon in Content" Status="Close" Note="The theme ships no icon set; the gallery carries a few Material glyphs." />
       <docs:ParityRow MudBlazor="DropShadow=&quot;false&quot;" Here="icon filled flat" Status="Same" />

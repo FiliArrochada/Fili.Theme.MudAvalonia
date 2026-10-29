@@ -212,6 +212,24 @@ public class SwitchMatrixTests
         Assert.Equal(Matrix.Token($"Fili{colour}Color"), Matrix.Colour(Matrix.Part<Border>(on, "PART_Track").Background));
     });
 
+    /// <summary>
+    /// Every `.mud-switch-thumb-*` carries Shadow.cs's level 1 (_switch.scss), not level 2.
+    /// </summary>
+    [Theory]
+    [InlineData("")]
+    [InlineData("small")]
+    [InlineData("large")]
+    public Task TheThumbSitsAtElevationOne(string size) => UiThread.RunAsync(() =>
+    {
+        var toggle = Matrix.Show(size.Length == 0 ? new ToggleSwitch() : new ToggleSwitch { Classes = { size } });
+        var thumb = Matrix.Part<Border>(toggle, "PART_Thumb").BoxShadow;
+
+        Assert.True(Application.Current!.TryFindResource("FiliElevation1", toggle.ActualThemeVariant, out var one));
+        Assert.True(Application.Current!.TryFindResource("FiliElevation2", toggle.ActualThemeVariant, out var two));
+        Assert.Equal((BoxShadows)one!, thumb);
+        Assert.NotEqual((BoxShadows)two!, thumb);
+    });
+
     [Theory]
     [InlineData("small", 30, 10, 14)]
     [InlineData("large", 38, 18, 26)]

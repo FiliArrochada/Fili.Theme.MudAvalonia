@@ -268,6 +268,26 @@ public class RippleTests
         Assert.Equal(Matrix.Colour(button.Foreground), Matrix.Colour(dot.Fill));
     });
 
+    /// <summary>
+    /// A selected chip ripples as the variant it is drawn as: MudChip.GetVariant swaps the CSS
+    /// class, and only `.mud-chip-filled` raises the opacity (_chip.scss).
+    /// </summary>
+    [Theory]
+    [InlineData("chip", 0.1)]
+    [InlineData("chip primary", 0.1)]
+    [InlineData("chip text", 0.2)]
+    [InlineData("chip text primary", 0.2)]
+    [InlineData("chip outlined primary", 0.1)]
+    public Task ASelectedChipRipplesAsItsSwappedVariant(string classes, double opacity) => UiThread.RunAsync(() =>
+    {
+        var chip = Matrix.Show(WithClasses(new ToggleButton { Content = "Indie", IsChecked = true }, classes));
+        using var _ = Press(chip);
+        var dot = Single(chip).Dot;
+
+        Assert.Equal(opacity, Strength(dot), 3);
+        Assert.Equal(Matrix.Colour(chip.Foreground), Matrix.Colour(dot.Fill));
+    });
+
     /// <summary>The halves inherit the split button's opacity, so `filled` raises both.</summary>
     [Theory]
     [InlineData("", 0.1)]

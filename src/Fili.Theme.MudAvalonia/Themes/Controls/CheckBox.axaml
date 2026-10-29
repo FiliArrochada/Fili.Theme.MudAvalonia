@@ -347,7 +347,8 @@
       <Setter Property="theme:Ripple.Brush" Value="{DynamicResource FiliDarkBrush}" />
     </Style>
 
-    <!-- `inherit`: Color.Inherit, the colour round the control, and no halo. -->
+    <!-- `inherit`: Color.Inherit, the colour round the control, and the action-default halo
+         `.mud-icon-button` keeps, as `hover:mud-inherit-hover` names no rule. -->
     <Style Selector="^.inherit">
       <Setter Property="theme:InheritedColour.Brush" Value="{Binding $parent[Control].(TextElement.Foreground)}" />
     </Style>
@@ -361,13 +362,13 @@
       <Setter Property="Fill" Value="{Binding $parent[CheckBox].(theme:InheritedColour.Brush)}" />
     </Style>
     <Style Selector="^.inherit:pointerover /template/ Ellipse#PART_StateLayer">
-      <Setter Property="Fill" Value="Transparent" />
+      <Setter Property="Fill" Value="{DynamicResource FiliActionDefaultHoverBrush}" />
     </Style>
     <Style Selector="^.inherit:focus-visible /template/ Ellipse#PART_StateLayer">
-      <Setter Property="Fill" Value="Transparent" />
+      <Setter Property="Fill" Value="{DynamicResource FiliActionDefaultHoverBrush}" />
     </Style>
     <Style Selector="^.inherit:pressed /template/ Ellipse#PART_StateLayer">
-      <Setter Property="Fill" Value="Transparent" />
+      <Setter Property="Fill" Value="{DynamicResource FiliActionDefaultHoverBrush}" />
     </Style>
 
     <!-- UncheckedColor: `unchecked-{colour}`, the colour of the glyph and its halo while NOT
@@ -613,7 +614,8 @@
       <Setter Property="theme:Ripple.Brush" Value="{DynamicResource FiliDarkBrush}" />
     </Style>
 
-    <!-- `unchecked-inherit`: Color.Inherit, the colour round the control, and no halo. -->
+    <!-- `unchecked-inherit`: Color.Inherit, the colour round the control, and the action-default halo
+         `.mud-icon-button` keeps, as `hover:mud-inherit-hover` names no rule. -->
     <Style Selector="^.unchecked-inherit">
       <Setter Property="theme:InheritedColour.Brush" Value="{Binding $parent[Control].(TextElement.Foreground)}" />
     </Style>
@@ -624,22 +626,22 @@
       <Setter Property="Fill" Value="{Binding $parent[CheckBox].(theme:InheritedColour.Brush)}" />
     </Style>
     <Style Selector="^.unchecked-inherit:unchecked:pointerover /template/ Ellipse#PART_StateLayer">
-      <Setter Property="Fill" Value="Transparent" />
+      <Setter Property="Fill" Value="{DynamicResource FiliActionDefaultHoverBrush}" />
     </Style>
     <Style Selector="^.unchecked-inherit:unchecked:focus-visible /template/ Ellipse#PART_StateLayer">
-      <Setter Property="Fill" Value="Transparent" />
+      <Setter Property="Fill" Value="{DynamicResource FiliActionDefaultHoverBrush}" />
     </Style>
     <Style Selector="^.unchecked-inherit:unchecked:pressed /template/ Ellipse#PART_StateLayer">
-      <Setter Property="Fill" Value="Transparent" />
+      <Setter Property="Fill" Value="{DynamicResource FiliActionDefaultHoverBrush}" />
     </Style>
     <Style Selector="^.unchecked-inherit:indeterminate:pointerover /template/ Ellipse#PART_StateLayer">
-      <Setter Property="Fill" Value="Transparent" />
+      <Setter Property="Fill" Value="{DynamicResource FiliActionDefaultHoverBrush}" />
     </Style>
     <Style Selector="^.unchecked-inherit:indeterminate:focus-visible /template/ Ellipse#PART_StateLayer">
-      <Setter Property="Fill" Value="Transparent" />
+      <Setter Property="Fill" Value="{DynamicResource FiliActionDefaultHoverBrush}" />
     </Style>
     <Style Selector="^.unchecked-inherit:indeterminate:pressed /template/ Ellipse#PART_StateLayer">
-      <Setter Property="Fill" Value="Transparent" />
+      <Setter Property="Fill" Value="{DynamicResource FiliActionDefaultHoverBrush}" />
     </Style>
 
     <!-- `mud-icon-size-small` / `-large`: 1.25rem and 2.25rem against 1.5rem. -->

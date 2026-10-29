@@ -314,6 +314,8 @@ for something XAML cannot express on its own:
   icon, MudMenu's `:has(.mud-menu-item-icon)` rule. A selector cannot ask about siblings.
 - **`SpinColumn`** puts a number field's spin column inside its input box: it keeps the text
   clear of the column and sizes the column to the box, two templates down from the NumericUpDown.
+  Its `Size`, set on the ButtonSpinner, is the column's width and its glyphs' size: 24px, 20px
+  in a `dense` field.
 - **`CollapsePanel`** grows an expansion panel's content into view. Avalonia cannot animate a
   height to `Auto`, so it lays the content out whole and shows a share of it that a transition
   eases from nothing to all.

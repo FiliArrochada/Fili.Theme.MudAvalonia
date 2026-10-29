@@ -254,15 +254,19 @@
     selected row; a group (MudNavGroup) is a row with children, expanded by a click anywhere on
     it. From _navmenu.scss:
 
-      .mud-nav-link            padding: 8px 16px; line-height: 1.75; font-weight: 400
+      .mud-nav-link            padding: 8px 16px; line-height: 1.75; font-weight: 400; no
+                               font-size, so the body's Default typography, .875rem: 14px on a
+                               24.5px line, a 40.5px row (_base.scss, Typography.cs)
       .mud-nav-link-text       margin-inline-start: 12px; letter-spacing: 0
       :hover, :focus-visible   action-default-hover
       .active                  font-weight: 500; the navmenu's colour as the text over its
                                hover tint, primary over action-default-hover by default, and the
                                colour at 12% under the pointer
       .mud-nav-link-icon       drawer-icon, the navmenu's colour when active
-      .mud-nav-link-expand-icon  ExpandMore in drawer-icon, turned 180 degrees and in the
-                               colour once open
+      .mud-nav-link-expand-icon  MudNavGroup.ExpandIcon, Filled.ArrowDropDown by default
+                               (MudNavGroup.razor.cs), in drawer-icon; `.mud-transform` turns it
+                               -180 degrees over .3s cubic-bezier(.25,.8,.5,1) and colours it
+                               once open
       .mud-nav-group > link    font-weight 500; a nested group's title 400 until it opens
       nested                   links in a group start at 36px, then 48, 60 and 72
 
@@ -297,7 +301,9 @@
     <!-- No Foreground: `.mud-nav-link` is `color: inherit`, so a link is the drawer's text colour,
          drawer-text or a coloured drawer's contrast text, and text-primary outside a drawer. -->
     <Setter Property="FontFamily" Value="{DynamicResource FiliFontFamily}" />
-    <Setter Property="FontSize" Value="{DynamicResource FiliBody1FontSize}" />
+    <!-- `.mud-nav-link` sets no font-size, and the reset's `font-size: inherit` on its button
+         passes the body's down: the Default typography's .875rem, not body1. -->
+    <Setter Property="FontSize" Value="{DynamicResource FiliFontSize}" />
     <Setter Property="Background" Value="Transparent" />
     <Setter Property="Padding" Value="16,8" />
     <Setter Property="Cursor" Value="Hand" />
@@ -332,13 +338,13 @@
                   Margin="{TemplateBinding Padding}"
                   IsHitTestVisible="False">
               <theme:PartBorder x:Name="PART_Indent" Grid.Column="0" Width="0" />
-              <!-- `.mud-nav-link`'s line-height is 1.75, a 28px line whatever the header holds: a
-                   control written in the Header is not styled from here, so the floor is the
-                   presenter's, and every row is 44px. -->
+              <!-- `.mud-nav-link`'s line-height is 1.75 of its 14px, a 24.5px line whatever the
+                   header holds: a control written in the Header is not styled from here, so the
+                   floor is the presenter's, and every row is 8 + 24.5 + 8 = 40.5px. -->
               <ContentPresenter x:Name="PART_HeaderPresenter"
                                 Grid.Column="1"
                                 Margin="12,0,0,0"
-                                MinHeight="28"
+                                MinHeight="24.5"
                                 Content="{TemplateBinding Header}"
                                 ContentTemplate="{TemplateBinding HeaderTemplate}"
                                 Foreground="{TemplateBinding Foreground}"
@@ -347,23 +353,23 @@
                                 VerticalAlignment="Center">
                 <ContentPresenter.Styles>
                   <!-- `.mud-nav-link-text` wraps a label too long for the drawer, on the
-                       link's 28px line, which a type class replaces with its own. -->
+                       link's 24.5px line, which a type class replaces with its own. -->
                   <Style Selector="TextBlock">
                     <Setter Property="TextWrapping" Value="Wrap" />
                   </Style>
                   <Style Selector="TextBlock:not(.h1):not(.h2):not(.h3):not(.h4):not(.h5):not(.h6):not(.subtitle1):not(.subtitle2):not(.body1):not(.body2):not(.button):not(.caption):not(.overline)">
-                    <Setter Property="LineHeight" Value="28" />
+                    <Setter Property="LineHeight" Value="24.5" />
                   </Style>
                 </ContentPresenter.Styles>
               </ContentPresenter>
-              <!-- `.mud-nav-link` is `align-items: flex-start`: on a label that wraps, the arrow
-                   stays on the first line, centred in its 28px. -->
+              <!-- `.mud-nav-link` is `align-items: flex-start`, and the arrow's svg is a flex item
+                   of it: its 24px top meets the 24.5px line's top, and on a label that wraps it
+                   stays on the first line. -->
               <Path x:Name="PART_ExpandIcon"
                     Grid.Column="2"
                     Width="24" Height="24"
-                    Margin="0,2,0,0"
                     Stretch="None"
-                    Data="{DynamicResource FiliExpandMoreGeometry}"
+                    Data="{DynamicResource FiliArrowDropDownGeometry}"
                     Fill="{DynamicResource FiliDrawerIconBrush}"
                     VerticalAlignment="Top"
                     RenderTransformOrigin="50%,50%"
@@ -406,7 +412,8 @@
       <Setter Property="IsVisible" Value="False" />
     </Style>
     <Style Selector="^[IsExpanded=True] /template/ Path#PART_ExpandIcon">
-      <Setter Property="RenderTransform" Value="rotate(180deg)" />
+      <!-- `.mud-transform`: rotate(-180deg), so it turns anticlockwise (_navmenu.scss). -->
+      <Setter Property="RenderTransform" Value="rotate(-180deg)" />
       <Setter Property="Fill" Value="{DynamicResource FiliPrimaryBrush}" />
     </Style>
 

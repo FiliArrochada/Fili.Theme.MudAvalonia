@@ -87,6 +87,7 @@
       <docs:ParityRow MudBlazor="TableLines / TableStriped / TableHover" Here="FiliTable…Color" Status="Same" />
       <docs:ParityRow MudBlazor="Skeleton" Here="FiliSkeletonColor" Status="Same" />
       <docs:ParityRow MudBlazor="OverlayDark / OverlayLight" Here="FiliOverlayDarkColor / FiliOverlayLightColor" Status="Same" />
+      <docs:ParityRow MudBlazor="MudThemeProvider's scroll bar thumb, #c4c4c4 and #a6a6a6 under the pointer" Here="FiliScrollbarThumbColor / FiliScrollbarThumbHoverColor" Status="Same" Note="Literals in MudThemeProvider, not palette properties: the same in light and dark; this variant's own greys in high contrast." />
       <docs:ParityRow MudBlazor="GrayDefault … GrayDarker" Here="FiliGrayDefaultColor … FiliGrayDarkerColor" Status="Same" Note="The same in light and dark, as PaletteDark.cs leaves them; a step lighter in high contrast." />
       <docs:ParityRow MudBlazor="HoverOpacity / BorderOpacity" Here="—" Status="Close" Note="Folded into the hover and line tokens rather than exposed." />
       <docs:ParityRow MudBlazor="RippleOpacity / RippleOpacitySecondary" Here="FiliRippleOpacity / FiliRippleOpacitySecondary" Status="Same" Note="0.1 and 0.2, a Double the same in every variant, as MudThemeProvider writes both from the light palette." />

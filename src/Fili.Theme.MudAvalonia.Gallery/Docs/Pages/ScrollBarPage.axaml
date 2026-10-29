@@ -4,15 +4,15 @@
              x:Class="Fili.Theme.MudAvalonia.Gallery.Docs.Pages.ScrollBarPage">
   <StackPanel Classes="doc">
     <docs:DocHeader Title="Scroll bar"
-                    Summary="The rail a ScrollViewer shows when its content does not fit: a thin bar with a rounded thumb and no line buttons, with nothing to opt into. MudBlazor leaves scroll bars to the browser, so this is the look a MudBlazor app has in one."
+                    Summary="The rail a ScrollViewer shows when its content does not fit: the scroll bar MudThemeProvider injects into every MudBlazor page, an 8px rail with a grey thumb and no line buttons, with nothing to opt into."
                     AvaloniaControls="ScrollBar, ScrollViewer" />
 
     <TextBlock Classes="h5 section" Text="Basic usage" />
     <docs:ExampleCard Title="A ScrollViewer"
-                      Description="A 12px rail with no line buttons and a thumb rounded 4px, 2px inside it. The thumb is action-disabled at rest, action-default under the pointer and text-primary while it is dragged. Scroll the panel, then hover and drag the thumb."
+                      Description="An 8px rail on a transparent track, with no line buttons, and a thumb that fills it, rounded 1px: #c4c4c4 at rest, #a6a6a6 under the pointer and while it is dragged. Scroll the panel, then hover and drag the thumb."
                       Source="ScrollBar/Vertical" />
     <TextBlock Classes="body1 p">
-      <Run Text="Material has no scroll bar of its own, as the web hands that to the browser, so the theme follows what a MudBlazor app looks like: a narrow track, a rounded thumb, and a thumb that darkens rather than changes shape. The rail takes its 12px beside the content, so content that becomes scrollable gives up that width." />
+      <Run Text="Material has no scroll bar of its own, but MudBlazor does: unless MudThemeProvider's DefaultScrollbar is set, which it is not by default, it injects one into the page, and this is a transcription of it. Its two greys are literals rather than palette colours, the same in light and dark; high contrast gives them its own. There is no pressed colour, as a dragged thumb is under the pointer and keeps its hover grey. The rail takes its 8px beside the content, so content that becomes scrollable gives up that width." />
     </TextBlock>
 
     <TextBlock Classes="h5 section" Text="Both ways" />
@@ -32,10 +32,10 @@
 
     <TextBlock Classes="h5 section" Text="MudBlazor parity" />
     <TextBlock Classes="body1 p">
-      <Run Text="MudBlazor has no scroll bar component, so both rows are " /><Run Classes="code" Text="Extra" /><Run Text=": the theme's own, where a MudBlazor app has the browser's." />
+      <Run Text="MudBlazor has no scroll bar component, but MudThemeProvider styles the page's scroll bars, which the bar here is " /><Run Classes="code" Text="Same" /><Run Text=" as. The scroll viewer is " /><Run Classes="code" Text="Extra" /><Run Text=": a MudBlazor page scrolls with overflow: auto." />
     </TextBlock>
     <docs:ParityTable>
-      <docs:ParityRow MudBlazor="(none: the browser's scroll bar)" Here="ScrollBar, themed by type" Status="Extra" Note="A 12px rail with no line buttons; a thumb rounded 4px, 2px in, action-disabled at rest, action-default under the pointer and text-primary while dragged." />
+      <docs:ParityRow MudBlazor="MudThemeProvider's scroll bar (DefaultScrollbar false, the default)" Here="ScrollBar, themed by type" Status="Same" Note="8px, a transparent track and no line buttons; the thumb fills it, rounded 1px, FiliScrollbarThumbColor (#c4c4c4) at rest and FiliScrollbarThumbHoverColor (#a6a6a6) under the pointer and while dragged. DefaultScrollbar=&quot;true&quot;, the browser's own bar, has no counterpart." />
       <docs:ParityRow MudBlazor="(none: overflow: auto)" Here="ScrollViewer" Status="Extra" Note="Avalonia's own template, parts and all: the wheel, a drag, the keyboard and touch scroll it, the rail sits beside the content, and the corner where two rails meet is background-gray." />
     </docs:ParityTable>
   </StackPanel>

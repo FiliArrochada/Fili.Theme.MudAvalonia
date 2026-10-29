@@ -191,8 +191,9 @@ colour, which is two setters and a deletion. Grep for `Classes="` before adoptin
 `Variant.Text`. The classes opt *up* from flat rather than opting in to being themed.
 
 **A button's label is uppercase**, as MudBlazor's `Typography.Button.TextTransform` makes every
-MudButton, MudFab label and tab: `Content="Save"` reads SAVE, on a button, a split or drop-down
-button, a toggle item, an extended FAB and a tab. A chip, a link and a checkbox keep their case,
+MudButton and MudFab label: `Content="Save"` reads SAVE, on a button, a split or drop-down button,
+a toggle item and an extended FAB. A tab is uppercase too, but always: MudBlazor's `.mud-tab`
+hard-codes it, so the switch below does not reach tabs. A chip, a link and a checkbox keep their case,
 as in MudBlazor. The case is inherited, as CSS's is, so a label beside a `start-icon` in a panel
 reads in capitals too; its `Text` stays as you wrote or bound it. To keep labels as written,
 everywhere or in one region, set the switch MudBlazor's `TextTransform = "none"` is:

@@ -118,6 +118,10 @@ paints nothing in it alone.
 - `FiliPrimaryHoverColor`
 - `FiliPrimaryLightenBrush`
 - `FiliPrimaryLightenColor`
+- `FiliScrollbarThumbBrush`
+- `FiliScrollbarThumbColor`
+- `FiliScrollbarThumbHoverBrush`
+- `FiliScrollbarThumbHoverColor`
 - `FiliSecondaryBrush`
 - `FiliSecondaryColor`
 - `FiliSecondaryContrastTextBrush`

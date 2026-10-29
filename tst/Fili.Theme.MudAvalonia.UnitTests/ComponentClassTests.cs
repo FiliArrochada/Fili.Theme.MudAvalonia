@@ -37,7 +37,7 @@ public class ComponentClassTests
     });
 
     [Theory]
-    [InlineData("small", 3, 18)]
+    [InlineData("small", 3, 20)]
     [InlineData("large", 12, 36)]
     public Task IconButtonSizes(string size, double padding, double iconSize) => UiThread.RunAsync(() =>
     {
@@ -233,8 +233,9 @@ public class ComponentClassTests
 
     /// <summary>
     /// `.mud-alert`'s 6px round `.mud-alert-message`'s 9px: a one-line body2 alert is 50px, as
-    /// MudAlert is. The icon is `.mud-alert-icon`'s 22px, 12px before the text, on its first line
-    /// and 2px above it, its 7px padding against the message's 9.
+    /// MudAlert is. The icon is MudIcon's Size.Medium 24px (its `.mud-icon-size-medium` beats
+    /// `.mud-alert-icon`'s 22px), 12px before the text, on its first line and 2px above it, its 7px
+    /// padding against the message's 9: 7 + 24 + 7 is 9 + 20 + 9.
     /// </summary>
     [Theory]
     [InlineData(false, 50, 13)]
@@ -257,9 +258,9 @@ public class ComponentClassTests
         Matrix.Show(alert);
 
         Assert.Equal(height, alert.Bounds.Height);
-        Assert.Equal(22, icon.Bounds.Width);
+        Assert.Equal(24, icon.Bounds.Width);
         Assert.Equal(iconTop, icon.TranslatePoint(default, alert)!.Value.Y);
-        Assert.Equal(16 + 22 + 12 - (dense ? 4 : 0), text.TranslatePoint(default, alert)!.Value.X);
+        Assert.Equal(16 + 24 + 12 - (dense ? 4 : 0), text.TranslatePoint(default, alert)!.Value.X);
         Assert.Equal(0.9, icon.Opacity);
     });
 
@@ -290,7 +291,7 @@ public class ComponentClassTests
 
     /// <summary>
     /// `.mud-alert-icon` is the alert's own icon only: a close button's X in the alert keeps its
-    /// icon button's size and colour, not the alert icon's 22px, gap and severity colour.
+    /// icon button's size and colour, not the alert icon's 24px, gap and severity colour.
     /// </summary>
     [Fact]
     public Task AnAlertsCloseButtonIsNotItsIcon() => UiThread.RunAsync(() =>
@@ -307,9 +308,9 @@ public class ComponentClassTests
         DockPanel.SetDock(button, Dock.Right);
         Matrix.Show(alert);
 
-        Assert.Equal(22, icon.Bounds.Width);
+        Assert.Equal(24, icon.Bounds.Width);
         Assert.Equal(Matrix.Token("FiliErrorColor"), Matrix.Colour(icon.Foreground));
-        Assert.NotEqual(22, close.Bounds.Width);
+        Assert.Equal(20, close.Bounds.Width);
         Assert.Equal(0, close.Margin.Right);
     });
 }

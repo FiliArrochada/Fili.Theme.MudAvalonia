@@ -137,8 +137,9 @@ public class WrappedFieldTests
         Application.Current!.TryFindResource("FiliKeyboardArrowDownGeometry", out var down);
 
         Assert.NotNull(up);
-        Assert.Same(up, ((Avalonia.Controls.Shapes.Path)Matrix.Part<RepeatButton>(spinner, "PART_IncreaseButton").Content!).Data);
-        Assert.Same(down, ((Avalonia.Controls.Shapes.Path)Matrix.Part<RepeatButton>(spinner, "PART_DecreaseButton").Content!).Data);
+        // Each glyph sits in a Viewbox, 24px or 20px when dense.
+        Assert.Same(up, ((Avalonia.Controls.Shapes.Path)((Viewbox)Matrix.Part<RepeatButton>(spinner, "PART_IncreaseButton").Content!).Child!).Data);
+        Assert.Same(down, ((Avalonia.Controls.Shapes.Path)((Viewbox)Matrix.Part<RepeatButton>(spinner, "PART_DecreaseButton").Content!).Child!).Data);
     });
 
     /// <summary>With no spin buttons the box is the field, and the text runs to its padding.</summary>
