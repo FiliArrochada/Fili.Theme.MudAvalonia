@@ -20,7 +20,16 @@ public partial class CodeBlock : UserControl
         {
             if (TopLevel.GetTopLevel(this)?.Clipboard is { } clipboard && Code is { } code)
             {
-                await clipboard.SetTextAsync(code);
+                // An async void handler: an exception here would end the app. A browser can
+                // refuse the clipboard (no permission, the page not focused), and a copy that
+                // fails leaves the code on the page to select by hand.
+                try
+                {
+                    await clipboard.SetTextAsync(code);
+                }
+                catch (Exception)
+                {
+                }
             }
         };
     }
