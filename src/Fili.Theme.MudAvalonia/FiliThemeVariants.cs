@@ -10,9 +10,12 @@ public static class FiliThemeVariants
 {
     /// <summary>
     /// The high-contrast variant: black ground, opaque lines, and a hard ring in place of every
-    /// elevation shadow. Select it the same way as any other variant, on the application or on
-    /// any control:
+    /// elevation shadow. Select it as any other variant, on the application:
     /// <code>Application.Current.RequestedThemeVariant = FiliThemeVariants.HighContrast;</code>
+    /// Set the variant on the <c>Application</c> only, this one and Light and Dark alike. Every
+    /// brush the theme draws with is one application-level object, so a variant requested on a
+    /// window or a <c>ThemeVariantScope</c> changes the controls that look up a resource there
+    /// and leaves the rest in the application's variant: half of the window follows it.
     /// </summary>
     /// <remarks>
     /// <para>

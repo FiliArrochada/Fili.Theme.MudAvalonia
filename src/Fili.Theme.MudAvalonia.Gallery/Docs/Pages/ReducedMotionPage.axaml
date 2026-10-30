@@ -18,6 +18,9 @@
     <TextBlock Classes="h5 section" Text="What keeps moving" />
     <TextBlock Classes="body1 p" Text="A progress indicator, the only sign that work is going on, and the 150ms colour fades of hover and focus, which move nothing." />
 
+    <TextBlock Classes="h5 section" Text="Not covered yet" />
+    <TextBlock Classes="body1 p" Text="These still move with the key on: a drawer's slide open and shut, a switch's thumb crossing its track, a field's label floating up, an expander's or a tree row's chevron turning, the margin an expansion panel opens round itself, and a determinate circular progress's sweep to a new value." />
+
     <TextBlock Classes="h5 section" Text="Where it is read" />
     <TextBlock Classes="body1 p" Text="Each window reads the key once, from its own resources or the application's, and passes it to everything inside it and to the popups it opens. A key in a panel's resources inside a window does nothing: set it on the application, or on a window of its own." />
   </StackPanel>

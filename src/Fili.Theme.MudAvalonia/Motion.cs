@@ -10,10 +10,15 @@ namespace Fili.Theme.MudAvalonia;
 /// </summary>
 /// <remarks>
 /// <para>
-/// MudBlazor has no such switch. With it on, nothing the theme draws moves or fades on its own:
-/// no ripple, no popup fade, no skeleton pulse or wave, no snackbar slide, an expansion panel and
-/// a scrim appear at once, and a tab's indicator jumps. A progress indicator keeps moving, as it
-/// is the only sign that work is going on.
+/// MudBlazor has no such switch. With it on: no ripple, no popup fade, no skeleton pulse or wave,
+/// no snackbar slide, an expansion panel and a scrim appear at once, a tab's indicator jumps and
+/// a striped bar's bands stand still. A progress indicator keeps moving, as it is the only sign
+/// that work is going on.
+/// </para>
+/// <para>
+/// Not read yet, so still moving: the drawer pane's slide (SplitView), the switch thumb's travel,
+/// a field's floating label, the expander's and tree row's chevron, an expansion panel's margin
+/// and a determinate circular progress's sweep.
 /// </para>
 /// <para>
 /// A token rather than a class, because a popup is a window of its own that a class on the

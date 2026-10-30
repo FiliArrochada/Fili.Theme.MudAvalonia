@@ -1,8 +1,14 @@
 # Published resource keys
 
-Every resource key an app may name: in a `{DynamicResource}`, or set in a control's `Resources` to
-override the theme for that control. Within a major version none is removed or renamed; see
+Every resource key an app may name: in a `{DynamicResource}`, or set in the application's
+`Resources` to override the theme. Within a major version none is removed or renamed; see
 [Compatibility](compatibility.md).
+
+**A colour is overridden per control by its `*Brush` key, never its `*Color`.** Each brush is one
+application-level object built from its colour, so a `*Color` key takes effect only in the
+application's `Resources` (per variant, in its `ThemeDictionaries`), where it changes every control.
+In a control's `Resources` it does nothing; `FiliPrimaryBrush` there recolours that control and
+what is inside it.
 
 Always reach a key through `DynamicResource`. A `StaticResource` freezes the value of the variant
 that was active when it loaded, and a misspelt key resolves to nothing, silently.
@@ -196,9 +202,11 @@ Its colour is the control's text. Set both to `0` to turn the ripple off.
 - `FiliRippleOpacitySecondary`
 
 Reduced motion, a `Boolean` the same in every variant, `False` by default. `True` in an app's
-resources stops everything the theme moves or fades on its own: the ripple, the popup fade, the
-skeleton's pulse and wave, the snackbar's slide, an expansion panel's and an overlay's fade, and the
-tab indicator's slide. A progress indicator keeps moving. MudBlazor has no such switch.
+resources stops the ripple, the popup fade, the skeleton's pulse and wave, the snackbar's slide, an
+expansion panel's and an overlay's fade, the tab indicator's slide and a striped bar's bands. A
+progress indicator keeps moving. It does not yet stop a drawer's slide, a switch thumb's travel, a
+field's floating label, an expander's or tree row's chevron turning, an expansion panel's margin or
+a determinate circular progress's sweep. MudBlazor has no such switch.
 
 - `FiliReducedMotion`
 

@@ -196,6 +196,36 @@ public class ClassVocabularyTests
     });
 
     /// <summary>
+    /// The README's class table is the list an adopter greps against, so it must be this list:
+    /// every class in its second column, with <c>h1</c>-<c>h6</c> and <c>elevation0</c> to
+    /// <c>elevation25</c> read as the ranges they are, and its "All N classes" the count.
+    /// </summary>
+    [Fact]
+    public void TheReadmePublishesExactlyTheVocabulary()
+    {
+        var readme = File.ReadAllText(Path.Combine(Generation.GeneratedThemeTests.ThemeDirectory(), "..", "..", "README.md"))
+            .Replace("\r\n", "\n");
+        var heading = Regex.Match(readme, @"\*\*All (\d+) classes:\*\*\n\n((?:\|.*\n)+)");
+        Assert.True(heading.Success, "The README has no \"All N classes\" table.");
+
+        var published = new List<string>();
+        foreach (var row in heading.Groups[2].Value.Split('\n', StringSplitOptions.RemoveEmptyEntries).Skip(2))
+        {
+            var cells = row.Split('|');
+            var classes = Regex.Replace(
+                cells[2],
+                @"`([a-z-]+?)(\d+)`(?:–| to )`\1(\d+)`",
+                range => string.Join(", ", Enumerable
+                    .Range(int.Parse(range.Groups[2].Value), int.Parse(range.Groups[3].Value) - int.Parse(range.Groups[2].Value) + 1)
+                    .Select(n => "`" + range.Groups[1].Value + n + "`")));
+            published.AddRange(Regex.Matches(classes, "`([^`]+)`").Select(match => match.Groups[1].Value));
+        }
+
+        Assert.Equal(Vocabulary.Distinct().OrderBy(c => c, StringComparer.Ordinal), published.Distinct().OrderBy(c => c, StringComparer.Ordinal));
+        Assert.Equal(Vocabulary.Distinct().Count(), int.Parse(heading.Groups[1].Value));
+    }
+
+    /// <summary>
     /// No class is one fixed value on its own control. MudPaper's Square is
     /// <c>CornerRadius="0"</c> and MudDataGrid's Bordered <c>GridLinesVisibility="All"</c>: the
     /// property says it, and a class that says it again is one more word to collide with. A class

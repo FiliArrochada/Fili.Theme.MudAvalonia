@@ -130,7 +130,8 @@ the theme.** One early adopter collided on `primary` in 20 places on its first d
 visibly, but hover and press were driven by its own fill and the theme's state layer at once. The
 fix is to let the theme own shape and interaction and keep the app's colour. Grep for
 `Classes="` against this list, which is a published interface
-([Compatibility](docs/compatibility.md)) and pinned in both directions by `ClassVocabularyTests`.
+([Compatibility](docs/compatibility.md)): `ClassVocabularyTests` fails when the theme's selectors
+use a class this table does not list, or the table lists one they do not use.
 
 **All 183 classes:**
 
@@ -168,8 +169,10 @@ An app upgrading from a version before the theme keyed controls by type can dele
   checkbox, radio or switch. `FiliRippleOpacity` and `FiliRippleOpacitySecondary` set to `0` turn
   it off, MudBlazor's `Ripple="false"`.
 - **Reduced motion is one key**, which MudBlazor does not have: `FiliReducedMotion` set to `True`
-  in the application's resources stops everything the theme moves or fades on its own, in every
-  window and popup ([Reduced motion](https://filiarrochada.github.io/Fili.Theme.MudAvalonia/#reduced-motion)).
+  in the application's resources stops the ripple, fades, slides and pulses in every window and
+  popup. It does not yet reach a drawer's slide, a switch's thumb, a field's floating label, a
+  chevron's turn, an expansion panel's margin or a circular progress's sweep
+  ([Reduced motion](https://filiarrochada.github.io/Fili.Theme.MudAvalonia/#reduced-motion)).
 - **A `DataGrid` is MudDataGrid with nothing to opt into.** The package does not depend on
   `Avalonia.Controls.DataGrid`; when the app references it, the theme finds it and themes its
   controls by type ([Data grid](https://filiarrochada.github.io/Fili.Theme.MudAvalonia/#data-grid)).

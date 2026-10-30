@@ -594,8 +594,9 @@
   <sys:Double x:Key="FiliRippleOpacitySecondary">0.2</sys:Double>
 
   <!--
-    Reduced motion: True, in an app's resources, stops everything the theme moves or fades on its
-    own (Motion.cs). Not MudBlazor's: it has no such switch. NON-VARYING.
+    Reduced motion: True, in an app's resources, stops the ripple and the theme's fades, slides
+    and pulses (Motion.cs lists what it does not reach yet). Not MudBlazor's: it has no such
+    switch. NON-VARYING.
   -->
   <sys:Boolean x:Key="FiliReducedMotion">False</sys:Boolean>
 
