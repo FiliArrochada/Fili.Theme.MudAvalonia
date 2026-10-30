@@ -142,6 +142,10 @@ one.
   `#776BE7`. Seeding from the wrong one renders the wrong brand colour everywhere in the only
   variant users see. Pinned by `PrimaryDiffersBetweenVariants`.
 - **Base type is 14px, not 16.** First thing to check when a ported screen feels off.
+- **MudBlazor's light palette names swatches rather than spelling colours out**, and a port that
+  does not read them back gets it subtly wrong. They are `Colors.cs` in MudBlazor:
+  `Pink.Accent2` = `#FF4081`, `Blue.Default` = `#2196F3`, `Green.Accent4` = `#00C853`,
+  `Orange.Default` = `#FF9800`, `Red.Default` = `#F44336`, `Gray.Darken3` = `#424242`.
 - **Button.axaml, and marked regions in SplitButton.axaml (split and drop-down), Chip, CheckBox,
   RadioButton, ToggleSwitch, Slider, ProgressBar and FiliTheme.axaml (TextBlock, alert, app bar
   and tab bar colours), are GENERATED** by `ThemeColourGenerator` (unit-test project,

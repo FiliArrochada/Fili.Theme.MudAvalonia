@@ -40,7 +40,9 @@
     The README is also the package's page on nuget.org, which cannot follow a relative link. The
     repository keeps relative links, which work on GitHub in any branch or fork; the packed copy
     has each one rewritten to the commit the package was built from, so a version's page links to
-    that version's docs. A link to a file that does not exist fails the pack.
+    that version's docs. An image is rewritten to the file's raw URL instead, as nuget.org shows an
+    image only from a host it trusts and a blob URL is a page, not the image. A link to a file that
+    does not exist fails the pack.
   -->
   <Target Name="PackReadmeWithAbsoluteLinks"
           BeforeTargets="_GetPackageFiles"
@@ -52,7 +54,8 @@
     </PropertyGroup>
     <AbsoluteReadmeLinks Source="$(MSBuildThisFileDirectory)..\..\README.md"
                          Destination="$(_PackedReadme)"
-                         BaseUrl="$(PackageProjectUrl)/blob/$(_ReadmeRevision)/" />
+                         BaseUrl="$(PackageProjectUrl)/blob/$(_ReadmeRevision)/"
+                         ImageBaseUrl="$(PackageProjectUrl.Replace('https://github.com/', 'https://raw.githubusercontent.com/'))/$(_ReadmeRevision)/" />
     <ItemGroup>
       <None Include="$(_PackedReadme)" Pack="true" PackagePath="\" Visible="false" />
     </ItemGroup>
@@ -65,6 +68,7 @@
       <Source ParameterType="System.String" Required="true" />
       <Destination ParameterType="System.String" Required="true" />
       <BaseUrl ParameterType="System.String" Required="true" />
+      <ImageBaseUrl ParameterType="System.String" Required="true" />
     </ParameterGroup>
     <Task>
       <Using Namespace="System.IO" />
@@ -75,17 +79,18 @@
             var root = Path.GetDirectoryName(Path.GetFullPath(Source));
             var text = Regex.Replace(
                 File.ReadAllText(Source),
-                @"\]\((?!https?:|#|mailto:)([^)\s]+)\)",
+                @"(!\[[^\]]*)?\]\((?!https?:|#|mailto:)([^)\s]+)\)",
                 match =>
                 {
-                    var target = match.Groups[1].Value;
+                    var image = match.Groups[1].Success;
+                    var target = match.Groups[2].Value;
                     var path = Path.Combine(root, target.Split('#')[0]);
                     if (!File.Exists(path) && !Directory.Exists(path))
                     {
                         Log.LogError("README.md links to " + target + ", which does not exist.");
                     }
 
-                    return "](" + BaseUrl + target + ")";
+                    return match.Groups[1].Value + "](" + (image ? ImageBaseUrl : BaseUrl) + target + ")";
                 });
             Directory.CreateDirectory(Path.GetDirectoryName(Path.GetFullPath(Destination)));
             File.WriteAllText(Destination, text);
