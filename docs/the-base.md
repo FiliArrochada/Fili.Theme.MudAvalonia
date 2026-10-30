@@ -73,7 +73,7 @@ than blank because it looks half-working.
 themed controls did not change at all while it flipped, because they carry full templates;
 everything else did. That difference was the honest measure of how much of the look was still
 borrowed — and it was how the choice of substrate was settled, rather than by arguing it. (The
-selector was removed once the base became a fork; see [Gallery](../README.md#gallery).)
+selector was removed once the base became a fork; see [The gallery](../README.md#the-gallery).)
 
 **What Fluent is actually worth**, beyond "templates exist":
 

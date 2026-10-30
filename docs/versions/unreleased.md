@@ -12,3 +12,7 @@ redistributes the theme's assembly passes the file on with it. The package's lic
 is `MIT AND Apache-2.0 AND MS-PL AND OFL-1.1`, where it was `MIT`; nothing in the package changed
 licence, the expression now names what it always bundled. The README's licence section says the
 same; it had said MIT covered all of the XAML.
+
+The [compatibility page](../compatibility.md)'s links to the README's quick start and class list,
+and the base page's to the gallery, lead to their sections again; the README's rewrite in 0.26.0
+had renamed them.
