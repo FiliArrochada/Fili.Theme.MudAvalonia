@@ -7,16 +7,16 @@
 [![Avalonia](https://img.shields.io/badge/Avalonia-12.1-8B44AC)](https://avaloniaui.net/)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue)](LICENSE)
 
-MudBlazor's look for Avalonia 12: its palette, elevation, typography and geometry, in light, dark
-and high contrast. Every control arrives themed by type, and MudBlazor's variants are style
-classes with MudBlazor's names, so `<Button Classes="filled primary">` is
-`<MudButton Variant="Variant.Filled" Color="Color.Primary">`.
+This theme is based on [MudBlazor](https://mudblazor.com/), a wonderful Material Design component
+library for Blazor ([GitHub](https://github.com/MudBlazor/MudBlazor)). MudAvalonia brings the two
+together: [Avalonia](https://avaloniaui.net/)'s cross-platform controls, drawn with MudBlazor's
+design. All the credit for the look - the palette, the elevation, the typography, the metrics of
+every component - goes to the MudBlazor team; this package transcribes it from their source. It is
+an independent project, not affiliated with or endorsed by MudBlazor.
 
-![A library screen drawn with the theme: a navigation list, a search field, two selects, cards and a details panel with progress bars and buttons](tst/Fili.Theme.MudAvalonia.PixelTests/Baselines/screen-light.png)
-
-The same screen in [dark](tst/Fili.Theme.MudAvalonia.PixelTests/Baselines/screen-dark.png) and
-[high contrast](tst/Fili.Theme.MudAvalonia.PixelTests/Baselines/screen-highcontrast.png). Each is a
-pixel frame the test suite compares on every build.
+**Fili - MudAvalonia Theme** is that look for Avalonia 12, in light, dark and high contrast. Every
+control arrives themed by type, and MudBlazor's variants are style classes with MudBlazor's names,
+so `<Button Classes="filled primary">` is `<MudButton Variant="Variant.Filled" Color="Color.Primary">`.
 
 **[Read the docs](https://filiarrochada.github.io/Fili.Theme.MudAvalonia/)**, laid out as
 mudblazor.com is: a page per component with live examples, their code, a link to the MudBlazor
@@ -24,7 +24,6 @@ page and a parity table. The site is the gallery app itself, built with the them
 compiled to WebAssembly; every page has its own address (`#button`, `#tooltip`).
 
 It is a theme, not a component library: no new control types, no services, and one public type.
-The token values are MudBlazor's defaults, transcribed from its source rather than eyeballed.
 
 ## Quick start
 
@@ -203,7 +202,12 @@ decision; the gallery's `GalleryFonts` is a worked example, with Noto Sans Arabi
 
 ## The gallery
 
-The docs site runs locally too, on desktop or in the browser:
+![A library screen drawn with the theme: a navigation list, a search field, two selects, cards and a details panel with progress bars and buttons](tst/Fili.Theme.MudAvalonia.PixelTests/Baselines/screen-light.png)
+
+The gallery's sample screen, also in [dark](tst/Fili.Theme.MudAvalonia.PixelTests/Baselines/screen-dark.png)
+and [high contrast](tst/Fili.Theme.MudAvalonia.PixelTests/Baselines/screen-highcontrast.png); each is
+a pixel frame the test suite compares on every build. The docs site runs locally too, on desktop or
+in the browser:
 
 ```powershell
 dotnet run --project src/Fili.Theme.MudAvalonia.Gallery.Desktop
