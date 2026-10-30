@@ -796,6 +796,9 @@ public static class ThemeColourGenerator
             o.Append(Style($"^.{size} /template/ Panel#PART_SwitchKnob", ("Width", $"{trackWidth}"), ("Height", $"{thumb}")));
             o.Append(Style($"^.{size} /template/ Border#PART_Thumb", ("Width", $"{thumb}"), ("Height", $"{thumb}"), ("CornerRadius", $"{thumb / 2}")));
             o.Append(Style(Halo($".{size}"), ("Width", $"{halo}"), ("Height", $"{halo}")));
+            // The thumb icon's 24px box scaled to the thumb less 2px a side, MudIcon's padding.
+            var iconScale = ((thumb - 4) / 24.0).ToString("0.#######", System.Globalization.CultureInfo.InvariantCulture);
+            o.Append(Style($"^.{size} /template/ Path#PART_ThumbIcon", ("RenderTransform", $"scale({iconScale})")));
             o.Append(Style($"^.{size}:checked /template/ Border#PART_Thumb", ("RenderTransform", $"translateX({travel}px)")));
             o.Append(Style(Halo($".{size}:checked"), ("RenderTransform", $"translateX({travel}px)")));
         }

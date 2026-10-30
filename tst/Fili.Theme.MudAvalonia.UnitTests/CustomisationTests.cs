@@ -186,9 +186,37 @@ public class CustomisationTests
         var icon = Matrix.Part<Path>(toggle, "PART_ThumbIcon");
 
         Assert.Same(Heart, icon.Data);
-        Assert.Equal(16, Assert.IsType<Viewbox>(icon.Parent).Bounds.Width);
         Assert.Equal(Matrix.Token("FiliTextSecondaryColor"), Matrix.Colour(icon.Fill));
         Assert.True(Matrix.Part<Path>(plain, "PART_ThumbIcon").Data!.Bounds.Width == 0);
+    });
+
+    /// <summary>
+    /// The icon's 24px box is drawn in the thumb less 2px a side, MudIcon's padding: 16px in the
+    /// 20px thumb, 10 in the small one's 14, 22 in the large one's 26. A scale on the Path, not a
+    /// Viewbox, does it, so each size's scale is pinned here.
+    /// </summary>
+    [Theory]
+    [InlineData(null, 20)]
+    [InlineData("small", 14)]
+    [InlineData("large", 26)]
+    public Task TheThumbIconFillsTheThumbLessTwoPixels(string? size, double thumb) => UiThread.RunAsync(() =>
+    {
+        var toggle = new ToggleSwitch();
+        if (size is not null)
+        {
+            toggle.Classes.Add(size);
+        }
+
+        Matrix.Show(toggle);
+        var part = Matrix.Part<Border>(toggle, "PART_Thumb");
+        var icon = Matrix.Part<Path>(toggle, "PART_ThumbIcon");
+        var drawn = new Rect(0, 0, 24, 24).TransformToAABB(icon.TransformToVisual(part)!.Value);
+
+        Assert.Equal(thumb, part.Bounds.Width);
+        Assert.Equal(2, drawn.X, 3);
+        Assert.Equal(2, drawn.Y, 3);
+        Assert.Equal(thumb - 4, drawn.Width, 3);
+        Assert.Equal(thumb - 4, drawn.Height, 3);
     });
 
     [Theory]

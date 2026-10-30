@@ -18,6 +18,10 @@ time and allocates a quarter less memory. The template parts `PART_Unchecked`, `
 `PART_Indeterminate` and `PART_Scale` are one `PART_Glyph` on a checkbox; a `/template/` selector
 of an app's that named them names it instead. A radio keeps its two glyphs.
 
+A switch draws its thumb icon without a Viewbox: the icon's Path is scaled to the thumb less 2px
+a side, per size, as the Viewbox did. Two visuals less on every switch, icon or none: building
+200 takes about a tenth less time and memory. `PART_ThumbIcon` is now a child of the thumb.
+
 An indeterminate progress bar no longer re-lays out the window as it moves. Its two bars grow and
 shrink as MudBlazor's do, and a bar longer than the rail made the rail, the progress bar and every
 control round it measure again on each frame; now only the bar does. In a desktop window, 60
