@@ -27,6 +27,10 @@ shrink as MudBlazor's do, and a bar longer than the rail made the rail, the prog
 control round it measure again on each frame; now only the bar does. In a desktop window, 60
 indeterminate bars take about a quarter less CPU. They look and move exactly as before.
 
+The docs site's app bar has a performance toggle, off until pressed: it draws Avalonia's FPS,
+layout and render graphs over the site, and reads the page's visual count and the time it took
+to build. A hint for spotting a page that works on every frame, not a benchmark.
+
 And the docs site shows its examples again: the browser build is trimmed, and trimming dropped the
 compiled XAML every example is loaded from by its path, so each one failed with "No precompiled
 XAML found".

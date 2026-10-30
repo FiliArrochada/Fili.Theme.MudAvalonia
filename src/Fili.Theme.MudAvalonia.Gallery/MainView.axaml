@@ -79,6 +79,20 @@
                         IsCheckedChanged="OnRightToLeft">
             <PathIcon Data="{DynamicResource DocsRightToLeftIcon}" />
           </ToggleButton>
+          <!-- Off by default: Avalonia's FPS, layout and render graphs over the window, and the
+               page's visual count and the time it took to build, beside the button. A reading on
+               a hint, not a benchmark: it varies with the machine, and the overlays cost frames. -->
+          <TextBlock x:Name="PerformanceReadout"
+                     Classes="caption"
+                     IsVisible="False"
+                     VerticalAlignment="Center" />
+          <ToggleButton x:Name="Performance"
+                        Classes="icon inherit"
+                        ToolTip.Tip="Performance"
+                        VerticalAlignment="Center"
+                        IsCheckedChanged="OnPerformance">
+            <PathIcon Data="{DynamicResource DocsSpeedIcon}" />
+          </ToggleButton>
         </StackPanel>
       </Grid>
     </Border>
