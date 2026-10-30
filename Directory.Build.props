@@ -36,7 +36,9 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <!-- MIT is this project's own; the rest is what the package bundles: Material Icons' glyphs,
+         the forked templates' Ms-PL headers and Roboto. THIRD-PARTY-NOTICES.md carries each. -->
+    <PackageLicenseExpression>MIT AND Apache-2.0 AND MS-PL AND OFL-1.1</PackageLicenseExpression>
     <PackageProjectUrl>https://github.com/FiliArrochada/Fili.Theme.MudAvalonia</PackageProjectUrl>
     <RepositoryUrl>https://github.com/FiliArrochada/Fili.Theme.MudAvalonia.git</RepositoryUrl>
     <RepositoryType>git</RepositoryType>

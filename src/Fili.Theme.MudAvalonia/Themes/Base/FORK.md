@@ -7,8 +7,11 @@ Avalonia repository at tag **12.1.3** and is under Avalonia's MIT licence:
 - `InvariantResources.axaml` — `src/Avalonia.Themes.Fluent/Strings/InvariantResources.xaml`
   (Simple references it by a relative path but does not carry its own copy)
 
-Copyright (c) .NET Foundation and Contributors. MIT licence:
-<https://github.com/AvaloniaUI/Avalonia/blob/master/licence.md>
+Copyright (c) AvaloniaUI OÜ. MIT licence:
+<https://github.com/AvaloniaUI/Avalonia/blob/12.1.3/licence.md>. Eight of the date and time
+templates keep the Silverlight Toolkit's Ms-PL header they carry in Avalonia. Both notices are in
+the repository's `THIRD-PARTY-NOTICES.md`, which is packed; a file added on an upgrade that brings a
+new notice updates it.
 
 ## What was changed
 

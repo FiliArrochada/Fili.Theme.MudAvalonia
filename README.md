@@ -102,7 +102,7 @@ version-less.
 | Target framework | `net10.0` |
 | Depends on | `Avalonia` 12.1.3 or later, and nothing else. `Avalonia.Controls.DataGrid` is optional: built against 12.1.0, themed when the app references it. [Which versions were tested](docs/releasing.md#supported-avalonia-versions) |
 | Fonts | Roboto (Light, Regular, Medium) embedded, under the SIL Open Font License |
-| Licence | MIT |
+| Licence | MIT for this project's own code; the package as a whole, with the material it bundles, is `MIT AND Apache-2.0 AND MS-PL AND OFL-1.1` ([Licence and attribution](#licence-and-attribution)) |
 
 ## Classes are variants
 
@@ -240,11 +240,19 @@ repaletted onto these tokens.
 
 ## Licence and attribution
 
-This package is MIT licensed - see [`LICENSE`](LICENSE). The licence covers the code, the XAML
-and the gallery; the third-party material below keeps its own terms.
+This project is MIT licensed - see [`LICENSE`](LICENSE). The licence covers its own code, XAML
+and gallery; the third-party material in it keeps its own terms, which is why the package's
+licence expression is `MIT AND Apache-2.0 AND MS-PL AND OFL-1.1`.
+[`THIRD-PARTY-NOTICES.md`](THIRD-PARTY-NOTICES.md), packed into the NuGet package, carries each
+notice:
 
-The token *values* come from [MudBlazor](https://github.com/MudBlazor/MudBlazor) (MIT). Colours,
-sizes and shadow definitions are data, not code, and no MudBlazor code is used or derived here.
+- The templates under `Themes/Base/` are copied from Avalonia's Simple theme (MIT); eight of the
+  date and time ones keep the Silverlight Toolkit's Microsoft Public License (Ms-PL) header.
+- The icon glyphs are Google's Material Icons (Apache-2.0), their path data transcribed from
+  MudBlazor's `Filled.cs`.
+- The design values - palette, shadows, typography, layout and component metrics - are transcribed
+  from [MudBlazor](https://github.com/MudBlazor/MudBlazor) (MIT). No MudBlazor component code is
+  used: the controls are Avalonia's own.
 
 **This project is not affiliated with, endorsed by, or connected to MudBlazor.** The name is
 descriptive: an Avalonia theme in MudBlazor's visual idiom.

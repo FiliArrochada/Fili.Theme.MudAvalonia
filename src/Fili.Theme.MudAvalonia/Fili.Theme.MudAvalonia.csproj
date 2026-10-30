@@ -34,6 +34,9 @@
 
   <ItemGroup>
     <None Include="Assets\PackageIcon.png" Pack="true" PackagePath="\" />
+    <!-- The forked templates, the glyphs and the transcribed values keep their own licences, which
+         require their notices to travel with the package (PackageContentTests). -->
+    <None Include="..\..\THIRD-PARTY-NOTICES.md" Pack="true" PackagePath="\" Visible="false" />
   </ItemGroup>
 
   <!--
