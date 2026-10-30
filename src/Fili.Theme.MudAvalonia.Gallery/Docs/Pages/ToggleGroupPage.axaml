@@ -74,7 +74,7 @@
       <docs:ParityRow MudBlazor="CheckMark" Here="check-mark on each item" Status="Same" Note="The check shows before the content while IsChecked, in the item's text colour: 20px with 6px each side, 18px and 4px small, 22px and 8px large." />
       <docs:ParityRow MudBlazor="SelectedIcon" Here="FiliCheckGeometry in the item's Resources" Status="Same" />
       <docs:ParityRow MudBlazor="UnselectedIcon, FixedContent" Here="an icon in Content" Status="Close" Note="Shown by the app while not IsChecked; a transparent one keeps the content where it is." />
-      <docs:ParityRow MudBlazor="CheckMarkClass" Here="a /template/ Viewbox#PART_CheckMark style" Status="Close" />
+      <docs:ParityRow MudBlazor="CheckMarkClass" Here="FiliCheckGeometry and the item's Foreground" Status="Close" Note="The check's glyph is a key and its colour the item's text. Its template part is not published, so a style reaching into it may break in any version." />
       <docs:ParityRow MudBlazor="SelectedClass" Here="a :checked style" Status="Close" />
       <docs:ParityRow MudBlazor="Disabled" Here="IsEnabled=&quot;False&quot;" Status="Same" Note="Action-disabled text, and the line or ground in action-disabled-background." />
       <docs:ParityRow MudBlazor="MudToggleItem.Text" Here="Content" Status="Same" />

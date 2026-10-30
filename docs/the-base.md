@@ -408,8 +408,8 @@ for something XAML cannot express on its own:
   dense grid tracks it, so only its cells and headers carry the binding.
 - **`GroupIndentConverter`** indents a nested group's header 48px per level. A header's level is
   internal to the DataGrid, so it is counted from the public group tree.
-- **`OptionalStyleInclude`** loads the DataGrid's files only when the app has the package, at
-  its `MinimumVersion`; an older one is skipped with a warning.
+- **`OptionalStyleInclude`** loads the DataGrid's files only when the app has the package, from
+  its `MinimumVersion` and below its `BelowVersion`; one outside that is skipped with a warning.
 
 The two DataGrid helpers name the package's types, so they live in `Themes/Optional/DataGrid/`
 with the files that use them.

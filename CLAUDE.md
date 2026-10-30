@@ -75,11 +75,13 @@ rationale and the internal helpers in `docs/the-base.md`, the traps in `docs/tra
   (`PrivateAssets="all"`) and not passed on; in an app that references it, its controls are
   themed by type with nothing to opt into. **Its types are named only under
   `Themes/Optional/DataGrid/`**, which FiliTheme.axaml's `OptionalStyleInclude` loads by URI
-  once the assembly is there at its `MinimumVersion` (an older one is skipped with a warning).
+  once the assembly is there from its `MinimumVersion` and below its `BelowVersion`, the next
+  major one (a version outside that is skipped with a warning).
   A DataGrid selector anywhere else takes the theme down at startup in every app without the
   package; `OptionalBoundaryTests` names the line, `NoDataGridTests` is that app. Another
   control package joins the same way: a folder under `Themes/Optional/`, one include line,
-  `MinimumVersion` equal to its version in `Directory.Packages.props`.
+  `MinimumVersion` equal to its version in `Directory.Packages.props`, `BelowVersion` the next
+  major one.
 
 ## The one rule
 

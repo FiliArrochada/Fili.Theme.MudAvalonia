@@ -30,3 +30,15 @@ Docs that promised more than the theme does now say what it does:
   sweep. The README, the published keys page and the Reduced motion page had said it stopped
   everything.
 - The README's class table is now checked against the theme's classes, as it said it was.
+
+The interface 1.0 will promise is written down in [Compatibility](../compatibility.md): what a
+resource key promises (its name, its type, and that a `*Color` key is set in the application's
+resources while a `*Brush` or glyph key may be set on a control), that the variant is set on the
+`Application`, that the `"HighContrast"` variant string is stable, that the pseudo-classes the
+theme sets and every `Fili*` key not on the published list are implementation, and that a minor
+version may correct accessibility and high contrast and widen what `FiliReducedMotion` covers.
+The Toggle group page no longer suggests styling the check mark through its template part.
+
+The Avalonia dependency is now `[12.1.3, 13.0.0)`: an app moving to Avalonia 13 needs the
+theme's next major version. The DataGrid is themed from 12.1.0 up to but not including 13.0.0, and
+a 13 grid is left alone with a warning in Avalonia's log, as an older one already was.

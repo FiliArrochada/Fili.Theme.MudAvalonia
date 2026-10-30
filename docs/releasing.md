@@ -34,8 +34,9 @@ the push is safe (`--skip-duplicate`), but fixing a bad package means a new vers
 
 ## Supported Avalonia versions
 
-The package declares **`Avalonia` 12.1.3 or later**: that is the tag `Themes/Base/` is forked
-from, and the two move together. Measured on 2026-10-13 by building a clean export of the
+The package declares **`Avalonia` `[12.1.3, 13.0.0)`**: 12.1.3 is the tag `Themes/Base/` is
+forked from, and the two move together; 13 would be this package's next major version
+([Compatibility](compatibility.md)), so the range stops below it. Measured on 2026-10-13 by building a clean export of the
 repository against each version and running all three suites (unit, pixel, no-DataGrid):
 
 | Avalonia | Result |
@@ -49,9 +50,10 @@ repository against each version and running all three suites (unit, pixel, no-Da
 12.1.2 is therefore the measured floor, one patch under the declared one. The declared one stays,
 because a fork taken from 12.1.3 and promised on 12.1.2 would be a promise no build checks.
 
-`Avalonia.Controls.DataGrid` is optional and gated at runtime by `MinimumVersion` in
-`FiliTheme.axaml`, equal to its version in `Directory.Packages.props` (`OptionalBoundaryTests`
-pins the two together). Both are **12.1.0**, the first 12.1 release: 12.1.0, 12.1.1 and 12.1.2
+`Avalonia.Controls.DataGrid` is optional and gated at runtime by `MinimumVersion` and
+`BelowVersion` (13.0.0, the next major one) in `FiliTheme.axaml`; `MinimumVersion` is equal to
+its version in `Directory.Packages.props` (`OptionalBoundaryTests` pins the two together, and
+`BelowVersion` to the next major). Both are **12.1.0**, the first 12.1 release: 12.1.0, 12.1.1 and 12.1.2
 each build and pass every test, and every 12.1 release needs Avalonia 12.1.0 or later. 12.0.x
 needs Avalonia 12.0, which the theme cannot compile against. An app with a DataGrid under the
 gate keeps its grid on the package's own theme, with a warning in Avalonia's log. CI builds and

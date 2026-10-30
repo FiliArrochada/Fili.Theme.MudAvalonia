@@ -21,17 +21,30 @@ namespace Fili.Theme.MudAvalonia.UnitTests;
 /// </para>
 ///
 /// <para>
-/// Published means every <c>Fili*</c> key in the five token dictionaries and every
-/// <c>Fili*Geometry</c> glyph key, wherever it is declared. The keyed control themes
-/// (<c>FiliFilledButton</c>...) and the forked base's keys are implementation, and are not listed.
+/// Every <c>Fili*</c> key the theme declares, in any of its files, is one or the other: published,
+/// and listed, or implementation. Implementation is a keyed control theme
+/// (<c>FiliFilledButton</c>...), a data template, a converter, or one of the few values in
+/// <see cref="ImplementationValues"/>; <c>docs/compatibility.md</c> says so. Any other key a
+/// change adds - a colour, a size, a glyph, wherever it is declared - fails here until it is
+/// listed or named implementation on purpose. The forked base's own keys are not <c>Fili*</c>.
 /// </para>
 /// </summary>
 public class PublishedInterfaceTests
 {
-    private static readonly string[] TokenFiles =
-        ["Palette.axaml", "Elevation.axaml", "Geometry.axaml", "Icons.axaml", "Typography.axaml"];
+    /// <summary>Values the theme's templates read that are not for an app to set.</summary>
+    private static readonly string[] ImplementationValues =
+    [
+        // The tree row's indent, read through TreeViewItemIndentConverter by the hand-written template.
+        "FiliTreeViewItemIndent",
+    ];
 
-    private static readonly Regex Key = new("x:Key=\"(Fili[^\"{]*)\"", RegexOptions.Compiled);
+    /// <summary>A keyed element: its type, then its Fili key, wherever the attribute falls in the tag.</summary>
+    private static readonly Regex Key = new("<([\\w:.]+)\\b[^<>]*?\\bx:Key=\"(Fili[^\"{]*)\"", RegexOptions.Compiled | RegexOptions.Singleline);
+
+    private static bool IsImplementation(string element, string key) =>
+        element is "ControlTheme" or "DataTemplate"
+        || element.EndsWith("Converter", StringComparison.Ordinal)
+        || ImplementationValues.Contains(key);
 
     private static string ListPath() =>
         Path.Combine(GeneratedThemeTests.ThemeDirectory(), "..", "..", "docs", "published-keys.md");
@@ -46,31 +59,43 @@ public class PublishedInterfaceTests
             .Select(match => match.Groups[1].Value),
             StringComparer.Ordinal);
 
+    /// <summary>Every Fili key in the theme's XAML that is not implementation.</summary>
     private static SortedSet<string> Declared()
     {
-        var themes = Path.Combine(GeneratedThemeTests.ThemeDirectory(), "Themes");
+        var theme = GeneratedThemeTests.ThemeDirectory();
         var keys = new SortedSet<string>(StringComparer.Ordinal);
 
-        foreach (var file in TokenFiles)
+        foreach (var file in Directory.EnumerateFiles(theme, "*.axaml", SearchOption.AllDirectories))
         {
-            foreach (Match match in Key.Matches(File.ReadAllText(Path.Combine(themes, file))))
+            var relative = Path.GetRelativePath(theme, file).Split(Path.DirectorySeparatorChar);
+            if (relative[0] is "bin" or "obj")
             {
-                keys.Add(match.Groups[1].Value);
+                continue;
             }
-        }
 
-        foreach (var file in Directory.EnumerateFiles(themes, "*.axaml", SearchOption.AllDirectories))
-        {
             foreach (Match match in Key.Matches(File.ReadAllText(file)))
             {
-                if (match.Groups[1].Value.EndsWith("Geometry", StringComparison.Ordinal))
+                if (!IsImplementation(match.Groups[1].Value, match.Groups[2].Value))
                 {
-                    keys.Add(match.Groups[1].Value);
+                    keys.Add(match.Groups[2].Value);
                 }
             }
         }
 
         return keys;
+    }
+
+    /// <summary>The implementation list names keys that exist, and none is also published.</summary>
+    [Fact]
+    public void EveryImplementationValueIsDeclaredAndUnpublished()
+    {
+        var theme = GeneratedThemeTests.ThemeDirectory();
+        var declared = Directory.EnumerateFiles(theme, "*.axaml", SearchOption.AllDirectories)
+            .SelectMany(file => Key.Matches(File.ReadAllText(file)).Select(match => match.Groups[2].Value))
+            .ToHashSet();
+
+        Assert.All(ImplementationValues, key => Assert.Contains(key, declared));
+        Assert.Empty(ImplementationValues.Intersect(Listed()));
     }
 
     [Fact]

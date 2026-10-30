@@ -100,7 +100,7 @@ version-less.
 |---|---|
 | Package | [`Fili.MudAvalonia.Theme`](https://www.nuget.org/packages/Fili.MudAvalonia.Theme) on nuget.org, with symbols (`.snupkg`) |
 | Target framework | `net10.0` |
-| Depends on | `Avalonia` 12.1.3 or later, and nothing else. `Avalonia.Controls.DataGrid` is optional: built against 12.1.0, themed when the app references it. [Which versions were tested](docs/releasing.md#supported-avalonia-versions) |
+| Depends on | `Avalonia` 12.1.3 or later within Avalonia 12, and nothing else. `Avalonia.Controls.DataGrid` is optional: built against 12.1.0, themed when the app references it. [Which versions were tested](docs/releasing.md#supported-avalonia-versions) |
 | Fonts | Roboto (Light, Regular, Medium) embedded, under the SIL Open Font License |
 | Licence | MIT for this project's own code; the package as a whole, with the material it bundles, is `MIT AND Apache-2.0 AND MS-PL AND OFL-1.1` ([Licence and attribution](#licence-and-attribution)) |
 

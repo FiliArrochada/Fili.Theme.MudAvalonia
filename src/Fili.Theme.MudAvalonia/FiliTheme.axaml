@@ -1664,10 +1664,12 @@
   <!--
     Packages this theme builds against but does not depend on, each loaded only when the app has
     it. Here, among the control styles, because their row and state rules are Styles and the later
-    style wins. MinimumVersion is the version Directory.Packages.props builds against.
+    style wins. MinimumVersion is the version Directory.Packages.props builds against, and
+    BelowVersion the next major one, whose templates may name parts this theme has never seen.
   -->
   <theme:OptionalStyleInclude Requires="Avalonia.Controls.DataGrid"
                               MinimumVersion="12.1.0"
+                              BelowVersion="13.0.0"
                               Source="avares://Fili.Theme.MudAvalonia/Themes/Optional/DataGrid/DataGridStyles.axaml" />
 
   <!--

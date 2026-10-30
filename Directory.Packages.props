@@ -6,8 +6,11 @@
   </PropertyGroup>
 
   <ItemGroup Label="Avalonia">
-    <!-- Keep every Avalonia package on the same version - a mismatched pair fails at runtime. -->
-    <PackageVersion Include="Avalonia" Version="12.1.3" />
+    <!-- Keep every Avalonia package on the same version - a mismatched pair fails at runtime.
+         Avalonia's is a range because the package passes it on: 12.1.3, the tag Themes/Base/ is
+         forked from, up to but not including 13, which would be this package's next major
+         version (docs/compatibility.md). Everything here builds on its lower end. -->
+    <PackageVersion Include="Avalonia" Version="[12.1.3,13.0.0)" />
     <PackageVersion Include="Avalonia.Desktop" Version="12.1.3" />
     <PackageVersion Include="Avalonia.Headless" Version="12.1.3" />
     <PackageVersion Include="Avalonia.Skia" Version="12.1.3" />

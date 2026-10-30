@@ -25,7 +25,7 @@ namespace Fili.Theme.MudAvalonia.UnitTests;
 /// </summary>
 public class OptionalBoundaryTests
 {
-    private sealed record Include(string Requires, Version MinimumVersion, string Folder);
+    private sealed record Include(string Requires, Version MinimumVersion, Version BelowVersion, string Folder);
 
     /// <summary>Every OptionalStyleInclude in FiliTheme.axaml, read from the source.</summary>
     private static List<Include> Includes()
@@ -41,6 +41,7 @@ public class OptionalBoundaryTests
                 return new Include(
                     (string)element.Attribute("Requires")!,
                     Version.Parse((string)element.Attribute("MinimumVersion")!),
+                    Version.Parse((string)element.Attribute("BelowVersion")!),
                     Path.Combine(theme, folder));
             })
             .ToList();
@@ -74,6 +75,19 @@ public class OptionalBoundaryTests
             var built = props.Descendants("PackageVersion")
                 .Single(element => (string?)element.Attribute("Include") == include.Requires);
             Assert.Equal(Version.Parse((string)built.Attribute("Version")!), include.MinimumVersion);
+        }
+    }
+
+    /// <summary>
+    /// A package's next major version may rename the parts the theme's templates name, so the
+    /// gate stops below it, as the Avalonia dependency stops below 13.
+    /// </summary>
+    [Fact]
+    public void EveryIncludeStopsBelowTheNextMajorVersion()
+    {
+        foreach (var include in Includes())
+        {
+            Assert.Equal(new Version(include.MinimumVersion.Major + 1, 0, 0), include.BelowVersion);
         }
     }
 
@@ -122,7 +136,7 @@ public class OptionalBoundaryTests
     [Fact]
     public Task AnAbsentPackageLoadsNothing() => UiThread.RunAsync(() =>
     {
-        var include = NewInclude("No.Such.Package", null);
+        var include = NewInclude("No.Such.Package", null, null);
         Assert.Empty(include);
     });
 
@@ -134,7 +148,7 @@ public class OptionalBoundaryTests
         Logger.Sink = sink;
         try
         {
-            var include = NewInclude("Avalonia.Controls.DataGrid", new Version(99, 0));
+            var include = NewInclude("Avalonia.Controls.DataGrid", new Version(99, 0), null);
             Assert.Empty(include);
         }
         finally
@@ -145,6 +159,28 @@ public class OptionalBoundaryTests
         var warning = Assert.Single(sink.Warnings);
         Assert.Contains("Avalonia.Controls.DataGrid", warning);
         Assert.Contains("99.0", warning);
+    });
+
+    /// <summary>The package here, 12.1, set against a gate that stops at 12.1 as 13.0 will stop 13.</summary>
+    [Fact]
+    public Task ANewerMajorPackageLoadsNothingAndSaysWhy() => UiThread.RunAsync(() =>
+    {
+        var sink = new CapturingSink();
+        var previous = Logger.Sink;
+        Logger.Sink = sink;
+        try
+        {
+            var include = NewInclude("Avalonia.Controls.DataGrid", new Version(12, 0), new Version(12, 1));
+            Assert.Empty(include);
+        }
+        finally
+        {
+            Logger.Sink = previous;
+        }
+
+        var warning = Assert.Single(sink.Warnings);
+        Assert.Contains("Avalonia.Controls.DataGrid", warning);
+        Assert.Contains("12.1", warning);
     });
 
     [Fact]
@@ -177,12 +213,13 @@ public class OptionalBoundaryTests
     }
 
     /// <summary>The internal include, built and initialised as compiled XAML does.</summary>
-    private static Styles NewInclude(string requires, Version? minimum)
+    private static Styles NewInclude(string requires, Version? minimum, Version? below)
     {
         var type = typeof(FiliThemeVariants).Assembly.GetType("Fili.Theme.MudAvalonia.OptionalStyleInclude", throwOnError: true)!;
         var include = (Styles)Activator.CreateInstance(type, [null])!;
         type.GetProperty("Requires")!.SetValue(include, requires);
         type.GetProperty("MinimumVersion")!.SetValue(include, minimum);
+        type.GetProperty("BelowVersion")!.SetValue(include, below);
         type.GetProperty("Source")!.SetValue(
             include,
             new Uri("avares://Fili.Theme.MudAvalonia/Themes/Optional/DataGrid/DataGridStyles.axaml"));

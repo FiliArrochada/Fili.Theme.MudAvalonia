@@ -12,9 +12,9 @@ namespace Fili.Theme.MudAvalonia;
 /// <summary>
 /// A <c>StyleInclude</c> for a control package this theme builds against but does not depend on:
 /// the file loads only when the app has the package, at the version the theme was built against
-/// or later.
+/// or later, and below the next major version.
 /// <code>
-/// &lt;theme:OptionalStyleInclude Requires="Avalonia.Controls.DataGrid" MinimumVersion="12.1.0"
+/// &lt;theme:OptionalStyleInclude Requires="Avalonia.Controls.DataGrid" MinimumVersion="12.1.0" BelowVersion="13.0.0"
 ///                             Source="avares://Fili.Theme.MudAvalonia/Themes/Optional/DataGrid/DataGridStyles.axaml" /&gt;
 /// </code>
 /// </summary>
@@ -27,8 +27,9 @@ namespace Fili.Theme.MudAvalonia;
 /// </para>
 /// <para>
 /// An older package is skipped with a warning rather than half themed: the theme's templates
-/// name parts of the version it was built against. Its controls then have only whatever theme the
-/// app includes for them - Avalonia has no default, so none at all if the app includes none.
+/// name parts of the version it was built against. So is one of the next major version, whose
+/// parts this theme has never seen. Its controls then have only whatever theme the app includes
+/// for them - Avalonia has no default, so none at all if the app includes none.
 /// </para>
 /// <para>
 /// The constructor keeps the XAML service provider so the loaded file sees the theme above it,
@@ -49,6 +50,9 @@ internal sealed class OptionalStyleInclude : Styles, ISupportInitialize
 
     /// <summary>The oldest version of it the file works with: the one the theme is built against.</summary>
     public Version? MinimumVersion { get; set; }
+
+    /// <summary>The first version the file is not for: the next major version after the minimum.</summary>
+    public Version? BelowVersion { get; set; }
 
     /// <summary>The file, an <c>avares://</c> URI whose root is <c>Styles</c>.</summary>
     public Uri? Source { get; set; }
@@ -88,6 +92,19 @@ internal sealed class OptionalStyleInclude : Styles, ISupportInitialize
                 version,
                 MinimumVersion,
                 MinimumVersion);
+            return;
+        }
+
+        if (BelowVersion is not null && version >= BelowVersion)
+        {
+            Logger.TryGet(LogEventLevel.Warning, LogArea.Visual)?.Log(
+                this,
+                "Fili.Theme.MudAvalonia: {Assembly} {Version} is {Below} or later, a version this theme was not built for, so this theme leaves its controls alone. Use a version of this theme for it, or {Assembly} below {Below}.",
+                Requires,
+                version,
+                BelowVersion,
+                Requires,
+                BelowVersion);
             return;
         }
 

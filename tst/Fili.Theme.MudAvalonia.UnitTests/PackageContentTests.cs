@@ -27,6 +27,21 @@ public class PackageContentTests
         Assert.Contains("<license type=\"expression\">MIT AND Apache-2.0 AND MS-PL AND OFL-1.1</license>", nuspec);
     }
 
+    /// <summary>
+    /// Avalonia is the one dependency, from the version the base is forked from up to but not
+    /// including 13, which would be this package's next major version; the DataGrid is not passed on.
+    /// </summary>
+    [Fact]
+    public void ThePackageDependsOnAvalonia12Only()
+    {
+        var (_, nuspec) = Pack();
+        var dependencies = System.Text.RegularExpressions.Regex.Matches(nuspec, "<dependency id=\"([^\"]+)\" version=\"([^\"]+)\"")
+            .Select(match => match.Groups[1].Value + " " + match.Groups[2].Value)
+            .ToArray();
+
+        Assert.Equal(["Avalonia [12.1.3, 13.0.0)"], dependencies);
+    }
+
     [Fact]
     public void TheNoticesNameEveryMsPlTemplate()
     {
