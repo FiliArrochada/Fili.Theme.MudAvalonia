@@ -194,6 +194,33 @@ public class DocsSiteTests
         window.Close();
     });
 
+    /// <summary>
+    /// A page left stays in the window, hidden, and shows again without leaving it: taken out and
+    /// put back, the parity page was restyled and laid out again, as slow as building it.
+    /// </summary>
+    [Fact]
+    public Task APageLeftStaysInTheWindow() => UiThread.RunAsync(() =>
+    {
+        var view = new MainView();
+        var window = new Window { Content = view, Width = 1440, Height = 900 };
+        window.Show();
+        view.Navigate("parity");
+        Dispatcher.UIThread.RunJobs();
+        var parity = window.GetVisualDescendants().OfType<Gallery.Docs.Pages.ParityPage>().Single();
+        var detached = 0;
+        parity.DetachedFromVisualTree += (_, _) => detached++;
+
+        view.Navigate("overview");
+        Dispatcher.UIThread.RunJobs();
+        Assert.False(parity.IsEffectivelyVisible);
+        view.Navigate("parity");
+        Dispatcher.UIThread.RunJobs();
+
+        Assert.Equal(0, detached);
+        Assert.True(parity.IsEffectivelyVisible);
+        window.Close();
+    });
+
     /// <summary>The address names a page: the site opens on it rather than on the overview.</summary>
     [Fact]
     public Task TheSiteOpensOnThePageItsAddressNames() => WithAddress("tooltip", (address, view) =>

@@ -118,9 +118,9 @@
       </SplitView.Pane>
 
       <Panel>
-        <ContentControl x:Name="PageHost"
-                        HorizontalContentAlignment="Stretch"
-                        VerticalContentAlignment="Stretch" />
+        <!-- Every page opened stays here, the one on show visible: taken out and put back, a large
+             page was restyled and laid out again on every visit, as slow as building it. -->
+        <Panel x:Name="PageHost" />
         <!-- While a page opened for the first time builds: the theme's own loader, an overlay
              with a progress ring, over the page area only, shown and drawn before the build,
              which holds the UI thread, so the switch never looks frozen (MainView.NavigateSoon). -->

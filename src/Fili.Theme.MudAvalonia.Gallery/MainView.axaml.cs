@@ -31,7 +31,7 @@ public partial class MainView : UserControl
     private readonly Dictionary<string, TreeViewItem> _links = [];
     private readonly SplitView _drawer;
     private readonly TreeView _nav;
-    private readonly ContentControl _host;
+    private readonly Panel _host;
     private readonly Border _loading;
     private readonly TextBlock _readout;
     private readonly ToggleButton _performance;
@@ -46,13 +46,16 @@ public partial class MainView : UserControl
     /// <summary>Counts navigations, so a page still waiting to be built yields to a later one.</summary>
     private int _navigation;
 
+    /// <summary>The page on show; the others opened so far are in the host, hidden.</summary>
+    private Control? _shown;
+
     public MainView()
     {
         AvaloniaXamlLoader.Load(this);
         this.FindControl<TextBlock>("ThemeVersion")!.Text = ThemeVersionText();
         _drawer = this.FindControl<SplitView>("Drawer")!;
         _nav = this.FindControl<TreeView>("Nav")!;
-        _host = this.FindControl<ContentControl>("PageHost")!;
+        _host = this.FindControl<Panel>("PageHost")!;
         _loading = this.FindControl<Border>("PageLoading")!;
         _readout = this.FindControl<TextBlock>("PerformanceReadout")!;
         _performance = this.FindControl<ToggleButton>("Performance")!;
@@ -123,7 +126,8 @@ public partial class MainView : UserControl
     /// <summary>
     /// Shows the page with this slug as Navigate does, but a page not built yet waits with the
     /// loader on screen first: building a large page holds the UI thread for a moment, and
-    /// without it the site looked frozen. A page already built shows at once.
+    /// without it the site looked frozen. A page already built is still in the host, hidden, and
+    /// shows at once.
     /// </summary>
     public void NavigateSoon(string slug)
     {
@@ -169,7 +173,7 @@ public partial class MainView : UserControl
         }
 
         Current = slug;
-        _host.Content = view;
+        Show(view);
         HideLoadingOnceDrawn(view);
         DocAddress.Current?.Show(slug, page.Title);
         ShowReadout();
@@ -182,6 +186,32 @@ public partial class MainView : UserControl
         {
             _drawer.IsPaneOpen = false;
         }
+    }
+
+    /// <summary>
+    /// Shows one page and hides the one before. A page stays in the host once opened: taken out
+    /// and put back, a page was restyled and laid out again, and the parity page's 3,000 visuals
+    /// took as long to show again as to build; hidden and shown, it takes a millisecond or two.
+    /// </summary>
+    private void Show(Control view)
+    {
+        if (ReferenceEquals(_shown, view))
+        {
+            return;
+        }
+
+        if (_shown is not null)
+        {
+            _shown.IsVisible = false;
+        }
+
+        view.IsVisible = true;
+        if (!_host.Children.Contains(view))
+        {
+            _host.Children.Add(view);
+        }
+
+        _shown = view;
     }
 
     /// <summary>
@@ -201,7 +231,7 @@ public partial class MainView : UserControl
         var navigation = _navigation;
         top.RequestAnimationFrame(_ => top.RequestAnimationFrame(_ =>
         {
-            if (navigation == _navigation && ReferenceEquals(_host.Content, view))
+            if (navigation == _navigation && ReferenceEquals(_shown, view))
             {
                 _loading.IsVisible = false;
             }
