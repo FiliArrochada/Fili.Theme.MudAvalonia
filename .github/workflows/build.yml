@@ -140,7 +140,7 @@ jobs:
         if: matrix.publish
         run: |
           version="$(dotnet msbuild src/Fili.Theme.MudAvalonia/Fili.Theme.MudAvalonia.csproj -getProperty:Version)"
-          python3 tools/release-notes.py "$version" "v$version" artifacts/release-notes.md
+          dotnet run tools/release-notes.cs -- "$version" "v$version" artifacts/release-notes.md
 
       # Avalonia.Browser links Skia and HarfBuzz into dotnet.wasm, and that native link is what
       # this workload provides. Without it, even restoring the browser project fails.
@@ -162,7 +162,7 @@ jobs:
       # failed on the live site with "No precompiled XAML found" while all of them passed.
       - name: Check the published gallery
         if: matrix.publish
-        run: python3 tools/check-gallery-publish.py publish
+        run: dotnet run tools/check-gallery-publish.cs -- publish
 
       - name: Upload Pages artifact
         if: matrix.publish && github.event_name != 'pull_request' && github.ref == 'refs/heads/master'

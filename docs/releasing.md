@@ -20,7 +20,7 @@ with the packages attached and the page as its notes. A version with a suffix
 (`0.2.0-preview.1`) is marked as a prerelease.
 
 The notes are the page with its heading dropped, its wrapped lines joined and its relative links
-pointed at the tag (`tools/release-notes.py`); `build.yml` writes them on every change, so a
+pointed at the tag (`tools/release-notes.cs`); `build.yml` writes them on every change, so a
 missing page or a link that leads nowhere fails there first.
 
 The pack runs **package validation** against `PackageValidationBaselineVersion` in the theme's

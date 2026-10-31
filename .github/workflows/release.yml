@@ -111,7 +111,7 @@ jobs:
       - name: Write the release notes
         env:
           VERSION: ${{ steps.version.outputs.version }}
-        run: python3 tools/release-notes.py "$VERSION" "$GITHUB_REF_NAME" artifacts/release-notes.md
+        run: dotnet run tools/release-notes.cs -- "$VERSION" "$GITHUB_REF_NAME" artifacts/release-notes.md
 
       - name: Check trusted publishing is configured
         env:

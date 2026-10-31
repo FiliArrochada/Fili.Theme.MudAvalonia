@@ -203,16 +203,18 @@ Two workflows, in `.github/workflows/`.
   whatever they have, and to publish the browser gallery, which needs the `wasm-tools` workload.
   The publish is the gallery's only build, so Skia and HarfBuzz are linked into `dotnet.wasm`
   once a run. It does not run the pixel tests, for the rasterisation reason above.
-- **The published gallery is checked** by `tools/check-gallery-publish.py`: the browser build is
+- **The published gallery is checked** by `tools/check-gallery-publish.cs`: the browser build is
   trimmed, and XAML loaded by its path is found by reflection, so trimming can strip it while
   every test, run untrimmed, passes. The script fails the run unless the gallery's compiled XAML
   loader and every docs example's path, and the theme's DataGrid styles, survive. Run it locally
   after `dotnet publish src/Fili.Theme.MudAvalonia.Gallery.Browser --configuration Release
-  --output publish` with `python3 tools/check-gallery-publish.py publish`.
-- **The release notes are checked**: `tools/release-notes.py` writes the notes the tag would get
+  --output publish` with `dotnet run tools/check-gallery-publish.cs -- publish`.
+- **The release notes are checked**: `tools/release-notes.cs` writes the notes the tag would get
   from `docs/versions/<Version>.md`, and fails if the page is missing, does not open with its
   version, or links to a file that does not exist. Run it locally with
-  `python3 tools/release-notes.py 0.26.0 v0.26.0 release-notes.md`.
+  `dotnet run tools/release-notes.cs -- 0.26.0 v0.26.0 release-notes.md`.
+- **Both tools are C# file-based apps**, run by `dotnet run` with no project file, so the build
+  needs nothing but the .NET SDK. The first run compiles in a few seconds and later runs reuse it.
 - **Windows** runs the pixel tests because the baselines were rendered there.
 - Every run uploads the test results (`.trx`) as `test-results-{os}`. A failing pixel run also
   uploads **`pixel-diffs`**, the rendered frames and diff images, kept for 14 days - so a change
