@@ -21,7 +21,10 @@ with the packages attached and the page as its notes. A version with a suffix
 
 The notes are the page with its heading dropped, its wrapped lines joined and its relative links
 pointed at the tag (`tools/release-notes.cs`); `build.yml` writes them on every change, so a
-missing page or a link that leads nowhere fails there first.
+missing page or a link that leads nowhere fails there first. A page opens with two or three
+sentences of summary, then a `## What changed` list with one bold headline per change, grouped
+under `###` subheadings when a version covers several areas, then its Upgrading section; a page
+without the list fails, as paragraphs read as a wall of text on a release.
 
 The pack runs **package validation** against `PackageValidationBaselineVersion` in the theme's
 csproj, the last version on nuget.org, and fails on a public member that is gone or changed;

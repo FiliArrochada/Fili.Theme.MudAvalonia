@@ -1,6 +1,8 @@
 // Writes a version's release notes from its page in docs/versions/, for the GitHub release.
 //
-// The page is the notes: what changed and, where existing markup changes look, how to upgrade. A
+// The page is the notes: a short summary, a "What changed" list, one bold headline per change, and,
+// where existing markup changes look, how to upgrade. A page without the list fails, as a release
+// told in paragraphs reads as a wall of text. A
 // release body cannot follow a relative link, so each one is rewritten to the file at the tag; the
 // page's own heading is dropped, as the release carries the version in its title, and wrapped
 // lines are joined, as a release body breaks the line at every newline. A missing page, or a link
@@ -31,6 +33,11 @@ var lines = File.ReadAllLines(page);
 if (lines.Length == 0 || lines[0].Trim() != "# " + version)
 {
     return Fail($"docs/versions/{version}.md does not open with '# {version}'.");
+}
+
+if (!lines.Any(line => line.TrimEnd() == "## What changed"))
+{
+    return Fail($"docs/versions/{version}.md has no '## What changed' list: give it a short summary and the list, as the other pages have.");
 }
 
 var missing = new List<string>();

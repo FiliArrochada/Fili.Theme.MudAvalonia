@@ -312,10 +312,13 @@ and creates the GitHub release with that page as its notes (`tools/release-notes
 validates the package against `PackageValidationBaselineVersion`, the last published version;
 raise it once a release is on nuget.org. A nuget.org version
 can never be replaced: bump `<Version>` in a reviewed commit, with the version's page in
-`docs/versions/` (plus an "Upgrading" section when existing markup changes look) and its row in
+`docs/versions/` (a short summary, a `## What changed` list with one bold headline per change,
+which `tools/release-notes.cs` requires, plus an "Upgrading" section when existing markup changes
+look) and its row in
 `docs/versions/README.md`, and leave the tag to the human. Work since the last release is kept in
 `docs/versions/unreleased.md` and its Upgrading section as it lands; at the bump that page is
-renamed to `<version>.md` and its heading and Upgrading heading lose the marker, and the index's
+renamed to `<version>.md`, its "Work since" line goes, its heading and Upgrading heading lose the
+marker, and the index's
 bold moves from the previous release to the new one.
 
 **`docs/testing.md` describes every test class and workflow.** It carries the test totals, so a

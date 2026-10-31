@@ -211,7 +211,7 @@ Two workflows, in `.github/workflows/`.
   --output publish` with `dotnet run tools/check-gallery-publish.cs -- publish`.
 - **The release notes are checked**: `tools/release-notes.cs` writes the notes the tag would get
   from `docs/versions/<Version>.md`, and fails if the page is missing, does not open with its
-  version, or links to a file that does not exist. Run it locally with
+  version, has no `## What changed` list, or links to a file that does not exist. Run it locally with
   `dotnet run tools/release-notes.cs -- 0.26.0 v0.26.0 release-notes.md`.
 - **Both tools are C# file-based apps**, run by `dotnet run` with no project file, so the build
   needs nothing but the .NET SDK. The first run compiles in a few seconds and later runs reuse it.
