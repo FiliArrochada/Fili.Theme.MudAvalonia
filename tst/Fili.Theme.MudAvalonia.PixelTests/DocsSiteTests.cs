@@ -163,12 +163,15 @@ public class DocsSiteTests
         Dispatcher.UIThread.RunJobs();
         var loading = view.FindControl<ProgressBar>("PageLoading")!;
 
-        // The bar is on and the page not built yet; the build waits for the next frame, which the
-        // headless session's render timer gives once the jobs run.
+        // The bar is on and the page not built yet, while the bar moves for a moment.
         view.NavigateSoon("badge");
+        Dispatcher.UIThread.RunJobs();
         Assert.True(loading.IsVisible);
         Assert.Equal("overview", view.Current);
 
+        // A headless timer runs once it is due and the jobs run.
+        Thread.Sleep(300);
+        Dispatcher.UIThread.RunJobs();
         Avalonia.Headless.AvaloniaHeadlessPlatform.ForceRenderTimerTick();
         Dispatcher.UIThread.RunJobs();
         Assert.Equal("badge", view.Current);

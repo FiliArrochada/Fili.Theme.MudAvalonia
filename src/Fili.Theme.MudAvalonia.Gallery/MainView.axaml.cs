@@ -37,6 +37,9 @@ public partial class MainView : UserControl
     private readonly ToggleButton _performance;
     private readonly bool _ready;
 
+    /// <summary>How long the loading bar moves before a page not yet built is built.</summary>
+    private static readonly TimeSpan LoadingLead = TimeSpan.FromMilliseconds(150);
+
     /// <summary>Counts navigations, so a page still waiting to be built yields to a later one.</summary>
     private int _navigation;
 
@@ -121,7 +124,7 @@ public partial class MainView : UserControl
     /// </summary>
     public void NavigateSoon(string slug)
     {
-        if (_built.ContainsKey(slug) || DocCatalog.Find(slug) is null || TopLevel.GetTopLevel(this) is not { } top)
+        if (_built.ContainsKey(slug) || DocCatalog.Find(slug) is null || TopLevel.GetTopLevel(this) is null)
         {
             Navigate(slug);
             return;
@@ -129,14 +132,19 @@ public partial class MainView : UserControl
 
         var navigation = ++_navigation;
         _loading.IsVisible = true;
-        // The frame callback runs just before the bar is drawn; the build is posted after it.
-        top.RequestAnimationFrame(_ => Dispatcher.UIThread.Post(() =>
+        // A moment of the bar's own motion before the build holds the UI thread. Waiting one frame
+        // was not enough: an indeterminate bar starts with its moving part off the rail, so the
+        // build froze it with nothing but the faint rail drawn, and in the browser a build started
+        // from a frame callback kept even that from the screen. A timer hands back to the browser
+        // in between, and 150ms brings the moving part well onto the rail.
+        DispatcherTimer.RunOnce(() =>
         {
-            if (navigation == _navigation)
+            // Not if another page was chosen meanwhile, or the view has left its window.
+            if (navigation == _navigation && TopLevel.GetTopLevel(this) is not null)
             {
                 Navigate(slug);
             }
-        }, DispatcherPriority.Background));
+        }, LoadingLead);
     }
 
     /// <summary>Shows the page with this slug, building it the first time.</summary>
