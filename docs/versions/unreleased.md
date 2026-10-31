@@ -12,7 +12,7 @@ layer's tint alone did not, and a screen reader names each field by its label. L
 
 ## What changed
 
-### Keyboard focus
+### Accessibility
 
 - **A focus ring, `FiliFocusRing`**: a 2px text-primary ring 2px outside whichever control the
   keyboard focuses, in every window and popup; a click draws none. On in high contrast; `True` in
@@ -24,6 +24,14 @@ layer's tint alone did not, and a screen reader names each field by its label. L
   field, a select and a date picker take `AutomationProperties.Name` from `PlaceholderText`, and the
   text box inside that takes focus reads the same; an app's own name wins on both. Each was
   announced as an unnamed edit box.
+
+### Fixes
+
+- **A user control takes its host's text.** The theme set the body font, size and text-primary on
+  every `UserControl`, which beat what it inherited, so one inside a filled button, an app bar or a
+  filled alert drew its text in body grey on the colour. They are set on the roots alone now: a
+  window, a popup's window and the root a browser or mobile view sits in, which also gives a popup
+  `FiliBody2FontSize` where it had the base's fixed 14.
 
 ### Licences
 
@@ -91,9 +99,9 @@ layer's tint alone did not, and a screen reader names each field by its label. L
 ## Upgrading from 0.26.0 *(unreleased)*
 
 No class or key is renamed or removed. `FiliFocusRing` is a new key: grep your app for it before
-upgrading, as an app's own resource of that name now meets the theme's. Light and dark look as they
-did; high contrast looks different in five ways, each a correction the
-[compatibility rules](../compatibility.md) allow in a minor version:
+upgrading, as an app's own resource of that name now meets the theme's. A user control in a
+coloured host looks different in every variant, a fix, and high contrast in five more ways, each
+a correction the [compatibility rules](../compatibility.md) allow in a minor version:
 
 - **Keyboard focus draws a ring**, 2px white, 2px outside the control, over its tint. `False` for
   `FiliFocusRing` in the application's resources keeps the tint alone.
@@ -101,3 +109,6 @@ did; high contrast looks different in five ways, each a correction the
 - **A text or outlined alert's text** is its colour's lighten shade, where it was the darken one.
 - **A default chip hovered, focused or pressed** has an opaque grey ground, `FiliChipHoverColor`.
 - **A slider's rail** is its colour at half, where it was 30%.
+- **A user control inside a filled button, an app bar or a filled alert**, or any host that sets
+  its text, takes that host's text colour and size instead of body text in text-primary. One that
+  wants body text there sets `Foreground` on the user control.

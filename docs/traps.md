@@ -48,6 +48,10 @@ one.
     `ContentPresenter` makes for button content, repainting white-on-primary text body-grey.
     Fixed by putting inheritable defaults (`FontFamily`, `FontSize`, `Foreground`) on
     `Window, UserControl` and leaving only `LineHeight` and `LetterSpacing` on `TextBlock`.
+  - The same again one level up: `UserControl` took those defaults by a Style too, so a user
+    control inside a filled button, an app bar or a filled alert drew its text in body grey on
+    the colour. They are on the roots alone now, `:is(TopLevel)` and `OverlayPopupHost`
+    (`ColouredHostTests`).
   - A blanket input style setting `CornerRadius` flattened the filled field's top-only
     `4,4,0,0`. Fixed with `:not(.filled):not(.outlined)` on that selector.
   - `Border.appbar TextBlock` painted app-bar text white - and, because a descendant selector
@@ -263,8 +267,9 @@ one.
 - **A popup is the root of its own tree.** The theme set the font on `Window` and `UserControl`,
   and a popup's host is neither: it took the base's `ContentControlThemeFontFamily`, an alias
   `Accents.axaml` resolves once inside the theme, so always Roboto. An app that set its own
-  `FiliFontFamily` got it everywhere but its menus, drop-downs and calendars. The hosts
-  (`PopupRoot`, `OverlayPopupHost`, `EmbeddableControlRoot`) are styled beside the window.
+  `FiliFontFamily` got it everywhere but its menus, drop-downs and calendars. Every root,
+  `:is(TopLevel)` (a window, a `PopupRoot`, an `EmbeddableControlRoot`), and an
+  `OverlayPopupHost` take the font, size and text colour.
 - **A `MenuFlyout` binds its own `ItemContainerTheme` over its presenter's.** Its presenter's
   theme set the dropdown row as the container theme, and the flyout's binding, null unless the
   app sets one, beat it, so every flyout row was the base's: 24px, no state layer. A submenu's own

@@ -56,20 +56,27 @@
     button text silently rendered in the body-text grey. Ask how that bug is found: only by
     looking, which is what the gallery is for.
   -->
-  <Style Selector="Window, UserControl">
+  <!--
+    On the roots only: a window, a popup's window and the root a browser or mobile app's view sits
+    in. Not on UserControl, as it was: a style setter beats an inherited value, so a user control
+    inside a filled button, an app bar or a filled alert drew its text in the body grey on the
+    colour (ColouredHostTests).
+  -->
+  <Style Selector=":is(TopLevel)">
     <Setter Property="FontFamily" Value="{DynamicResource FiliFontFamily}" />
     <Setter Property="FontSize" Value="{DynamicResource FiliBody2FontSize}" />
     <Setter Property="Foreground" Value="{DynamicResource FiliTextPrimaryBrush}" />
   </Style>
 
   <!--
-    A popup's host is the root of its own tree, so it inherits nothing from the window. The base
-    gives it ContentControlThemeFontFamily, an alias Accents.axaml resolves once inside this theme,
-    so it is Roboto whatever the app's FiliFontFamily says. Only the font: the base's size and
-    foreground for these hosts are already the Fili ones.
+    An overlay popup's host is in its window's tree but is given the base's font, size and
+    foreground, ContentControlThemeFontFamily being an alias Accents.axaml resolves once inside
+    this theme, so it was Roboto whatever the app's FiliFontFamily said.
   -->
-  <Style Selector="PopupRoot, OverlayPopupHost, EmbeddableControlRoot">
+  <Style Selector="OverlayPopupHost">
     <Setter Property="FontFamily" Value="{DynamicResource FiliFontFamily}" />
+    <Setter Property="FontSize" Value="{DynamicResource FiliBody2FontSize}" />
+    <Setter Property="Foreground" Value="{DynamicResource FiliTextPrimaryBrush}" />
   </Style>
 
   <!--
