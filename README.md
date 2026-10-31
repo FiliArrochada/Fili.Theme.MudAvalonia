@@ -80,7 +80,9 @@ compiling its XAML, about 300 ms on a desktop, and under 100 with
 | know what is not there | [MudBlazor parity](https://filiarrochada.github.io/Fili.Theme.MudAvalonia/#parity), "What is not here", and each page's Missing rows |
 | theme it: colours, type, high contrast, right to left, reduced motion | the docs site's Customization pages, from [Theming](https://filiarrochada.github.io/Fili.Theme.MudAvalonia/#theming) |
 | upgrade | [Versions](docs/versions/README.md): what changed, and what to change; [Compatibility](docs/compatibility.md): what a version promises not to change |
-| work on the theme itself | [Traps](docs/traps.md), [The base](docs/the-base.md), [Testing](docs/testing.md), [Releasing](docs/releasing.md) |
+| find out why a control is not themed or a key does nothing | [Troubleshooting](https://filiarrochada.github.io/Fili.Theme.MudAvalonia/#troubleshooting) |
+| work on the theme itself | [Contributing](CONTRIBUTING.md), [Traps](docs/traps.md), [The base](docs/the-base.md), [Testing](docs/testing.md), [Releasing](docs/releasing.md) |
+| report a security problem | [the security policy](SECURITY.md): privately, never in an issue |
 
 ## Install
 

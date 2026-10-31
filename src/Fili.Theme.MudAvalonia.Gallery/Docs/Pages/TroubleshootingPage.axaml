@@ -1,0 +1,75 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:docs="using:Fili.Theme.MudAvalonia.Gallery.Docs"
+             x:Class="Fili.Theme.MudAvalonia.Gallery.Docs.Pages.TroubleshootingPage">
+  <StackPanel Classes="doc">
+    <docs:DocHeader Title="Troubleshooting"
+                    Summary="Most of what goes wrong with a theme goes wrong silently: nothing throws, and the app looks almost right. What to check when a control is not themed, a key does nothing or a class does more than you asked." />
+
+    <TextBlock Classes="h5 section" Text="A control is not themed" />
+    <TextBlock Classes="body1 p">
+      <Run FontWeight="Bold" Text="Check the two includes. " /><Run Classes="code" Text="FiliBaseTheme.axaml" /><Run Text=" and then " /><Run Classes="code" Text="FiliTheme.axaml" /><Run Text=", in that order, in the application's " /><Run Classes="code" Text="Styles" /><Run Text=", and no " /><Run Classes="code" Text="FluentTheme" /><Run Text=" or " /><Run Classes="code" Text="SimpleTheme" /><Run Text=" beside them: the base is this package's own." />
+    </TextBlock>
+    <TextBlock Classes="body1 p">
+      <Run FontWeight="Bold" Text="Your own subclass of a control is a type of its own." /><Run Text=" A theme is found by the control's style key, its exact type, so a " /><Run Classes="code" Text="MyButton : Button" /><Run Text=" misses the Button's and shows its bare content, with no shape, colour or states, until it says it is a Button:" />
+    </TextBlock>
+    <docs:CodeBlock Code="protected override Type StyleKeyOverride => typeof(Button);"
+                    Margin="0,0,0,16" />
+    <TextBlock Classes="body1 p">
+      <Run FontWeight="Bold" Text="A DataGrid keeps its own package's look" /><Run Text=" when that package is outside 12.1.0 up to but not including 13.0.0. The theme leaves it alone and writes a warning to Avalonia's log; " /><Run Classes="code" Text="LogToTrace()" /><Run Text=" on the app builder shows it." />
+    </TextBlock>
+    <TextBlock Classes="body1 p">
+      <Run FontWeight="Bold" Text="A control MudBlazor has no counterpart for" /><Run Text=" keeps the base's look, Avalonia's Simple theme in the Fili palette. The parity page lists what is drawn." />
+    </TextBlock>
+
+    <TextBlock Classes="h5 section" Text="A key does nothing" />
+    <TextBlock Classes="body1 p">
+      <Run FontWeight="Bold" Text="Check the spelling." /><Run Text=" A key nobody declares resolves to nothing and leaves the theme's value in place, with no error. The published keys are listed in the repository's docs/published-keys.md." />
+    </TextBlock>
+    <TextBlock Classes="body1 p">
+      <Run FontWeight="Bold" Text="A *Color key in a control's Resources does nothing." /><Run Text=" Each brush is one application-level object built from its colour, so a colour is set in the application's resources. To recolour one control, set the " /><Run Classes="code" Text="*Brush" /><Run Text=" key in its resources instead." />
+    </TextBlock>
+    <TextBlock Classes="body1 p">
+      <Run FontWeight="Bold" Text="High contrast shows your dark colours." /><Run Text=" It inherits from Dark, so a key overridden in Light and Dark only falls back to the dark override. Declare the high-contrast variant too." />
+    </TextBlock>
+    <TextBlock Classes="body1 p">
+      <Run FontWeight="Bold" Text="FiliReducedMotion and FiliFocusRing are read by each window." /><Run Text=" Set them in the application's resources or a window's; in a panel's resources inside a window they do nothing." />
+    </TextBlock>
+    <TextBlock Classes="body1 p">
+      <Run FontWeight="Bold" Text="A value that never changes with the variant" /><Run Text=" is a StaticResource where a DynamicResource belongs: it is looked up once, in the variant the app started in. Name a theme key with " /><Run Classes="code" Text="{}{DynamicResource}" /><Run Text="." />
+    </TextBlock>
+    <StackPanel Orientation="Horizontal" Spacing="8" Margin="0,0,0,16">
+      <TextBlock Classes="body1" Text="See also:" VerticalAlignment="Center" />
+      <docs:DocLink Slug="theming" Content="Theming" />
+      <docs:DocLink Slug="high-contrast" Content="High contrast" />
+      <docs:DocLink Slug="reduced-motion" Content="Reduced motion" />
+      <docs:DocLink Slug="keyboard-focus" Content="Keyboard focus" />
+    </StackPanel>
+
+    <TextBlock Classes="h5 section" Text="A class does more than you asked" />
+    <TextBlock Classes="body1 p">
+      <Run FontWeight="Bold" Text="The class names are MudBlazor's ordinary words" /><Run Text=", not namespaced: " /><Run Classes="code" Text="primary" /><Run Text=", " /><Run Classes="code" Text="small" /><Run Text=", " /><Run Classes="code" Text="outlined" /><Run Text=", " /><Run Classes="code" Text="error" /><Run Text=". A control that already carries one of them for your own styles picks up the theme's too, so its hover and press can be your fill and the theme's state layer at once. Grep your app for the class list in the README before adopting the theme, and let the theme own the shape and the states." />
+    </TextBlock>
+    <TextBlock Classes="body1 p">
+      <Run FontWeight="Bold" Text="Your style beats the theme's control theme." /><Run Text=" A style outranks a control theme's setter, so a Background you set in a style replaces the colour a class gives, in every state. To recolour a control, set its colour's key, and the states the theme draws from it follow." />
+    </TextBlock>
+    <TextBlock Classes="body1 p">
+      <Run FontWeight="Bold" Text="A class does something only on the controls its page names." /><Run Text=" Each component page says which Avalonia control a class goes on; on another it is just a word." />
+    </TextBlock>
+
+    <TextBlock Classes="h5 section" Text="Half the window changed variant" />
+    <TextBlock Classes="body1 p">
+      <Run Text="Set " /><Run Classes="code" Text="RequestedThemeVariant" /><Run Text=" on the Application. A window's or a ThemeVariantScope's own variant reaches what looks a key up inside it, but not the brushes, which are the application's: half of what is inside follows it." />
+    </TextBlock>
+
+    <TextBlock Classes="h5 section" Text="Still stuck" />
+    <TextBlock Classes="body1 p">
+      <Run Text="Open an issue on the repository with the Avalonia and package versions, the variant, and the smallest XAML that shows it. A security problem goes through the repository's security policy, not an issue." />
+    </TextBlock>
+    <StackPanel Orientation="Horizontal" Spacing="8" Margin="0,0,0,16">
+      <TextBlock Classes="body1" Text="See also:" VerticalAlignment="Center" />
+      <docs:DocLink Slug="installation" Content="Installation" />
+      <docs:DocLink Slug="parity" Content="MudBlazor parity" />
+    </StackPanel>
+  </StackPanel>
+</UserControl>

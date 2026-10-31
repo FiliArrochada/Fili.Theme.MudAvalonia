@@ -35,6 +35,7 @@ public static class DocCatalog
         new(GettingStarted, "Installation", "installation", () => new InstallationPage()),
         new(GettingStarted, "From MudBlazor", "from-mudblazor", () => new FromMudBlazorPage()),
         new(GettingStarted, "MudBlazor parity", "parity", () => new ParityPage()),
+        new(GettingStarted, "Troubleshooting", "troubleshooting", () => new TroubleshootingPage()),
 
         new(Customization, "Theming", "theming", () => new ThemingPage()),
         new(Customization, "Palette", "palette", () => new PaletteView(), Scrolls: true),

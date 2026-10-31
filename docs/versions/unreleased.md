@@ -61,6 +61,13 @@ layer's tint alone did not, and a screen reader names each field by its label. L
   `FiliSliderRailOpacity`, 0.30 in light and dark. An app that overrides a colour in high contrast
   sets its alert text too.
 
+### Docs
+
+- **A Troubleshooting page** on the docs site: a control that is not themed, a key that does
+  nothing, a class that does more than asked, and a window half in one variant.
+- **`CONTRIBUTING.md` and `SECURITY.md`**: how a change is checked, and how to report a security
+  problem privately rather than in an issue.
+
 ### Docs that promised more than the theme does
 
 - **`FiliThemeVariants.HighContrast`'s documentation** no longer says a variant can be set on any
