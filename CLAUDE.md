@@ -306,8 +306,11 @@ $env:FILI_REGENERATE = "1"; dotnet test tst/Fili.Theme.MudAvalonia.UnitTests --f
 ```
 
 **Releasing is a tag, and the tag is the human's to push.** `release.yml` runs on `v*` tags,
-reruns both suites, refuses a tag that differs from `<Version>` in `Directory.Build.props`, then
-publishes to nuget.org via trusted publishing and creates the GitHub release. A nuget.org version
+reruns both suites, refuses a tag that differs from `<Version>` in `Directory.Build.props` or
+whose `docs/versions/<Version>.md` is missing, then publishes to nuget.org via trusted publishing
+and creates the GitHub release with that page as its notes (`tools/release-notes.py`). The pack
+validates the package against `PackageValidationBaselineVersion`, the last published version;
+raise it once a release is on nuget.org. A nuget.org version
 can never be replaced: bump `<Version>` in a reviewed commit, with the version's page in
 `docs/versions/` (plus an "Upgrading" section when existing markup changes look) and its row in
 `docs/versions/README.md`, and leave the tag to the human. Work since the last release is kept in

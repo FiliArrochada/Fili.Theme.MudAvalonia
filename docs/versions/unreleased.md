@@ -59,3 +59,7 @@ Three new kinds of key carry these, each published and declared in every variant
 light and dark; `FiliChipHoverColor` (and its brush), action-disabled in light and dark; and
 `FiliSliderRailOpacity`, 0.30 in light and dark. An app that overrides a colour in high contrast
 sets its alert text too.
+
+The release notes on GitHub are this page from now on, not a list of commits: a tag whose version
+has no page here fails before anything is published. The pack validates the package against the
+last published one and fails on a public API dropped, which every build's tests exercise.

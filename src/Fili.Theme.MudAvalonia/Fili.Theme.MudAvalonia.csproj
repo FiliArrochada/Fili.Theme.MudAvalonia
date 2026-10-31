@@ -11,6 +11,11 @@
     <!-- A .snupkg beside the .nupkg; `dotnet nuget push` uploads both. -->
     <IncludeSymbols>true</IncludeSymbols>
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+    <!-- The pack compares the package with the last published one and fails on a public API it
+         drops or breaks: FiliThemeVariants today, and anything made public by mistake. Raised to
+         each version once nuget.org has it (docs/releasing.md). -->
+    <EnablePackageValidation>true</EnablePackageValidation>
+    <PackageValidationBaselineVersion>0.26.0</PackageValidationBaselineVersion>
   </PropertyGroup>
 
   <ItemGroup>

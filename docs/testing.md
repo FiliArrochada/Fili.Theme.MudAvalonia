@@ -55,7 +55,7 @@ needed a different platform.
 | `AccessKeyTests` | 14 | "_Save" is Save with an access key on every control the base recognises one on - buttons, toggles, checkboxes, radios, switches, split and drop-down buttons, links, tabs, expanders - and on a menu bar's items and rows. | The hand-written templates had dropped what the forked base does, so the underscore showed and Alt did nothing. It renders fine either way to anyone who never types an underscore. |
 | `TextTransformTests` | 36 | A button's string label is uppercase - text, outlined and filled buttons, an extended FAB, a toggle item, split and drop-down buttons, a tab and a tab strip's item - while a chip, a link, a checkbox, a radio, a switch and a panel header keep their case; a label beside a `start-icon` is uppercase with its `Text` untouched, stays so when its text changes and follows the switch, while a chip's keeps its case and a `TextBlock` with runs of its own is left as written; `TextBlock.button` is uppercase; `_Save` keeps its access key as `_SAVE`; and `FiliButtonTextTransform` turns it off in a region, live, and takes CSS's other values, while a tab stays uppercase whatever it says. | MudBlazor's buttons are uppercase by its typography, and a label in the wrong case is the first thing a MudBlazor user notices. The switch is what an app that wants sentence case has, as MudBlazor's has `TextTransform`. |
 | `PackageReadmeTests` | 1 | Every relative link in the README names a file that exists. | The README is the package's page on nuget.org too. The pack rewrites its links to the commit and fails on a broken one; this catches a renamed doc on every build rather than at release. |
-| `PackageContentTests` | 3 | Packing the theme as built for the run, without building it again, puts `THIRD-PARTY-NOTICES.md`, `OFL.txt`, the README and the icon at the package's root, under the licence expression `MIT AND Apache-2.0 AND MS-PL AND OFL-1.1`; its one dependency is `Avalonia [12.1.3, 13.0.0)`; and the notices name every forked template that carries an Ms-PL header. | The package carries Avalonia's templates, Material Icons' glyphs, MudBlazor's values and Roboto, whose licences require their notices to travel with it. A published version can never be replaced, so a notice dropped from the pack has to fail before the tag. |
+| `PackageContentTests` | 3 | Packing the theme as built for the run, without building it again (which runs package validation against the last published version, failing on a public member dropped or changed), puts `THIRD-PARTY-NOTICES.md`, `OFL.txt`, the README and the icon at the package's root, under the licence expression `MIT AND Apache-2.0 AND MS-PL AND OFL-1.1`; its one dependency is `Avalonia [12.1.3, 13.0.0)`; and the notices name every forked template that carries an Ms-PL header. | The package carries Avalonia's templates, Material Icons' glyphs, MudBlazor's values and Roboto, whose licences require their notices to travel with it. A published version can never be replaced, so a notice dropped from the pack has to fail before the tag. |
 | `MarkdownLinkTests` | 5 | Every link in the repository's Markdown to a heading, on its own page or another, names a heading that page has, by GitHub's anchor for it (fenced code skipped); and the anchors follow GitHub's slugs. | GitHub lands a link to a missing heading at the top of the page without a word, so a renamed heading breaks every link to it silently: the compatibility page, which is the 1.0 promise, pointed at two README sections a rewrite had renamed. |
 | `ClassVocabularyTests` | 3 | The classes the theme's selectors use are exactly the test's list, in both directions, and that list is exactly the 183 the README's class table publishes, its count included; and no class is one fixed value on its own control, which the property would say. | Class names are MudBlazor's ordinary words (`small`, `error`, `vertical`) and they collide with an app's own. An undeclared class is a collision nobody signed off on; a declared one nothing uses is a lie to adopters. |
 | `GeneratedThemeTests` | 1 | `Button.axaml` and the marked regions in nineteen other files are exactly what `ThemeColourGenerator` writes from the one list of eight colours. | Hundreds of colour styles are generated so that no colour can differ from the others. Editing one block by hand fails the build. `FILI_REGENERATE=1` rewrites the files. |
@@ -196,7 +196,7 @@ Two workflows, in `.github/workflows/`.
 
 | Runner | Builds | Runs |
 |---|---|---|
-| `ubuntu-latest` | every project but the browser gallery, then publishes that | the unit and no-DataGrid tests, and the check of the published gallery |
+| `ubuntu-latest` | every project but the browser gallery, then publishes that | the unit and no-DataGrid tests, the release notes check and the check of the published gallery |
 | `windows-latest` | the three test projects, which reference every other project | the unit and no-DataGrid tests **and** the pixel tests |
 
 - **Linux** is there to catch a Windows-only assumption in a library other people will build on
@@ -209,6 +209,10 @@ Two workflows, in `.github/workflows/`.
   loader and every docs example's path, and the theme's DataGrid styles, survive. Run it locally
   after `dotnet publish src/Fili.Theme.MudAvalonia.Gallery.Browser --configuration Release
   --output publish` with `python3 tools/check-gallery-publish.py publish`.
+- **The release notes are checked**: `tools/release-notes.py` writes the notes the tag would get
+  from `docs/versions/<Version>.md`, and fails if the page is missing, does not open with its
+  version, or links to a file that does not exist. Run it locally with
+  `python3 tools/release-notes.py 0.26.0 v0.26.0 release-notes.md`.
 - **Windows** runs the pixel tests because the baselines were rendered there.
 - Every run uploads the test results (`.trx`) as `test-results-{os}`. A failing pixel run also
   uploads **`pixel-diffs`**, the rendered frames and diff images, kept for 14 days - so a change
@@ -224,7 +228,8 @@ Two workflows, in `.github/workflows/`.
 Before anything is published, it **reruns both suites on Windows**. A tag on a commit that does
 not pass does not reach nuget.org - and a nuget.org version can never be replaced, only unlisted,
 so this is the last check that matters. It then refuses a tag that differs from `<Version>`,
-packs, pushes through trusted publishing and creates the GitHub release.
+writes the release notes from the version's page (and stops if it has none), packs, with package
+validation, pushes through trusted publishing and creates the GitHub release with those notes.
 
 ## Running them
 

@@ -134,6 +134,14 @@ jobs:
           --report-xunit-trx
           --results-directory ${{ github.workspace }}/artifacts/test-results
 
+      # The release notes the tag would get: the version's page, its links resolved. A bump that
+      # forgot to rename unreleased.md fails here rather than on the tag.
+      - name: Check the release notes
+        if: matrix.publish
+        run: |
+          version="$(dotnet msbuild src/Fili.Theme.MudAvalonia/Fili.Theme.MudAvalonia.csproj -getProperty:Version)"
+          python3 tools/release-notes.py "$version" "v$version" artifacts/release-notes.md
+
       # Avalonia.Browser links Skia and HarfBuzz into dotnet.wasm, and that native link is what
       # this workload provides. Without it, even restoring the browser project fails.
       - name: Install wasm-tools workload

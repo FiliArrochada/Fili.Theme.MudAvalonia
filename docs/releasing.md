@@ -5,7 +5,8 @@
 pushed:
 
 ```powershell
-# 1. bump <Version> in Directory.Build.props, commit, push
+# 1. bump <Version> in Directory.Build.props, rename docs/versions/unreleased.md to <Version>.md,
+#    commit, push
 # 2. tag that exact version and push the tag
 git tag v0.1.0
 git push origin v0.1.0
@@ -13,9 +14,20 @@ git push origin v0.1.0
 
 The workflow runs the unit and pixel suites on Windows first, because a tag can point at a commit
 `build.yml` never saw pass. It then checks that the tag matches `<Version>` exactly and fails if it
-does not, packs the `.nupkg` and its `.snupkg` symbols, pushes both, and creates a GitHub release
-with the packages attached and generated notes. A version with a suffix (`0.2.0-preview.1`) is
-marked as a prerelease.
+does not, writes the release notes from `docs/versions/<Version>.md` and stops if that page is
+missing, packs the `.nupkg` and its `.snupkg` symbols, pushes both, and creates a GitHub release
+with the packages attached and the page as its notes. A version with a suffix
+(`0.2.0-preview.1`) is marked as a prerelease.
+
+The notes are the page with its heading dropped, its wrapped lines joined and its relative links
+pointed at the tag (`tools/release-notes.py`); `build.yml` writes them on every change, so a
+missing page or a link that leads nowhere fails there first.
+
+The pack runs **package validation** against `PackageValidationBaselineVersion` in the theme's
+csproj, the last version on nuget.org, and fails on a public member that is gone or changed;
+`PackageContentTests` packs on every build, so a break shows there before any tag. Once
+a release is on nuget.org, raise the baseline to it in the next commit; until then it stays on the
+one before.
 
 Publishing uses **nuget.org trusted publishing**: the workflow swaps GitHub's OIDC token for an API
 key that expires within the hour, so no key is stored anywhere. Two one-time steps:

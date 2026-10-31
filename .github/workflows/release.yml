@@ -2,11 +2,13 @@ name: release
 
 # Publishes the Fili.MudAvalonia.Theme package to nuget.org when a version tag is pushed:
 #
-#   1. bump <Version> in Directory.Build.props and commit it
+#   1. bump <Version> in Directory.Build.props, rename docs/versions/unreleased.md to
+#      <that version>.md, and commit both
 #   2. git tag v<that version> && git push origin v<that version>
 #
-# The tag must match <Version> exactly; the publish job checks before packing, so a typo in
-# either fails the release instead of shipping a package whose version nobody chose.
+# The tag must match <Version> exactly, and the version must have its page, which becomes the
+# release notes; the publish job checks both before packing, so a typo or a missing page fails
+# the release instead of shipping a package whose version nobody chose or described.
 #
 # Authentication is nuget.org trusted publishing: GitHub's OIDC token is exchanged for an API key
 # that lives for one hour, so no long-lived key is stored anywhere. One-time setup:
@@ -103,6 +105,14 @@ jobs:
           fi
           echo "version=$version" >> "$GITHUB_OUTPUT"
 
+      # The release notes are the version's page in docs/versions/, its links pointed at the tag.
+      # Written before anything is pushed: a version without its page stops here, not after
+      # nuget.org has it.
+      - name: Write the release notes
+        env:
+          VERSION: ${{ steps.version.outputs.version }}
+        run: python3 tools/release-notes.py "$VERSION" "$GITHUB_REF_NAME" artifacts/release-notes.md
+
       - name: Check trusted publishing is configured
         env:
           NUGET_USER: ${{ vars.NUGET_USER }}
@@ -151,5 +161,5 @@ jobs:
           case "$VERSION" in *-*) prerelease="--prerelease" ;; esac
           gh release create "$GITHUB_REF_NAME" artifacts/package/* \
             --title "Fili.Theme.MudAvalonia $VERSION" \
-            --generate-notes \
+            --notes-file artifacts/release-notes.md \
             $prerelease
