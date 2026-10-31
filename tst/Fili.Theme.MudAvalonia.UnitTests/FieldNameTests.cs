@@ -59,6 +59,24 @@ public class FieldNameTests
         Assert.All(field.GetVisualDescendants().OfType<TextBox>(), inner => Assert.Equal("Work email", Name(inner)));
     });
 
+    /// <summary>
+    /// A field the app labels with another control keeps that control's text as its name: the
+    /// peer reads the name first, so one set from the label would hide it.
+    /// </summary>
+    [Theory]
+    [MemberData(nameof(Fields))]
+    public Task LabeledByWins(string type) => UiThread.RunAsync(() =>
+    {
+        var label = new TextBlock { Text = "Work email" };
+        var field = Field(type, "Email");
+        AutomationProperties.SetLabeledBy(field, label);
+        new Window { Content = new StackPanel { Children = { label, field } } }.Show();
+        Dispatcher.UIThread.RunJobs();
+
+        Assert.Equal("Work email", Name(field));
+        Assert.All(field.GetVisualDescendants().OfType<TextBox>(), inner => Assert.Equal("Work email", Name(inner)));
+    });
+
     /// <summary>The name follows the label when it changes.</summary>
     [Fact]
     public Task TheNameFollowsTheLabel() => UiThread.RunAsync(() =>

@@ -133,9 +133,15 @@
   </DataTemplate>
 
   <ControlTheme x:Key="FiliStandardTextBox" TargetType="TextBox">
-    <!-- The label is the field's name to a screen reader, as MudBlazor's <label for> makes it
-         (FieldNameTests). An app's own AutomationProperties.Name wins. -->
-    <Setter Property="AutomationProperties.Name" Value="{Binding $self.PlaceholderText}" />
+    <!-- The label is the field's name to a screen reader, as MudBlazor's <label for> makes it,
+         unless the app names it with AutomationProperties.LabeledBy (FieldNameConverter). An
+         app's own AutomationProperties.Name wins over both (FieldNameTests). -->
+    <Setter Property="AutomationProperties.Name">
+      <MultiBinding Converter="{x:Static fili:FieldNameConverter.Instance}">
+        <Binding Path="PlaceholderText" RelativeSource="{RelativeSource Self}" />
+        <Binding Path="(AutomationProperties.LabeledBy)" RelativeSource="{RelativeSource Self}" />
+      </MultiBinding>
+    </Setter>
     <!-- Avalonia clips a TextBox to its bounds by default, and the outlined label floats onto the
          stroke - MudBlazor's translate(14px, -6px) - so its top 6px, mask and all, sat outside and
          were cut off. The text itself still scrolls inside PART_ScrollViewer, which clips on its

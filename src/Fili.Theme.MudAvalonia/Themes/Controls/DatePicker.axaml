@@ -30,6 +30,7 @@
   Editable="true" allows.
 -->
 <ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:fili="using:Fili.Theme.MudAvalonia.Converters"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:theme="using:Fili.Theme.MudAvalonia">
 
@@ -317,9 +318,15 @@
   </ControlTheme>
 
   <ControlTheme x:Key="FiliCalendarDatePicker" TargetType="CalendarDatePicker">
-    <!-- The label is the field's name to a screen reader, as MudBlazor's <label for> makes it
-         (FieldNameTests). An app's own AutomationProperties.Name wins. -->
-    <Setter Property="AutomationProperties.Name" Value="{Binding $self.PlaceholderText}" />
+    <!-- The label is the field's name to a screen reader, as MudBlazor's <label for> makes it,
+         unless the app names it with AutomationProperties.LabeledBy (FieldNameConverter). An
+         app's own AutomationProperties.Name wins over both (FieldNameTests). -->
+    <Setter Property="AutomationProperties.Name">
+      <MultiBinding Converter="{x:Static fili:FieldNameConverter.Instance}">
+        <Binding Path="PlaceholderText" RelativeSource="{RelativeSource Self}" />
+        <Binding Path="(AutomationProperties.LabeledBy)" RelativeSource="{RelativeSource Self}" />
+      </MultiBinding>
+    </Setter>
     <!-- Avalonia clips this control to its bounds, and the text field inside it reaches past
          them: the outlined label floats onto the stroke, 6px above the field, as a TextBox's does,
          and the icon button's 48px circle reaches 12px past the field's end, as MudBlazor's
@@ -339,6 +346,7 @@
                    theme:CalendarView.ClearsDate="True"
                    DataValidationErrors.Errors="{TemplateBinding (DataValidationErrors.Errors)}"
                    AutomationProperties.Name="{TemplateBinding (AutomationProperties.Name)}"
+                   AutomationProperties.LabeledBy="{TemplateBinding (AutomationProperties.LabeledBy)}"
                    AutomationProperties.HelpText="{TemplateBinding (AutomationProperties.HelpText)}"
                    PlaceholderText="{TemplateBinding PlaceholderText}">
             <TextBox.InnerRightContent>

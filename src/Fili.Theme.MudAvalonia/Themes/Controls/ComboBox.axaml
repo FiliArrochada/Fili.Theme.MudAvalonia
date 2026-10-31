@@ -23,6 +23,7 @@
   needed for IsEditable, which this theme does not style differently.
 -->
 <ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:fili="using:Fili.Theme.MudAvalonia.Converters"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:theme="using:Fili.Theme.MudAvalonia">
 
@@ -149,9 +150,15 @@
   </DataTemplate>
 
   <ControlTheme x:Key="FiliComboBox" TargetType="ComboBox">
-    <!-- The label is the field's name to a screen reader, as MudBlazor's <label for> makes it
-         (FieldNameTests). An app's own AutomationProperties.Name wins. -->
-    <Setter Property="AutomationProperties.Name" Value="{Binding $self.PlaceholderText}" />
+    <!-- The label is the field's name to a screen reader, as MudBlazor's <label for> makes it,
+         unless the app names it with AutomationProperties.LabeledBy (FieldNameConverter). An
+         app's own AutomationProperties.Name wins over both (FieldNameTests). -->
+    <Setter Property="AutomationProperties.Name">
+      <MultiBinding Converter="{x:Static fili:FieldNameConverter.Instance}">
+        <Binding Path="PlaceholderText" RelativeSource="{RelativeSource Self}" />
+        <Binding Path="(AutomationProperties.LabeledBy)" RelativeSource="{RelativeSource Self}" />
+      </MultiBinding>
+    </Setter>
     <!-- Marks :helper-text, on which the helper line is built (Adornments). -->
     <Setter Property="theme:Adornments.TracksHelpText" Value="True" />
     <!-- Avalonia clips a ComboBox to its bounds by default, and the outlined label floats onto the

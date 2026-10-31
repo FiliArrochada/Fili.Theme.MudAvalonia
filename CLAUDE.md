@@ -41,7 +41,7 @@ rationale and the internal helpers in `docs/the-base.md`, the traps in `docs/tra
 - **`internal` helpers only where XAML genuinely cannot express something** (compiled XAML can
   construct them, so nothing leaks): `FactorConverter`, `ErrorMessageConverter`,
   `TickPositionsConverter`, `BadgeContentConverter`, `StripedRowConverter`, `TextLengthConverter`,
-  `NotBlankConverter` and `HighContrastOpacityConverter` in `Converters/`;
+  `NotBlankConverter`, `HighContrastOpacityConverter` and `FieldNameConverter` in `Converters/`;
   `OptionalStyleInclude`, a `StyleInclude` that loads only when the app has the package;
   `TextTransform`, a button label's case from `FiliButtonTextTransform`; `ExpansionPanels`, the
   neighbours, ends and single expansion of an `expansion-panels` group; `Ripple`, MudBlazor's
