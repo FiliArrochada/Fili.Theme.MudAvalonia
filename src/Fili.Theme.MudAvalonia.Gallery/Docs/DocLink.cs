@@ -28,7 +28,7 @@ public sealed class DocLink : HyperlinkButton
         base.OnClick();
         if (Slug is { } slug)
         {
-            this.FindAncestorOfType<MainView>()?.Navigate(slug);
+            this.FindAncestorOfType<MainView>()?.NavigateSoon(slug);
         }
     }
 }

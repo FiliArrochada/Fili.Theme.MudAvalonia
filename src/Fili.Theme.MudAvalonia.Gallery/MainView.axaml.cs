@@ -32,9 +32,13 @@ public partial class MainView : UserControl
     private readonly SplitView _drawer;
     private readonly TreeView _nav;
     private readonly ContentControl _host;
+    private readonly ProgressBar _loading;
     private readonly TextBlock _readout;
     private readonly ToggleButton _performance;
     private readonly bool _ready;
+
+    /// <summary>Counts navigations, so a page still waiting to be built yields to a later one.</summary>
+    private int _navigation;
 
     public MainView()
     {
@@ -43,6 +47,7 @@ public partial class MainView : UserControl
         _drawer = this.FindControl<SplitView>("Drawer")!;
         _nav = this.FindControl<TreeView>("Nav")!;
         _host = this.FindControl<ContentControl>("PageHost")!;
+        _loading = this.FindControl<ProgressBar>("PageLoading")!;
         _readout = this.FindControl<TextBlock>("PerformanceReadout")!;
         _performance = this.FindControl<ToggleButton>("Performance")!;
 
@@ -109,6 +114,31 @@ public partial class MainView : UserControl
         return $"v{informational[..plus]} · {commit[..System.Math.Min(7, commit.Length)]}";
     }
 
+    /// <summary>
+    /// Shows the page with this slug as Navigate does, but a page not built yet waits for a frame
+    /// with the loading bar on screen first: building a large page holds the UI thread for a
+    /// moment, and without the bar the site looked frozen. A page already built shows at once.
+    /// </summary>
+    public void NavigateSoon(string slug)
+    {
+        if (_built.ContainsKey(slug) || DocCatalog.Find(slug) is null || TopLevel.GetTopLevel(this) is not { } top)
+        {
+            Navigate(slug);
+            return;
+        }
+
+        var navigation = ++_navigation;
+        _loading.IsVisible = true;
+        // The frame callback runs just before the bar is drawn; the build is posted after it.
+        top.RequestAnimationFrame(_ => Dispatcher.UIThread.Post(() =>
+        {
+            if (navigation == _navigation)
+            {
+                Navigate(slug);
+            }
+        }, DispatcherPriority.Background));
+    }
+
     /// <summary>Shows the page with this slug, building it the first time.</summary>
     public void Navigate(string slug)
     {
@@ -116,6 +146,8 @@ public partial class MainView : UserControl
         {
             return;
         }
+
+        _navigation++;
 
         if (!_built.TryGetValue(slug, out var view))
         {
@@ -128,6 +160,7 @@ public partial class MainView : UserControl
 
         Current = slug;
         _host.Content = view;
+        HideLoadingOnceLoaded(view);
         DocAddress.Current?.Show(slug, page.Title);
         ShowReadout();
         if (_links.TryGetValue(slug, out var link) && !ReferenceEquals(_nav.SelectedItem, link))
@@ -138,6 +171,35 @@ public partial class MainView : UserControl
         if (_drawer.DisplayMode == SplitViewDisplayMode.Overlay)
         {
             _drawer.IsPaneOpen = false;
+        }
+    }
+
+    /// <summary>
+    /// Hides the loading bar once the page on show has loaded: its templates are applied in its
+    /// first layout, which is part of the wait.
+    /// </summary>
+    private void HideLoadingOnceLoaded(Control view)
+    {
+        if (!_loading.IsVisible)
+        {
+            return;
+        }
+
+        if (view.IsLoaded)
+        {
+            _loading.IsVisible = false;
+            return;
+        }
+
+        view.Loaded += OnLoaded;
+
+        void OnLoaded(object? sender, RoutedEventArgs e)
+        {
+            view.Loaded -= OnLoaded;
+            if (ReferenceEquals(_host.Content, view))
+            {
+                _loading.IsVisible = false;
+            }
         }
     }
 
@@ -181,7 +243,7 @@ public partial class MainView : UserControl
     {
         if (_nav.SelectedItem is TreeViewItem { Tag: string slug } && slug != Current)
         {
-            Navigate(slug);
+            NavigateSoon(slug);
         }
     }
 

@@ -150,6 +150,36 @@ public class DocsSiteTests
         Assert.True(keep.MemberTypes.HasFlag(DynamicallyAccessedMemberTypes.PublicMethods) && keep.MemberTypes.HasFlag(DynamicallyAccessedMemberTypes.NonPublicMethods));
     }
 
+    /// <summary>
+    /// A page opened for the first time shows the loading bar, and is built only after a frame
+    /// has drawn it; once the page has loaded the bar goes. A page already built shows at once.
+    /// </summary>
+    [Fact]
+    public Task APageNotYetBuiltShowsTheLoadingBarFirst() => UiThread.RunAsync(() =>
+    {
+        var view = new MainView();
+        var window = new Window { Content = view, Width = 1440, Height = 900 };
+        window.Show();
+        Dispatcher.UIThread.RunJobs();
+        var loading = view.FindControl<ProgressBar>("PageLoading")!;
+
+        // The bar is on and the page not built yet; the build waits for the next frame, which the
+        // headless session's render timer gives once the jobs run.
+        view.NavigateSoon("badge");
+        Assert.True(loading.IsVisible);
+        Assert.Equal("overview", view.Current);
+
+        Avalonia.Headless.AvaloniaHeadlessPlatform.ForceRenderTimerTick();
+        Dispatcher.UIThread.RunJobs();
+        Assert.Equal("badge", view.Current);
+        Assert.False(loading.IsVisible);
+
+        view.NavigateSoon("overview");
+        Assert.Equal("overview", view.Current);
+        Assert.False(loading.IsVisible);
+        window.Close();
+    });
+
     /// <summary>The address names a page: the site opens on it rather than on the overview.</summary>
     [Fact]
     public Task TheSiteOpensOnThePageItsAddressNames() => WithAddress("tooltip", (address, view) =>
