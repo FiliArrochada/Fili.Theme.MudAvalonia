@@ -6,8 +6,8 @@ line goes.
 [All versions](README.md)
 
 The package's notices and licence name everything it bundles, the docs stop promising more than the
-theme does, high contrast reads where it did not, and a focus ring meets WCAG AA where the state
-layer's tint alone did not. Light and dark are unchanged unless an app turns the ring on
+theme does, high contrast reads where it did not, a focus ring meets WCAG AA where the state
+layer's tint alone did not, and a screen reader names each field by its label. Light and dark are unchanged unless an app turns the ring on
 ([Upgrading](#upgrading-from-0260-unreleased)).
 
 ## What changed
@@ -20,6 +20,10 @@ layer's tint alone did not. Light and dark are unchanged unless an app turns the
   `False` turns it off in high contrast. MudBlazor has none: its state layer's 6% tint, still drawn
   under the ring, falls short of the 3:1 WCAG 2.2's 1.4.11 asks of a focus indicator, as the
   Keyboard focus page now says.
+- **A field's label is its name to a screen reader.** A text field, an autocomplete, a number
+  field, a select and a date picker take `AutomationProperties.Name` from `PlaceholderText`, and the
+  text box inside that takes focus reads the same; an app's own name wins on both. Each was
+  announced as an unnamed edit box.
 
 ### Licences
 

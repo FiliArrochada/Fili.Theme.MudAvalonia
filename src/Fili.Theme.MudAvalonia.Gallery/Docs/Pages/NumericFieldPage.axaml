@@ -59,7 +59,7 @@
       <docs:ParityRow MudBlazor="Underline, Required, ShrinkLabel" Here="no-underline, required, shrink-label" Status="Same" Note="As on a text field." />
       <docs:ParityRow MudBlazor="HideSpinButtons" Here="ShowButtonSpinner=&quot;False&quot;" Status="Close" />
       <docs:ParityRow MudBlazor="the spin arrows (MudInput's NumericUpIcon, NumericDownIcon)" Here="FiliKeyboardArrowUpGeometry, FiliKeyboardArrowDownGeometry in the field's Resources" Status="Same" Note="Fixed on a MudNumericField, which does not pass them on; here the keys change them. Drawn at their own size in the 24px box, scaled to 20px when dense." />
-      <docs:ParityRow MudBlazor="Label, Placeholder" Here="PlaceholderText, placeholder" Status="Close" Note="As on a text field: the placeholder is the floating label." />
+      <docs:ParityRow MudBlazor="Label, Placeholder" Here="PlaceholderText, placeholder" Status="Close" Note="As on a text field: the placeholder is the floating label, and the field's name to a screen reader." />
       <docs:ParityRow MudBlazor="Min, Max, Step" Here="Minimum, Maximum, Increment" Status="Same" Note="Avalonia's own properties." />
       <docs:ParityRow MudBlazor="Format, Culture" Here="FormatString, NumberFormat" Status="Close" Note="A .NET format string and a NumberFormatInfo rather than a culture." />
       <docs:ParityRow MudBlazor="T, and a nullable T" Here="Value, a decimal?" Status="Close" Note="One type: an empty field is null, as with a nullable T." />

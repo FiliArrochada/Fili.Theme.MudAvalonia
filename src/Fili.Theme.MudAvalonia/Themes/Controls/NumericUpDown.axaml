@@ -156,6 +156,9 @@
   </ControlTheme>
 
   <ControlTheme x:Key="FiliNumericUpDown" TargetType="NumericUpDown">
+    <!-- The label is the field's name to a screen reader, as MudBlazor's <label for> makes it
+         (FieldNameTests). An app's own AutomationProperties.Name wins. -->
+    <Setter Property="AutomationProperties.Name" Value="{Binding $self.PlaceholderText}" />
     <!-- Avalonia clips this control to its bounds, and the text field inside it reaches past
          them: the outlined label floats onto the stroke, 6px above the field, as a TextBox's does.
          Clipped, its top was cut off. -->
@@ -190,6 +193,7 @@
                    theme:FieldClasses.Mirrors="True"
                    theme:SpinColumn.Follows="True"
                    DataValidationErrors.Errors="{TemplateBinding (DataValidationErrors.Errors)}"
+                   AutomationProperties.Name="{TemplateBinding (AutomationProperties.Name)}"
                    AutomationProperties.HelpText="{TemplateBinding (AutomationProperties.HelpText)}"
                    MinWidth="20"
                    Margin="0"

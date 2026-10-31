@@ -80,7 +80,7 @@
     <docs:ParityTable>
       <docs:ParityRow MudBlazor="MudDatePicker" Here="CalendarDatePicker" Status="Same" Note="The standard field with the Event adornment, and MudPicker's popover." />
       <docs:ParityRow MudBlazor="Variant, Margin, Error, HelperText" Here="the field's classes on the picker" Status="Same" Note="Passed to the text field inside, as a number field's are." />
-      <docs:ParityRow MudBlazor="Label" Here="PlaceholderText" Status="Same" Note="The floating label." />
+      <docs:ParityRow MudBlazor="Label" Here="PlaceholderText" Status="Same" Note="The floating label, and the field's name to a screen reader." />
       <docs:ParityRow MudBlazor="TitleDateFormat (ddd, dd MMM)" Here="the default only" Status="Close" Note="The toolbar's date in the current culture; the format is fixed in the template." />
       <docs:ParityRow MudBlazor="Color (default Primary)" Here="the default only" Status="Close" Note="The toolbar and the selected day are always primary; the picker takes no colour class." />
       <docs:ParityRow MudBlazor="PickerVariant.Static" Here="a Calendar on its own" Status="Same" Note="The calendar without the toolbar or the paper." />

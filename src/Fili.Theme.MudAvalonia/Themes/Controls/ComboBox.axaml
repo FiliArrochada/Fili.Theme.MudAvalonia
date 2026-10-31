@@ -149,6 +149,9 @@
   </DataTemplate>
 
   <ControlTheme x:Key="FiliComboBox" TargetType="ComboBox">
+    <!-- The label is the field's name to a screen reader, as MudBlazor's <label for> makes it
+         (FieldNameTests). An app's own AutomationProperties.Name wins. -->
+    <Setter Property="AutomationProperties.Name" Value="{Binding $self.PlaceholderText}" />
     <!-- Marks :helper-text, on which the helper line is built (Adornments). -->
     <Setter Property="theme:Adornments.TracksHelpText" Value="True" />
     <!-- Avalonia clips a ComboBox to its bounds by default, and the outlined label floats onto the
