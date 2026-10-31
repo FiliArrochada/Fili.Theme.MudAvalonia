@@ -218,6 +218,8 @@ Two workflows, in `.github/workflows/`.
   `dotnet run tools/release-notes.cs -- 0.26.0 v0.26.0 release-notes.md`.
 - **Both tools are C# file-based apps**, run by `dotnet run` with no project file, so the build
   needs nothing but the .NET SDK. The first run compiles in a few seconds and later runs reuse it.
+- **Every action is pinned to a commit**, its release in a comment, in both workflows: a tag can
+  be moved to other code, a commit cannot ([Releasing](releasing.md) says how to raise one).
 - **Windows** runs the pixel tests because the baselines were rendered there.
 - Every run uploads the test results (`.trx`) as `test-results-{os}`. A failing pixel run also
   uploads **`pixel-diffs`**, the rendered frames and diff images, kept for 14 days - so a change

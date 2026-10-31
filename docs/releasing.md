@@ -33,13 +33,23 @@ a release is on nuget.org, raise the baseline to it in the next commit; until th
 one before.
 
 Publishing uses **nuget.org trusted publishing**: the workflow swaps GitHub's OIDC token for an API
-key that expires within the hour, so no key is stored anywhere. Two one-time steps:
+key that expires within the hour, so no key is stored anywhere. Three one-time steps:
 
 1. On nuget.org, under *Trusted Publishing*, add a policy for owner `FiliArrochada`, repository
    `Fili.Theme.MudAvalonia`, workflow `release.yml`.
 2. In this repository's *Settings → Secrets and variables → Actions → Variables*, set
    `NUGET_USER` to the nuget.org username that owns that policy. It is a name, not a secret; the
    workflow fails early with a clear message if it is missing.
+3. In *Settings → Environments*, create `nuget` with the maintainer as a required reviewer and a
+   deployment tag rule of `v*`. The publish job runs in that environment, so after the tests pass
+   it waits for an approval: a pushed tag alone never reaches nuget.org. Until the environment is
+   set up, GitHub creates it on the first run with no rules and the job runs unattended. The
+   nuget.org policy can then name the environment too, so no other job can publish.
+
+Every action in both workflows is **pinned to a commit**, with its release in a comment
+(`actions/checkout@3d3c42e… # v7.0.1`): a tag can be moved to other code, a commit cannot. To
+update one, take the commit of the release you want (`git ls-remote --tags` on the action's
+repository) and change the hash and the comment together.
 
 Packages built on a runner set `ContinuousIntegrationBuild`, so the PDBs carry `/_/` paths
 instead of the runner's directory layout, and Source Link points each file at the tagged commit.

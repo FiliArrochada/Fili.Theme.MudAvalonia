@@ -16,6 +16,13 @@ name: release
 #     FiliArrochada, repository Fili.Theme.MudAvalonia, workflow file release.yml
 #   - this repository -> Settings -> Secrets and variables -> Actions -> Variables:
 #     NUGET_USER = the nuget.org username that owns that policy (a name, not a secret)
+#   - this repository -> Settings -> Environments -> nuget: required reviewers (the maintainer),
+#     and deployment tags `v*`. The publish job waits there for a reviewer's approval, so a pushed
+#     tag alone never reaches nuget.org. Without the environment GitHub creates it on the first
+#     run with no rules, and the job runs unattended as before.
+#
+# Every action is pinned to a commit, its release in the comment: a tag can be moved to other code,
+# a commit cannot. Raise them together, to a release's commit.
 
 on:
   push:
@@ -42,15 +49,15 @@ jobs:
     env:
       FILI_PIXEL_DIFF_DIR: ${{ github.workspace }}/artifacts/pixel-diff
     steps:
-      - uses: actions/checkout@v7
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
 
       - name: Set up .NET
-        uses: actions/setup-dotnet@v6
+        uses: actions/setup-dotnet@a98b56852c35b8e3190ac28c8c2271da59106c68 # v6.0.0
         with:
           global-json-file: global.json
 
       - name: Cache NuGet packages
-        uses: actions/cache@v6
+        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
         with:
           path: ~/.nuget/packages
           key: nuget-${{ runner.os }}-${{ hashFiles('Directory.Packages.props', '**/*.csproj') }}
@@ -74,7 +81,7 @@ jobs:
 
       - name: Upload pixel diffs
         if: failure()
-        uses: actions/upload-artifact@v7
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: pixel-diffs
           path: artifacts/pixel-diff/
@@ -84,14 +91,18 @@ jobs:
   publish:
     needs: test
     runs-on: ubuntu-latest
+    # The approval gate: see the header.
+    environment:
+      name: nuget
+      url: https://www.nuget.org/packages/Fili.MudAvalonia.Theme
     permissions:
       contents: write   # create the GitHub release
       id-token: write   # trusted publishing to nuget.org
     steps:
-      - uses: actions/checkout@v7
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
 
       - name: Set up .NET
-        uses: actions/setup-dotnet@v6
+        uses: actions/setup-dotnet@a98b56852c35b8e3190ac28c8c2271da59106c68 # v6.0.0
         with:
           global-json-file: global.json
 
@@ -131,14 +142,14 @@ jobs:
           --output artifacts/package
 
       - name: Upload package
-        uses: actions/upload-artifact@v7
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: package
           path: artifacts/package/
 
       - name: Log in to nuget.org
         id: nuget
-        uses: NuGet/login@v1
+        uses: NuGet/login@8d196754b4036150537f80ac539e15c2f1028841 # v1.2.0
         with:
           user: ${{ vars.NUGET_USER }}
 

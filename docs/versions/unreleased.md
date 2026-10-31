@@ -95,6 +95,9 @@ layer's tint alone did not, and a screen reader names each field by its label. L
   published.
 - **The pack validates the package** against the last published one and fails on a public API
   dropped, which every build's tests exercise.
+- **A release waits for the maintainer's approval**: the publish job runs in a `nuget` environment
+  with a required reviewer, so a pushed tag alone never reaches nuget.org, and every action in the
+  workflows is pinned to a commit rather than a tag that can move.
 - **The package carries its XML documentation**, so `FiliThemeVariants.HighContrast`'s - where to
   set the variant, how to name it in XAML - shows in an app's editor.
 
