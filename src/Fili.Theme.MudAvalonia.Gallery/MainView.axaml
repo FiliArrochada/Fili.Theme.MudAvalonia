@@ -121,14 +121,16 @@
         <ContentControl x:Name="PageHost"
                         HorizontalContentAlignment="Stretch"
                         VerticalContentAlignment="Stretch" />
-        <!-- While a page opened for the first time builds: shown and drawn before the build,
+        <!-- While a page opened for the first time builds: the theme's own loader, an overlay
+             with a progress ring, over the page area only, shown and drawn before the build,
              which holds the UI thread, so the switch never looks frozen (MainView.NavigateSoon). -->
-        <ProgressBar x:Name="PageLoading"
-                     Classes="primary"
-                     IsIndeterminate="True"
-                     IsVisible="False"
-                     VerticalAlignment="Top"
-                     AutomationProperties.Name="Loading the page" />
+        <Border x:Name="PageLoading"
+                Classes="overlay dark-background"
+                IsVisible="False">
+          <ProgressBar Classes="circular large primary"
+                       IsIndeterminate="True"
+                       AutomationProperties.Name="Loading the page" />
+        </Border>
       </Panel>
     </SplitView>
 

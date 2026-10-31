@@ -151,30 +151,41 @@ public class DocsSiteTests
     }
 
     /// <summary>
-    /// A page opened for the first time shows the loading bar, and is built only after a frame
-    /// has drawn it; once the page has loaded the bar goes. A page already built shows at once.
+    /// A page opened for the first time shows the loader, an overlay over the page area, and is
+    /// built only after it has been on screen a moment; once frames have drawn the page the loader
+    /// goes. A page already built shows at once.
     /// </summary>
     [Fact]
-    public Task APageNotYetBuiltShowsTheLoadingBarFirst() => UiThread.RunAsync(() =>
+    public Task APageNotYetBuiltShowsTheLoaderFirst() => UiThread.RunAsync(() =>
     {
         var view = new MainView();
         var window = new Window { Content = view, Width = 1440, Height = 900 };
         window.Show();
         Dispatcher.UIThread.RunJobs();
-        var loading = view.FindControl<ProgressBar>("PageLoading")!;
+        var loading = view.FindControl<Border>("PageLoading")!;
+        Assert.Contains("overlay", loading.Classes);
 
-        // The bar is on and the page not built yet, while the bar moves for a moment.
-        view.NavigateSoon("badge");
+        // The loader is on and the page not built yet, for a moment.
+        view.NavigateSoon("parity");
         Dispatcher.UIThread.RunJobs();
         Assert.True(loading.IsVisible);
         Assert.Equal("overview", view.Current);
 
-        // A headless timer runs once it is due and the jobs run.
-        Thread.Sleep(300);
-        Dispatcher.UIThread.RunJobs();
-        Avalonia.Headless.AvaloniaHeadlessPlatform.ForceRenderTimerTick();
-        Dispatcher.UIThread.RunJobs();
-        Assert.Equal("badge", view.Current);
+        // A headless timer runs once it is due and a frame ticks; then two frames draw the page.
+        for (var wait = 0; wait < 40 && view.Current != "parity"; wait++)
+        {
+            Thread.Sleep(50);
+            Avalonia.Headless.AvaloniaHeadlessPlatform.ForceRenderTimerTick();
+            Dispatcher.UIThread.RunJobs();
+        }
+
+        Assert.Equal("parity", view.Current);
+        for (var frame = 0; frame < 2; frame++)
+        {
+            Avalonia.Headless.AvaloniaHeadlessPlatform.ForceRenderTimerTick();
+            Dispatcher.UIThread.RunJobs();
+        }
+
         Assert.False(loading.IsVisible);
 
         view.NavigateSoon("overview");

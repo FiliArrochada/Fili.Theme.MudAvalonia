@@ -32,13 +32,16 @@ public partial class MainView : UserControl
     private readonly SplitView _drawer;
     private readonly TreeView _nav;
     private readonly ContentControl _host;
-    private readonly ProgressBar _loading;
+    private readonly Border _loading;
     private readonly TextBlock _readout;
     private readonly ToggleButton _performance;
     private readonly bool _ready;
 
-    /// <summary>How long the loading bar moves before a page not yet built is built.</summary>
-    private static readonly TimeSpan LoadingLead = TimeSpan.FromMilliseconds(150);
+    /// <summary>
+    /// How long the loader shows before a page not yet built is built: past the overlay's 150ms
+    /// fade, so it is fully in, and long enough for the ring to have started turning.
+    /// </summary>
+    private static readonly TimeSpan LoadingLead = TimeSpan.FromMilliseconds(200);
 
     /// <summary>Counts navigations, so a page still waiting to be built yields to a later one.</summary>
     private int _navigation;
@@ -50,7 +53,7 @@ public partial class MainView : UserControl
         _drawer = this.FindControl<SplitView>("Drawer")!;
         _nav = this.FindControl<TreeView>("Nav")!;
         _host = this.FindControl<ContentControl>("PageHost")!;
-        _loading = this.FindControl<ProgressBar>("PageLoading")!;
+        _loading = this.FindControl<Border>("PageLoading")!;
         _readout = this.FindControl<TextBlock>("PerformanceReadout")!;
         _performance = this.FindControl<ToggleButton>("Performance")!;
 
@@ -118,9 +121,9 @@ public partial class MainView : UserControl
     }
 
     /// <summary>
-    /// Shows the page with this slug as Navigate does, but a page not built yet waits for a frame
-    /// with the loading bar on screen first: building a large page holds the UI thread for a
-    /// moment, and without the bar the site looked frozen. A page already built shows at once.
+    /// Shows the page with this slug as Navigate does, but a page not built yet waits with the
+    /// loader on screen first: building a large page holds the UI thread for a moment, and
+    /// without it the site looked frozen. A page already built shows at once.
     /// </summary>
     public void NavigateSoon(string slug)
     {
@@ -132,11 +135,10 @@ public partial class MainView : UserControl
 
         var navigation = ++_navigation;
         _loading.IsVisible = true;
-        // A moment of the bar's own motion before the build holds the UI thread. Waiting one frame
-        // was not enough: an indeterminate bar starts with its moving part off the rail, so the
-        // build froze it with nothing but the faint rail drawn, and in the browser a build started
-        // from a frame callback kept even that from the screen. A timer hands back to the browser
-        // in between, and 150ms brings the moving part well onto the rail.
+        // A moment of the loader on screen before the build holds the UI thread. A build started
+        // from the next frame's callback was not enough: in the browser it kept that frame from
+        // the screen, and the loader had not faded in. A timer hands back to the browser in
+        // between.
         DispatcherTimer.RunOnce(() =>
         {
             // Not if another page was chosen meanwhile, or the view has left its window.
@@ -168,7 +170,7 @@ public partial class MainView : UserControl
 
         Current = slug;
         _host.Content = view;
-        HideLoadingOnceLoaded(view);
+        HideLoadingOnceDrawn(view);
         DocAddress.Current?.Show(slug, page.Title);
         ShowReadout();
         if (_links.TryGetValue(slug, out var link) && !ReferenceEquals(_nav.SelectedItem, link))
@@ -183,32 +185,27 @@ public partial class MainView : UserControl
     }
 
     /// <summary>
-    /// Hides the loading bar once the page on show has loaded: its templates are applied in its
-    /// first layout, which is part of the wait.
+    /// Hides the loader once a frame has drawn the page on show. Not on the page's Loaded, which
+    /// comes before the first frame that draws the page: hidden there, the loader never showed
+    /// on the parity page, whose wait outlasted it. The first frame draws the page; the second
+    /// comes once that one is on screen. A later navigation keeps the loader.
     /// </summary>
-    private void HideLoadingOnceLoaded(Control view)
+    private void HideLoadingOnceDrawn(Control view)
     {
-        if (!_loading.IsVisible)
-        {
-            return;
-        }
-
-        if (view.IsLoaded)
+        if (!_loading.IsVisible || TopLevel.GetTopLevel(this) is not { } top)
         {
             _loading.IsVisible = false;
             return;
         }
 
-        view.Loaded += OnLoaded;
-
-        void OnLoaded(object? sender, RoutedEventArgs e)
+        var navigation = _navigation;
+        top.RequestAnimationFrame(_ => top.RequestAnimationFrame(_ =>
         {
-            view.Loaded -= OnLoaded;
-            if (ReferenceEquals(_host.Content, view))
+            if (navigation == _navigation && ReferenceEquals(_host.Content, view))
             {
                 _loading.IsVisible = false;
             }
-        }
+        }));
     }
 
     /// <summary>
