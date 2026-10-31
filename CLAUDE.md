@@ -46,7 +46,8 @@ rationale and the internal helpers in `docs/the-base.md`, the traps in `docs/tra
   `TextTransform`, a button label's case from `FiliButtonTextTransform`; `ExpansionPanels`, the
   neighbours, ends and single expansion of an `expansion-panels` group; `Ripple`, MudBlazor's
   ripple in a template's `PART_Ripple`; `HighContrastRings`, high contrast's elevation rings in
-  the application's line colour;
+  the application's line colour; `FocusRing`, the flag on which an `AdornerLayer` draws the focus
+  ring from `FiliFocusRing`;
   `SlidingIndicator`, the tabs' slide; `FieldClasses`, the text field's classes passed to the
   TextBox inside an AutoCompleteBox or NumericUpDown; `SpinColumn`, a number field's spin column
   inside its box; `CollapsePanel`, an expansion panel growing open; `ElevationOverlay`, the
@@ -215,7 +216,7 @@ One line each; [`docs/traps.md`](docs/traps.md) has the full account and the tes
   one stop at most (`TabStopTests`, and page-wide `GalleryAuditTests`). A part marked
   `TemplatedControl.IsTemplateFocusTarget` is where the control's own focus lands, not a second stop.
 - No focus rectangle: FiliTheme.axaml nulls the base's `DefaultFocusAdorner`; the state layer is
-  the affordance.
+  the affordance. The one default adorner is the ring `FiliFocusRing` turns on (high contrast).
 - A popup's host roots its own tree and inherits nothing from the window; a font set on the
   window is set on the popup hosts too.
 - A `MenuFlyout` binds its null `ItemContainerTheme` over its presenter's, so `MenuItem` is

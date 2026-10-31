@@ -239,6 +239,13 @@ a determinate circular progress's sweep. MudBlazor has no such switch.
 
 - `FiliReducedMotion`
 
+The focus ring, a `Boolean`: `False` in light and dark, where keyboard focus is MudBlazor's state
+layer tint alone, and `True` in high contrast. `True` in an app's resources draws a 2px ring in
+`FiliTextPrimaryColor`, 2px outside each control the keyboard focuses, in every variant; `False`
+turns it off in high contrast too. A control's own `FocusAdorner` still wins. MudBlazor has none.
+
+- `FiliFocusRing`
+
 ## Elevation
 
 MudBlazor's 26 shadow levels as `BoxShadows`, 0 to 25. In high contrast each is a 1px ring instead, in

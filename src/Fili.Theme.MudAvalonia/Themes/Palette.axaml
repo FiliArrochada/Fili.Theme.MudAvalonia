@@ -166,6 +166,10 @@
       <!-- The slider's rail: the colour at 30%, _slider.scss's `opacity: .3`. -->
       <sys:Double x:Key="FiliSliderRailOpacity">0.30</sys:Double>
 
+      <!-- The focus ring: off, as MudBlazor draws none; keyboard focus is the state layer's tint.
+           True in an app's resources draws it in every variant. Not MudBlazor's. -->
+      <sys:Boolean x:Key="FiliFocusRing">False</sys:Boolean>
+
       <!-- State-layer overlays. Material behaviour, not a MudBlazor palette token. -->
       <Color x:Key="FiliOverlayHoverColor">#0A000000</Color>
       <Color x:Key="FiliOverlayPressedColor">#1F000000</Color>
@@ -309,6 +313,7 @@
 
       <Color x:Key="FiliChipHoverColor">#42FFFFFF</Color>
       <sys:Double x:Key="FiliSliderRailOpacity">0.30</sys:Double>
+      <sys:Boolean x:Key="FiliFocusRing">False</sys:Boolean>
 
       <Color x:Key="FiliOverlayHoverColor">#14FFFFFF</Color>
       <Color x:Key="FiliOverlayPressedColor">#29FFFFFF</Color>
@@ -488,6 +493,10 @@
       <!-- Half, not 30%: at 30% a pastel rail is 1.9:1 on black. At 50% every colour's rail
            clears 3:1 on black and on the surface, and the track stays 3:1 off the rail. -->
       <sys:Double x:Key="FiliSliderRailOpacity">0.5</sys:Double>
+
+      <!-- On: the state layer's tint is no indicator a person who needs high contrast can find,
+           and WCAG's 1.4.11 asks 3:1 of one. The ring is text-primary, white, 21:1 on black. -->
+      <sys:Boolean x:Key="FiliFocusRing">True</sys:Boolean>
 
       <Color x:Key="FiliOverlayHoverColor">#33FFFFFF</Color>
       <Color x:Key="FiliOverlayPressedColor">#59FFFFFF</Color>

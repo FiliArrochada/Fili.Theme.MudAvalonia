@@ -6,9 +6,20 @@ line goes.
 [All versions](README.md)
 
 The package's notices and licence name everything it bundles, the docs stop promising more than the
-theme does, and high contrast reads where it did not. Light and dark are unchanged.
+theme does, high contrast reads where it did not, and a focus ring meets WCAG AA where the state
+layer's tint alone did not. Light and dark are unchanged unless an app turns the ring on
+([Upgrading](#upgrading-from-0260-unreleased)).
 
 ## What changed
+
+### Keyboard focus
+
+- **A focus ring, `FiliFocusRing`**: a 2px text-primary ring 2px outside whichever control the
+  keyboard focuses, in every window and popup; a click draws none. On in high contrast; `True` in
+  the application's resources turns it on in light and dark, 10:1 and 7:1 on the background, and
+  `False` turns it off in high contrast. MudBlazor has none: its state layer's 6% tint, still drawn
+  under the ring, falls short of the 3:1 WCAG 2.2's 1.4.11 asks of a focus indicator, as the
+  Keyboard focus page now says.
 
 ### Licences
 
@@ -72,3 +83,17 @@ theme does, and high contrast reads where it did not. Light and dark are unchang
   published.
 - **The pack validates the package** against the last published one and fails on a public API
   dropped, which every build's tests exercise.
+
+## Upgrading from 0.26.0 *(unreleased)*
+
+No class or key is renamed or removed. `FiliFocusRing` is a new key: grep your app for it before
+upgrading, as an app's own resource of that name now meets the theme's. Light and dark look as they
+did; high contrast looks different in five ways, each a correction the
+[compatibility rules](../compatibility.md) allow in a minor version:
+
+- **Keyboard focus draws a ring**, 2px white, 2px outside the control, over its tint. `False` for
+  `FiliFocusRing` in the application's resources keeps the tint alone.
+- **The `dark` colour is a grey**, `#BDBDBD` with black text on it, where it was black.
+- **A text or outlined alert's text** is its colour's lighten shade, where it was the darken one.
+- **A default chip hovered, focused or pressed** has an opaque grey ground, `FiliChipHoverColor`.
+- **A slider's rail** is its colour at half, where it was 30%.

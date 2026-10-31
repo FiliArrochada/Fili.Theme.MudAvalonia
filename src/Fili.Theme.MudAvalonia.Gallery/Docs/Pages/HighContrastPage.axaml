@@ -40,6 +40,11 @@
       <Run Text="The shadow ladder becomes a hard 1px ring, so every surface that asks for a " /><Run Classes="code" Text="FiliElevation*" /><Run Text=" gets its outline with no template of its own; " /><Run Classes="code" Text="FiliElevation0" /><Run Text=" has none. The ring is " /><Run Classes="code" Text="FiliLinesDefaultColor" /><Run Text=" as the application resolves it: repaint the line for high contrast in the application's resources and every ring follows, at run time too. A line colour set only in a window's or a control's resources does not reach the rings, which are one application-level value." />
     </TextBlock>
 
+    <TextBlock Classes="h5 section" Text="Focus is a ring" />
+    <TextBlock Classes="body1 p">
+      <Run Text="Keyboard focus draws a 2px white ring 2px outside the focused control, over the state layer's tint, which alone is no indicator to find. It is " /><Run Classes="code" Text="FiliFocusRing" /><Run Text=", True here and False in light and dark; False in the application's resources turns it off." />
+    </TextBlock>
+
     <TextBlock Classes="h5 section" Text="Your colours in high contrast" />
     <TextBlock Classes="body1 p">
       <Run Text="High contrast inherits from Dark, so any token it does not declare is the dark one. That is what lets the forked templates, which declare Light and Dark only, work here untouched. It is also the trap: an app that overrides its colours in Light and Dark and stops there gets its dark colours in high contrast, silently. Declare the variant too, with the same " /><Run Classes="code" Text="Fili*" /><Run Text=" keys." />
@@ -70,6 +75,7 @@
       <docs:ParityRow MudBlazor="IsDarkMode" Here="Application.RequestedThemeVariant" Status="Same" Note="Light and Dark are Avalonia's own variants." />
       <docs:ParityRow MudBlazor="(none: high contrast)" Here="FiliThemeVariants.HighContrast" Status="Extra" Note="This package's own third variant, inheriting from Dark; its colours are MudBlazor's hues raised until they clear about 10:1 on black." />
       <docs:ParityRow MudBlazor="Shadow.cs" Here="FiliElevation0 … FiliElevation25" Status="Close" Note="A 1px ring in the line colour in high contrast, where a shadow would not show." />
+      <docs:ParityRow MudBlazor="(none: a focus ring)" Here="FiliFocusRing" Status="Extra" Note="On in high contrast: a 2px white ring on keyboard focus." />
     </docs:ParityTable>
   </StackPanel>
 </UserControl>

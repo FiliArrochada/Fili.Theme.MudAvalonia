@@ -258,6 +258,8 @@ one.
   focused control Simple's dashed box, and nothing had turned it off, so the state layer - the
   only affordance MudBlazor has - had a dotted outline over it. A Style
   in FiliTheme.axaml sets `DefaultFocusAdorner` to null; an app's own `FocusAdorner` still draws.
+  The one default adorner left is the theme's own ring, set only where `FiliFocusRing` is True
+  (high contrast, or an app that asks): `FocusRingTests`.
 - **A popup is the root of its own tree.** The theme set the font on `Window` and `UserControl`,
   and a popup's host is neither: it took the base's `ContentControlThemeFontFamily`, an alias
   `Accents.axaml` resolves once inside the theme, so always Roboto. An app that set its own

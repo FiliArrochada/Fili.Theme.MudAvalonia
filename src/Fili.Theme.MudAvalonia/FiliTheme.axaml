@@ -109,9 +109,23 @@
     here marks keyboard focus with its state layer instead (docs/traps.md, the focus rectangle). The
     forked AdornerLayer still drew Simple's dashed box round every focused control, on top of the
     tint. A control's own FocusAdorner, set by an app, still draws.
+
+    The focus ring, with FiliFocusRing (FocusRing.cs): on in high contrast, opt-in elsewhere. A
+    2px text-primary ring 2px outside the control, so it stands on the ground round the control
+    whatever the control is filled with; outside, so not clipped to it.
   -->
   <Style Selector="AdornerLayer">
     <Setter Property="DefaultFocusAdorner" Value="{x:Null}" />
+    <Setter Property="theme:FocusRing.Shown" Value="{DynamicResource FiliFocusRing}" />
+  </Style>
+  <Style Selector="AdornerLayer[(theme|FocusRing.Shown)=True]">
+    <Setter Property="DefaultFocusAdorner">
+      <FocusAdornerTemplate>
+        <theme:PartBorder BorderBrush="{DynamicResource FiliTextPrimaryBrush}" BorderThickness="2"
+                CornerRadius="{DynamicResource FiliCornerRadius}" Margin="-4"
+                AdornerLayer.IsClipEnabled="False" />
+      </FocusAdornerTemplate>
+    </Setter>
   </Style>
 
   <!--

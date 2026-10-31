@@ -173,6 +173,10 @@ An app upgrading from a version before the theme keyed controls by type can dele
   popup. It does not yet reach a drawer's slide, a switch's thumb, a field's floating label, a
   chevron's turn, an expansion panel's margin or a circular progress's sweep
   ([Reduced motion](https://filiarrochada.github.io/Fili.Theme.MudAvalonia/#reduced-motion)).
+- **Keyboard focus is the state layer's tint**, as in MudBlazor, which does not meet WCAG AA's 3:1
+  for a focus indicator on its own. `FiliFocusRing` set to `True` in the application's resources
+  adds a 2px ring round the focused control; high contrast draws it by default
+  ([Keyboard focus](https://filiarrochada.github.io/Fili.Theme.MudAvalonia/#keyboard-focus)).
 - **A `DataGrid` is MudDataGrid with nothing to opt into.** The package does not depend on
   `Avalonia.Controls.DataGrid`; when the app references it, the theme finds it and themes its
   controls by type ([Data grid](https://filiarrochada.github.io/Fili.Theme.MudAvalonia/#data-grid)).

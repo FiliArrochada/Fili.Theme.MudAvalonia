@@ -1,6 +1,6 @@
 <UserControl xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-  <!-- The theme draws no focus ring; a FocusAdorner the app sets still draws, over the tint.
+  <!-- A FocusAdorner the app sets draws over the tint, in place of FiliFocusRing's ring.
        An adorner is clipped to its control unless it opts out, as this ring outside it must. -->
   <WrapPanel Orientation="Horizontal">
     <Button Classes="outlined primary" Content="Tint only" Margin="0,0,16,16" />
