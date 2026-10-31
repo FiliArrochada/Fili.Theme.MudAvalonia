@@ -62,6 +62,9 @@ public class HighContrastTests
         "FiliSuccessDarkenColor", "FiliWarningDarkenColor", "FiliErrorDarkenColor", "FiliDarkDarkenColor",
         "FiliPrimaryLightenColor", "FiliSecondaryLightenColor", "FiliTertiaryLightenColor", "FiliInfoLightenColor",
         "FiliSuccessLightenColor", "FiliWarningLightenColor", "FiliErrorLightenColor", "FiliDarkLightenColor",
+        "FiliPrimaryAlertTextColor", "FiliSecondaryAlertTextColor", "FiliTertiaryAlertTextColor", "FiliInfoAlertTextColor",
+        "FiliSuccessAlertTextColor", "FiliWarningAlertTextColor", "FiliErrorAlertTextColor", "FiliDarkAlertTextColor",
+        "FiliChipHoverColor",
     ];
 
     /// <summary>
@@ -79,11 +82,8 @@ public class HighContrastTests
         "HighlightForegroundColor",
     ];
 
-    /// <summary>
-    /// The only tokens whose high-contrast value is legitimately the dark one. White is white,
-    /// and white is also the text on Dark's fill in every variant.
-    /// </summary>
-    private static readonly string[] SharedWithDark = ["FiliWhiteColor", "FiliDarkContrastTextColor"];
+    /// <summary>The only token whose high-contrast value is legitimately the dark one: white is white.</summary>
+    private static readonly string[] SharedWithDark = ["FiliWhiteColor"];
 
     /// <summary>
     /// Tokens allowed to keep an alpha channel here. All of them are overlays laid OVER content

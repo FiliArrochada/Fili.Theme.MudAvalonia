@@ -155,12 +155,13 @@
     <Setter Property="Template">
       <ControlTemplate>
         <Grid x:Name="PART_Container" Margin="{TemplateBinding Padding}">
-          <!-- The rail: one piece, the colour at 30%, under everything - Variant.Text's whole look. -->
+          <!-- The rail: one piece, the colour at FiliSliderRailOpacity (30%, half in high contrast),
+               under everything - Variant.Text's whole look. -->
           <theme:PartBorder x:Name="PART_Rail"
                   Height="2"
                   VerticalAlignment="Center"
                   Background="{TemplateBinding Foreground}"
-                  Opacity="0.30"
+                  Opacity="{DynamicResource FiliSliderRailOpacity}"
                   CornerRadius="{DynamicResource FiliCornerRadius}" />
 
           <!-- TickMarks: a dot per tick, the rail's thickness, on top of it. -->
@@ -238,12 +239,13 @@
       <Setter Property="Template">
         <ControlTemplate>
           <Grid x:Name="PART_Container" Margin="{TemplateBinding Padding}">
-            <!-- The rail: one piece, the colour at 30%, under everything - Variant.Text's whole look. -->
+            <!-- The rail: one piece, the colour at FiliSliderRailOpacity (30%, half in high contrast),
+               under everything - Variant.Text's whole look. -->
             <theme:PartBorder x:Name="PART_Rail"
                     Width="2"
                     HorizontalAlignment="Center"
                     Background="{TemplateBinding Foreground}"
-                    Opacity="0.30"
+                    Opacity="{DynamicResource FiliSliderRailOpacity}"
                     CornerRadius="{DynamicResource FiliCornerRadius}" />
 
             <!-- TickMarks: a dot per tick, the rail's thickness, on top of it. -->

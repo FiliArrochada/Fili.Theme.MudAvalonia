@@ -8,7 +8,8 @@ namespace Fili.Theme.MudAvalonia.UnitTests.Generation;
 
 /// <summary>
 /// Every <c>Fili{Color}Darken</c> and <c>Fili{Color}Lighten</c> token is what MudBlazor's own
-/// algorithm makes of <c>Fili{Color}Color</c>, in every variant.
+/// algorithm makes of <c>Fili{Color}Color</c>, in every variant, and every
+/// <c>Fili{Color}AlertText</c> is one of the two: darken in light and dark, lighten in high contrast.
 ///
 /// <para>
 /// The darken and lighten shades are derived, not transcribed: MudBlazor computes them at runtime
@@ -49,13 +50,13 @@ public class PaletteDerivationTests
 
             Assert.Equal(MudColorPort.Darken(baseColour), Token($"Fili{colour}DarkenColor", variant));
             Assert.Equal(MudColorPort.Lighten(baseColour), Token($"Fili{colour}LightenColor", variant));
+            Assert.Equal(MudColorPort.Darken(baseColour), Token($"Fili{colour}AlertTextColor", variant));
         }
     });
 
     /// <summary>
-    /// High contrast derives its shades the same way, with one deliberate exception: its Dark is
-    /// black, darkening black is black, and a filled dark button would have no hover at all - so
-    /// Dark darkens UP to the variant's table-hover grey instead.
+    /// High contrast derives its shades the same way. Its alert text is the LIGHTEN shade: on the
+    /// 35% tint over black the darken one falls below 4.5:1 (<c>HighContrastLegibilityTests</c>).
     /// </summary>
     [Theory]
     [MemberData(nameof(Colours))]
@@ -64,10 +65,9 @@ public class PaletteDerivationTests
         var variant = FiliThemeVariants.HighContrast;
         var baseColour = Token($"Fili{colour}Color", variant);
 
-        var expectedDarken = colour == "Dark" ? Token("FiliTableHoverColor", variant) : MudColorPort.Darken(baseColour);
-
-        Assert.Equal(expectedDarken, Token($"Fili{colour}DarkenColor", variant));
+        Assert.Equal(MudColorPort.Darken(baseColour), Token($"Fili{colour}DarkenColor", variant));
         Assert.Equal(MudColorPort.Lighten(baseColour), Token($"Fili{colour}LightenColor", variant));
+        Assert.Equal(MudColorPort.Lighten(baseColour), Token($"Fili{colour}AlertTextColor", variant));
     });
 
     private static Color Token(string key, ThemeVariant variant)

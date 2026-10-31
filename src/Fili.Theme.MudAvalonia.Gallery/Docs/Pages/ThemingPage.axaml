@@ -74,6 +74,8 @@
       <docs:ParityRow MudBlazor="PrimaryContrastText … DarkContrastText" Here="Fili…ContrastTextColor" Status="Same" Note="White in light and dark; black on high contrast's pastels." />
       <docs:ParityRow MudBlazor="PrimaryDarken … DarkDarken" Here="Fili…DarkenColor" Status="Same" Note="MudBlazor's own algorithm, checked on every build." />
       <docs:ParityRow MudBlazor="PrimaryLighten … DarkLighten" Here="Fili…LightenColor" Status="Same" Note="The same algorithm; the 14 darken and lighten values of the default palette match mudblazor.com." />
+      <docs:ParityRow MudBlazor="(none: an alert's text, the darken shade)" Here="FiliPrimaryAlertTextColor … FiliDarkAlertTextColor" Status="Extra" Note="A text or outlined alert's text: the darken shade, as _alert.scss paints it, and the lighten shade in high contrast." />
+      <docs:ParityRow MudBlazor="(none: a chip's hover, action-disabled)" Here="FiliChipHoverColor" Status="Extra" Note="A default chip's ground on hover, focus and press: action-disabled, as _chip.scss paints it, and an opaque grey in high contrast." />
       <docs:ParityRow MudBlazor="the theme provider's {color}-hover" Here="Fili…HoverColor" Status="Same" Note="The colour at HoverOpacity, 6%." />
       <docs:ParityRow MudBlazor="Black, White" Here="FiliBlackColor, FiliWhiteColor" Status="Same" />
       <docs:ParityRow MudBlazor="TextPrimary / TextSecondary / TextDisabled" Here="FiliText…Color" Status="Same" />

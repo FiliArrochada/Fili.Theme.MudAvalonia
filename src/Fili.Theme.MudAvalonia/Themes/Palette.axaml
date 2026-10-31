@@ -145,6 +145,27 @@
       <Color x:Key="FiliErrorLightenColor">#F66055</Color>
       <Color x:Key="FiliDarkLightenColor">#575757</Color>
 
+      <!--
+        A text or outlined alert's text, on the colour's hover tint: the darken shade, as
+        _alert.scss paints `mud-alert-text-{severity}` with `mud-palette-{severity}-darken`.
+        A token of its own so that high contrast can lighten it instead.
+      -->
+      <Color x:Key="FiliPrimaryAlertTextColor">#3E2CDD</Color>
+      <Color x:Key="FiliSecondaryAlertTextColor">#FF1F69</Color>
+      <Color x:Key="FiliTertiaryAlertTextColor">#19A98C</Color>
+      <Color x:Key="FiliInfoAlertTextColor">#0C80DF</Color>
+      <Color x:Key="FiliSuccessAlertTextColor">#00A344</Color>
+      <Color x:Key="FiliWarningAlertTextColor">#D68100</Color>
+      <Color x:Key="FiliErrorAlertTextColor">#F21C0D</Color>
+      <Color x:Key="FiliDarkAlertTextColor">#2E2E2E</Color>
+
+      <!-- A default chip's ground on hover, focus and press: action-disabled, as _chip.scss
+           paints it. A token of its own so that high contrast can keep white text readable. -->
+      <Color x:Key="FiliChipHoverColor">#42000000</Color>
+
+      <!-- The slider's rail: the colour at 30%, _slider.scss's `opacity: .3`. -->
+      <sys:Double x:Key="FiliSliderRailOpacity">0.30</sys:Double>
+
       <!-- State-layer overlays. Material behaviour, not a MudBlazor palette token. -->
       <Color x:Key="FiliOverlayHoverColor">#0A000000</Color>
       <Color x:Key="FiliOverlayPressedColor">#1F000000</Color>
@@ -276,6 +297,19 @@
       <Color x:Key="FiliErrorLightenColor">#F87786</Color>
       <Color x:Key="FiliDarkLightenColor">#383843</Color>
 
+      <!-- The darken shade, as in light. -->
+      <Color x:Key="FiliPrimaryAlertTextColor">#5A4BE2</Color>
+      <Color x:Key="FiliSecondaryAlertTextColor">#FF1F69</Color>
+      <Color x:Key="FiliTertiaryAlertTextColor">#19A98C</Color>
+      <Color x:Key="FiliInfoAlertTextColor">#0A85FF</Color>
+      <Color x:Key="FiliSuccessAlertTextColor">#099A6C</Color>
+      <Color x:Key="FiliWarningAlertTextColor">#D68F00</Color>
+      <Color x:Key="FiliErrorAlertTextColor">#F42F46</Color>
+      <Color x:Key="FiliDarkAlertTextColor">#17171C</Color>
+
+      <Color x:Key="FiliChipHoverColor">#42FFFFFF</Color>
+      <sys:Double x:Key="FiliSliderRailOpacity">0.30</sys:Double>
+
       <Color x:Key="FiliOverlayHoverColor">#14FFFFFF</Color>
       <Color x:Key="FiliOverlayPressedColor">#29FFFFFF</Color>
 
@@ -340,8 +374,10 @@
       <Color x:Key="FiliWarningContrastTextColor">#000000</Color>
       <Color x:Key="FiliErrorColor">#FF9AA8</Color>
       <Color x:Key="FiliErrorContrastTextColor">#000000</Color>
-      <Color x:Key="FiliDarkColor">#000000</Color>
-      <Color x:Key="FiliDarkContrastTextColor">#FFFFFF</Color>
+      <!-- Not black: black on this black ground was the `dark` class drawn invisible. A grey
+           raised, like the hues above, to clear 10:1 on black (11.2:1), with black on it. -->
+      <Color x:Key="FiliDarkColor">#BDBDBD</Color>
+      <Color x:Key="FiliDarkContrastTextColor">#000000</Color>
       <Color x:Key="FiliBlackColor">#000000</Color>
       <Color x:Key="FiliWhiteColor">#FFFFFF</Color>
 
@@ -403,19 +439,17 @@
       -->
       <Color x:Key="FiliPrimaryHoverColor">#59D3C4FF</Color>
 
-      <!-- At 35% like the primary above, and white for Dark, whose colour here is black. -->
+      <!-- At 35% like the primary above. -->
       <Color x:Key="FiliSecondaryHoverColor">#59FF9DC4</Color>
       <Color x:Key="FiliTertiaryHoverColor">#597BF0D6</Color>
       <Color x:Key="FiliInfoHoverColor">#599CD4FF</Color>
       <Color x:Key="FiliSuccessHoverColor">#598CFFC0</Color>
       <Color x:Key="FiliWarningHoverColor">#59FFD166</Color>
       <Color x:Key="FiliErrorHoverColor">#59FF9AA8</Color>
-      <Color x:Key="FiliDarkHoverColor">#33FFFFFF</Color>
+      <Color x:Key="FiliDarkHoverColor">#59BDBDBD</Color>
       <Color x:Key="FiliActionDefaultHoverColor">#33FFFFFF</Color>
 
-      <!-- The same derivation. Dark is the exception: darkening black is black, which would
-           leave a filled dark button with no hover at all, so it lifts to the table-hover
-           grey instead. -->
+      <!-- The same derivation, Dark included. -->
       <Color x:Key="FiliPrimaryDarkenColor">#B399FF</Color>
       <Color x:Key="FiliSecondaryDarkenColor">#FF7AAF</Color>
       <Color x:Key="FiliTertiaryDarkenColor">#5AEDCD</Color>
@@ -423,7 +457,7 @@
       <Color x:Key="FiliSuccessDarkenColor">#66FFAB</Color>
       <Color x:Key="FiliWarningDarkenColor">#FFC53D</Color>
       <Color x:Key="FiliErrorDarkenColor">#FF7588</Color>
-      <Color x:Key="FiliDarkDarkenColor">#333333</Color>
+      <Color x:Key="FiliDarkDarkenColor">#A9A9A9</Color>
       <Color x:Key="FiliPrimaryLightenColor">#F0EBFF</Color>
       <Color x:Key="FiliSecondaryLightenColor">#FFC2DA</Color>
       <Color x:Key="FiliTertiaryLightenColor">#9AF4E0</Color>
@@ -431,7 +465,29 @@
       <Color x:Key="FiliSuccessLightenColor">#ADFFD2</Color>
       <Color x:Key="FiliWarningLightenColor">#FFDC8A</Color>
       <Color x:Key="FiliErrorLightenColor">#FFC2CA</Color>
-      <Color x:Key="FiliDarkLightenColor">#151515</Color>
+      <Color x:Key="FiliDarkLightenColor">#D2D2D2</Color>
+
+      <!--
+        The LIGHTEN shade here, not the darken: on a 35% tint over black the darken shades fall
+        to 3.4:1, and lighten keeps every severity above 5.6:1 on black and on the surface.
+      -->
+      <Color x:Key="FiliPrimaryAlertTextColor">#F0EBFF</Color>
+      <Color x:Key="FiliSecondaryAlertTextColor">#FFC2DA</Color>
+      <Color x:Key="FiliTertiaryAlertTextColor">#9AF4E0</Color>
+      <Color x:Key="FiliInfoAlertTextColor">#C2E4FF</Color>
+      <Color x:Key="FiliSuccessAlertTextColor">#ADFFD2</Color>
+      <Color x:Key="FiliWarningAlertTextColor">#FFDC8A</Color>
+      <Color x:Key="FiliErrorAlertTextColor">#FFC2CA</Color>
+      <Color x:Key="FiliDarkAlertTextColor">#D2D2D2</Color>
+
+      <!-- Opaque, where light and dark tint with action-disabled: that is #CFCFDA here, the
+           legible disabled grey, and white chip text on it fell to 1.5:1. White on this is 6.8:1,
+           and it stands 2:1 off the chip's resting #2B2B33. -->
+      <Color x:Key="FiliChipHoverColor">#5A5A66</Color>
+
+      <!-- Half, not 30%: at 30% a pastel rail is 1.9:1 on black. At 50% every colour's rail
+           clears 3:1 on black and on the surface, and the track stays 3:1 off the rail. -->
+      <sys:Double x:Key="FiliSliderRailOpacity">0.5</sys:Double>
 
       <Color x:Key="FiliOverlayHoverColor">#33FFFFFF</Color>
       <Color x:Key="FiliOverlayPressedColor">#59FFFFFF</Color>
@@ -507,6 +563,15 @@
   <SolidColorBrush x:Key="FiliWarningLightenBrush" Color="{DynamicResource FiliWarningLightenColor}" />
   <SolidColorBrush x:Key="FiliErrorLightenBrush" Color="{DynamicResource FiliErrorLightenColor}" />
   <SolidColorBrush x:Key="FiliDarkLightenBrush" Color="{DynamicResource FiliDarkLightenColor}" />
+  <SolidColorBrush x:Key="FiliPrimaryAlertTextBrush" Color="{DynamicResource FiliPrimaryAlertTextColor}" />
+  <SolidColorBrush x:Key="FiliSecondaryAlertTextBrush" Color="{DynamicResource FiliSecondaryAlertTextColor}" />
+  <SolidColorBrush x:Key="FiliTertiaryAlertTextBrush" Color="{DynamicResource FiliTertiaryAlertTextColor}" />
+  <SolidColorBrush x:Key="FiliInfoAlertTextBrush" Color="{DynamicResource FiliInfoAlertTextColor}" />
+  <SolidColorBrush x:Key="FiliSuccessAlertTextBrush" Color="{DynamicResource FiliSuccessAlertTextColor}" />
+  <SolidColorBrush x:Key="FiliWarningAlertTextBrush" Color="{DynamicResource FiliWarningAlertTextColor}" />
+  <SolidColorBrush x:Key="FiliErrorAlertTextBrush" Color="{DynamicResource FiliErrorAlertTextColor}" />
+  <SolidColorBrush x:Key="FiliDarkAlertTextBrush" Color="{DynamicResource FiliDarkAlertTextColor}" />
+  <SolidColorBrush x:Key="FiliChipHoverBrush" Color="{DynamicResource FiliChipHoverColor}" />
   <SolidColorBrush x:Key="FiliBlackBrush"   Color="{DynamicResource FiliBlackColor}" />
   <SolidColorBrush x:Key="FiliWhiteBrush"   Color="{DynamicResource FiliWhiteColor}" />
 

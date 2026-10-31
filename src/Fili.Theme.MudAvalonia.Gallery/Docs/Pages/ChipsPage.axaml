@@ -75,7 +75,7 @@
       <Run Text="Every MudChip and MudChipSet parameter and what it is here. " /><Run Classes="code" Text="Same" /><Run Text=" is transcribed from MudBlazor's source; " /><Run Classes="code" Text="Close" /><Run Text=" gets the same result another way." />
     </TextBlock>
     <docs:ParityTable>
-      <docs:ParityRow MudBlazor="Variant.Filled (default)" Here="chip" Status="Same" Note="A 32px pill in action-disabled-background grey, action-disabled on hover." />
+      <docs:ParityRow MudBlazor="Variant.Filled (default)" Here="chip" Status="Same" Note="A 32px pill in action-disabled-background grey, action-disabled on hover (FiliChipHoverColor, an opaque grey in high contrast)." />
       <docs:ParityRow MudBlazor="neither OnClick nor Href" Here="chip on a ContentControl" Status="Same" Note="Each variant's look at rest, with no hover, ripple, hand cursor or focus." />
       <docs:ParityRow MudBlazor="Color.Default (default)" Here="no colour class" Status="Same" Note="Text-primary on that grey." />
       <docs:ParityRow MudBlazor="Variant.Outlined / Text" Here="chip outlined / chip text" Status="Same" />

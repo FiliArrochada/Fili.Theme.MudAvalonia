@@ -62,7 +62,7 @@
     <docs:ParityTable>
       <docs:ParityRow MudBlazor="Severity.Normal (default)" Here="alert" Status="Same" Note="Text-primary on dark-hover." />
       <docs:ParityRow MudBlazor="Severity.Info / Success / Warning / Error" Here="info / success / warning / error" Status="Same" Note="Any of the eight colour classes works." />
-      <docs:ParityRow MudBlazor="Variant.Text (default)" Here="no class" Status="Same" Note="The colour's hover ground, its darken text, and the colour on the icon." />
+      <docs:ParityRow MudBlazor="Variant.Text (default)" Here="no class" Status="Same" Note="The colour's hover ground, its darken text (Fili…AlertTextColor, lighten in high contrast), and the colour on the icon." />
       <docs:ParityRow MudBlazor="Variant.Outlined" Here="outlined" Status="Same" Note="A 1px line in the colour." />
       <docs:ParityRow MudBlazor="Variant.Filled" Here="filled" Status="Same" Note="The colour as ground, its contrast text at Medium weight." />
       <docs:ParityRow MudBlazor="Dense" Here="dense" Status="Same" />

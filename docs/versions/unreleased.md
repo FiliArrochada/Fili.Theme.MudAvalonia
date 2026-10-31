@@ -42,3 +42,20 @@ The Toggle group page no longer suggests styling the check mark through its temp
 The Avalonia dependency is now `[12.1.3, 13.0.0)`: an app moving to Avalonia 13 needs the
 theme's next major version. The DataGrid is themed from 12.1.0 up to but not including 13.0.0, and
 a 13 grid is left alone with a warning in Avalonia's log, as an older one already was.
+
+High contrast reads where it did not. Light and dark are unchanged.
+
+- The `dark` colour is a grey, `#BDBDBD`, 11:1 on black, with black text on it. It was black, so
+  `dark` text, links, outlines and avatars were invisible on the black ground. Its hover tint,
+  darken and lighten shades follow it.
+- A text or outlined alert's text is its colour's lighten shade, 5.6:1 or more on its tint; the
+  darken shade was 3.4 to 4.4:1.
+- A default chip hovered, focused or pressed has an opaque grey ground under its white text, 6.8:1;
+  it was the light disabled grey, 1.5:1.
+- A slider's rail is its colour at half, 3:1 or more on black; at 30% it was 1.9:1.
+
+Three new kinds of key carry these, each published and declared in every variant:
+`FiliPrimaryAlertTextColor` to `FiliDarkAlertTextColor` (and their brushes), the darken shade in
+light and dark; `FiliChipHoverColor` (and its brush), action-disabled in light and dark; and
+`FiliSliderRailOpacity`, 0.30 in light and dark. An app that overrides a colour in high contrast
+sets its alert text too.

@@ -56,6 +56,9 @@ public class ResourceResolutionTests
         "FiliSuccessDarkenColor", "FiliWarningDarkenColor", "FiliErrorDarkenColor", "FiliDarkDarkenColor",
         "FiliPrimaryLightenColor", "FiliSecondaryLightenColor", "FiliTertiaryLightenColor", "FiliInfoLightenColor",
         "FiliSuccessLightenColor", "FiliWarningLightenColor", "FiliErrorLightenColor", "FiliDarkLightenColor",
+        "FiliPrimaryAlertTextColor", "FiliSecondaryAlertTextColor", "FiliTertiaryAlertTextColor", "FiliInfoAlertTextColor",
+        "FiliSuccessAlertTextColor", "FiliWarningAlertTextColor", "FiliErrorAlertTextColor", "FiliDarkAlertTextColor",
+        "FiliChipHoverColor",
     ];
 
     private static readonly string[] BrushTokens =
@@ -95,6 +98,9 @@ public class ResourceResolutionTests
         "FiliSuccessDarkenBrush", "FiliWarningDarkenBrush", "FiliErrorDarkenBrush", "FiliDarkDarkenBrush",
         "FiliPrimaryLightenBrush", "FiliSecondaryLightenBrush", "FiliTertiaryLightenBrush", "FiliInfoLightenBrush",
         "FiliSuccessLightenBrush", "FiliWarningLightenBrush", "FiliErrorLightenBrush", "FiliDarkLightenBrush",
+        "FiliPrimaryAlertTextBrush", "FiliSecondaryAlertTextBrush", "FiliTertiaryAlertTextBrush", "FiliInfoAlertTextBrush",
+        "FiliSuccessAlertTextBrush", "FiliWarningAlertTextBrush", "FiliErrorAlertTextBrush", "FiliDarkAlertTextBrush",
+        "FiliChipHoverBrush",
     ];
 
     [Fact]

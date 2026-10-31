@@ -61,7 +61,7 @@
     <docs:ParityTable>
       <docs:ParityRow MudBlazor="Size.Small (default)" Here="no class" Status="Same" Note="A 2px rail and a 12px thumb." />
       <docs:ParityRow MudBlazor="Size.Medium / Large" Here="medium / large" Status="Same" Note="4px / 20px and 6px / 24px." />
-      <docs:ParityRow MudBlazor="Variant.Text (default)" Here="no class" Status="Same" Note="The whole rail the colour at 30%, no solid part." />
+      <docs:ParityRow MudBlazor="Variant.Text (default)" Here="no class" Status="Same" Note="The whole rail the colour at 30% (FiliSliderRailOpacity, half in high contrast), no solid part." />
       <docs:ParityRow MudBlazor="Variant.Filled" Here="filled" Status="Same" Note="The colour, solid, from the start to the thumb." />
       <docs:ParityRow MudBlazor="Color.Primary (default) … Color.Dark" Here="no class, or secondary … dark" Status="Same" Note="Thumb, rail, filled part, ticks and value label." />
       <docs:ParityRow MudBlazor="hover, focus and press" Here="the same" Status="Same" Note="A 1px / 2px ring of the colour at 24%; no growth." />

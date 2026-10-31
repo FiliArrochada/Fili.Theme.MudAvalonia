@@ -922,7 +922,7 @@ public static class ThemeColourGenerator
         if (colour is null)
         {
             o.Append(Style($"^{prefix}", ("Background", Res("FiliActionDisabledBackgroundBrush")), ("Foreground", Res("FiliTextPrimaryBrush"))));
-            o.Append(ChipStates(prefix, "PART_Root", ("Background", Res("FiliActionDisabledBrush"))));
+            o.Append(ChipStates(prefix, "PART_Root", ("Background", Res("FiliChipHoverBrush"))));
         }
         else
         {
@@ -1072,8 +1072,8 @@ public static class ThemeColourGenerator
     private static string ChipRegion()
     {
         var o = new StringBuilder();
-        o.Append("    <!-- Filled, the default: action-disabled-background, action-disabled on hover. -->\n");
-        o.Append(ChipStates("", "PART_Root", ("Background", Res("FiliActionDisabledBrush"))));
+        o.Append("    <!-- Filled, the default: action-disabled-background, chip-hover (action-disabled) on hover. -->\n");
+        o.Append(ChipStates("", "PART_Root", ("Background", Res("FiliChipHoverBrush"))));
         foreach (var c in Colours)
         {
             o.Append(ChipFilledLook($".{c.ToLowerInvariant()}", c));
@@ -1467,8 +1467,8 @@ public static class ThemeColourGenerator
 
     // ---------------------------------------------------------------------------------------
     // FiliTheme.axaml region: MudAlert's Severity, from _alert.scss. Text and outlined alerts draw
-    // their text in the colour's darken shade and the icon in the colour; filled ones the colour
-    // with its contrast text.
+    // their text in the colour's alert-text token (its darken shade, lighten in high contrast) and
+    // the icon in the colour; filled ones the colour with its contrast text.
     // ---------------------------------------------------------------------------------------
 
     private static string TopStyle(string selector, params (string Property, string Value)[] setters) =>
@@ -1488,7 +1488,7 @@ public static class ThemeColourGenerator
         foreach (var c in Colours)
         {
             var cls = c.ToLowerInvariant();
-            o.Append(TopStyle($"Border.alert.{cls}", ("Background", Res($"Fili{c}HoverBrush")), ("TextElement.Foreground", Res($"Fili{c}DarkenBrush"))));
+            o.Append(TopStyle($"Border.alert.{cls}", ("Background", Res($"Fili{c}HoverBrush")), ("TextElement.Foreground", Res($"Fili{c}AlertTextBrush"))));
             o.Append(TopStyle(AlertIcon($"Border.alert.{cls}"), ("Foreground", Res($"Fili{c}Brush"))));
         }
 

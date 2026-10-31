@@ -56,7 +56,7 @@
                       Description="Each colour has its own contrast-text token, FiliInfoContrastTextBrush and the rest: MudBlazor's white in light and dark, black in high contrast, where the colours are pastels raised to clear 10:1 on black and white on them would be about 1.6:1."
                       Source="HighContrast/ContrastText" />
     <TextBlock Classes="body1 p">
-      <Run Text="The " /><Run Classes="code" Text="dark" /><Run Text=" colour is black here, so it does not show as text or a line; its contrast text stays white. A tooltip's chip is black rather than gray-darker, on which its text would be the weakest in the variant." />
+      <Run Text="The " /><Run Classes="code" Text="dark" /><Run Text=" colour is a grey here, #BDBDBD, 11:1 on black, with black text on it. A text or outlined alert's text is its colour's lighten shade rather than darken, 5.6:1 or more on its tint; a default chip's hover is an opaque grey under its white text; a slider's rail is its colour at half rather than 30%. A tooltip's chip is black rather than gray-darker, on which its text would be the weakest in the variant." />
     </TextBlock>
     <StackPanel Orientation="Horizontal" Spacing="8" Margin="0,0,0,16">
       <TextBlock Classes="body1" Text="See also:" VerticalAlignment="Center" />

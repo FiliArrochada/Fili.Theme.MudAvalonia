@@ -20,6 +20,12 @@ resolves every key in each variant: a new key is listed here in the change that 
 
 Every colour as a `*Color` and its `*Brush`, in light, dark and high contrast. Values and provenance: [Tokens](../README.md#tokens).
 
+Two kinds are roles rather than colours. `Fili{Colour}AlertTextColor` is a text or outlined
+alert's text on its tint: the colour's darken shade in light and dark, as MudBlazor's, and its
+lighten shade in high contrast, where darken on the tint fell below 4.5:1. `FiliChipHoverColor` is
+a default chip's ground on hover, focus and press: action-disabled in light and dark, and an
+opaque grey under white text in high contrast.
+
 One exception: `FiliSkeletonWaveColor` is the middle stop of the wave's two gradients,
 `FiliSkeletonWaveStartBrush` and `FiliSkeletonWaveEndBrush`, and has no solid brush, as the theme
 paints nothing in it alone.
@@ -48,6 +54,10 @@ paints nothing in it alone.
 - `FiliBadgeTextColor`
 - `FiliBlackBrush`
 - `FiliBlackColor`
+- `FiliChipHoverBrush`
+- `FiliChipHoverColor`
+- `FiliDarkAlertTextBrush`
+- `FiliDarkAlertTextColor`
 - `FiliDarkBrush`
 - `FiliDarkColor`
 - `FiliDarkContrastTextBrush`
@@ -70,6 +80,8 @@ paints nothing in it alone.
 - `FiliDrawerIconColor`
 - `FiliDrawerTextBrush`
 - `FiliDrawerTextColor`
+- `FiliErrorAlertTextBrush`
+- `FiliErrorAlertTextColor`
 - `FiliErrorBrush`
 - `FiliErrorColor`
 - `FiliErrorContrastTextBrush`
@@ -90,6 +102,8 @@ paints nothing in it alone.
 - `FiliGrayLightColor`
 - `FiliGrayLighterBrush`
 - `FiliGrayLighterColor`
+- `FiliInfoAlertTextBrush`
+- `FiliInfoAlertTextColor`
 - `FiliInfoBrush`
 - `FiliInfoColor`
 - `FiliInfoContrastTextBrush`
@@ -114,6 +128,8 @@ paints nothing in it alone.
 - `FiliOverlayLightColor`
 - `FiliOverlayPressedBrush`
 - `FiliOverlayPressedColor`
+- `FiliPrimaryAlertTextBrush`
+- `FiliPrimaryAlertTextColor`
 - `FiliPrimaryBrush`
 - `FiliPrimaryColor`
 - `FiliPrimaryContrastTextBrush`
@@ -128,6 +144,8 @@ paints nothing in it alone.
 - `FiliScrollbarThumbColor`
 - `FiliScrollbarThumbHoverBrush`
 - `FiliScrollbarThumbHoverColor`
+- `FiliSecondaryAlertTextBrush`
+- `FiliSecondaryAlertTextColor`
 - `FiliSecondaryBrush`
 - `FiliSecondaryColor`
 - `FiliSecondaryContrastTextBrush`
@@ -143,6 +161,8 @@ paints nothing in it alone.
 - `FiliSkeletonWaveColor`
 - `FiliSkeletonWaveEndBrush`
 - `FiliSkeletonWaveStartBrush`
+- `FiliSuccessAlertTextBrush`
+- `FiliSuccessAlertTextColor`
 - `FiliSuccessBrush`
 - `FiliSuccessColor`
 - `FiliSuccessContrastTextBrush`
@@ -163,6 +183,8 @@ paints nothing in it alone.
 - `FiliTableLinesColor`
 - `FiliTableStripedBrush`
 - `FiliTableStripedColor`
+- `FiliTertiaryAlertTextBrush`
+- `FiliTertiaryAlertTextColor`
 - `FiliTertiaryBrush`
 - `FiliTertiaryColor`
 - `FiliTertiaryContrastTextBrush`
@@ -181,6 +203,8 @@ paints nothing in it alone.
 - `FiliTextSecondaryColor`
 - `FiliTooltipBackgroundBrush`
 - `FiliTooltipBackgroundColor`
+- `FiliWarningAlertTextBrush`
+- `FiliWarningAlertTextColor`
 - `FiliWarningBrush`
 - `FiliWarningColor`
 - `FiliWarningContrastTextBrush`
@@ -200,6 +224,11 @@ Its colour is the control's text. Set both to `0` to turn the ripple off.
 
 - `FiliRippleOpacity`
 - `FiliRippleOpacitySecondary`
+
+The slider's rail opacity, a `Double`: the colour at `0.30` in light and dark, MudBlazor's, and
+`0.5` in high contrast, where a 30% rail fell below 3:1 on black.
+
+- `FiliSliderRailOpacity`
 
 Reduced motion, a `Boolean` the same in every variant, `False` by default. `True` in an app's
 resources stops the ripple, the popup fade, the skeleton's pulse and wave, the snackbar's slide, an
