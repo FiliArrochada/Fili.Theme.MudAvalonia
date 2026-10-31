@@ -42,6 +42,19 @@ public class PackageContentTests
         Assert.Equal(["Avalonia [12.1.3, 13.0.0)"], dependencies);
     }
 
+    /// <summary>
+    /// The assembly's XML documentation is packed beside it, so the public type's documentation -
+    /// where to set the variant, how to name it in XAML - shows in an app's editor.
+    /// </summary>
+    [Fact]
+    public void ThePackageCarriesTheApiDocumentation()
+    {
+        var (entries, _) = Pack();
+
+        var documentation = Assert.Single(entries, entry => entry.StartsWith("lib/") && entry.EndsWith("/Fili.Theme.MudAvalonia.xml"));
+        Assert.Contains(entries, entry => entry == documentation.Replace(".xml", ".dll"));
+    }
+
     [Fact]
     public void TheNoticesNameEveryMsPlTemplate()
     {

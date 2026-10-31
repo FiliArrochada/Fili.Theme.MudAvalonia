@@ -95,6 +95,8 @@ layer's tint alone did not, and a screen reader names each field by its label. L
   published.
 - **The pack validates the package** against the last published one and fails on a public API
   dropped, which every build's tests exercise.
+- **The package carries its XML documentation**, so `FiliThemeVariants.HighContrast`'s - where to
+  set the variant, how to name it in XAML - shows in an app's editor.
 
 ## Upgrading from 0.26.0 *(unreleased)*
 
