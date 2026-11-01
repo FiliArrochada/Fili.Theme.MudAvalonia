@@ -108,6 +108,15 @@
       <Setter Property="Opacity" Value="0" />
       <Setter Property="IsHitTestVisible" Value="False" />
     </Style>
+    <!-- The keyboard's position, :dayfocused: the day the arrow keys are on while the calendar has
+         focus. A day never takes focus itself, so the theme's focus ring (FiliTheme.axaml) never
+         reaches it; this is that ring - 2px of text-primary - drawn on the day instead. After
+         :today and :selected, so it shows on either. Without it, in the year and decade views and
+         in a range or multiple selection, nothing showed where the arrow keys were. -->
+    <Style Selector="^:dayfocused">
+      <Setter Property="BorderBrush" Value="{DynamicResource FiliTextPrimaryBrush}" />
+      <Setter Property="BorderThickness" Value="2" />
+    </Style>
     <Style Selector="^:blackout">
       <Setter Property="Foreground" Value="{DynamicResource FiliTextDisabledBrush}" />
       <Setter Property="IsHitTestVisible" Value="False" />
@@ -164,6 +173,13 @@
       <Setter Property="Foreground" Value="{DynamicResource FiliPrimaryBrush}" />
       <Setter Property="FontSize" Value="{DynamicResource FiliH5FontSize}" />
       <Setter Property="FontWeight" Value="Medium" />
+    </Style>
+    <!-- The keyboard's position in the month and year views, :btnfocused: the day's ring, round
+         the cell. -->
+    <Style Selector="^:btnfocused /template/ theme|PartBorder#PART_StateLayer">
+      <Setter Property="BorderBrush" Value="{DynamicResource FiliTextPrimaryBrush}" />
+      <Setter Property="BorderThickness" Value="2" />
+      <Setter Property="CornerRadius" Value="{DynamicResource FiliCornerRadius}" />
     </Style>
   </ControlTheme>
 
@@ -258,6 +274,7 @@
           <Grid DockPanel.Dock="Top" ColumnDefinitions="Auto,*,Auto" Margin="0,4,0,8">
             <Button x:Name="PART_PreviousButton"
                     Theme="{StaticResource FiliCalendarNavButton}"
+                    AutomationProperties.Name="{DynamicResource FiliStringPrevious}"
                     IsVisible="False">
               <Path Width="24" Height="24" Stretch="None"
                     Data="{DynamicResource FiliNavigateBeforeGeometry}"
@@ -269,6 +286,7 @@
             <Button x:Name="PART_NextButton"
                     Grid.Column="2"
                     Theme="{StaticResource FiliCalendarNavButton}"
+                    AutomationProperties.Name="{DynamicResource FiliStringNext}"
                     IsVisible="False">
               <Path Width="24" Height="24" Stretch="None"
                     Data="{DynamicResource FiliChevronRightGeometry}"
@@ -306,6 +324,11 @@
   </ControlTheme>
 
   <ControlTheme x:Key="FiliCalendar" TargetType="Calendar">
+    <!-- The calendar is the one Tab stop, and the arrow keys move its :dayfocused day. Avalonia's
+         Calendar is not focusable by default and relies on its day buttons taking focus; these
+         days do not (each would be a Tab stop), so without this the keyboard never reached the
+         calendar at all. -->
+    <Setter Property="Focusable" Value="True" />
     <Setter Property="Background" Value="Transparent" />
     <Setter Property="Foreground" Value="{DynamicResource FiliTextPrimaryBrush}" />
     <Setter Property="Template">

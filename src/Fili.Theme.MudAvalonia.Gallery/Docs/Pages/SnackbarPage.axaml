@@ -89,7 +89,7 @@
       <docs:ParityRow MudBlazor="HideIcon" Here="hide-icon" Status="Same" />
       <docs:ParityRow MudBlazor="CommonSnackbarOptions' severity icons" Here="the icon keys on the WindowNotificationManager" Status="Same" Note="FiliInfoOutlinedGeometry, FiliAlertSuccessGeometry, FiliReportProblemGeometry, FiliErrorOutlineGeometry and FiliEventNoteGeometry." />
       <docs:ParityRow MudBlazor="Icon, IconColor, IconSize on one message" Here="—" Status="Missing" Note="The icon is the severity's: Show has no slot for them." />
-      <docs:ParityRow MudBlazor="ShowCloseIcon (default true)" Here="the same; hide-close for false" Status="Same" Note="Filled.Close in a small icon button at the card's end, in the card's colour when filled and action-default otherwise; it closes the card." />
+      <docs:ParityRow MudBlazor="ShowCloseIcon (default true)" Here="the same; hide-close for false" Status="Same" Note="Filled.Close in a small icon button at the card's end, in the card's colour when filled and action-default otherwise; it closes the card. A screen reader names it FiliStringClose, Close by default." />
       <docs:ParityRow MudBlazor="CloseIcon" Here="FiliCloseGeometry on the WindowNotificationManager" Status="Same" />
       <docs:ParityRow MudBlazor="Action, ActionColor, ActionVariant" Here="a control as the notification's content" Status="Close" />
       <docs:ParityRow MudBlazor="VisibleStateDuration (5000ms)" Here="Show's expiration" Status="Same" Note="Five seconds when it is left null." />

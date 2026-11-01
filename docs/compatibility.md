@@ -14,8 +14,8 @@ pinned by a test, so a change that breaks one fails the build rather than an app
 |---|---|---|
 | The NuGet id `Fili.MudAvalonia.Theme` | [README](../README.md#install) | - |
 | The two includes, `avares://Fili.Theme.MudAvalonia/Themes/Base/FiliBaseTheme.axaml` and `avares://Fili.Theme.MudAvalonia/FiliTheme.axaml`, in that order | [README](../README.md#quick-start) | the gallery and every test session load them |
-| The style classes, and the control each applies to | [README](../README.md#classes-are-variants) and the docs site's [component pages](https://filiarrochada.github.io/Fili.Theme.MudAvalonia/#parity) | `ClassVocabularyTests` |
-| The resource keys: every palette, elevation, geometry and typography token, and every glyph key, with what each promises ([below](#what-a-resource-key-promises)) | [Published resource keys](published-keys.md) | `PublishedInterfaceTests`, `VariantScopeTests` |
+| The style classes, and the control each applies to | [README](../README.md#classes-are-variants) and the docs site's [component pages](https://filiarrochada.github.io/Fili.Theme.MudAvalonia/#parity) | `ClassVocabularyTests`, `PublishedBaselineTests` |
+| The resource keys: every palette, elevation, geometry and typography token, and every glyph key, with what each promises ([below](#what-a-resource-key-promises)) | [Published resource keys](published-keys.md) | `PublishedInterfaceTests`, `PublishedBaselineTests`, `VariantScopeTests` |
 | The public C# API: `FiliThemeVariants` and its `HighContrast` variant, whose key is the string `"HighContrast"` | [README](../README.md) | `PublishedInterfaceTests` |
 | Themed by type: a control the theme styles is styled with no class, and an optional package's controls with nothing to opt into | [Installation](https://filiarrochada.github.io/Fili.Theme.MudAvalonia/#installation) and [The base](the-base.md) | `StandaloneReadinessTests`, `OptionalBoundaryTests` |
 | No dependency but `Avalonia`, from the version the templates are forked from up to but not including 13.0.0 | [Releasing](releasing.md#supported-avalonia-versions) | `PackageContentTests` |
@@ -23,6 +23,13 @@ pinned by a test, so a change that breaks one fails the build rather than an app
 So a 1.x release does not remove or rename a class or a key, does not change what a class means,
 and does not add a dependency. A key that has to go is kept as an alias of its replacement
 until the next major version.
+
+`PublishedInterfaceTests` and `ClassVocabularyTests` hold the source to the lists above, so on
+their own a key or class deleted from both would pass. What was published is therefore also frozen
+in a file that only grows, `tst/Fili.Theme.MudAvalonia.UnitTests/published-baseline.txt`: every
+key with the type it resolves to in each variant, and every class. `PublishedBaselineTests` fails
+when one of them stops resolving, changes type or leaves the vocabulary, and when a new key or class
+has not been appended yet (`FILI_REGENERATE=1` appends; nothing removes).
 
 The `"HighContrast"` string is stable because an app may save a variant's key in its settings and
 read it back. Avalonia has no built-in variant of that name; if a future one adds it, that is
@@ -38,9 +45,16 @@ Avalonia 13, a major version here too.
   key or a glyph key may also be set in a control's `Resources`, for that control and what is
   inside it.
 - **The variant is the application's.** Set `RequestedThemeVariant` on the `Application`. A
-  window's or a `ThemeVariantScope`'s own variant reaches what looks a per-variant key up inside
-  it but not the brushes, so half of what is inside follows it. Per-scope brushes would be a
-  major version.
+  window's or a `ThemeVariantScope`'s own variant does not restyle what is inside it: the brushes
+  are the application's, built for the application's variant, and the theme paints with brushes,
+  so a window asking for Dark under a Light application still looks light. Per-scope brushes
+  would be a major version.
+- **A plain style outranks an app's `ControlTheme`.** The theme gives `SplitView` its pane
+  lengths and background, `DrawerPage` its compact length and `DatePicker` its font and corner
+  radius from plain styles (by type, no class), and in Avalonia a style
+  always beats a control theme's setter. An app that sets its own `Theme` on one of those controls
+  keeps the theme's values for those properties; set them on the control, or in a style of the
+  app's own, which comes later and wins.
 
 ## May change in a minor version
 
@@ -61,9 +75,13 @@ Avalonia 13, a major version here too.
   is a minor version, with the visible differences listed.
 - **The Avalonia minimum, within Avalonia 12.** `Themes/Base/` is a fork of Avalonia Simple at
   the declared minimum, and the two move together ([Releasing](releasing.md#supported-avalonia-versions)).
-  Moving to Avalonia 13 is a major version, and the dependency stops below it. An optional
+  Moving to Avalonia 13 is a major version, and the dependency stops below it. The templates are
+  those of the minimum (12.1.4 today): a control type a later Avalonia 12 adds has no template
+  here, so it shows nothing, until a theme release forks or writes one, and a later 12.x runs
+  these templates rather than its own Simple theme's. An optional
   package's gate does the same: the DataGrid is themed from 12.1.0 up to but not including 13.0.0,
-  and skipped with a warning outside that.
+  and skipped with a warning outside that, when the grid has no template at all unless the app
+  includes a DataGrid theme of its own.
 
 ## Not covered
 
@@ -88,7 +106,7 @@ These are implementation, and may change in any version:
 - **Internal types**: the converters, `OptionalStyleInclude`, `SlidingIndicator`, `FieldClasses`,
   `MenuIconGutter`, `TabBarScroll`, `SpinColumn`, `CollapsePanel`, `ElevationOverlay`, `PartBorder`, `IconSlot`, `ChildAlignment`, `Accent`, `MultiSelection`, `Adornments`, `AutoCompleteField`, `OverlayScrim`, `ButtonGroup`, `TooltipPlacement`,
   `Ripple`, `TextTransform`, `ExpansionPanels`, `HighContrastRings`, `CalendarView`, `TimeView`,
-  `InheritedColour`, `Motion` and the DataGrid helpers. A template's Borders are `PartBorder`s,
+  `InheritedColour`, `Motion`, `FocusRing` and the DataGrid helpers. A template's Borders are `PartBorder`s,
   so a `/template/ Border` selector of the app's own finds none of them.
 - **Exact pixels.** Rendering follows Avalonia and Skia, and anti-aliased edges can differ by a
   level between machines; the pixel tests allow for that ([Testing](testing.md)).

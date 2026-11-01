@@ -60,7 +60,12 @@ internal sealed class Ripple
     private static readonly TransformOperations Collapsed = TransformOperations.Parse("scale(0)");
     private static readonly TransformOperations Grown = TransformOperations.Parse("scale(1)");
 
-    /// <summary>The press the innermost layer already answered, so no layer round it does.</summary>
+    /// <summary>
+    /// The press the innermost layer already answered, so no layer round it does. Only while it
+    /// routes: cleared by the job posted when it was answered, which runs once the press has
+    /// reached every layer. Held past that, it kept its source, and so the pressed control's whole
+    /// window, until the next press anywhere in the app.
+    /// </summary>
     private static PointerPressedEventArgs? s_answered;
 
     private Ripple()
@@ -181,6 +186,13 @@ internal sealed class Ripple
             }
 
             s_answered = e;
+            Dispatcher.UIThread.Post(() =>
+            {
+                if (ReferenceEquals(s_answered, e))
+                {
+                    s_answered = null;
+                }
+            });
             _border.Clip = RoundedRect(size, _border.CornerRadius);
 
             // createRipple: Math.max(rect.width, rect.height) * 2, centred on the pointer.

@@ -118,7 +118,7 @@
       <docs:ParityRow MudBlazor="Immediate, DebounceInterval" Here="the binding's UpdateSourceTrigger and Delay" Status="Close" Note="Text follows each key press by default, as Immediate; LostFocus and a binding Delay are the rest." />
       <docs:ParityRow MudBlazor="AutoFocus" Here="—" Status="Missing" Note="Behaviour: the app calls Focus() once the field is shown." />
       <docs:ParityRow MudBlazor="InputMode, Pattern" Here="TextInputOptions.ContentType" Status="Close" Note="The on-screen keyboard's hint; a pattern check is validation." />
-      <docs:ParityRow MudBlazor="Clearable" Here="clearable" Status="Same" Note="Shown over text that is not blank, never disabled or read-only; out of the Tab order." />
+      <docs:ParityRow MudBlazor="Clearable" Here="clearable" Status="Same" Note="Shown over text that is not blank, never disabled or read-only; out of the Tab order. A screen reader names it FiliStringClear, Clear by default; set the key to translate it." />
       <docs:ParityRow MudBlazor="ClearIcon" Here="FiliCloseGeometry in the field's Resources" Status="Same" Note="Icons.Material.Filled.Clear is Close's path." />
       <docs:ParityRow MudBlazor="Typo" Here="FontSize, LineHeight from the Fili{Style} tokens" Status="Close" />
       <docs:ParityRow MudBlazor="FullWidth" Here="HorizontalAlignment=&quot;Stretch&quot;" Status="Close" />

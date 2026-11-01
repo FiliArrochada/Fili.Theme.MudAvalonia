@@ -27,7 +27,9 @@ the docs site (`src/Fili.Theme.MudAvalonia.Gallery/Docs/Pages/`, listed in `Docs
   a guessed one.
 - **Classes, resource keys and `FiliThemeVariants` are the published interface**
   (`docs/compatibility.md`). A new token or glyph key goes into `docs/published-keys.md` in the
-  same change (`PublishedInterfaceTests`); none is renamed or removed before 2.0, only aliased.
+  same change (`PublishedInterfaceTests`), and a new key or class is appended to the frozen
+  `published-baseline.txt` with `FILI_REGENERATE=1` (`PublishedBaselineTests`); none is renamed or
+  removed before 2.0, only aliased, and no entry leaves the baseline.
 - **The README is the nuget.org page too.** Keep its links relative; the pack rewrites them and
   fails on one that leads nowhere (`PackageReadmeTests`).
 - **The public API is ONE TYPE:** `FiliThemeVariants`. Anything else public is a design change

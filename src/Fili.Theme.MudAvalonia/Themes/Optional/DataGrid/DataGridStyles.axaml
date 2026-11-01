@@ -87,19 +87,21 @@
        so a checkbox in a cell is the dense one's 32 / 28 / 44px circle and takes 8px less of the
        row than that. A header is a `.mud-table-cell` too, so a select-all box in one is the same.
        Every size is named: the 48px is set inline in the template, which only a selector with an
-       activator overrides. -->
-  <Style Selector="DataGridCell CheckBox, DataGridColumnHeader CheckBox">
+       activator overrides. A box in the cell itself or in the panel its template puts there,
+       never a descendant: a selector walks the LOGICAL tree, and a filter or column-chooser
+       flyout opened from a header holds its own checkboxes (IconButtonPopupTests). -->
+  <Style Selector="DataGridCell > CheckBox, DataGridCell > :is(Panel) > CheckBox, DataGridColumnHeader > CheckBox, DataGridColumnHeader > :is(Panel) > CheckBox">
     <Setter Property="Margin" Value="-4" />
   </Style>
-  <Style Selector="DataGridCell CheckBox:not(.small):not(.large) /template/ Panel#PART_Box, DataGridColumnHeader CheckBox:not(.small):not(.large) /template/ Panel#PART_Box">
+  <Style Selector="DataGridCell > CheckBox:not(.small):not(.large) /template/ Panel#PART_Box, DataGridCell > :is(Panel) > CheckBox:not(.small):not(.large) /template/ Panel#PART_Box, DataGridColumnHeader > CheckBox:not(.small):not(.large) /template/ Panel#PART_Box, DataGridColumnHeader > :is(Panel) > CheckBox:not(.small):not(.large) /template/ Panel#PART_Box">
     <Setter Property="Width" Value="32" />
     <Setter Property="Height" Value="32" />
   </Style>
-  <Style Selector="DataGridCell CheckBox.small /template/ Panel#PART_Box, DataGridColumnHeader CheckBox.small /template/ Panel#PART_Box">
+  <Style Selector="DataGridCell > CheckBox.small /template/ Panel#PART_Box, DataGridCell > :is(Panel) > CheckBox.small /template/ Panel#PART_Box, DataGridColumnHeader > CheckBox.small /template/ Panel#PART_Box, DataGridColumnHeader > :is(Panel) > CheckBox.small /template/ Panel#PART_Box">
     <Setter Property="Width" Value="28" />
     <Setter Property="Height" Value="28" />
   </Style>
-  <Style Selector="DataGridCell CheckBox.large /template/ Panel#PART_Box, DataGridColumnHeader CheckBox.large /template/ Panel#PART_Box">
+  <Style Selector="DataGridCell > CheckBox.large /template/ Panel#PART_Box, DataGridCell > :is(Panel) > CheckBox.large /template/ Panel#PART_Box, DataGridColumnHeader > CheckBox.large /template/ Panel#PART_Box, DataGridColumnHeader > :is(Panel) > CheckBox.large /template/ Panel#PART_Box">
     <Setter Property="Width" Value="44" />
     <Setter Property="Height" Value="44" />
   </Style>
@@ -108,7 +110,7 @@
        every row but the current one, which it enables to toggle on a click, and a read-only grid
        disables them all; in text-disabled they looked disabled in all those rows. MudDataGrid's
        read-only checkbox is action-default, as an enabled one is. -->
-  <Style Selector="DataGridCell CheckBox:disabled /template/ Path#PART_Glyph">
+  <Style Selector="DataGridCell > CheckBox:disabled /template/ Path#PART_Glyph, DataGridCell > :is(Panel) > CheckBox:disabled /template/ Path#PART_Glyph">
     <Setter Property="Fill" Value="{DynamicResource FiliActionDefaultBrush}" />
   </Style>
 

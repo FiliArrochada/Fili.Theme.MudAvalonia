@@ -350,7 +350,7 @@
          invisible. Alpha survives in exactly three places, all of them deliberate overlays
          rather than content: the two state layers, the input fill and the scrims.
 
-      3. DISABLED STILL HAS TO BE LEGIBLE. #CFCFDA against black is about 12:1 - far too strong
+      3. DISABLED STILL HAS TO BE LEGIBLE. #CFCFDA against black is 13.6:1 - far too strong
          to read as disabled in a normal palette, which is the point. A user who needs this
          variant is not served by a control they cannot read at all, so disabled is signalled by
          being dimmer than enabled rather than by being nearly gone.

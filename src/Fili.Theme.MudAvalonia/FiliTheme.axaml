@@ -36,7 +36,8 @@
         <ResourceInclude Source="avares://Fili.Theme.MudAvalonia/Themes/Elevation.axaml" />
         <ResourceInclude Source="avares://Fili.Theme.MudAvalonia/Themes/Typography.axaml" />
         <ResourceInclude Source="avares://Fili.Theme.MudAvalonia/Themes/Geometry.axaml" />
-        <!-- Last: the control themes reference tokens from all four above. -->
+        <ResourceInclude Source="avares://Fili.Theme.MudAvalonia/Themes/Strings.axaml" />
+        <!-- Last: the control themes reference tokens from all five above. -->
         <ResourceInclude Source="avares://Fili.Theme.MudAvalonia/Themes/ControlThemes.axaml" />
       </ResourceDictionary.MergedDictionaries>
     </ResourceDictionary>
@@ -61,10 +62,14 @@
     in. Not on UserControl, as it was: a style setter beats an inherited value, so a user control
     inside a filled button, an app bar or a filled alert drew its text in the body grey on the
     colour (ColouredHostTests).
+
+    The size is FiliFontSize, the published app-wide baseline, so an app that sets it moves every
+    unclassed text (BaselineTypographyTests). Line height and letter spacing are NOT inherited from
+    here: unclassed text keeps the font's natural line, or an app's own large text would clip.
   -->
   <Style Selector=":is(TopLevel)">
     <Setter Property="FontFamily" Value="{DynamicResource FiliFontFamily}" />
-    <Setter Property="FontSize" Value="{DynamicResource FiliBody2FontSize}" />
+    <Setter Property="FontSize" Value="{DynamicResource FiliFontSize}" />
     <Setter Property="Foreground" Value="{DynamicResource FiliTextPrimaryBrush}" />
   </Style>
 
@@ -75,7 +80,7 @@
   -->
   <Style Selector="OverlayPopupHost">
     <Setter Property="FontFamily" Value="{DynamicResource FiliFontFamily}" />
-    <Setter Property="FontSize" Value="{DynamicResource FiliBody2FontSize}" />
+    <Setter Property="FontSize" Value="{DynamicResource FiliFontSize}" />
     <Setter Property="Foreground" Value="{DynamicResource FiliTextPrimaryBrush}" />
   </Style>
 
@@ -1813,21 +1818,24 @@
     class, which MudIconButton.razor passes its Size to and which sits on the svg itself, so it
     wins over the button's inherited `.mud-icon-button-size-small` 1.125rem (_icons.scss,
     _iconbutton.scss): a small icon button is 3 + 20 + 3 = 26px. A local Width/Height on the icon
-    still wins.
+    still wins. Child selectors, not descendant ones: a selector walks the LOGICAL tree, and the
+    items of a flyout, context menu or tooltip opened from the button are its logical
+    descendants, so `Button.icon.small PathIcon` drew a kebab menu's item icons at 20px
+    (IconButtonPopupTests).
   -->
-  <Style Selector="Button.icon PathIcon, ToggleButton.icon PathIcon">
+  <Style Selector="Button.icon > PathIcon, ToggleButton.icon > PathIcon">
     <Setter Property="Width" Value="24" />
     <Setter Property="Height" Value="24" />
   </Style>
-  <Style Selector="Button.icon.small PathIcon, ToggleButton.icon.small PathIcon">
+  <Style Selector="Button.icon.small > PathIcon, ToggleButton.icon.small > PathIcon">
     <Setter Property="Width" Value="20" />
     <Setter Property="Height" Value="20" />
   </Style>
-  <Style Selector="Button.icon.large PathIcon, ToggleButton.icon.large PathIcon">
+  <Style Selector="Button.icon.large > PathIcon, ToggleButton.icon.large > PathIcon">
     <Setter Property="Width" Value="36" />
     <Setter Property="Height" Value="36" />
   </Style>
-  <Style Selector="Button.icon.large.outlined PathIcon, Button.icon.large.filled PathIcon, ToggleButton.icon.large.outlined PathIcon, ToggleButton.icon.large.filled PathIcon">
+  <Style Selector="Button.icon.large.outlined > PathIcon, Button.icon.large.filled > PathIcon, ToggleButton.icon.large.outlined > PathIcon, ToggleButton.icon.large.filled > PathIcon">
     <Setter Property="Width" Value="32" />
     <Setter Property="Height" Value="32" />
   </Style>
@@ -1850,8 +1858,10 @@
   -->
 
   <!-- A FAB's icons are MudIcon at its IconSize, Size.Medium: 24px whatever the FAB's size. In an
-       `extended` FAB the label's gap sits between icon and text, 8px (4px when small). -->
-  <Style Selector="Button.fab PathIcon">
+       `extended` FAB the label's gap sits between icon and text, 8px (4px when small). The
+       extended FAB's start icon takes its size through IconSlot; this child selector sizes the
+       plain FAB's icon and nothing in a menu the FAB opens. -->
+  <Style Selector="Button.fab > PathIcon">
     <Setter Property="Width" Value="24" />
     <Setter Property="Height" Value="24" />
   </Style>

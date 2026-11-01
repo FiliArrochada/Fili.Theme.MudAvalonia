@@ -88,8 +88,9 @@
       <docs:ParityRow MudBlazor="no Label" Here="no PlaceholderText" Status="Close" Note="Avalonia writes the date format into an unlabelled field, which a style cannot undo, where an unlabelled MudDatePicker is empty: give every date picker a PlaceholderText." />
       <docs:ParityRow MudBlazor="(none: Avalonia's spinner DatePicker)" Here="DatePicker" Status="Close" Note="The forked template in the theme's palette, legible in every variant but not MudBlazor's shape; MudDatePicker is CalendarDatePicker." />
       <docs:ParityRow MudBlazor="AdornmentIcon (Event)" Here="FiliEventGeometry" Status="Same" Note="In the picker's Resources to swap it." />
-      <docs:ParityRow MudBlazor="PreviousIcon, NextIcon" Here="FiliNavigateBeforeGeometry, FiliChevronRightGeometry" Status="Same" Note="The arrows either side of the month's name." />
+      <docs:ParityRow MudBlazor="PreviousIcon, NextIcon" Here="FiliNavigateBeforeGeometry, FiliChevronRightGeometry" Status="Same" Note="The arrows either side of the month's name, named FiliStringPrevious and FiliStringNext to a screen reader." />
       <docs:ParityRow MudBlazor="Editable" Here="on" Status="Same" Note="The date can be typed, as Avalonia's picker allows." />
+      <docs:ParityRow MudBlazor="(the keyboard: Tab to a day, arrows between days)" Here="the calendar, one Tab stop" Status="Close" Note="The calendar takes focus and the arrow keys move a 2px text-primary ring, the focus ring, round the day, month or year they are on; its days are not Tab stops of their own, as MudBlazor's buttons are." />
       <docs:ParityRow MudBlazor="DateFormat" Here="SelectedDateFormat, CustomDateFormatString" Status="Close" />
       <docs:ParityRow MudBlazor="MinDate, MaxDate, IsDateDisabledFunc" Here="DisplayDateStart, DisplayDateEnd, BlackoutDates" Status="Close" Note="Days outside the range are left out rather than greyed; BlackoutDates is a list of ranges, not a function." />
       <docs:ParityRow MudBlazor="AdditionalDateClassesFunc" Here="—" Status="Missing" Note="The days are the calendar's own buttons, which a style cannot pick by date." />
@@ -105,7 +106,7 @@
       <docs:ParityRow MudBlazor="Orientation.Landscape" Here="—" Status="Missing" Note="The toolbar is always above the calendar." />
       <docs:ParityRow MudBlazor="ShowToolbar=&quot;false&quot;" Here="—" Status="Missing" Note="The drop-down always has its toolbar; a static Calendar has none." />
       <docs:ParityRow MudBlazor="Elevation, Square, Rounded" Here="—" Status="Missing" Note="The drop-down is elevation 8 with the default radius, fixed in the template; a static Calendar takes its paper's." />
-      <docs:ParityRow MudBlazor="Clearable" Here="clearable" Status="Same" Note="Mirrored to the field inside; its button clears the date at once, as MudPicker's Clear does." />
+      <docs:ParityRow MudBlazor="Clearable" Here="clearable" Status="Same" Note="Mirrored to the field inside; its button clears the date at once, as MudPicker's Clear does, and is named FiliStringClear." />
       <docs:ParityRow MudBlazor="ReadOnly" Here="—" Status="Missing" Note="CalendarDatePicker has no read-only state; IsHitTestVisible=&quot;False&quot; stops only the pointer." />
       <docs:ParityRow MudBlazor="AdornmentColor" Here="—" Status="Missing" Note="The icon button is a template part, coloured by the theme." />
       <docs:ParityRow MudBlazor="Mask" Here="—" Status="Missing" Note="No input mask; the typed text is parsed as a date." />

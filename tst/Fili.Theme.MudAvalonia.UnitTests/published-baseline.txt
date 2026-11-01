@@ -1,0 +1,560 @@
+# The published interface as released: every published resource key with the type it resolves to
+# (one type, or Light=;Dark=;HighContrast= when the variants differ), and every style class.
+# PublishedBaselineTests holds the theme to it. It only grows: FILI_REGENERATE=1 appends what a
+# change adds, and nothing is removed or retyped before the next major version (docs/compatibility.md).
+# Tab-separated: key <name> <type> | class <name>.
+key	FiliAccessTimeGeometry	Geometry
+key	FiliActionDefaultBrush	SolidColorBrush
+key	FiliActionDefaultColor	Color
+key	FiliActionDefaultHoverBrush	SolidColorBrush
+key	FiliActionDefaultHoverColor	Color
+key	FiliActionDisabledBackgroundBrush	SolidColorBrush
+key	FiliActionDisabledBackgroundColor	Color
+key	FiliActionDisabledBrush	SolidColorBrush
+key	FiliActionDisabledColor	Color
+key	FiliAlertSuccessGeometry	Geometry
+key	FiliAppbarBackgroundBrush	SolidColorBrush
+key	FiliAppbarBackgroundColor	Color
+key	FiliAppbarHeight	Double
+key	FiliAppbarTextBrush	SolidColorBrush
+key	FiliAppbarTextColor	Color
+key	FiliArrowBackGeometry	Geometry
+key	FiliArrowDropDownGeometry	Geometry
+key	FiliArrowDropUpGeometry	Geometry
+key	FiliArrowRightGeometry	Geometry
+key	FiliArrowUpwardGeometry	Geometry
+key	FiliAvatarBareTextBrush	SolidColorBrush
+key	FiliAvatarBareTextColor	Color
+key	FiliAvatarTextBrush	SolidColorBrush
+key	FiliAvatarTextColor	Color
+key	FiliBackgroundBrush	SolidColorBrush
+key	FiliBackgroundColor	Color
+key	FiliBackgroundGrayBrush	SolidColorBrush
+key	FiliBackgroundGrayColor	Color
+key	FiliBadgeTextBrush	SolidColorBrush
+key	FiliBadgeTextColor	Color
+key	FiliBlackBrush	SolidColorBrush
+key	FiliBlackColor	Color
+key	FiliBody1FontSize	Double
+key	FiliBody1LetterSpacing	Double
+key	FiliBody1LineHeight	Double
+key	FiliBody2FontSize	Double
+key	FiliBody2LetterSpacing	Double
+key	FiliBody2LineHeight	Double
+key	FiliBorderThickness	Thickness
+key	FiliButtonFontSize	Double
+key	FiliButtonLetterSpacing	Double
+key	FiliButtonLineHeight	Double
+key	FiliButtonTextTransform	String
+key	FiliCaptionFontSize	Double
+key	FiliCaptionLetterSpacing	Double
+key	FiliCaptionLineHeight	Double
+key	FiliCheckBoxCheckedGeometry	Geometry
+key	FiliCheckBoxIndeterminateGeometry	Geometry
+key	FiliCheckBoxUncheckedGeometry	Geometry
+key	FiliCheckGeometry	Geometry
+key	FiliChevronRightGeometry	Geometry
+key	FiliChipHoverBrush	SolidColorBrush
+key	FiliChipHoverColor	Color
+key	FiliCloseGeometry	Geometry
+key	FiliCornerRadius	CornerRadius
+key	FiliCornerRadiusNone	CornerRadius
+key	FiliCornerRadiusPill	CornerRadius
+key	FiliDarkAlertTextBrush	SolidColorBrush
+key	FiliDarkAlertTextColor	Color
+key	FiliDarkBrush	SolidColorBrush
+key	FiliDarkColor	Color
+key	FiliDarkContrastTextBrush	SolidColorBrush
+key	FiliDarkContrastTextColor	Color
+key	FiliDarkDarkenBrush	SolidColorBrush
+key	FiliDarkDarkenColor	Color
+key	FiliDarkHoverBrush	SolidColorBrush
+key	FiliDarkHoverColor	Color
+key	FiliDarkLightenBrush	SolidColorBrush
+key	FiliDarkLightenColor	Color
+key	FiliDividerBrush	SolidColorBrush
+key	FiliDividerColor	Color
+key	FiliDividerLightBrush	SolidColorBrush
+key	FiliDividerLightColor	Color
+key	FiliDrawerBackgroundBrush	SolidColorBrush
+key	FiliDrawerBackgroundColor	Color
+key	FiliDrawerBorderBrush	SolidColorBrush
+key	FiliDrawerBorderColor	Color
+key	FiliDrawerIconBrush	SolidColorBrush
+key	FiliDrawerIconColor	Color
+key	FiliDrawerMiniWidth	Double
+key	FiliDrawerTextBrush	SolidColorBrush
+key	FiliDrawerTextColor	Color
+key	FiliDrawerWidth	Double
+key	FiliElevation0	BoxShadows
+key	FiliElevation1	BoxShadows
+key	FiliElevation10	BoxShadows
+key	FiliElevation11	BoxShadows
+key	FiliElevation12	BoxShadows
+key	FiliElevation13	BoxShadows
+key	FiliElevation14	BoxShadows
+key	FiliElevation15	BoxShadows
+key	FiliElevation16	BoxShadows
+key	FiliElevation17	BoxShadows
+key	FiliElevation18	BoxShadows
+key	FiliElevation19	BoxShadows
+key	FiliElevation2	BoxShadows
+key	FiliElevation20	BoxShadows
+key	FiliElevation21	BoxShadows
+key	FiliElevation22	BoxShadows
+key	FiliElevation23	BoxShadows
+key	FiliElevation24	BoxShadows
+key	FiliElevation25	BoxShadows
+key	FiliElevation3	BoxShadows
+key	FiliElevation4	BoxShadows
+key	FiliElevation5	BoxShadows
+key	FiliElevation6	BoxShadows
+key	FiliElevation7	BoxShadows
+key	FiliElevation8	BoxShadows
+key	FiliElevation9	BoxShadows
+key	FiliElevationOverlay0	BoxShadows
+key	FiliElevationOverlay1	BoxShadows
+key	FiliElevationOverlay10	BoxShadows
+key	FiliElevationOverlay11	BoxShadows
+key	FiliElevationOverlay12	BoxShadows
+key	FiliElevationOverlay13	BoxShadows
+key	FiliElevationOverlay14	BoxShadows
+key	FiliElevationOverlay15	BoxShadows
+key	FiliElevationOverlay16	BoxShadows
+key	FiliElevationOverlay17	BoxShadows
+key	FiliElevationOverlay18	BoxShadows
+key	FiliElevationOverlay19	BoxShadows
+key	FiliElevationOverlay2	BoxShadows
+key	FiliElevationOverlay20	BoxShadows
+key	FiliElevationOverlay21	BoxShadows
+key	FiliElevationOverlay22	BoxShadows
+key	FiliElevationOverlay23	BoxShadows
+key	FiliElevationOverlay24	BoxShadows
+key	FiliElevationOverlay25	BoxShadows
+key	FiliElevationOverlay3	BoxShadows
+key	FiliElevationOverlay4	BoxShadows
+key	FiliElevationOverlay5	BoxShadows
+key	FiliElevationOverlay6	BoxShadows
+key	FiliElevationOverlay7	BoxShadows
+key	FiliElevationOverlay8	BoxShadows
+key	FiliElevationOverlay9	BoxShadows
+key	FiliErrorAlertTextBrush	SolidColorBrush
+key	FiliErrorAlertTextColor	Color
+key	FiliErrorBrush	SolidColorBrush
+key	FiliErrorColor	Color
+key	FiliErrorContrastTextBrush	SolidColorBrush
+key	FiliErrorContrastTextColor	Color
+key	FiliErrorDarkenBrush	SolidColorBrush
+key	FiliErrorDarkenColor	Color
+key	FiliErrorHoverBrush	SolidColorBrush
+key	FiliErrorHoverColor	Color
+key	FiliErrorLightenBrush	SolidColorBrush
+key	FiliErrorLightenColor	Color
+key	FiliErrorOutlineGeometry	Geometry
+key	FiliEventGeometry	Geometry
+key	FiliEventNoteGeometry	Geometry
+key	FiliExpandMoreGeometry	Geometry
+key	FiliFocusRing	Boolean
+key	FiliFontFamily	FontFamily
+key	FiliFontSize	Double
+key	FiliGrayDarkBrush	SolidColorBrush
+key	FiliGrayDarkColor	Color
+key	FiliGrayDarkerBrush	SolidColorBrush
+key	FiliGrayDarkerColor	Color
+key	FiliGrayDefaultBrush	SolidColorBrush
+key	FiliGrayDefaultColor	Color
+key	FiliGrayLightBrush	SolidColorBrush
+key	FiliGrayLightColor	Color
+key	FiliGrayLighterBrush	SolidColorBrush
+key	FiliGrayLighterColor	Color
+key	FiliH1FontSize	Double
+key	FiliH1LetterSpacing	Double
+key	FiliH1LineHeight	Double
+key	FiliH2FontSize	Double
+key	FiliH2LetterSpacing	Double
+key	FiliH2LineHeight	Double
+key	FiliH3FontSize	Double
+key	FiliH3LetterSpacing	Double
+key	FiliH3LineHeight	Double
+key	FiliH4FontSize	Double
+key	FiliH4LetterSpacing	Double
+key	FiliH4LineHeight	Double
+key	FiliH5FontSize	Double
+key	FiliH5LetterSpacing	Double
+key	FiliH5LineHeight	Double
+key	FiliH6FontSize	Double
+key	FiliH6LetterSpacing	Double
+key	FiliH6LineHeight	Double
+key	FiliInfoAlertTextBrush	SolidColorBrush
+key	FiliInfoAlertTextColor	Color
+key	FiliInfoBrush	SolidColorBrush
+key	FiliInfoColor	Color
+key	FiliInfoContrastTextBrush	SolidColorBrush
+key	FiliInfoContrastTextColor	Color
+key	FiliInfoDarkenBrush	SolidColorBrush
+key	FiliInfoDarkenColor	Color
+key	FiliInfoHoverBrush	SolidColorBrush
+key	FiliInfoHoverColor	Color
+key	FiliInfoLightenBrush	SolidColorBrush
+key	FiliInfoLightenColor	Color
+key	FiliInfoOutlinedGeometry	Geometry
+key	FiliInputFilledBrush	SolidColorBrush
+key	FiliInputFilledColor	Color
+key	FiliInputMinWidth	Double
+key	FiliKeyboardArrowDownGeometry	Geometry
+key	FiliKeyboardArrowUpGeometry	Geometry
+key	FiliLetterSpacing	Double
+key	FiliLineHeight	Double
+key	FiliLinesDefaultBrush	SolidColorBrush
+key	FiliLinesDefaultColor	Color
+key	FiliLinesInputsBrush	SolidColorBrush
+key	FiliLinesInputsColor	Color
+key	FiliMoreVertGeometry	Geometry
+key	FiliNavigateBeforeGeometry	Geometry
+key	FiliOverlayDarkBrush	SolidColorBrush
+key	FiliOverlayDarkColor	Color
+key	FiliOverlayHoverBrush	SolidColorBrush
+key	FiliOverlayHoverColor	Color
+key	FiliOverlayLightBrush	SolidColorBrush
+key	FiliOverlayLightColor	Color
+key	FiliOverlayPressedBrush	SolidColorBrush
+key	FiliOverlayPressedColor	Color
+key	FiliOverlineFontSize	Double
+key	FiliOverlineLetterSpacing	Double
+key	FiliOverlineLineHeight	Double
+key	FiliPrimaryAlertTextBrush	SolidColorBrush
+key	FiliPrimaryAlertTextColor	Color
+key	FiliPrimaryBrush	SolidColorBrush
+key	FiliPrimaryColor	Color
+key	FiliPrimaryContrastTextBrush	SolidColorBrush
+key	FiliPrimaryContrastTextColor	Color
+key	FiliPrimaryDarkenBrush	SolidColorBrush
+key	FiliPrimaryDarkenColor	Color
+key	FiliPrimaryHoverBrush	SolidColorBrush
+key	FiliPrimaryHoverColor	Color
+key	FiliPrimaryLightenBrush	SolidColorBrush
+key	FiliPrimaryLightenColor	Color
+key	FiliRadioCheckedGeometry	Geometry
+key	FiliRadioUncheckedGeometry	Geometry
+key	FiliReducedMotion	Boolean
+key	FiliReportProblemGeometry	Geometry
+key	FiliRippleOpacity	Double
+key	FiliRippleOpacitySecondary	Double
+key	FiliScrollbarThumbBrush	SolidColorBrush
+key	FiliScrollbarThumbColor	Color
+key	FiliScrollbarThumbHoverBrush	SolidColorBrush
+key	FiliScrollbarThumbHoverColor	Color
+key	FiliSecondaryAlertTextBrush	SolidColorBrush
+key	FiliSecondaryAlertTextColor	Color
+key	FiliSecondaryBrush	SolidColorBrush
+key	FiliSecondaryColor	Color
+key	FiliSecondaryContrastTextBrush	SolidColorBrush
+key	FiliSecondaryContrastTextColor	Color
+key	FiliSecondaryDarkenBrush	SolidColorBrush
+key	FiliSecondaryDarkenColor	Color
+key	FiliSecondaryHoverBrush	SolidColorBrush
+key	FiliSecondaryHoverColor	Color
+key	FiliSecondaryLightenBrush	SolidColorBrush
+key	FiliSecondaryLightenColor	Color
+key	FiliSkeletonBrush	SolidColorBrush
+key	FiliSkeletonColor	Color
+key	FiliSkeletonWaveColor	Color
+key	FiliSkeletonWaveEndBrush	LinearGradientBrush
+key	FiliSkeletonWaveStartBrush	LinearGradientBrush
+key	FiliSliderRailOpacity	Double
+key	FiliSpacing0	Double
+key	FiliSpacing0Thickness	Thickness
+key	FiliSpacing1	Double
+key	FiliSpacing10	Double
+key	FiliSpacing10Thickness	Thickness
+key	FiliSpacing11	Double
+key	FiliSpacing11Thickness	Thickness
+key	FiliSpacing12	Double
+key	FiliSpacing12Thickness	Thickness
+key	FiliSpacing13	Double
+key	FiliSpacing13Thickness	Thickness
+key	FiliSpacing14	Double
+key	FiliSpacing14Thickness	Thickness
+key	FiliSpacing15	Double
+key	FiliSpacing15Thickness	Thickness
+key	FiliSpacing16	Double
+key	FiliSpacing16Thickness	Thickness
+key	FiliSpacing17	Double
+key	FiliSpacing17Thickness	Thickness
+key	FiliSpacing18	Double
+key	FiliSpacing18Thickness	Thickness
+key	FiliSpacing19	Double
+key	FiliSpacing19Thickness	Thickness
+key	FiliSpacing1Thickness	Thickness
+key	FiliSpacing2	Double
+key	FiliSpacing20	Double
+key	FiliSpacing20Thickness	Thickness
+key	FiliSpacing2Thickness	Thickness
+key	FiliSpacing3	Double
+key	FiliSpacing3Thickness	Thickness
+key	FiliSpacing4	Double
+key	FiliSpacing4Thickness	Thickness
+key	FiliSpacing5	Double
+key	FiliSpacing5Thickness	Thickness
+key	FiliSpacing6	Double
+key	FiliSpacing6Thickness	Thickness
+key	FiliSpacing7	Double
+key	FiliSpacing7Thickness	Thickness
+key	FiliSpacing8	Double
+key	FiliSpacing8Thickness	Thickness
+key	FiliSpacing9	Double
+key	FiliSpacing9Thickness	Thickness
+key	FiliSubtitle1FontSize	Double
+key	FiliSubtitle1LetterSpacing	Double
+key	FiliSubtitle1LineHeight	Double
+key	FiliSubtitle2FontSize	Double
+key	FiliSubtitle2LetterSpacing	Double
+key	FiliSubtitle2LineHeight	Double
+key	FiliSuccessAlertTextBrush	SolidColorBrush
+key	FiliSuccessAlertTextColor	Color
+key	FiliSuccessBrush	SolidColorBrush
+key	FiliSuccessColor	Color
+key	FiliSuccessContrastTextBrush	SolidColorBrush
+key	FiliSuccessContrastTextColor	Color
+key	FiliSuccessDarkenBrush	SolidColorBrush
+key	FiliSuccessDarkenColor	Color
+key	FiliSuccessHoverBrush	SolidColorBrush
+key	FiliSuccessHoverColor	Color
+key	FiliSuccessLightenBrush	SolidColorBrush
+key	FiliSuccessLightenColor	Color
+key	FiliSurfaceBrush	SolidColorBrush
+key	FiliSurfaceColor	Color
+key	FiliSwitchThumbBrush	SolidColorBrush
+key	FiliSwitchThumbColor	Color
+key	FiliSwitchThumbIconGeometry	Geometry
+key	FiliTableHoverBrush	SolidColorBrush
+key	FiliTableHoverColor	Color
+key	FiliTableLinesBrush	SolidColorBrush
+key	FiliTableLinesColor	Color
+key	FiliTableStripedBrush	SolidColorBrush
+key	FiliTableStripedColor	Color
+key	FiliTertiaryAlertTextBrush	SolidColorBrush
+key	FiliTertiaryAlertTextColor	Color
+key	FiliTertiaryBrush	SolidColorBrush
+key	FiliTertiaryColor	Color
+key	FiliTertiaryContrastTextBrush	SolidColorBrush
+key	FiliTertiaryContrastTextColor	Color
+key	FiliTertiaryDarkenBrush	SolidColorBrush
+key	FiliTertiaryDarkenColor	Color
+key	FiliTertiaryHoverBrush	SolidColorBrush
+key	FiliTertiaryHoverColor	Color
+key	FiliTertiaryLightenBrush	SolidColorBrush
+key	FiliTertiaryLightenColor	Color
+key	FiliTextDisabledBrush	SolidColorBrush
+key	FiliTextDisabledColor	Color
+key	FiliTextPrimaryBrush	SolidColorBrush
+key	FiliTextPrimaryColor	Color
+key	FiliTextSecondaryBrush	SolidColorBrush
+key	FiliTextSecondaryColor	Color
+key	FiliTooltipBackgroundBrush	SolidColorBrush
+key	FiliTooltipBackgroundColor	Color
+key	FiliWarningAlertTextBrush	SolidColorBrush
+key	FiliWarningAlertTextColor	Color
+key	FiliWarningBrush	SolidColorBrush
+key	FiliWarningColor	Color
+key	FiliWarningContrastTextBrush	SolidColorBrush
+key	FiliWarningContrastTextColor	Color
+key	FiliWarningDarkenBrush	SolidColorBrush
+key	FiliWarningDarkenColor	Color
+key	FiliWarningHoverBrush	SolidColorBrush
+key	FiliWarningHoverColor	Color
+key	FiliWarningLightenBrush	SolidColorBrush
+key	FiliWarningLightenColor	Color
+key	FiliWhiteBrush	SolidColorBrush
+key	FiliWhiteColor	Color
+class	adornment-dark
+class	adornment-error
+class	adornment-info
+class	adornment-inherit
+class	adornment-primary
+class	adornment-secondary
+class	adornment-success
+class	adornment-tertiary
+class	adornment-warning
+class	alert
+class	always-show-scroll-buttons
+class	appbar
+class	arrow
+class	arrows-bottom
+class	arrows-top
+class	avatar
+class	badge
+class	body1
+class	body2
+class	border
+class	bordered
+class	bottom-center
+class	bottom-left
+class	bottom-right
+class	bullets-center
+class	bullets-top
+class	button
+class	button-group
+class	caption
+class	card
+class	card-actions
+class	card-content
+class	card-header
+class	card-header-actions
+class	card-header-avatar
+class	card-header-content
+class	card-media
+class	center-center
+class	center-left
+class	center-right
+class	centered
+class	check-mark
+class	chip
+class	circle
+class	circular
+class	clearable
+class	counter
+class	dark
+class	dark-background
+class	default
+class	dense
+class	dense-items
+class	dot
+class	drawer-header
+class	editable
+class	elevation0
+class	elevation1
+class	elevation10
+class	elevation11
+class	elevation12
+class	elevation13
+class	elevation14
+class	elevation15
+class	elevation16
+class	elevation17
+class	elevation18
+class	elevation19
+class	elevation2
+class	elevation20
+class	elevation21
+class	elevation22
+class	elevation23
+class	elevation24
+class	elevation25
+class	elevation3
+class	elevation4
+class	elevation5
+class	elevation6
+class	elevation7
+class	elevation8
+class	elevation9
+class	end-icon
+class	error
+class	expansion-panels
+class	extended
+class	fab
+class	filled
+class	flat
+class	h1
+class	h2
+class	h3
+class	h4
+class	h5
+class	h6
+class	helper-on-focus
+class	hide-close
+class	hide-icon
+class	hide-indicator
+class	hover
+class	icon
+class	indicator-dark
+class	indicator-error
+class	indicator-info
+class	indicator-primary
+class	indicator-secondary
+class	indicator-success
+class	indicator-tertiary
+class	indicator-warning
+class	info
+class	inherit
+class	inset
+class	label-bottom
+class	label-start
+class	label-top
+class	large
+class	light
+class	light-background
+class	list-item
+class	loading
+class	material-elevation-overlay
+class	material-fixed-tabs
+class	medium
+class	middle
+class	multi-expansion
+class	multi-selection
+class	nav
+class	newest-on-top
+class	no-animation
+class	no-arrows
+class	no-bullets
+class	no-gutters
+class	no-outline
+class	no-paper
+class	no-underline
+class	normal
+class	outlined
+class	overlap
+class	overlay
+class	overline
+class	paper
+class	placeholder
+class	primary
+class	rectangle
+class	required
+class	rounded
+class	secondary
+class	shrink-label
+class	skeleton
+class	small
+class	square
+class	start-icon
+class	striped
+class	subheader
+class	subtitle1
+class	subtitle2
+class	success
+class	tertiary
+class	text
+class	thumb-dark
+class	thumb-error
+class	thumb-info
+class	thumb-primary
+class	thumb-secondary
+class	thumb-success
+class	thumb-tertiary
+class	thumb-warning
+class	toolbar
+class	top-center
+class	top-left
+class	unchecked-dark
+class	unchecked-error
+class	unchecked-info
+class	unchecked-inherit
+class	unchecked-primary
+class	unchecked-secondary
+class	unchecked-success
+class	unchecked-tertiary
+class	unchecked-warning
+class	underline
+class	value-label
+class	vertical
+class	warning
+class	wave
+key	FiliStringAccept	String
+key	FiliStringClear	String
+key	FiliStringClose	String
+key	FiliStringDecrease	String
+key	FiliStringDismiss	String
+key	FiliStringIncrease	String
+key	FiliStringNext	String
+key	FiliStringPrevious	String

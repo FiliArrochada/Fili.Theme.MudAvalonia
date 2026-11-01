@@ -29,7 +29,7 @@
       <Run FontWeight="Bold" Text="Nothing is conveyed by alpha." /><Run Text=" Light and dark lean on translucent blacks and whites, a dark divider is white at 12%, and on a black ground that is no line at all. Every line and text token here is opaque. Alpha survives only in overlays: the state layers, the selection tints, at 35% where light and dark use 6%, the input fill, and the two scrims, at 90%." />
     </TextBlock>
     <TextBlock Classes="body1 p">
-      <Run FontWeight="Bold" Text="Disabled still has to be legible." /><Run Text=" Disabled text is #CFCFDA, about 12:1 on black, far too strong to read as disabled in a normal palette, which is the point: disabled is dimmer than enabled, not nearly gone." />
+      <Run FontWeight="Bold" Text="Disabled still has to be legible." /><Run Text=" Disabled text is #CFCFDA, 13.6:1 on black, far too strong to read as disabled in a normal palette, which is the point: disabled is dimmer than enabled, not nearly gone." />
     </TextBlock>
     <docs:ExampleCard Title="Lines, not fills"
                       Description="Switch the site to high contrast in the app bar: the raised paper gains a 1px ring, the paper at elevation 0 has none, the field's outline is the line colour and the disabled button stays readable."

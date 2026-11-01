@@ -52,7 +52,7 @@ public class PublishedInterfaceTests
     private static readonly Regex ListedKey = new(@"^- `(Fili\w+)`$", RegexOptions.Compiled);
 
     /// <summary>The page's list items, one key each; the prose around them is not read.</summary>
-    private static SortedSet<string> Listed() =>
+    internal static SortedSet<string> Listed() =>
         new(File.ReadLines(ListPath())
             .Select(line => ListedKey.Match(line.Trim()))
             .Where(match => match.Success)

@@ -19,8 +19,11 @@
   is Error, and the helper line under the field carries the validation error or
   AutomationProperties.HelpText. The metrics and their derivation are in Controls/TextBox.axaml.
 
-  Avalonia requires PART_Popup and PART_ItemsPresenter by name; PART_EditableTextBox is only
-  needed for IsEditable, which this theme does not style differently.
+  Avalonia requires PART_Popup and PART_ItemsPresenter by name, and PART_EditableTextBox for
+  IsEditable: without that part an editable ComboBox takes focus and silently ignores every key.
+  The part is a bare input (FiliComboBoxTextBox below) in the selected item's place, so an
+  editable select is still the one field, label and rules included - MudBlazor's own editable
+  select is MudAutocomplete, a MudInput too.
 -->
 <ResourceDictionary xmlns="https://github.com/avaloniaui"
                     xmlns:fili="using:Fili.Theme.MudAvalonia.Converters"
@@ -149,6 +152,39 @@
     </Grid>
   </DataTemplate>
 
+  <!-- IsEditable's input: the text alone, in the select's place. The select draws the field
+       round it - label, rules, helper line - so this has no chrome of its own; a full text field
+       here would be a field inside a field. Font and colour come from the select. -->
+  <ControlTheme x:Key="FiliComboBoxTextBox" TargetType="TextBox">
+    <Setter Property="Background" Value="Transparent" />
+    <Setter Property="BorderThickness" Value="0" />
+    <Setter Property="Padding" Value="0" />
+    <Setter Property="CaretBrush" Value="{DynamicResource FiliPrimaryBrush}" />
+    <Setter Property="SelectionBrush" Value="{DynamicResource FiliPrimaryBrush}" />
+    <Setter Property="SelectionForegroundBrush" Value="{DynamicResource FiliPrimaryContrastTextBrush}" />
+    <Setter Property="VerticalContentAlignment" Value="Center" />
+    <Setter Property="Cursor" Value="IBeam" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <ScrollViewer x:Name="PART_ScrollViewer"
+                      Background="{TemplateBinding Background}"
+                      HorizontalScrollBarVisibility="Hidden"
+                      VerticalScrollBarVisibility="Disabled">
+          <TextPresenter x:Name="PART_TextPresenter"
+                         Text="{TemplateBinding Text, Mode=TwoWay}"
+                         CaretIndex="{TemplateBinding CaretIndex}"
+                         SelectionStart="{TemplateBinding SelectionStart}"
+                         SelectionEnd="{TemplateBinding SelectionEnd}"
+                         TextAlignment="{TemplateBinding TextAlignment}"
+                         SelectionBrush="{TemplateBinding SelectionBrush}"
+                         SelectionForegroundBrush="{TemplateBinding SelectionForegroundBrush}"
+                         CaretBrush="{TemplateBinding CaretBrush}"
+                         VerticalAlignment="Center" />
+        </ScrollViewer>
+      </ControlTemplate>
+    </Setter>
+  </ControlTheme>
+
   <ControlTheme x:Key="FiliComboBox" TargetType="ComboBox">
     <!-- The label is the field's name to a screen reader, as MudBlazor's <label for> makes it,
          unless the app names it with AutomationProperties.LabeledBy (FieldNameConverter). An
@@ -208,7 +244,17 @@
                                 ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}"
                                 Foreground="{TemplateBinding Foreground}"
                                 HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
-                                VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" />
+                                VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+                                IsVisible="{TemplateBinding IsEditable, Converter={x:Static BoolConverters.Not}}" />
+              <TextBox x:Name="PART_EditableTextBox"
+                       Grid.Column="0"
+                       Theme="{StaticResource FiliComboBoxTextBox}"
+                       Foreground="{TemplateBinding Foreground}"
+                       Text="{TemplateBinding Text, Mode=TwoWay}"
+                       AutomationProperties.Name="{TemplateBinding (AutomationProperties.Name)}"
+                       AutomationProperties.LabeledBy="{TemplateBinding (AutomationProperties.LabeledBy)}"
+                       AutomationProperties.HelpText="{TemplateBinding (AutomationProperties.HelpText)}"
+                       IsVisible="{TemplateBinding IsEditable}" />
 
               <!-- The end adornment: MudSelect's is ArrowDropDown, a SOLID triangle, not the
                    thin chevron an expander uses. Drawn at 24 with Stretch="None", like every
@@ -247,8 +293,15 @@
                        FontSize="{DynamicResource FiliBody1FontSize}"
                        LineHeight="NaN"
                        Foreground="{DynamicResource FiliTextSecondaryBrush}"
-                       RenderTransform="translateY(0px)"
-                       IsVisible="{Binding SelectionBoxItem, RelativeSource={RelativeSource TemplatedParent}, Converter={x:Static ObjectConverters.IsNull}}">
+                       RenderTransform="translateY(0px)">
+              <!-- Resting only while the select is empty: nothing selected and, when editable,
+                   nothing typed - typed text that matches no item leaves SelectionBoxItem null. -->
+              <TextBlock.IsVisible>
+                <MultiBinding Converter="{x:Static BoolConverters.And}">
+                  <Binding Path="SelectionBoxItem" RelativeSource="{RelativeSource TemplatedParent}" Converter="{x:Static ObjectConverters.IsNull}" />
+                  <Binding Path="Text" RelativeSource="{RelativeSource TemplatedParent}" Converter="{x:Static StringConverters.IsNullOrEmpty}" />
+                </MultiBinding>
+              </TextBlock.IsVisible>
               <TextBlock.Text>
                 <MultiBinding StringFormat="{}{0}{1}">
                   <Binding Path="PlaceholderText" RelativeSource="{RelativeSource TemplatedParent}" />
@@ -270,8 +323,13 @@
                        IsHitTestVisible="False"
                        FontSize="{DynamicResource FiliCaptionFontSize}"
                        LineHeight="NaN"
-                       Foreground="{DynamicResource FiliTextPrimaryBrush}"
-                       IsVisible="{Binding SelectionBoxItem, RelativeSource={RelativeSource TemplatedParent}, Converter={x:Static ObjectConverters.IsNotNull}}">
+                       Foreground="{DynamicResource FiliTextPrimaryBrush}">
+              <TextBlock.IsVisible>
+                <MultiBinding Converter="{x:Static BoolConverters.Or}">
+                  <Binding Path="SelectionBoxItem" RelativeSource="{RelativeSource TemplatedParent}" Converter="{x:Static ObjectConverters.IsNotNull}" />
+                  <Binding Path="Text" RelativeSource="{RelativeSource TemplatedParent}" Converter="{x:Static StringConverters.IsNotNullOrEmpty}" />
+                </MultiBinding>
+              </TextBlock.IsVisible>
               <TextBlock.Text>
                 <MultiBinding StringFormat="{}{0}{1}">
                   <Binding Path="PlaceholderText" RelativeSource="{RelativeSource TemplatedParent}" />
@@ -347,11 +405,18 @@
     </Style>
 
     <!-- A select signals focus when its drop-down is open, not only on keyboard focus. -->
-    <Style Selector="^:focus /template/ theme|PartBorder#PART_UnderlineActive">
+    <Style Selector="^:focus /template/ theme|PartBorder#PART_UnderlineActive, ^[IsEditable=True]:focus-within /template/ theme|PartBorder#PART_UnderlineActive">
       <Setter Property="RenderTransform" Value="scaleX(1)" />
     </Style>
     <Style Selector="^:dropdownopen /template/ theme|PartBorder#PART_UnderlineActive">
       <Setter Property="RenderTransform" Value="scaleX(1)" />
+    </Style>
+
+    <!-- Resting on the text line, as the standard text field's label does (Controls/TextBox.axaml):
+         7px below the field's centre. The template's 0 is Template priority, which only a style
+         with an activator outranks; every float rule after this one still wins. -->
+    <Style Selector="^:not(:dropdownopen) /template/ TextBlock#PART_FloatingLabel">
+      <Setter Property="RenderTransform" Value="translateY(7px)" />
     </Style>
 
     <!-- ShrinkLabel (`shrink-label`): floated with nothing selected too, in text-primary. -->
@@ -360,7 +425,7 @@
       <Setter Property="RenderTransform" Value="translateY(-14px)" />
       <Setter Property="Foreground" Value="{DynamicResource FiliTextPrimaryBrush}" />
     </Style>
-    <Style Selector="^:focus /template/ TextBlock#PART_FloatingLabel">
+    <Style Selector="^:focus /template/ TextBlock#PART_FloatingLabel, ^[IsEditable=True]:focus-within /template/ TextBlock#PART_FloatingLabel">
       <Setter Property="FontSize" Value="{DynamicResource FiliCaptionFontSize}" />
       <Setter Property="RenderTransform" Value="translateY(-14px)" />
       <Setter Property="Foreground" Value="{DynamicResource FiliPrimaryBrush}" />
@@ -370,11 +435,19 @@
       <Setter Property="RenderTransform" Value="translateY(-14px)" />
       <Setter Property="Foreground" Value="{DynamicResource FiliPrimaryBrush}" />
     </Style>
-    <Style Selector="^:focus /template/ TextBlock#PART_SelectedLabel">
+    <Style Selector="^:focus /template/ TextBlock#PART_SelectedLabel, ^[IsEditable=True]:focus-within /template/ TextBlock#PART_SelectedLabel">
       <Setter Property="Foreground" Value="{DynamicResource FiliPrimaryBrush}" />
     </Style>
     <Style Selector="^:dropdownopen /template/ TextBlock#PART_SelectedLabel">
       <Setter Property="Foreground" Value="{DynamicResource FiliPrimaryBrush}" />
+    </Style>
+
+    <!-- Editable: the input is the one Tab stop, as in Avalonia's own theme. Keyboard focus is on
+         the input, so the select's focus look follows :focus-within (the selectors above). -->
+    <Style Selector="^[IsEditable=True]">
+      <Setter Property="IsTabStop" Value="False" />
+      <Setter Property="KeyboardNavigation.TabNavigation" Value="Local" />
+      <Setter Property="Cursor" Value="IBeam" />
     </Style>
 
     <!-- OpenIcon: MudSelect swaps ArrowDropDown for ArrowDropUp while the list is open. -->
@@ -506,9 +579,9 @@
       <Setter Property="Margin" Value="0,17,0,7" />
     </Style>
     <Style Selector="^.dense /template/ TextBlock#PART_FloatingLabel">
-      <Setter Property="RenderTransform" Value="translateY(-1.5px)" />
+      <Setter Property="RenderTransform" Value="translateY(5px)" />
     </Style>
-    <Style Selector="^.dense:focus /template/ TextBlock#PART_FloatingLabel, ^.dense.shrink-label /template/ TextBlock#PART_FloatingLabel">
+    <Style Selector="^.dense:focus /template/ TextBlock#PART_FloatingLabel, ^.dense.shrink-label /template/ TextBlock#PART_FloatingLabel, ^.dense[IsEditable=True]:focus-within /template/ TextBlock#PART_FloatingLabel">
       <Setter Property="RenderTransform" Value="translateY(-12.5px)" />
     </Style>
     <Style Selector="^.dense:dropdownopen /template/ TextBlock#PART_FloatingLabel">
@@ -534,7 +607,11 @@
     <Style Selector="^ /template/ TextBlock#PART_SelectedLabel">
       <Setter Property="Margin" Value="12,0" />
     </Style>
-    <Style Selector="^:focus /template/ TextBlock#PART_FloatingLabel, ^.shrink-label /template/ TextBlock#PART_FloatingLabel">
+    <!-- Resting, centred in the box, as the filled and outlined text fields' labels are. -->
+    <Style Selector="^:not(:dropdownopen) /template/ TextBlock#PART_FloatingLabel">
+      <Setter Property="RenderTransform" Value="translateY(0px)" />
+    </Style>
+    <Style Selector="^:focus /template/ TextBlock#PART_FloatingLabel, ^.shrink-label /template/ TextBlock#PART_FloatingLabel, ^[IsEditable=True]:focus-within /template/ TextBlock#PART_FloatingLabel">
       <Setter Property="RenderTransform" Value="translateY(-10px)" />
     </Style>
     <Style Selector="^:dropdownopen /template/ TextBlock#PART_FloatingLabel">
@@ -561,7 +638,7 @@
     <Style Selector="^.dense /template/ TextBlock#PART_FloatingLabel">
       <Setter Property="RenderTransform" Value="translateY(1px)" />
     </Style>
-    <Style Selector="^.dense:focus /template/ TextBlock#PART_FloatingLabel, ^.dense.shrink-label /template/ TextBlock#PART_FloatingLabel">
+    <Style Selector="^.dense:focus /template/ TextBlock#PART_FloatingLabel, ^.dense.shrink-label /template/ TextBlock#PART_FloatingLabel, ^.dense[IsEditable=True]:focus-within /template/ TextBlock#PART_FloatingLabel">
       <Setter Property="RenderTransform" Value="translateY(-9px)" />
     </Style>
     <Style Selector="^.dense:dropdownopen /template/ TextBlock#PART_FloatingLabel">
@@ -598,7 +675,7 @@
     <Style Selector="^:pointerover /template/ theme|PartBorder#PART_Root">
       <Setter Property="BorderBrush" Value="{DynamicResource FiliTextPrimaryBrush}" />
     </Style>
-    <Style Selector="^:focus /template/ theme|PartBorder#PART_Root">
+    <Style Selector="^:focus /template/ theme|PartBorder#PART_Root, ^[IsEditable=True]:focus-within /template/ theme|PartBorder#PART_Root">
       <Setter Property="BorderBrush" Value="{DynamicResource FiliPrimaryBrush}" />
       <Setter Property="BorderThickness" Value="2" />
     </Style>
@@ -607,9 +684,14 @@
       <Setter Property="BorderThickness" Value="2" />
     </Style>
 
+    <!-- Resting, centred in the box, as the filled and outlined text fields' labels are. -->
+    <Style Selector="^:not(:dropdownopen) /template/ TextBlock#PART_FloatingLabel">
+      <Setter Property="RenderTransform" Value="translateY(0px)" />
+    </Style>
+
     <!-- The floated label sits on the stroke behind a surface-coloured mask, with the same limit
          as the text field's: on any ground but FiliSurface the patch shows. -->
-    <Style Selector="^:focus /template/ TextBlock#PART_FloatingLabel, ^.shrink-label /template/ TextBlock#PART_FloatingLabel">
+    <Style Selector="^:focus /template/ TextBlock#PART_FloatingLabel, ^.shrink-label /template/ TextBlock#PART_FloatingLabel, ^[IsEditable=True]:focus-within /template/ TextBlock#PART_FloatingLabel">
       <Setter Property="Background" Value="{DynamicResource FiliSurfaceBrush}" />
       <Setter Property="Padding" Value="5,0" />
       <Setter Property="Margin" Value="10,0" />
@@ -651,7 +733,7 @@
     <Style Selector="^.dense /template/ TextBlock#PART_FloatingLabel">
       <Setter Property="RenderTransform" Value="translateY(0px)" />
     </Style>
-    <Style Selector="^.dense:focus /template/ TextBlock#PART_FloatingLabel, ^.dense.shrink-label /template/ TextBlock#PART_FloatingLabel">
+    <Style Selector="^.dense:focus /template/ TextBlock#PART_FloatingLabel, ^.dense.shrink-label /template/ TextBlock#PART_FloatingLabel, ^.dense[IsEditable=True]:focus-within /template/ TextBlock#PART_FloatingLabel">
       <Setter Property="RenderTransform" Value="translateY(-18px)" />
     </Style>
     <Style Selector="^.dense:dropdownopen /template/ TextBlock#PART_FloatingLabel">

@@ -243,8 +243,8 @@ public class TimePickerTests
 
     /// <summary>
     /// The popover hangs from the field's bottom-left, as MudPicker's does. Avalonia's code moves
-    /// PART_Popup to centre the chosen row on the field, from the presenter's height, which put it
-    /// at minus infinity: so PART_Popup stays empty and the presenter is in a popover it cannot
+    /// PART_Popup to centre the chosen row on the field, from the presenter's height, which is
+    /// WinUI's flyout and not MudPicker's popover: so PART_Popup stays empty and the presenter is in a popover it cannot
     /// move, open while PART_Popup is. Accepting still commits the time and closes both.
     /// </summary>
     [Fact]
@@ -269,6 +269,24 @@ public class TimePickerTests
         Assert.Equal(new TimeSpan(14, 45, 0), picker.SelectedTime);
         Assert.False(popover.IsOpen);
         Assert.False(avalonias.IsOpen);
+    });
+
+    /// <summary>
+    /// The empty PART_Popup's offset is finite: Avalonia works it out of the presenter's
+    /// MaxHeight, which left unset made it minus infinity. The limit is above the popover's own
+    /// height, so nothing is cut off.
+    /// </summary>
+    [Fact]
+    public Task TheEmptyPopupsOffsetIsFinite() => UiThread.RunAsync(() =>
+    {
+        var picker = Show(new TimeSpan(14, 30, 0));
+        var presenter = Open(picker);
+        var avalonias = picker.GetVisualDescendants().OfType<Popup>().Single(p => p.Name == "PART_Popup");
+
+        Assert.True(double.IsFinite(avalonias.VerticalOffset), $"PART_Popup's offset is {avalonias.VerticalOffset}.");
+        Assert.True(presenter.Bounds.Height < presenter.MaxHeight, $"The popover is {presenter.Bounds.Height} high, over its limit.");
+        avalonias.IsOpen = false;
+        Dispatcher.UIThread.RunJobs();
     });
 
     /// <summary>

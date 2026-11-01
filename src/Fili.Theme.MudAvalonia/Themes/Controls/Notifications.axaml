@@ -105,6 +105,7 @@
                      VerticalAlignment="Center">
                 <Button x:Name="PART_CloseButton"
                         Classes="icon small inherit"
+                        AutomationProperties.Name="{DynamicResource FiliStringClose}"
                         NotificationCard.CloseOnClick="True">
                   <!-- 20px, the small icon button's: the 24px glyph scaled to it. -->
                   <Viewbox Width="20" Height="20">

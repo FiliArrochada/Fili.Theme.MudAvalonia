@@ -82,7 +82,7 @@
       <docs:ParityRow MudBlazor="Editable" Here="editable" Status="Same" Note="Taken on Enter or when the field loses focus." />
       <docs:ParityRow MudBlazor="the clock face" Here="Avalonia's hour and minute columns" Status="Close" Note="Looping columns with the chosen row on a primary band, under MudTimePicker's toolbar. The clock face is a control of its own, so the toolbar's hour and minute are not buttons switching the view, and AM and PM are set by the period column." />
       <docs:ParityRow MudBlazor="AdornmentIcon (AccessTime)" Here="FiliAccessTimeGeometry" Status="Same" Note="In the picker's Resources to swap it." />
-      <docs:ParityRow MudBlazor="Adornment (End), AdornmentColor, IconSize" Here="the icon button at the end, action-default" Status="Close" Note="Fixed: no class moves or colours it." />
+      <docs:ParityRow MudBlazor="Adornment (End), AdornmentColor, IconSize" Here="the icon button at the end, action-default" Status="Close" Note="Fixed: no class moves or colours it. Hidden from screen readers, which reach the picker through its field." />
       <docs:ParityRow MudBlazor="Disabled" Here="IsEnabled=&quot;False&quot;" Status="Same" />
       <docs:ParityRow MudBlazor="ReadOnly" Here="IsHitTestVisible=&quot;False&quot;" Status="Close" Note="A TimePicker has no IsReadOnly." />
       <docs:ParityRow MudBlazor="Clearable, ClearIcon" Here="—" Status="Missing" Note="No clear button on a read-only picker; an editable one's empty text clears the time." />
@@ -94,7 +94,7 @@
       <docs:ParityRow MudBlazor="Elevation (8), Square, Rounded" Here="—" Status="Missing" Note="The popover is always a paper at elevation 8 with the default radius." />
       <docs:ParityRow MudBlazor="Orientation.Landscape, ShowToolbar=&quot;false&quot;" Here="—" Status="Missing" Note="The toolbar is always shown, above the columns." />
       <docs:ParityRow MudBlazor="OpenTo, TimeEditMode (OnlyHours, OnlyMinutes)" Here="—" Status="Missing" Note="The columns show at once, so there is no view to open to or leave out." />
-      <docs:ParityRow MudBlazor="AutoClose, ClosingDelay, PickerActions" Here="Close and Check" Status="Close" Note="Avalonia's picker commits on Check; its actions are fixed." />
+      <docs:ParityRow MudBlazor="AutoClose, ClosingDelay, PickerActions" Here="Close and Check" Status="Close" Note="Avalonia's picker commits on Check; its actions are fixed. A screen reader names them FiliStringDismiss and FiliStringAccept, Cancel and OK by default." />
       <docs:ParityRow MudBlazor="Mask, ImmediateText" Here="—" Status="Missing" Note="Typed text is taken on Enter or when the field loses focus, without a mask." />
       <docs:ParityRow MudBlazor="AnchorOrigin, TransformOrigin, RelativeWidth, Modal" Here="—" Status="Missing" Note="The popover opens where Avalonia's TimePicker places it, and closes on a click outside." />
     </docs:ParityTable>

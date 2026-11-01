@@ -234,8 +234,9 @@ Reduced motion, a `Boolean` the same in every variant, `False` by default. `True
 resources stops the ripple, the popup fade, the skeleton's pulse and wave, the snackbar's slide, an
 expansion panel's and an overlay's fade, the tab indicator's slide and a striped bar's bands. A
 progress indicator keeps moving. It does not yet stop a drawer's slide, a switch thumb's travel, a
-field's floating label, an expander's or tree row's chevron turning, an expansion panel's margin or
-a determinate circular progress's sweep. MudBlazor has no such switch.
+field's floating label or its focus underline, an expander's or tree row's chevron turning, an
+expansion panel's margin, a determinate circular progress's sweep, a data grid's sort arrow or a
+slider's value label fading in. MudBlazor has no such switch.
 
 - `FiliReducedMotion`
 
@@ -371,6 +372,14 @@ The font family and MudBlazor's type ramp: a size, line height and letter spacin
 the button label's case, a string in CSS's words (`uppercase` by default, `none` to keep labels as
 written).
 
+The baseline is MudBlazor's `Typography.Default`, the same values as body2. `FiliFontSize` is
+every window's and popup's size, inherited by all unclassed text: set it in the application's
+`Resources` to scale the app's body text. `FiliLineHeight` and `FiliLetterSpacing` are that
+baseline's line height and spacing, for an app's own styles to read; the theme applies neither to
+unclassed text, which keeps the font's natural line height so an app's own large text is not
+clipped. The type ramp's classes and the controls read their own style's keys (`FiliBody2*` and
+so on), so they do not follow `FiliFontSize`.
+
 - `FiliBody1FontSize`
 - `FiliBody1LetterSpacing`
 - `FiliBody1LineHeight`
@@ -415,6 +424,22 @@ written).
 - `FiliSubtitle2FontSize`
 - `FiliSubtitle2LetterSpacing`
 - `FiliSubtitle2LineHeight`
+
+## Strings
+
+The words the theme's own templates say: the automation names of its icon-only buttons, which a
+screen reader reads where a sighted user sees only a glyph. English, the same in every variant; an
+app translates one by setting the key in its application's `Resources`, or a control's for that
+control (`Themes/Strings.axaml`).
+
+- `FiliStringAccept`
+- `FiliStringClear`
+- `FiliStringClose`
+- `FiliStringDecrease`
+- `FiliStringDismiss`
+- `FiliStringIncrease`
+- `FiliStringNext`
+- `FiliStringPrevious`
 
 ## Glyphs
 

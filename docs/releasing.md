@@ -37,6 +37,13 @@ csproj, the last version on nuget.org, and fails on a public member that is gone
 a release is on nuget.org, raise the baseline to it in the next commit; until then it stays on the
 one before.
 
+Package validation sees only the C# API; the theme's real interface is its keys and classes, and
+those are frozen in `tst/Fili.Theme.MudAvalonia.UnitTests/published-baseline.txt`
+(`PublishedBaselineTests`): every published key with the type it resolves to, and every class. A
+change that adds a key or a class appends it there with `FILI_REGENERATE=1` (the test's summary has
+the command), so the release ships with it already frozen. The file only grows; nothing at release
+edits it, and only a major version removes an entry, by hand.
+
 Publishing uses **nuget.org trusted publishing**: the workflow swaps GitHub's OIDC token for an API
 key that expires within the hour, so no key is stored anywhere. Three one-time steps:
 
@@ -86,8 +93,10 @@ because a fork promised on an older patch than its tag would be a promise no bui
 its version in `Directory.Packages.props` (`OptionalBoundaryTests` pins the two together, and
 `BelowVersion` to the next major). Both are **12.1.0**, the first 12.1 release: 12.1.0, 12.1.1 and 12.1.2
 each build and pass every test, and every 12.1 release needs Avalonia 12.1.0 or later. 12.0.x
-needs Avalonia 12.0, which the theme cannot compile against. An app with a DataGrid under the
-gate keeps its grid on the package's own theme, with a warning in Avalonia's log. CI builds and
+needs Avalonia 12.0, which the theme cannot compile against. An app with a DataGrid outside the
+gate gets a warning in Avalonia's log and no grid template from this theme: Avalonia has no default
+theme, so the grid shows nothing unless the app includes a DataGrid theme itself
+(`OptionalStyleInclude`). CI builds and
 tests on 12.1.0, the floor; the newest is checked by the measurement above.
 
 To re-measure after an upgrade, export `HEAD` (`git archive`), set every `Avalonia*` version in

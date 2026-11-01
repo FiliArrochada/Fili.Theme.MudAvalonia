@@ -113,6 +113,7 @@
                      Size.Medium, 24px, or Size.Small, 20px, in a dense field (SpinColumn.Size). -->
                 <RepeatButton x:Name="PART_IncreaseButton"
                               Theme="{StaticResource FiliSpinnerButton}"
+                              AutomationProperties.Name="{DynamicResource FiliStringIncrease}"
                               IsTabStop="{TemplateBinding IsTabStop}">
                   <Viewbox Width="{TemplateBinding (theme:SpinColumn.Size)}"
                            Height="{TemplateBinding (theme:SpinColumn.Size)}">
@@ -124,6 +125,7 @@
                 </RepeatButton>
                 <RepeatButton x:Name="PART_DecreaseButton"
                               Theme="{StaticResource FiliSpinnerButton}"
+                              AutomationProperties.Name="{DynamicResource FiliStringDecrease}"
                               IsTabStop="{TemplateBinding IsTabStop}">
                   <Viewbox Width="{TemplateBinding (theme:SpinColumn.Size)}"
                            Height="{TemplateBinding (theme:SpinColumn.Size)}">

@@ -77,6 +77,7 @@
       <docs:ParityRow MudBlazor="AdornmentColor" Here="adornment-primary … adornment-dark, adornment-inherit" Status="Same" Note="The arrow in the colour, or the colour round the select; text-disabled when disabled." />
       <docs:ParityRow MudBlazor="OpenIcon / CloseIcon set to other glyphs" Here="FiliArrowDropDownGeometry / FiliArrowDropUpGeometry in the select's Resources" Status="Same" />
       <docs:ParityRow MudBlazor="Underline, Required, ShrinkLabel" Here="no-underline, required, shrink-label" Status="Same" Note="As on a text field." />
+      <docs:ParityRow MudBlazor="(MudAutocomplete, a typed select)" Here="IsEditable" Status="Close" Note="The text is typed in the selected item's place, inside the same field: the label floats on typed text as on a value, and the input is the one Tab stop. Matching an item selects it, as ComboBox does; for suggestions as you type, the autocomplete." />
       <docs:ParityRow MudBlazor="Clearable, ClearIcon" Here="—" Status="Missing" Note="A ComboBox has no InnerRightContent to put a clear button in." />
       <docs:ParityRow MudBlazor="ReadOnly" Here="IsHitTestVisible=&quot;False&quot;" Status="Close" Note="A ComboBox has no IsReadOnly." />
       <docs:ParityRow MudBlazor="Open" Here="IsDropDownOpen" Status="Same" />

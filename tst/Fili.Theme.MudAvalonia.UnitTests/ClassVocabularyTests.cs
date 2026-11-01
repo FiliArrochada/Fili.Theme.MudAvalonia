@@ -36,7 +36,7 @@ namespace Fili.Theme.MudAvalonia.UnitTests;
 /// </summary>
 public class ClassVocabularyTests
 {
-    private static readonly string[] Vocabulary =
+    internal static readonly string[] Vocabulary =
     [
         // Type ramp, on TextBlock: every Typo but inherit.
         "body1", "body2", "button", "caption", "h1", "h2", "h3", "h4", "h5", "h6",

@@ -170,7 +170,7 @@ The whole adaptation was:
 1. Fetch `src/Avalonia.Themes.Simple/Controls/*.xaml` at the tag `FORK.md` names.
 2. `.xaml` → `.axaml`, and rebase `avares://Avalonia.Themes.Simple/...` onto this package. Both by
    script; no template was touched by hand.
-3. Write `Accents.axaml`, mapping the ~96 keys those templates paint from onto Fili tokens.
+3. Write `Accents.axaml`, mapping the 63 keys those templates paint from onto Fili tokens.
 
 Step 3 is the whole trick, and it is why **Simple** rather than Fluent: its key surface is small,
 flat and stable. Fluent's equivalent is hundreds of layered keys that move between versions — the
@@ -364,6 +364,14 @@ for something XAML cannot express on its own:
 - **`FocusRing`** is the flag on each window's and popup's `AdornerLayer` that `FiliFocusRing`
   sets, on which the layer draws the focus ring round whichever control the keyboard focuses. A
   style can only test a property, and a popup's layer is in a window of its own.
+- **`Motion`** is the inherited value each window and popup takes from `FiliReducedMotion`, which
+  the theme's animations read: the styles through a property selector, the helpers in code. A
+  popup is a window of its own that a class on the app's window would not reach, and a style can
+  only test a property.
+- **`InheritedColour`** holds the text colour a control sits in, for a part that is not text to
+  paint with: the `inherit` class on a checkbox, radio or switch binds it to the parent's
+  inherited foreground, MudBlazor's `Color.Inherit`. A style on a template part cannot name the
+  control's parent.
 - **`FieldNameConverter`** names a field to a screen reader by its label, `PlaceholderText`,
   unless the app labels it with `AutomationProperties.LabeledBy`. Avalonia's automation peer reads
   the name before `LabeledBy`, so a name always set from the label would hide the app's.
@@ -375,11 +383,14 @@ for something XAML cannot express on its own:
   pointer, its opacity inherited from the control's theme. Avalonia has no ripple, and a style
   cannot follow a pointer. Most layers are never pressed, so a layer holds nothing and listens
   for presses alone until its first ripple makes its canvas; it listens for the release only
-  while a wave is held, and drops its clip once the last wave has gone.
+  while a wave is held, and drops its clip once the last wave has gone. The press the innermost
+  layer answered is remembered only while it routes, so no window outlives its last press.
 - **`TextTransform`** draws a button's label in `FiliButtonTextTransform`'s case: a string on
   its way into the presenter, and any plain `TextBlock` in the content, which the inherited case
   reaches, through a run that leaves its `Text` alone. Avalonia has no text-transform, and a
-  binding cannot read a resource as a converter parameter.
+  binding cannot read a resource as a converter parameter. A control whose label it shows in
+  another case is named with the label as written, at style priority, since its automation peer
+  reads the drawn text.
 - **`Adornments`** marks a text field that has `InnerLeftContent` with `:start-adornment`, which
   floats its label, as MudInput's start adornment does, and one with `InnerRightContent` with
   `:end-adornment`; each adornment then keeps 8px from the text. A string or `TextBlock` there

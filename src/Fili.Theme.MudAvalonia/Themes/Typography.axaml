@@ -20,7 +20,11 @@
 
   <FontFamily x:Key="FiliFontFamily">avares://Fili.Theme.MudAvalonia/Assets/Fonts#Roboto</FontFamily>
 
-  <!-- Default / body2: the app-wide baseline -->
+  <!-- Default: the app-wide baseline, Typography.Default, the same values as body2.
+       FiliFontSize is every window's and popup's size (FiliTheme.axaml), inherited by unclassed
+       text. FiliLineHeight and FiliLetterSpacing are the baseline's line and spacing for an app's
+       own styles; the theme applies neither to unclassed text, which keeps the font's natural
+       line so an app's own large text is not clipped. -->
   <sys:Double x:Key="FiliFontSize">14</sys:Double>
   <sys:Double x:Key="FiliLineHeight">20</sys:Double>
   <sys:Double x:Key="FiliLetterSpacing">0.15</sys:Double>

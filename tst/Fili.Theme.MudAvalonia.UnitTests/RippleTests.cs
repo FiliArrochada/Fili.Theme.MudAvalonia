@@ -494,4 +494,28 @@ public class RippleTests
         Assert.Equal(Colors.Teal, Matrix.Colour(Single(button).Dot.Fill));
         Assert.Equal(Colors.Teal, Matrix.Colour(Matrix.Part<Border>(button, "PART_Ripple").GetValue(TextElement.ForegroundProperty)));
     });
+
+    /// <summary>
+    /// The press the innermost layer answered is held only while it routes. A static held it, and
+    /// through its source the pressed control's window, closed or not, until the next press
+    /// anywhere: an app's own leak test failed on whatever window was clicked last.
+    /// </summary>
+    [Fact]
+    public Task NoPressOutlivesItsRouting() => UiThread.RunAsync(() =>
+    {
+        var field = typeof(FiliThemeVariants).Assembly.GetType("Fili.Theme.MudAvalonia.Ripple", throwOnError: true)!
+            .GetField("s_answered", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Static)!;
+        var button = Matrix.Show(new Button { Content = "Save" });
+
+        using (Press(button))
+        {
+            Assert.Single(Waves(button));
+            Assert.Null(field.GetValue(null));
+        }
+
+        ((Window)TopLevel.GetTopLevel(button)!).Close();
+        Dispatcher.UIThread.RunJobs();
+
+        Assert.Null(field.GetValue(null));
+    });
 }

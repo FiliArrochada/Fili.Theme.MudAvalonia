@@ -1,0 +1,28 @@
+<!--
+  The words the theme's own templates say: the automation names of its icon-only buttons, which a
+  screen reader reads where a sighted user sees only a glyph. Without one, Avalonia's peer falls
+  back to the content's type name, and a reader announces "Avalonia.Controls.PathIcon".
+
+  English defaults, the same in every variant. An app translates one by setting the key in its
+  application's Resources (or a control's, for that control): `<x:String x:Key="FiliStringClear">
+  Effacer</x:String>`. Read through DynamicResource, so a change applies at once. Named after
+  Avalonia's own String* keys, which the forked base reads the same way (Base/InvariantResources).
+-->
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+  <!-- A text field's clear button. -->
+  <x:String x:Key="FiliStringClear">Clear</x:String>
+  <!-- A snackbar's close button. -->
+  <x:String x:Key="FiliStringClose">Close</x:String>
+  <!-- A calendar's and a carousel's arrows. -->
+  <x:String x:Key="FiliStringPrevious">Previous</x:String>
+  <x:String x:Key="FiliStringNext">Next</x:String>
+  <!-- A numeric field's spinners. -->
+  <x:String x:Key="FiliStringIncrease">Increase</x:String>
+  <x:String x:Key="FiliStringDecrease">Decrease</x:String>
+  <!-- A time picker's actions: MudBlazor's picker actions are OK and Cancel. -->
+  <x:String x:Key="FiliStringAccept">OK</x:String>
+  <x:String x:Key="FiliStringDismiss">Cancel</x:String>
+
+</ResourceDictionary>

@@ -27,6 +27,29 @@
       <Run Text="An app that swaps whole palette dictionaries at run time, rather than setting " /><Run Classes="code" Text="RequestedThemeVariant" /><Run Text=", needs nothing new: each of its palettes carries the same " /><Run Classes="code" Text="Fili*" /><Run Text=" overrides." />
     </TextBlock>
 
+    <TextBlock Classes="h5 section" Text="Font, corners and density" />
+    <TextBlock Classes="body1 p">
+      <Run FontWeight="Bold" Text="The font" /><Run Text=" is " /><Run Classes="code" Text="FiliFontFamily" /><Run Text=", embedded Roboto. Set it in the application's resources to your own face, and ship that face in the three weights the type ramp uses: Light (300) for h1 and h2, Regular (400) for body text and Medium (500) for buttons, tabs, h6 and subtitle2. A family without one of them is drawn in the nearest face it has, so headings or labels lose their weight." />
+    </TextBlock>
+    <docs:CodeBlock Code="&lt;Application.Resources&gt;&#10;  &lt;!-- Inter-Light.ttf, Inter-Regular.ttf and Inter-Medium.ttf as AvaloniaResource --&gt;&#10;  &lt;FontFamily x:Key=&quot;FiliFontFamily&quot;&gt;avares://MyApp/Assets/Fonts#Inter&lt;/FontFamily&gt;&#10;&lt;/Application.Resources&gt;"
+                    Margin="0,0,0,16" />
+    <TextBlock Classes="body1 p">
+      <Run FontWeight="Bold" Text="The corners" /><Run Text=" are " /><Run Classes="code" Text="FiliCornerRadius" /><Run Text=", MudBlazor's DefaultBorderRadius of 4px: buttons, fields, papers, cards, menus, alerts and the rest read it. Shapes MudBlazor fixes keep their own, a chip's pill, a FAB's circle, a checkbox's box. In the application's resources it changes every control; in a control's, that control and what is inside it." />
+    </TextBlock>
+    <docs:CodeBlock Code="&lt;Application.Resources&gt;&#10;  &lt;CornerRadius x:Key=&quot;FiliCornerRadius&quot;&gt;8&lt;/CornerRadius&gt;&#10;&lt;/Application.Resources&gt;&#10;&#10;&lt;!-- one square card --&gt;&#10;&lt;Border Classes=&quot;card&quot;&gt;&#10;  &lt;Border.Resources&gt;&#10;    &lt;CornerRadius x:Key=&quot;FiliCornerRadius&quot;&gt;0&lt;/CornerRadius&gt;&#10;  &lt;/Border.Resources&gt;&#10;&lt;/Border&gt;"
+                    Margin="0,0,0,16" />
+    <TextBlock Classes="body1 p">
+      <Run FontWeight="Bold" Text="Density" /><Run Text=" is MudBlazor's Dense parameter: the " /><Run Classes="code" Text="dense" /><Run Text=" class on each control that has one, a text field, select, number field, check box, radio, list, menu, tree view, table, data grid, expansion panel, tool bar or alert. There is no app-wide density switch, as MudBlazor has none: a class is set per control, so a dense screen sets it on each." />
+    </TextBlock>
+    <TextBlock Classes="body1 p" Text="Every key an app may set, with its type and what it changes, is in Published resource keys:" />
+    <HyperlinkButton Content="docs/published-keys.md on GitHub"
+                     NavigateUri="https://github.com/FiliArrochada/Fili.Theme.MudAvalonia/blob/master/docs/published-keys.md"
+                     Margin="0,0,0,16" />
+    <StackPanel Orientation="Horizontal" Spacing="8" Margin="0,0,0,16">
+      <TextBlock Classes="body1" Text="See also:" VerticalAlignment="Center" />
+      <docs:DocLink Slug="typography" Content="Typography" />
+    </StackPanel>
+
     <TextBlock Classes="h5 section" Text="One control's look" />
     <TextBlock Classes="body1 p">
       <Run Text="A template's parts are not published, and a style that reaches into one can break on any release. Every part paints a token, and a resource lookup starts at the control, so a key in a control's own " /><Run Classes="code" Text="Resources" /><Run Text=" changes that control alone." />
@@ -94,7 +117,7 @@
       <docs:ParityRow MudBlazor="HoverOpacity / BorderOpacity" Here="—" Status="Close" Note="Folded into the hover and line tokens rather than exposed." />
       <docs:ParityRow MudBlazor="RippleOpacity / RippleOpacitySecondary" Here="FiliRippleOpacity / FiliRippleOpacitySecondary" Status="Same" Note="0.1 and 0.2, a Double the same in every variant, as MudThemeProvider writes both from the light palette." />
       <docs:ParityRow MudBlazor="Shadow.cs" Here="FiliElevation0 … FiliElevation25" Status="Same" Note="Three layers each; a 1px ring in high contrast." />
-      <docs:ParityRow MudBlazor="LayoutProperties DefaultBorderRadius" Here="FiliCornerRadius" Status="Same" Note="4px." />
+      <docs:ParityRow MudBlazor="LayoutProperties DefaultBorderRadius" Here="FiliCornerRadius" Status="Same" Note="4px; set it in the application's resources for every control, or in a control's for that one." />
       <docs:ParityRow MudBlazor="AppbarHeight, DrawerWidthLeft, DrawerMiniWidthLeft" Here="FiliAppbarHeight, FiliDrawerWidth, FiliDrawerMiniWidth" Status="Same" />
       <docs:ParityRow MudBlazor="DrawerWidthRight, DrawerMiniWidthRight" Here="FiliDrawerWidth, FiliDrawerMiniWidth" Status="Close" Note="One key for either side, 240 and 56px as both of MudBlazor's are." />
       <docs:ParityRow MudBlazor="ZIndex (Drawer, Popover, AppBar, Dialog, Snackbar, Tooltip)" Here="—" Status="Missing" Note="Avalonia stacks by the tree and its own layers: popups, tooltips and notifications sit above the content, and ZIndex orders siblings." />
@@ -103,6 +126,7 @@
       <docs:ParityRow MudBlazor="IsDarkMode" Here="Application.RequestedThemeVariant = ThemeVariant.Dark" Status="Same" />
       <docs:ParityRow MudBlazor="(none: high contrast)" Here="FiliThemeVariants.HighContrast" Status="Extra" Note="This package's own third variant, inheriting from Dark." />
       <docs:ParityRow MudBlazor="MudRTLProvider" Here="FlowDirection" Status="Same" Note="Every template mirrors; a glyph that must not mirror opts out." />
+      <docs:ParityRow MudBlazor="(none: a component's built-in aria-label text)" Here="FiliStringClear, FiliStringClose, FiliStringPrevious, FiliStringNext, FiliStringIncrease, FiliStringDecrease, FiliStringAccept, FiliStringDismiss" Status="Extra" Note="The names a screen reader hears for the templates' icon buttons, English by default; set one in the application's Resources to translate it." />
     </docs:ParityTable>
   </StackPanel>
 </UserControl>

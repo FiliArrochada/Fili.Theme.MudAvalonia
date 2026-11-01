@@ -129,7 +129,8 @@
                       Classes="icon"
                       Margin="0,-14,-12,-14"
                       Focusable="False"
-                      IsEnabled="{TemplateBinding IsEnabled}">
+                      IsEnabled="{TemplateBinding IsEnabled}"
+                      AutomationProperties.AccessibilityView="Raw">
                 <PathIcon Data="{DynamicResource FiliAccessTimeGeometry}" />
               </Button>
             </TextBox.InnerRightContent>
@@ -191,6 +192,11 @@
     <!-- A templated control clips to its bounds, which leave the margin out: the shadow falls there. -->
     <Setter Property="ClipToBounds" Value="False" />
     <Setter Property="Width" Value="310" />
+    <!-- Avalonia's own value, from the forked base. TimePicker works PART_Popup's offset out of
+         the presenter's MaxHeight, which left at infinity made it minus infinity: harmless while
+         PART_Popup stays empty, but a non-finite offset is one layout away from an exception. The
+         popover is 372px tall, so the limit never bites. -->
+    <Setter Property="MaxHeight" Value="398" />
     <Setter Property="FontFamily" Value="{DynamicResource FiliFontFamily}" />
     <Setter Property="Template">
       <ControlTemplate>
@@ -257,10 +263,12 @@
                         Orientation="Horizontal"
                         HorizontalAlignment="Right"
                         Margin="8">
-              <Button x:Name="PART_DismissButton" Classes="icon">
+              <Button x:Name="PART_DismissButton" Classes="icon"
+                      AutomationProperties.Name="{DynamicResource FiliStringDismiss}">
                 <PathIcon Data="{DynamicResource FiliCloseGeometry}" />
               </Button>
-              <Button x:Name="PART_AcceptButton" Classes="icon primary">
+              <Button x:Name="PART_AcceptButton" Classes="icon primary"
+                      AutomationProperties.Name="{DynamicResource FiliStringAccept}">
                 <PathIcon Data="{DynamicResource FiliCheckGeometry}" />
               </Button>
             </StackPanel>

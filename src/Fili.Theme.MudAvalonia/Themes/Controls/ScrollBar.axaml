@@ -13,10 +13,19 @@
   not drawn), and no pressed colour of its own: a dragged thumb is under the pointer, so it keeps
   the hover grey. The greys are literals, the same in light and dark; high contrast has its own.
 
-  Dropping the line buttons is safe. ScrollBar.OnApplyTemplate looks PART_LineUpButton and
-  PART_LineDownButton up and wires them if present; the lookups are null-safe, and the scroll
-  gestures that matter (wheel, drag, keyboard, touch) are handled by ScrollViewer rather than by
-  those buttons. What IS required is a Track named PART_Track - without it the thumb never moves.
+  Only the LINE buttons are dropped. ScrollBar.OnApplyTemplate looks PART_LineUpButton and
+  PART_LineDownButton up and wires them if present, and the lookups are null-safe; the arrows are
+  what an unstyled ::-webkit-scrollbar-button leaves out. Every other part is kept, because each
+  carries behaviour an app expects of a scroll bar and loses SILENTLY without it:
+
+    PART_PageUpButton / PART_PageDownButton   Track's decrease and increase buttons: a click on
+                                              the trough pages. Transparent, so the rail still
+                                              reads as the bare track.
+    DeferThumbDrag                            ScrollViewer.IsDeferredScrollingEnabled: the content
+                                              moves on release, not during the drag.
+    ContextFlyout                             Avalonia's own Scroll here / Top / Page up menu,
+                                              the forked base's, in its String* resources.
+    PART_Track                                without it the thumb never moves.
 
   Both orientations need their own Template, as with Slider: width and height swap, and a
   horizontal template on a vertical bar renders a sideways rail.
@@ -40,11 +49,24 @@
     </Style>
   </ControlTheme>
 
+  <!-- The trough either side of the thumb: Track's page buttons, invisible as the CSS track is,
+       out of the Tab order as Avalonia's are. -->
+  <ControlTheme x:Key="FiliScrollBarPageButton" TargetType="RepeatButton">
+    <Setter Property="Background" Value="Transparent" />
+    <Setter Property="Focusable" Value="False" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <theme:PartBorder Background="{TemplateBinding Background}" />
+      </ControlTemplate>
+    </Setter>
+  </ControlTheme>
+
   <ControlTheme x:Key="FiliScrollBar" TargetType="ScrollBar">
     <!-- `::-webkit-scrollbar-track { background: transparent }` -->
     <Setter Property="Background" Value="Transparent" />
     <Setter Property="MinWidth" Value="8" />
     <Setter Property="MinHeight" Value="8" />
+    <Setter Property="ContextFlyout" Value="{DynamicResource SimpleVerticalScrollBarContextFlyout}" />
 
     <!-- Vertical is the default orientation for a ScrollBar. -->
     <Setter Property="Template">
@@ -55,8 +77,15 @@
                  Maximum="{TemplateBinding Maximum}"
                  Value="{TemplateBinding Value, Mode=TwoWay}"
                  ViewportSize="{TemplateBinding ViewportSize}"
+                 DeferThumbDrag="{TemplateBinding (ScrollViewer.IsDeferredScrollingEnabled)}"
                  Orientation="Vertical"
                  IsDirectionReversed="True">
+            <Track.DecreaseButton>
+              <RepeatButton x:Name="PART_PageUpButton" Theme="{StaticResource FiliScrollBarPageButton}" />
+            </Track.DecreaseButton>
+            <Track.IncreaseButton>
+              <RepeatButton x:Name="PART_PageDownButton" Theme="{StaticResource FiliScrollBarPageButton}" />
+            </Track.IncreaseButton>
             <Thumb x:Name="PART_Thumb" Theme="{StaticResource FiliScrollBarThumb}" />
           </Track>
         </theme:PartBorder>
@@ -64,6 +93,7 @@
     </Setter>
 
     <Style Selector="^:horizontal">
+      <Setter Property="ContextFlyout" Value="{DynamicResource SimpleHorizontalScrollBarContextFlyout}" />
       <Setter Property="Template">
         <ControlTemplate>
           <theme:PartBorder Background="{TemplateBinding Background}" Height="8">
@@ -72,7 +102,14 @@
                    Maximum="{TemplateBinding Maximum}"
                    Value="{TemplateBinding Value, Mode=TwoWay}"
                    ViewportSize="{TemplateBinding ViewportSize}"
+                   DeferThumbDrag="{TemplateBinding (ScrollViewer.IsDeferredScrollingEnabled)}"
                    Orientation="Horizontal">
+              <Track.DecreaseButton>
+                <RepeatButton x:Name="PART_PageUpButton" Theme="{StaticResource FiliScrollBarPageButton}" />
+              </Track.DecreaseButton>
+              <Track.IncreaseButton>
+                <RepeatButton x:Name="PART_PageDownButton" Theme="{StaticResource FiliScrollBarPageButton}" />
+              </Track.IncreaseButton>
               <Thumb x:Name="PART_Thumb" Theme="{StaticResource FiliScrollBarThumb}" />
             </Track>
           </theme:PartBorder>

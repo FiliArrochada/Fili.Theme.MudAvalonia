@@ -1,11 +1,15 @@
 using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Runtime.CompilerServices;
 using System.Text;
 using Avalonia;
+using Avalonia.Automation;
 using Avalonia.Controls;
 using Avalonia.Controls.Documents;
+using Avalonia.Controls.Presenters;
 using Avalonia.Controls.Primitives;
+using Avalonia.Data;
 using Avalonia.Data.Converters;
 
 namespace Fili.Theme.MudAvalonia;
@@ -34,6 +38,13 @@ namespace Fili.Theme.MudAvalonia;
 /// would lose its access key. An access key survives: "_Save" becomes "_SAVE", still Alt+S.
 /// </para>
 /// <para>
+/// A screen reader reads the label as written. A button's peer takes its name from the text its
+/// presenter shows, which the string path transformed, so "Save" was announced "SAVE", which some
+/// readers spell out letter by letter. When a presenter shows a string its control holds as
+/// <c>Content</c> or <c>Header</c> in another case, the control is given that string as its
+/// <c>AutomationProperties.Name</c>, at style priority, so an app's own name still wins.
+/// </para>
+/// <para>
 /// Internal, like the converters: a template needs it, a consumer does not.
 /// </para>
 /// </remarks>
@@ -59,6 +70,49 @@ internal sealed class TextTransform
     {
         CaseProperty.Changed.AddClassHandler<TextBlock>((block, _) => Draw(block));
         TextBlock.TextProperty.Changed.AddClassHandler<TextBlock>((block, _) => Draw(block));
+        ContentPresenter.ContentProperty.Changed.AddClassHandler<ContentPresenter>((presenter, _) => Name(presenter));
+    }
+
+    /// <summary>The name each control was given here, disposed when its label changes.</summary>
+    private static readonly ConditionalWeakTable<Control, IDisposable> Named = new();
+
+    /// <summary>
+    /// Names a presenter's control with the string it shows in another case. Only a presenter this
+    /// class transforms: one with a case, inside a control's template.
+    /// </summary>
+    private static void Name(ContentPresenter presenter)
+    {
+        if (presenter.TemplatedParent is not Control owner || presenter.GetValue(CaseProperty) is not { } textCase)
+        {
+            return;
+        }
+
+        if (Named.TryGetValue(owner, out var previous))
+        {
+            previous.Dispose();
+            Named.Remove(owner);
+        }
+
+        if (presenter.Content is not string shown)
+        {
+            return;
+        }
+
+        var written = owner switch
+        {
+            ContentControl { Content: string content } when content != shown && Same(content) => content,
+            HeaderedContentControl { Header: string header } when header != shown && Same(header) => header,
+            HeaderedItemsControl { Header: string header } when header != shown && Same(header) => header,
+            HeaderedSelectingItemsControl { Header: string header } when header != shown && Same(header) => header,
+            _ => null,
+        };
+
+        if (written is not null && owner.SetValue(AutomationProperties.NameProperty, written, BindingPriority.Style) is { } entry)
+        {
+            Named.Add(owner, entry);
+        }
+
+        bool Same(string text) => Apply(text, textCase, CultureInfo.CurrentCulture) as string == shown;
     }
 
     public static string? GetCase(Control control) => control.GetValue(CaseProperty);

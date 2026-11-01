@@ -33,10 +33,12 @@
   Margin.Dense is `dense`, from the .mud-input-root-margin-dense and .mud-input-label-margin-dense
   rules: standard loses 3px above the text, filled 4px above and below, outlined 8px above and
   below, and each label rests and floats correspondingly higher. The label is centred in the
-  field, so its translations below are those deltas less half the change in height.
+  field, so its translations below are those deltas less half the change in height. The
+  standard field's resting label is the exception: it sits on the text line, 7px below centre
+  (5px dense), where _inputlabel.scss's translate(0, 24px) puts it.
 
     variant    height     content margin     label resting    label floated
-    standard   48 -> 45   0,20,0,7 -> 0,17,0,7     0 -> -1.5       -14 -> -12.5
+    standard   48 -> 45   0,20,0,7 -> 0,17,0,7     7 -> 5          -14 -> -12.5
     filled     56 -> 48   12,20,12,8 -> 12,16,12,4  0 -> 1         -10 -> -9
     outlined   56 -> 40   14,16,14,12 -> 14,8,14,4  0 -> 0         -26 -> -18
 
@@ -330,6 +332,16 @@
       <Setter Property="RenderTransform" Value="scaleX(1)" />
     </Style>
 
+    <!-- The resting label sits ON the text line, where the value will be typed: _inputlabel.scss
+         rests it at translate(0, 24px) over a text line 22px down (16px of label room and 6px of
+         padding), so the two meet. Centred in the whole field instead, as filled and outlined
+         are, it hung 7px above the line. The template's 0 is a Template-priority value, which
+         only a style with an activator outranks, hence `:empty`; every style after this one -
+         the float, focus and dense rules - still wins over it. -->
+    <Style Selector="^:empty /template/ TextBlock#PART_FloatingLabel">
+      <Setter Property="RenderTransform" Value="translateY(7px)" />
+    </Style>
+
     <!-- The float condition: focused OR carrying content, or ShrinkLabel (`shrink-label`), or a
          start adornment (`:start-adornment`, from Adornments) - each of which is
          `.mud-shrink` or `:focus-within` in MudBlazor. Avalonia's :empty pseudo-class
@@ -442,7 +454,7 @@
       <Setter Property="Height" Value="45" />
     </Style>
     <Style Selector="^.dense /template/ TextBlock#PART_FloatingLabel">
-      <Setter Property="RenderTransform" Value="translateY(-1.5px)" />
+      <Setter Property="RenderTransform" Value="translateY(5px)" />
     </Style>
     <Style Selector="^.dense:focus /template/ TextBlock#PART_FloatingLabel">
       <Setter Property="RenderTransform" Value="translateY(-12.5px)" />
@@ -537,7 +549,7 @@
                     Classes="icon small"
                     Focusable="False"
                     Command="{Binding $parent[TextBox].Clear}"
-                    AutomationProperties.Name="Clear">
+                    AutomationProperties.Name="{DynamicResource FiliStringClear}">
               <!-- Icons.Material.Filled.Clear is Close's path. 20px, the small icon button's. -->
               <Viewbox Width="20" Height="20">
                 <Path Width="24" Height="24"
@@ -578,6 +590,12 @@
     </Style>
     <Style Selector="^ /template/ TextBlock#PART_FloatingLabel">
       <Setter Property="Margin" Value="12,0" />
+    </Style>
+
+    <!-- Resting, the label is centred in the box (translate(..., 20px) in a 56px field), not on
+         the text line as the standard field's is. -->
+    <Style Selector="^:empty /template/ TextBlock#PART_FloatingLabel">
+      <Setter Property="RenderTransform" Value="translateY(0px)" />
     </Style>
 
     <!-- Filled floats 20 -> 10, a 10px rise. Standard travels further because it starts lower. -->
@@ -709,6 +727,12 @@
     </Style>
     <Style Selector="^ /template/ TextBlock#PART_FloatingLabel">
       <Setter Property="Margin" Value="14,0" />
+    </Style>
+
+    <!-- Resting, the label is centred in the box (translate(..., 20px) in a 56px field), not on
+         the text line as the standard field's is. -->
+    <Style Selector="^:empty /template/ TextBlock#PART_FloatingLabel">
+      <Setter Property="RenderTransform" Value="translateY(0px)" />
     </Style>
 
     <Style Selector="^ /template/ theme|PartBorder#PART_Underline">

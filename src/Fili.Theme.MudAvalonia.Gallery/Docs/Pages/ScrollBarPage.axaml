@@ -22,7 +22,7 @@
 
     <TextBlock Classes="h5 section" Text="The scroll viewer" />
     <TextBlock Classes="body1 p">
-      <Run Text="Only the " /><Run Classes="code" Text="ScrollBar" /><Run Text=" is this theme's own. " /><Run Classes="code" Text="ScrollViewer" /><Run Text=" keeps Avalonia's template on purpose: it is structure rather than look, and the control where a mistake costs most, as a viewer with a misnamed part lays out perfectly and does not scroll. The wheel, a drag, the keyboard and touch are the ScrollViewer's, so they work as they always do; the bar has no line buttons to click." />
+      <Run Text="Only the " /><Run Classes="code" Text="ScrollBar" /><Run Text=" is this theme's own. " /><Run Classes="code" Text="ScrollViewer" /><Run Text=" keeps Avalonia's template on purpose: it is structure rather than look, and the control where a mistake costs most, as a viewer with a misnamed part lays out perfectly and does not scroll. The wheel, a drag, the keyboard and touch are the ScrollViewer's, so they work as they always do. The bar keeps the rest of Avalonia's behaviour, only without line buttons: a click on the trough pages, IsDeferredScrollingEnabled moves the content on release rather than during the drag, and a right-click opens Avalonia's own Scroll here, Top and Page up menu." />
     </TextBlock>
     <StackPanel Orientation="Horizontal" Spacing="8" Margin="0,0,0,16">
       <TextBlock Classes="body1" Text="See also:" VerticalAlignment="Center" />
@@ -36,6 +36,8 @@
     </TextBlock>
     <docs:ParityTable>
       <docs:ParityRow MudBlazor="MudThemeProvider's scroll bar (DefaultScrollbar false, the default)" Here="ScrollBar, themed by type" Status="Same" Note="8px, a transparent track and no line buttons; the thumb fills it, rounded 1px, FiliScrollbarThumbColor (#c4c4c4) at rest and FiliScrollbarThumbHoverColor (#a6a6a6) under the pointer and while dragged. DefaultScrollbar=&quot;true&quot;, the browser's own bar, has no counterpart." />
+      <docs:ParityRow MudBlazor="(the browser's: a click on the track pages)" Here="a click on the trough" Status="Same" Note="Track's page buttons, transparent and out of the Tab order, so the rail still looks bare." />
+      <docs:ParityRow MudBlazor="(none)" Here="IsDeferredScrollingEnabled, the context menu" Status="Extra" Note="Avalonia's own: the deferred drag applies on release, and the menu is the base theme's, in its String* resources." />
       <docs:ParityRow MudBlazor="(none: overflow: auto)" Here="ScrollViewer" Status="Extra" Note="Avalonia's own template, parts and all: the wheel, a drag, the keyboard and touch scroll it, the rail sits beside the content, and the corner where two rails meet is background-gray." />
     </docs:ParityTable>
   </StackPanel>

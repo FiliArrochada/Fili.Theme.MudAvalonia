@@ -63,7 +63,12 @@ one.
   a `:not()` guard, or it must move to the container as an inherited value.**
   `ButtonContentKeepsItsContrastForeground`, `FilledTextFieldKeepsTopOnlyRounding` and
   `AppBarTests` pin all three. A descendant selector reaching into popups is the specific thing
-  to suspect whenever a container's style shows up somewhere it should not.
+  to suspect whenever a container's style shows up somewhere it should not. It happened again
+  with `Button.icon.small PathIcon`: a MenuFlyout's rows are logical descendants of the button
+  that opens it (`MenuItem > MenuFlyoutPresenter > Popup > Button`), so a kebab menu's icons
+  drew at 20px. A style meant for a control's own content uses a child selector,
+  `Button.icon > PathIcon`, or `DataGridCell > :is(Panel) > CheckBox` for content a template puts
+  one panel down (`IconButtonPopupTests`).
 - **A Style overrides a value set inline in a template ONLY IF the selector has an activator.**
   The priority order is `Animation < LocalValue < StyleTrigger < Template < Style`, lower binding
   harder. A value written inside a `ControlTemplate` binds at **Template**, which OUTRANKS a
@@ -194,6 +199,25 @@ one.
   first needed for: `FiliChevronRightGeometry` is the tabs' next icon too.
 
 ## Templates and controls
+
+- **A dropped part removes behaviour silently, not just looks.** Avalonia looks every
+  `[TemplatePart]` up null-safely, so a hand-written template that leaves one out renders,
+  passes every look test, and quietly loses what the part did. Three shipped that way: a
+  ComboBox without `PART_EditableTextBox` took focus under `IsEditable` and ignored every key; a
+  ScrollBar without `PART_PageUpButton` / `PART_PageDownButton` did nothing on a trough click, and
+  without its `DeferThumbDrag` binding ignored `IsDeferredScrollingEnabled`; calendar days that
+  dropped the base's `:dayfocused` visual hid where the arrow keys were. Before leaving a part out,
+  read what the control does with it; `EditableComboBoxTests`, `ScrollBarBehaviourTests` and
+  `CalendarKeyboardTests` pin these three.
+- **Avalonia's `Calendar` is not focusable, and leans on its days.** It handles the arrow keys in
+  its own `OnKeyDown`, but takes no focus itself: the base theme's days are buttons that do, and
+  the keys bubble up from them. A theme whose days are `Focusable="False"`, so a calendar is not
+  forty-two Tab stops, must make the calendar focusable, or the keyboard never reaches it
+  (`CalendarKeyboardTests`).
+- **A value written inline in a template is moved by a style only with an activator** - which is
+  why the standard field's resting label, `translateY(0px)` in the template, is moved to its text
+  line by a `:empty` style rather than a plain `^ /template/` one, and why every float rule after
+  it still wins (`RestingLabelTests`).
 
 - **Avalonia's `PathIcon` stretches a glyph's own bounds to its box.** A Material glyph lives in
   a 24px viewBox with padding round it, which MudIcon draws as is; Avalonia's template scales the
@@ -348,6 +372,17 @@ one.
   the anchor holds the bar's desired size at zero, and it is still laid out at its length:
   46 ms, no root measures (`ThemeCompositionTests.IndeterminateBarsDoNotResizeTheRail`). A headless
   clock cannot show this; the numbers are from a real window.
+- **A button's automation name is the text its presenter shows.** With no name set, Avalonia's
+  peer reads the presenter's TextBlock, so a label the template transforms to upper case was
+  announced "SAVE". `TextTransform` names the control with the label as written, at style
+  priority. An icon-only button in a template has no text at all, and its peer falls back to the
+  content's TYPE ("Avalonia.Controls.PathIcon"): every one is named by a `FiliString*` key, or set
+  `AccessibilityView="Raw"` when the control around it already speaks for it
+  (`TemplateButtonNameTests`).
+- **A static that remembers an event keeps its source's window.** The ripple's "already answered"
+  press was a plain static until the next press, so a closed window stayed reachable through it.
+  Remember a routed event only while it routes: a job posted when it is set clears it
+  (`RippleTests.NoPressOutlivesItsRouting`).
 
 ## Writing tests
 
@@ -594,7 +629,7 @@ Fluent back for a comparison - `StandaloneReadinessTests` is the record of what 
 
 **Coverage is pinned, not reported.** `StandaloneReadinessTests` asserts the exact set of
 hand-written themes — **69 of the 95 templated types** — plus the count of both. The other 26 wear
-forked templates, and `SimpleBridgeTests` asserts the ~96 contract keys those paint from still
+forked templates, and `SimpleBridgeTests` asserts the 63 contract keys those paint from still
 resolve in both variants. Adding a theme means adding its `Fili*` key AND its target type to the
 first test in the same change; that is what keeps the number honest and turns an Avalonia version
 that adds control types into a failing build rather than a silent gap.
