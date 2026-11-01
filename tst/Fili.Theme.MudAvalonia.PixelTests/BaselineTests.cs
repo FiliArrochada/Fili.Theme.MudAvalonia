@@ -1,3 +1,4 @@
+using System.Runtime.InteropServices;
 using Avalonia.Media.Imaging;
 using Fili.Theme.MudAvalonia.Gallery.Desktop;
 using Xunit;
@@ -29,8 +30,9 @@ namespace Fili.Theme.MudAvalonia.PixelTests;
 /// <para>
 /// <b>Baselines are platform-specific.</b> They were rendered on Windows with Skia, and text
 /// rasterisation is not identical across platforms — a Linux CI runner would fail every frame on
-/// glyph edges alone. Committing a second set per platform is the answer if that day comes; a
-/// tolerance wide enough to cover it would be wide enough to hide real changes.
+/// glyph edges alone, so off Windows each frame skips with that reason. Committing a second set per
+/// platform is the answer if that day comes; a tolerance wide enough to cover it would be wide
+/// enough to hide real changes.
 /// </para>
 /// </summary>
 public class BaselineTests
@@ -55,7 +57,21 @@ public class BaselineTests
 
     [Theory]
     [MemberData(nameof(BaselinedFrames))]
-    public Task FrameMatchesItsBaseline(string name) => UiThread.RunAsync(() =>
+    public Task FrameMatchesItsBaseline(string name)
+    {
+        // The baselines are Windows' rendering (the class summary). Elsewhere this skips, saying
+        // why, so `dotnet test` on the solution passes on Linux and macOS, where every other test
+        // in this project - the audits, the docs site, the colours - still runs.
+        if (!OperatingSystem.IsWindows())
+        {
+            Assert.Skip("The pixel baselines are Windows' Skia rendering; text rasterises differently on "
+                + RuntimeInformation.OSDescription + ", so the comparison runs on Windows only.");
+        }
+
+        return Compare(name);
+    }
+
+    private static Task Compare(string name) => UiThread.RunAsync(() =>
     {
         var frame = GalleryFrames.All.Single(f => f.ToString() == name);
         var baselinePath = Path.Combine(Baselines.Directory, frame.FileName);

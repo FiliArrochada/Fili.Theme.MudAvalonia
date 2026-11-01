@@ -37,11 +37,13 @@ jobs:
   #
   # Linux is not here for symmetry. This is a library other people will build on whatever they
   # have, and a Linux job is the only thing that would catch a Windows-only assumption creeping
-  # into the theme or the gallery. What it must NOT do is run the pixel baselines: those PNGs
+  # into the theme or the gallery. What it must NOT do is compare the pixel baselines: those PNGs
   # were rendered on Windows with Skia, text rasterisation differs across platforms, and a Linux
-  # runner would fail all nine frames on glyph edges while nothing was actually wrong. The fix
-  # for that day is a second committed set of baselines per platform, not a wider tolerance -
-  # one wide enough to cover a different rasteriser would be wide enough to hide a real change.
+  # runner would fail all nine frames on glyph edges while nothing was actually wrong. Those nine
+  # tests skip themselves off Windows (BaselineTests), so Linux runs the rest of the pixel
+  # project - the gallery audit, the docs site, the colours. The fix for the baselines that day
+  # is a second committed set per platform, not a wider tolerance - one wide enough to cover a
+  # different rasteriser would be wide enough to hide a real change.
   #
   # Only Linux builds the browser gallery, and it builds it once, by publishing it: the publish
   # is what the site serves, and building it beforehand as well linked Skia and HarfBuzz into
@@ -65,6 +67,7 @@ jobs:
               tst/Fili.Theme.MudAvalonia.UnitTests
               tst/Fili.Theme.MudAvalonia.PixelTests
               tst/Fili.Theme.MudAvalonia.NoDataGridTests
+              tst/Fili.Theme.MudAvalonia.Benchmarks
             publish: true
           - os: windows-latest
             projects: tst/Fili.Theme.MudAvalonia.UnitTests tst/Fili.Theme.MudAvalonia.PixelTests tst/Fili.Theme.MudAvalonia.NoDataGridTests
@@ -90,9 +93,11 @@ jobs:
         uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
         with:
           path: ~/.nuget/packages
-          key: nuget-${{ runner.os }}-${{ hashFiles('Directory.Packages.props', '**/*.csproj') }}
+          key: nuget-${{ runner.os }}-${{ hashFiles('Directory.Packages.props', '**/*.csproj', '**/packages.lock.json') }}
           restore-keys: nuget-${{ runner.os }}-
 
+      # In locked mode (Directory.Build.props, on a runner): every project restores exactly the
+      # packages its packages.lock.json records, or the restore fails.
       - name: Restore
         shell: bash
         run: for p in ${{ matrix.projects }}; do dotnet restore "$p"; done
@@ -122,10 +127,10 @@ jobs:
           --report-xunit-trx
           --results-directory ${{ github.workspace }}/artifacts/test-results
 
-      # The pixel suite: nine gallery frames, Skia, diffed against committed PNGs. Windows only,
-      # for the reason in the job comment above.
-      - name: Test (pixel baselines)
-        if: runner.os == 'Windows'
+      # The pixel project: nine gallery frames diffed against committed PNGs, which compare on
+      # Windows only and skip elsewhere (the job comment above), and the audits of every gallery
+      # and docs page, which run on both.
+      - name: Test (pixel project)
         run: >
           dotnet test tst/Fili.Theme.MudAvalonia.PixelTests
           --configuration Release
@@ -143,7 +148,9 @@ jobs:
           dotnet run tools/release-notes.cs -- "$version" "v$version" artifacts/release-notes.md
 
       # Avalonia.Browser links Skia and HarfBuzz into dotnet.wasm, and that native link is what
-      # this workload provides. Without it, even restoring the browser project fails.
+      # this workload provides. Without it, even restoring the browser project fails. No version:
+      # the SDK installs the workload set of its own feature band, so the workload follows the
+      # SDK global.json pins, and a pinned workload version would break the day that SDK moved.
       - name: Install wasm-tools workload
         if: matrix.publish
         run: dotnet workload install wasm-tools

@@ -69,6 +69,66 @@ public class PackageContentTests
         Assert.True(unnamed.Length == 0, "THIRD-PARTY-NOTICES.md does not name these Ms-PL templates:\n  " + string.Join("\n  ", unnamed));
     }
 
+    /// <summary>
+    /// The pack's package validation compares the package with the last published one, which it
+    /// fetches from nuget.org. Offline, with that version not already in the NuGet cache, there is
+    /// nothing to compare with: this skips, saying so, and the other tests pack without validation.
+    /// CI is always online, so there it runs.
+    /// </summary>
+    [Fact]
+    public void ThePackageValidatesAgainstTheLastRelease()
+    {
+        if (!BaselineAvailable.Value)
+        {
+            Assert.Skip($"Fili.MudAvalonia.Theme {BaselineVersion} is neither in the NuGet cache nor reachable on nuget.org, so package validation has nothing to compare with.");
+        }
+
+        Pack();
+    }
+
+    /// <summary>
+    /// nuget.org's release notes are the version's page: its summary and a link to the rest. A
+    /// build between releases says it is one and links unreleased.md rather than claim a version.
+    /// </summary>
+    [Fact]
+    public void ThePackageCarriesItsVersionsReleaseNotes()
+    {
+        var (_, nuspec) = Pack();
+        var version = System.Text.RegularExpressions.Regex.Match(nuspec, "<version>([^<]+)</version>").Groups[1].Value;
+        var notes = System.Text.RegularExpressions.Regex.Match(nuspec, "<releaseNotes>([^<]+)</releaseNotes>").Groups[1].Value;
+        var page = Path.Combine(GeneratedThemeTests.ThemeDirectory(), "..", "..", "docs", "versions", version + ".md");
+
+        Assert.Contains(File.Exists(page) ? $"/docs/versions/{version}.md" : "/docs/versions/unreleased.md", notes);
+        Assert.DoesNotContain("](", notes);
+    }
+
+    private static string BaselineVersion { get; } = System.Text.RegularExpressions.Regex.Match(
+        File.ReadAllText(Path.Combine(GeneratedThemeTests.ThemeDirectory(), "Fili.Theme.MudAvalonia.csproj")),
+        "<PackageValidationBaselineVersion>([^<]+)<").Groups[1].Value;
+
+    private static readonly Lazy<bool> BaselineAvailable = new(() =>
+    {
+        var cache = Environment.GetEnvironmentVariable("NUGET_PACKAGES") is { Length: > 0 } configured
+            ? configured
+            : Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), ".nuget", "packages");
+        if (Directory.Exists(Path.Combine(cache, "fili.mudavalonia.theme", BaselineVersion)))
+        {
+            return true;
+        }
+
+        try
+        {
+            using var client = new HttpClient { Timeout = TimeSpan.FromSeconds(10) };
+            var url = $"https://api.nuget.org/v3-flatcontainer/fili.mudavalonia.theme/{BaselineVersion}/fili.mudavalonia.theme.nuspec";
+            using var response = client.Send(new HttpRequestMessage(HttpMethod.Head, url));
+            return response.IsSuccessStatusCode;
+        }
+        catch (Exception exception) when (exception is HttpRequestException or TaskCanceledException)
+        {
+            return false;
+        }
+    });
+
     private static (HashSet<string> Entries, string Nuspec) Pack()
     {
         var project = Path.Combine(GeneratedThemeTests.ThemeDirectory(), "Fili.Theme.MudAvalonia.csproj");
@@ -86,6 +146,11 @@ public class PackageContentTests
             foreach (var argument in new[] { "pack", project, "--no-build", "-c", configuration, "-o", output.FullName, "-nologo" })
             {
                 start.ArgumentList.Add(argument);
+            }
+
+            if (!BaselineAvailable.Value)
+            {
+                start.ArgumentList.Add("-p:EnablePackageValidation=false");
             }
 
             using var pack = Process.Start(start)!;

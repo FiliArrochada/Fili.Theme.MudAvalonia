@@ -56,6 +56,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Versions", "Versions", "{F7
 		docs\versions\0.26.0.md = docs\versions\0.26.0.md
 		docs\versions\0.27.0.md = docs\versions\0.27.0.md
 		docs\versions\0.28.0.md = docs\versions\0.28.0.md
+		docs\versions\0.29.0.md = docs\versions\0.29.0.md
 		docs\versions\0.3.0.md = docs\versions\0.3.0.md
 		docs\versions\0.4.0.md = docs\versions\0.4.0.md
 		docs\versions\0.5.0.md = docs\versions\0.5.0.md
@@ -81,6 +82,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fili.Theme.MudAvalonia.Gallery.Browser", "src\Fili.Theme.MudAvalonia.Gallery.Browser\Fili.Theme.MudAvalonia.Gallery.Browser.csproj", "{851AD5C4-BED4-422E-A34E-77914211E045}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fili.Theme.MudAvalonia.NoDataGridTests", "tst\Fili.Theme.MudAvalonia.NoDataGridTests\Fili.Theme.MudAvalonia.NoDataGridTests.csproj", "{C06CE220-5B84-433F-96CF-B2EBC2369815}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fili.Theme.MudAvalonia.Benchmarks", "tst\Fili.Theme.MudAvalonia.Benchmarks\Fili.Theme.MudAvalonia.Benchmarks.csproj", "{996945F7-3159-4738-A10F-00E6BC165AD5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -176,18 +179,31 @@ Global
 		{C06CE220-5B84-433F-96CF-B2EBC2369815}.Release|x64.Build.0 = Release|Any CPU
 		{C06CE220-5B84-433F-96CF-B2EBC2369815}.Release|x86.ActiveCfg = Release|Any CPU
 		{C06CE220-5B84-433F-96CF-B2EBC2369815}.Release|x86.Build.0 = Release|Any CPU
+		{996945F7-3159-4738-A10F-00E6BC165AD5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{996945F7-3159-4738-A10F-00E6BC165AD5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{996945F7-3159-4738-A10F-00E6BC165AD5}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{996945F7-3159-4738-A10F-00E6BC165AD5}.Debug|x64.Build.0 = Debug|Any CPU
+		{996945F7-3159-4738-A10F-00E6BC165AD5}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{996945F7-3159-4738-A10F-00E6BC165AD5}.Debug|x86.Build.0 = Debug|Any CPU
+		{996945F7-3159-4738-A10F-00E6BC165AD5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{996945F7-3159-4738-A10F-00E6BC165AD5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{996945F7-3159-4738-A10F-00E6BC165AD5}.Release|x64.ActiveCfg = Release|Any CPU
+		{996945F7-3159-4738-A10F-00E6BC165AD5}.Release|x64.Build.0 = Release|Any CPU
+		{996945F7-3159-4738-A10F-00E6BC165AD5}.Release|x86.ActiveCfg = Release|Any CPU
+		{996945F7-3159-4738-A10F-00E6BC165AD5}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{F780EF58-BFE4-430E-8B35-7CBABE3C1B95} = {3F1C8A7E-5D42-4B96-9E1A-7C0D2B84F6A1}
 		{735E15A1-7D09-4E02-A186-668D6F31ABC3} = {827E0CD3-B72D-47B6-A68D-7590B98EB39B}
 		{B9E6B4DA-64EA-4566-93B5-169927A9E87B} = {827E0CD3-B72D-47B6-A68D-7590B98EB39B}
 		{F736A4BE-A692-49D1-B473-B1E2B87FA296} = {827E0CD3-B72D-47B6-A68D-7590B98EB39B}
 		{FECD1649-CF79-4065-8E67-D25132020907} = {927D5C5A-C3F5-A059-FD9E-09B4C1EC2C3D}
+		{F780EF58-BFE4-430E-8B35-7CBABE3C1B95} = {3F1C8A7E-5D42-4B96-9E1A-7C0D2B84F6A1}
 		{BE90DF42-D8F7-438D-8BD6-7B3F8CAE3189} = {927D5C5A-C3F5-A059-FD9E-09B4C1EC2C3D}
 		{851AD5C4-BED4-422E-A34E-77914211E045} = {827E0CD3-B72D-47B6-A68D-7590B98EB39B}
 		{C06CE220-5B84-433F-96CF-B2EBC2369815} = {927D5C5A-C3F5-A059-FD9E-09B4C1EC2C3D}
+		{996945F7-3159-4738-A10F-00E6BC165AD5} = {927D5C5A-C3F5-A059-FD9E-09B4C1EC2C3D}
 	EndGlobalSection
 EndGlobal

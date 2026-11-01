@@ -14,7 +14,9 @@
     <!-- Headless + Skia power the screenshot capture mode; see Capture.cs. -->
     <PackageReference Include="Avalonia.Headless" />
     <PackageReference Include="Avalonia.Skia" />
-    <PackageReference Include="AvaloniaUI.DiagnosticsSupport" Condition="'$(Configuration)' == 'Debug'" />
+    <!-- Referenced in every configuration: a lock file has one set of packages per framework, so a
+         Debug-only reference fails the locked restore of whichever configuration did not write it. -->
+    <PackageReference Include="AvaloniaUI.DiagnosticsSupport" />
   </ItemGroup>
 
   <ItemGroup>

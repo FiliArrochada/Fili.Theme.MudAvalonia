@@ -103,24 +103,40 @@ public partial class MainView : UserControl
     /// <summary>The slug of the page on show.</summary>
     public string? Current { get; private set; }
 
+    /// <summary>
+    /// The app bar's version label: the theme's version and commit, and "+ unreleased" when
+    /// docs/versions/unreleased.md had work in it at build time - the site deploys from master, so
+    /// it can describe changes no published package has yet.
+    /// </summary>
     internal static string ThemeVersionText()
     {
         var assembly = typeof(FiliThemeVariants).Assembly;
-        var informational = assembly.GetCustomAttribute<AssemblyInformationalVersionAttribute>()?.InformationalVersion;
+        var unreleased = typeof(MainView).Assembly.GetCustomAttributes<AssemblyMetadataAttribute>()
+            .Any(a => a.Key == "FiliUnreleasedWork" && a.Value == "true");
+
+        return VersionLabel(
+            assembly.GetCustomAttribute<AssemblyInformationalVersionAttribute>()?.InformationalVersion,
+            assembly.GetName().Version?.ToString(3),
+            unreleased);
+    }
+
+    internal static string VersionLabel(string? informational, string? fallback, bool unreleased)
+    {
+        var marker = unreleased ? " + unreleased" : "";
 
         if (string.IsNullOrEmpty(informational))
         {
-            return $"v{assembly.GetName().Version?.ToString(3)}";
+            return $"v{fallback}{marker}";
         }
 
         var plus = informational.IndexOf('+');
         if (plus < 0)
         {
-            return $"v{informational}";
+            return $"v{informational}{marker}";
         }
 
         var commit = informational[(plus + 1)..];
-        return $"v{informational[..plus]} · {commit[..System.Math.Min(7, commit.Length)]}";
+        return $"v{informational[..plus]}{marker} · {commit[..System.Math.Min(7, commit.Length)]}";
     }
 
     /// <summary>

@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <RootNamespace>Fili.Theme.MudAvalonia.Benchmarks</RootNamespace>
+    <AssemblyName>Fili.Theme.MudAvalonia.Benchmarks</AssemblyName>
+    <OutputType>Exe</OutputType>
+    <IsPackable>false</IsPackable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Avalonia" />
+    <PackageReference Include="Avalonia.Headless" />
+    <PackageReference Include="BenchmarkDotNet" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\Fili.Theme.MudAvalonia\Fili.Theme.MudAvalonia.csproj" />
+    <!-- The screen the unit tests count style instances on, so the two always measure the same. -->
+    <Compile Include="..\Fili.Theme.MudAvalonia.UnitTests\BenchmarkScreen.cs" Link="BenchmarkScreen.cs" />
+  </ItemGroup>
+
+</Project>

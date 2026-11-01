@@ -120,10 +120,6 @@ public class CustomComponentsTests
             .Select(p => p.Children.OfType<Border>().ToList()).ToList();
         Assert.Equal([4, 3], groups.Select(g => g.Count));
 
-        // Hit testing reads a rendered frame: without one, after another class's tests, it finds nothing.
-        AvaloniaHeadlessPlatform.ForceRenderTimerTick();
-        Dispatcher.UIThread.RunJobs();
-
         foreach (var ((avatars, size), ring) in groups.Zip([44.0, 60.0]).Zip(["FiliSurfaceBrush", "FiliErrorBrush"]))
         {
             Assert.All(avatars, a => Assert.Equal(new Size(size, size), a.Bounds.Size));
@@ -134,10 +130,14 @@ public class CustomComponentsTests
             {
                 Assert.Equal(avatars[i - 1].Bounds.Right - 12, avatars[i].Bounds.Left);
 
-                // The middle of the overlap is the earlier avatar's: it is drawn on top.
+                // The middle of the overlap is covered by both, and the earlier avatar is drawn on
+                // top: Avalonia draws siblings in ZIndex order, highest last. Read from the layout
+                // and the ZIndex rather than hit-tested, which reads the compositor's last frame
+                // and found nothing when another class's tests had run first.
                 var overlap = avatars[i - 1].TranslatePoint(new Point(size - 6, size / 2), window)!.Value;
-                var hit = window.InputHitTest(overlap) as Visual;
-                Assert.Same(avatars[i - 1], hit?.GetSelfAndVisualAncestors().OfType<Border>().First(b => b.Classes.Contains("avatar")));
+                var covering = avatars.Where(a => new Rect(a.Bounds.Size).Contains(window.TranslatePoint(overlap, a)!.Value)).ToList();
+                Assert.Equal([avatars[i - 1], avatars[i]], covering.OrderByDescending(a => a.ZIndex));
+                Assert.Same(avatars[i - 1], covering.MaxBy(a => a.ZIndex));
             }
         }
 

@@ -43,6 +43,29 @@ public class DocsSiteTests
     });
 
     /// <summary>
+    /// The site deploys from master, ahead of the last release: while docs/versions/unreleased.md
+    /// has work in it, the app bar's version label says "+ unreleased" rather than name a released
+    /// version for changes no package has yet.
+    /// </summary>
+    [Fact]
+    public void TheVersionLabelOwnsUpToUnreleasedWork()
+    {
+        var page = Path.Combine(Path.GetDirectoryName(Baselines.Directory)!, "..", "..", "docs", "versions", "unreleased.md");
+        var expected = File.Exists(page) && !File.ReadAllText(page).Contains("Nothing yet.");
+        var built = typeof(MainView).Assembly.GetCustomAttributes<AssemblyMetadataAttribute>()
+            .Single(a => a.Key == "FiliUnreleasedWork").Value;
+        Assert.Equal(expected ? "true" : "false", built);
+
+        var label = typeof(MainView).GetMethod("VersionLabel", BindingFlags.NonPublic | BindingFlags.Static)!;
+        string Label(string? informational, bool unreleased) =>
+            (string)label.Invoke(null, [informational, "0.28.0", unreleased])!;
+
+        Assert.Equal("v0.28.0 · 9761402", Label("0.28.0+9761402eacb01ae4661f6b9b891f5146dfe87278", false));
+        Assert.Equal("v0.28.0 + unreleased · 9761402", Label("0.28.0+9761402eacb01ae4661f6b9b891f5146dfe87278", true));
+        Assert.Equal("v0.28.0 + unreleased", Label(null, true));
+    }
+
+    /// <summary>
     /// No sentence has a run of bare whitespace in it: the line break between two Runs in XAML is
     /// a space of its own, on top of the spaces the Runs carry, so code was followed by a gap
     /// before its punctuation. A page writes its Runs on one line.

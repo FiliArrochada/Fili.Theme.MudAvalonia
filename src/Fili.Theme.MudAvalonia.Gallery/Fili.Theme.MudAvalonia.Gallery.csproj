@@ -39,6 +39,23 @@
     <EmbeddedResource Include="Docs\Custom\*.cs" LogicalName="Custom/%(Filename)%(Extension)" />
   </ItemGroup>
 
+  <!--
+    The docs site deploys from master, which runs ahead of the last release: work lands in
+    docs/versions/unreleased.md as it is done, and that page reads "Nothing yet." only between a
+    release and the next change. The version label in the app bar says when the site shows more
+    than the version it names (MainView.ThemeVersionText), so it never presents unreleased work as
+    released.
+  -->
+  <PropertyGroup>
+    <_FiliUnreleasedPage>$(MSBuildThisFileDirectory)..\..\docs\versions\unreleased.md</_FiliUnreleasedPage>
+    <FiliUnreleasedWork>false</FiliUnreleasedWork>
+    <FiliUnreleasedWork Condition="Exists('$(_FiliUnreleasedPage)') And !$([System.IO.File]::ReadAllText('$(_FiliUnreleasedPage)').Contains('Nothing yet.'))">true</FiliUnreleasedWork>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <AssemblyMetadata Include="FiliUnreleasedWork" Value="$(FiliUnreleasedWork)" />
+  </ItemGroup>
+
   <ItemGroup>
     <ProjectReference Include="..\Fili.Theme.MudAvalonia\Fili.Theme.MudAvalonia.csproj" />
   </ItemGroup>
