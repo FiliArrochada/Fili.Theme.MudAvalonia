@@ -11,8 +11,9 @@
   base is a fork this repo owns, that reach is the POINT - those embedded controls should look
   like this theme, and NumericUpDown below is built assuming exactly that.
 
-  Order inside this file matters only for Icons.axaml, which must be first: several control
-  themes StaticResource its glyphs.
+  Icons.axaml comes first by convention. Every template reaches its glyphs by DynamicResource,
+  so their order does not matter; a StaticResource here is only a BasedOn or a keyed theme, which
+  must come after the file that declares it.
 
   The line for what belongs here at all: RETEMPLATING an Avalonia control is in scope, INVENTING
   one is not. Button needed a template because Button has no BoxShadow. TextBox needed one because
@@ -23,7 +24,7 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
   <ResourceDictionary.MergedDictionaries>
-    <!-- First: CheckBox and RadioButton StaticResource these glyphs. -->
+    <!-- The glyphs, reached by DynamicResource from every template. -->
     <ResourceInclude Source="avares://Fili.Theme.MudAvalonia/Themes/Icons.axaml" />
     <ResourceInclude Source="avares://Fili.Theme.MudAvalonia/Themes/Controls/PathIcon.axaml" />
     <ResourceInclude Source="avares://Fili.Theme.MudAvalonia/Themes/Controls/Button.axaml" />

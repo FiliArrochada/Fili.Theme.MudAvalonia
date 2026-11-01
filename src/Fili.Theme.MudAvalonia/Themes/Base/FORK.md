@@ -27,7 +27,7 @@ upgrade path a re-download plus a diff rather than a merge.
 ## How they become Material
 
 `Accents.axaml` — which is *not* forked, and is the only hand-written file here — redefines the
-~75 resource keys the Simple templates paint from, binding each to a Fili token. One file
+63 resource keys the Simple templates paint from (`SimpleBridgeTests` lists them), binding each to a Fili token. One file
 repalettes every template. That small, stable key surface is the reason to fork Simple rather
 than Fluent, whose equivalent is hundreds of layered keys that move between versions.
 

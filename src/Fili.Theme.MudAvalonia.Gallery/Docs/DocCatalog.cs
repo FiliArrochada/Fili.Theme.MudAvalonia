@@ -45,6 +45,7 @@ public static class DocCatalog
         new(Customization, "High contrast", "high-contrast", () => new HighContrastPage()),
         new(Customization, "Right to left", "right-to-left", () => new RightToLeftPage()),
         new(Customization, "Keyboard focus", "keyboard-focus", () => new KeyboardFocusPage()),
+        new(Customization, "Accessibility", "accessibility", () => new AccessibilityPage()),
 
         new(Buttons, "Button", "button", () => new ButtonPage()),
         new(Buttons, "Button group", "button-group", () => new ButtonGroupPage()),

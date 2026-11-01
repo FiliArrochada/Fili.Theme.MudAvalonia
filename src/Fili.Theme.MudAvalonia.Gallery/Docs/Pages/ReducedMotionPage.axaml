@@ -4,10 +4,10 @@
              x:Class="Fili.Theme.MudAvalonia.Gallery.Docs.Pages.ReducedMotionPage">
   <StackPanel Classes="doc">
     <docs:DocHeader Title="Reduced motion"
-                    Summary="One key stops everything the theme moves or fades on its own, for people whose system or settings ask for less motion. MudBlazor has no such switch." />
+                    Summary="One key stops most of what the theme moves or fades on its own, for people whose system or settings ask for less motion; what it does not reach yet is listed below. MudBlazor has no such switch." />
 
     <TextBlock Classes="body1 p">
-      <Run Text="Set " /><Run Classes="code" Text="FiliReducedMotion" /><Run Text=" to True in the application's resources, from your app's own setting or the system's. It can change at any time, and reaches every window and popup." />
+      <Run Text="Set " /><Run Classes="code" Text="FiliReducedMotion" /><Run Text=" to True in the application's resources, from your app's own setting. It can change at any time, and reaches every window and popup." />
     </TextBlock>
     <docs:CodeBlock Code="&lt;Application.Resources&gt;&#10;  &lt;x:Boolean x:Key=&quot;FiliReducedMotion&quot;&gt;True&lt;/x:Boolean&gt;&#10;&lt;/Application.Resources&gt;"
                     Margin="0,0,0,16" />
@@ -19,7 +19,10 @@
     <TextBlock Classes="body1 p" Text="A progress indicator, the only sign that work is going on, and the 150ms colour fades of hover and focus, which move nothing." />
 
     <TextBlock Classes="h5 section" Text="Not covered yet" />
-    <TextBlock Classes="body1 p" Text="These still move with the key on: a drawer's slide open and shut, a switch's thumb crossing its track, a field's label floating up, an expander's or a tree row's chevron turning, the margin an expansion panel opens round itself, and a determinate circular progress's sweep to a new value." />
+    <TextBlock Classes="body1 p" Text="These still move with the key on: a drawer's slide open and shut, a switch's thumb crossing its track, a field's label floating up and its focus underline growing from the centre, an expander's or a tree row's chevron turning, the margin an expansion panel opens round itself, a determinate circular progress's sweep to a new value, a data grid's sort arrow turning and fading, and a slider's value label fading in. Each lasts 300ms or less; a later minor version may stop them." />
+
+    <TextBlock Classes="h5 section" Text="The system's setting" />
+    <TextBlock Classes="body1 p" Text="The theme does not follow the operating system's reduce-motion setting on its own, and Avalonia 12.1 does not report it: its platform settings carry the system's colours and contrast preference, not motion. An app that wants to follow the system reads the setting itself, through the platform's own API, and sets the key; an app setting of its own is the portable way." />
 
     <TextBlock Classes="h5 section" Text="Where it is read" />
     <TextBlock Classes="body1 p" Text="Each window reads the key once, from its own resources or the application's, and passes it to everything inside it and to the popups it opens. A key in a panel's resources inside a window does nothing: set it on the application, or on a window of its own." />

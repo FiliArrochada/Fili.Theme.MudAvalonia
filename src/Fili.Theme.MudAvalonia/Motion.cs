@@ -17,8 +17,9 @@ namespace Fili.Theme.MudAvalonia;
 /// </para>
 /// <para>
 /// Not read yet, so still moving: the drawer pane's slide (SplitView), the switch thumb's travel,
-/// a field's floating label, the expander's and tree row's chevron, an expansion panel's margin
-/// and a determinate circular progress's sweep.
+/// a field's floating label and its focus underline, the expander's and tree row's chevron, an
+/// expansion panel's margin, a determinate circular progress's sweep, a data grid's sort arrow
+/// and a slider's value label fading in.
 /// </para>
 /// <para>
 /// A token rather than a class, because a popup is a window of its own that a class on the

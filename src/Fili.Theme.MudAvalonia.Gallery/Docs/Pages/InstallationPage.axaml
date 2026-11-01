@@ -8,12 +8,16 @@
 
     <TextBlock Classes="h5 section" Text="Add the package" />
     <TextBlock Classes="body1 p">
-      <Run Text="The package id is " /><Run Classes="code" Text="Fili.MudAvalonia.Theme" /><Run Text=" on nuget.org. It targets net10.0 and depends on Avalonia 12 and nothing else; nuget.org lists the patch it needs at least." />
+      <Run Text="The package id is " /><Run Classes="code" Text="Fili.MudAvalonia.Theme" /><Run Text=" on nuget.org. It targets net10.0 and depends on Avalonia, 12.1.4 or later and below 13, and nothing else." />
     </TextBlock>
     <docs:CodeBlock Code="dotnet add package Fili.MudAvalonia.Theme" Margin="0,0,0,16" />
     <TextBlock Classes="body1 p">
       <Run Text="Under Central Package Management the version goes in " /><Run Classes="code" Text="Directory.Packages.props" /><Run Text=" and the reference stays version-less." />
     </TextBlock>
+    <TextBlock Classes="body1 p">
+      <Run FontWeight="Bold" Text="Keep every Avalonia package on one version, 12.1.4 or later." /><Run Text=" An app that pins an older 12.1 patch fails restore with " /><Run Classes="code" Text="NU1605" /><Run Text=", a package downgrade: raise Avalonia, Avalonia.Desktop, Avalonia.Browser and the rest together." />
+    </TextBlock>
+    <TextBlock Classes="body1 p" Text="The templates are forked from Avalonia 12.1.4. A control type a later Avalonia 12 adds has no template here, and shows nothing, until a theme release covers it." />
 
     <TextBlock Classes="h5 section" Text="Include the theme" />
     <TextBlock Classes="body1 p">

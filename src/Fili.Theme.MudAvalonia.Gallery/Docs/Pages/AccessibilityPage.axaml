@@ -1,0 +1,113 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:docs="using:Fili.Theme.MudAvalonia.Gallery.Docs"
+             x:Class="Fili.Theme.MudAvalonia.Gallery.Docs.Pages.AccessibilityPage">
+  <StackPanel Classes="doc">
+    <docs:DocHeader Title="Accessibility"
+                    Summary="What the theme does for keyboard, screen-reader and low-vision users, what it leaves to the app, and where its default colours fall short. It makes no claim of WCAG conformance: that is a property of an app, not of a theme." />
+
+    <TextBlock Classes="h5 section" Text="What the theme does" />
+    <TextBlock Classes="body1 p">
+      <Run FontWeight="Bold" Text="Keyboard." /><Run Text=" Every control is one Tab stop at most, and the keyboard focus shows as MudBlazor's state-layer tint. " /><Run Classes="code" Text="FiliFocusRing" /><Run Text=" adds a 2px ring that meets WCAG's 3:1 for a focus indicator; it is on by default in high contrast only." />
+    </TextBlock>
+    <TextBlock Classes="body1 p">
+      <Run FontWeight="Bold" Text="High contrast." /><Run Text=" A third variant, " /><Run Classes="code" Text="FiliThemeVariants.HighContrast" /><Run Text=": opaque lines, text at 10:1 or more on black, and the focus ring on." />
+    </TextBlock>
+    <TextBlock Classes="body1 p">
+      <Run FontWeight="Bold" Text="Screen readers." /><Run Text=" A field's label is its automation name and its helper text its help text; a label shown in capitals is still named as written. The icon buttons inside the theme's own templates, a field's clear button, a picker's OK and Cancel, a number field's spinners, a calendar's and a carousel's arrows, a snackbar's close, are named from " /><Run Classes="code" Text="FiliString*" /><Run Text=" keys, English by default: set them in the application's resources to translate them." />
+    </TextBlock>
+    <docs:CodeBlock Code="&lt;Application.Resources&gt;&#10;  &lt;x:String x:Key=&quot;FiliStringClear&quot;&gt;Limpar&lt;/x:String&gt;&#10;  &lt;x:String x:Key=&quot;FiliStringAccept&quot;&gt;Aceitar&lt;/x:String&gt;&#10;  &lt;x:String x:Key=&quot;FiliStringDismiss&quot;&gt;Cancelar&lt;/x:String&gt;&#10;&lt;/Application.Resources&gt;"
+                    Margin="0,0,0,16" />
+    <TextBlock Classes="body1 p">
+      <Run FontWeight="Bold" Text="Motion. " /><Run Classes="code" Text="FiliReducedMotion" /><Run Text=" stops the ripple, fades, slides and pulses; the Reduced motion page lists the few short transitions it does not reach yet." />
+    </TextBlock>
+    <StackPanel Orientation="Horizontal" Spacing="8" Margin="0,0,0,16">
+      <TextBlock Classes="body1" Text="See also:" VerticalAlignment="Center" />
+      <docs:DocLink Slug="keyboard-focus" Content="Keyboard focus" />
+      <docs:DocLink Slug="high-contrast" Content="High contrast" />
+      <docs:DocLink Slug="reduced-motion" Content="Reduced motion" />
+    </StackPanel>
+
+    <TextBlock Classes="h5 section" Text="What the app does" />
+    <TextBlock Classes="body1 p">
+      <Run FontWeight="Bold" Text="Name its own icon-only buttons." /><Run Text=" A button whose content is a glyph and that has no " /><Run Classes="code" Text="AutomationProperties.Name" /><Run Text=" is announced by its content's type name, such as Avalonia.Controls.PathIcon. The theme names only the buttons in its own templates." />
+    </TextBlock>
+    <TextBlock Classes="body1 p">
+      <Run FontWeight="Bold" Text="Follow the system." /><Run Text=" The theme does not switch to high contrast or reduced motion when the operating system asks. Avalonia reports the system's contrast preference, so an app can follow it; it does not report a reduce-motion setting, so " /><Run Classes="code" Text="FiliReducedMotion" /><Run Text=" comes from the app's own setting." />
+    </TextBlock>
+    <docs:CodeBlock Code="// using Avalonia; using Avalonia.Platform; using Avalonia.Styling; using Fili.Theme.MudAvalonia;&#10;var settings = Application.Current!.PlatformSettings;&#10;void Apply() =&gt; Application.Current!.RequestedThemeVariant =&#10;    settings?.GetColorValues().ContrastPreference == ColorContrastPreference.High&#10;        ? FiliThemeVariants.HighContrast&#10;        : ThemeVariant.Default;&#10;Apply();&#10;if (settings is not null)&#10;    settings.ColorValuesChanged += (_, _) =&gt; Apply();"
+                    Margin="0,0,0,16" />
+    <TextBlock Classes="body1 p">
+      <Run FontWeight="Bold" Text="Turn the focus ring on" /><Run Text=" where keyboard users must find the focus in light and dark, and check it on coloured surfaces, where it can fall below 3:1." />
+    </TextBlock>
+    <TextBlock Classes="body1 p">
+      <Run FontWeight="Bold" Text="Announce validation errors." /><Run Text=" A field shows its error in place of its helper text, but Avalonia does not pass the error to automation, so a screen reader still hears the helper text. An app that must announce errors does so itself." />
+    </TextBlock>
+    <TextBlock Classes="body1 p">
+      <Run FontWeight="Bold" Text="Mark state with more than colour" /><Run Text=" where the default palette leaves it to colour alone: a selected list row in light is primary text on a 6% primary tint." />
+    </TextBlock>
+
+    <TextBlock Classes="h5 section" Text="The default colours" />
+    <TextBlock Classes="body1 p" Text="Light and dark are MudBlazor's own palettes, transcribed, and several of their pairs fall below WCAG AA: 4.5:1 for text, 3:1 for large text and for the lines of a control. High contrast is this package's own and clears them; HighContrastLegibilityTests holds it there. Computed from the palette's values on the page background:" />
+    <Grid ColumnDefinitions="Auto,Auto,Auto,Auto" ColumnSpacing="24" RowSpacing="8" Margin="0,0,0,16"
+          RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto">
+      <TextBlock Grid.Row="0" Grid.Column="0" Classes="subtitle2" Text="Pair" />
+      <TextBlock Grid.Row="0" Grid.Column="1" Classes="subtitle2" Text="Light" />
+      <TextBlock Grid.Row="0" Grid.Column="2" Classes="subtitle2" Text="Dark" />
+      <TextBlock Grid.Row="0" Grid.Column="3" Classes="subtitle2" Text="High contrast" />
+
+      <TextBlock Grid.Row="1" Grid.Column="0" Classes="body2" Text="Body text" />
+      <TextBlock Grid.Row="1" Grid.Column="1" Classes="body2" Text="10.0" />
+      <TextBlock Grid.Row="1" Grid.Column="2" Classes="body2" Text="7.1" />
+      <TextBlock Grid.Row="1" Grid.Column="3" Classes="body2" Text="21.0" />
+
+      <TextBlock Grid.Row="2" Grid.Column="0" Classes="body2" Text="Secondary text" />
+      <TextBlock Grid.Row="2" Grid.Column="1" Classes="body2" Text="4.6" />
+      <TextBlock Grid.Row="2" Grid.Column="2" Classes="body2" Text="4.4, below 4.5" />
+      <TextBlock Grid.Row="2" Grid.Column="3" Classes="body2" Text="17.2" />
+
+      <TextBlock Grid.Row="3" Grid.Column="0" Classes="body2" Text="Primary as text" />
+      <TextBlock Grid.Row="3" Grid.Column="1" Classes="body2" Text="6.0" />
+      <TextBlock Grid.Row="3" Grid.Column="2" Classes="body2" Text="3.0, below 4.5" />
+      <TextBlock Grid.Row="3" Grid.Column="3" Classes="body2" Text="13.1" />
+
+      <TextBlock Grid.Row="4" Grid.Column="0" Classes="body2" Text="Error text" />
+      <TextBlock Grid.Row="4" Grid.Column="1" Classes="body2" Text="3.7, below 4.5" />
+      <TextBlock Grid.Row="4" Grid.Column="2" Classes="body2" Text="3.7, below 4.5" />
+      <TextBlock Grid.Row="4" Grid.Column="3" Classes="body2" Text="10.4" />
+
+      <TextBlock Grid.Row="5" Grid.Column="0" Classes="body2" Text="Text on a warning fill" />
+      <TextBlock Grid.Row="5" Grid.Column="1" Classes="body2" Text="2.2, below 3" />
+      <TextBlock Grid.Row="5" Grid.Column="2" Classes="body2" Text="1.9, below 3" />
+      <TextBlock Grid.Row="5" Grid.Column="3" Classes="body2" Text="14.6" />
+
+      <TextBlock Grid.Row="6" Grid.Column="0" Classes="body2" Text="Text on a success fill" />
+      <TextBlock Grid.Row="6" Grid.Column="1" Classes="body2" Text="2.2, below 3" />
+      <TextBlock Grid.Row="6" Grid.Column="2" Classes="body2" Text="2.5, below 3" />
+      <TextBlock Grid.Row="6" Grid.Column="3" Classes="body2" Text="17.2" />
+
+      <TextBlock Grid.Row="7" Grid.Column="0" Classes="body2" Text="Text on a tertiary fill" />
+      <TextBlock Grid.Row="7" Grid.Column="1" Classes="body2" Text="2.1, below 3" />
+      <TextBlock Grid.Row="7" Grid.Column="2" Classes="body2" Text="2.1, below 3" />
+      <TextBlock Grid.Row="7" Grid.Column="3" Classes="body2" Text="15.3" />
+
+      <TextBlock Grid.Row="8" Grid.Column="0" Classes="body2" Text="A field's outline" />
+      <TextBlock Grid.Row="8" Grid.Column="1" Classes="body2" Text="1.9, below 3" />
+      <TextBlock Grid.Row="8" Grid.Column="2" Classes="body2" Text="2.6, below 3" />
+      <TextBlock Grid.Row="8" Grid.Column="3" Classes="body2" Text="17.2" />
+
+      <TextBlock Grid.Row="9" Grid.Column="0" Classes="body2" Text="Disabled text (exempt)" />
+      <TextBlock Grid.Row="9" Grid.Column="1" Classes="body2" Text="2.7" />
+      <TextBlock Grid.Row="9" Grid.Column="2" Classes="body2" Text="1.9" />
+      <TextBlock Grid.Row="9" Grid.Column="3" Classes="body2" Text="13.6" />
+    </Grid>
+    <TextBlock Classes="body1 p">
+      <Run Text="An app that must meet AA in light or dark overrides the colours that fall short, with their " /><Run Classes="code" Text="Hover" /><Run Text=", " /><Run Classes="code" Text="Darken" /><Run Text=", " /><Run Classes="code" Text="Lighten" /><Run Text=" and " /><Run Classes="code" Text="ContrastText" /><Run Text=" shades, as the Theming page shows, or uses high contrast. A fix to the shipped values that moves away from MudBlazor's look would be named in the release notes; the compatibility promise allows one in a minor version." />
+    </TextBlock>
+    <StackPanel Orientation="Horizontal" Spacing="8" Margin="0,0,0,16">
+      <TextBlock Classes="body1" Text="See also:" VerticalAlignment="Center" />
+      <docs:DocLink Slug="theming" Content="Theming" />
+      <docs:DocLink Slug="palette" Content="Palette" />
+    </StackPanel>
+  </StackPanel>
+</UserControl>

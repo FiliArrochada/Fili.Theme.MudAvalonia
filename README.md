@@ -4,7 +4,7 @@
 [![Downloads](https://img.shields.io/nuget/dt/Fili.MudAvalonia.Theme?logo=nuget&label=downloads)](https://www.nuget.org/packages/Fili.MudAvalonia.Theme)
 [![Build](https://github.com/FiliArrochada/Fili.Theme.MudAvalonia/actions/workflows/build.yml/badge.svg?branch=master)](https://github.com/FiliArrochada/Fili.Theme.MudAvalonia/actions/workflows/build.yml)
 [![Gallery](https://img.shields.io/badge/gallery-live-594AE2)](https://filiarrochada.github.io/Fili.Theme.MudAvalonia/)
-[![Avalonia](https://img.shields.io/badge/Avalonia-12.1-8B44AC)](https://avaloniaui.net/)
+[![Avalonia](https://img.shields.io/badge/Avalonia-12.1.4%2B-8B44AC)](https://avaloniaui.net/)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue)](LICENSE)
 
 This theme is based on [MudBlazor](https://mudblazor.com/), a wonderful Material Design component
@@ -62,8 +62,19 @@ nothing in Avalonia, silently, and a `StaticResource` freezes the light value, s
 stops following the variant. Switch variants on the `Application`:
 
 ```csharp
+using Avalonia;
+using Avalonia.Styling;          // ThemeVariant
+using Fili.Theme.MudAvalonia;    // FiliThemeVariants
+
 Application.Current!.RequestedThemeVariant = ThemeVariant.Dark;               // or Light
-Application.Current!.RequestedThemeVariant = FiliThemeVariants.HighContrast;  // x:Static in XAML
+Application.Current!.RequestedThemeVariant = FiliThemeVariants.HighContrast;
+```
+
+In XAML, high contrast is an `x:Static`, never `x:Key="HighContrast"`, which is not a variant:
+
+```xml
+<Application xmlns:theme="using:Fili.Theme.MudAvalonia"
+             RequestedThemeVariant="{x:Static theme:FiliThemeVariants.HighContrast}">
 ```
 
 **Publish with ReadyToRun** for a faster start: loading the theme the first time is mostly the JIT
@@ -82,6 +93,8 @@ compiling its XAML, about 300 ms on a desktop, and under 100 with
 | upgrade | [Versions](docs/versions/README.md): what changed, and what to change; [Compatibility](docs/compatibility.md): what a version promises not to change |
 | find out why a control is not themed or a key does nothing | [Troubleshooting](https://filiarrochada.github.io/Fili.Theme.MudAvalonia/#troubleshooting) |
 | work on the theme itself | [Contributing](CONTRIBUTING.md), [Traps](docs/traps.md), [The base](docs/the-base.md), [Testing](docs/testing.md), [Releasing](docs/releasing.md) |
+| know what it does for accessibility, and what it leaves to the app | [Accessibility](#accessibility), and the docs site's [Accessibility](https://filiarrochada.github.io/Fili.Theme.MudAvalonia/#accessibility) page |
+| report a bug or ask for a component | [an issue](https://github.com/FiliArrochada/Fili.Theme.MudAvalonia/issues) with the Avalonia and package versions, the variant, and the smallest XAML that shows it |
 | report a security problem | [the security policy](SECURITY.md): privately, never in an issue |
 
 ## Install
@@ -98,11 +111,17 @@ Under Central Package Management the version goes in `Directory.Packages.props` 
 `<PackageVersion Include="Fili.MudAvalonia.Theme" Version="0.28.0" />`, and the reference stays
 version-less.
 
+**Keep every `Avalonia*` package on one version, 12.1.4 or later.** The theme needs `Avalonia`
+12.1.4 at least, so an app pinned to an older 12.1 patch fails restore with **NU1605** (a package
+downgrade): raise the app's `Avalonia`, `Avalonia.Desktop`, `Avalonia.Browser` and the rest
+together. The templates are forked from 12.1.4, so a control type a later Avalonia 12 adds stays
+unthemed until a theme release covers it ([Compatibility](docs/compatibility.md)).
+
 | | |
 |---|---|
 | Package | [`Fili.MudAvalonia.Theme`](https://www.nuget.org/packages/Fili.MudAvalonia.Theme) on nuget.org, with symbols (`.snupkg`) |
 | Target framework | `net10.0` |
-| Depends on | `Avalonia`, within Avalonia 12, and nothing else. `Avalonia.Controls.DataGrid` is optional: built against 12.1.0, themed when the app references it. [Which versions were tested](docs/releasing.md#supported-avalonia-versions) |
+| Depends on | `Avalonia` **12.1.4 or later, below 13**, and nothing else. `Avalonia.Controls.DataGrid` is optional: built against 12.1.0, themed from 12.1.0 up to 13 when the app references it. [Which versions were tested](docs/releasing.md#supported-avalonia-versions) |
 | Fonts | Roboto (Light, Regular, Medium) embedded, under the SIL Open Font License |
 | Licence | MIT for this project's own code; the package as a whole, with the material it bundles, is `MIT AND Apache-2.0 AND MS-PL AND OFL-1.1` ([Licence and attribution](#licence-and-attribution)) |
 
@@ -172,8 +191,9 @@ An app upgrading from a version before the theme keyed controls by type can dele
   it off, MudBlazor's `Ripple="false"`.
 - **Reduced motion is one key**, which MudBlazor does not have: `FiliReducedMotion` set to `True`
   in the application's resources stops the ripple, fades, slides and pulses in every window and
-  popup. It does not yet reach a drawer's slide, a switch's thumb, a field's floating label, a
-  chevron's turn, an expansion panel's margin or a circular progress's sweep
+  popup. It does not yet reach a drawer's slide, a switch's thumb, a field's floating label or
+  focus underline, a chevron's turn, an expansion panel's margin, a circular progress's sweep, a
+  data grid's sort arrow or a slider's value label
   ([Reduced motion](https://filiarrochada.github.io/Fili.Theme.MudAvalonia/#reduced-motion)).
 - **Keyboard focus is the state layer's tint**, as in MudBlazor, which does not meet WCAG AA's 3:1
   for a focus indicator on its own. `FiliFocusRing` set to `True` in the application's resources
@@ -187,6 +207,25 @@ An app upgrading from a version before the theme keyed controls by type can dele
 - **The package ships no icon set**: only the glyphs its templates draw, each a key an app can set
   in a control's `Resources` to swap that control's icon, as MudBlazor's icon parameters do.
 
+## Accessibility
+
+The theme draws what a template can: a focus ring (`FiliFocusRing`, on by default only in high
+contrast), a high-contrast variant, one Tab stop per control, field labels and helper text exposed
+to screen readers, localisable names for its templates' icon buttons (`FiliString*`) and a
+reduced-motion key. It makes **no claim of WCAG conformance**, and it leaves to the app:
+
+- **Following the system.** It does not switch to high contrast or reduced motion when the
+  operating system asks; the app reads the setting and sets the variant or the key.
+- **Names for the app's own icon-only buttons.** A button with no text and no
+  `AutomationProperties.Name` is announced by its type name.
+- **Colour contrast of the default palettes.** They are MudBlazor's, and some pairs fall below AA
+  in light and dark: dark primary as text (3.0:1), error text (3.7:1), white on the warning,
+  success and tertiary fills (about 2:1), field outlines (under 3:1). High contrast meets them.
+- **Validation errors** are shown, but not passed to automation: Avalonia does not expose them.
+
+The [Accessibility](https://filiarrochada.github.io/Fili.Theme.MudAvalonia/#accessibility) page has
+the details and the contrast table.
+
 ## Tokens
 
 | Group | File | Notes |
@@ -197,6 +236,7 @@ An app upgrading from a version before the theme keyed controls by type can dele
 | Controls | `Themes/ControlThemes.axaml` | One file per control under `Themes/Controls/`, keyed by type. |
 | Icons | `Themes/Icons.axaml` | The Material glyphs the templates draw. Not an icon set. |
 | Geometry | `Themes/Geometry.axaml` | 4px radius, 4px spacing scale, app bar and drawer sizes. |
+| Strings | `Themes/Strings.axaml` | The names a screen reader hears for the templates' icon buttons, in English: set one to translate it. |
 
 Every key is listed in [Published keys](docs/published-keys.md). The primary differs by variant:
 `#594AE2` in light, `#776BE7` in dark.

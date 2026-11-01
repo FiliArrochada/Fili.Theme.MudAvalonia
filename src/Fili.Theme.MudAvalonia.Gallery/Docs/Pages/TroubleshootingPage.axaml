@@ -11,21 +11,46 @@
       <Run FontWeight="Bold" Text="Check the two includes. " /><Run Classes="code" Text="FiliBaseTheme.axaml" /><Run Text=" and then " /><Run Classes="code" Text="FiliTheme.axaml" /><Run Text=", in that order, in the application's " /><Run Classes="code" Text="Styles" /><Run Text=", and no " /><Run Classes="code" Text="FluentTheme" /><Run Text=" or " /><Run Classes="code" Text="SimpleTheme" /><Run Text=" beside them: the base is this package's own." />
     </TextBlock>
     <TextBlock Classes="body1 p">
+      <Run FontWeight="Bold" Text="FluentTheme or SimpleTheme is still included." /><Run Text=" Before the two includes, the Fili themes win but the other theme still loads, at start-up cost, and paints wherever the Fili theme has nothing. After them, its control themes win: controls look like that theme, with Fili's class styles laid over them. Remove it, and the Avalonia.Themes package with it." />
+    </TextBlock>
+    <TextBlock Classes="body1 p">
+      <Run FontWeight="Bold" Text="Nothing is themed in a trimmed or browser build." /><Run Text=" A " /><Run Classes="code" Text="StyleInclude" /><Run Text=" built in C# loads its file by reflection, which trimming and NativeAOT can strip, and the app then renders with no theme at all. Write the two includes in " /><Run Classes="code" Text="App.axaml" /><Run Text=", where they compile to code." />
+    </TextBlock>
+    <TextBlock Classes="body1 p">
+      <Run FontWeight="Bold" Text="A control type newer than the theme shows nothing." /><Run Text=" The templates are forked from Avalonia 12.1.4. A control a later Avalonia 12 adds has no template here, and Avalonia has no default theme, until a theme release covers it." />
+    </TextBlock>
+    <TextBlock Classes="body1 p">
       <Run FontWeight="Bold" Text="Your own subclass of a control is a type of its own." /><Run Text=" A theme is found by the control's style key, its exact type, so a " /><Run Classes="code" Text="MyButton : Button" /><Run Text=" misses the Button's and shows its bare content, with no shape, colour or states, until it says it is a Button:" />
     </TextBlock>
     <docs:CodeBlock Code="protected override Type StyleKeyOverride => typeof(Button);"
                     Margin="0,0,0,16" />
     <TextBlock Classes="body1 p">
-      <Run FontWeight="Bold" Text="A DataGrid keeps its own package's look" /><Run Text=" when that package is outside 12.1.0 up to but not including 13.0.0. The theme leaves it alone and writes a warning to Avalonia's log; " /><Run Classes="code" Text="LogToTrace()" /><Run Text=" on the app builder shows it." />
+      <Run FontWeight="Bold" Text="A DataGrid shows nothing" /><Run Text=" when its package is outside 12.1.0 up to but not including 13.0.0. The theme skips its grid templates rather than apply ones that name parts that version lacks, and writes a warning to Avalonia's log; " /><Run Classes="code" Text="LogToTrace()" /><Run Text=" on the app builder shows it. Avalonia has no default theme, so the grid then has no template unless the app includes a DataGrid theme itself. Move the package into the range." />
     </TextBlock>
     <TextBlock Classes="body1 p">
       <Run FontWeight="Bold" Text="A control MudBlazor has no counterpart for" /><Run Text=" keeps the base's look, Avalonia's Simple theme in the Fili palette. The parity page lists what is drawn." />
     </TextBlock>
 
+    <TextBlock Classes="h5 section" Text="The app does not restore or start" />
+    <TextBlock Classes="body1 p">
+      <Run FontWeight="Bold" Text="NU1605, a package downgrade, on restore." /><Run Text=" The theme needs Avalonia 12.1.4 or later, below 13, and the app pins an older patch. Raise every Avalonia package together, to one version." />
+    </TextBlock>
+    <TextBlock Classes="body1 p">
+      <Run FontWeight="Bold" Text="NotSupportedException while the theme loads." /><Run Text=" A theme dictionary keyed " /><Run Classes="code" Text="x:Key=&quot;HighContrast&quot;" /><Run Text=" throws, and takes the rest of the theme down with it: Avalonia's converter knows only Light and Dark. Key it " /><Run Classes="code" Text="{}{x:Static theme:FiliThemeVariants.HighContrast}" /><Run Text="." />
+    </TextBlock>
+
+    <TextBlock Classes="h5 section" Text="Text shows as nothing in the browser" />
+    <TextBlock Classes="body1 p">
+      <Run Text="Roboto covers Latin, Greek and Cyrillic, and a browser build has no system fonts to fall back to, so Arabic, Hebrew or CJK text renders as nothing. Embed a face for the script and register it with " /><Run Classes="code" Text="FontManagerOptions.FontFallbacks" /><Run Text="; the README's Fonts section has a worked example." />
+    </TextBlock>
+
     <TextBlock Classes="h5 section" Text="A key does nothing" />
     <TextBlock Classes="body1 p">
-      <Run FontWeight="Bold" Text="Check the spelling." /><Run Text=" A key nobody declares resolves to nothing and leaves the theme's value in place, with no error. The published keys are listed in the repository's docs/published-keys.md." />
+      <Run FontWeight="Bold" Text="Check the spelling." /><Run Text=" A key nobody declares resolves to nothing and leaves the theme's value in place, with no error. Every key an app may set is in Published resource keys:" />
     </TextBlock>
+    <HyperlinkButton Content="docs/published-keys.md on GitHub"
+                     NavigateUri="https://github.com/FiliArrochada/Fili.Theme.MudAvalonia/blob/master/docs/published-keys.md"
+                     Margin="0,0,0,16" />
     <TextBlock Classes="body1 p">
       <Run FontWeight="Bold" Text="A *Color key in a control's Resources does nothing." /><Run Text=" Each brush is one application-level object built from its colour, so a colour is set in the application's resources. To recolour one control, set the " /><Run Classes="code" Text="*Brush" /><Run Text=" key in its resources instead." />
     </TextBlock>
@@ -57,9 +82,9 @@
       <Run FontWeight="Bold" Text="A class does something only on the controls its page names." /><Run Text=" Each component page says which Avalonia control a class goes on; on another it is just a word." />
     </TextBlock>
 
-    <TextBlock Classes="h5 section" Text="Half the window changed variant" />
+    <TextBlock Classes="h5 section" Text="A window ignores its own variant" />
     <TextBlock Classes="body1 p">
-      <Run Text="Set " /><Run Classes="code" Text="RequestedThemeVariant" /><Run Text=" on the Application. A window's or a ThemeVariantScope's own variant reaches what looks a key up inside it, but not the brushes, which are the application's: half of what is inside follows it." />
+      <Run Text="Set " /><Run Classes="code" Text="RequestedThemeVariant" /><Run Text=" on the Application. A window's or a ThemeVariantScope's own variant does not restyle what is inside it: the theme paints with brushes, and every brush is the application's, built for the application's variant. A window asking for Dark under a Light application still looks light." />
     </TextBlock>
 
     <TextBlock Classes="h5 section" Text="Still stuck" />

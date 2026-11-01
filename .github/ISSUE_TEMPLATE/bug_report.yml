@@ -1,0 +1,50 @@
+name: Bug report
+description: A control looks or behaves wrong with the theme applied.
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        A security problem goes through the [security policy](https://github.com/FiliArrochada/Fili.Theme.MudAvalonia/security/policy), privately, never in an issue.
+        The [Troubleshooting](https://filiarrochada.github.io/Fili.Theme.MudAvalonia/#troubleshooting) page covers the silent failures most reports turn out to be.
+  - type: input
+    id: package
+    attributes:
+      label: Package version
+      placeholder: "0.28.0"
+    validations:
+      required: true
+  - type: input
+    id: avalonia
+    attributes:
+      label: Avalonia version (and Avalonia.Controls.DataGrid, if used)
+      placeholder: "12.1.4"
+    validations:
+      required: true
+  - type: dropdown
+    id: variant
+    attributes:
+      label: Variant
+      multiple: true
+      options: [Light, Dark, High contrast]
+    validations:
+      required: true
+  - type: input
+    id: platform
+    attributes:
+      label: Platform
+      placeholder: "Windows 11 desktop, browser (WebAssembly), Android..."
+  - type: textarea
+    id: repro
+    attributes:
+      label: The smallest XAML that shows it
+      render: xml
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: What you expected, and what you see
+      description: A screenshot helps, and the MudBlazor component it should match if there is one.
+    validations:
+      required: true
