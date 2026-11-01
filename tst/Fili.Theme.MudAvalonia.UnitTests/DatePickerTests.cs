@@ -4,6 +4,7 @@ using Avalonia.Controls.Presenters;
 using Avalonia.Controls.Primitives;
 using Avalonia.Headless;
 using Avalonia.Input;
+using Avalonia.Media;
 using Path = Avalonia.Controls.Shapes.Path;
 using Avalonia.Threading;
 using Avalonia.VisualTree;
@@ -285,6 +286,24 @@ public class DatePickerTests
         Assert.Equal(new Thickness(8), previous.Padding);
         Assert.Equal(new Thickness(6), previous.Margin);
         Assert.Equal(16, header.FontSize);
+    });
+
+    /// <summary>
+    /// The arrows paint nothing at rest, as a MudIconButton does, and action-default-hover under
+    /// the pointer: a surface disc showed off the surface, on a page or under dark's overlay.
+    /// </summary>
+    [Fact]
+    public Task TheArrowsAreTransparentUntilHovered() => UiThread.RunAsync(() =>
+    {
+        var calendar = Matrix.Show(new Calendar());
+        var previous = calendar.GetVisualDescendants().OfType<Button>().Single(b => b.Name == "PART_PreviousButton");
+
+        Assert.Equal(Colors.Transparent, Matrix.Colour(previous.Background));
+        Assert.Equal(Colors.Transparent, Matrix.Colour(Matrix.Part<Border>(previous, "PART_StateLayer").Background));
+
+        ((IPseudoClasses)previous.Classes).Set(":pointerover", true);
+        Dispatcher.UIThread.RunJobs();
+        Assert.Equal(Matrix.Token("FiliActionDefaultHoverColor"), Matrix.Colour(Matrix.Part<Border>(previous, "PART_StateLayer").Background));
     });
 
     /// <summary>A month is `.mud-picker-month`, 60px high in subtitle1; the selected one h5 in primary.</summary>

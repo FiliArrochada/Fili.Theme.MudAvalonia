@@ -1,7 +1,9 @@
+using System.Runtime.CompilerServices;
 using Avalonia;
 using Avalonia.Automation;
 using Avalonia.Controls;
 using Avalonia.Controls.Primitives;
+using Avalonia.Data;
 
 namespace Fili.Theme.MudAvalonia;
 
@@ -13,6 +15,8 @@ namespace Fili.Theme.MudAvalonia;
 /// no <c>PlaceholderText</c>, which doubles as the label, gets <c>:no-label</c>; and whether it has
 /// helper text, <c>:helper-text</c>, for which its theme builds the helper line. A select, which
 /// has a helper line and no adornments, sets <see cref="TracksHelpTextProperty"/> for that alone.
+/// A field that tracks either also exposes its validation error, while it shows one, as its
+/// automation <c>ItemStatus</c>.
 /// </summary>
 /// <remarks>
 /// <para>
@@ -85,7 +89,48 @@ internal sealed class Adornments
                 RefreshHelpText(control);
             }
         });
+        DataValidationErrors.ErrorsProperty.Changed.AddClassHandler<TemplatedControl>((control, _) => RefreshError(control));
+        TracksProperty.Changed.AddClassHandler<TextBox>((box, _) => RefreshError(box));
+        TracksHelpTextProperty.Changed.AddClassHandler<TemplatedControl>((control, _) => RefreshError(control));
     }
+
+    /// <summary>The error each field exposes to automation, while it shows one.</summary>
+    private static readonly ConditionalWeakTable<TemplatedControl, IDisposable> Exposed = new();
+
+    /// <summary>
+    /// A field's validation error, the line the theme shows under it, reaches a screen reader as
+    /// the field's <c>ItemStatus</c>: the error replaces the helper text on screen, but the
+    /// automation help text is the app's and stays its helper text. Set at Style priority, so an
+    /// app's own ItemStatus wins, and withdrawn with the error.
+    /// </summary>
+    private static void RefreshError(TemplatedControl control)
+    {
+        if (Exposed.TryGetValue(control, out var previous))
+        {
+            previous.Dispose();
+            Exposed.Remove(control);
+        }
+
+        var shows = control is TextBox box ? GetTracks(box) : GetTracksHelpText(control);
+        if (!shows || DataValidationErrors.GetErrors(control) is not { } errors)
+        {
+            return;
+        }
+
+        var text = string.Join(" ", errors.Select(Message).Where(m => !string.IsNullOrEmpty(m)));
+        if (text.Length > 0
+            && control.SetValue(AutomationProperties.ItemStatusProperty, text, BindingPriority.Style) is { } entry)
+        {
+            Exposed.Add(control, entry);
+        }
+    }
+
+    private static string? Message(object? error) => error switch
+    {
+        null => null,
+        Exception exception => exception.Message,
+        _ => error.ToString(),
+    };
 
     private static void RefreshHelpText(TemplatedControl control) =>
         ((IPseudoClasses)control.Classes).Set(HelperText, GetTracksHelpText(control) && !string.IsNullOrEmpty(AutomationProperties.GetHelpText(control)));

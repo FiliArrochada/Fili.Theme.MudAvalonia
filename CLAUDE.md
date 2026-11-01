@@ -173,7 +173,15 @@ $env:FILI_PIXEL_BASELINES = "accept"; dotnet test tst/Fili.Theme.MudAvalonia.Pix
 
 # Rewrite the generated regions after editing ThemeColourGenerator:
 $env:FILI_REGENERATE = "1"; dotnet test tst/Fili.Theme.MudAvalonia.UnitTests --filter-class "*GeneratedThemeTests"
+
+# Time a style-cost change, before and after, on an idle machine:
+dotnet run -c Release --project tst/Fili.Theme.MudAvalonia.Benchmarks -- --filter "*"
 ```
+
+Warnings fail the build. A package version change is restored locally in the same commit, which
+rewrites the `packages.lock.json` files; CI restores in locked mode and fails without them. A
+selector change that moves the benchmark screen's style instances moves
+`StyleCostTests.StyleInstanceCeiling` with the benchmark's tables beside it.
 
 **Releasing is a tag, and the tag is the human's to push.** Bump `<Version>` with its page in
 `docs/versions/` (renamed from `unreleased.md`, where work is written as it lands); never tag.

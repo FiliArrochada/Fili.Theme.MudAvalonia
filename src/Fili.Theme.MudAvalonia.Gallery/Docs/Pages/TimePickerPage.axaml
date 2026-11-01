@@ -78,8 +78,8 @@
       <docs:ParityRow MudBlazor="MinuteSelectionStep" Here="MinuteIncrement" Status="Same" />
       <docs:ParityRow MudBlazor="Variant, Margin, HelperText, HelperTextOnFocus, Underline, Required, ShrinkLabel, Error" Here="the text field's classes on the picker" Status="Same" Note="They reach the field inside, as on a date picker." />
       <docs:ParityRow MudBlazor="Placeholder" Here="—" Status="Missing" Note="TimePicker has no PlaceholderText; the label takes AutomationProperties.Name." />
-      <docs:ParityRow MudBlazor="Label" Here="AutomationProperties.Name" Status="Same" Note="The floating label." />
-      <docs:ParityRow MudBlazor="Editable" Here="editable" Status="Same" Note="Taken on Enter or when the field loses focus." />
+      <docs:ParityRow MudBlazor="Label" Here="AutomationProperties.Name" Status="Same" Note="The floating label. An AutomationProperties.LabeledBy on the picker names its field too." />
+      <docs:ParityRow MudBlazor="Editable" Here="editable" Status="Same" Note="Taken on Enter or when the field loses focus; Alt+Down or F4 takes it and opens the picker, read-only or editable, as on a drop-down." />
       <docs:ParityRow MudBlazor="the clock face" Here="Avalonia's hour and minute columns" Status="Close" Note="Looping columns with the chosen row on a primary band, under MudTimePicker's toolbar. The clock face is a control of its own, so the toolbar's hour and minute are not buttons switching the view, and AM and PM are set by the period column." />
       <docs:ParityRow MudBlazor="AdornmentIcon (AccessTime)" Here="FiliAccessTimeGeometry" Status="Same" Note="In the picker's Resources to swap it." />
       <docs:ParityRow MudBlazor="Adornment (End), AdornmentColor, IconSize" Here="the icon button at the end, action-default" Status="Close" Note="Fixed: no class moves or colours it. Hidden from screen readers, which reach the picker through its field." />

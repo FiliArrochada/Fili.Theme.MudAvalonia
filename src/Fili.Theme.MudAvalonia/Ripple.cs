@@ -117,6 +117,9 @@ internal sealed class Ripple
     {
         private readonly Border _border;
         private readonly List<(Panel Wave, long Started)> _held = [];
+        // The fades still to come: a pending timer is a root until it fires, and would hold the
+        // control a second after the app let go of it, so leaving the tree stops them.
+        private readonly List<IDisposable> _pending = [];
         private Canvas? _canvas;
         private InputElement? _host;
 
@@ -153,9 +156,26 @@ internal sealed class Ripple
                 _host = null;
             }
 
+            foreach (var timer in _pending)
+            {
+                timer.Dispose();
+            }
+
+            _pending.Clear();
             _held.Clear();
             _canvas?.Children.Clear();
             _border.Clip = null;
+        }
+
+        private void After(TimeSpan delay, Action action)
+        {
+            IDisposable? timer = null;
+            timer = DispatcherTimer.RunOnce(() =>
+            {
+                _pending.Remove(timer!);
+                action();
+            }, delay);
+            _pending.Add(timer);
         }
 
         /// <summary>A release, capture loss or exit ends the held waves; listened for while any are.</summary>
@@ -249,7 +269,7 @@ internal sealed class Ripple
                 var remaining = MinimumDuration - Stopwatch.GetElapsedTime(started);
                 if (remaining > TimeSpan.Zero)
                 {
-                    DispatcherTimer.RunOnce(() => Fade(wave), remaining);
+                    After(remaining, () => Fade(wave));
                 }
                 else
                 {
@@ -264,13 +284,13 @@ internal sealed class Ripple
         private void Fade(Panel wave)
         {
             wave.Opacity = 0;
-            DispatcherTimer.RunOnce(() =>
+            After(FadeDuration, () =>
             {
                 if (_canvas is { } canvas && canvas.Children.Remove(wave) && canvas.Children.Count == 0)
                 {
                     _border.Clip = null;
                 }
-            }, FadeDuration);
+            });
         }
     }
 

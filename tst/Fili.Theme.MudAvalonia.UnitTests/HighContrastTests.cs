@@ -315,6 +315,46 @@ public class HighContrastTests
     });
 
     /// <summary>
+    /// The rings are kept once built, so a variant switched away and back, and a line colour
+    /// changed in between, must still reach a surface that is already showing.
+    /// </summary>
+    [Fact]
+    public Task KeptRingsFollowAVariantSwitch() => UiThread.RunAsync(() =>
+    {
+        var application = Application.Current!;
+        var previous = application.RequestedThemeVariant;
+        var appPalette = new ResourceDictionary { ["FiliLinesDefaultColor"] = Colors.Orange };
+        var surface = new Border { Classes = { "paper", "elevation4" }, Width = 100, Height = 100 };
+        var window = new Window { Content = surface };
+
+        try
+        {
+            application.Resources.ThemeDictionaries[HighContrast] = appPalette;
+            application.RequestedThemeVariant = HighContrast;
+            window.Show();
+            Assert.Equal(1, surface.BoxShadow.Count);
+            Assert.Equal(Colors.Orange, surface.BoxShadow[0].Color);
+
+            application.RequestedThemeVariant = ThemeVariant.Dark;
+            Assert.Equal(Elevation(4, ThemeVariant.Dark).ToString(), surface.BoxShadow.ToString());
+
+            appPalette["FiliLinesDefaultColor"] = Colors.Cyan;
+            application.RequestedThemeVariant = HighContrast;
+            Assert.Equal(1, surface.BoxShadow.Count);
+            Assert.Equal(Colors.Cyan, surface.BoxShadow[0].Color);
+            Assert.Equal(Colors.Cyan, Shadows("FiliElevationOverlay7", HighContrast)[0].Color);
+        }
+        finally
+        {
+            window.Close();
+            application.Resources.ThemeDictionaries.Remove(HighContrast);
+            application.RequestedThemeVariant = previous;
+        }
+
+        Assert.Equal(Resolve("FiliLinesDefaultColor", HighContrast), Elevation(4, HighContrast)[0].Color);
+    });
+
+    /// <summary>
     /// Light and Dark hold two copies of the same ladder, which exist only because a token
     /// declared outside the theme dictionaries cannot be overridden by one. Two copies can
     /// drift; this is what stops them.

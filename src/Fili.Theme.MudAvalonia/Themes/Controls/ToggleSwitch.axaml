@@ -11,11 +11,13 @@
   class paints the thumb and the track only when ON - `mud-{color}-text` and `mud-{color}` are
   added for BoolValue == true - with the colour's hover tint as the halo.
 
-  PART NAMES ARE LOAD-BEARING. ToggleSwitch.OnApplyTemplate looks up PART_SwitchKnob and
-  PART_MovingKnobs to wire knob dragging. The lookups are null-safe, so omitting them costs the
-  drag gesture rather than crashing - but then the switch only responds to clicks, which is a
-  silent downgrade. They are kept, and the checked-state transform is applied to PART_Thumb
-  INSIDE PART_MovingKnobs so it composes with the drag transform instead of fighting it.
+  PART NAMES ARE LOAD-BEARING, AND SO IS THE CANVAS. ToggleSwitch places PART_MovingKnobs with
+  Canvas.Left: 0 when off, PART_SwitchKnob's width when on, and the pointer's position while it
+  is dragged, deciding on release by which half the knobs ended in. So PART_SwitchKnob is a
+  Canvas exactly the thumb's travel wide, and the thumb, its halo and its ripple ride in
+  PART_MovingKnobs with no transform of their own; KnobTransitions animates the travel. The
+  lookups are null-safe, and a template that moved the thumb by a transform instead kept the
+  click but lost the drag: the knob stood still under the pointer.
 -->
 <ResourceDictionary xmlns="https://github.com/avaloniaui"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -30,6 +32,14 @@
     <Setter Property="VerticalContentAlignment" Value="Center" />
     <Setter Property="Cursor" Value="Hand" />
     <Setter Property="MinHeight" Value="40" />
+    <!-- The thumb's travel, `.mud-switch-base`'s 150ms transform transition. None with
+         FiliReducedMotion (Motion.cs). -->
+    <Setter Property="theme:Motion.Reducible" Value="True" />
+    <Setter Property="KnobTransitions">
+      <Transitions>
+        <DoubleTransition Property="Canvas.Left" Duration="0:0:0.15" Easing="CubicEaseOut" />
+      </Transitions>
+    </Setter>
 
     <Setter Property="Template">
       <ControlTemplate>
@@ -49,31 +59,32 @@
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center" />
 
-            <!-- Travel area. Width is track width, so the thumb can sit at either end. -->
-            <Panel x:Name="PART_SwitchKnob"
-                   Width="34" Height="20"
-                   HorizontalAlignment="Center"
-                   VerticalAlignment="Center">
+            <!-- What the focus ring frames: the track with the thumb's overhang, a pill the
+                 thumb's height, rather than the whole control with its label. Draws nothing. -->
+            <theme:PartBorder x:Name="PART_FocusTarget"
+                    TemplatedControl.IsTemplateFocusTarget="True"
+                    Width="34" Height="20"
+                    CornerRadius="10"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center" />
 
-              <!-- Avalonia translates THIS panel while a drag is in progress. -->
-              <Panel x:Name="PART_MovingKnobs">
+            <!-- Travel area: the thumb's travel wide, 34 - 20 = 14px, from the track's left end
+                 ((52 - 34) / 2 = 9px in, in every size). -->
+            <Canvas x:Name="PART_SwitchKnob"
+                    Width="14" Height="20"
+                    Margin="9,0,0,0"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center">
+
+              <!-- Avalonia moves THIS panel, by Canvas.Left, at rest and while dragged. -->
+              <Panel x:Name="PART_MovingKnobs" Width="20" Height="20">
 
                 <Ellipse x:Name="PART_ThumbStateLayer"
                          Width="40" Height="40"
                          Fill="{TemplateBinding (theme:Accent.Halo)}"
                          Opacity="0"
-                         HorizontalAlignment="Left"
-                         VerticalAlignment="Center"
-                         Margin="-10,0,0,0"
-                         RenderTransform="translateX(0px)">
-                  <Ellipse.Transitions>
-                    <Transitions>
-                      <TransformOperationsTransition Property="RenderTransform"
-                                                     Duration="0:0:0.15"
-                                                     Easing="CubicEaseOut" />
-                    </Transitions>
-                  </Ellipse.Transitions>
-                </Ellipse>
+                         HorizontalAlignment="Center"
+                         VerticalAlignment="Center" />
 
                 <!-- `.mud-ripple-switch`: the ripple in the halo's circle, moving with it. -->
                 <theme:PartBorder x:Name="PART_ThumbRipple"
@@ -81,33 +92,19 @@
                         theme:Ripple.Brush="{TemplateBinding (theme:Accent.RippleNow)}"
                         Width="40" Height="40"
                         CornerRadius="999"
-                        HorizontalAlignment="Left"
-                        VerticalAlignment="Center"
-                        Margin="-10,0,0,0"
-                        RenderTransform="translateX(0px)">
-                  <theme:PartBorder.Transitions>
-                    <Transitions>
-                      <TransformOperationsTransition Property="RenderTransform"
-                                                     Duration="0:0:0.15"
-                                                     Easing="CubicEaseOut" />
-                    </Transitions>
-                  </theme:PartBorder.Transitions>
-                </theme:PartBorder>
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center" />
 
                 <!-- Every `.mud-switch-thumb-*` box-shadow is Shadow.cs's level 1 (_switch.scss). -->
-                <theme:PartBorder x:Name="PART_Thumb"
+                <theme:PartBorder theme:Motion.Reducible="True" x:Name="PART_Thumb"
                         Width="20" Height="20"
                         CornerRadius="10"
                         Background="{TemplateBinding (theme:Accent.Thumb)}"
                         BoxShadow="{DynamicResource FiliElevation1}"
-                        HorizontalAlignment="Left"
-                        VerticalAlignment="Center"
-                        RenderTransform="translateX(0px)">
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center">
                   <theme:PartBorder.Transitions>
                     <Transitions>
-                      <TransformOperationsTransition Property="RenderTransform"
-                                                     Duration="0:0:0.15"
-                                                     Easing="CubicEaseOut" />
                       <BrushTransition Property="Background" Duration="0:0:0.15" />
                     </Transitions>
                   </theme:PartBorder.Transitions>
@@ -129,7 +126,7 @@
                         RenderTransform="scale(0.6666667)" />
                 </theme:PartBorder>
               </Panel>
-            </Panel>
+            </Canvas>
           </Panel>
 
           <ContentPresenter x:Name="PART_ContentPresenter"
@@ -174,14 +171,8 @@
     </Style>
 
     <!-- GENERATED by ThemeColourGenerator: switch colours and sizes. -->
-    <!-- On: the thumb travels the track width minus its own, 34 - 20 = 14px, and the
-         track lifts from 48% to 50%. -->
-    <Style Selector="^:checked /template/ theme|PartBorder#PART_Thumb">
-      <Setter Property="RenderTransform" Value="translateX(14px)" />
-    </Style>
-    <Style Selector="^:checked /template/ Ellipse#PART_ThumbStateLayer, ^:checked /template/ theme|PartBorder#PART_ThumbRipple">
-      <Setter Property="RenderTransform" Value="translateX(14px)" />
-    </Style>
+    <!-- On: the track lifts from 48% to 50%. The thumb's travel, the track width minus its
+         own, is PART_SwitchKnob's width, which the control moves the knobs across. -->
     <Style Selector="^:checked /template/ theme|PartBorder#PART_Track">
       <Setter Property="Opacity" Value="0.5" />
     </Style>
@@ -216,8 +207,17 @@
       <Setter Property="Width" Value="30" />
       <Setter Property="Height" Value="10" />
     </Style>
-    <Style Selector="^.small /template/ Panel#PART_SwitchKnob">
+    <Style Selector="^.small /template/ theme|PartBorder#PART_FocusTarget">
       <Setter Property="Width" Value="30" />
+      <Setter Property="Height" Value="14" />
+      <Setter Property="CornerRadius" Value="7" />
+    </Style>
+    <Style Selector="^.small /template/ Canvas#PART_SwitchKnob">
+      <Setter Property="Width" Value="16" />
+      <Setter Property="Height" Value="14" />
+    </Style>
+    <Style Selector="^.small /template/ Panel#PART_MovingKnobs">
+      <Setter Property="Width" Value="14" />
       <Setter Property="Height" Value="14" />
     </Style>
     <Style Selector="^.small /template/ theme|PartBorder#PART_Thumb">
@@ -232,12 +232,6 @@
     <Style Selector="^.small /template/ Path#PART_ThumbIcon">
       <Setter Property="RenderTransform" Value="scale(0.4166667)" />
     </Style>
-    <Style Selector="^.small:checked /template/ theme|PartBorder#PART_Thumb">
-      <Setter Property="RenderTransform" Value="translateX(16px)" />
-    </Style>
-    <Style Selector="^.small:checked /template/ Ellipse#PART_ThumbStateLayer, ^.small:checked /template/ theme|PartBorder#PART_ThumbRipple">
-      <Setter Property="RenderTransform" Value="translateX(16px)" />
-    </Style>
 
     <!-- `.mud-switch-span-large`: a 38x18 track and a 26px thumb. -->
     <Style Selector="^.large">
@@ -251,8 +245,17 @@
       <Setter Property="Width" Value="38" />
       <Setter Property="Height" Value="18" />
     </Style>
-    <Style Selector="^.large /template/ Panel#PART_SwitchKnob">
+    <Style Selector="^.large /template/ theme|PartBorder#PART_FocusTarget">
       <Setter Property="Width" Value="38" />
+      <Setter Property="Height" Value="26" />
+      <Setter Property="CornerRadius" Value="13" />
+    </Style>
+    <Style Selector="^.large /template/ Canvas#PART_SwitchKnob">
+      <Setter Property="Width" Value="12" />
+      <Setter Property="Height" Value="26" />
+    </Style>
+    <Style Selector="^.large /template/ Panel#PART_MovingKnobs">
+      <Setter Property="Width" Value="26" />
       <Setter Property="Height" Value="26" />
     </Style>
     <Style Selector="^.large /template/ theme|PartBorder#PART_Thumb">
@@ -266,12 +269,6 @@
     </Style>
     <Style Selector="^.large /template/ Path#PART_ThumbIcon">
       <Setter Property="RenderTransform" Value="scale(0.9166667)" />
-    </Style>
-    <Style Selector="^.large:checked /template/ theme|PartBorder#PART_Thumb">
-      <Setter Property="RenderTransform" Value="translateX(12px)" />
-    </Style>
-    <Style Selector="^.large:checked /template/ Ellipse#PART_ThumbStateLayer, ^.large:checked /template/ theme|PartBorder#PART_ThumbRipple">
-      <Setter Property="RenderTransform" Value="translateX(12px)" />
     </Style>
 
     <!-- Colours paint the thumb and the track only when ON, with the colour's hover tint and

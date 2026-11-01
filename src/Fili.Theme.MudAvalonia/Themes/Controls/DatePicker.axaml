@@ -185,15 +185,20 @@
 
   <!--
     The arrows: `.mud-picker-calendar-header-switch > .mud-icon-button`, a MudIconButton at
-    `padding: 8px; margin: 6px` on the surface, so 40px round a 24px glyph, action-default, with
+    `padding: 8px; margin: 6px`, so 40px round a 24px glyph, action-default, with
     action-default-hover under the pointer and a ripple. Its own theme rather than `icon`, whose
     12px a value in this template could not beat.
+
+    Transparent at rest, as a MudIconButton is. MudBlazor paints this one the surface, to cover
+    the month sliding beneath it; nothing slides here, and a surface disc showed as a pale circle
+    wherever the calendar was not on the surface: on the page's background, or under dark's
+    elevation overlay.
   -->
   <ControlTheme x:Key="FiliCalendarNavButton" TargetType="Button">
     <Setter Property="Padding" Value="8" />
     <Setter Property="Margin" Value="6" />
     <Setter Property="CornerRadius" Value="20" />
-    <Setter Property="Background" Value="{DynamicResource FiliSurfaceBrush}" />
+    <Setter Property="Background" Value="Transparent" />
     <Setter Property="BorderThickness" Value="0" />
     <Setter Property="Foreground" Value="{DynamicResource FiliActionDefaultBrush}" />
     <Setter Property="Cursor" Value="Hand" />

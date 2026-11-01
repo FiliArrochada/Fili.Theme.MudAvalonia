@@ -4,7 +4,7 @@
              x:Class="Fili.Theme.MudAvalonia.Gallery.Docs.Pages.KeyboardFocusPage">
   <StackPanel Classes="doc">
     <docs:DocHeader Title="Keyboard focus"
-                    Summary="Keyboard focus is shown as MudBlazor shows it: the control lights the same state layer hovering gives it. A focus ring is drawn in high contrast, and in light and dark when the app asks for one. Each control is one Tab stop." />
+                    Summary="Keyboard focus lights the control's state layer, as MudBlazor's does, and draws a focus ring round it, which MudBlazor does not; an app can turn the ring off. Each control is one Tab stop." />
 
     <TextBlock Classes="h5 section" Text="The state layer" />
     <TextBlock Classes="body1 p">
@@ -13,7 +13,7 @@
     <docs:CodeBlock Code="_button.scss          &amp;:focus-visible, &amp;:active { background-color: action-default-hover }&#10;_expansionpanel.scss  &amp;:focus-visible           { background-color: action-default-hover }&#10;_link.scss            &amp;:focus-visible, &amp;:active { text-decoration: underline }&#10;_list.scss            &amp;:focus:not(.mud-selected-item) { background-color: action-default-hover }"
                     Margin="0,0,0,16" />
     <docs:ExampleCard Title="Tab through"
-                      Description="Click the field, then press Tab: each control takes focus in turn and shows its hover tint while it has it. The slider is one stop, not its two rail halves, and the numeric field's text box stands for its control."
+                      Description="Click the field, then press Tab: each control takes focus in turn and shows its hover tint and the focus ring while it has it. The slider is one stop, not its two rail halves, and the numeric field's text box stands for its control."
                       Source="KeyboardFocus/TabThrough" />
     <TextBlock Classes="body1 p">
       <Run Text="It is " /><Run Classes="code" Text=":focus-visible" /><Run Text=", not " /><Run Classes="code" Text=":focus" /><Run Text=": clicking a button does not leave it tinted once the pointer has gone; only keyboard navigation marks it." />
@@ -26,13 +26,13 @@
 
     <TextBlock Classes="h5 section" Text="The focus ring" />
     <TextBlock Classes="body1 p">
-      <Run Text="The tint is MudBlazor's 6% action-default-hover. It is visible, but it falls far short of the 3:1 against its surroundings that WCAG 2.2's 1.4.11 asks of a focus indicator, so the tint alone does not meet WCAG AA. An app that must meet it turns the focus ring on: " /><Run Classes="code" Text="FiliFocusRing" /><Run Text=" set to True in the application's resources draws a 2px text-primary ring 2px outside whichever control the keyboard focuses, in every window and popup. On the background it is 10:1 in light, 7:1 in dark and 21:1 in high contrast; on a coloured surface, a primary app bar, it can fall below 3:1, so check the ring where your focusable controls sit. A click draws none, as it draws no tint." />
+      <Run Text="The tint is MudBlazor's 6% action-default-hover. It is visible, but it falls far short of the 3:1 against its surroundings that WCAG 2.2's 1.4.11 asks of a focus indicator, so the tint alone does not meet WCAG AA, and a keyboard user loses their place. So the theme draws a focus ring too, in every variant: a 2px text-primary ring 2px outside whichever control the keyboard focuses, in every window and popup, its corners following the control's: a pill round a pill, a square round a square. A switch's ring goes round the switch, not its label. On the background it is 10:1 in light, 7:1 in dark and 21:1 in high contrast; on a coloured surface, a primary app bar, it can fall below 3:1, so check the ring where your focusable controls sit. A click or a touch draws none, as it draws no tint: the ring is for the keyboard only." />
     </TextBlock>
-    <docs:CodeBlock Code="&lt;Application.Resources&gt;&#10;  &lt;x:Boolean x:Key=&quot;FiliFocusRing&quot;&gt;True&lt;/x:Boolean&gt;&#10;&lt;/Application.Resources&gt;"
-                    Margin="0,0,0,16" />
     <TextBlock Classes="body1 p">
-      <Run Text="High contrast draws the ring without being asked: the variant is for people who need to find things, and the tint is no indicator to find. False in the application's resources turns it off there too. MudBlazor has no ring; it removes the browser's." />
+      <Run Text="MudBlazor has no ring; it removes the browser's. An app that wants MudBlazor's look, the tint alone, sets " /><Run Classes="code" Text="FiliFocusRing" /><Run Text=" to False in the application's resources, in every variant at once. Before 0.29.0 the ring was off in light and dark and on only in high contrast." />
     </TextBlock>
+    <docs:CodeBlock Code="&lt;Application.Resources&gt;&#10;  &lt;x:Boolean x:Key=&quot;FiliFocusRing&quot;&gt;False&lt;/x:Boolean&gt;&#10;&lt;/Application.Resources&gt;"
+                    Margin="0,0,0,16" />
 
     <TextBlock Classes="h5 section" Text="A ring of your own" />
     <TextBlock Classes="body1 p">
@@ -63,7 +63,7 @@
     <docs:ParityTable>
       <docs:ParityRow MudBlazor=":focus-visible" Here=":focus-visible" Status="Same" Note="The control's hover tint; a click leaves none." />
       <docs:ParityRow MudBlazor="outline: none (_reset.scss)" Here="no focus rectangle" Status="Same" Note="The base's dashed rectangle is off; a FocusAdorner the app sets still draws." />
-      <docs:ParityRow MudBlazor="(none: a focus ring)" Here="FiliFocusRing" Status="Extra" Note="A 2px text-primary ring on keyboard focus: on in high contrast, True in the application's resources for light and dark." />
+      <docs:ParityRow MudBlazor="(none: a focus ring)" Here="FiliFocusRing" Status="Extra" Note="A 2px text-primary ring on keyboard focus, its corners each the control's plus 4px: on in every variant; False in the application's resources keeps MudBlazor's tint alone." />
       <docs:ParityRow MudBlazor="a list row, :focus:not(.mud-selected-item)" Here="the same" Status="Same" Note="A selected row shows its selection tint only; in a multi-selection list, which tints no selected row, a focused one takes the hover tint." />
       <docs:ParityRow MudBlazor="a text field's :focus" Here="the same" Status="Same" Note="The accent rule and the label's colour, however the field was focused." />
       <docs:ParityRow MudBlazor="(none: access keys)" Here="_ before a letter in a label" Status="Extra" Note="Avalonia's own: Alt underlines and presses." />

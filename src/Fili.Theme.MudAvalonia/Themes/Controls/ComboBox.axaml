@@ -285,10 +285,16 @@
               rising on focus exactly as the TextBox's does. PART_SelectedLabel is a static copy
               already in the floated position, shown once there is a selection. They share
               position, size and colour, so the handover is invisible.
+
+              Both stop short of the drop-down arrow's 32px column and end in an ellipsis: a
+              label longer than the select ran past it and under the arrow. Not a MudBlazor
+              value: a theme guard.
             -->
-            <TextBlock x:Name="PART_FloatingLabel"
+            <Panel x:Name="PART_LabelArea" Margin="0,0,32,0">
+            <TextBlock theme:Motion.Reducible="True" x:Name="PART_FloatingLabel"
                        VerticalAlignment="Center"
                        HorizontalAlignment="Left"
+                       TextTrimming="CharacterEllipsis"
                        IsHitTestVisible="False"
                        FontSize="{DynamicResource FiliBody1FontSize}"
                        LineHeight="NaN"
@@ -320,6 +326,7 @@
             <TextBlock x:Name="PART_SelectedLabel"
                        VerticalAlignment="Center"
                        HorizontalAlignment="Left"
+                       TextTrimming="CharacterEllipsis"
                        IsHitTestVisible="False"
                        FontSize="{DynamicResource FiliCaptionFontSize}"
                        LineHeight="NaN"
@@ -337,13 +344,14 @@
                 </MultiBinding>
               </TextBlock.Text>
             </TextBlock>
+            </Panel>
 
             <theme:PartBorder x:Name="PART_Underline"
                     Height="1"
                     VerticalAlignment="Bottom"
                     Background="{DynamicResource FiliLinesInputsBrush}" />
 
-            <theme:PartBorder x:Name="PART_UnderlineActive"
+            <theme:PartBorder theme:Motion.Reducible="True" x:Name="PART_UnderlineActive"
                     Height="2"
                     VerticalAlignment="Bottom"
                     Background="{DynamicResource FiliPrimaryBrush}"

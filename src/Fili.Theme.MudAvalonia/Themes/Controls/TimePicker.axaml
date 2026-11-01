@@ -113,6 +113,7 @@
                    theme:FieldClasses.Mirrors="True"
                    DataValidationErrors.Errors="{TemplateBinding (DataValidationErrors.Errors)}"
                    AutomationProperties.HelpText="{TemplateBinding (AutomationProperties.HelpText)}"
+                   AutomationProperties.LabeledBy="{TemplateBinding (AutomationProperties.LabeledBy)}"
                    PlaceholderText="{TemplateBinding (AutomationProperties.Name)}">
             <TextBox.Text>
               <MultiBinding Converter="{x:Static theme:TimeView.FieldText}">

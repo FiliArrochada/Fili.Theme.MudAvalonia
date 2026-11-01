@@ -129,7 +129,7 @@
       <docs:ParityRow MudBlazor="MudProgressCircular Rounded" Here="rounded" Status="Same" Note="Round line caps." />
       <docs:ParityRow MudBlazor="MudProgressCircular Indeterminate" Here="IsIndeterminate" Status="Same" Note="Circular-rotate and circular-dash, key frame for key frame, eased per segment." />
       <docs:ParityRow MudBlazor="MudProgressCircular Min, Max, Value" Here="Minimum, Maximum, Value" Status="Same" Note="With the 300ms ease on a value change." />
-      <docs:ParityRow MudBlazor="MudProgressCircular ChildContent" Here="ShowProgressText" Status="Close" Note="The formatted value in the middle, in the ring's colour; not arbitrary content." />
+      <docs:ParityRow MudBlazor="MudProgressCircular ChildContent" Here="ShowProgressText" Status="Close" Note="The formatted value in the middle, in the ring's colour, shrunk to fit inside the ring where it would not, as on the small one; not arbitrary content." />
     </docs:ParityTable>
   </StackPanel>
 </UserControl>

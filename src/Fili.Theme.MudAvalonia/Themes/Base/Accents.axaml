@@ -34,8 +34,9 @@
     resolved to nothing, and the controls that painted from them - ToggleSwitch most visibly -
     rendered as labels with no switch. A missing key is silent, as ever.
 
-    KEEP THESE IN STEP WITH Palette.axaml. SimpleBridgeResolvesEveryKey asserts they resolve;
-    it cannot assert they still match.
+    KEEP THESE IN STEP WITH Palette.axaml. SimpleBridgeResolvesEveryKey asserts they resolve,
+    and EveryRawColourMatchesItsToken that each still equals the Fili token its brush twin is
+    bound to, in every variant.
   -->
   <ResourceDictionary.ThemeDictionaries>
 
@@ -90,7 +91,7 @@
       <Color x:Key="ThemeForegroundLowColor">#E8E8EE</Color>
       <Color x:Key="ThemeForegroundMidColor">#E8E8EE</Color>
       <Color x:Key="ThemeDisabledColor">#CFCFDA</Color>
-      <Color x:Key="ThemeBorderLowColor">#E8E8EE</Color>
+      <Color x:Key="ThemeBorderLowColor">#9C9CA8</Color>
       <Color x:Key="ThemeBorderMidColor">#E8E8EE</Color>
       <Color x:Key="ThemeBorderHighColor">#FFFFFF</Color>
       <Color x:Key="ThemeControlLowColor">#000000</Color>

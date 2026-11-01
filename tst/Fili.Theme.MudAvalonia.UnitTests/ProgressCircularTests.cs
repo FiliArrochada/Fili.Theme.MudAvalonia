@@ -148,6 +148,37 @@ public class ProgressCircularTests
         Assert.Equal("25%", text.Text);
         Assert.Equal(Matrix.Token("FiliTextSecondaryColor"), Matrix.Colour(text.Foreground));
     });
+
+    /// <summary>
+    /// "100%" fits inside the ring in every size, corners and all: at caption size it was wider
+    /// than the 24px ring. It shrinks only where it must, so the 40px ring keeps caption type.
+    /// </summary>
+    [Theory]
+    [InlineData("small", true)]
+    [InlineData("medium", false)]
+    [InlineData("large", false)]
+    public Task TheTextFitsInsideTheRing(string size, bool shrinks) => UiThread.RunAsync(() =>
+    {
+        var bar = Show(size);
+        bar.Value = 100;
+        bar.ShowProgressText = true;
+        Dispatcher.UIThread.RunJobs();
+
+        var text = Assert.Single(bar.GetVisualDescendants().OfType<TextBlock>());
+        var topLeft = text.TranslatePoint(default, bar)!.Value;
+        var bottomRight = text.TranslatePoint(new Point(text.Bounds.Width, text.Bounds.Height), bar)!.Value;
+        var stroke = Matrix.Part<Arc>(bar, "PART_Circle").StrokeThickness;
+        var inner = bar.Bounds.Width / 2 - stroke;
+        var centre = new Point(bar.Bounds.Width / 2, bar.Bounds.Height / 2);
+
+        foreach (var corner in new[] { topLeft, bottomRight, new Point(topLeft.X, bottomRight.Y), new Point(bottomRight.X, topLeft.Y) })
+        {
+            var offset = corner - centre;
+            Assert.True(Math.Sqrt(offset.X * offset.X + offset.Y * offset.Y) <= inner + 0.5, $"{corner} is outside the {size} ring.");
+        }
+
+        Assert.Equal(shrinks, bottomRight.X - topLeft.X < text.Bounds.Width - 0.01);
+    });
 }
 
 /// <summary>MudSkeleton's Animation.Wave, as the <c>wave</c> class.</summary>

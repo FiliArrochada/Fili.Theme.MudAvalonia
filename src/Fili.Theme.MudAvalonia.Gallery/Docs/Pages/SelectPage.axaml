@@ -67,7 +67,7 @@
     </StackPanel>
     <docs:ParityTable>
       <docs:ParityRow MudBlazor="MudSelect" Here="ComboBox" Status="Same" Note="A standard text field with a drop-down adornment, as _select.scss makes it." />
-      <docs:ParityRow MudBlazor="Label" Here="PlaceholderText" Status="Close" Note="The floating label, and the select's name to a screen reader." />
+      <docs:ParityRow MudBlazor="Label" Here="PlaceholderText" Status="Close" Note="The floating label, and the select's name to a screen reader; one too long for the select ends in an ellipsis before the arrow." />
       <docs:ParityRow MudBlazor="Error" Here="error" Status="Same" />
       <docs:ParityRow MudBlazor="Variant" Here="filled / outlined" Status="Same" Note="The text field's own variants." />
       <docs:ParityRow MudBlazor="HelperText, Margin.Dense" Here="AutomationProperties.HelpText, dense" Status="Same" Note="As on a text field; a failing binding shows its message too." />

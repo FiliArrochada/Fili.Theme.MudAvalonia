@@ -1,5 +1,6 @@
 using Avalonia;
 using Avalonia.Controls;
+using Avalonia.Media;
 using Avalonia.Styling;
 using Xunit;
 
@@ -64,7 +65,7 @@ public class SimpleBridgeTests
     [Fact]
     public Task SimpleBridgeResolvesEveryKey() => UiThread.RunAsync(() =>
     {
-        foreach (var variant in new[] { ThemeVariant.Light, ThemeVariant.Dark })
+        foreach (var variant in new[] { ThemeVariant.Light, ThemeVariant.Dark, FiliThemeVariants.HighContrast })
         {
             foreach (var key in ContractKeys)
             {
@@ -74,6 +75,64 @@ public class SimpleBridgeTests
                         + $"{variant}. Controls painting from it will render wrong or not at all.");
             }
         }
+    });
+
+    /// <summary>
+    /// Each raw bridge colour and the Fili token its brush twin is bound to, with the alpha the
+    /// accent ramp bakes in. A bare <c>Color</c> cannot take a DynamicResource, so Accents.axaml
+    /// writes these out per variant; this is what keeps them in step with Palette.axaml.
+    /// </summary>
+    public static readonly TheoryData<string, string, byte?> RawColours = new()
+    {
+        { "ThemeForegroundColor", "FiliTextPrimaryColor", null },
+        { "ThemeForegroundLowColor", "FiliTextSecondaryColor", null },
+        { "ThemeForegroundMidColor", "FiliActionDefaultColor", null },
+        { "ThemeDisabledColor", "FiliActionDisabledColor", null },
+        { "ThemeBorderLowColor", "FiliDividerColor", null },
+        { "ThemeBorderMidColor", "FiliLinesInputsColor", null },
+        { "ThemeBorderHighColor", "FiliTextPrimaryColor", null },
+        { "ThemeControlLowColor", "FiliBackgroundGrayColor", null },
+        { "ThemeControlMidColor", "FiliBackgroundGrayColor", null },
+        { "ThemeControlMidHighColor", "FiliLinesInputsColor", null },
+        { "ThemeControlHighColor", "FiliActionDefaultColor", null },
+        { "ThemeControlHighlightMidColor", "FiliOverlayPressedColor", null },
+        { "ThemeAccentColor", "FiliPrimaryColor", null },
+        { "ThemeAccentColor2", "FiliPrimaryColor", 0x99 },
+        { "ThemeAccentColor3", "FiliPrimaryColor", 0x66 },
+        { "HighlightForegroundColor", "FiliPrimaryContrastTextColor", null },
+    };
+
+    [Theory]
+    [MemberData(nameof(RawColours))]
+    public Task EveryRawColourMatchesItsToken(string bridge, string token, byte? alpha) => UiThread.RunAsync(() =>
+    {
+        foreach (var variant in new[] { ThemeVariant.Light, ThemeVariant.Dark, FiliThemeVariants.HighContrast })
+        {
+            var expected = Resolve(token, variant);
+            if (alpha is { } a)
+            {
+                expected = Color.FromArgb(a, expected.R, expected.G, expected.B);
+            }
+
+            Assert.True(expected == Resolve(bridge, variant),
+                $"{bridge} is {Resolve(bridge, variant)} under {variant}, but {token} is {expected}: Accents.axaml has drifted from Palette.axaml.");
+        }
+
+        static Color Resolve(string key, ThemeVariant variant)
+        {
+            Assert.True(Application.Current!.TryFindResource(key, variant, out var value), $"{key} did not resolve under {variant}.");
+            return Assert.IsType<Color>(value);
+        }
+    });
+
+    /// <summary>Every raw colour the forked templates read is one of the pairs above.</summary>
+    [Fact]
+    public Task EveryRawColourIsPaired() => UiThread.RunAsync(() =>
+    {
+        var paired = RawColours.Select(row => row.Data.Item1).ToHashSet();
+        var raw = ContractKeys.Where(key => key.Contains("Color", StringComparison.Ordinal)).ToList();
+
+        Assert.Equal(raw.OrderBy(k => k), paired.OrderBy(k => k));
     });
 
     /// <summary>

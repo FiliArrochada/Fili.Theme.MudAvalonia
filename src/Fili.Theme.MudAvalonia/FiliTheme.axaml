@@ -9,9 +9,9 @@
       </Application.Styles>
 
   No FluentTheme, and no Avalonia.Themes.* package reference anywhere in the library. The base
-  include carries the templates forked from Avalonia Simple, repaletted onto this theme's tokens;
-  this file carries the tokens, the type ramp, the surface classes and the hand-written control
-  themes. ORDER IS LOAD-BEARING: later styles win, which is the only reason a hand-written
+  include carries the tokens and the templates forked from Avalonia Simple, repaletted onto them;
+  this file carries the elevation ladder, the type ramp's classes, the surface classes and the
+  hand-written control themes. ORDER IS LOAD-BEARING: later styles win, which is the only reason a hand-written
   ControlTheme beats its forked counterpart.
 
   What lives here versus in a ControlTheme:
@@ -29,15 +29,18 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:theme="using:Fili.Theme.MudAvalonia">
 
+  <!--
+    The palette, the type ramp and the geometry are not merged here: the base include, which
+    comes first, carries them, and every token is reached by DynamicResource, so the styles and
+    themes below find them there. Merging them here too built a second copy of every token and
+    brush in every app, which shadowed the first and was never otherwise read.
+  -->
   <Styles.Resources>
     <ResourceDictionary>
       <ResourceDictionary.MergedDictionaries>
-        <ResourceInclude Source="avares://Fili.Theme.MudAvalonia/Themes/Palette.axaml" />
         <ResourceInclude Source="avares://Fili.Theme.MudAvalonia/Themes/Elevation.axaml" />
-        <ResourceInclude Source="avares://Fili.Theme.MudAvalonia/Themes/Typography.axaml" />
-        <ResourceInclude Source="avares://Fili.Theme.MudAvalonia/Themes/Geometry.axaml" />
         <ResourceInclude Source="avares://Fili.Theme.MudAvalonia/Themes/Strings.axaml" />
-        <!-- Last: the control themes reference tokens from all five above. -->
+        <!-- Last: the control themes reference the tokens above and the base's. -->
         <ResourceInclude Source="avares://Fili.Theme.MudAvalonia/Themes/ControlThemes.axaml" />
       </ResourceDictionary.MergedDictionaries>
     </ResourceDictionary>
@@ -122,9 +125,10 @@
     forked AdornerLayer still drew Simple's dashed box round every focused control, on top of the
     tint. A control's own FocusAdorner, set by an app, still draws.
 
-    The focus ring, with FiliFocusRing (FocusRing.cs): on in high contrast, opt-in elsewhere. A
+    The focus ring, with FiliFocusRing (FocusRing.cs): on in every variant, off by False. A
     2px text-primary ring 2px outside the control, so it stands on the ground round the control
-    whatever the control is filled with; outside, so not clipped to it.
+    whatever the control is filled with; outside, so not clipped to it. Its corners follow the
+    control's (FocusRing.Follows): a pill gets a pill, a square a 4px corner.
   -->
   <Style Selector="AdornerLayer">
     <Setter Property="DefaultFocusAdorner" Value="{x:Null}" />
@@ -134,7 +138,7 @@
     <Setter Property="DefaultFocusAdorner">
       <FocusAdornerTemplate>
         <theme:PartBorder BorderBrush="{DynamicResource FiliTextPrimaryBrush}" BorderThickness="2"
-                CornerRadius="{DynamicResource FiliCornerRadius}" Margin="-4"
+                theme:FocusRing.Follows="True" Margin="-4"
                 AdornerLayer.IsClipEnabled="False" />
       </FocusAdornerTemplate>
     </Setter>
@@ -1411,6 +1415,7 @@
     <Setter Property="theme:ExpansionPanels.MultiExpansion" Value="True" />
   </Style>
   <Style Selector="Expander:joined">
+    <Setter Property="theme:Motion.Reducible" Value="True" />
     <Setter Property="CornerRadius" Value="0" />
     <Setter Property="BorderThickness" Value="0,0,0,1" />
     <Setter Property="BorderBrush" Value="{DynamicResource FiliLinesDefaultBrush}" />

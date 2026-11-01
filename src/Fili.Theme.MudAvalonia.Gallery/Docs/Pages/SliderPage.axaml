@@ -70,6 +70,7 @@
       <docs:ParityRow MudBlazor="Value, T" Here="Value, a double" Status="Close" Note="One numeric type, converted by the app." />
       <docs:ParityRow MudBlazor="NullableValue" Here="—" Status="Missing" Note="A Slider's Value is never null; no value is the app's to model." />
       <docs:ParityRow MudBlazor="Immediate (default true)" Here="the same" Status="Same" Note="Value follows the thumb while it is dragged." />
+      <docs:ParityRow MudBlazor="a click on the range input" Here="a click anywhere in the slider's row" Status="Same" Note="The thumb moves to it. The rail is its thickness to look at, but the band a click lands on is the 40px row, as the native input's box is." />
       <docs:ParityRow MudBlazor="Vertical" Here="Orientation=&quot;Vertical&quot;" Status="Same" />
       <docs:ParityRow MudBlazor="TickMarks" Here="TickPlacement other than None, at TickFrequency or Ticks" Status="Same" Note="Dots on the rail, its thickness and the colour." />
       <docs:ParityRow MudBlazor="TickMarkLabels" Here="—" Status="Missing" Note="An array of strings a Slider has no property for; passing it would take a public attached property, and this package's public API is one type. The tick dots are themed." />

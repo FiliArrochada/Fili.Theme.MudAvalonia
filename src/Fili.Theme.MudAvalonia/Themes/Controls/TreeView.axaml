@@ -60,7 +60,7 @@
           <theme:PartBorder x:Name="PART_Ripple"
                   theme:Ripple.IsLayer="True"
                   CornerRadius="16" />
-          <Path x:Name="PART_Chevron"
+          <Path theme:Motion.Reducible="True" x:Name="PART_Chevron"
                 Width="24" Height="24"
                 Stretch="None"
                 Data="{DynamicResource FiliChevronRightGeometry}"
@@ -105,7 +105,7 @@
     <Setter Property="Template">
       <ControlTemplate>
         <StackPanel>
-          <theme:PartBorder x:Name="SelectionBorder"
+          <theme:PartBorder theme:Motion.Reducible="True" x:Name="SelectionBorder"
                   Background="{TemplateBinding Background}"
                   MinHeight="{TemplateBinding MinHeight}"
                   Focusable="True"
@@ -161,7 +161,7 @@
       <Setter Property="Template">
         <ControlTemplate>
           <StackPanel>
-            <theme:PartBorder x:Name="SelectionBorder"
+            <theme:PartBorder theme:Motion.Reducible="True" x:Name="SelectionBorder"
                     Background="{TemplateBinding Background}"
                     MinHeight="{TemplateBinding MinHeight}"
                     Focusable="True"
@@ -369,7 +369,7 @@
         <StackPanel>
           <Panel>
             <!-- The row's ground; its child takes the pointer, so the whole row tints. -->
-            <theme:PartBorder x:Name="SelectionBorder"
+            <theme:PartBorder theme:Motion.Reducible="True" x:Name="SelectionBorder"
                     Background="{TemplateBinding Background}"
                     CornerRadius="{TemplateBinding CornerRadius}"
                     Focusable="True"
@@ -421,7 +421,7 @@
               <!-- `.mud-nav-link` is `align-items: flex-start`, and the arrow's svg is a flex item
                    of it: its 24px top meets the 24.5px line's top, and on a label that wraps it
                    stays on the first line. -->
-              <Path x:Name="PART_ExpandIcon"
+              <Path theme:Motion.Reducible="True" x:Name="PART_ExpandIcon"
                     Grid.Column="2"
                     Width="24" Height="24"
                     Stretch="None"

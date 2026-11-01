@@ -194,6 +194,21 @@ one.
 - **Elevation does not vary between light and dark**, matching MudBlazor - but it DOES vary
   in high contrast, where every raised level becomes a hard 1px ring instead of a shadow. That is
   what gives the variant its separation without a single control template knowing it exists.
+- **The bridge's raw colours are literals, and drift silently.** A bare `<Color>` in
+  `Themes/Base/Accents.axaml` cannot take a `DynamicResource`, so each variant writes its sixteen
+  out by hand beside a `*Brush` twin that is bound to a token. High contrast's
+  `ThemeBorderLowColor` sat at `#E8E8EE` while its brush followed the divider's `#9C9CA8`.
+  `EveryRawColourMatchesItsToken` holds each literal to its twin's token in every variant.
+- **A cache behind a resource provider cannot clear itself on the application's change.**
+  `Application.ResourcesChanged` reaches every window first, and they look their resources up
+  again inside that notification, before a handler added later runs: a provider that only dropped
+  its cache there handed them the stale value. `HighContrastRings` drops what changed and raises
+  its own change, so they look again after.
+- **The palette is merged once, by the base include.** `FiliTheme.axaml` merged Palette,
+  Typography and Geometry a second time, a second copy of every token that shadowed the base's;
+  every token is a `DynamicResource`, so the theme's styles find the base's copy. Nothing in the
+  hand-written layer may reach a token by `StaticResource`, which looks only up its own file's
+  tree. Pinned by `EveryTokenIsLoadedOnce`.
 - **One path serves two glyph keys when MudBlazor's are identical.** `NavigateNext` is
   byte-identical to `ChevronRight`, so `Icons.axaml` carries the path once, under the name it was
   first needed for: `FiliChevronRightGeometry` is the tabs' next icon too.
@@ -209,6 +224,14 @@ one.
   dropped the base's `:dayfocused` visual hid where the arrow keys were. Before leaving a part out,
   read what the control does with it; `EditableComboBoxTests`, `ScrollBarBehaviourTests` and
   `CalendarKeyboardTests` pin these three.
+- **A transition a template declares moves even with reduced motion, unless it is marked.** A
+  style can test `Motion.Reduced`, but cannot take back a `Transitions` a template or another
+  style set; so the element that holds one carries `theme:Motion.Reducible="True"` (on the control,
+  through its theme, when a style sets the control's own), and `Motion` holds them back while
+  reduced. A new `<X.Transitions>` without the mark fails `EveryTemplateTransitionIsReducible`,
+  and `NoTransitionTheThemeDeclaresRuns` walks one of every transitioned control, the states that
+  set one included. A switch's travel is `KnobTransitions`, which ToggleSwitch hands to its knob
+  panel; `Motion` holds that back too.
 - **Avalonia's `Calendar` is not focusable, and leans on its days.** It handles the arrow keys in
   its own `OnKeyDown`, but takes no focus itself: the base theme's days are buttons that do, and
   the keys bubble up from them. A theme whose days are `Focusable="False"`, so a calendar is not
@@ -286,8 +309,10 @@ one.
   focused control Simple's dashed box, and nothing had turned it off, so the state layer - the
   only affordance MudBlazor has - had a dotted outline over it. A Style
   in FiliTheme.axaml sets `DefaultFocusAdorner` to null; an app's own `FocusAdorner` still draws.
-  The one default adorner left is the theme's own ring, set only where `FiliFocusRing` is True
-  (high contrast, or an app that asks): `FocusRingTests`.
+  The one default adorner left is the theme's own ring, set where `FiliFocusRing` is True (every
+  variant since 0.29.0, unless an app sets False): `FocusRingTests`. A test that counts a focused
+  control's adorners turns the ring off first, or it counts the ring
+  (`ThemeCompositionTests.KeyboardFocusDrawsNoFocusRectangle`).
 - **A popup is the root of its own tree.** The theme set the font on `Window` and `UserControl`,
   and a popup's host is neither: it took the base's `ContentControlThemeFontFamily`, an alias
   `Accents.axaml` resolves once inside the theme, so always Roboto. An app that set its own
@@ -383,6 +408,25 @@ one.
   press was a plain static until the next press, so a closed window stayed reachable through it.
   Remember a routed event only while it routes: a job posted when it is set clears it
   (`RippleTests.NoPressOutlivesItsRouting`).
+- **A pending timer holds its control until it fires.** `DispatcherTimer.RunOnce` is rooted by the
+  dispatcher, and so is everything its callback captures: a page taken out of its window while a
+  button's ripple was still fading stayed reachable through the fade's timers. A helper that
+  starts one keeps the `IDisposable` it returns and disposes it when its element leaves the tree,
+  as the ripple's layer does (`LeakTests`).
+- **A switch's thumb moves by `Canvas.Left`, not by a transform.** `ToggleSwitch` sets
+  `Canvas.Left` on `PART_MovingKnobs` - 0 off, `PART_SwitchKnob`'s width on, the pointer's place
+  while dragged - and decides a drag by which half it ended in. A template that slid the thumb
+  with `translateX` kept the click and lost the drag silently: the property was set on a child of
+  a plain `Panel`, which ignores it. `PART_SwitchKnob` is a `Canvas` exactly the travel wide, and
+  `KnobTransitions` animates it (`ToggleSwitchDragTests`).
+- **A data grid's scroll bars need a `Width` and `Height` set on them.** With neither, sized by
+  the scroll bar theme's 8px rail alone, the vertical bar of a grid whose rows overflowed never
+  showed. They are set to the rail's 8px, where the base's 12px `ScrollBarThickness` left 4px of
+  empty column beside it (`DataGridHeaderFitTests`).
+- **A hit area larger than what it draws is a negative margin with the clip off.** The slider's
+  rail halves are 2px to look at; their transparent band reaches across the 40px row through the
+  half's `Padding`, set negative, and only because the half's theme sets `ClipToBounds="False"`:
+  a templated control's clip limits hit testing too (`SliderHitAreaTests`).
 
 ## Writing tests
 
@@ -448,6 +492,19 @@ one.
   `ClearableTests`). A select's helper line is built the same way: 200 selects in 18% less
   memory. A class read only by styles in built content is invisible to a walk of the theme;
   `ClassVocabularyTests` lists it in `ReadInBuiltContent`.
+
+- **A closed headless window is not collectable.** In Avalonia 12.1.4's headless session a shown
+  and closed `Window` survived three full collections with no theme loaded at all, on the UI
+  thread and off it, and a memory dump taken afterwards showed no root to release; a never-shown
+  one is kept by the `Application.ActualThemeVariantChanged` handler it subscribes until the
+  dispatch that made it returns. A leak test that closes a window measures the platform. Take a
+  page out of a window that stays open instead, and collect within the same dispatch
+  (`LeakTests`). A pressed control is also held by Avalonia's own gesture recogniser until its hold
+  delay passes, with or without a theme: wait that out, then run the jobs, before collecting.
+- **Hit testing reads the compositor's last frame, not the layout.** `InputHitTest` found nothing
+  in a pixel test when another class's tests had run first, and the frame it needed depended on
+  what had rendered before. Which control is on top where two overlap is the layout's bounds and
+  the `ZIndex`, which a test can read directly (`CustomComponentsTests`).
 
 ## The browser build and fonts
 

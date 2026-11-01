@@ -99,7 +99,7 @@
             </ContentPresenter>
 
             <!-- Indicator. Present always, revealed on selection, so the header does not resize. -->
-            <theme:PartBorder x:Name="PART_Indicator"
+            <theme:PartBorder theme:Motion.Reducible="True" x:Name="PART_Indicator"
                     Height="2"
                     VerticalAlignment="Bottom"
                     Background="{DynamicResource FiliPrimaryBrush}"

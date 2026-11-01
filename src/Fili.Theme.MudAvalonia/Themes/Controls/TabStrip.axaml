@@ -71,7 +71,7 @@
             </ContentPresenter.Content>
           </ContentPresenter>
 
-          <theme:PartBorder x:Name="PART_Indicator"
+          <theme:PartBorder theme:Motion.Reducible="True" x:Name="PART_Indicator"
                   Height="2"
                   VerticalAlignment="Bottom"
                   Background="Transparent">

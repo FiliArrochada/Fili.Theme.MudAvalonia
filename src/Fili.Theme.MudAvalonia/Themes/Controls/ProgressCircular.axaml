@@ -22,7 +22,8 @@
   the determinate sweep is Percentage x 3.6 degrees. FiliRailFactor is that multiply.
 
   ShowProgressText shows the formatted value in the middle, which is where MudBlazor puts its
-  ChildContent; it takes the ring's colour, as ChildContent inherits it there.
+  ChildContent; it takes the ring's colour, as ChildContent inherits it there, and shrinks to fit
+  inside the ring (MudBlazor leaves sizing the content to the app).
 
   PART_Indicator is required by ProgressBar itself (it sizes it for the linear bar), so it is here,
   collapsed, and nothing reads it.
@@ -56,7 +57,7 @@
 
           <Panel x:Name="PART_Spinner">
             <!-- Determinate: `.mud-progress-static`, the dash offset eased over 300ms. -->
-            <Arc x:Name="PART_Circle"
+            <Arc theme:Motion.Reducible="True" x:Name="PART_Circle"
                  Stroke="{TemplateBinding Foreground}"
                  StrokeThickness="2.7907"
                  StartAngle="-90"
@@ -75,23 +76,31 @@
                  IsVisible="{Binding IsIndeterminate, RelativeSource={RelativeSource TemplatedParent}}" />
           </Panel>
 
-          <TextBlock HorizontalAlignment="Center"
-                     VerticalAlignment="Center"
-                     Foreground="{TemplateBinding Foreground}"
-                     FontFamily="{TemplateBinding FontFamily}"
-                     FontSize="{TemplateBinding FontSize}"
-                     LineHeight="NaN"
-                     IsVisible="{Binding ShowProgressText, RelativeSource={RelativeSource TemplatedParent}}">
-            <TextBlock.Text>
-              <MultiBinding Converter="{StaticResource FiliCircularStringFormatConverter}">
-                <TemplateBinding Property="ProgressTextFormat" />
-                <Binding Path="Value" RelativeSource="{RelativeSource TemplatedParent}" />
-                <TemplateBinding Property="Percentage" />
-                <TemplateBinding Property="Minimum" />
-                <TemplateBinding Property="Maximum" />
-              </MultiBinding>
-            </TextBlock.Text>
-          </TextBlock>
+          <!-- The text shrinks to fit inside the ring, never grows: caption type fits the 40px
+               ring, and "100%" in it was wider than the 24px one. The margin keeps the box
+               inside the circle, corners included. -->
+          <Viewbox x:Name="PART_ProgressText"
+                   Stretch="Uniform"
+                   StretchDirection="DownOnly"
+                   Margin="4"
+                   HorizontalAlignment="Center"
+                   VerticalAlignment="Center"
+                   IsVisible="{Binding ShowProgressText, RelativeSource={RelativeSource TemplatedParent}}">
+            <TextBlock Foreground="{TemplateBinding Foreground}"
+                       FontFamily="{TemplateBinding FontFamily}"
+                       FontSize="{TemplateBinding FontSize}"
+                       LineHeight="NaN">
+              <TextBlock.Text>
+                <MultiBinding Converter="{StaticResource FiliCircularStringFormatConverter}">
+                  <TemplateBinding Property="ProgressTextFormat" />
+                  <Binding Path="Value" RelativeSource="{RelativeSource TemplatedParent}" />
+                  <TemplateBinding Property="Percentage" />
+                  <TemplateBinding Property="Minimum" />
+                  <TemplateBinding Property="Maximum" />
+                </MultiBinding>
+              </TextBlock.Text>
+            </TextBlock>
+          </Viewbox>
         </Panel>
       </ControlTemplate>
     </Setter>
@@ -104,12 +113,18 @@
     <Style Selector="^.small /template/ Arc">
       <Setter Property="StrokeThickness" Value="1.6744" />
     </Style>
+    <Style Selector="^.small /template/ Viewbox#PART_ProgressText">
+      <Setter Property="Margin" Value="3" />
+    </Style>
     <Style Selector="^.large">
       <Setter Property="Width" Value="56" />
       <Setter Property="Height" Value="56" />
     </Style>
     <Style Selector="^.large /template/ Arc">
       <Setter Property="StrokeThickness" Value="3.9070" />
+    </Style>
+    <Style Selector="^.large /template/ Viewbox#PART_ProgressText">
+      <Setter Property="Margin" Value="5" />
     </Style>
 
     <Style Selector="^.rounded /template/ Arc">

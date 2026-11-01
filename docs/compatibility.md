@@ -68,9 +68,9 @@ Avalonia 13, a major version here too.
 - **Accessibility and high-contrast corrections.** A colour, contrast or focus cue that falls
   short of WCAG AA, or high contrast's own values, which have no MudBlazor original to move
   closer to, may change a look. Each is named in Versions.
-- **What `FiliReducedMotion` covers.** It stops the animations and transitions the theme starts
-  itself; one it does not reach yet ([Published resource keys](published-keys.md) lists them) may
-  join it in a minor version.
+- **What `FiliReducedMotion` covers.** It stops every animation and transition the theme starts
+  itself except an indeterminate progress indicator's ([Published resource keys](published-keys.md));
+  one the theme adds joins it in the same change, and an app's own transitions are never touched.
 - **The MudBlazor version tracked.** The theme transcribes MudBlazor 9.11; following a newer one
   is a minor version, with the visible differences listed.
 - **The Avalonia minimum, within Avalonia 12.** `Themes/Base/` is a fork of Avalonia Simple at

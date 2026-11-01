@@ -152,28 +152,39 @@
                   HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
                   VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
                   ColumnDefinitions="*,Auto">
+              <!-- A title wider than its column ends in an ellipsis rather than running under
+                   the sort button and past the column's edge. Not a MudBlazor value: a guard. -->
               <ContentPresenter x:Name="PART_ContentPresenter"
                                 VerticalAlignment="Center"
                                 LineHeight="{DynamicResource FiliSubtitle2LineHeight}"
+                                TextTrimming="CharacterEllipsis"
                                 Content="{TemplateBinding Content}"
                                 ContentTemplate="{TemplateBinding ContentTemplate}" />
 
               <!-- `.sort-direction-icon` on a small MudIconButton: 3px round a 20px icon, 4px
                    from the title, action-default. Opacity and turn are transitioned. Its
                    `font-size: 18px` is the button's; the svg sets its own, mud-icon-size-small's
-                   1.25rem. -->
-              <theme:PartBorder x:Name="PART_SortButton"
+                   1.25rem. Rendered only on a column that can sort, as MudDataGrid renders it
+                   only when the column is Sortable (DataGridSortable.cs): elsewhere its 30px went
+                   to nothing. -->
+              <theme:PartBorder theme:Motion.Reducible="True" x:Name="PART_SortButton"
                       Grid.Column="1"
                       Margin="4,0,0,0"
                       Padding="3"
                       VerticalAlignment="Center"
                       Opacity="0">
+                <theme:PartBorder.IsVisible>
+                  <MultiBinding Converter="{x:Static optional:DataGridSortable.Converter}">
+                    <Binding RelativeSource="{RelativeSource TemplatedParent}" />
+                    <Binding Path="CanUserSortColumns" RelativeSource="{RelativeSource FindAncestor, AncestorType=DataGrid}" />
+                  </MultiBinding>
+                </theme:PartBorder.IsVisible>
                 <theme:PartBorder.Transitions>
                   <Transitions>
                     <DoubleTransition Property="Opacity" Duration="0:0:0.3" Easing="0.4,0,0.2,1" />
                   </Transitions>
                 </theme:PartBorder.Transitions>
-                <Viewbox x:Name="PART_SortIcon"
+                <Viewbox theme:Motion.Reducible="True" x:Name="PART_SortIcon"
                          Width="20" Height="20"
                          RenderTransformOrigin="50%,50%"
                          RenderTransform="rotate(0deg)">
@@ -496,11 +507,14 @@
                        Grid.Row="3"
                        Grid.Column="2"
                        Fill="Transparent" />
+            <!-- 8px, the scroll bar theme's rail, MudBlazor's ::-webkit-scrollbar width: the base's
+                 12px ScrollBarThickness here left 4px of empty column beside the rail. The grid
+                 sizes its scroll bar columns from these, so they are set, not left to the rail. -->
             <ScrollBar Name="PART_VerticalScrollbar"
                        AllowAutoHide="{Binding Path=(ScrollViewer.AllowAutoHide), RelativeSource={RelativeSource TemplatedParent}}"
                        Grid.Row="2"
                        Grid.Column="2"
-                       Width="{DynamicResource ScrollBarThickness}"
+                       Width="8"
                        Orientation="Vertical" />
 
             <Grid Grid.Row="3"
@@ -510,7 +524,7 @@
               <ScrollBar Name="PART_HorizontalScrollbar"
                          AllowAutoHide="{Binding Path=(ScrollViewer.AllowAutoHide), RelativeSource={RelativeSource TemplatedParent}}"
                          Grid.Column="1"
-                         Height="{DynamicResource ScrollBarThickness}"
+                         Height="8"
                          Orientation="Horizontal" />
             </Grid>
           </Grid>

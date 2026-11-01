@@ -41,7 +41,7 @@
               <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
 
-            <Panel Name="PART_PaneRoot" Background="{TemplateBinding PaneBackground}"
+            <Panel Name="PART_PaneRoot" theme:Motion.Reducible="True" Background="{TemplateBinding PaneBackground}"
                    ClipToBounds="False"
                    HorizontalAlignment="Left"
                    ZIndex="100">
@@ -129,7 +129,7 @@
                 Width="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=TemplateSettings.PaneColumnGridLength}" />
             </Grid.ColumnDefinitions>
 
-            <Panel Name="PART_PaneRoot" Background="{TemplateBinding PaneBackground}"
+            <Panel Name="PART_PaneRoot" theme:Motion.Reducible="True" Background="{TemplateBinding PaneBackground}"
                    ClipToBounds="False"
                    HorizontalAlignment="Right"
                    ZIndex="100">
@@ -217,7 +217,7 @@
               <RowDefinition Height="*" />
             </Grid.RowDefinitions>
 
-            <Panel Name="PART_PaneRoot"
+            <Panel Name="PART_PaneRoot" theme:Motion.Reducible="True"
                    Background="{TemplateBinding PaneBackground}"
                    ClipToBounds="False"
                    VerticalAlignment="Top"
@@ -308,7 +308,7 @@
               <RowDefinition Height="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=TemplateSettings.PaneRowGridLength}" />
             </Grid.RowDefinitions>
 
-            <Panel Name="PART_PaneRoot"
+            <Panel Name="PART_PaneRoot" theme:Motion.Reducible="True"
                    Background="{TemplateBinding PaneBackground}"
                    ClipToBounds="False"
                    VerticalAlignment="Bottom"

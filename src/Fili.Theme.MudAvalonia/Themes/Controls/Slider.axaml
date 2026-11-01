@@ -41,13 +41,24 @@
     A rail half. Height/width is set by the orientation selectors on the Slider itself. Not
     focusable, as the base's SliderRepeatTrackTheme is not: the slider is the one Tab stop, as an
     <input type=range> is, and a focusable half drew its ring round a 2px rail.
+
+    The half is the rail's thickness to look at but not to hit: a transparent band reaches past
+    it by the half's Padding, which the slider sets negative across the rail, so a click anywhere
+    in the slider's row moves the thumb to it, as a range input's does. At 2px, a click had to
+    land on the line itself. Not a MudBlazor value: the native input's own hit box.
   -->
   <ControlTheme x:Key="FiliSliderTrackPiece" TargetType="RepeatButton">
     <Setter Property="Focusable" Value="False" />
+    <Setter Property="ClipToBounds" Value="False" />
     <Setter Property="Template">
       <ControlTemplate>
-        <theme:PartBorder Background="{TemplateBinding Background}"
-                CornerRadius="{DynamicResource FiliCornerRadius}" />
+        <Panel>
+          <theme:PartBorder x:Name="PART_HitArea"
+                  Background="Transparent"
+                  Margin="{TemplateBinding Padding}" />
+          <theme:PartBorder Background="{TemplateBinding Background}"
+                  CornerRadius="{DynamicResource FiliCornerRadius}" />
+        </Panel>
       </ControlTemplate>
     </Setter>
   </ControlTheme>
@@ -91,7 +102,7 @@
             sits inside the thumb's. The value is formatted with at most two decimals: MudSlider
             snaps to Step, 1 by default, while an Avalonia slider drags continuously.
           -->
-          <Panel x:Name="PART_ValueLabel"
+          <Panel theme:Motion.Reducible="True" x:Name="PART_ValueLabel"
                  Margin="-60,0"
                  VerticalAlignment="Top"
                  IsHitTestVisible="False"
@@ -215,6 +226,7 @@
                             Opacity="0"
                             Height="2"
                             Margin="0,0,-20,0"
+                            Padding="0,-17"
                             VerticalAlignment="Center" />
             </Track.DecreaseButton>
             <Track.IncreaseButton>
@@ -223,6 +235,7 @@
                             Background="Transparent"
                             Height="2"
                             Margin="-20,0,0,0"
+                            Padding="0,-17"
                             VerticalAlignment="Center" />
             </Track.IncreaseButton>
             <Thumb x:Name="PART_Thumb"
@@ -299,6 +312,7 @@
                               Opacity="0"
                               Width="2"
                               Margin="0,-20,0,0"
+                              Padding="-17,0"
                               HorizontalAlignment="Center" />
               </Track.DecreaseButton>
               <Track.IncreaseButton>
@@ -307,6 +321,7 @@
                               Background="Transparent"
                               Width="2"
                               Margin="0,0,0,-20"
+                              Padding="-17,0"
                               HorizontalAlignment="Center" />
               </Track.IncreaseButton>
               <Thumb x:Name="PART_Thumb"

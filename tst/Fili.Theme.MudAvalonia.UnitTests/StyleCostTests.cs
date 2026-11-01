@@ -39,6 +39,92 @@ public class StyleCostTests
     });
 
     /// <summary>
+    /// The benchmark screen's style instances, held under a ceiling: every style or control theme a
+    /// control matches is a frame in its value store, and the screen's total is the number a
+    /// selector change moves first. It is deterministic, so CI can gate on it where it cannot on a
+    /// time. A change that raises it on purpose raises the ceiling here, with the Benchmarks
+    /// project's timings beside it in the change (docs/testing.md); one that lowers it lowers the
+    /// ceiling, so the saving is kept.
+    /// </summary>
+    [Fact]
+    public Task TheBenchmarkScreenStaysUnderItsStyleInstanceCeiling() => UiThread.RunAsync(() =>
+    {
+        const int ceiling = StyleInstanceCeiling;
+        var window = new Window { Content = BenchmarkScreen.Build(), Width = 1200, Height = 900 };
+        window.Show();
+        Avalonia.Threading.Dispatcher.UIThread.RunJobs();
+
+        var visuals = Avalonia.VisualTree.VisualExtensions.GetVisualDescendants(window).OfType<AvaloniaObject>().ToList();
+        var instances = visuals.Sum(StyleInstances);
+        window.Close();
+
+        Assert.True(
+            instances <= ceiling,
+            $"The benchmark screen holds {instances:N0} style instances over {visuals.Count:N0} visuals, "
+            + $"{instances - ceiling:N0} over the ceiling of {ceiling:N0}.");
+        Assert.True(
+            instances > ceiling * 0.97,
+            $"The benchmark screen holds {instances:N0} style instances, well under the ceiling of "
+            + $"{ceiling:N0}: lower {nameof(StyleInstanceCeiling)} to keep the saving.");
+    });
+
+    /// <summary>
+    /// Measured on the benchmark screen with headroom of about one percent. See the test above for
+    /// when it moves.
+    /// </summary>
+    internal const int StyleInstanceCeiling = 131_000;
+
+    /// <summary>
+    /// The frames in a control's value store: one per style and control theme it matched, plus
+    /// the frames Avalonia keeps for local and animated values. Avalonia holds them in an internal
+    /// list, so this reads it, as nothing public counts them.
+    /// </summary>
+    internal static int StyleInstances(AvaloniaObject control)
+    {
+        const System.Reflection.BindingFlags Hidden = System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance;
+        var store = typeof(AvaloniaObject).GetMethod("GetValueStore", Hidden)!.Invoke(control, null)!;
+        return ((System.Collections.IList)store.GetType().GetField("_frames", Hidden)!.GetValue(store)!).Count;
+    }
+
+    /// <summary>
+    /// The forked templates are Simple's, verbatim, and are not restyled, so their plain Borders
+    /// stay as Simple wrote them; but no more may arrive unnoticed. A fork upgrade (FORK.md) that
+    /// brings more raises this number on purpose, having weighed what each costs.
+    /// </summary>
+    [Fact]
+    public Task TheForkedTemplatesGainNoPlainBorder() => UiThread.RunAsync(() =>
+    {
+        const int forked = 108;
+        var count = Directory.GetFiles(Path.Combine(GeneratedThemeTests.ThemeDirectory(), "Themes", "Base", "Controls"), "*.axaml")
+            .Sum(file => Regex.Matches(File.ReadAllText(file), @"<Border[\s>/.]").Count);
+
+        Assert.True(count <= forked, $"The forked templates now hold {count} plain Borders, {count - forked} more than the {forked} Simple's own hold.");
+    });
+
+    /// <summary>
+    /// Each token is built once. The base include carries the palette, the type ramp and the
+    /// geometry; the theme include merged them a second time, a second copy of every brush that
+    /// shadowed the first and was never otherwise read.
+    /// </summary>
+    [Theory]
+    [InlineData("FiliPrimaryBrush")]
+    [InlineData("FiliBody2FontSize")]
+    [InlineData("FiliCornerRadius")]
+    public Task EveryTokenIsLoadedOnce(string key) => UiThread.RunAsync(() =>
+    {
+        var holders = Application.Current!.Styles
+            .Where(style => style is IResourceNode node && node.HasResources && Holds(node, key))
+            .Count();
+
+        Assert.Equal(1, holders);
+
+        static bool Holds(IResourceNode node, string key) =>
+            node is Avalonia.Markup.Xaml.Styling.StyleInclude { Loaded: Styles loaded }
+                ? loaded.Resources.TryGetResource(key, ThemeVariant.Light, out _)
+                : node.TryGetResource(key, ThemeVariant.Light, out _);
+    });
+
+    /// <summary>
     /// A selector reaching into a hand-written template names its parts' own type. Naming
     /// <c>Border</c> there matches nothing, silently, since the template has none.
     /// </summary>

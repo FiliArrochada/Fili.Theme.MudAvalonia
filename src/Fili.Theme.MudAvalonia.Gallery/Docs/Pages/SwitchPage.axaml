@@ -64,6 +64,8 @@
       <docs:ParityRow MudBlazor="ThumbIcon" Here="FiliSwitchThumbIconGeometry in the switch's Resources" Status="Same" Note="MudIcon filling the thumb with 2px padding: 16px in a 20px thumb." />
       <docs:ParityRow MudBlazor="ThumbIconColor (default Default)" Here="no class, or thumb-primary … thumb-dark" Status="Same" Note="Text-secondary, or the colour." />
       <docs:ParityRow MudBlazor="Ripple (default true)" Here="on" Status="Same" Note="In the halo only, riding with the thumb." />
+      <docs:ParityRow MudBlazor="(none: a native checkbox does not drag)" Here="a drag on the thumb" Status="Extra" Note="Avalonia's: the thumb follows the pointer and the switch ends on the side it is let go in; a click still toggles." />
+      <docs:ParityRow MudBlazor="(the focus outline)" Here="the focus ring, with FiliFocusRing" Status="Close" Note="A pill round the switch, its track and thumb, not round the label; MudBlazor draws the halo, as the theme does at rest." />
     </docs:ParityTable>
   </StackPanel>
 </UserControl>

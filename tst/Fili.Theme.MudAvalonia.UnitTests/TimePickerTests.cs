@@ -162,6 +162,50 @@ public class TimePickerTests
     });
 
     /// <summary>
+    /// Alt+Down and F4 open an editable picker from the keyboard, as they do a drop-down, after
+    /// committing what was typed: Enter commits and Space types, so the mouse was its only way in.
+    /// Read-only, they open it too.
+    /// </summary>
+    [Theory]
+    [InlineData("editable", Avalonia.Input.Key.F4, Avalonia.Input.KeyModifiers.None)]
+    [InlineData("editable", Avalonia.Input.Key.Down, Avalonia.Input.KeyModifiers.Alt)]
+    [InlineData("", Avalonia.Input.Key.F4, Avalonia.Input.KeyModifiers.None)]
+    [InlineData("", Avalonia.Input.Key.Down, Avalonia.Input.KeyModifiers.Alt)]
+    public Task TheKeyboardOpensThePicker(string variant, Avalonia.Input.Key key, Avalonia.Input.KeyModifiers modifiers) => UiThread.RunAsync(() =>
+    {
+        var picker = Show(new TimeSpan(14, 30, 0), "24HourClock", variant.Length == 0 ? [] : [variant]);
+        var field = Matrix.Part<TextBox>(picker, "PART_TextBox");
+        var popover = picker.GetVisualDescendants().OfType<Popup>().Single(p => p.Name == "PART_Popover");
+
+        if (!field.IsReadOnly)
+        {
+            field.SetCurrentValue(TextBox.TextProperty, "9:05");
+        }
+
+        field.RaiseEvent(new Avalonia.Input.KeyEventArgs { RoutedEvent = Avalonia.Input.InputElement.KeyDownEvent, Key = key, KeyModifiers = modifiers });
+        Dispatcher.UIThread.RunJobs();
+
+        Assert.True(popover.IsOpen);
+        if (!field.IsReadOnly)
+        {
+            Assert.Equal(new TimeSpan(9, 5, 0), picker.SelectedTime);
+        }
+    });
+
+    /// <summary>Plain Down types nothing and opens nothing in an editable picker: only Alt+Down does.</summary>
+    [Fact]
+    public Task PlainDownLeavesAnEditablePickerClosed() => UiThread.RunAsync(() =>
+    {
+        var picker = Show(new TimeSpan(14, 30, 0), "24HourClock", "editable");
+        var field = Matrix.Part<TextBox>(picker, "PART_TextBox");
+
+        field.RaiseEvent(new Avalonia.Input.KeyEventArgs { RoutedEvent = Avalonia.Input.InputElement.KeyDownEvent, Key = Avalonia.Input.Key.Down });
+        Dispatcher.UIThread.RunJobs();
+
+        Assert.False(picker.GetVisualDescendants().OfType<Popup>().Single(p => p.Name == "PART_Popover").IsOpen);
+    });
+
+    /// <summary>
     /// A time picker is a text field's height in every variant, so it lines up in a row of fields,
     /// and its icon is centred on the box of a filled or outlined one.
     /// </summary>

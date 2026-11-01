@@ -18,6 +18,13 @@ namespace Fili.Theme.MudAvalonia;
 /// beside it, because a variant's inherited Dark dictionary is searched before the outer
 /// dictionary's merged ones.
 /// </para>
+/// <para>
+/// The ring is built once per variant and kept: every elevation lookup in high contrast used to
+/// allocate one and run a nested application lookup for the line colour. The application's own
+/// resource notification checks the kept line colours, and only when one changed drops it and
+/// raises this provider's own notification, so the elevated controls look the rings up again
+/// after the change rather than in the middle of it.
+/// </para>
 /// </summary>
 internal sealed class HighContrastRings : ResourceProvider
 {
@@ -29,6 +36,9 @@ internal sealed class HighContrastRings : ResourceProvider
     private static readonly BoxShadows None = BoxShadows.Parse("none");
     private static readonly Color Fallback = Color.Parse("#E8E8EE");
 
+    private readonly Dictionary<ThemeVariant, (Color Line, BoxShadows Ring)> _rings = new();
+    private Application? _watched;
+
     public override bool HasResources => true;
 
     public override bool TryGetResource(object key, ThemeVariant? theme, out object? value)
@@ -39,8 +49,47 @@ internal sealed class HighContrastRings : ResourceProvider
             return false;
         }
 
-        value = level == 0 ? None : new BoxShadows(new BoxShadow { Spread = 1, Color = Line(theme) });
+        value = level == 0 ? None : Ring(theme);
         return true;
+    }
+
+    private BoxShadows Ring(ThemeVariant? theme)
+    {
+        Watch();
+        var variant = theme ?? ThemeVariant.Default;
+        if (!_rings.TryGetValue(variant, out var kept))
+        {
+            var line = Line(theme);
+            kept = (line, new BoxShadows(new BoxShadow { Spread = 1, Color = line }));
+            _rings[variant] = kept;
+        }
+
+        return kept.Ring;
+    }
+
+    private void Watch()
+    {
+        if (_watched is null && Application.Current is { } application)
+        {
+            _watched = application;
+            application.ResourcesChanged += OnApplicationResourcesChanged;
+        }
+    }
+
+    private void OnApplicationResourcesChanged(object? sender, ResourcesChangedEventArgs e)
+    {
+        var stale = _rings.Where(kept => kept.Value.Line != Line(kept.Key)).Select(kept => kept.Key).ToList();
+        if (stale.Count == 0)
+        {
+            return;
+        }
+
+        foreach (var variant in stale)
+        {
+            _rings.Remove(variant);
+        }
+
+        RaiseResourcesChanged();
     }
 
     private static int? Level(string name)

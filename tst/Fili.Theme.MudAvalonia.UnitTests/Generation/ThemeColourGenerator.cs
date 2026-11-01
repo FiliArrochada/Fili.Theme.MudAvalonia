@@ -774,10 +774,8 @@ public static class ThemeColourGenerator
     private static string SwitchRegion()
     {
         var o = new StringBuilder();
-        o.Append("    <!-- On: the thumb travels the track width minus its own, 34 - 20 = 14px, and the\n");
-        o.Append("         track lifts from 48% to 50%. -->\n");
-        o.Append(Style("^:checked /template/ Border#PART_Thumb", ("RenderTransform", "translateX(14px)")));
-        o.Append(Style(Halo(":checked"), ("RenderTransform", "translateX(14px)")));
+        o.Append("    <!-- On: the track lifts from 48% to 50%. The thumb's travel, the track width minus its\n");
+        o.Append("         own, is PART_SwitchKnob's width, which the control moves the knobs across. -->\n");
         o.Append(Style("^:checked /template/ Border#PART_Track", ("Opacity", "0.5")));
         o.Append("\n    <!-- At rest, with no colour for the state: switch-thumb, an action-default track and the\n");
         o.Append("         `.mud-switch-base:hover` halo, action-default-hover, shown on hover, focus and press.\n");
@@ -793,14 +791,14 @@ public static class ThemeColourGenerator
             o.Append(Style($"^.{size}", ("MinHeight", $"{halo}")));
             o.Append(Style($"^.{size} /template/ Panel#PART_SwitchArea", ("Width", $"{trackWidth + 18}"), ("Height", $"{halo}")));
             o.Append(Style($"^.{size} /template/ Border#PART_Track", ("Width", $"{trackWidth}"), ("Height", $"{trackHeight}")));
-            o.Append(Style($"^.{size} /template/ Panel#PART_SwitchKnob", ("Width", $"{trackWidth}"), ("Height", $"{thumb}")));
+            o.Append(Style($"^.{size} /template/ Border#PART_FocusTarget", ("Width", $"{trackWidth}"), ("Height", $"{thumb}"), ("CornerRadius", $"{thumb / 2}")));
+            o.Append(Style($"^.{size} /template/ Canvas#PART_SwitchKnob", ("Width", $"{travel}"), ("Height", $"{thumb}")));
+            o.Append(Style($"^.{size} /template/ Panel#PART_MovingKnobs", ("Width", $"{thumb}"), ("Height", $"{thumb}")));
             o.Append(Style($"^.{size} /template/ Border#PART_Thumb", ("Width", $"{thumb}"), ("Height", $"{thumb}"), ("CornerRadius", $"{thumb / 2}")));
             o.Append(Style(Halo($".{size}"), ("Width", $"{halo}"), ("Height", $"{halo}")));
             // The thumb icon's 24px box scaled to the thumb less 2px a side, MudIcon's padding.
             var iconScale = ((thumb - 4) / 24.0).ToString("0.#######", System.Globalization.CultureInfo.InvariantCulture);
             o.Append(Style($"^.{size} /template/ Path#PART_ThumbIcon", ("RenderTransform", $"scale({iconScale})")));
-            o.Append(Style($"^.{size}:checked /template/ Border#PART_Thumb", ("RenderTransform", $"translateX({travel}px)")));
-            o.Append(Style(Halo($".{size}:checked"), ("RenderTransform", $"translateX({travel}px)")));
         }
 
         o.Append("\n    <!-- Colours paint the thumb and the track only when ON, with the colour's hover tint and\n");

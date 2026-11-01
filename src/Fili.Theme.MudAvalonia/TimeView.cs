@@ -37,7 +37,8 @@ namespace Fili.Theme.MudAvalonia;
 /// <c>PART_FlyoutButton</c>, so it opens the picker with a hover of its own. With the picker's
 /// <c>editable</c> class, MudTimePicker's Editable, the time is typed instead: on Enter or when
 /// the field loses focus the text becomes SelectedTime, empty text no time, and text that is not
-/// a time goes back to the time the picker holds.
+/// a time goes back to the time the picker holds. Alt+Down or F4 opens the picker either way, so
+/// an editable picker's popover is not the mouse's alone.
 /// </para>
 /// <para>
 /// Internal, like the other helpers: a template needs it, a consumer does not.
@@ -131,13 +132,22 @@ internal sealed class TimeView
             return;
         }
 
+        // Alt+Down and F4 open a drop-down in Windows' convention, a ComboBox's included; the only
+        // keys an editable field can spare, as Enter commits and Space types.
+        var opens = e.Key == Key.F4 || (e.Key == Key.Down && e.KeyModifiers.HasFlag(KeyModifiers.Alt));
         if (field.IsReadOnly)
         {
-            if (e.Key is Key.Enter or Key.Space || (e.Key == Key.Down && e.KeyModifiers.HasFlag(KeyModifiers.Alt)))
+            if (e.Key is Key.Enter or Key.Space || opens)
             {
                 Open(picker);
                 e.Handled = true;
             }
+        }
+        else if (opens)
+        {
+            Commit(field, picker);
+            Open(picker);
+            e.Handled = true;
         }
         else if (e.Key == Key.Enter)
         {

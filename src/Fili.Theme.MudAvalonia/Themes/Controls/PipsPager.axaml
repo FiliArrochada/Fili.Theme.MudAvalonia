@@ -23,7 +23,8 @@
   inside the template rather than in a ControlTheme of their own.
 -->
 <ResourceDictionary xmlns="https://github.com/avaloniaui"
-                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:theme="using:Fili.Theme.MudAvalonia">
 
   <ControlTheme x:Key="FiliPipsPager" TargetType="PipsPager">
     <Setter Property="Background" Value="Transparent" />
@@ -93,7 +94,7 @@
                 <Setter Property="Template">
                   <ControlTemplate>
                     <Panel Background="Transparent">
-                      <Path x:Name="Pip"
+                      <Path theme:Motion.Reducible="True" x:Name="Pip"
                             Width="24" Height="24"
                             Stretch="None"
                             Data="{DynamicResource FiliRadioUncheckedGeometry}"

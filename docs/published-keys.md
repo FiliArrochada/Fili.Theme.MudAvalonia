@@ -232,18 +232,20 @@ The slider's rail opacity, a `Double`: the colour at `0.30` in light and dark, M
 
 Reduced motion, a `Boolean` the same in every variant, `False` by default. `True` in an app's
 resources stops the ripple, the popup fade, the skeleton's pulse and wave, the snackbar's slide, an
-expansion panel's and an overlay's fade, the tab indicator's slide and a striped bar's bands. A
-progress indicator keeps moving. It does not yet stop a drawer's slide, a switch thumb's travel, a
-field's floating label or its focus underline, an expander's or tree row's chevron turning, an
-expansion panel's margin, a determinate circular progress's sweep, a data grid's sort arrow or a
-slider's value label fading in. MudBlazor has no such switch.
+expansion panel's and an overlay's fade, the tab indicator's slide and a striped bar's bands, and
+every transition the theme declares: a drawer's slide, a switch thumb's travel, a field's floating
+label and its focus underline, a chevron's turn, an expansion panel's margin, a determinate
+circular progress's sweep, a data grid's sort arrow, a slider's value label and the hover and
+selection fades. An indeterminate progress indicator keeps moving, and an app's own transitions
+are left alone. MudBlazor has no such switch.
 
 - `FiliReducedMotion`
 
-The focus ring, a `Boolean`: `False` in light and dark, where keyboard focus is MudBlazor's state
-layer tint alone, and `True` in high contrast. `True` in an app's resources draws a 2px ring in
-`FiliTextPrimaryColor`, 2px outside each control the keyboard focuses, in every variant; `False`
-turns it off in high contrast too. A control's own `FocusAdorner` still wins. MudBlazor has none.
+The focus ring, a `Boolean`: `True` in every variant (since 0.29.0; it was `False` in light and
+dark before). It draws a 2px ring in `FiliTextPrimaryColor`, 2px outside each control focused by
+the keyboard, never one clicked or touched. `False` in an app's resources leaves keyboard focus to
+MudBlazor's state-layer tint alone, in every variant. A control's own `FocusAdorner` still wins.
+MudBlazor has none.
 
 - `FiliFocusRing`
 

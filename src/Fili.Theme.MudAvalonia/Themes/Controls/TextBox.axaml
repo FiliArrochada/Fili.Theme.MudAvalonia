@@ -252,10 +252,15 @@
             <Panel x:Name="PART_LabelArea">
               <!-- RenderTransform is written in the CSS-like form so TransformOperationsTransition
                    can interpolate it; a TranslateTransform object cannot be transitioned. The text
-                   is PlaceholderText then the Tag, which `required` sets to MudBlazor's "*". -->
-              <TextBlock x:Name="PART_FloatingLabel"
+                   is PlaceholderText then the Tag, which `required` sets to MudBlazor's "*".
+                   A label longer than the field ends in an ellipsis within the text's own column;
+                   untrimmed, it ran past the field and under the clear button and an end
+                   adornment. Not a MudBlazor value: a theme guard. -->
+              <TextBlock theme:Motion.Reducible="True" x:Name="PART_FloatingLabel"
                          VerticalAlignment="Center"
                          HorizontalAlignment="Left"
+                         TextTrimming="CharacterEllipsis"
+                         MaxWidth="{Binding #PART_ScrollViewer.Bounds.Width}"
                          IsHitTestVisible="False"
                          FontSize="{DynamicResource FiliBody1FontSize}"
                          LineHeight="NaN"
@@ -281,7 +286,7 @@
                     VerticalAlignment="Bottom"
                     Background="{DynamicResource FiliLinesInputsBrush}" />
 
-            <theme:PartBorder x:Name="PART_UnderlineActive"
+            <theme:PartBorder theme:Motion.Reducible="True" x:Name="PART_UnderlineActive"
                     Height="2"
                     VerticalAlignment="Bottom"
                     Background="{DynamicResource FiliPrimaryBrush}"

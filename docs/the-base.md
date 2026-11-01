@@ -360,14 +360,20 @@ for something XAML cannot express on its own:
 - **`HighContrastOpacityConverter`** hides the drawer's shadow in high contrast, where the
   drawer's edge is its own line. A style cannot select on the theme variant.
 - **`HighContrastRings`** builds high contrast's elevation rings in the application's
-  `FiliLinesDefaultColor`. A `BoxShadows` string cannot carry a `DynamicResource`.
+  `FiliLinesDefaultColor`. A `BoxShadows` string cannot carry a `DynamicResource`. It keeps the
+  ring per variant and, when the application's resources change the line colour, drops it and
+  raises its own change.
 - **`FocusRing`** is the flag on each window's and popup's `AdornerLayer` that `FiliFocusRing`
   sets, on which the layer draws the focus ring round whichever control the keyboard focuses. A
-  style can only test a property, and a popup's layer is in a window of its own.
+  style can only test a property, and a popup's layer is in a window of its own. Its `Follows`
+  gives the ring the corners of the control it frames, each 4px larger: the ring is told its
+  control only as a `Visual`, and only some visuals have a corner radius.
 - **`Motion`** is the inherited value each window and popup takes from `FiliReducedMotion`, which
   the theme's animations read: the styles through a property selector, the helpers in code. A
   popup is a window of its own that a class on the app's window would not reach, and a style can
-  only test a property.
+  only test a property. Its `Reducible` marks an element whose `Transitions` (or a switch's
+  `KnobTransitions`) the theme declared: while reduced, they are held back at their own priority
+  and put back after, which no style can do to a value a template or another style set.
 - **`InheritedColour`** holds the text colour a control sits in, for a part that is not text to
   paint with: the `inherit` class on a checkbox, radio or switch binds it to the parent's
   inherited foreground, MudBlazor's `Color.Inherit`. A style on a template part cannot name the
@@ -384,7 +390,9 @@ for something XAML cannot express on its own:
   cannot follow a pointer. Most layers are never pressed, so a layer holds nothing and listens
   for presses alone until its first ripple makes its canvas; it listens for the release only
   while a wave is held, and drops its clip once the last wave has gone. The press the innermost
-  layer answered is remembered only while it routes, so no window outlives its last press.
+  layer answered is remembered only while it routes, so no window outlives its last press, and
+  the timers of a fade still under way are stopped when the layer leaves the tree, so no page
+  outlives its last ripple.
 - **`TextTransform`** draws a button's label in `FiliButtonTextTransform`'s case: a string on
   its way into the presenter, and any plain `TextBlock` in the content, which the inherited case
   reaches, through a run that leaves its `Text` alone. Avalonia has no text-transform, and a
@@ -399,7 +407,9 @@ for something XAML cannot express on its own:
   `:no-label`, which drops the label's room; one with `AutomationProperties.HelpText` gets
   `:helper-text`, on which its theme builds the helper line; a select's theme sets
   `TracksHelpText` for that mark alone. A selector cannot ask whether a property is null, or what
-  type its value is.
+  type its value is. A field that tracks either also gets its validation error, while it shows
+  one, as its automation `ItemStatus`, at Style priority so the app's own wins: the automation
+  help text is the app's helper text, and no binding can join a list of errors into a sentence.
 - **`AutoCompleteField`** marks the `TextBox` inside an `AutoCompleteBox` `:select-input`, which
   takes the 8px off its end adornment as `.mud-select-input` does, two templates down from the
   `AutoCompleteBox`'s selectors; and makes the drop-down arrow's click toggle the list, focusing
@@ -412,7 +422,9 @@ for something XAML cannot express on its own:
   the emptied text only when the field loses focus.
 - **`TimeView`** keeps the time picker's text: the field's value as MudTimePicker writes it, and
   the toolbar's hour, minute and period following Avalonia's columns as they turn, before the time
-  is accepted. A column's selection is not a property a binding can watch.
+  is accepted. A column's selection is not a property a binding can watch. On the field, it opens
+  the picker from a click, Enter or Space when read-only, and from Alt+Down or F4 editable or not;
+  Avalonia keeps opening private to its own button.
 - **`TabBarScroll`** shows a tab bar's scroll buttons while its tabs overflow, disables each at
   its end, scrolls a bar's length per click, and brings the selected tab into view. Overflow is
   the scroller's extent against its viewport, which no binding compares.
@@ -423,12 +435,16 @@ for something XAML cannot express on its own:
 - **`DataGridLastColumn`** marks the cells and header of a grid's last visible column, for
   `dense`'s 16px on the right. The grid knows which column is last, but tells no one. Only a
   dense grid tracks it, so only its cells and headers carry the binding.
+- **`DataGridSortable`** shows a column header's sort button only on a column that can sort, as
+  MudDataGrid renders it only on a Sortable one. Whether a column sorts is the grid's
+  `CanUserSortColumns` and the column's `CanUserSort`, and a header's column is internal, so the
+  converter finds it with the public `DataGridColumn.GetColumnContainingElement`.
 - **`GroupIndentConverter`** indents a nested group's header 48px per level. A header's level is
   internal to the DataGrid, so it is counted from the public group tree.
 - **`OptionalStyleInclude`** loads the DataGrid's files only when the app has the package, from
   its `MinimumVersion` and below its `BelowVersion`; one outside that is skipped with a warning.
 
-The two DataGrid helpers name the package's types, so they live in `Themes/Optional/DataGrid/`
+The DataGrid helpers name the package's types, so they live in `Themes/Optional/DataGrid/`
 with the files that use them.
 
 Compiled XAML in the same assembly can construct an `internal` type, so being internal costs

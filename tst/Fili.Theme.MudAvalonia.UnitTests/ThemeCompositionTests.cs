@@ -736,7 +736,9 @@ public class ThemeCompositionTests
     /// Keyboard focus is the state layer and nothing else: the base's dotted focus rectangle is
     /// gone. MudBlazor's <c>_reset.scss</c> removes the browser's ring (<c>outline: none</c>),
     /// and the theme's docs had said so since 0.2 while the forked AdornerLayer kept drawing
-    /// Simple's 1px dashed box round every focused control, on top of the tint.
+    /// Simple's 1px dashed box round every focused control, on top of the tint. The one adorner
+    /// keyboard focus may draw is the theme's own ring (<c>FiliFocusRing</c>, on by default; see
+    /// <c>FocusRingTests</c>), so this runs with the ring off: what is left must be nothing.
     /// </summary>
     [Theory]
     [InlineData(typeof(Button))]
@@ -746,7 +748,9 @@ public class ThemeCompositionTests
     public Task KeyboardFocusDrawsNoFocusRectangle(Type controlType) => UiThread.RunAsync(() =>
     {
         var control = (InputElement)Activator.CreateInstance(controlType)!;
-        Templated(new StackPanel { Children = { new Button { Content = "Before" }, (Control)control } });
+        var panel = Templated(new StackPanel { Children = { new Button { Content = "Before" }, (Control)control } });
+        TopLevel.GetTopLevel(panel)!.Resources["FiliFocusRing"] = false;
+        Dispatcher.UIThread.RunJobs();
 
         control.Focus(NavigationMethod.Tab);
         Dispatcher.UIThread.RunJobs();

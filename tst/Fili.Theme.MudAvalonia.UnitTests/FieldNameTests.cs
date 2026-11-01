@@ -99,4 +99,18 @@ public class FieldNameTests
 
         Assert.All(picker.GetVisualDescendants().OfType<TextBox>(), inner => Assert.Equal("Start", Name(inner)));
     });
+
+    /// <summary>A time picker the app labels with another control: its field reads that label too.</summary>
+    [Fact]
+    public Task ATimePickersFieldReadsItsLabeledBy() => UiThread.RunAsync(() =>
+    {
+        var label = new TextBlock { Text = "Work starts" };
+        var picker = new TimePicker();
+        AutomationProperties.SetLabeledBy(picker, label);
+        new Window { Content = new StackPanel { Children = { label, picker } } }.Show();
+        Dispatcher.UIThread.RunJobs();
+
+        Assert.Equal("Work starts", Name(picker));
+        Assert.All(picker.GetVisualDescendants().OfType<TextBox>(), inner => Assert.Equal("Work starts", Name(inner)));
+    });
 }
