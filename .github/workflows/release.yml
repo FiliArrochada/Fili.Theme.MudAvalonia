@@ -6,8 +6,8 @@ name: release
 #      <that version>.md, and commit both
 #   2. git tag v<that version> && git push origin v<that version>
 #
-# The tag must match <Version> exactly, and the version must have its page, which becomes the
-# release notes; the publish job checks both before packing, so a typo or a missing page fails
+# The tag must be on master and match <Version> exactly, and the version must have its page, which
+# becomes the release notes; the publish job checks all three before packing, so a typo or a missing page fails
 # the release instead of shipping a package whose version nobody chose or described.
 #
 # Authentication is nuget.org trusted publishing: GitHub's OIDC token is exchanged for an API key
@@ -99,12 +99,25 @@ jobs:
       contents: write   # create the GitHub release
       id-token: write   # trusted publishing to nuget.org
     steps:
+      # Full history, so the check below can see whether the tagged commit is on master.
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0
 
       - name: Set up .NET
         uses: actions/setup-dotnet@a98b56852c35b8e3190ac28c8c2271da59106c68 # v6.0.0
         with:
           global-json-file: global.json
+
+      # A tag can be pushed on any commit, including one on a branch nobody reviewed. Only what
+      # master already holds is released.
+      - name: Check the tagged commit is on master
+        run: |
+          git fetch --no-tags origin master
+          if ! git merge-base --is-ancestor "$GITHUB_SHA" origin/master; then
+            echo "::error::Tag $GITHUB_REF_NAME points at $GITHUB_SHA, which is not on master."
+            exit 1
+          fi
 
       - name: Check the tag matches the package version
         id: version
@@ -155,11 +168,14 @@ jobs:
 
       # Pushing the .nupkg uploads the .snupkg beside it as well. --skip-duplicate makes a re-run
       # of a half-finished release safe: a version nuget.org already has is left alone, never
-      # overwritten (nuget.org does not allow that anyway).
+      # overwritten (nuget.org does not allow that anyway). The key reaches the command through the
+      # environment, never interpolated into the script text.
       - name: Push to nuget.org
+        env:
+          NUGET_API_KEY: ${{ steps.nuget.outputs.NUGET_API_KEY }}
         run: >
           dotnet nuget push "artifacts/package/*.nupkg"
-          --api-key "${{ steps.nuget.outputs.NUGET_API_KEY }}"
+          --api-key "$NUGET_API_KEY"
           --source https://api.nuget.org/v3/index.json
           --skip-duplicate
 

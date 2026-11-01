@@ -122,7 +122,7 @@ jobs:
           --report-xunit-trx
           --results-directory ${{ github.workspace }}/artifacts/test-results
 
-      # The pixel suite: twelve gallery frames, Skia, diffed against committed PNGs. Windows only,
+      # The pixel suite: nine gallery frames, Skia, diffed against committed PNGs. Windows only,
       # for the reason in the job comment above.
       - name: Test (pixel baselines)
         if: runner.os == 'Windows'

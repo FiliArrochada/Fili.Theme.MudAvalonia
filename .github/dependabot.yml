@@ -1,0 +1,40 @@
+# Proposes updates as pull requests; nothing merges by itself.
+#
+# Actions: every workflow pins its actions to a commit with the release in a comment. Dependabot
+# keeps both up to date, one grouped pull request a week, so the pins do not silently age.
+#
+# NuGet: every version lives in Directory.Packages.props. The Avalonia packages are left out on
+# purpose:
+#   - AvaloniaVersion is the tag Themes/Base/ is forked from, so raising it is a fork upgrade
+#     (FORK.md), not a version bump; it also sets the lower end of the range the package passes on.
+#   - Avalonia.Controls.DataGrid is held at the oldest 12.1 release, the oldest the theme supports.
+#   - AvaloniaUI.DiagnosticsSupport moves with the Avalonia upgrade.
+# Security advisories for them still reach the repository's Security tab.
+
+version: 2
+
+updates:
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+    groups:
+      actions:
+        patterns: ['*']
+    commit-message:
+      prefix: ci
+
+  - package-ecosystem: nuget
+    directory: /
+    schedule:
+      interval: weekly
+    ignore:
+      - dependency-name: 'Avalonia*'
+      - dependency-name: 'AvaloniaUI.*'
+    groups:
+      test:
+        patterns:
+          - 'xunit*'
+          - 'Microsoft.NET.Test.Sdk'
+    commit-message:
+      prefix: deps
