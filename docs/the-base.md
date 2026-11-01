@@ -361,6 +361,12 @@ for something XAML cannot express on its own:
   drawer's edge is its own line. A style cannot select on the theme variant.
 - **`HighContrastRings`** builds high contrast's elevation rings in the application's
   `FiliLinesDefaultColor`. A `BoxShadows` string cannot carry a `DynamicResource`.
+- **`FocusRing`** is the flag on each window's and popup's `AdornerLayer` that `FiliFocusRing`
+  sets, on which the layer draws the focus ring round whichever control the keyboard focuses. A
+  style can only test a property, and a popup's layer is in a window of its own.
+- **`FieldNameConverter`** names a field to a screen reader by its label, `PlaceholderText`,
+  unless the app labels it with `AutomationProperties.LabeledBy`. Avalonia's automation peer reads
+  the name before `LabeledBy`, so a name always set from the label would hide the app's.
 - **`ExpansionPanels`** keeps `:joined`, `:first-panel`, `:last-panel`, `:next-expanded` and
   `:previous-expanded` on the panels of an `expansion-panels` group, for the rule and corners
   MudBlazor gives each panel by its neighbours, and closes the others when one opens. A selector

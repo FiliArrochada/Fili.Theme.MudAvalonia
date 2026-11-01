@@ -26,6 +26,11 @@ sentences of summary, then a `## What changed` list with one bold headline per c
 under `###` subheadings when a version covers several areas, then its Upgrading section; a page
 without the list fails, as paragraphs read as a wall of text on a release.
 
+Work since the last release is written into `docs/versions/unreleased.md`, and its Upgrading
+section, as it lands. At the bump that page is renamed to `<Version>.md`: its "Work since" line
+goes, its heading and its Upgrading heading lose the unreleased marker, it gets its row in
+`docs/versions/README.md`, and the index's bold moves from the previous release to the new one.
+
 The pack runs **package validation** against `PackageValidationBaselineVersion` in the theme's
 csproj, the last version on nuget.org, and fails on a public member that is gone or changed;
 `PackageContentTests` packs on every build, so a break shows there before any tag. Once
