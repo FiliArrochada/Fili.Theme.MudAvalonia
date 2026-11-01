@@ -104,11 +104,11 @@ permanent, and this one already has downloads. Everything else - the assembly, t
 the `avares://` paths and the repository - is `Fili.Theme.MudAvalonia`.
 
 ```xml
-<PackageReference Include="Fili.MudAvalonia.Theme" Version="0.28.0" />
+<PackageReference Include="Fili.MudAvalonia.Theme" Version="0.29.0" />
 ```
 
 Under Central Package Management the version goes in `Directory.Packages.props` instead, as
-`<PackageVersion Include="Fili.MudAvalonia.Theme" Version="0.28.0" />`, and the reference stays
+`<PackageVersion Include="Fili.MudAvalonia.Theme" Version="0.29.0" />`, and the reference stays
 version-less.
 
 **Keep every `Avalonia*` package on one version, 12.1.4 or later.** The theme needs `Avalonia`
@@ -190,14 +190,13 @@ An app upgrading from a version before the theme keyed controls by type can dele
   checkbox, radio or switch. `FiliRippleOpacity` and `FiliRippleOpacitySecondary` set to `0` turn
   it off, MudBlazor's `Ripple="false"`.
 - **Reduced motion is one key**, which MudBlazor does not have: `FiliReducedMotion` set to `True`
-  in the application's resources stops the ripple, fades, slides and pulses in every window and
-  popup. It does not yet reach a drawer's slide, a switch's thumb, a field's floating label or
-  focus underline, a chevron's turn, an expansion panel's margin, a circular progress's sweep, a
-  data grid's sort arrow or a slider's value label
+  in the application's resources stops the ripple and every fade, slide, pulse and transition the
+  theme draws, in every window and popup; only an indeterminate progress indicator keeps moving
   ([Reduced motion](https://filiarrochada.github.io/Fili.Theme.MudAvalonia/#reduced-motion)).
-- **Keyboard focus is the state layer's tint**, as in MudBlazor, which does not meet WCAG AA's 3:1
-  for a focus indicator on its own. `FiliFocusRing` set to `True` in the application's resources
-  adds a 2px ring round the focused control; high contrast draws it by default
+- **Keyboard focus draws a ring**, which MudBlazor does not: a 2px ring in the text colour round
+  the control focused by Tab or the arrows, never one clicked or touched. MudBlazor's state-layer
+  tint alone does not meet WCAG AA's 3:1 for a focus indicator. `FiliFocusRing` set to `False` in
+  the application's resources keeps the tint alone, MudBlazor's look
   ([Keyboard focus](https://filiarrochada.github.io/Fili.Theme.MudAvalonia/#keyboard-focus)).
 - **A `DataGrid` is MudDataGrid with nothing to opt into.** The package does not depend on
   `Avalonia.Controls.DataGrid`; when the app references it, the theme finds it and themes its
@@ -209,10 +208,11 @@ An app upgrading from a version before the theme keyed controls by type can dele
 
 ## Accessibility
 
-The theme draws what a template can: a focus ring (`FiliFocusRing`, on by default only in high
-contrast), a high-contrast variant, one Tab stop per control, field labels and helper text exposed
-to screen readers, localisable names for its templates' icon buttons (`FiliString*`) and a
-reduced-motion key. It makes **no claim of WCAG conformance**, and it leaves to the app:
+The theme draws what a template can: a keyboard focus ring (`FiliFocusRing`, on by default in
+every variant), a high-contrast variant, one Tab stop per control, field labels, helper text and
+validation errors exposed to screen readers (the error as the field's `ItemStatus`), localisable
+names for its templates' icon buttons (`FiliString*`) and a reduced-motion key. It makes **no claim
+of WCAG conformance**, and it leaves to the app:
 
 - **Following the system.** It does not switch to high contrast or reduced motion when the
   operating system asks; the app reads the setting and sets the variant or the key.
@@ -221,7 +221,6 @@ reduced-motion key. It makes **no claim of WCAG conformance**, and it leaves to 
 - **Colour contrast of the default palettes.** They are MudBlazor's, and some pairs fall below AA
   in light and dark: dark primary as text (3.0:1), error text (3.7:1), white on the warning,
   success and tertiary fills (about 2:1), field outlines (under 3:1). High contrast meets them.
-- **Validation errors** are shown, but not passed to automation: Avalonia does not expose them.
 
 The [Accessibility](https://filiarrochada.github.io/Fili.Theme.MudAvalonia/#accessibility) page has
 the details and the contrast table.

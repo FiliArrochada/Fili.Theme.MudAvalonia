@@ -25,6 +25,9 @@
       string.Normalize is a no-op in invariant globalization mode.
     -->
     <InvariantGlobalization>false</InvariantGlobalization>
+    <!-- The build is warning-free, and stays so: a new warning fails it here, not in an app's
+         build log months later. -->
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
   </PropertyGroup>
 
   <PropertyGroup>
@@ -32,7 +35,7 @@
     <Authors>FiliArrochada</Authors>
     <Product>Fili.Theme.MudAvalonia</Product>
     <Copyright>Copyright (c) FiliArrochada</Copyright>
-    <Version>0.28.0</Version>
+    <Version>0.29.0</Version>
   </PropertyGroup>
 
   <PropertyGroup>
@@ -51,6 +54,18 @@
   -->
   <PropertyGroup Condition="'$(GITHUB_ACTIONS)' == 'true'">
     <ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
+  </PropertyGroup>
+
+  <!--
+    Each project's packages.lock.json records every package it restores, transitive ones included,
+    with its content hash. A local restore updates them; CI restores in locked mode, so a package
+    graph that moved without its lock file - a new transitive version, a re-published package -
+    fails the restore instead of building something nobody reviewed. Projects only: the scripts in
+    tools/ are run as files, restore nothing, and would write a lock file beside themselves.
+  -->
+  <PropertyGroup Condition="'$(FileBasedProgram)' != 'true'">
+    <RestorePackagesWithLockFile>true</RestorePackagesWithLockFile>
+    <RestoreLockedMode Condition="'$(GITHUB_ACTIONS)' == 'true'">true</RestoreLockedMode>
   </PropertyGroup>
 
 </Project>

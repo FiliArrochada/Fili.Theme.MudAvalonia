@@ -6,7 +6,8 @@ pushed:
 
 ```powershell
 # 1. bump <Version> in Directory.Build.props, rename docs/versions/unreleased.md to <Version>.md,
-#    commit, push
+#    run `dotnet restore Fili.Theme.MudAvalonia.sln --force-evaluate` (the lock files record the
+#    version of each project reference, and CI's locked restore fails on a stale one), commit, push
 # 2. tag that exact version and push the tag
 git tag v0.1.0
 git push origin v0.1.0
@@ -30,6 +31,14 @@ Work since the last release is written into `docs/versions/unreleased.md`, and i
 section, as it lands. At the bump that page is renamed to `<Version>.md`: its "Work since" line
 goes, its heading and its Upgrading heading lose the unreleased marker, it gets its row in
 `docs/versions/README.md`, and the index's bold moves from the previous release to the new one.
+A fresh `unreleased.md` follows, with its "Work since" line, the `[All versions]` link and the
+words **Nothing yet.**: the docs site deploys from `master`, and while that sentence is missing
+its version label reads "v<Version> + unreleased", so the site never names a released version for
+work no package has yet.
+
+The same page is the package's **release notes on nuget.org**: the pack takes its summary and a
+link to the page at the commit (`PackReleaseNotesFromVersionPage` in the theme's csproj). A pack
+between releases, which has no page of its own, says so and links `unreleased.md`.
 
 The pack runs **package validation** against `PackageValidationBaselineVersion` in the theme's
 csproj, the last version on nuget.org, and fails on a public member that is gone or changed;
@@ -65,6 +74,23 @@ repository) and change the hash and the comment together.
 
 Packages built on a runner set `ContinuousIntegrationBuild`, so the PDBs carry `/_/` paths
 instead of the runner's directory layout, and Source Link points each file at the tagged commit.
+The XAML is the exception: Avalonia's XAML compiler writes its sequence points after the C#
+compiler, with the real path and no path map (12.1.4's `CompileAvaloniaXamlTask` takes none), so
+its documents keep the runner's path. `MapXamlSourcesInSourceLink` adds that unmapped root to the
+same Source Link map, so a debugger stepping into a theme's XAML still fetches the file at the
+commit.
+
+Restores on a runner are **locked** (`Directory.Build.props`): each project restores exactly what
+its `packages.lock.json` records, hashes included, or fails. Changing a package version means
+restoring locally, which rewrites the lock files, and committing them with the change. The
+browser gallery has none, as the WebAssembly SDK adds packages at the installed SDK's patch
+version. `global.json` keeps `rollForward: latestFeature`: CI installs the SDK it names, and a
+contributor on a later feature band of 10 still builds; the `wasm-tools` workload is installed
+unversioned, so it is the set of whatever SDK is installed, never one for another band.
+
+The build treats **warnings as errors**, the trimmer's included. The one exception is IL2104 in
+the browser gallery, the trimmer's summary for `Avalonia.Controls.DataGrid`'s own assembly, which
+this repository cannot change.
 
 A version cannot be replaced on nuget.org, only unlisted. Re-running a release that failed after
 the push is safe (`--skip-duplicate`), but fixing a bad package means a new version.
