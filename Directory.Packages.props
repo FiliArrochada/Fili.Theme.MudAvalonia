@@ -3,18 +3,20 @@
   <PropertyGroup>
     <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
     <CentralPackageTransitivePinningEnabled>true</CentralPackageTransitivePinningEnabled>
+    <!-- The tag Themes/Base/ is forked from (FORK.md): the two move together. -->
+    <AvaloniaVersion>12.1.4</AvaloniaVersion>
   </PropertyGroup>
 
   <ItemGroup Label="Avalonia">
-    <!-- Keep every Avalonia package on the same version - a mismatched pair fails at runtime.
-         Avalonia's is a range because the package passes it on: 12.1.3, the tag Themes/Base/ is
-         forked from, up to but not including 13, which would be this package's next major
-         version (docs/compatibility.md). Everything here builds on its lower end. -->
-    <PackageVersion Include="Avalonia" Version="[12.1.3,13.0.0)" />
-    <PackageVersion Include="Avalonia.Desktop" Version="12.1.3" />
-    <PackageVersion Include="Avalonia.Headless" Version="12.1.3" />
-    <PackageVersion Include="Avalonia.Skia" Version="12.1.3" />
-    <PackageVersion Include="Avalonia.Browser" Version="12.1.3" />
+    <!-- Every Avalonia package on the same version - a mismatched pair fails at runtime.
+         Avalonia's is a range because the package passes it on: from AvaloniaVersion up to but
+         not including 13, which would be this package's next major version
+         (docs/compatibility.md). Everything here builds on its lower end. -->
+    <PackageVersion Include="Avalonia" Version="[$(AvaloniaVersion),13.0.0)" />
+    <PackageVersion Include="Avalonia.Desktop" Version="$(AvaloniaVersion)" />
+    <PackageVersion Include="Avalonia.Headless" Version="$(AvaloniaVersion)" />
+    <PackageVersion Include="Avalonia.Skia" Version="$(AvaloniaVersion)" />
+    <PackageVersion Include="Avalonia.Browser" Version="$(AvaloniaVersion)" />
     <!-- Versioned apart from Avalonia since 12. Held at 12.1.0, the oldest 12.1 release and so the
          oldest the theme supports: the theme builds against it without passing it on, an app on
          any later version gets the same look, and the gallery and the tests run on it.

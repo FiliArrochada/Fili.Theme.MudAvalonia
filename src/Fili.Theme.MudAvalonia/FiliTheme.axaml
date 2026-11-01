@@ -9,7 +9,7 @@
       </Application.Styles>
 
   No FluentTheme, and no Avalonia.Themes.* package reference anywhere in the library. The base
-  include carries 79 templates forked from Avalonia Simple, repaletted onto this theme's tokens;
+  include carries the templates forked from Avalonia Simple, repaletted onto this theme's tokens;
   this file carries the tokens, the type ramp, the surface classes and the hand-written control
   themes. ORDER IS LOAD-BEARING: later styles win, which is the only reason a hand-written
   ControlTheme beats its forked counterpart.

@@ -11,10 +11,10 @@ Avalonia version is in
 template, so it measures to nothing and renders nothing — not an unstyled button, *no* button. Some
 theme has to supply a template for every control type used.
 
-This package supplies its own. `Themes/Base/` holds **79 templates forked verbatim from Avalonia's
-Simple theme at 12.1.3**, rebased onto this package and repaletted by a single hand-written file,
-`Themes/Base/Accents.axaml`, which redefines the ~96 resource keys those templates paint from in
-terms of Fili tokens. One file repalettes all 79.
+This package supplies its own. `Themes/Base/` holds **Avalonia's Simple theme, forked verbatim**
+at the tag `Themes/Base/FORK.md` names, rebased onto this package and repaletted by a single
+hand-written file, `Themes/Base/Accents.axaml`, which redefines the resource keys those templates
+paint from in terms of Fili tokens. One file repalettes them all.
 
 On top of that sit **hand-written Material control themes for 69 of the 95 templated control
 types**, which win over their forked counterparts because `FiliTheme.axaml` is included second:
@@ -167,7 +167,7 @@ and rewriting one file.**
 
 The whole adaptation was:
 
-1. Fetch `src/Avalonia.Themes.Simple/Controls/*.xaml` at tag 12.1.3.
+1. Fetch `src/Avalonia.Themes.Simple/Controls/*.xaml` at the tag `FORK.md` names.
 2. `.xaml` → `.axaml`, and rebase `avares://Avalonia.Themes.Simple/...` onto this package. Both by
    script; no template was touched by hand.
 3. Write `Accents.axaml`, mapping the ~96 keys those templates paint from onto Fili tokens.

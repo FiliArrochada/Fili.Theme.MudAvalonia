@@ -39,7 +39,7 @@ public class PackageContentTests
             .Select(match => match.Groups[1].Value + " " + match.Groups[2].Value)
             .ToArray();
 
-        Assert.Equal(["Avalonia [12.1.3, 13.0.0)"], dependencies);
+        Assert.Equal(["Avalonia [12.1.4, 13.0.0)"], dependencies);
     }
 
     /// <summary>

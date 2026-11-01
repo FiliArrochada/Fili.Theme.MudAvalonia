@@ -18,7 +18,7 @@ pinned by a test, so a change that breaks one fails the build rather than an app
 | The resource keys: every palette, elevation, geometry and typography token, and every glyph key, with what each promises ([below](#what-a-resource-key-promises)) | [Published resource keys](published-keys.md) | `PublishedInterfaceTests`, `VariantScopeTests` |
 | The public C# API: `FiliThemeVariants` and its `HighContrast` variant, whose key is the string `"HighContrast"` | [README](../README.md) | `PublishedInterfaceTests` |
 | Themed by type: a control the theme styles is styled with no class, and an optional package's controls with nothing to opt into | [Installation](https://filiarrochada.github.io/Fili.Theme.MudAvalonia/#installation) and [The base](the-base.md) | `StandaloneReadinessTests`, `OptionalBoundaryTests` |
-| No dependency but `Avalonia`, from 12.1.3 up to but not including 13.0.0 | [Releasing](releasing.md#supported-avalonia-versions) | `PackageContentTests` |
+| No dependency but `Avalonia`, from the version the templates are forked from up to but not including 13.0.0 | [Releasing](releasing.md#supported-avalonia-versions) | `PackageContentTests` |
 
 So a 1.x release does not remove or rename a class or a key, does not change what a class means,
 and does not add a dependency. A key that has to go is kept as an alias of its replacement

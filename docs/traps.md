@@ -569,8 +569,8 @@ the same few pixels: a rasteriser difference would touch every rounded edge in t
 ## The fork in detail
 
 Avalonia has no implicit default theme: a control with no `ControlTheme` in scope has no template
-and renders nothing at all. `Themes/Base/` holds 79 templates forked verbatim from Avalonia Simple
-at tag 12.1.3, rebased onto this package and repaletted by `Themes/Base/Accents.axaml`. There is
+and renders nothing at all. `Themes/Base/` holds Avalonia Simple's templates, forked verbatim at
+the tag `FORK.md` names, rebased onto this package and repaletted by `Themes/Base/Accents.axaml`. There is
 no `Avalonia.Themes.*` reference anywhere in the library.
 
 **Do not restyle a forked template.** Keeping them byte-faithful is what makes an Avalonia upgrade

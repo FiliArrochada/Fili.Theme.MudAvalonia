@@ -1,14 +1,14 @@
 # Forked from Avalonia's Simple theme
 
 Everything under `Controls/`, plus `InvariantResources.axaml`, is taken **verbatim** from the
-Avalonia repository at tag **12.1.3** and is under Avalonia's MIT licence:
+Avalonia repository at tag **12.1.4** and is under Avalonia's MIT licence:
 
 - `Controls/*.axaml` — `src/Avalonia.Themes.Simple/Controls/*.xaml`
 - `InvariantResources.axaml` — `src/Avalonia.Themes.Fluent/Strings/InvariantResources.xaml`
   (Simple references it by a relative path but does not carry its own copy)
 
 Copyright (c) AvaloniaUI OÜ. MIT licence:
-<https://github.com/AvaloniaUI/Avalonia/blob/12.1.3/licence.md>. Eight of the date and time
+<https://github.com/AvaloniaUI/Avalonia/blob/12.1.4/licence.md>. Eight of the date and time
 templates keep the Silverlight Toolkit's Ms-PL header they carry in Avalonia. Both notices are in
 the repository's `THIRD-PARTY-NOTICES.md`, which is packed; a file added on an upgrade that brings a
 new notice updates it.
@@ -28,7 +28,7 @@ upgrade path a re-download plus a diff rather than a merge.
 
 `Accents.axaml` — which is *not* forked, and is the only hand-written file here — redefines the
 ~75 resource keys the Simple templates paint from, binding each to a Fili token. One file
-repalettes all 79 templates. That small, stable key surface is the reason to fork Simple rather
+repalettes every template. That small, stable key surface is the reason to fork Simple rather
 than Fluent, whose equivalent is hundreds of layered keys that move between versions.
 
 Controls with a hand-written theme in `Themes/Controls/` override their forked counterpart,

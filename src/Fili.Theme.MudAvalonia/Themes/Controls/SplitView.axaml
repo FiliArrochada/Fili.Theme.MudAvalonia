@@ -1,7 +1,7 @@
 <!--
   SplitView: MudDrawer.
 
-  Avalonia Simple's SplitView, from the fork in Themes/Base/Controls at 12.1.3, with one part
+  Avalonia Simple's SplitView, from the fork in Themes/Base/Controls, with one part
   added: PART_PaneShadow, a Border under the pane's content that carries MudDrawer's elevation
   (`.mud-drawer` takes `mud-elevation-{Elevation}`, and Elevation defaults to 1). The pane root
   is a Panel, which cannot carry a BoxShadow, and it clips, which would cut one off; so the root

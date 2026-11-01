@@ -59,8 +59,9 @@ the push is safe (`--skip-duplicate`), but fixing a bad package means a new vers
 
 ## Supported Avalonia versions
 
-The package declares **`Avalonia` `[12.1.3, 13.0.0)`**: 12.1.3 is the tag `Themes/Base/` is
-forked from, and the two move together; 13 would be this package's next major version
+The package declares **`Avalonia` from `AvaloniaVersion` up to but not including 13.0.0**
+(`Directory.Packages.props`): `AvaloniaVersion` is the tag `Themes/Base/` is forked from, and
+the two move together; 13 would be this package's next major version
 ([Compatibility](compatibility.md)), so the range stops below it. Measured on 2026-10-13 by building a clean export of the
 repository against each version and running all three suites (unit, pixel, no-DataGrid):
 
@@ -69,11 +70,11 @@ repository against each version and running all three suites (unit, pixel, no-Da
 | 12.0.0 - 12.0.5 | Does not compile: the forked templates use 12.1 API (`ScrollBar.PageUp`, `DatePicker.VerticalContentAlignment`) |
 | 12.1.0, 12.1.1 | Does not compile: the forked date and time picker templates use a property those versions lack |
 | 12.1.2 | Builds; every test passes |
-| **12.1.3** | Builds; every test passes - the declared minimum |
-| 12.1.4 | Builds; every test passes |
+| 12.1.3 | Builds; every test passes |
+| **12.1.4** | Builds; every test passes - the declared minimum |
 
-12.1.2 is therefore the measured floor, one patch under the declared one. The declared one stays,
-because a fork taken from 12.1.3 and promised on 12.1.2 would be a promise no build checks.
+12.1.2 is therefore the measured floor, two patches under the declared one. The declared one stays,
+because a fork promised on an older patch than its tag would be a promise no build checks.
 
 `Avalonia.Controls.DataGrid` is optional and gated at runtime by `MinimumVersion` and
 `BelowVersion` (13.0.0, the next major one) in `FiliTheme.axaml`; `MinimumVersion` is equal to

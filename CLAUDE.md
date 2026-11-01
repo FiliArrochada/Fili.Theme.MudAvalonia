@@ -270,8 +270,8 @@ One line each; [`docs/traps.md`](docs/traps.md) has the full account and the tes
 
 ## The base is forked, not depended on
 
-`Themes/Base/` holds 79 templates forked verbatim from Avalonia Simple at tag 12.1.3, repaletted by
-`Themes/Base/Accents.axaml`. There is no `Avalonia.Themes.*` reference in the library.
+`Themes/Base/` holds Avalonia Simple's templates, forked verbatim at the tag `FORK.md` names and
+repaletted by `Themes/Base/Accents.axaml`. There is no `Avalonia.Themes.*` reference in the library.
 
 - **Do not restyle a forked template.** Byte-faithful forks make an upgrade a re-download and a
   diff. Change a look through `Accents.axaml` or a hand-written theme in `Themes/Controls/`, in
@@ -284,8 +284,9 @@ One line each; [`docs/traps.md`](docs/traps.md) has the full account and the tes
 
 ## Layout and conventions
 
-Standard workspace shape (see the workspace CLAUDE.md). Repo-specific: the Avalonia version
-(**12.1.3**) is the tag `Themes/Base/` is forked from, so the two move together (`FORK.md`).
+Standard workspace shape (see the workspace CLAUDE.md). Repo-specific: the Avalonia version,
+`AvaloniaVersion` in `Directory.Packages.props`, is the tag `Themes/Base/` is forked from, so the
+two move together (`FORK.md`).
 
 `global.json` pins the SDK and opts `dotnet test` into Microsoft.Testing.Platform, which xunit v3
 needs on SDK 10.

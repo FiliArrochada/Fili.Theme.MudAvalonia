@@ -8,7 +8,7 @@
 
     <TextBlock Classes="h5 section" Text="Add the package" />
     <TextBlock Classes="body1 p">
-      <Run Text="The package id is " /><Run Classes="code" Text="Fili.MudAvalonia.Theme" /><Run Text=" on nuget.org. It targets net10.0 and depends on Avalonia 12.1.3 or later and nothing else." />
+      <Run Text="The package id is " /><Run Classes="code" Text="Fili.MudAvalonia.Theme" /><Run Text=" on nuget.org. It targets net10.0 and depends on Avalonia 12 and nothing else; nuget.org lists the patch it needs at least." />
     </TextBlock>
     <docs:CodeBlock Code="dotnet add package Fili.MudAvalonia.Theme" Margin="0,0,0,16" />
     <TextBlock Classes="body1 p">

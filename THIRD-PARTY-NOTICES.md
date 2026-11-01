@@ -11,9 +11,10 @@ package's assembly passes these notices on with it.
 
 The templates under `src/Fili.Theme.MudAvalonia/Themes/Base/` (`Controls/*.axaml` and
 `InvariantResources.axaml`) are copied from the [Avalonia](https://github.com/AvaloniaUI/Avalonia)
-repository at tag 12.1.3 (`src/Avalonia.Themes.Simple/Controls/`, and
+repository (`src/Avalonia.Themes.Simple/Controls/`, and
 `src/Avalonia.Themes.Fluent/Strings/InvariantResources.xaml`), and compiled into the package's
-assembly. `Themes/Base/FORK.md` lists the two mechanical edits made to them.
+assembly. `Themes/Base/FORK.md` names the tag they are taken at and the two mechanical edits
+made to them.
 
 ```text
 The MIT License (MIT)
