@@ -34,6 +34,13 @@
     <docs:CodeBlock Code="&lt;Application.Resources&gt;&#10;  &lt;x:Boolean x:Key=&quot;FiliFocusRing&quot;&gt;False&lt;/x:Boolean&gt;&#10;&lt;/Application.Resources&gt;"
                     Margin="0,0,0,16" />
 
+    <TextBlock Classes="h5 section" Text="The ring's colours and thickness" />
+    <TextBlock Classes="body1 p">
+      <Run Classes="code" Text="FiliFocusRingBrush" /><Run Text=" is the outer stroke, text-primary; " /><Run Classes="code" Text="FiliFocusRingInnerBrush" /><Run Text=" the stroke against the control, white; " /><Run Classes="code" Text="FiliFocusRingThickness" /><Run Text=" the outer stroke's width, 2. A thicker stroke moves the ring out by as much, so the inner one keeps its 2px and the corners stay parallel to the control's: a heavier ring for a television, read from across a room, is the thickness alone. Set them in the application's resources, or a window's: the ring is drawn in the window's adorner layer, so a panel's resources do not reach it. They can change at any time, and a focused control's ring follows. A ring in the app's own accent is the brush set to the primary and the inner brush to Transparent; the defaults' pairing is what keeps 3:1 on every surface, so check an accent ring against each one it is drawn on." />
+    </TextBlock>
+    <docs:CodeBlock Code="&lt;Application.Resources&gt;&#10;  &lt;SolidColorBrush x:Key=&quot;FiliFocusRingBrush&quot; Color=&quot;{DynamicResource FiliPrimaryColor}&quot; /&gt;&#10;  &lt;SolidColorBrush x:Key=&quot;FiliFocusRingInnerBrush&quot; Color=&quot;Transparent&quot; /&gt;&#10;  &lt;x:Double x:Key=&quot;FiliFocusRingThickness&quot;&gt;3&lt;/x:Double&gt;&#10;&lt;/Application.Resources&gt;"
+                    Margin="0,0,0,16" />
+
     <TextBlock Classes="h5 section" Text="A ring of your own" />
     <TextBlock Classes="body1 p">
       <Run Text="Avalonia's dashed focus rectangle is off, but a ring an app sets through a control's " /><Run Classes="code" Text="FocusAdorner" /><Run Text=" still draws, in place of the theme's ring where that is on." />
@@ -63,7 +70,7 @@
     <docs:ParityTable>
       <docs:ParityRow MudBlazor=":focus-visible" Here=":focus-visible" Status="Same" Note="The control's hover tint; a click leaves none." />
       <docs:ParityRow MudBlazor="outline: none (_reset.scss)" Here="no focus rectangle" Status="Same" Note="The base's dashed rectangle is off; a FocusAdorner the app sets still draws." />
-      <docs:ParityRow MudBlazor="(none: a focus ring)" Here="FiliFocusRing" Status="Extra" Note="Two 2px strokes, white against the control and text-primary outside it, on keyboard focus, its corners each the control's plus 4px: on in every variant; False in the application's resources keeps MudBlazor's tint alone." />
+      <docs:ParityRow MudBlazor="(none: a focus ring)" Here="FiliFocusRing" Status="Extra" Note="Two 2px strokes, white against the control and text-primary outside it, on keyboard focus, its corners each the control's plus 4px: on in every variant; False in the application's resources keeps MudBlazor's tint alone. FiliFocusRingBrush, FiliFocusRingInnerBrush and FiliFocusRingThickness change its colours and width." />
       <docs:ParityRow MudBlazor="a list row, :focus:not(.mud-selected-item)" Here="the same" Status="Same" Note="A selected row shows its selection tint only; in a multi-selection list, which tints no selected row, a focused one takes the hover tint." />
       <docs:ParityRow MudBlazor="a text field's :focus" Here="the same" Status="Same" Note="The accent rule and the label's colour, however the field was focused." />
       <docs:ParityRow MudBlazor="(none: access keys)" Here="_ before a letter in a label" Status="Extra" Note="Avalonia's own: Alt underlines and presses." />

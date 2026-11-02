@@ -558,3 +558,6 @@ key	FiliStringDismiss	String
 key	FiliStringIncrease	String
 key	FiliStringNext	String
 key	FiliStringPrevious	String
+key	FiliFocusRingBrush	SolidColorBrush
+key	FiliFocusRingInnerBrush	SolidColorBrush
+key	FiliFocusRingThickness	Double

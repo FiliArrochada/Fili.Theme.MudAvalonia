@@ -366,8 +366,11 @@ for something XAML cannot express on its own:
 - **`FocusRing`** is the flag on each window's and popup's `AdornerLayer` that `FiliFocusRing`
   sets, on which the layer draws the focus ring round whichever control the keyboard focuses. A
   style can only test a property, and a popup's layer is in a window of its own. Its `Follows`
-  gives the ring the corners of the control it frames, each 4px larger: the ring is told its
-  control only as a `Visual`, and only some visuals have a corner radius.
+  gives the ring the corners of the control it frames, each larger by the ring's outset (4px by
+  default), and the inner stroke's 2px tighter: the ring is told its control only as a `Visual`,
+  and only some visuals have a corner radius. Its `Width` takes `FiliFocusRingThickness` and sets
+  the ring's thickness and how far out it sits, the inner stroke's 2px plus the width, which a
+  margin in XAML cannot add up.
 - **`Motion`** is the inherited value each window and popup takes from `FiliReducedMotion`, which
   the theme's animations read: the styles through a property selector, the helpers in code. A
   popup is a window of its own that a class on the app's window would not reach, and a style can

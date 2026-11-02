@@ -43,7 +43,7 @@ public class FocusRingTests
     });
 
     /// <summary>Two buttons in a window, the first focused by the keyboard.</summary>
-    private static (Button Keyboard, Button Pointer) Focus(bool? token = null)
+    private static (Button Keyboard, Button Pointer) Focus(bool? token = null, Action<IResourceDictionary>? resources = null)
     {
         var keyboard = new Button { Content = "Save" };
         var pointer = new Button { Content = "Cancel" };
@@ -52,6 +52,8 @@ public class FocusRingTests
         {
             window.Resources["FiliFocusRing"] = value;
         }
+
+        resources?.Invoke(window.Resources);
 
         window.Show();
         Dispatcher.UIThread.RunJobs();
@@ -160,6 +162,53 @@ public class FocusRingTests
     [InlineData("Dark")]
     [InlineData("HighContrast")]
     public Task TheTokenTurnsItOff(string name) => In(Variant(name), () => Assert.Null(Ring(Focus(token: false).Keyboard)));
+
+    /// <summary>
+    /// An app's own ring: FiliFocusRingBrush, FiliFocusRingInnerBrush and FiliFocusRingThickness
+    /// in a window's resources. A 3px outer stroke sits 5px out, the inner stroke keeps its 2px,
+    /// and the corners follow the new outset.
+    /// </summary>
+    [Fact]
+    public Task AnAppSetsTheRingsColoursAndThickness() => UiThread.RunAsync(() =>
+    {
+        var accent = new SolidColorBrush(Colors.Goldenrod);
+        var (keyboard, _) = Focus(resources: r =>
+        {
+            r["FiliFocusRingBrush"] = accent;
+            r["FiliFocusRingInnerBrush"] = Brushes.Transparent;
+            r["FiliFocusRingThickness"] = 3d;
+        });
+        var ring = Assert.IsAssignableFrom<Border>(Ring(keyboard));
+        var inner = Assert.IsAssignableFrom<Border>(ring.Child);
+        var radius = keyboard.CornerRadius.TopLeft;
+
+        Assert.Same(accent, ring.BorderBrush);
+        Assert.Same(Brushes.Transparent, inner.BorderBrush);
+        Assert.Equal(new Thickness(3), ring.BorderThickness);
+        Assert.Equal(new Thickness(-5), ring.Margin);
+        Assert.Equal(new Thickness(2), inner.BorderThickness);
+        Assert.Equal(new CornerRadius(radius + 5), ring.CornerRadius);
+        Assert.Equal(new CornerRadius(radius + 2), inner.CornerRadius);
+    });
+
+    /// <summary>
+    /// The thickness is read live: a television mode switched on while a control has focus moves
+    /// the ring at once, as the brushes do.
+    /// </summary>
+    [Fact]
+    public Task TheThicknessFollowsAChangedResource() => UiThread.RunAsync(() =>
+    {
+        var (keyboard, _) = Focus();
+        var ring = Assert.IsAssignableFrom<Border>(Ring(keyboard));
+        Assert.True(Application.Current!.TryFindResource("FiliFocusRingThickness", out var standard));
+        Assert.Equal(2d, Assert.IsType<double>(standard));
+
+        TopLevel.GetTopLevel(keyboard)!.Resources["FiliFocusRingThickness"] = 4d;
+        Dispatcher.UIThread.RunJobs();
+
+        Assert.Equal(new Thickness(4), ring.BorderThickness);
+        Assert.Equal(new Thickness(-6), ring.Margin);
+    });
 
     /// <summary>A control in a window with the ring on, focused by the keyboard; returns the ring.</summary>
     private static Border RingRound(Control control)

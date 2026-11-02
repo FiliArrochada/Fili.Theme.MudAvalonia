@@ -58,7 +58,7 @@
       <Run FontWeight="Bold" Text="High contrast shows your dark colours." /><Run Text=" It inherits from Dark, so a key overridden in Light and Dark only falls back to the dark override. Declare the high-contrast variant too." />
     </TextBlock>
     <TextBlock Classes="body1 p">
-      <Run FontWeight="Bold" Text="FiliReducedMotion and FiliFocusRing are read by each window." /><Run Text=" Set them in the application's resources or a window's; in a panel's resources inside a window they do nothing." />
+      <Run FontWeight="Bold" Text="FiliReducedMotion and the FiliFocusRing keys are read by each window." /><Run Text=" Set them in the application's resources or a window's; in a panel's resources inside a window they do nothing." />
     </TextBlock>
     <TextBlock Classes="body1 p">
       <Run FontWeight="Bold" Text="A value that never changes with the variant" /><Run Text=" is a StaticResource where a DynamicResource belongs: it is looked up once, in the variant the app started in. Name a theme key with " /><Run Classes="code" Text="{}{DynamicResource}" /><Run Text="." />

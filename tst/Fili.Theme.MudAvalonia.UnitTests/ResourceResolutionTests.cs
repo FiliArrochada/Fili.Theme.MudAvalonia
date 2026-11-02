@@ -101,6 +101,7 @@ public class ResourceResolutionTests
         "FiliPrimaryAlertTextBrush", "FiliSecondaryAlertTextBrush", "FiliTertiaryAlertTextBrush", "FiliInfoAlertTextBrush",
         "FiliSuccessAlertTextBrush", "FiliWarningAlertTextBrush", "FiliErrorAlertTextBrush", "FiliDarkAlertTextBrush",
         "FiliChipHoverBrush",
+        "FiliFocusRingBrush", "FiliFocusRingInnerBrush",
     ];
 
     [Fact]

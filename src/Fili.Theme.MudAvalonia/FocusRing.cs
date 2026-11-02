@@ -26,10 +26,10 @@ namespace Fili.Theme.MudAvalonia;
 internal sealed class FocusRing
 {
     /// <summary>
-    /// How far outside the control the ring's outer edge is: 2px of white against the control,
-    /// then 2px of text-primary, where a single ring had a 2px gap.
+    /// The inner stroke's width, against the control: 2px of white where a single ring had a
+    /// 2px gap. The outer stroke, <see cref="WidthProperty"/>, sits outside it.
     /// </summary>
-    private const double Outset = 4;
+    private const double Gap = 2;
 
     private FocusRing()
     {
@@ -37,7 +37,8 @@ internal sealed class FocusRing
 
     static FocusRing()
     {
-        AdornerLayer.AdornedElementProperty.Changed.AddClassHandler<Border>(OnAdornedElementChanged);
+        AdornerLayer.AdornedElementProperty.Changed.AddClassHandler<Border>((ring, _) => Fit(ring));
+        WidthProperty.Changed.AddClassHandler<Border>((ring, _) => Fit(ring));
     }
 
     public static readonly AttachedProperty<bool> ShownProperty =
@@ -45,12 +46,21 @@ internal sealed class FocusRing
 
     /// <summary>
     /// Set on the ring: its corners follow the control it frames, each the control's own radius
-    /// plus <see cref="Outset"/>, so the ring runs parallel to a pill, a circle or a square. XAML
-    /// cannot say this: the adorned element is a <c>Visual</c>, and only some visuals have a
-    /// corner radius. The ring is built afresh each time a control takes keyboard focus.
+    /// plus the ring's outset (<see cref="Gap"/> plus <see cref="WidthProperty"/>), so the ring
+    /// runs parallel to a pill, a circle or a square. XAML cannot say this: the adorned element
+    /// is a <c>Visual</c>, and only some visuals have a corner radius. The ring is built afresh
+    /// each time a control takes keyboard focus.
     /// </summary>
     public static readonly AttachedProperty<bool> FollowsProperty =
         AvaloniaProperty.RegisterAttached<FocusRing, Border, bool>("Follows");
+
+    /// <summary>
+    /// The outer stroke's width, <c>FiliFocusRingThickness</c>: it sets the ring's
+    /// <c>BorderThickness</c> and moves the ring out by as much, so the inner stroke keeps its
+    /// 2px. XAML cannot add the two: a margin is not a sum of resources.
+    /// </summary>
+    public static readonly AttachedProperty<double> WidthProperty =
+        AvaloniaProperty.RegisterAttached<FocusRing, Border, double>("Width", Gap);
 
     public static bool GetShown(AdornerLayer layer) => layer.GetValue(ShownProperty);
 
@@ -60,32 +70,41 @@ internal sealed class FocusRing
 
     public static void SetFollows(Border ring, bool value) => ring.SetValue(FollowsProperty, value);
 
-    private static void OnAdornedElementChanged(Border ring, AvaloniaPropertyChangedEventArgs e)
+    public static double GetWidth(Border ring) => ring.GetValue(WidthProperty);
+
+    public static void SetWidth(Border ring, double value) => ring.SetValue(WidthProperty, value);
+
+    private static void Fit(Border ring)
     {
         if (!GetFollows(ring))
         {
             return;
         }
 
-        var radius = e.NewValue switch
+        var width = Math.Max(0, GetWidth(ring));
+        var outset = Gap + width;
+        ring.BorderThickness = new Thickness(width);
+        ring.Margin = new Thickness(-outset);
+
+        var radius = AdornerLayer.GetAdornedElement(ring) switch
         {
             TemplatedControl control => control.CornerRadius,
             Border border => border.CornerRadius,
             _ => default,
         };
         ring.CornerRadius = new CornerRadius(
-            radius.TopLeft + Outset, radius.TopRight + Outset, radius.BottomRight + Outset, radius.BottomLeft + Outset);
+            radius.TopLeft + outset, radius.TopRight + outset, radius.BottomRight + outset, radius.BottomLeft + outset);
 
         // The inner stroke sits inside the outer one's width, so its corners are that much
         // tighter; the outer's own radius would leave a sliver of ground at each corner.
         if (ring.Child is Border inner)
         {
-            var (outer, width) = (ring.CornerRadius, ring.BorderThickness);
+            var outer = ring.CornerRadius;
             inner.CornerRadius = new CornerRadius(
-                Math.Max(0, outer.TopLeft - Math.Max(width.Left, width.Top)),
-                Math.Max(0, outer.TopRight - Math.Max(width.Right, width.Top)),
-                Math.Max(0, outer.BottomRight - Math.Max(width.Right, width.Bottom)),
-                Math.Max(0, outer.BottomLeft - Math.Max(width.Left, width.Bottom)));
+                Math.Max(0, outer.TopLeft - width),
+                Math.Max(0, outer.TopRight - width),
+                Math.Max(0, outer.BottomRight - width),
+                Math.Max(0, outer.BottomLeft - width));
         }
     }
 }

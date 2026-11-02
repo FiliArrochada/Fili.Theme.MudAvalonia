@@ -42,7 +42,7 @@
 
     <TextBlock Classes="h5 section" Text="Focus is a ring" />
     <TextBlock Classes="body1 p">
-      <Run Text="Keyboard focus draws a 2px white ring 2px outside the focused control, over the state layer's tint, which alone is no indicator to find. It is " /><Run Classes="code" Text="FiliFocusRing" /><Run Text=", True here as in light and dark; False in the application's resources turns it off in every variant, and here it is the one indicator to keep." />
+      <Run Text="Keyboard focus draws a 4px white ring round the focused control, both of its strokes white here, over the state layer's tint, which alone is no indicator to find. It is " /><Run Classes="code" Text="FiliFocusRing" /><Run Text=", True here as in light and dark; False in the application's resources turns it off in every variant, and here it is the one indicator to keep." />
     </TextBlock>
 
     <TextBlock Classes="h5 section" Text="Your colours in high contrast" />
@@ -75,7 +75,7 @@
       <docs:ParityRow MudBlazor="IsDarkMode" Here="Application.RequestedThemeVariant" Status="Same" Note="Light and Dark are Avalonia's own variants." />
       <docs:ParityRow MudBlazor="(none: high contrast)" Here="FiliThemeVariants.HighContrast" Status="Extra" Note="This package's own third variant, inheriting from Dark; its colours are MudBlazor's hues raised until they clear about 10:1 on black." />
       <docs:ParityRow MudBlazor="Shadow.cs" Here="FiliElevation0 … FiliElevation25" Status="Close" Note="A 1px ring in the line colour in high contrast, where a shadow would not show." />
-      <docs:ParityRow MudBlazor="(none: a focus ring)" Here="FiliFocusRing" Status="Extra" Note="On, as in light and dark: a 2px white ring on keyboard focus." />
+      <docs:ParityRow MudBlazor="(none: a focus ring)" Here="FiliFocusRing" Status="Extra" Note="On, as in light and dark: a 4px white ring on keyboard focus, text-primary and white both white here." />
     </docs:ParityTable>
   </StackPanel>
 </UserControl>

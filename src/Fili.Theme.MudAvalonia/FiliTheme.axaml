@@ -130,7 +130,9 @@
     and text-primary outside that, so a light page looks as it did with one ring. At least one
     contrasts with the surrounding surface, including a coloured app bar. Outside, so not clipped
     to the control. Its corners follow the control's, the inner stroke's 2px tighter
-    (FocusRing.Follows).
+    (FocusRing.Follows). Its colours and the outer stroke's width are FiliFocusRingBrush,
+    FiliFocusRingInnerBrush and FiliFocusRingThickness; the width sets the ring's thickness and
+    how far out it sits, in code, as XAML cannot add the inner stroke's 2px to it.
   -->
   <Style Selector="AdornerLayer">
     <Setter Property="DefaultFocusAdorner" Value="{x:Null}" />
@@ -139,9 +141,10 @@
   <Style Selector="AdornerLayer[(theme|FocusRing.Shown)=True]">
     <Setter Property="DefaultFocusAdorner">
       <FocusAdornerTemplate>
-        <theme:PartBorder BorderBrush="{DynamicResource FiliTextPrimaryBrush}" BorderThickness="2"
-                theme:FocusRing.Follows="True" Margin="-4" AdornerLayer.IsClipEnabled="False">
-          <theme:PartBorder BorderBrush="{DynamicResource FiliWhiteBrush}" BorderThickness="2" />
+        <theme:PartBorder BorderBrush="{DynamicResource FiliFocusRingBrush}"
+                theme:FocusRing.Width="{DynamicResource FiliFocusRingThickness}"
+                theme:FocusRing.Follows="True" AdornerLayer.IsClipEnabled="False">
+          <theme:PartBorder BorderBrush="{DynamicResource FiliFocusRingInnerBrush}" BorderThickness="2" />
         </theme:PartBorder>
       </FocusAdornerTemplate>
     </Setter>

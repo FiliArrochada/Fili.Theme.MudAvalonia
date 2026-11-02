@@ -678,4 +678,17 @@
   -->
   <sys:Boolean x:Key="FiliReducedMotion">False</sys:Boolean>
 
+  <!--
+    The focus ring's look, drawn when FiliFocusRing is True (FocusRing.cs). Not MudBlazor's: it
+    has no ring. NON-VARYING: the two brushes follow the variant through the colours they are
+    built from, text-primary outside and white against the control, so at least one keeps 3:1 on
+    a light page, a dark one and a coloured app bar. The thickness is the outer stroke's; the
+    inner one stays 2px and the ring moves out to make room. An app replaces any of the three in
+    its application's or a window's resources, as the ring is drawn in each window's adorner
+    layer, outside the control's own tree.
+  -->
+  <SolidColorBrush x:Key="FiliFocusRingBrush"      Color="{DynamicResource FiliTextPrimaryColor}" />
+  <SolidColorBrush x:Key="FiliFocusRingInnerBrush" Color="{DynamicResource FiliWhiteColor}" />
+  <sys:Double x:Key="FiliFocusRingThickness">2</sys:Double>
+
 </ResourceDictionary>

@@ -255,6 +255,20 @@ control's own `FocusAdorner` still wins. MudBlazor has none.
 
 - `FiliFocusRing`
 
+The ring's look, the same in every variant (since 0.31.0): `FiliFocusRingBrush`, the outer
+stroke, built from `FiliTextPrimaryColor`; `FiliFocusRingInnerBrush`, the stroke against the
+control, built from `FiliWhiteColor`; and `FiliFocusRingThickness`, a `Double`, the outer stroke's
+width, `2`. A thicker outer stroke moves the ring out by as much, so the inner one keeps its 2px and
+the corners stay parallel to the control's. The ring is drawn in each window's adorner layer, not
+inside the control, so these are set in the application's or a window's `Resources`; in a panel's
+they do nothing. A brand-coloured ring is `FiliFocusRingBrush` set to the primary with
+`FiliFocusRingInnerBrush` `Transparent`; check its 3:1 against every surface it is drawn on, as
+the defaults' pairing is what guarantees it.
+
+- `FiliFocusRingBrush`
+- `FiliFocusRingInnerBrush`
+- `FiliFocusRingThickness`
+
 ## Elevation
 
 MudBlazor's 26 shadow levels as `BoxShadows`, 0 to 25. In high contrast each is a 1px ring instead, in
