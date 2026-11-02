@@ -14,7 +14,8 @@ namespace Fili.Theme.MudAvalonia;
 /// On in every variant: the state layer's tint, MudBlazor's only focus indicator, is about 1.1:1
 /// and a keyboard user loses it. The layer adorns only a control focused by the keyboard, so a
 /// click or a touch draws no ring. False in an app's resources turns it off in every variant,
-/// leaving MudBlazor's tint alone.
+/// leaving MudBlazor's tint alone. The ring uses adjacent text-primary and white strokes so at
+/// least one remains visible against light, dark and coloured surfaces.
 /// </para>
 /// <para>
 /// A property on the layer rather than a lookup, because a style can only test a property, and a
@@ -24,7 +25,10 @@ namespace Fili.Theme.MudAvalonia;
 /// </remarks>
 internal sealed class FocusRing
 {
-    /// <summary>How far outside the control the ring's outer edge is: a 2px gap, then 2px of ring.</summary>
+    /// <summary>
+    /// How far outside the control the ring's outer edge is: 2px of white against the control,
+    /// then 2px of text-primary, where a single ring had a 2px gap.
+    /// </summary>
     private const double Outset = 4;
 
     private FocusRing()
@@ -71,5 +75,17 @@ internal sealed class FocusRing
         };
         ring.CornerRadius = new CornerRadius(
             radius.TopLeft + Outset, radius.TopRight + Outset, radius.BottomRight + Outset, radius.BottomLeft + Outset);
+
+        // The inner stroke sits inside the outer one's width, so its corners are that much
+        // tighter; the outer's own radius would leave a sliver of ground at each corner.
+        if (ring.Child is Border inner)
+        {
+            var (outer, width) = (ring.CornerRadius, ring.BorderThickness);
+            inner.CornerRadius = new CornerRadius(
+                Math.Max(0, outer.TopLeft - Math.Max(width.Left, width.Top)),
+                Math.Max(0, outer.TopRight - Math.Max(width.Right, width.Top)),
+                Math.Max(0, outer.BottomRight - Math.Max(width.Right, width.Bottom)),
+                Math.Max(0, outer.BottomLeft - Math.Max(width.Left, width.Bottom)));
+        }
     }
 }

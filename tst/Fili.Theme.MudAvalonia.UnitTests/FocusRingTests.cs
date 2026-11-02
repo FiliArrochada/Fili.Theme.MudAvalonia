@@ -16,6 +16,8 @@ namespace Fili.Theme.MudAvalonia.UnitTests;
 /// </summary>
 public class FocusRingTests
 {
+    private static readonly string[] RingGrounds = ["FiliBackgroundColor", "FiliSurfaceColor", "FiliAppbarBackgroundColor"];
+
     /// <summary>The variants by name, as a theory's data must be constant.</summary>
     private static ThemeVariant Variant(string name) => name switch
     {
@@ -62,9 +64,61 @@ public class FocusRingTests
     private static Control? Ring(Control control) =>
         AdornerLayer.GetAdornerLayer(control)!.Children.OfType<Control>().SingleOrDefault();
 
+    /// <summary>At least one ring stroke needs 3:1 non-text contrast with the surrounding surface.</summary>
+    [Fact]
+    public Task TheRingContrastsWithItsHostSurface() => UiThread.RunAsync(() =>
+    {
+        var application = Application.Current!;
+        var failures = new List<string>();
+        foreach (var variant in new[] { ThemeVariant.Light, ThemeVariant.Dark, FiliThemeVariants.HighContrast })
+        {
+            Assert.True(application.TryFindResource("FiliTextPrimaryColor", variant, out var textValue));
+            Assert.True(application.TryFindResource("FiliWhiteColor", variant, out var whiteValue));
+            var (text, white) = (Assert.IsType<Color>(textValue), Assert.IsType<Color>(whiteValue));
+            foreach (var key in RingGrounds)
+            {
+                Assert.True(application.TryFindResource(key, variant, out var groundValue), $"{key} did not resolve in {variant}.");
+                var ground = Assert.IsType<Color>(groundValue);
+                var textRatio = Contrast(Over(text, ground), ground);
+                var whiteRatio = Contrast(Over(white, ground), ground);
+                if (Math.Max(textRatio, whiteRatio) < 3)
+                {
+                    failures.Add($"{variant}: {key} has only {Math.Max(textRatio, whiteRatio):0.00}:1 contrast with either ring stroke.");
+                }
+            }
+        }
+
+        Assert.True(failures.Count == 0, string.Join("\n", failures));
+    });
+
+    private static Color Over(Color top, Color ground)
+    {
+        var alpha = top.A / 255d;
+        byte Mix(byte foreground, byte background) =>
+            (byte)Math.Round((alpha * foreground) + ((1 - alpha) * background));
+        return Color.FromRgb(Mix(top.R, ground.R), Mix(top.G, ground.G), Mix(top.B, ground.B));
+    }
+
+    private static double Contrast(Color a, Color b)
+    {
+        static double Luminance(Color color)
+        {
+            static double Linear(byte channel)
+            {
+                var value = channel / 255d;
+                return value <= 0.04045 ? value / 12.92 : Math.Pow((value + 0.055) / 1.055, 2.4);
+            }
+
+            return (0.2126 * Linear(color.R)) + (0.7152 * Linear(color.G)) + (0.0722 * Linear(color.B));
+        }
+
+        var (first, second) = (Luminance(a), Luminance(b));
+        return (Math.Max(first, second) + 0.05) / (Math.Min(first, second) + 0.05);
+    }
+
     /// <summary>
-    /// By default, in every variant, a 2px ring in the variant's text-primary, 2px outside a
-    /// control the keyboard focuses.
+    /// By default, in every variant, a 2px stroke in the variant's text-primary 2px outside a
+    /// control the keyboard focuses, where a single ring stood, round a 2px white stroke against it.
     /// </summary>
     [Theory]
     [InlineData("Light")]
@@ -73,11 +127,15 @@ public class FocusRingTests
     public Task KeyboardFocusDrawsTheRing(string name) => In(Variant(name), () =>
     {
         var ring = Assert.IsAssignableFrom<Border>(Ring(Focus().Keyboard));
+        var inner = Assert.IsAssignableFrom<Border>(ring.Child);
 
         Assert.Equal(new Thickness(2), ring.BorderThickness);
         Assert.Equal(new Thickness(-4), ring.Margin);
+        Assert.Equal(new Thickness(2), inner.BorderThickness);
         Assert.True(Application.Current!.TryFindResource("FiliTextPrimaryColor", Variant(name), out var text));
         Assert.Equal((Color)text!, Assert.IsAssignableFrom<ISolidColorBrush>(ring.BorderBrush).Color);
+        Assert.True(Application.Current!.TryFindResource("FiliWhiteColor", Variant(name), out var white));
+        Assert.Equal((Color)white!, Assert.IsAssignableFrom<ISolidColorBrush>(inner.BorderBrush).Color);
     });
 
     /// <summary>A click moves focus without a ring: the ring is keyboard focus's alone.</summary>
@@ -117,7 +175,8 @@ public class FocusRingTests
 
     /// <summary>
     /// The ring runs parallel to the control's corners, 4px further out: a fixed 4px ring cut
-    /// across a pill and stood off a square.
+    /// across a pill and stood off a square. The inner stroke runs 2px inside it, 2px tighter, so
+    /// no ground shows between the two at a corner.
     /// </summary>
     [Theory]
     [InlineData(0, 4)]
@@ -126,8 +185,10 @@ public class FocusRingTests
     public Task TheRingFollowsTheControlsCorners(double radius, double ring) => UiThread.RunAsync(() =>
     {
         var button = new Button { Content = "Save", CornerRadius = new CornerRadius(radius) };
+        var outer = RingRound(button);
 
-        Assert.Equal(new CornerRadius(ring), RingRound(button).CornerRadius);
+        Assert.Equal(new CornerRadius(ring), outer.CornerRadius);
+        Assert.Equal(new CornerRadius(ring - 2), Assert.IsAssignableFrom<Border>(outer.Child).CornerRadius);
         ((Window)TopLevel.GetTopLevel(button)!).Close();
     });
 
@@ -136,8 +197,10 @@ public class FocusRingTests
     public Task EachCornerFollowsItsOwn() => UiThread.RunAsync(() =>
     {
         var button = new Button { Content = "Save", CornerRadius = new CornerRadius(8, 0, 0, 8) };
+        var outer = RingRound(button);
 
-        Assert.Equal(new CornerRadius(12, 4, 4, 12), RingRound(button).CornerRadius);
+        Assert.Equal(new CornerRadius(12, 4, 4, 12), outer.CornerRadius);
+        Assert.Equal(new CornerRadius(10, 2, 2, 10), Assert.IsAssignableFrom<Border>(outer.Child).CornerRadius);
         ((Window)TopLevel.GetTopLevel(button)!).Close();
     });
 

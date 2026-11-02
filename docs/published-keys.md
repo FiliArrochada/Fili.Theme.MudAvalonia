@@ -246,10 +246,12 @@ are left alone. MudBlazor has no such switch.
 - `FiliReducedMotion`
 
 The focus ring, a `Boolean`: `True` in every variant (since 0.29.0; it was `False` in light and
-dark before). It draws a 2px ring in `FiliTextPrimaryColor`, 2px outside each control focused by
-the keyboard, never one clicked or touched. `False` in an app's resources leaves keyboard focus to
-MudBlazor's state-layer tint alone, in every variant. A control's own `FocusAdorner` still wins.
-MudBlazor has none.
+dark before). It draws two adjacent 2px strokes round each control focused by the keyboard, never
+one clicked or touched: `FiliWhiteColor` against the control and `FiliTextPrimaryColor` outside it, 2px out, where the
+single ring was. The two colours ensure
+at least one stroke contrasts with the surrounding light, dark or coloured surface. `False` in an
+app's resources leaves keyboard focus to MudBlazor's state-layer tint alone, in every variant. A
+control's own `FocusAdorner` still wins. MudBlazor has none.
 
 - `FiliFocusRing`
 

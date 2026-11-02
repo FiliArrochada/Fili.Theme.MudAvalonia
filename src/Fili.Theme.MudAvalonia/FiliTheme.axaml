@@ -125,10 +125,12 @@
     forked AdornerLayer still drew Simple's dashed box round every focused control, on top of the
     tint. A control's own FocusAdorner, set by an app, still draws.
 
-    The focus ring, with FiliFocusRing (FocusRing.cs): on in every variant, off by False. A
-    2px text-primary ring 2px outside the control, so it stands on the ground round the control
-    whatever the control is filled with; outside, so not clipped to it. Its corners follow the
-    control's (FocusRing.Follows): a pill gets a pill, a square a 4px corner.
+    The focus ring, with FiliFocusRing (FocusRing.cs): on in every variant, off by False. Two
+    2px strokes round the control: white against it, where a single ring left a gap,
+    and text-primary outside that, so a light page looks as it did with one ring. At least one
+    contrasts with the surrounding surface, including a coloured app bar. Outside, so not clipped
+    to the control. Its corners follow the control's, the inner stroke's 2px tighter
+    (FocusRing.Follows).
   -->
   <Style Selector="AdornerLayer">
     <Setter Property="DefaultFocusAdorner" Value="{x:Null}" />
@@ -138,8 +140,9 @@
     <Setter Property="DefaultFocusAdorner">
       <FocusAdornerTemplate>
         <theme:PartBorder BorderBrush="{DynamicResource FiliTextPrimaryBrush}" BorderThickness="2"
-                theme:FocusRing.Follows="True" Margin="-4"
-                AdornerLayer.IsClipEnabled="False" />
+                theme:FocusRing.Follows="True" Margin="-4" AdornerLayer.IsClipEnabled="False">
+          <theme:PartBorder BorderBrush="{DynamicResource FiliWhiteBrush}" BorderThickness="2" />
+        </theme:PartBorder>
       </FocusAdornerTemplate>
     </Setter>
   </Style>

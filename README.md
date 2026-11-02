@@ -196,10 +196,10 @@ An app upgrading from a version before the theme keyed controls by type can dele
   in the application's resources stops the ripple and every fade, slide, pulse and transition the
   theme draws, in every window and popup; only an indeterminate progress indicator keeps moving
   ([Reduced motion](https://filiarrochada.github.io/Fili.Theme.MudAvalonia/#reduced-motion)).
-- **Keyboard focus draws a ring**, which MudBlazor does not: a 2px ring in the text colour round
-  the control focused by Tab or the arrows, never one clicked or touched. MudBlazor's state-layer
-  tint alone does not meet WCAG AA's 3:1 for a focus indicator. `FiliFocusRing` set to `False` in
-  the application's resources keeps the tint alone, MudBlazor's look
+- **Keyboard focus draws a ring**, which MudBlazor does not: two adjacent 2px strokes in the text
+  and white colours round the control focused by Tab or the arrows, never one clicked or touched.
+  At least one contrasts with its surrounding surface, including a coloured app bar.
+  `FiliFocusRing` set to `False` in the application's resources keeps the tint alone, MudBlazor's look
   ([Keyboard focus](https://filiarrochada.github.io/Fili.Theme.MudAvalonia/#keyboard-focus)).
 - **A `DataGrid` is MudDataGrid with nothing to opt into.** The package does not depend on
   `Avalonia.Controls.DataGrid`; when the app references it, the theme finds it and themes its

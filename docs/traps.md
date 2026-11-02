@@ -309,8 +309,9 @@ one.
   focused control Simple's dashed box, and nothing had turned it off, so the state layer - the
   only affordance MudBlazor has - had a dotted outline over it. A Style
   in FiliTheme.axaml sets `DefaultFocusAdorner` to null; an app's own `FocusAdorner` still draws.
-  The one default adorner left is the theme's own ring, set where `FiliFocusRing` is True (every
-  variant since 0.29.0, unless an app sets False): `FocusRingTests`. A test that counts a focused
+  The one default adorner left is the theme's own two-stroke ring, set where `FiliFocusRing` is
+  True (every variant since 0.29.0, unless an app sets False): `FocusRingTests` checks both its
+  keyboard-only behavior and 3:1 contrast against page, surface and app-bar grounds. A test that counts a focused
   control's adorners turns the ring off first, or it counts the ring
   (`ThemeCompositionTests.KeyboardFocusDrawsNoFocusRectangle`).
 - **A popup is the root of its own tree.** The theme set the font on `Window` and `UserControl`,
