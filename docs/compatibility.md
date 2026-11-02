@@ -43,7 +43,13 @@ Avalonia 13, a major version here too.
   variant, in its `ThemeDictionaries`) and changes every control; in a control's `Resources` it
   does nothing, because each brush is one application-level object built from it. A `*Brush`
   key or a glyph key may also be set in a control's `Resources`, for that control and what is
-  inside it.
+  inside it. `FiliButtonTextTransform`, `FiliRippleOpacity` and
+  `FiliRippleOpacitySecondary` are dynamic keys: set them in the application's `Resources` to
+  affect every theme control that uses them, in a container's `Resources` to affect matching
+  controls in that subtree, or in one control's `Resources` to affect that control. This scope
+  is covered by `TextTransformTests`, `RippleTests` and `CustomisationTests`; it does not mean
+  every key can be overridden per control. For example, tabs keep their hard-coded uppercase
+  labels regardless of `FiliButtonTextTransform`.
 - **The variant is the application's.** Set `RequestedThemeVariant` on the `Application`. A
   window's or a `ThemeVariantScope`'s own variant does not restyle what is inside it: the brushes
   are the application's, built for the application's variant, and the theme paints with brushes,

@@ -220,7 +220,11 @@ paints nothing in it alone.
 
 The ripple's opacity, a `Double` the same in every variant: `FiliRippleOpacity` (0.1) on most
 controls, `FiliRippleOpacitySecondary` (0.2) on filled buttons, filled chips and coloured FABs.
-Its colour is the control's text. Set both to `0` to turn the ripple off.
+Its colour is the control's text. Set both to `0` in the application's `Resources` to turn off
+all theme ripples. Set either key in a container's `Resources` to override the matching ripple
+hosts below it, or in a ripple host's own `Resources` to override just that control. Filled
+buttons, filled chips and coloured FABs use the secondary key; most other ripple hosts use the
+primary key.
 
 - `FiliRippleOpacity`
 - `FiliRippleOpacitySecondary`
@@ -379,8 +383,12 @@ every window's and popup's size, inherited by all unclassed text: set it in the 
 `Resources` to scale the app's body text. `FiliLineHeight` and `FiliLetterSpacing` are that
 baseline's line height and spacing, for an app's own styles to read; the theme applies neither to
 unclassed text, which keeps the font's natural line height so an app's own large text is not
-clipped. The type ramp's classes and the controls read their own style's keys (`FiliBody2*` and
-so on), so they do not follow `FiliFontSize`.
+clipped. `FiliButtonTextTransform` is dynamic: set it in the application's `Resources` to affect
+all consumers, in a container's `Resources` to affect consumers in that subtree, or in a button's
+`Resources` to change only that button's label. It accepts CSS text-transform values, including
+`none`; tabs remain uppercase because their style hard-codes that case. The type ramp's classes
+and the controls read their own style's keys (`FiliBody2*` and so on), so they do not follow
+`FiliFontSize`.
 
 - `FiliBody1FontSize`
 - `FiliBody1LetterSpacing`

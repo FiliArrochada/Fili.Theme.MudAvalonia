@@ -184,11 +184,14 @@ An app upgrading from a version before the theme keyed controls by type can dele
 
 - **Button labels are uppercase**, as MudBlazor's `Typography.Button.TextTransform` makes them; tabs
   always, as `.mud-tab` hard-codes it. `<x:String x:Key="FiliButtonTextTransform">none</x:String>`
-  in a control's or the application's resources keeps labels as written
+  in the application's resources changes all button labels; in a container's resources it changes
+  labels in that subtree, and in one button's resources it changes only that button's label
   ([Button](https://filiarrochada.github.io/Fili.Theme.MudAvalonia/#button), "Label case").
 - **A press ripples**, from the pointer, on buttons, chips, toggles, tabs, rows and the halo of a
   checkbox, radio or switch. `FiliRippleOpacity` and `FiliRippleOpacitySecondary` set to `0` turn
-  it off, MudBlazor's `Ripple="false"`.
+  it off in the application when set in its resources. Set either key in a container's resources
+  to override matching ripple hosts in that subtree, or in one ripple host's resources to change
+  only that control; filled buttons use `FiliRippleOpacitySecondary`.
 - **Reduced motion is one key**, which MudBlazor does not have: `FiliReducedMotion` set to `True`
   in the application's resources stops the ripple and every fade, slide, pulse and transition the
   theme draws, in every window and popup; only an indeterminate progress indicator keeps moving
