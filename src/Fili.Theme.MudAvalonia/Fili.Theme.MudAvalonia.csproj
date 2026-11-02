@@ -15,7 +15,7 @@
          drops or breaks: FiliThemeVariants today, and anything made public by mistake. Raised to
          each version once nuget.org has it (docs/releasing.md). -->
     <EnablePackageValidation>true</EnablePackageValidation>
-    <PackageValidationBaselineVersion>0.30.0</PackageValidationBaselineVersion>
+    <PackageValidationBaselineVersion>0.31.0</PackageValidationBaselineVersion>
     <!-- FiliThemeVariants' documentation, its one public type's, shows in an app's editor: where
          to set the variant and how to name it in XAML. Packed beside the assembly. -->
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
