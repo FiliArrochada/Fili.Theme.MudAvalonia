@@ -228,7 +228,7 @@
         "dependencies": {
           "Avalonia": "[12.1.4, 13.0.0)",
           "Avalonia.Controls.DataGrid": "[12.1.0, )",
-          "Fili.MudAvalonia.Theme": "[0.30.0, )"
+          "Fili.MudAvalonia.Theme": "[0.31.0, )"
         }
       },
       "Avalonia": {

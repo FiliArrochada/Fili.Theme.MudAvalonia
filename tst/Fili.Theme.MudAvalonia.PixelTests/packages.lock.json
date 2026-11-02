@@ -347,7 +347,7 @@
         "dependencies": {
           "Avalonia": "[12.1.4, 13.0.0)",
           "Avalonia.Controls.DataGrid": "[12.1.0, )",
-          "Fili.MudAvalonia.Theme": "[0.30.0, )"
+          "Fili.MudAvalonia.Theme": "[0.31.0, )"
         }
       },
       "fili.theme.mudavalonia.gallery.desktop": {
@@ -357,7 +357,7 @@
           "Avalonia.Headless": "[12.1.4, )",
           "Avalonia.Skia": "[12.1.4, )",
           "AvaloniaUI.DiagnosticsSupport": "[2.2.3, )",
-          "Fili.Theme.MudAvalonia.Gallery": "[0.30.0, )"
+          "Fili.Theme.MudAvalonia.Gallery": "[0.31.0, )"
         }
       },
       "Avalonia.Controls.DataGrid": {
