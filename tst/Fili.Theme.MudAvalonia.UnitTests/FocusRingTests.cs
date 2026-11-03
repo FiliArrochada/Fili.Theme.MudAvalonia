@@ -1,6 +1,8 @@
 using Avalonia;
 using Avalonia.Controls;
+using Avalonia.Controls.Presenters;
 using Avalonia.Controls.Primitives;
+using Avalonia.Controls.Templates;
 using Avalonia.Input;
 using Avalonia.Media;
 using Avalonia.Styling;
@@ -208,6 +210,62 @@ public class FocusRingTests
 
         Assert.Equal(new Thickness(4), ring.BorderThickness);
         Assert.Equal(new Thickness(-6), ring.Margin);
+    });
+
+    /// <summary>
+    /// FocusAdorner set to null, by a style or on the control, opts that control out of the ring;
+    /// one that leaves it unset takes the ring.
+    /// </summary>
+    [Fact]
+    public Task ANullFocusAdornerOptsAControlOut() => UiThread.RunAsync(() =>
+    {
+        var styled = new Button { Content = "Styled", Classes = { "bare" } };
+        var local = new Button { Content = "Local", FocusAdorner = null };
+        var unset = new Button { Content = "Unset" };
+        var window = new Window { Content = new StackPanel { Children = { styled, local, unset } } };
+        window.Styles.Add(new Style(x => x.OfType<Button>().Class("bare"))
+        {
+            Setters = { new Setter(Control.FocusAdornerProperty, null) },
+        });
+        window.Show();
+        Dispatcher.UIThread.RunJobs();
+
+        Control? RingOnTab(Button button)
+        {
+            button.Focus(NavigationMethod.Tab);
+            Dispatcher.UIThread.RunJobs();
+            Assert.True(button.IsKeyboardFocusWithin);
+            return Ring(button);
+        }
+
+        Assert.Null(RingOnTab(styled));
+        Assert.Null(RingOnTab(local));
+        Assert.IsAssignableFrom<Border>(RingOnTab(unset));
+        window.Close();
+    });
+
+    /// <summary>
+    /// The ring is the adorner layer's, not a template's: a control an app templates itself, with
+    /// a ControlTheme of its own, takes it on keyboard focus like one the theme templates.
+    /// </summary>
+    [Fact]
+    public Task AControlTheAppTemplatesTakesTheRing() => UiThread.RunAsync(() =>
+    {
+        var card = new Button
+        {
+            Content = "Card",
+            Theme = new ControlTheme(typeof(Button))
+            {
+                Setters =
+                {
+                    new Setter(TemplatedControl.TemplateProperty, new FuncControlTemplate<Button>((button, _) =>
+                        new Border { Name = "PART_Root", Child = new ContentPresenter { Name = "PART_ContentPresenter" } })),
+                },
+            },
+        };
+
+        Assert.IsAssignableFrom<Border>(RingRound(card));
+        ((Window)TopLevel.GetTopLevel(card)!).Close();
     });
 
     /// <summary>A control in a window with the ring on, focused by the keyboard; returns the ring.</summary>

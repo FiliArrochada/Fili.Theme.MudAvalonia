@@ -251,7 +251,8 @@ one clicked or touched: `FiliWhiteColor` against the control and `FiliTextPrimar
 single ring was. The two colours ensure
 at least one stroke contrasts with the surrounding light, dark or coloured surface. `False` in an
 app's resources leaves keyboard focus to MudBlazor's state-layer tint alone, in every variant. A
-control's own `FocusAdorner` still wins. MudBlazor has none.
+control's own `FocusAdorner` still wins, and one set to `{x:Null}`, in a style or on the control,
+opts that control out of the ring; a control that leaves it unset takes the ring. MudBlazor has none.
 
 - `FiliFocusRing`
 

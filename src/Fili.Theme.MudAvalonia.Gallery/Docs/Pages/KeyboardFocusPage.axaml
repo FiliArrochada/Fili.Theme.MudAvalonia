@@ -43,7 +43,7 @@
 
     <TextBlock Classes="h5 section" Text="A ring of your own" />
     <TextBlock Classes="body1 p">
-      <Run Text="Avalonia's dashed focus rectangle is off, but a ring an app sets through a control's " /><Run Classes="code" Text="FocusAdorner" /><Run Text=" still draws, in place of the theme's ring where that is on." />
+      <Run Text="Avalonia's dashed focus rectangle is off, but a ring an app sets through a control's " /><Run Classes="code" Text="FocusAdorner" /><Run Text=" still draws, in place of the theme's ring where that is on. Set to null, in a style or on the control, it opts that control out of the ring; left unset, the control takes the ring." />
     </TextBlock>
     <docs:ExampleCard Title="FocusAdorner"
                       Description="Tab to the second button: its FocusAdorner draws a 2px primary ring round the tint. An adorner is clipped to its control, so a ring drawn outside it sets AdornerLayer.IsClipEnabled to False. Set it in a style to give every button one."
