@@ -1832,21 +1832,22 @@
     still wins. Child selectors, not descendant ones: a selector walks the LOGICAL tree, and the
     items of a flyout, context menu or tooltip opened from the button are its logical
     descendants, so `Button.icon.small PathIcon` drew a kebab menu's item icons at 20px
-    (IconButtonPopupTests).
+    (IconButtonPopupTests). A glyph one Panel down is the icon too: the toggled-icon idiom puts
+    Icon and ToggledIcon in a Panel, and an app swaps two glyphs the same way.
   -->
-  <Style Selector="Button.icon > PathIcon, ToggleButton.icon > PathIcon">
+  <Style Selector="Button.icon > PathIcon, ToggleButton.icon > PathIcon, Button.icon > :is(Panel) > PathIcon, ToggleButton.icon > :is(Panel) > PathIcon">
     <Setter Property="Width" Value="24" />
     <Setter Property="Height" Value="24" />
   </Style>
-  <Style Selector="Button.icon.small > PathIcon, ToggleButton.icon.small > PathIcon">
+  <Style Selector="Button.icon.small > PathIcon, ToggleButton.icon.small > PathIcon, Button.icon.small > :is(Panel) > PathIcon, ToggleButton.icon.small > :is(Panel) > PathIcon">
     <Setter Property="Width" Value="20" />
     <Setter Property="Height" Value="20" />
   </Style>
-  <Style Selector="Button.icon.large > PathIcon, ToggleButton.icon.large > PathIcon">
+  <Style Selector="Button.icon.large > PathIcon, ToggleButton.icon.large > PathIcon, Button.icon.large > :is(Panel) > PathIcon, ToggleButton.icon.large > :is(Panel) > PathIcon">
     <Setter Property="Width" Value="36" />
     <Setter Property="Height" Value="36" />
   </Style>
-  <Style Selector="Button.icon.large.outlined > PathIcon, Button.icon.large.filled > PathIcon, ToggleButton.icon.large.outlined > PathIcon, ToggleButton.icon.large.filled > PathIcon">
+  <Style Selector="Button.icon.large.outlined > PathIcon, Button.icon.large.filled > PathIcon, ToggleButton.icon.large.outlined > PathIcon, ToggleButton.icon.large.filled > PathIcon, Button.icon.large.outlined > :is(Panel) > PathIcon, Button.icon.large.filled > :is(Panel) > PathIcon, ToggleButton.icon.large.outlined > :is(Panel) > PathIcon, ToggleButton.icon.large.filled > :is(Panel) > PathIcon">
     <Setter Property="Width" Value="32" />
     <Setter Property="Height" Value="32" />
   </Style>
