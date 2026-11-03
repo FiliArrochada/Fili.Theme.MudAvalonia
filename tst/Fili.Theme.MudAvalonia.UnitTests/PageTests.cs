@@ -125,6 +125,31 @@ public class PageTests
     });
 
     /// <summary>
+    /// The selected tab follows an app's own primary, not the forked TabbedPage's
+    /// TabbedPageTabItemHeaderForegroundSelected: that is ThemeAccentColor, fixed per variant and
+    /// equal to the default primary, so only an app's own primary tells the two apart.
+    /// </summary>
+    [Fact]
+    public Task ATabbedPagesSelectedTabFollowsAnAppsPrimary() => UiThread.RunAsync(() =>
+    {
+        var application = Application.Current!;
+        application.Resources.ThemeDictionaries[application.ActualThemeVariant] = new ResourceDictionary { ["FiliPrimaryColor"] = Colors.Orange };
+        try
+        {
+            var tabs = new TabbedPage { Width = 600, Height = 300 };
+            tabs.Pages = new List<Page> { new ContentPage { Header = "Home" }, new ContentPage { Header = "Recent" } };
+            Matrix.Show(tabs);
+            var selected = tabs.GetVisualDescendants().OfType<TabItem>().Single(i => i.IsSelected);
+
+            Assert.Equal(Colors.Orange, Matrix.Colour(selected.Foreground));
+        }
+        finally
+        {
+            application.Resources.ThemeDictionaries.Remove(application.ActualThemeVariant);
+        }
+    });
+
+    /// <summary>
     /// A Carousel is MudCarousel: NavigateBefore and NavigateNext icon buttons at the sides and the
     /// bullets along the bottom, at .75; the buttons move it, and a bullet follows the selection.
     /// </summary>
