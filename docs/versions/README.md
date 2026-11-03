@@ -10,7 +10,8 @@ Each version has its own page: what changed, and, where existing markup changes 
 | Version | Upgrading |
 |---|---|
 | *[Unreleased](unreleased.md)* | Nothing to change |
-| **[0.32.0](0.32.0.md)** | [Upgrading from 0.31.0](0.32.0.md#upgrading-from-0310-to-0320) |
+| **[0.33.0](0.33.0.md)** | [Upgrading from 0.32.0](0.33.0.md#upgrading-from-0320-to-0330) |
+| [0.32.0](0.32.0.md) | [Upgrading from 0.31.0](0.32.0.md#upgrading-from-0310-to-0320) |
 | [0.31.0](0.31.0.md) | [Upgrading from 0.30.0](0.31.0.md#upgrading-from-0300-to-0310) |
 | [0.30.0](0.30.0.md) | [Upgrading from 0.29.0](0.30.0.md#upgrading-from-0290-to-0300) |
 | [0.29.0](0.29.0.md) | [Upgrading from 0.28.0](0.29.0.md#upgrading-from-0280-to-0290) |
