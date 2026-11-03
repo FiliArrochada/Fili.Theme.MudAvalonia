@@ -104,11 +104,11 @@ permanent, and this one already has downloads. Everything else - the assembly, t
 the `avares://` paths and the repository - is `Fili.Theme.MudAvalonia`.
 
 ```xml
-<PackageReference Include="Fili.MudAvalonia.Theme" Version="0.31.0" />
+<PackageReference Include="Fili.MudAvalonia.Theme" Version="0.32.0" />
 ```
 
 Under Central Package Management the version goes in `Directory.Packages.props` instead, as
-`<PackageVersion Include="Fili.MudAvalonia.Theme" Version="0.31.0" />`, and the reference stays
+`<PackageVersion Include="Fili.MudAvalonia.Theme" Version="0.32.0" />`, and the reference stays
 version-less.
 
 **Keep every `Avalonia*` package on one version, 12.1.4 or later.** The theme needs `Avalonia`
