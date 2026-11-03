@@ -41,7 +41,7 @@ Avalonia 13, a major version here too.
   `Double` or a `Thickness`, a glyph a `Geometry`.
 - **Where an app may set it.** A `*Color` key is set in the application's `Resources` (per
   variant, in its `ThemeDictionaries`) and changes every control; in a control's `Resources` it
-  does nothing, because each brush is one application-level object built from it. A `*Brush`
+  does nothing, because each brush resolves its colour from the application's. A `*Brush`
   key or a glyph key may also be set in a control's `Resources`, for that control and what is
   inside it. `FiliButtonTextTransform`, `FiliRippleOpacity` and
   `FiliRippleOpacitySecondary` are dynamic keys: set them in the application's `Resources` to
@@ -50,11 +50,11 @@ Avalonia 13, a major version here too.
   is covered by `TextTransformTests`, `RippleTests` and `CustomisationTests`; it does not mean
   every key can be overridden per control. For example, tabs keep their hard-coded uppercase
   labels regardless of `FiliButtonTextTransform`.
-- **The variant is the application's.** Set `RequestedThemeVariant` on the `Application`. A
-  window's or a `ThemeVariantScope`'s own variant does not restyle what is inside it: the brushes
-  are the application's, built for the application's variant, and the theme paints with brushes,
-  so a window asking for Dark under a Light application still looks light. Per-scope brushes
-  would be a major version.
+- **A variant applies where it is set.** `RequestedThemeVariant` on the `Application` sets every
+  window's; a window's or a `ThemeVariantScope`'s own variant restyles what is inside it, as each
+  brush is declared per variant (`VariantScopeTests`), the keyboard focus ring's included. A
+  lookup in code that names no variant, `FindResource(key)`, finds the brush for the
+  application's variant.
 - **A plain style outranks an app's `ControlTheme`.** The theme gives `SplitView` its pane
   lengths and background, `DrawerPage` its compact length and `DatePicker` its font and corner
   radius from plain styles (by type, no class), and in Avalonia a style

@@ -4,9 +4,10 @@ Every resource key an app may name: in a `{DynamicResource}`, or set in the appl
 `Resources` to override the theme. Within a major version none is removed or renamed; see
 [Compatibility](compatibility.md).
 
-**A colour is overridden per control by its `*Brush` key, never its `*Color`.** Each brush is one
-application-level object built from its colour, so a `*Color` key takes effect only in the
-application's `Resources` (per variant, in its `ThemeDictionaries`), where it changes every control.
+**A colour is overridden per control by its `*Brush` key, never its `*Color`.** Each brush resolves
+its colour from the application's resources, so a `*Color` key takes effect only in the
+application's `Resources` (per variant, in its `ThemeDictionaries`), where it changes every control,
+in every window and `ThemeVariantScope` of that variant.
 In a control's `Resources` it does nothing; `FiliPrimaryBrush` there recolours that control and
 what is inside it.
 
@@ -260,9 +261,10 @@ The ring's look, the same in every variant (since 0.31.0): `FiliFocusRingBrush`,
 stroke, built from `FiliTextPrimaryColor`; `FiliFocusRingInnerBrush`, the stroke against the
 control, built from `FiliWhiteColor`; and `FiliFocusRingThickness`, a `Double`, the outer stroke's
 width, `2`. A thicker outer stroke moves the ring out by as much, so the inner one keeps its 2px and
-the corners stay parallel to the control's. The ring is drawn in each window's adorner layer, not
-inside the control, so these are set in the application's or a window's `Resources`; in a panel's
-they do nothing. A brand-coloured ring is `FiliFocusRingBrush` set to the primary with
+the corners stay parallel to the control's. The two brushes are looked up from the control the ring
+frames, so they follow its variant and may be set in the application's, a window's or a container's
+`Resources`; the thickness is read by each window's adorner layer, where the ring is drawn, so it
+is set in the application's or a window's. A brand-coloured ring is `FiliFocusRingBrush` set to the primary with
 `FiliFocusRingInnerBrush` `Transparent`; check its 3:1 against every surface it is drawn on, as
 the defaults' pairing is what guarantees it.
 

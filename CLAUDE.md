@@ -110,7 +110,10 @@ that pins each, and the control-specific ones.
   needs every variant to declare it. High contrast inherits from Dark silently
   (`EveryPaletteTokenHasItsOwnValue`).
 - `x:Key="HighContrast"` is not a theme variant; reach it through `x:Static FiliThemeVariants`.
-  Every brush is shared app-wide: set the variant on the `Application`, not a window.
+- Every brush is declared in each variant's dictionary, written once in Light's and copied by
+  `ThemeColourGenerator`, so a window or `ThemeVariantScope` paints in its own variant; a lookup
+  naming no variant finds `FallbackBrushes.axaml`, which must stay out of `Palette.axaml`'s merged
+  set (a plain entry there shadows every variant dictionary's).
 
 **Templates and controls**
 

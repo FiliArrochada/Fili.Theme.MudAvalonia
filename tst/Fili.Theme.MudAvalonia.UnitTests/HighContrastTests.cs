@@ -497,12 +497,9 @@ public class HighContrastTests
     }
 
     /// <remarks>
-    /// The variant goes on the APPLICATION, not on the window, and that is not incidental. Every
-    /// brush in this theme is one shared object declared once at application level whose Color is
-    /// a DynamicResource, so the colour it reports follows the application's variant — a window
-    /// asking for a different one gets the same brush and therefore the same colour. It is the
-    /// reason a per-window variant does not work in this package, and it applies to every token,
-    /// not just this one.
+    /// The variant goes on the APPLICATION here, as the fill is read from the application's
+    /// resources for the variant asked; a window or scope with a variant of its own paints with
+    /// that variant's brushes too (VariantScopeTests).
     /// </remarks>
     private static Color PaneBorderFill(ThemeVariant variant)
     {

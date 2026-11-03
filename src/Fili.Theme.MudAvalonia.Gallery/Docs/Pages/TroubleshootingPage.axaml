@@ -52,13 +52,13 @@
                      NavigateUri="https://github.com/FiliArrochada/Fili.Theme.MudAvalonia/blob/master/docs/published-keys.md"
                      Margin="0,0,0,16" />
     <TextBlock Classes="body1 p">
-      <Run FontWeight="Bold" Text="A *Color key in a control's Resources does nothing." /><Run Text=" Each brush is one application-level object built from its colour, so a colour is set in the application's resources. To recolour one control, set the " /><Run Classes="code" Text="*Brush" /><Run Text=" key in its resources instead." />
+      <Run FontWeight="Bold" Text="A *Color key in a control's Resources does nothing." /><Run Text=" Each brush resolves its colour from the application's resources, so a colour is set there. To recolour one control, set the " /><Run Classes="code" Text="*Brush" /><Run Text=" key in its resources instead." />
     </TextBlock>
     <TextBlock Classes="body1 p">
       <Run FontWeight="Bold" Text="High contrast shows your dark colours." /><Run Text=" It inherits from Dark, so a key overridden in Light and Dark only falls back to the dark override. Declare the high-contrast variant too." />
     </TextBlock>
     <TextBlock Classes="body1 p">
-      <Run FontWeight="Bold" Text="FiliReducedMotion and the FiliFocusRing keys are read by each window." /><Run Text=" Set them in the application's resources or a window's; in a panel's resources inside a window they do nothing." />
+      <Run FontWeight="Bold" Text="FiliReducedMotion, FiliFocusRing and FiliFocusRingThickness are read by each window." /><Run Text=" Set them in the application's resources or a window's; in a panel's resources inside a window they do nothing." />
     </TextBlock>
     <TextBlock Classes="body1 p">
       <Run FontWeight="Bold" Text="A value that never changes with the variant" /><Run Text=" is a StaticResource where a DynamicResource belongs: it is looked up once, in the variant the app started in. Name a theme key with " /><Run Classes="code" Text="{}{DynamicResource}" /><Run Text="." />
@@ -80,11 +80,6 @@
     </TextBlock>
     <TextBlock Classes="body1 p">
       <Run FontWeight="Bold" Text="A class does something only on the controls its page names." /><Run Text=" Each component page says which Avalonia control a class goes on; on another it is just a word." />
-    </TextBlock>
-
-    <TextBlock Classes="h5 section" Text="A window ignores its own variant" />
-    <TextBlock Classes="body1 p">
-      <Run Text="Set " /><Run Classes="code" Text="RequestedThemeVariant" /><Run Text=" on the Application. A window's or a ThemeVariantScope's own variant does not restyle what is inside it: the theme paints with brushes, and every brush is the application's, built for the application's variant. A window asking for Dark under a Light application still looks light." />
     </TextBlock>
 
     <TextBlock Classes="h5 section" Text="Still stuck" />

@@ -504,6 +504,6 @@ public class RemainingOptionsTests
 
         item.IsEnabled = false;
         Dispatcher.UIThread.RunJobs();
-        Assert.Same(item.FindResource("FiliActionDisabledBrush"), glyph.Fill);
+        Assert.Same(item.FindResource(item.ActualThemeVariant, "FiliActionDisabledBrush"), glyph.Fill);
     });
 }

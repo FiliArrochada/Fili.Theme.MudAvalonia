@@ -188,9 +188,18 @@ one.
   comes back subtly wrong, usually as a translucent line over a black ground, which is to say no
   line. Resolution tests therefore prove nothing here: `EveryPaletteTokenHasItsOwnValue` asserts
   each token DIFFERS from dark, which is the only evidence the key was actually written.
-- **Every brush in this package is one shared application-level object** whose `Color` is a
-  `DynamicResource`. A per-WINDOW `RequestedThemeVariant` therefore does not work: the window gets
-  the same brush instance and so the same colour. Set the variant on the `Application`.
+- **A brush declared outside the variant dictionaries is one object for every window**, its
+  `Color` a `DynamicResource` resolved for the application's variant, so a window or
+  `ThemeVariantScope` asking for another variant got the same colour: half a window followed it,
+  until 0.32.0. Every brush is now declared in each variant's dictionary, where its `DynamicResource`
+  resolves for that dictionary's variant (written once in Light's, copied by
+  `ThemeColourGenerator`). High contrast needs its own copy: a brush it lacks falls back to Dark's,
+  which resolves Dark's colours. `VariantScopeTests`.
+- **A plain entry anywhere in a dictionary's merged set beats a variant dictionary's.** A lookup
+  that names no variant (`FindResource(key)`) never searches a variant dictionary, so every brush
+  is declared once more in `FallbackBrushes.axaml`. Merged beside `Palette.axaml` it shadowed every
+  per-variant brush, whichever end of the list it sat at; it lives in a nested `Styles` in
+  `FiliBaseTheme.axaml`, which a lookup reaches only after the dictionary above came up empty.
 - **Elevation does not vary between light and dark**, matching MudBlazor - but it DOES vary
   in high contrast, where every raised level becomes a hard 1px ring instead of a shadow. That is
   what gives the variant its separation without a single control template knowing it exists.

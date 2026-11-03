@@ -26,9 +26,9 @@
     <!--
       Deliberately NOT theme-varying. A Material tooltip is a dark chip in light and dark alike -
       it reads as an annotation floating above the UI rather than as another surface of it. The
-      palette has no slot for that, so FiliTooltipBackgroundBrush is declared outside the theme
-      dictionaries in Palette.axaml, next to the elevation ladder which is non-varying for the
-      same kind of reason.
+      palette has no slot for that, so FiliTooltipBackgroundColor is the same #616161 in light
+      and dark (Palette.axaml), as the elevation ladder is non-varying for the same kind of
+      reason; high contrast gives it its own.
     -->
     <Setter Property="Background" Value="{DynamicResource FiliTooltipBackgroundBrush}" />
     <Setter Property="Foreground" Value="#FFFFFFFF" />

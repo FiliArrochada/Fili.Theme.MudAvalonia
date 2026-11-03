@@ -37,7 +37,11 @@ internal sealed class FocusRing
 
     static FocusRing()
     {
-        AdornerLayer.AdornedElementProperty.Changed.AddClassHandler<Border>((ring, _) => Fit(ring));
+        AdornerLayer.AdornedElementProperty.Changed.AddClassHandler<Border>((ring, _) =>
+        {
+            Paint(ring);
+            Fit(ring);
+        });
         WidthProperty.Changed.AddClassHandler<Border>((ring, _) => Fit(ring));
     }
 
@@ -73,6 +77,27 @@ internal sealed class FocusRing
     public static double GetWidth(Border ring) => ring.GetValue(WidthProperty);
 
     public static void SetWidth(Border ring, double value) => ring.SetValue(WidthProperty, value);
+
+    /// <summary>
+    /// The ring's two brushes, looked up from the control it frames rather than from the adorner
+    /// layer it sits in: the layer is the window's, so a ring round a control in a
+    /// <c>ThemeVariantScope</c> took the window's variant, and a brush set in a container's
+    /// resources never reached it. XAML cannot say this: a template's lookups start at the
+    /// element they set, which here is the layer's child.
+    /// </summary>
+    private static void Paint(Border ring)
+    {
+        if (!GetFollows(ring) || AdornerLayer.GetAdornedElement(ring) is not Control control)
+        {
+            return;
+        }
+
+        ring.Bind(Border.BorderBrushProperty, control.GetResourceObservable("FiliFocusRingBrush"));
+        if (ring.Child is Border inner)
+        {
+            inner.Bind(Border.BorderBrushProperty, control.GetResourceObservable("FiliFocusRingInnerBrush"));
+        }
+    }
 
     private static void Fit(Border ring)
     {

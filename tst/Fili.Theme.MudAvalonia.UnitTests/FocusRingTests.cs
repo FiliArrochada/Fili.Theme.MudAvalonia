@@ -268,6 +268,51 @@ public class FocusRingTests
         ((Window)TopLevel.GetTopLevel(card)!).Close();
     });
 
+    /// <summary>
+    /// The ring's brushes are looked up from the control it frames, not from the window's adorner
+    /// layer: round a control in a Dark scope in a Light app it is Dark's text-primary, and a
+    /// brush set in a container's resources colours the rings inside it.
+    /// </summary>
+    [Fact]
+    public Task TheRingTakesItsControlsScope() => UiThread.RunAsync(() =>
+    {
+        var application = Application.Current!;
+        var previous = application.RequestedThemeVariant;
+        application.RequestedThemeVariant = ThemeVariant.Light;
+        try
+        {
+            var dark = new Button { Content = "Dark" };
+            var accented = new Button { Content = "Accented" };
+            var accent = new SolidColorBrush(Colors.Goldenrod);
+            var content = new StackPanel
+            {
+                Children =
+                {
+                    new ThemeVariantScope { RequestedThemeVariant = ThemeVariant.Dark, Child = dark },
+                    new Border { Resources = { ["FiliFocusRingBrush"] = accent }, Child = accented },
+                },
+            };
+            var window = new Window { Content = content };
+            window.Show();
+            Dispatcher.UIThread.RunJobs();
+
+            dark.Focus(NavigationMethod.Tab);
+            Dispatcher.UIThread.RunJobs();
+            var ring = Assert.IsAssignableFrom<Border>(Ring(dark));
+            Assert.True(application.TryFindResource("FiliTextPrimaryColor", ThemeVariant.Dark, out var text));
+            Assert.Equal((Color)text!, Assert.IsAssignableFrom<ISolidColorBrush>(ring.BorderBrush).Color);
+
+            accented.Focus(NavigationMethod.Tab);
+            Dispatcher.UIThread.RunJobs();
+            Assert.Same(accent, Assert.IsAssignableFrom<Border>(Ring(accented)).BorderBrush);
+            window.Close();
+        }
+        finally
+        {
+            application.RequestedThemeVariant = previous;
+        }
+    });
+
     /// <summary>A control in a window with the ring on, focused by the keyboard; returns the ring.</summary>
     private static Border RingRound(Control control)
     {

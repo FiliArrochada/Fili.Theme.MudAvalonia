@@ -124,7 +124,7 @@ public class CustomComponentsTests
         {
             Assert.All(avatars, a => Assert.Equal(new Size(size, size), a.Bounds.Size));
             Assert.All(avatars, a => Assert.Equal(new Thickness(2), a.BorderThickness));
-            Assert.All(avatars, a => Assert.Same(window.FindResource(ring), a.BorderBrush));
+            Assert.All(avatars, a => Assert.Same(window.FindResource(window.ActualThemeVariant, ring), a.BorderBrush));
             Assert.Equal(Enumerable.Range(1, avatars.Count).Reverse(), avatars.Select(a => a.ZIndex));
             for (var i = 1; i < avatars.Count; i++)
             {

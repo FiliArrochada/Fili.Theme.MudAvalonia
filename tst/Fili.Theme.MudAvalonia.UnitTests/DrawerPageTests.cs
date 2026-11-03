@@ -32,7 +32,7 @@ public class DrawerPageTests
 
     private static object Resource(string key)
     {
-        Assert.True(Application.Current!.TryFindResource(key, out var value), $"{key} did not resolve.");
+        Assert.True(Application.Current!.TryFindResource(key, Application.Current!.ActualThemeVariant, out var value), $"{key} did not resolve.");
         return value!;
     }
 

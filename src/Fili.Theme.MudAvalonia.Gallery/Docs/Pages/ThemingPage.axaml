@@ -66,7 +66,7 @@
 
     <TextBlock Classes="h5 section" Text="Variants" />
     <TextBlock Classes="body1 p">
-      <Run Text="Light and Dark are Avalonia's own variants. High contrast is " /><Run Classes="code" Text="FiliThemeVariants.HighContrast" /><Run Text=", the package's one public type, and inherits from Dark: declare its colours too if you override Dark's. Set the variant on the Application, not a window. The switch in this site's app bar changes all three." />
+      <Run Text="Light and Dark are Avalonia's own variants. High contrast is " /><Run Classes="code" Text="FiliThemeVariants.HighContrast" /><Run Text=", the package's one public type, and inherits from Dark: declare its colours too if you override Dark's. Set the variant on the Application for every window, or on a window or a ThemeVariantScope for what is inside it. The switch in this site's app bar changes all three." />
     </TextBlock>
     <StackPanel Orientation="Horizontal" Spacing="8" Margin="0,0,0,16">
       <TextBlock Classes="body1" Text="See also:" VerticalAlignment="Center" />

@@ -18,7 +18,7 @@
       <Run Text="Not " /><Run Classes="code" Text="x:Key=&quot;HighContrast&quot;" /><Run Text=": Avalonia's ThemeVariant type converter accepts the built-in variants only, and throws NotSupportedException while the merged dictionary is being built, which takes the rest of the theme down with it. A custom variant is reachable from XAML only through " /><Run Classes="code" Text="x:Static" /><Run Text="." />
     </TextBlock>
     <TextBlock Classes="body1 p">
-      <Run Text="Set the variant on the Application, not on a window: every brush is one application-level object, shared by every window." />
+      <Run Text="Set the variant on the Application for every window, or on a window or a ThemeVariantScope for what is inside it: each brush is declared in every variant, so a high contrast panel in a dark app is high contrast." />
     </TextBlock>
 
     <TextBlock Classes="h5 section" Text="How it is built" />

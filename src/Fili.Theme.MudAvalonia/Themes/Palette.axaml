@@ -208,6 +208,150 @@
       <Color x:Key="FiliScrollbarThumbColor">#C4C4C4</Color>
       <Color x:Key="FiliScrollbarThumbHoverColor">#A6A6A6</Color>
 
+
+      <!--
+        Brushes, one set per variant, each built with DynamicResource from the colours above.
+        A brush in a variant's dictionary resolves its colour for THAT variant, so a window or a
+        ThemeVariantScope asking for a variant other than the application's paints with that
+        variant's brushes (VariantScopeTests), and a colour an app sets in its application's
+        resources still reaches every brush. DynamicResource is mandatory: StaticResource would
+        freeze the colour (ResourceResolutionTests). Written once, here: ThemeColourGenerator
+        copies the block into Dark and High contrast. High contrast needs its own copy, as a key
+        it lacks falls back to Dark's brush, which resolves Dark's colours.
+      -->
+      <!-- BRUSHES: copied into the other variants by ThemeColourGenerator -->
+      <SolidColorBrush x:Key="FiliPrimaryBrush"               Color="{DynamicResource FiliPrimaryColor}" />
+      <SolidColorBrush x:Key="FiliPrimaryContrastTextBrush"   Color="{DynamicResource FiliPrimaryContrastTextColor}" />
+      <SolidColorBrush x:Key="FiliSecondaryBrush"             Color="{DynamicResource FiliSecondaryColor}" />
+      <SolidColorBrush x:Key="FiliSecondaryContrastTextBrush" Color="{DynamicResource FiliSecondaryContrastTextColor}" />
+      <SolidColorBrush x:Key="FiliTertiaryBrush"              Color="{DynamicResource FiliTertiaryColor}" />
+      <SolidColorBrush x:Key="FiliTertiaryContrastTextBrush"  Color="{DynamicResource FiliTertiaryContrastTextColor}" />
+
+      <SolidColorBrush x:Key="FiliInfoBrush"                Color="{DynamicResource FiliInfoColor}" />
+      <SolidColorBrush x:Key="FiliInfoContrastTextBrush"    Color="{DynamicResource FiliInfoContrastTextColor}" />
+      <SolidColorBrush x:Key="FiliSuccessBrush"             Color="{DynamicResource FiliSuccessColor}" />
+      <SolidColorBrush x:Key="FiliSuccessContrastTextBrush" Color="{DynamicResource FiliSuccessContrastTextColor}" />
+      <SolidColorBrush x:Key="FiliWarningBrush"             Color="{DynamicResource FiliWarningColor}" />
+      <SolidColorBrush x:Key="FiliWarningContrastTextBrush" Color="{DynamicResource FiliWarningContrastTextColor}" />
+      <SolidColorBrush x:Key="FiliErrorBrush"               Color="{DynamicResource FiliErrorColor}" />
+      <SolidColorBrush x:Key="FiliErrorContrastTextBrush"   Color="{DynamicResource FiliErrorContrastTextColor}" />
+      <SolidColorBrush x:Key="FiliDarkBrush"    Color="{DynamicResource FiliDarkColor}" />
+      <SolidColorBrush x:Key="FiliDarkContrastTextBrush" Color="{DynamicResource FiliDarkContrastTextColor}" />
+
+      <SolidColorBrush x:Key="FiliSecondaryHoverBrush" Color="{DynamicResource FiliSecondaryHoverColor}" />
+      <SolidColorBrush x:Key="FiliTertiaryHoverBrush" Color="{DynamicResource FiliTertiaryHoverColor}" />
+      <SolidColorBrush x:Key="FiliInfoHoverBrush" Color="{DynamicResource FiliInfoHoverColor}" />
+      <SolidColorBrush x:Key="FiliSuccessHoverBrush" Color="{DynamicResource FiliSuccessHoverColor}" />
+      <SolidColorBrush x:Key="FiliWarningHoverBrush" Color="{DynamicResource FiliWarningHoverColor}" />
+      <SolidColorBrush x:Key="FiliErrorHoverBrush" Color="{DynamicResource FiliErrorHoverColor}" />
+      <SolidColorBrush x:Key="FiliDarkHoverBrush" Color="{DynamicResource FiliDarkHoverColor}" />
+      <SolidColorBrush x:Key="FiliActionDefaultHoverBrush" Color="{DynamicResource FiliActionDefaultHoverColor}" />
+
+      <SolidColorBrush x:Key="FiliPrimaryDarkenBrush" Color="{DynamicResource FiliPrimaryDarkenColor}" />
+      <SolidColorBrush x:Key="FiliSecondaryDarkenBrush" Color="{DynamicResource FiliSecondaryDarkenColor}" />
+      <SolidColorBrush x:Key="FiliTertiaryDarkenBrush" Color="{DynamicResource FiliTertiaryDarkenColor}" />
+      <SolidColorBrush x:Key="FiliInfoDarkenBrush" Color="{DynamicResource FiliInfoDarkenColor}" />
+      <SolidColorBrush x:Key="FiliSuccessDarkenBrush" Color="{DynamicResource FiliSuccessDarkenColor}" />
+      <SolidColorBrush x:Key="FiliWarningDarkenBrush" Color="{DynamicResource FiliWarningDarkenColor}" />
+      <SolidColorBrush x:Key="FiliErrorDarkenBrush" Color="{DynamicResource FiliErrorDarkenColor}" />
+      <SolidColorBrush x:Key="FiliDarkDarkenBrush" Color="{DynamicResource FiliDarkDarkenColor}" />
+      <SolidColorBrush x:Key="FiliPrimaryLightenBrush" Color="{DynamicResource FiliPrimaryLightenColor}" />
+      <SolidColorBrush x:Key="FiliSecondaryLightenBrush" Color="{DynamicResource FiliSecondaryLightenColor}" />
+      <SolidColorBrush x:Key="FiliTertiaryLightenBrush" Color="{DynamicResource FiliTertiaryLightenColor}" />
+      <SolidColorBrush x:Key="FiliInfoLightenBrush" Color="{DynamicResource FiliInfoLightenColor}" />
+      <SolidColorBrush x:Key="FiliSuccessLightenBrush" Color="{DynamicResource FiliSuccessLightenColor}" />
+      <SolidColorBrush x:Key="FiliWarningLightenBrush" Color="{DynamicResource FiliWarningLightenColor}" />
+      <SolidColorBrush x:Key="FiliErrorLightenBrush" Color="{DynamicResource FiliErrorLightenColor}" />
+      <SolidColorBrush x:Key="FiliDarkLightenBrush" Color="{DynamicResource FiliDarkLightenColor}" />
+      <SolidColorBrush x:Key="FiliPrimaryAlertTextBrush" Color="{DynamicResource FiliPrimaryAlertTextColor}" />
+      <SolidColorBrush x:Key="FiliSecondaryAlertTextBrush" Color="{DynamicResource FiliSecondaryAlertTextColor}" />
+      <SolidColorBrush x:Key="FiliTertiaryAlertTextBrush" Color="{DynamicResource FiliTertiaryAlertTextColor}" />
+      <SolidColorBrush x:Key="FiliInfoAlertTextBrush" Color="{DynamicResource FiliInfoAlertTextColor}" />
+      <SolidColorBrush x:Key="FiliSuccessAlertTextBrush" Color="{DynamicResource FiliSuccessAlertTextColor}" />
+      <SolidColorBrush x:Key="FiliWarningAlertTextBrush" Color="{DynamicResource FiliWarningAlertTextColor}" />
+      <SolidColorBrush x:Key="FiliErrorAlertTextBrush" Color="{DynamicResource FiliErrorAlertTextColor}" />
+      <SolidColorBrush x:Key="FiliDarkAlertTextBrush" Color="{DynamicResource FiliDarkAlertTextColor}" />
+      <SolidColorBrush x:Key="FiliChipHoverBrush" Color="{DynamicResource FiliChipHoverColor}" />
+      <SolidColorBrush x:Key="FiliBlackBrush"   Color="{DynamicResource FiliBlackColor}" />
+      <SolidColorBrush x:Key="FiliWhiteBrush"   Color="{DynamicResource FiliWhiteColor}" />
+
+      <SolidColorBrush x:Key="FiliTextPrimaryBrush"   Color="{DynamicResource FiliTextPrimaryColor}" />
+      <SolidColorBrush x:Key="FiliTextSecondaryBrush" Color="{DynamicResource FiliTextSecondaryColor}" />
+      <SolidColorBrush x:Key="FiliTextDisabledBrush"  Color="{DynamicResource FiliTextDisabledColor}" />
+
+      <SolidColorBrush x:Key="FiliActionDefaultBrush"            Color="{DynamicResource FiliActionDefaultColor}" />
+      <SolidColorBrush x:Key="FiliActionDisabledBrush"           Color="{DynamicResource FiliActionDisabledColor}" />
+      <SolidColorBrush x:Key="FiliActionDisabledBackgroundBrush" Color="{DynamicResource FiliActionDisabledBackgroundColor}" />
+
+      <SolidColorBrush x:Key="FiliBackgroundBrush"     Color="{DynamicResource FiliBackgroundColor}" />
+      <SolidColorBrush x:Key="FiliBackgroundGrayBrush" Color="{DynamicResource FiliBackgroundGrayColor}" />
+      <SolidColorBrush x:Key="FiliSurfaceBrush"        Color="{DynamicResource FiliSurfaceColor}" />
+
+      <SolidColorBrush x:Key="FiliAppbarBackgroundBrush" Color="{DynamicResource FiliAppbarBackgroundColor}" />
+      <SolidColorBrush x:Key="FiliAppbarTextBrush"       Color="{DynamicResource FiliAppbarTextColor}" />
+      <SolidColorBrush x:Key="FiliDrawerBackgroundBrush" Color="{DynamicResource FiliDrawerBackgroundColor}" />
+      <SolidColorBrush x:Key="FiliDrawerTextBrush"       Color="{DynamicResource FiliDrawerTextColor}" />
+      <SolidColorBrush x:Key="FiliDrawerIconBrush"       Color="{DynamicResource FiliDrawerIconColor}" />
+      <SolidColorBrush x:Key="FiliDrawerBorderBrush"     Color="{DynamicResource FiliDrawerBorderColor}" />
+
+      <SolidColorBrush x:Key="FiliLinesDefaultBrush" Color="{DynamicResource FiliLinesDefaultColor}" />
+      <SolidColorBrush x:Key="FiliLinesInputsBrush"  Color="{DynamicResource FiliLinesInputsColor}" />
+      <SolidColorBrush x:Key="FiliDividerBrush"      Color="{DynamicResource FiliDividerColor}" />
+      <SolidColorBrush x:Key="FiliDividerLightBrush" Color="{DynamicResource FiliDividerLightColor}" />
+      <SolidColorBrush x:Key="FiliGrayDefaultBrush" Color="{DynamicResource FiliGrayDefaultColor}" />
+      <SolidColorBrush x:Key="FiliGrayLightBrush" Color="{DynamicResource FiliGrayLightColor}" />
+      <SolidColorBrush x:Key="FiliGrayLighterBrush" Color="{DynamicResource FiliGrayLighterColor}" />
+      <SolidColorBrush x:Key="FiliGrayDarkBrush" Color="{DynamicResource FiliGrayDarkColor}" />
+      <SolidColorBrush x:Key="FiliGrayDarkerBrush" Color="{DynamicResource FiliGrayDarkerColor}" />
+      <SolidColorBrush x:Key="FiliTableLinesBrush"   Color="{DynamicResource FiliTableLinesColor}" />
+      <SolidColorBrush x:Key="FiliTableStripedBrush" Color="{DynamicResource FiliTableStripedColor}" />
+      <SolidColorBrush x:Key="FiliTableHoverBrush"   Color="{DynamicResource FiliTableHoverColor}" />
+      <SolidColorBrush x:Key="FiliSkeletonBrush"     Color="{DynamicResource FiliSkeletonColor}" />
+      <SolidColorBrush x:Key="FiliAvatarTextBrush"     Color="{DynamicResource FiliAvatarTextColor}" />
+      <SolidColorBrush x:Key="FiliAvatarBareTextBrush" Color="{DynamicResource FiliAvatarBareTextColor}" />
+      <SolidColorBrush x:Key="FiliBadgeTextBrush"      Color="{DynamicResource FiliBadgeTextColor}" />
+      <!-- Animation.Wave's two key frames: the band one skeleton wide, entirely off the left edge and
+           entirely off the right. FiliTheme.axaml animates Background between them. -->
+      <LinearGradientBrush x:Key="FiliSkeletonWaveStartBrush" StartPoint="-100%,0%" EndPoint="0%,0%">
+        <GradientStop Offset="0" Color="{DynamicResource FiliSkeletonColor}" />
+        <GradientStop Offset="0.5" Color="{DynamicResource FiliSkeletonWaveColor}" />
+        <GradientStop Offset="1" Color="{DynamicResource FiliSkeletonColor}" />
+      </LinearGradientBrush>
+      <LinearGradientBrush x:Key="FiliSkeletonWaveEndBrush" StartPoint="100%,0%" EndPoint="200%,0%">
+        <GradientStop Offset="0" Color="{DynamicResource FiliSkeletonColor}" />
+        <GradientStop Offset="0.5" Color="{DynamicResource FiliSkeletonWaveColor}" />
+        <GradientStop Offset="1" Color="{DynamicResource FiliSkeletonColor}" />
+      </LinearGradientBrush>
+
+      <SolidColorBrush x:Key="FiliPrimaryHoverBrush"   Color="{DynamicResource FiliPrimaryHoverColor}" />
+      <!--
+        Scrim colours for a modal surface. NON-VARYING, like elevation: Palette.cs specifies them as
+        literal colours - OverlayDark is #212121 at 50%, not black - and PaletteDark does not override
+        either one, so the same scrim is correct in both variants.
+      -->
+      <SolidColorBrush x:Key="FiliOverlayDarkBrush"  Color="{DynamicResource FiliOverlayDarkColor}" />
+      <SolidColorBrush x:Key="FiliOverlayLightBrush" Color="{DynamicResource FiliOverlayLightColor}" />
+
+      <SolidColorBrush x:Key="FiliOverlayHoverBrush"   Color="{DynamicResource FiliOverlayHoverColor}" />
+      <SolidColorBrush x:Key="FiliOverlayPressedBrush" Color="{DynamicResource FiliOverlayPressedColor}" />
+
+      <!--
+        Tooltip fill. NON-VARYING on purpose, and transcribed rather than chosen: MudBlazor _tooltip.scss
+        paints background-color from the CSS variable `mud-palette-gray-darker`, which is
+        Palette.GrayDarker =
+        Colors.Gray.Darken2 = #616161, SOLID. An earlier version used 90% alpha, which was Material
+        spec rather than what MudBlazor renders.
+      -->
+      <SolidColorBrush x:Key="FiliTooltipBackgroundBrush" Color="{DynamicResource FiliTooltipBackgroundColor}" />
+      <SolidColorBrush x:Key="FiliSwitchThumbBrush" Color="{DynamicResource FiliSwitchThumbColor}" />
+      <SolidColorBrush x:Key="FiliScrollbarThumbBrush" Color="{DynamicResource FiliScrollbarThumbColor}" />
+      <SolidColorBrush x:Key="FiliScrollbarThumbHoverBrush" Color="{DynamicResource FiliScrollbarThumbHoverColor}" />
+
+      <SolidColorBrush x:Key="FiliInputFilledBrush"    Color="{DynamicResource FiliInputFilledColor}" />
+
+      <SolidColorBrush x:Key="FiliFocusRingBrush"      Color="{DynamicResource FiliTextPrimaryColor}" />
+      <SolidColorBrush x:Key="FiliFocusRingInnerBrush" Color="{DynamicResource FiliWhiteColor}" />
+      <!-- END BRUSHES -->
     </ResourceDictionary>
 
     <!-- ============================== DARK =============================== -->
@@ -331,6 +475,126 @@
       <Color x:Key="FiliScrollbarThumbColor">#C4C4C4</Color>
       <Color x:Key="FiliScrollbarThumbHoverColor">#A6A6A6</Color>
 
+
+      <!-- GENERATED by ThemeColourGenerator: dark palette brushes, copied from light's. -->
+      <SolidColorBrush x:Key="FiliPrimaryBrush"               Color="{DynamicResource FiliPrimaryColor}" />
+      <SolidColorBrush x:Key="FiliPrimaryContrastTextBrush"   Color="{DynamicResource FiliPrimaryContrastTextColor}" />
+      <SolidColorBrush x:Key="FiliSecondaryBrush"             Color="{DynamicResource FiliSecondaryColor}" />
+      <SolidColorBrush x:Key="FiliSecondaryContrastTextBrush" Color="{DynamicResource FiliSecondaryContrastTextColor}" />
+      <SolidColorBrush x:Key="FiliTertiaryBrush"              Color="{DynamicResource FiliTertiaryColor}" />
+      <SolidColorBrush x:Key="FiliTertiaryContrastTextBrush"  Color="{DynamicResource FiliTertiaryContrastTextColor}" />
+
+      <SolidColorBrush x:Key="FiliInfoBrush"                Color="{DynamicResource FiliInfoColor}" />
+      <SolidColorBrush x:Key="FiliInfoContrastTextBrush"    Color="{DynamicResource FiliInfoContrastTextColor}" />
+      <SolidColorBrush x:Key="FiliSuccessBrush"             Color="{DynamicResource FiliSuccessColor}" />
+      <SolidColorBrush x:Key="FiliSuccessContrastTextBrush" Color="{DynamicResource FiliSuccessContrastTextColor}" />
+      <SolidColorBrush x:Key="FiliWarningBrush"             Color="{DynamicResource FiliWarningColor}" />
+      <SolidColorBrush x:Key="FiliWarningContrastTextBrush" Color="{DynamicResource FiliWarningContrastTextColor}" />
+      <SolidColorBrush x:Key="FiliErrorBrush"               Color="{DynamicResource FiliErrorColor}" />
+      <SolidColorBrush x:Key="FiliErrorContrastTextBrush"   Color="{DynamicResource FiliErrorContrastTextColor}" />
+      <SolidColorBrush x:Key="FiliDarkBrush"    Color="{DynamicResource FiliDarkColor}" />
+      <SolidColorBrush x:Key="FiliDarkContrastTextBrush" Color="{DynamicResource FiliDarkContrastTextColor}" />
+
+      <SolidColorBrush x:Key="FiliSecondaryHoverBrush" Color="{DynamicResource FiliSecondaryHoverColor}" />
+      <SolidColorBrush x:Key="FiliTertiaryHoverBrush" Color="{DynamicResource FiliTertiaryHoverColor}" />
+      <SolidColorBrush x:Key="FiliInfoHoverBrush" Color="{DynamicResource FiliInfoHoverColor}" />
+      <SolidColorBrush x:Key="FiliSuccessHoverBrush" Color="{DynamicResource FiliSuccessHoverColor}" />
+      <SolidColorBrush x:Key="FiliWarningHoverBrush" Color="{DynamicResource FiliWarningHoverColor}" />
+      <SolidColorBrush x:Key="FiliErrorHoverBrush" Color="{DynamicResource FiliErrorHoverColor}" />
+      <SolidColorBrush x:Key="FiliDarkHoverBrush" Color="{DynamicResource FiliDarkHoverColor}" />
+      <SolidColorBrush x:Key="FiliActionDefaultHoverBrush" Color="{DynamicResource FiliActionDefaultHoverColor}" />
+
+      <SolidColorBrush x:Key="FiliPrimaryDarkenBrush" Color="{DynamicResource FiliPrimaryDarkenColor}" />
+      <SolidColorBrush x:Key="FiliSecondaryDarkenBrush" Color="{DynamicResource FiliSecondaryDarkenColor}" />
+      <SolidColorBrush x:Key="FiliTertiaryDarkenBrush" Color="{DynamicResource FiliTertiaryDarkenColor}" />
+      <SolidColorBrush x:Key="FiliInfoDarkenBrush" Color="{DynamicResource FiliInfoDarkenColor}" />
+      <SolidColorBrush x:Key="FiliSuccessDarkenBrush" Color="{DynamicResource FiliSuccessDarkenColor}" />
+      <SolidColorBrush x:Key="FiliWarningDarkenBrush" Color="{DynamicResource FiliWarningDarkenColor}" />
+      <SolidColorBrush x:Key="FiliErrorDarkenBrush" Color="{DynamicResource FiliErrorDarkenColor}" />
+      <SolidColorBrush x:Key="FiliDarkDarkenBrush" Color="{DynamicResource FiliDarkDarkenColor}" />
+      <SolidColorBrush x:Key="FiliPrimaryLightenBrush" Color="{DynamicResource FiliPrimaryLightenColor}" />
+      <SolidColorBrush x:Key="FiliSecondaryLightenBrush" Color="{DynamicResource FiliSecondaryLightenColor}" />
+      <SolidColorBrush x:Key="FiliTertiaryLightenBrush" Color="{DynamicResource FiliTertiaryLightenColor}" />
+      <SolidColorBrush x:Key="FiliInfoLightenBrush" Color="{DynamicResource FiliInfoLightenColor}" />
+      <SolidColorBrush x:Key="FiliSuccessLightenBrush" Color="{DynamicResource FiliSuccessLightenColor}" />
+      <SolidColorBrush x:Key="FiliWarningLightenBrush" Color="{DynamicResource FiliWarningLightenColor}" />
+      <SolidColorBrush x:Key="FiliErrorLightenBrush" Color="{DynamicResource FiliErrorLightenColor}" />
+      <SolidColorBrush x:Key="FiliDarkLightenBrush" Color="{DynamicResource FiliDarkLightenColor}" />
+      <SolidColorBrush x:Key="FiliPrimaryAlertTextBrush" Color="{DynamicResource FiliPrimaryAlertTextColor}" />
+      <SolidColorBrush x:Key="FiliSecondaryAlertTextBrush" Color="{DynamicResource FiliSecondaryAlertTextColor}" />
+      <SolidColorBrush x:Key="FiliTertiaryAlertTextBrush" Color="{DynamicResource FiliTertiaryAlertTextColor}" />
+      <SolidColorBrush x:Key="FiliInfoAlertTextBrush" Color="{DynamicResource FiliInfoAlertTextColor}" />
+      <SolidColorBrush x:Key="FiliSuccessAlertTextBrush" Color="{DynamicResource FiliSuccessAlertTextColor}" />
+      <SolidColorBrush x:Key="FiliWarningAlertTextBrush" Color="{DynamicResource FiliWarningAlertTextColor}" />
+      <SolidColorBrush x:Key="FiliErrorAlertTextBrush" Color="{DynamicResource FiliErrorAlertTextColor}" />
+      <SolidColorBrush x:Key="FiliDarkAlertTextBrush" Color="{DynamicResource FiliDarkAlertTextColor}" />
+      <SolidColorBrush x:Key="FiliChipHoverBrush" Color="{DynamicResource FiliChipHoverColor}" />
+      <SolidColorBrush x:Key="FiliBlackBrush"   Color="{DynamicResource FiliBlackColor}" />
+      <SolidColorBrush x:Key="FiliWhiteBrush"   Color="{DynamicResource FiliWhiteColor}" />
+
+      <SolidColorBrush x:Key="FiliTextPrimaryBrush"   Color="{DynamicResource FiliTextPrimaryColor}" />
+      <SolidColorBrush x:Key="FiliTextSecondaryBrush" Color="{DynamicResource FiliTextSecondaryColor}" />
+      <SolidColorBrush x:Key="FiliTextDisabledBrush"  Color="{DynamicResource FiliTextDisabledColor}" />
+
+      <SolidColorBrush x:Key="FiliActionDefaultBrush"            Color="{DynamicResource FiliActionDefaultColor}" />
+      <SolidColorBrush x:Key="FiliActionDisabledBrush"           Color="{DynamicResource FiliActionDisabledColor}" />
+      <SolidColorBrush x:Key="FiliActionDisabledBackgroundBrush" Color="{DynamicResource FiliActionDisabledBackgroundColor}" />
+
+      <SolidColorBrush x:Key="FiliBackgroundBrush"     Color="{DynamicResource FiliBackgroundColor}" />
+      <SolidColorBrush x:Key="FiliBackgroundGrayBrush" Color="{DynamicResource FiliBackgroundGrayColor}" />
+      <SolidColorBrush x:Key="FiliSurfaceBrush"        Color="{DynamicResource FiliSurfaceColor}" />
+
+      <SolidColorBrush x:Key="FiliAppbarBackgroundBrush" Color="{DynamicResource FiliAppbarBackgroundColor}" />
+      <SolidColorBrush x:Key="FiliAppbarTextBrush"       Color="{DynamicResource FiliAppbarTextColor}" />
+      <SolidColorBrush x:Key="FiliDrawerBackgroundBrush" Color="{DynamicResource FiliDrawerBackgroundColor}" />
+      <SolidColorBrush x:Key="FiliDrawerTextBrush"       Color="{DynamicResource FiliDrawerTextColor}" />
+      <SolidColorBrush x:Key="FiliDrawerIconBrush"       Color="{DynamicResource FiliDrawerIconColor}" />
+      <SolidColorBrush x:Key="FiliDrawerBorderBrush"     Color="{DynamicResource FiliDrawerBorderColor}" />
+
+      <SolidColorBrush x:Key="FiliLinesDefaultBrush" Color="{DynamicResource FiliLinesDefaultColor}" />
+      <SolidColorBrush x:Key="FiliLinesInputsBrush"  Color="{DynamicResource FiliLinesInputsColor}" />
+      <SolidColorBrush x:Key="FiliDividerBrush"      Color="{DynamicResource FiliDividerColor}" />
+      <SolidColorBrush x:Key="FiliDividerLightBrush" Color="{DynamicResource FiliDividerLightColor}" />
+      <SolidColorBrush x:Key="FiliGrayDefaultBrush" Color="{DynamicResource FiliGrayDefaultColor}" />
+      <SolidColorBrush x:Key="FiliGrayLightBrush" Color="{DynamicResource FiliGrayLightColor}" />
+      <SolidColorBrush x:Key="FiliGrayLighterBrush" Color="{DynamicResource FiliGrayLighterColor}" />
+      <SolidColorBrush x:Key="FiliGrayDarkBrush" Color="{DynamicResource FiliGrayDarkColor}" />
+      <SolidColorBrush x:Key="FiliGrayDarkerBrush" Color="{DynamicResource FiliGrayDarkerColor}" />
+      <SolidColorBrush x:Key="FiliTableLinesBrush"   Color="{DynamicResource FiliTableLinesColor}" />
+      <SolidColorBrush x:Key="FiliTableStripedBrush" Color="{DynamicResource FiliTableStripedColor}" />
+      <SolidColorBrush x:Key="FiliTableHoverBrush"   Color="{DynamicResource FiliTableHoverColor}" />
+      <SolidColorBrush x:Key="FiliSkeletonBrush"     Color="{DynamicResource FiliSkeletonColor}" />
+      <SolidColorBrush x:Key="FiliAvatarTextBrush"     Color="{DynamicResource FiliAvatarTextColor}" />
+      <SolidColorBrush x:Key="FiliAvatarBareTextBrush" Color="{DynamicResource FiliAvatarBareTextColor}" />
+      <SolidColorBrush x:Key="FiliBadgeTextBrush"      Color="{DynamicResource FiliBadgeTextColor}" />
+      <LinearGradientBrush x:Key="FiliSkeletonWaveStartBrush" StartPoint="-100%,0%" EndPoint="0%,0%">
+        <GradientStop Offset="0" Color="{DynamicResource FiliSkeletonColor}" />
+        <GradientStop Offset="0.5" Color="{DynamicResource FiliSkeletonWaveColor}" />
+        <GradientStop Offset="1" Color="{DynamicResource FiliSkeletonColor}" />
+      </LinearGradientBrush>
+      <LinearGradientBrush x:Key="FiliSkeletonWaveEndBrush" StartPoint="100%,0%" EndPoint="200%,0%">
+        <GradientStop Offset="0" Color="{DynamicResource FiliSkeletonColor}" />
+        <GradientStop Offset="0.5" Color="{DynamicResource FiliSkeletonWaveColor}" />
+        <GradientStop Offset="1" Color="{DynamicResource FiliSkeletonColor}" />
+      </LinearGradientBrush>
+
+      <SolidColorBrush x:Key="FiliPrimaryHoverBrush"   Color="{DynamicResource FiliPrimaryHoverColor}" />
+      <SolidColorBrush x:Key="FiliOverlayDarkBrush"  Color="{DynamicResource FiliOverlayDarkColor}" />
+      <SolidColorBrush x:Key="FiliOverlayLightBrush" Color="{DynamicResource FiliOverlayLightColor}" />
+
+      <SolidColorBrush x:Key="FiliOverlayHoverBrush"   Color="{DynamicResource FiliOverlayHoverColor}" />
+      <SolidColorBrush x:Key="FiliOverlayPressedBrush" Color="{DynamicResource FiliOverlayPressedColor}" />
+
+      <SolidColorBrush x:Key="FiliTooltipBackgroundBrush" Color="{DynamicResource FiliTooltipBackgroundColor}" />
+      <SolidColorBrush x:Key="FiliSwitchThumbBrush" Color="{DynamicResource FiliSwitchThumbColor}" />
+      <SolidColorBrush x:Key="FiliScrollbarThumbBrush" Color="{DynamicResource FiliScrollbarThumbColor}" />
+      <SolidColorBrush x:Key="FiliScrollbarThumbHoverBrush" Color="{DynamicResource FiliScrollbarThumbHoverColor}" />
+
+      <SolidColorBrush x:Key="FiliInputFilledBrush"    Color="{DynamicResource FiliInputFilledColor}" />
+
+      <SolidColorBrush x:Key="FiliFocusRingBrush"      Color="{DynamicResource FiliTextPrimaryColor}" />
+      <SolidColorBrush x:Key="FiliFocusRingInnerBrush" Color="{DynamicResource FiliWhiteColor}" />
+      <!-- END GENERATED -->
     </ResourceDictionary>
 
     <!-- ========================= HIGH CONTRAST ========================== -->
@@ -524,143 +788,130 @@
       <Color x:Key="FiliScrollbarThumbColor">#9C9CA8</Color>
       <Color x:Key="FiliScrollbarThumbHoverColor">#E8E8EE</Color>
 
+
+      <!-- GENERATED by ThemeColourGenerator: high contrast palette brushes, copied from light's. -->
+      <SolidColorBrush x:Key="FiliPrimaryBrush"               Color="{DynamicResource FiliPrimaryColor}" />
+      <SolidColorBrush x:Key="FiliPrimaryContrastTextBrush"   Color="{DynamicResource FiliPrimaryContrastTextColor}" />
+      <SolidColorBrush x:Key="FiliSecondaryBrush"             Color="{DynamicResource FiliSecondaryColor}" />
+      <SolidColorBrush x:Key="FiliSecondaryContrastTextBrush" Color="{DynamicResource FiliSecondaryContrastTextColor}" />
+      <SolidColorBrush x:Key="FiliTertiaryBrush"              Color="{DynamicResource FiliTertiaryColor}" />
+      <SolidColorBrush x:Key="FiliTertiaryContrastTextBrush"  Color="{DynamicResource FiliTertiaryContrastTextColor}" />
+
+      <SolidColorBrush x:Key="FiliInfoBrush"                Color="{DynamicResource FiliInfoColor}" />
+      <SolidColorBrush x:Key="FiliInfoContrastTextBrush"    Color="{DynamicResource FiliInfoContrastTextColor}" />
+      <SolidColorBrush x:Key="FiliSuccessBrush"             Color="{DynamicResource FiliSuccessColor}" />
+      <SolidColorBrush x:Key="FiliSuccessContrastTextBrush" Color="{DynamicResource FiliSuccessContrastTextColor}" />
+      <SolidColorBrush x:Key="FiliWarningBrush"             Color="{DynamicResource FiliWarningColor}" />
+      <SolidColorBrush x:Key="FiliWarningContrastTextBrush" Color="{DynamicResource FiliWarningContrastTextColor}" />
+      <SolidColorBrush x:Key="FiliErrorBrush"               Color="{DynamicResource FiliErrorColor}" />
+      <SolidColorBrush x:Key="FiliErrorContrastTextBrush"   Color="{DynamicResource FiliErrorContrastTextColor}" />
+      <SolidColorBrush x:Key="FiliDarkBrush"    Color="{DynamicResource FiliDarkColor}" />
+      <SolidColorBrush x:Key="FiliDarkContrastTextBrush" Color="{DynamicResource FiliDarkContrastTextColor}" />
+
+      <SolidColorBrush x:Key="FiliSecondaryHoverBrush" Color="{DynamicResource FiliSecondaryHoverColor}" />
+      <SolidColorBrush x:Key="FiliTertiaryHoverBrush" Color="{DynamicResource FiliTertiaryHoverColor}" />
+      <SolidColorBrush x:Key="FiliInfoHoverBrush" Color="{DynamicResource FiliInfoHoverColor}" />
+      <SolidColorBrush x:Key="FiliSuccessHoverBrush" Color="{DynamicResource FiliSuccessHoverColor}" />
+      <SolidColorBrush x:Key="FiliWarningHoverBrush" Color="{DynamicResource FiliWarningHoverColor}" />
+      <SolidColorBrush x:Key="FiliErrorHoverBrush" Color="{DynamicResource FiliErrorHoverColor}" />
+      <SolidColorBrush x:Key="FiliDarkHoverBrush" Color="{DynamicResource FiliDarkHoverColor}" />
+      <SolidColorBrush x:Key="FiliActionDefaultHoverBrush" Color="{DynamicResource FiliActionDefaultHoverColor}" />
+
+      <SolidColorBrush x:Key="FiliPrimaryDarkenBrush" Color="{DynamicResource FiliPrimaryDarkenColor}" />
+      <SolidColorBrush x:Key="FiliSecondaryDarkenBrush" Color="{DynamicResource FiliSecondaryDarkenColor}" />
+      <SolidColorBrush x:Key="FiliTertiaryDarkenBrush" Color="{DynamicResource FiliTertiaryDarkenColor}" />
+      <SolidColorBrush x:Key="FiliInfoDarkenBrush" Color="{DynamicResource FiliInfoDarkenColor}" />
+      <SolidColorBrush x:Key="FiliSuccessDarkenBrush" Color="{DynamicResource FiliSuccessDarkenColor}" />
+      <SolidColorBrush x:Key="FiliWarningDarkenBrush" Color="{DynamicResource FiliWarningDarkenColor}" />
+      <SolidColorBrush x:Key="FiliErrorDarkenBrush" Color="{DynamicResource FiliErrorDarkenColor}" />
+      <SolidColorBrush x:Key="FiliDarkDarkenBrush" Color="{DynamicResource FiliDarkDarkenColor}" />
+      <SolidColorBrush x:Key="FiliPrimaryLightenBrush" Color="{DynamicResource FiliPrimaryLightenColor}" />
+      <SolidColorBrush x:Key="FiliSecondaryLightenBrush" Color="{DynamicResource FiliSecondaryLightenColor}" />
+      <SolidColorBrush x:Key="FiliTertiaryLightenBrush" Color="{DynamicResource FiliTertiaryLightenColor}" />
+      <SolidColorBrush x:Key="FiliInfoLightenBrush" Color="{DynamicResource FiliInfoLightenColor}" />
+      <SolidColorBrush x:Key="FiliSuccessLightenBrush" Color="{DynamicResource FiliSuccessLightenColor}" />
+      <SolidColorBrush x:Key="FiliWarningLightenBrush" Color="{DynamicResource FiliWarningLightenColor}" />
+      <SolidColorBrush x:Key="FiliErrorLightenBrush" Color="{DynamicResource FiliErrorLightenColor}" />
+      <SolidColorBrush x:Key="FiliDarkLightenBrush" Color="{DynamicResource FiliDarkLightenColor}" />
+      <SolidColorBrush x:Key="FiliPrimaryAlertTextBrush" Color="{DynamicResource FiliPrimaryAlertTextColor}" />
+      <SolidColorBrush x:Key="FiliSecondaryAlertTextBrush" Color="{DynamicResource FiliSecondaryAlertTextColor}" />
+      <SolidColorBrush x:Key="FiliTertiaryAlertTextBrush" Color="{DynamicResource FiliTertiaryAlertTextColor}" />
+      <SolidColorBrush x:Key="FiliInfoAlertTextBrush" Color="{DynamicResource FiliInfoAlertTextColor}" />
+      <SolidColorBrush x:Key="FiliSuccessAlertTextBrush" Color="{DynamicResource FiliSuccessAlertTextColor}" />
+      <SolidColorBrush x:Key="FiliWarningAlertTextBrush" Color="{DynamicResource FiliWarningAlertTextColor}" />
+      <SolidColorBrush x:Key="FiliErrorAlertTextBrush" Color="{DynamicResource FiliErrorAlertTextColor}" />
+      <SolidColorBrush x:Key="FiliDarkAlertTextBrush" Color="{DynamicResource FiliDarkAlertTextColor}" />
+      <SolidColorBrush x:Key="FiliChipHoverBrush" Color="{DynamicResource FiliChipHoverColor}" />
+      <SolidColorBrush x:Key="FiliBlackBrush"   Color="{DynamicResource FiliBlackColor}" />
+      <SolidColorBrush x:Key="FiliWhiteBrush"   Color="{DynamicResource FiliWhiteColor}" />
+
+      <SolidColorBrush x:Key="FiliTextPrimaryBrush"   Color="{DynamicResource FiliTextPrimaryColor}" />
+      <SolidColorBrush x:Key="FiliTextSecondaryBrush" Color="{DynamicResource FiliTextSecondaryColor}" />
+      <SolidColorBrush x:Key="FiliTextDisabledBrush"  Color="{DynamicResource FiliTextDisabledColor}" />
+
+      <SolidColorBrush x:Key="FiliActionDefaultBrush"            Color="{DynamicResource FiliActionDefaultColor}" />
+      <SolidColorBrush x:Key="FiliActionDisabledBrush"           Color="{DynamicResource FiliActionDisabledColor}" />
+      <SolidColorBrush x:Key="FiliActionDisabledBackgroundBrush" Color="{DynamicResource FiliActionDisabledBackgroundColor}" />
+
+      <SolidColorBrush x:Key="FiliBackgroundBrush"     Color="{DynamicResource FiliBackgroundColor}" />
+      <SolidColorBrush x:Key="FiliBackgroundGrayBrush" Color="{DynamicResource FiliBackgroundGrayColor}" />
+      <SolidColorBrush x:Key="FiliSurfaceBrush"        Color="{DynamicResource FiliSurfaceColor}" />
+
+      <SolidColorBrush x:Key="FiliAppbarBackgroundBrush" Color="{DynamicResource FiliAppbarBackgroundColor}" />
+      <SolidColorBrush x:Key="FiliAppbarTextBrush"       Color="{DynamicResource FiliAppbarTextColor}" />
+      <SolidColorBrush x:Key="FiliDrawerBackgroundBrush" Color="{DynamicResource FiliDrawerBackgroundColor}" />
+      <SolidColorBrush x:Key="FiliDrawerTextBrush"       Color="{DynamicResource FiliDrawerTextColor}" />
+      <SolidColorBrush x:Key="FiliDrawerIconBrush"       Color="{DynamicResource FiliDrawerIconColor}" />
+      <SolidColorBrush x:Key="FiliDrawerBorderBrush"     Color="{DynamicResource FiliDrawerBorderColor}" />
+
+      <SolidColorBrush x:Key="FiliLinesDefaultBrush" Color="{DynamicResource FiliLinesDefaultColor}" />
+      <SolidColorBrush x:Key="FiliLinesInputsBrush"  Color="{DynamicResource FiliLinesInputsColor}" />
+      <SolidColorBrush x:Key="FiliDividerBrush"      Color="{DynamicResource FiliDividerColor}" />
+      <SolidColorBrush x:Key="FiliDividerLightBrush" Color="{DynamicResource FiliDividerLightColor}" />
+      <SolidColorBrush x:Key="FiliGrayDefaultBrush" Color="{DynamicResource FiliGrayDefaultColor}" />
+      <SolidColorBrush x:Key="FiliGrayLightBrush" Color="{DynamicResource FiliGrayLightColor}" />
+      <SolidColorBrush x:Key="FiliGrayLighterBrush" Color="{DynamicResource FiliGrayLighterColor}" />
+      <SolidColorBrush x:Key="FiliGrayDarkBrush" Color="{DynamicResource FiliGrayDarkColor}" />
+      <SolidColorBrush x:Key="FiliGrayDarkerBrush" Color="{DynamicResource FiliGrayDarkerColor}" />
+      <SolidColorBrush x:Key="FiliTableLinesBrush"   Color="{DynamicResource FiliTableLinesColor}" />
+      <SolidColorBrush x:Key="FiliTableStripedBrush" Color="{DynamicResource FiliTableStripedColor}" />
+      <SolidColorBrush x:Key="FiliTableHoverBrush"   Color="{DynamicResource FiliTableHoverColor}" />
+      <SolidColorBrush x:Key="FiliSkeletonBrush"     Color="{DynamicResource FiliSkeletonColor}" />
+      <SolidColorBrush x:Key="FiliAvatarTextBrush"     Color="{DynamicResource FiliAvatarTextColor}" />
+      <SolidColorBrush x:Key="FiliAvatarBareTextBrush" Color="{DynamicResource FiliAvatarBareTextColor}" />
+      <SolidColorBrush x:Key="FiliBadgeTextBrush"      Color="{DynamicResource FiliBadgeTextColor}" />
+      <LinearGradientBrush x:Key="FiliSkeletonWaveStartBrush" StartPoint="-100%,0%" EndPoint="0%,0%">
+        <GradientStop Offset="0" Color="{DynamicResource FiliSkeletonColor}" />
+        <GradientStop Offset="0.5" Color="{DynamicResource FiliSkeletonWaveColor}" />
+        <GradientStop Offset="1" Color="{DynamicResource FiliSkeletonColor}" />
+      </LinearGradientBrush>
+      <LinearGradientBrush x:Key="FiliSkeletonWaveEndBrush" StartPoint="100%,0%" EndPoint="200%,0%">
+        <GradientStop Offset="0" Color="{DynamicResource FiliSkeletonColor}" />
+        <GradientStop Offset="0.5" Color="{DynamicResource FiliSkeletonWaveColor}" />
+        <GradientStop Offset="1" Color="{DynamicResource FiliSkeletonColor}" />
+      </LinearGradientBrush>
+
+      <SolidColorBrush x:Key="FiliPrimaryHoverBrush"   Color="{DynamicResource FiliPrimaryHoverColor}" />
+      <SolidColorBrush x:Key="FiliOverlayDarkBrush"  Color="{DynamicResource FiliOverlayDarkColor}" />
+      <SolidColorBrush x:Key="FiliOverlayLightBrush" Color="{DynamicResource FiliOverlayLightColor}" />
+
+      <SolidColorBrush x:Key="FiliOverlayHoverBrush"   Color="{DynamicResource FiliOverlayHoverColor}" />
+      <SolidColorBrush x:Key="FiliOverlayPressedBrush" Color="{DynamicResource FiliOverlayPressedColor}" />
+
+      <SolidColorBrush x:Key="FiliTooltipBackgroundBrush" Color="{DynamicResource FiliTooltipBackgroundColor}" />
+      <SolidColorBrush x:Key="FiliSwitchThumbBrush" Color="{DynamicResource FiliSwitchThumbColor}" />
+      <SolidColorBrush x:Key="FiliScrollbarThumbBrush" Color="{DynamicResource FiliScrollbarThumbColor}" />
+      <SolidColorBrush x:Key="FiliScrollbarThumbHoverBrush" Color="{DynamicResource FiliScrollbarThumbHoverColor}" />
+
+      <SolidColorBrush x:Key="FiliInputFilledBrush"    Color="{DynamicResource FiliInputFilledColor}" />
+
+      <SolidColorBrush x:Key="FiliFocusRingBrush"      Color="{DynamicResource FiliTextPrimaryColor}" />
+      <SolidColorBrush x:Key="FiliFocusRingInnerBrush" Color="{DynamicResource FiliWhiteColor}" />
+      <!-- END GENERATED -->
     </ResourceDictionary>
 
   </ResourceDictionary.ThemeDictionaries>
 
-  <!--
-    Brushes, defined once against the theme-varying Colors above. DynamicResource is
-    mandatory here: StaticResource would freeze the light value and the brush would stop
-    following the theme at runtime, silently. ResourceResolutionTests guards this.
-  -->
-  <SolidColorBrush x:Key="FiliPrimaryBrush"               Color="{DynamicResource FiliPrimaryColor}" />
-  <SolidColorBrush x:Key="FiliPrimaryContrastTextBrush"   Color="{DynamicResource FiliPrimaryContrastTextColor}" />
-  <SolidColorBrush x:Key="FiliSecondaryBrush"             Color="{DynamicResource FiliSecondaryColor}" />
-  <SolidColorBrush x:Key="FiliSecondaryContrastTextBrush" Color="{DynamicResource FiliSecondaryContrastTextColor}" />
-  <SolidColorBrush x:Key="FiliTertiaryBrush"              Color="{DynamicResource FiliTertiaryColor}" />
-  <SolidColorBrush x:Key="FiliTertiaryContrastTextBrush"  Color="{DynamicResource FiliTertiaryContrastTextColor}" />
-
-  <SolidColorBrush x:Key="FiliInfoBrush"                Color="{DynamicResource FiliInfoColor}" />
-  <SolidColorBrush x:Key="FiliInfoContrastTextBrush"    Color="{DynamicResource FiliInfoContrastTextColor}" />
-  <SolidColorBrush x:Key="FiliSuccessBrush"             Color="{DynamicResource FiliSuccessColor}" />
-  <SolidColorBrush x:Key="FiliSuccessContrastTextBrush" Color="{DynamicResource FiliSuccessContrastTextColor}" />
-  <SolidColorBrush x:Key="FiliWarningBrush"             Color="{DynamicResource FiliWarningColor}" />
-  <SolidColorBrush x:Key="FiliWarningContrastTextBrush" Color="{DynamicResource FiliWarningContrastTextColor}" />
-  <SolidColorBrush x:Key="FiliErrorBrush"               Color="{DynamicResource FiliErrorColor}" />
-  <SolidColorBrush x:Key="FiliErrorContrastTextBrush"   Color="{DynamicResource FiliErrorContrastTextColor}" />
-  <SolidColorBrush x:Key="FiliDarkBrush"    Color="{DynamicResource FiliDarkColor}" />
-  <SolidColorBrush x:Key="FiliDarkContrastTextBrush" Color="{DynamicResource FiliDarkContrastTextColor}" />
-
-  <SolidColorBrush x:Key="FiliSecondaryHoverBrush" Color="{DynamicResource FiliSecondaryHoverColor}" />
-  <SolidColorBrush x:Key="FiliTertiaryHoverBrush" Color="{DynamicResource FiliTertiaryHoverColor}" />
-  <SolidColorBrush x:Key="FiliInfoHoverBrush" Color="{DynamicResource FiliInfoHoverColor}" />
-  <SolidColorBrush x:Key="FiliSuccessHoverBrush" Color="{DynamicResource FiliSuccessHoverColor}" />
-  <SolidColorBrush x:Key="FiliWarningHoverBrush" Color="{DynamicResource FiliWarningHoverColor}" />
-  <SolidColorBrush x:Key="FiliErrorHoverBrush" Color="{DynamicResource FiliErrorHoverColor}" />
-  <SolidColorBrush x:Key="FiliDarkHoverBrush" Color="{DynamicResource FiliDarkHoverColor}" />
-  <SolidColorBrush x:Key="FiliActionDefaultHoverBrush" Color="{DynamicResource FiliActionDefaultHoverColor}" />
-
-  <SolidColorBrush x:Key="FiliPrimaryDarkenBrush" Color="{DynamicResource FiliPrimaryDarkenColor}" />
-  <SolidColorBrush x:Key="FiliSecondaryDarkenBrush" Color="{DynamicResource FiliSecondaryDarkenColor}" />
-  <SolidColorBrush x:Key="FiliTertiaryDarkenBrush" Color="{DynamicResource FiliTertiaryDarkenColor}" />
-  <SolidColorBrush x:Key="FiliInfoDarkenBrush" Color="{DynamicResource FiliInfoDarkenColor}" />
-  <SolidColorBrush x:Key="FiliSuccessDarkenBrush" Color="{DynamicResource FiliSuccessDarkenColor}" />
-  <SolidColorBrush x:Key="FiliWarningDarkenBrush" Color="{DynamicResource FiliWarningDarkenColor}" />
-  <SolidColorBrush x:Key="FiliErrorDarkenBrush" Color="{DynamicResource FiliErrorDarkenColor}" />
-  <SolidColorBrush x:Key="FiliDarkDarkenBrush" Color="{DynamicResource FiliDarkDarkenColor}" />
-  <SolidColorBrush x:Key="FiliPrimaryLightenBrush" Color="{DynamicResource FiliPrimaryLightenColor}" />
-  <SolidColorBrush x:Key="FiliSecondaryLightenBrush" Color="{DynamicResource FiliSecondaryLightenColor}" />
-  <SolidColorBrush x:Key="FiliTertiaryLightenBrush" Color="{DynamicResource FiliTertiaryLightenColor}" />
-  <SolidColorBrush x:Key="FiliInfoLightenBrush" Color="{DynamicResource FiliInfoLightenColor}" />
-  <SolidColorBrush x:Key="FiliSuccessLightenBrush" Color="{DynamicResource FiliSuccessLightenColor}" />
-  <SolidColorBrush x:Key="FiliWarningLightenBrush" Color="{DynamicResource FiliWarningLightenColor}" />
-  <SolidColorBrush x:Key="FiliErrorLightenBrush" Color="{DynamicResource FiliErrorLightenColor}" />
-  <SolidColorBrush x:Key="FiliDarkLightenBrush" Color="{DynamicResource FiliDarkLightenColor}" />
-  <SolidColorBrush x:Key="FiliPrimaryAlertTextBrush" Color="{DynamicResource FiliPrimaryAlertTextColor}" />
-  <SolidColorBrush x:Key="FiliSecondaryAlertTextBrush" Color="{DynamicResource FiliSecondaryAlertTextColor}" />
-  <SolidColorBrush x:Key="FiliTertiaryAlertTextBrush" Color="{DynamicResource FiliTertiaryAlertTextColor}" />
-  <SolidColorBrush x:Key="FiliInfoAlertTextBrush" Color="{DynamicResource FiliInfoAlertTextColor}" />
-  <SolidColorBrush x:Key="FiliSuccessAlertTextBrush" Color="{DynamicResource FiliSuccessAlertTextColor}" />
-  <SolidColorBrush x:Key="FiliWarningAlertTextBrush" Color="{DynamicResource FiliWarningAlertTextColor}" />
-  <SolidColorBrush x:Key="FiliErrorAlertTextBrush" Color="{DynamicResource FiliErrorAlertTextColor}" />
-  <SolidColorBrush x:Key="FiliDarkAlertTextBrush" Color="{DynamicResource FiliDarkAlertTextColor}" />
-  <SolidColorBrush x:Key="FiliChipHoverBrush" Color="{DynamicResource FiliChipHoverColor}" />
-  <SolidColorBrush x:Key="FiliBlackBrush"   Color="{DynamicResource FiliBlackColor}" />
-  <SolidColorBrush x:Key="FiliWhiteBrush"   Color="{DynamicResource FiliWhiteColor}" />
-
-  <SolidColorBrush x:Key="FiliTextPrimaryBrush"   Color="{DynamicResource FiliTextPrimaryColor}" />
-  <SolidColorBrush x:Key="FiliTextSecondaryBrush" Color="{DynamicResource FiliTextSecondaryColor}" />
-  <SolidColorBrush x:Key="FiliTextDisabledBrush"  Color="{DynamicResource FiliTextDisabledColor}" />
-
-  <SolidColorBrush x:Key="FiliActionDefaultBrush"            Color="{DynamicResource FiliActionDefaultColor}" />
-  <SolidColorBrush x:Key="FiliActionDisabledBrush"           Color="{DynamicResource FiliActionDisabledColor}" />
-  <SolidColorBrush x:Key="FiliActionDisabledBackgroundBrush" Color="{DynamicResource FiliActionDisabledBackgroundColor}" />
-
-  <SolidColorBrush x:Key="FiliBackgroundBrush"     Color="{DynamicResource FiliBackgroundColor}" />
-  <SolidColorBrush x:Key="FiliBackgroundGrayBrush" Color="{DynamicResource FiliBackgroundGrayColor}" />
-  <SolidColorBrush x:Key="FiliSurfaceBrush"        Color="{DynamicResource FiliSurfaceColor}" />
-
-  <SolidColorBrush x:Key="FiliAppbarBackgroundBrush" Color="{DynamicResource FiliAppbarBackgroundColor}" />
-  <SolidColorBrush x:Key="FiliAppbarTextBrush"       Color="{DynamicResource FiliAppbarTextColor}" />
-  <SolidColorBrush x:Key="FiliDrawerBackgroundBrush" Color="{DynamicResource FiliDrawerBackgroundColor}" />
-  <SolidColorBrush x:Key="FiliDrawerTextBrush"       Color="{DynamicResource FiliDrawerTextColor}" />
-  <SolidColorBrush x:Key="FiliDrawerIconBrush"       Color="{DynamicResource FiliDrawerIconColor}" />
-  <SolidColorBrush x:Key="FiliDrawerBorderBrush"     Color="{DynamicResource FiliDrawerBorderColor}" />
-
-  <SolidColorBrush x:Key="FiliLinesDefaultBrush" Color="{DynamicResource FiliLinesDefaultColor}" />
-  <SolidColorBrush x:Key="FiliLinesInputsBrush"  Color="{DynamicResource FiliLinesInputsColor}" />
-  <SolidColorBrush x:Key="FiliDividerBrush"      Color="{DynamicResource FiliDividerColor}" />
-  <SolidColorBrush x:Key="FiliDividerLightBrush" Color="{DynamicResource FiliDividerLightColor}" />
-  <SolidColorBrush x:Key="FiliGrayDefaultBrush" Color="{DynamicResource FiliGrayDefaultColor}" />
-  <SolidColorBrush x:Key="FiliGrayLightBrush" Color="{DynamicResource FiliGrayLightColor}" />
-  <SolidColorBrush x:Key="FiliGrayLighterBrush" Color="{DynamicResource FiliGrayLighterColor}" />
-  <SolidColorBrush x:Key="FiliGrayDarkBrush" Color="{DynamicResource FiliGrayDarkColor}" />
-  <SolidColorBrush x:Key="FiliGrayDarkerBrush" Color="{DynamicResource FiliGrayDarkerColor}" />
-  <SolidColorBrush x:Key="FiliTableLinesBrush"   Color="{DynamicResource FiliTableLinesColor}" />
-  <SolidColorBrush x:Key="FiliTableStripedBrush" Color="{DynamicResource FiliTableStripedColor}" />
-  <SolidColorBrush x:Key="FiliTableHoverBrush"   Color="{DynamicResource FiliTableHoverColor}" />
-  <SolidColorBrush x:Key="FiliSkeletonBrush"     Color="{DynamicResource FiliSkeletonColor}" />
-  <SolidColorBrush x:Key="FiliAvatarTextBrush"     Color="{DynamicResource FiliAvatarTextColor}" />
-  <SolidColorBrush x:Key="FiliAvatarBareTextBrush" Color="{DynamicResource FiliAvatarBareTextColor}" />
-  <SolidColorBrush x:Key="FiliBadgeTextBrush"      Color="{DynamicResource FiliBadgeTextColor}" />
-  <!-- Animation.Wave's two key frames: the band one skeleton wide, entirely off the left edge and
-       entirely off the right. FiliTheme.axaml animates Background between them. -->
-  <LinearGradientBrush x:Key="FiliSkeletonWaveStartBrush" StartPoint="-100%,0%" EndPoint="0%,0%">
-    <GradientStop Offset="0" Color="{DynamicResource FiliSkeletonColor}" />
-    <GradientStop Offset="0.5" Color="{DynamicResource FiliSkeletonWaveColor}" />
-    <GradientStop Offset="1" Color="{DynamicResource FiliSkeletonColor}" />
-  </LinearGradientBrush>
-  <LinearGradientBrush x:Key="FiliSkeletonWaveEndBrush" StartPoint="100%,0%" EndPoint="200%,0%">
-    <GradientStop Offset="0" Color="{DynamicResource FiliSkeletonColor}" />
-    <GradientStop Offset="0.5" Color="{DynamicResource FiliSkeletonWaveColor}" />
-    <GradientStop Offset="1" Color="{DynamicResource FiliSkeletonColor}" />
-  </LinearGradientBrush>
-
-  <SolidColorBrush x:Key="FiliPrimaryHoverBrush"   Color="{DynamicResource FiliPrimaryHoverColor}" />
-  <!--
-    Scrim colours for a modal surface. NON-VARYING, like elevation: Palette.cs specifies them as
-    literal colours - OverlayDark is #212121 at 50%, not black - and PaletteDark does not override
-    either one, so the same scrim is correct in both variants.
-  -->
-  <SolidColorBrush x:Key="FiliOverlayDarkBrush"  Color="{DynamicResource FiliOverlayDarkColor}" />
-  <SolidColorBrush x:Key="FiliOverlayLightBrush" Color="{DynamicResource FiliOverlayLightColor}" />
-
-  <SolidColorBrush x:Key="FiliOverlayHoverBrush"   Color="{DynamicResource FiliOverlayHoverColor}" />
-  <SolidColorBrush x:Key="FiliOverlayPressedBrush" Color="{DynamicResource FiliOverlayPressedColor}" />
-
-  <!--
-    Tooltip fill. NON-VARYING on purpose, and transcribed rather than chosen: MudBlazor _tooltip.scss
-    paints background-color from the CSS variable `mud-palette-gray-darker`, which is
-    Palette.GrayDarker =
-    Colors.Gray.Darken2 = #616161, SOLID. An earlier version used 90% alpha, which was Material
-    spec rather than what MudBlazor renders.
-  -->
-  <SolidColorBrush x:Key="FiliTooltipBackgroundBrush" Color="{DynamicResource FiliTooltipBackgroundColor}" />
-  <SolidColorBrush x:Key="FiliSwitchThumbBrush" Color="{DynamicResource FiliSwitchThumbColor}" />
-  <SolidColorBrush x:Key="FiliScrollbarThumbBrush" Color="{DynamicResource FiliScrollbarThumbColor}" />
-  <SolidColorBrush x:Key="FiliScrollbarThumbHoverBrush" Color="{DynamicResource FiliScrollbarThumbHoverColor}" />
-
-  <SolidColorBrush x:Key="FiliInputFilledBrush"    Color="{DynamicResource FiliInputFilledColor}" />
 
   <!--
     The ripple's opacity: Palette.cs RippleOpacity 0.1 and RippleOpacitySecondary 0.2, the second
@@ -679,16 +930,16 @@
   <sys:Boolean x:Key="FiliReducedMotion">False</sys:Boolean>
 
   <!--
-    The focus ring's look, drawn when FiliFocusRing is True (FocusRing.cs). Not MudBlazor's: it
-    has no ring. NON-VARYING: the two brushes follow the variant through the colours they are
-    built from, text-primary outside and white against the control, so at least one keeps 3:1 on
+    The focus ring's thickness; its two brushes, FiliFocusRingBrush and FiliFocusRingInnerBrush,
+    are with the other brushes in the variant dictionaries. Drawn when FiliFocusRing is True
+    (FocusRing.cs). Not MudBlazor's: it has no ring. The two brushes follow the variant through
+    the colours they are built from, text-primary outside and white against the control, so at least one keeps 3:1 on
     a light page, a dark one and a coloured app bar. The thickness is the outer stroke's; the
-    inner one stays 2px and the ring moves out to make room. An app replaces any of the three in
-    its application's or a window's resources, as the ring is drawn in each window's adorner
-    layer, outside the control's own tree.
+    inner one stays 2px and the ring moves out to make room. An app replaces the thickness in its
+    application's or a window's resources, as the ring is drawn in each window's adorner layer;
+    the brushes are looked up from the control the ring frames (FocusRing.cs), so a container's
+    resources and a ThemeVariantScope's variant reach them too.
   -->
-  <SolidColorBrush x:Key="FiliFocusRingBrush"      Color="{DynamicResource FiliTextPrimaryColor}" />
-  <SolidColorBrush x:Key="FiliFocusRingInnerBrush" Color="{DynamicResource FiliWhiteColor}" />
   <sys:Double x:Key="FiliFocusRingThickness">2</sys:Double>
 
 </ResourceDictionary>

@@ -9,9 +9,10 @@
   That small, stable key surface is the actual reason to fork Simple rather than Fluent. Fluent's
   equivalent is hundreds of layered keys that shift between versions; Simple's is this list.
 
-  Everything is declared OUTSIDE ThemeDictionaries and bound with DynamicResource to the Fili
-  tokens, which are themselves theme-varying. So light/dark is handled once, in Palette.axaml,
-  and never duplicated here.
+  Every brush is bound with DynamicResource to a Fili token, so light/dark is handled once, in
+  Palette.axaml. The brushes sit inside the variant dictionaries, one set per variant, so a
+  window or ThemeVariantScope with its own variant paints with that variant's (VariantScopeTests);
+  they are written once, in Light's, and ThemeColourGenerator copies them into the others.
 
   Where a mapping is a judgement rather than an obvious equivalence, it is commented. The two
   worth knowing: ThemeBackground is mapped to SURFACE rather than to the page ground, because
@@ -57,6 +58,90 @@
       <Color x:Key="ThemeAccentColor2">#99594AE2</Color>
       <Color x:Key="ThemeAccentColor3">#66594AE2</Color>
       <Color x:Key="HighlightForegroundColor">#FFFFFF</Color>
+
+      <!-- BRUSHES: copied into the other variants by ThemeColourGenerator -->
+      <SolidColorBrush x:Key="DatePickerSpacerFill" Color="{DynamicResource FiliDividerColor}" />
+      <SolidColorBrush x:Key="TimePickerSpacerFill" Color="{DynamicResource FiliDividerColor}" />
+
+      <!-- ============================ Surfaces and text ============================ -->
+
+      <!-- Simple uses ThemeBackground for control interiors (TextBox, ComboBox, popups),
+           not for the page. Mapping it to the page ground would make every input disappear. -->
+      <SolidColorBrush x:Key="ThemeBackgroundBrush" Color="{DynamicResource FiliSurfaceColor}" />
+      <SolidColorBrush x:Key="ThemeForegroundBrush" Color="{DynamicResource FiliTextPrimaryColor}" />
+      <SolidColorBrush x:Key="ThemeForegroundLowBrush" Color="{DynamicResource FiliTextSecondaryColor}" />
+
+      <SolidColorBrush x:Key="ThemeBorderLowBrush" Color="{DynamicResource FiliDividerColor}" />
+      <SolidColorBrush x:Key="ThemeBorderMidBrush" Color="{DynamicResource FiliLinesInputsColor}" />
+      <SolidColorBrush x:Key="ThemeBorderHighBrush" Color="{DynamicResource FiliTextPrimaryColor}" />
+
+      <SolidColorBrush x:Key="ThemeControlLowBrush" Color="{DynamicResource FiliBackgroundGrayColor}" />
+      <SolidColorBrush x:Key="ThemeControlMidBrush" Color="{DynamicResource FiliBackgroundGrayColor}" />
+      <SolidColorBrush x:Key="ThemeControlMidHighBrush" Color="{DynamicResource FiliLinesInputsColor}" />
+      <SolidColorBrush x:Key="ThemeControlHighBrush" Color="{DynamicResource FiliActionDefaultColor}" />
+      <SolidColorBrush x:Key="ThemeControlVeryHighBrush" Color="{DynamicResource FiliTextPrimaryColor}" />
+      <SolidColorBrush x:Key="ThemeControlTransparentBrush" Color="Transparent" />
+
+      <!-- The highlight ladder is Material's state layer, so it maps straight onto the overlays. -->
+      <SolidColorBrush x:Key="ThemeControlHighlightLowBrush" Color="{DynamicResource FiliOverlayHoverColor}" />
+      <SolidColorBrush x:Key="ThemeControlHighlightMidBrush" Color="{DynamicResource FiliOverlayPressedColor}" />
+      <SolidColorBrush x:Key="ThemeControlHighlightHighBrush" Color="{DynamicResource FiliActionDefaultColor}" />
+
+      <!-- ============================ Accent and selection ============================ -->
+
+      <!-- Opacity rather than baked alpha, so the ramp follows FiliPrimary in both variants
+           without four more palette tokens to keep in step. -->
+      <SolidColorBrush x:Key="ThemeAccentBrush" Color="{DynamicResource FiliPrimaryColor}" />
+      <SolidColorBrush x:Key="ThemeAccentBrush2" Color="{DynamicResource FiliPrimaryColor}" Opacity="0.6" />
+      <SolidColorBrush x:Key="ThemeAccentBrush3" Color="{DynamicResource FiliPrimaryColor}" Opacity="0.4" />
+      <SolidColorBrush x:Key="ThemeAccentBrush4" Color="{DynamicResource FiliPrimaryColor}" Opacity="0.2" />
+
+      <SolidColorBrush x:Key="HighlightBrush" Color="{DynamicResource FiliPrimaryColor}" />
+      <SolidColorBrush x:Key="HighlightBrush2" Color="{DynamicResource FiliPrimaryColor}" Opacity="0.75" />
+      <SolidColorBrush x:Key="HighlightForegroundBrush" Color="{DynamicResource FiliPrimaryContrastTextColor}" />
+
+      <SolidColorBrush x:Key="HyperlinkVisitedBrush" Color="{DynamicResource FiliTertiaryColor}" />
+
+      <SolidColorBrush x:Key="ErrorBrush" Color="{DynamicResource FiliErrorColor}" />
+      <SolidColorBrush x:Key="ErrorLowBrush" Color="{DynamicResource FiliErrorColor}" Opacity="0.12" />
+
+      <SolidColorBrush x:Key="DatePickerFlyoutPresenterHighlightFill"
+                       Color="{DynamicResource FiliPrimaryColor}" Opacity="0.4" />
+      <SolidColorBrush x:Key="TimePickerFlyoutPresenterHighlightFill"
+                       Color="{DynamicResource FiliPrimaryColor}" Opacity="0.4" />
+
+      <!-- ============================ Window chrome ============================ -->
+
+      <SolidColorBrush x:Key="CaptionButtonForeground" Color="{DynamicResource FiliAppbarTextColor}" />
+      <SolidColorBrush x:Key="CaptionButtonBackground" Color="{DynamicResource FiliAppbarBackgroundColor}" />
+      <SolidColorBrush x:Key="CaptionButtonBorderBrush" Color="{DynamicResource FiliDividerColor}" />
+      <SolidColorBrush x:Key="TitleBarBackgroundBrush" Color="{DynamicResource FiliAppbarBackgroundColor}" />
+
+      <SolidColorBrush x:Key="RefreshVisualizerForeground" Color="{DynamicResource FiliTextPrimaryColor}" />
+      <SolidColorBrush x:Key="RefreshVisualizerBackground" Color="Transparent" />
+
+      <!-- ============================ Notifications ============================ -->
+
+      <SolidColorBrush x:Key="NotificationCardBackgroundBrush" Color="{DynamicResource FiliSurfaceColor}" />
+      <SolidColorBrush x:Key="NotificationCardInformationBackgroundBrush" Color="{DynamicResource FiliInfoColor}" />
+      <SolidColorBrush x:Key="NotificationCardSuccessBackgroundBrush" Color="{DynamicResource FiliSuccessColor}" />
+      <SolidColorBrush x:Key="NotificationCardWarningBackgroundBrush" Color="{DynamicResource FiliWarningColor}" />
+      <SolidColorBrush x:Key="NotificationCardErrorBackgroundBrush" Color="{DynamicResource FiliErrorColor}" />
+
+      <!-- ============================ Pages ============================ -->
+
+      <!-- The forked NavigationPage.axaml and TabbedPage.axaml declare these themselves, outside
+           any variant dictionary, so a scope's variant never reached them. Declared here as well,
+           per variant and to the same colours: this dictionary is searched before the forked
+           controls' own, and the fork stays verbatim. Their Transparent ones vary with nothing. -->
+      <SolidColorBrush x:Key="NavigationBarBackground" Color="{DynamicResource ThemeControlMidColor}" />
+      <SolidColorBrush x:Key="NavigationBarForeground" Color="{DynamicResource ThemeForegroundColor}" />
+      <SolidColorBrush x:Key="TabbedPageTabItemHeaderBackgroundUnselectedPointerOver" Color="{DynamicResource ThemeControlMidColor}" />
+      <SolidColorBrush x:Key="TabbedPageTabItemHeaderBackgroundUnselectedPressed" Color="{DynamicResource ThemeControlHighlightMidColor}" />
+      <SolidColorBrush x:Key="TabbedPageTabItemHeaderForegroundUnselected" Color="{DynamicResource ThemeForegroundMidColor}" />
+      <SolidColorBrush x:Key="TabbedPageTabItemHeaderForegroundSelected" Color="{DynamicResource ThemeAccentColor}" />
+      <SolidColorBrush x:Key="TabbedPageTabItemHeaderForegroundDisabled" Color="{DynamicResource ThemeDisabledColor}" />
+      <!-- END BRUSHES -->
     </ResourceDictionary>
 
     <ResourceDictionary x:Key="Dark">
@@ -76,12 +161,76 @@
       <Color x:Key="ThemeAccentColor2">#99776BE7</Color>
       <Color x:Key="ThemeAccentColor3">#66776BE7</Color>
       <Color x:Key="HighlightForegroundColor">#FFFFFF</Color>
+
+      <!-- GENERATED by ThemeColourGenerator: dark bridge brushes, copied from light's. -->
+      <SolidColorBrush x:Key="DatePickerSpacerFill" Color="{DynamicResource FiliDividerColor}" />
+      <SolidColorBrush x:Key="TimePickerSpacerFill" Color="{DynamicResource FiliDividerColor}" />
+
+      <SolidColorBrush x:Key="ThemeBackgroundBrush" Color="{DynamicResource FiliSurfaceColor}" />
+      <SolidColorBrush x:Key="ThemeForegroundBrush" Color="{DynamicResource FiliTextPrimaryColor}" />
+      <SolidColorBrush x:Key="ThemeForegroundLowBrush" Color="{DynamicResource FiliTextSecondaryColor}" />
+
+      <SolidColorBrush x:Key="ThemeBorderLowBrush" Color="{DynamicResource FiliDividerColor}" />
+      <SolidColorBrush x:Key="ThemeBorderMidBrush" Color="{DynamicResource FiliLinesInputsColor}" />
+      <SolidColorBrush x:Key="ThemeBorderHighBrush" Color="{DynamicResource FiliTextPrimaryColor}" />
+
+      <SolidColorBrush x:Key="ThemeControlLowBrush" Color="{DynamicResource FiliBackgroundGrayColor}" />
+      <SolidColorBrush x:Key="ThemeControlMidBrush" Color="{DynamicResource FiliBackgroundGrayColor}" />
+      <SolidColorBrush x:Key="ThemeControlMidHighBrush" Color="{DynamicResource FiliLinesInputsColor}" />
+      <SolidColorBrush x:Key="ThemeControlHighBrush" Color="{DynamicResource FiliActionDefaultColor}" />
+      <SolidColorBrush x:Key="ThemeControlVeryHighBrush" Color="{DynamicResource FiliTextPrimaryColor}" />
+      <SolidColorBrush x:Key="ThemeControlTransparentBrush" Color="Transparent" />
+
+      <SolidColorBrush x:Key="ThemeControlHighlightLowBrush" Color="{DynamicResource FiliOverlayHoverColor}" />
+      <SolidColorBrush x:Key="ThemeControlHighlightMidBrush" Color="{DynamicResource FiliOverlayPressedColor}" />
+      <SolidColorBrush x:Key="ThemeControlHighlightHighBrush" Color="{DynamicResource FiliActionDefaultColor}" />
+
+      <SolidColorBrush x:Key="ThemeAccentBrush" Color="{DynamicResource FiliPrimaryColor}" />
+      <SolidColorBrush x:Key="ThemeAccentBrush2" Color="{DynamicResource FiliPrimaryColor}" Opacity="0.6" />
+      <SolidColorBrush x:Key="ThemeAccentBrush3" Color="{DynamicResource FiliPrimaryColor}" Opacity="0.4" />
+      <SolidColorBrush x:Key="ThemeAccentBrush4" Color="{DynamicResource FiliPrimaryColor}" Opacity="0.2" />
+
+      <SolidColorBrush x:Key="HighlightBrush" Color="{DynamicResource FiliPrimaryColor}" />
+      <SolidColorBrush x:Key="HighlightBrush2" Color="{DynamicResource FiliPrimaryColor}" Opacity="0.75" />
+      <SolidColorBrush x:Key="HighlightForegroundBrush" Color="{DynamicResource FiliPrimaryContrastTextColor}" />
+
+      <SolidColorBrush x:Key="HyperlinkVisitedBrush" Color="{DynamicResource FiliTertiaryColor}" />
+
+      <SolidColorBrush x:Key="ErrorBrush" Color="{DynamicResource FiliErrorColor}" />
+      <SolidColorBrush x:Key="ErrorLowBrush" Color="{DynamicResource FiliErrorColor}" Opacity="0.12" />
+
+      <SolidColorBrush x:Key="DatePickerFlyoutPresenterHighlightFill"
+                       Color="{DynamicResource FiliPrimaryColor}" Opacity="0.4" />
+      <SolidColorBrush x:Key="TimePickerFlyoutPresenterHighlightFill"
+                       Color="{DynamicResource FiliPrimaryColor}" Opacity="0.4" />
+
+      <SolidColorBrush x:Key="CaptionButtonForeground" Color="{DynamicResource FiliAppbarTextColor}" />
+      <SolidColorBrush x:Key="CaptionButtonBackground" Color="{DynamicResource FiliAppbarBackgroundColor}" />
+      <SolidColorBrush x:Key="CaptionButtonBorderBrush" Color="{DynamicResource FiliDividerColor}" />
+      <SolidColorBrush x:Key="TitleBarBackgroundBrush" Color="{DynamicResource FiliAppbarBackgroundColor}" />
+
+      <SolidColorBrush x:Key="RefreshVisualizerForeground" Color="{DynamicResource FiliTextPrimaryColor}" />
+      <SolidColorBrush x:Key="RefreshVisualizerBackground" Color="Transparent" />
+
+      <SolidColorBrush x:Key="NotificationCardBackgroundBrush" Color="{DynamicResource FiliSurfaceColor}" />
+      <SolidColorBrush x:Key="NotificationCardInformationBackgroundBrush" Color="{DynamicResource FiliInfoColor}" />
+      <SolidColorBrush x:Key="NotificationCardSuccessBackgroundBrush" Color="{DynamicResource FiliSuccessColor}" />
+      <SolidColorBrush x:Key="NotificationCardWarningBackgroundBrush" Color="{DynamicResource FiliWarningColor}" />
+      <SolidColorBrush x:Key="NotificationCardErrorBackgroundBrush" Color="{DynamicResource FiliErrorColor}" />
+
+      <SolidColorBrush x:Key="NavigationBarBackground" Color="{DynamicResource ThemeControlMidColor}" />
+      <SolidColorBrush x:Key="NavigationBarForeground" Color="{DynamicResource ThemeForegroundColor}" />
+      <SolidColorBrush x:Key="TabbedPageTabItemHeaderBackgroundUnselectedPointerOver" Color="{DynamicResource ThemeControlMidColor}" />
+      <SolidColorBrush x:Key="TabbedPageTabItemHeaderBackgroundUnselectedPressed" Color="{DynamicResource ThemeControlHighlightMidColor}" />
+      <SolidColorBrush x:Key="TabbedPageTabItemHeaderForegroundUnselected" Color="{DynamicResource ThemeForegroundMidColor}" />
+      <SolidColorBrush x:Key="TabbedPageTabItemHeaderForegroundSelected" Color="{DynamicResource ThemeAccentColor}" />
+      <SolidColorBrush x:Key="TabbedPageTabItemHeaderForegroundDisabled" Color="{DynamicResource ThemeDisabledColor}" />
+      <!-- END GENERATED -->
     </ResourceDictionary>
 
     <!--
-      High contrast. Only these sixteen raw Colors need restating: everything below the theme
-      dictionaries is a brush bound with DynamicResource to a Fili token, so it follows this
-      variant on its own. Without this block the eighty-one forked templates would paint
+      High contrast. Only these sixteen raw Colors need restating: every brush is bound with
+      DynamicResource to a Fili token, so it follows this variant on its own. Without this block the eighty-one forked templates would paint
       themselves from the DARK values here - #1FFFFFFF borders over a black ground, which is to
       say no borders at all - because that is the variant High Contrast inherits from, and the
       fallback is silent.
@@ -105,77 +254,77 @@
       <!-- Black, not white: the high-contrast accent is a LIGHT lavender, so the label sitting
            on a selected row has to invert with it. -->
       <Color x:Key="HighlightForegroundColor">#000000</Color>
+
+      <!-- GENERATED by ThemeColourGenerator: high contrast bridge brushes, copied from light's. -->
+      <SolidColorBrush x:Key="DatePickerSpacerFill" Color="{DynamicResource FiliDividerColor}" />
+      <SolidColorBrush x:Key="TimePickerSpacerFill" Color="{DynamicResource FiliDividerColor}" />
+
+      <SolidColorBrush x:Key="ThemeBackgroundBrush" Color="{DynamicResource FiliSurfaceColor}" />
+      <SolidColorBrush x:Key="ThemeForegroundBrush" Color="{DynamicResource FiliTextPrimaryColor}" />
+      <SolidColorBrush x:Key="ThemeForegroundLowBrush" Color="{DynamicResource FiliTextSecondaryColor}" />
+
+      <SolidColorBrush x:Key="ThemeBorderLowBrush" Color="{DynamicResource FiliDividerColor}" />
+      <SolidColorBrush x:Key="ThemeBorderMidBrush" Color="{DynamicResource FiliLinesInputsColor}" />
+      <SolidColorBrush x:Key="ThemeBorderHighBrush" Color="{DynamicResource FiliTextPrimaryColor}" />
+
+      <SolidColorBrush x:Key="ThemeControlLowBrush" Color="{DynamicResource FiliBackgroundGrayColor}" />
+      <SolidColorBrush x:Key="ThemeControlMidBrush" Color="{DynamicResource FiliBackgroundGrayColor}" />
+      <SolidColorBrush x:Key="ThemeControlMidHighBrush" Color="{DynamicResource FiliLinesInputsColor}" />
+      <SolidColorBrush x:Key="ThemeControlHighBrush" Color="{DynamicResource FiliActionDefaultColor}" />
+      <SolidColorBrush x:Key="ThemeControlVeryHighBrush" Color="{DynamicResource FiliTextPrimaryColor}" />
+      <SolidColorBrush x:Key="ThemeControlTransparentBrush" Color="Transparent" />
+
+      <SolidColorBrush x:Key="ThemeControlHighlightLowBrush" Color="{DynamicResource FiliOverlayHoverColor}" />
+      <SolidColorBrush x:Key="ThemeControlHighlightMidBrush" Color="{DynamicResource FiliOverlayPressedColor}" />
+      <SolidColorBrush x:Key="ThemeControlHighlightHighBrush" Color="{DynamicResource FiliActionDefaultColor}" />
+
+      <SolidColorBrush x:Key="ThemeAccentBrush" Color="{DynamicResource FiliPrimaryColor}" />
+      <SolidColorBrush x:Key="ThemeAccentBrush2" Color="{DynamicResource FiliPrimaryColor}" Opacity="0.6" />
+      <SolidColorBrush x:Key="ThemeAccentBrush3" Color="{DynamicResource FiliPrimaryColor}" Opacity="0.4" />
+      <SolidColorBrush x:Key="ThemeAccentBrush4" Color="{DynamicResource FiliPrimaryColor}" Opacity="0.2" />
+
+      <SolidColorBrush x:Key="HighlightBrush" Color="{DynamicResource FiliPrimaryColor}" />
+      <SolidColorBrush x:Key="HighlightBrush2" Color="{DynamicResource FiliPrimaryColor}" Opacity="0.75" />
+      <SolidColorBrush x:Key="HighlightForegroundBrush" Color="{DynamicResource FiliPrimaryContrastTextColor}" />
+
+      <SolidColorBrush x:Key="HyperlinkVisitedBrush" Color="{DynamicResource FiliTertiaryColor}" />
+
+      <SolidColorBrush x:Key="ErrorBrush" Color="{DynamicResource FiliErrorColor}" />
+      <SolidColorBrush x:Key="ErrorLowBrush" Color="{DynamicResource FiliErrorColor}" Opacity="0.12" />
+
+      <SolidColorBrush x:Key="DatePickerFlyoutPresenterHighlightFill"
+                       Color="{DynamicResource FiliPrimaryColor}" Opacity="0.4" />
+      <SolidColorBrush x:Key="TimePickerFlyoutPresenterHighlightFill"
+                       Color="{DynamicResource FiliPrimaryColor}" Opacity="0.4" />
+
+      <SolidColorBrush x:Key="CaptionButtonForeground" Color="{DynamicResource FiliAppbarTextColor}" />
+      <SolidColorBrush x:Key="CaptionButtonBackground" Color="{DynamicResource FiliAppbarBackgroundColor}" />
+      <SolidColorBrush x:Key="CaptionButtonBorderBrush" Color="{DynamicResource FiliDividerColor}" />
+      <SolidColorBrush x:Key="TitleBarBackgroundBrush" Color="{DynamicResource FiliAppbarBackgroundColor}" />
+
+      <SolidColorBrush x:Key="RefreshVisualizerForeground" Color="{DynamicResource FiliTextPrimaryColor}" />
+      <SolidColorBrush x:Key="RefreshVisualizerBackground" Color="Transparent" />
+
+      <SolidColorBrush x:Key="NotificationCardBackgroundBrush" Color="{DynamicResource FiliSurfaceColor}" />
+      <SolidColorBrush x:Key="NotificationCardInformationBackgroundBrush" Color="{DynamicResource FiliInfoColor}" />
+      <SolidColorBrush x:Key="NotificationCardSuccessBackgroundBrush" Color="{DynamicResource FiliSuccessColor}" />
+      <SolidColorBrush x:Key="NotificationCardWarningBackgroundBrush" Color="{DynamicResource FiliWarningColor}" />
+      <SolidColorBrush x:Key="NotificationCardErrorBackgroundBrush" Color="{DynamicResource FiliErrorColor}" />
+
+      <SolidColorBrush x:Key="NavigationBarBackground" Color="{DynamicResource ThemeControlMidColor}" />
+      <SolidColorBrush x:Key="NavigationBarForeground" Color="{DynamicResource ThemeForegroundColor}" />
+      <SolidColorBrush x:Key="TabbedPageTabItemHeaderBackgroundUnselectedPointerOver" Color="{DynamicResource ThemeControlMidColor}" />
+      <SolidColorBrush x:Key="TabbedPageTabItemHeaderBackgroundUnselectedPressed" Color="{DynamicResource ThemeControlHighlightMidColor}" />
+      <SolidColorBrush x:Key="TabbedPageTabItemHeaderForegroundUnselected" Color="{DynamicResource ThemeForegroundMidColor}" />
+      <SolidColorBrush x:Key="TabbedPageTabItemHeaderForegroundSelected" Color="{DynamicResource ThemeAccentColor}" />
+      <SolidColorBrush x:Key="TabbedPageTabItemHeaderForegroundDisabled" Color="{DynamicResource ThemeDisabledColor}" />
+      <!-- END GENERATED -->
     </ResourceDictionary>
 
   </ResourceDictionary.ThemeDictionaries>
 
-  <SolidColorBrush x:Key="DatePickerSpacerFill" Color="{DynamicResource FiliDividerColor}" />
-  <SolidColorBrush x:Key="TimePickerSpacerFill" Color="{DynamicResource FiliDividerColor}" />
+  <!-- The brushes are in the variant dictionaries above, written once in Light's. -->
 
-  <!-- ============================ Surfaces and text ============================ -->
-
-  <!-- Simple uses ThemeBackground for control interiors (TextBox, ComboBox, popups),
-       not for the page. Mapping it to the page ground would make every input disappear. -->
-  <SolidColorBrush x:Key="ThemeBackgroundBrush" Color="{DynamicResource FiliSurfaceColor}" />
-  <SolidColorBrush x:Key="ThemeForegroundBrush" Color="{DynamicResource FiliTextPrimaryColor}" />
-  <SolidColorBrush x:Key="ThemeForegroundLowBrush" Color="{DynamicResource FiliTextSecondaryColor}" />
-
-  <SolidColorBrush x:Key="ThemeBorderLowBrush" Color="{DynamicResource FiliDividerColor}" />
-  <SolidColorBrush x:Key="ThemeBorderMidBrush" Color="{DynamicResource FiliLinesInputsColor}" />
-  <SolidColorBrush x:Key="ThemeBorderHighBrush" Color="{DynamicResource FiliTextPrimaryColor}" />
-
-  <SolidColorBrush x:Key="ThemeControlLowBrush" Color="{DynamicResource FiliBackgroundGrayColor}" />
-  <SolidColorBrush x:Key="ThemeControlMidBrush" Color="{DynamicResource FiliBackgroundGrayColor}" />
-  <SolidColorBrush x:Key="ThemeControlMidHighBrush" Color="{DynamicResource FiliLinesInputsColor}" />
-  <SolidColorBrush x:Key="ThemeControlHighBrush" Color="{DynamicResource FiliActionDefaultColor}" />
-  <SolidColorBrush x:Key="ThemeControlVeryHighBrush" Color="{DynamicResource FiliTextPrimaryColor}" />
-  <SolidColorBrush x:Key="ThemeControlTransparentBrush" Color="Transparent" />
-
-  <!-- The highlight ladder is Material's state layer, so it maps straight onto the overlays. -->
-  <SolidColorBrush x:Key="ThemeControlHighlightLowBrush" Color="{DynamicResource FiliOverlayHoverColor}" />
-  <SolidColorBrush x:Key="ThemeControlHighlightMidBrush" Color="{DynamicResource FiliOverlayPressedColor}" />
-  <SolidColorBrush x:Key="ThemeControlHighlightHighBrush" Color="{DynamicResource FiliActionDefaultColor}" />
-
-  <!-- ============================ Accent and selection ============================ -->
-
-  <!-- Opacity rather than baked alpha, so the ramp follows FiliPrimary in both variants
-       without four more palette tokens to keep in step. -->
-  <SolidColorBrush x:Key="ThemeAccentBrush" Color="{DynamicResource FiliPrimaryColor}" />
-  <SolidColorBrush x:Key="ThemeAccentBrush2" Color="{DynamicResource FiliPrimaryColor}" Opacity="0.6" />
-  <SolidColorBrush x:Key="ThemeAccentBrush3" Color="{DynamicResource FiliPrimaryColor}" Opacity="0.4" />
-  <SolidColorBrush x:Key="ThemeAccentBrush4" Color="{DynamicResource FiliPrimaryColor}" Opacity="0.2" />
-
-  <SolidColorBrush x:Key="HighlightBrush" Color="{DynamicResource FiliPrimaryColor}" />
-  <SolidColorBrush x:Key="HighlightBrush2" Color="{DynamicResource FiliPrimaryColor}" Opacity="0.75" />
-  <SolidColorBrush x:Key="HighlightForegroundBrush" Color="{DynamicResource FiliPrimaryContrastTextColor}" />
-
-  <SolidColorBrush x:Key="HyperlinkVisitedBrush" Color="{DynamicResource FiliTertiaryColor}" />
-
-  <SolidColorBrush x:Key="ErrorBrush" Color="{DynamicResource FiliErrorColor}" />
-  <SolidColorBrush x:Key="ErrorLowBrush" Color="{DynamicResource FiliErrorColor}" Opacity="0.12" />
-
-  <SolidColorBrush x:Key="DatePickerFlyoutPresenterHighlightFill"
-                   Color="{DynamicResource FiliPrimaryColor}" Opacity="0.4" />
-  <SolidColorBrush x:Key="TimePickerFlyoutPresenterHighlightFill"
-                   Color="{DynamicResource FiliPrimaryColor}" Opacity="0.4" />
-
-  <!-- ============================ Window chrome ============================ -->
-
-  <SolidColorBrush x:Key="CaptionButtonForeground" Color="{DynamicResource FiliAppbarTextColor}" />
-  <SolidColorBrush x:Key="CaptionButtonBackground" Color="{DynamicResource FiliAppbarBackgroundColor}" />
-  <SolidColorBrush x:Key="CaptionButtonBorderBrush" Color="{DynamicResource FiliDividerColor}" />
-  <SolidColorBrush x:Key="TitleBarBackgroundBrush" Color="{DynamicResource FiliAppbarBackgroundColor}" />
-
-  <SolidColorBrush x:Key="RefreshVisualizerForeground" Color="{DynamicResource FiliTextPrimaryColor}" />
-  <SolidColorBrush x:Key="RefreshVisualizerBackground" Color="Transparent" />
-
-  <!-- ============================ Notifications ============================ -->
-
-  <SolidColorBrush x:Key="NotificationCardBackgroundBrush" Color="{DynamicResource FiliSurfaceColor}" />
-  <SolidColorBrush x:Key="NotificationCardInformationBackgroundBrush" Color="{DynamicResource FiliInfoColor}" />
-  <SolidColorBrush x:Key="NotificationCardSuccessBackgroundBrush" Color="{DynamicResource FiliSuccessColor}" />
-  <SolidColorBrush x:Key="NotificationCardWarningBackgroundBrush" Color="{DynamicResource FiliWarningColor}" />
-  <SolidColorBrush x:Key="NotificationCardErrorBackgroundBrush" Color="{DynamicResource FiliErrorColor}" />
 
   <!-- ============================ Metrics ============================ -->
 
