@@ -286,15 +286,19 @@ dotnet run -c Release --project tst/Fili.Theme.MudAvalonia.Benchmarks -- --filte
 The benchmark runs in process, on its own headless session, and writes its tables to
 `BenchmarkDotNet.Artifacts/`. A style-cost change keeps only what its timings show - fewer style
 instances has built slower before - and puts both tables in the change; one that moves the
-instance count moves `StyleCostTests.StyleInstanceCeiling` with it. Measured on 2026-11-01, after the
-fixes of this version (short run, a loaded machine, so read the ratio rather than the times):
+instance count moves `StyleCostTests.StyleInstanceCeiling` with it. Measured on 2026-11-03, 0.31.0
+and 0.32.0 one after the other on an idle machine (read the ratio rather than the times):
 
-| Method | Theme | Mean | Allocated |
-|---|---|---:|---:|
-| BuildScreen | Base | 454 ms | 123 MB |
-| BuildScreen | Fili | 1,283 ms | 247 MB |
-| SwitchVariant | Base | 15 ms | 1.2 MB |
-| SwitchVariant | Fili | 56 ms | 0.7 MB |
+| Method | Theme | 0.31.0 | 0.32.0 | Allocated, 0.31.0 | Allocated, 0.32.0 |
+|---|---|---:|---:|---:|---:|
+| BuildScreen | Base | 560 ms | 433 ms | 123 MB | 123 MB |
+| BuildScreen | Fili | 1,533 ms | 1,322 ms | 247 MB | 247 MB |
+| SwitchVariant | Base | 19 ms | 57 ms | 1.2 MB | 9.3 MB |
+| SwitchVariant | Fili | 61 ms | 110 ms | 0.7 MB | 9.9 MB |
+
+Building costs what it did; 0.31.0's run was the noisier. Switching variant costs more since every
+variant has brushes of its own (0.32.0): a switch replaces every brush a control paints with,
+where it used to recolour the same ones.
 
 Accepting rewrites every frame, so restore the ones the change should not have touched, then run
 the suite twice more: a frame that differs between two runs of the same build is an animation
