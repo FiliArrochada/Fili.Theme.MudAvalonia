@@ -1,0 +1,41 @@
+<Solution>
+  <Configurations>
+    <Platform Name="Any CPU" />
+    <Platform Name="x64" />
+    <Platform Name="x86" />
+  </Configurations>
+  <Folder Name="/Pipelines/">
+    <File Path=".github/workflows/build.yml" />
+    <File Path=".github/workflows/release.yml" />
+  </Folder>
+  <Folder Name="/Solution Items/">
+    <File Path=".gitattributes" />
+    <File Path=".gitignore" />
+    <File Path="CLAUDE.md" />
+    <File Path="Directory.Build.props" />
+    <File Path="Directory.Packages.props" />
+    <File Path="docs/releasing.md" />
+    <File Path="docs/testing.md" />
+    <File Path="docs/the-base.md" />
+    <File Path="docs/traps.md" />
+    <File Path="global.json" />
+    <File Path="LICENSE" />
+    <File Path="README.md" />
+  </Folder>
+  <Folder Name="/Solution Items/Versions/">
+    <File Path="docs/versions/README.md" />
+    <File Path="docs/versions/unreleased.md" />
+  </Folder>
+  <Folder Name="/src/">
+    <Project Path="src/Fili.Theme.MudAvalonia.Gallery.Browser/Fili.Theme.MudAvalonia.Gallery.Browser.csproj" />
+    <Project Path="src/Fili.Theme.MudAvalonia.Gallery.Desktop/Fili.Theme.MudAvalonia.Gallery.Desktop.csproj" />
+    <Project Path="src/Fili.Theme.MudAvalonia.Gallery/Fili.Theme.MudAvalonia.Gallery.csproj" />
+    <Project Path="src/Fili.Theme.MudAvalonia/Fili.Theme.MudAvalonia.csproj" />
+  </Folder>
+  <Folder Name="/tst/">
+    <Project Path="tst/Fili.Theme.MudAvalonia.Benchmarks/Fili.Theme.MudAvalonia.Benchmarks.csproj" />
+    <Project Path="tst/Fili.Theme.MudAvalonia.NoDataGridTests/Fili.Theme.MudAvalonia.NoDataGridTests.csproj" />
+    <Project Path="tst/Fili.Theme.MudAvalonia.PixelTests/Fili.Theme.MudAvalonia.PixelTests.csproj" />
+    <Project Path="tst/Fili.Theme.MudAvalonia.UnitTests/Fili.Theme.MudAvalonia.UnitTests.csproj" />
+  </Folder>
+</Solution>

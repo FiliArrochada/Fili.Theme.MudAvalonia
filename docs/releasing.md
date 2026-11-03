@@ -6,7 +6,7 @@ pushed:
 
 ```powershell
 # 1. bump <Version> in Directory.Build.props, rename docs/versions/unreleased.md to <Version>.md,
-#    run `dotnet restore Fili.Theme.MudAvalonia.sln --force-evaluate` (the lock files record the
+#    run `dotnet restore Fili.Theme.MudAvalonia.slnx --force-evaluate` (the lock files record the
 #    version of each project reference, and CI's locked restore fails on a stale one), commit, push
 # 2. tag that exact version and push the tag
 git tag v0.1.0

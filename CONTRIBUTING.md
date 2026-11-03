@@ -10,8 +10,8 @@ You need the .NET SDK `global.json` names, and the `wasm-tools` workload for the
 
 ```powershell
 dotnet workload install wasm-tools
-dotnet build Fili.Theme.MudAvalonia.sln
-dotnet test  Fili.Theme.MudAvalonia.sln
+dotnet build Fili.Theme.MudAvalonia.slnx
+dotnet test  Fili.Theme.MudAvalonia.slnx
 dotnet run --project src/Fili.Theme.MudAvalonia.Gallery.Desktop
 ```
 

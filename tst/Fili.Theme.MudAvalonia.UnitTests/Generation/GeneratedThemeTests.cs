@@ -57,12 +57,12 @@ public class GeneratedThemeTests
     {
         for (var directory = new DirectoryInfo(AppContext.BaseDirectory); directory is not null; directory = directory.Parent)
         {
-            if (File.Exists(Path.Combine(directory.FullName, "Fili.Theme.MudAvalonia.sln")))
+            if (File.Exists(Path.Combine(directory.FullName, "Fili.Theme.MudAvalonia.slnx")))
             {
                 return Path.Combine(directory.FullName, "src", "Fili.Theme.MudAvalonia");
             }
         }
 
-        throw new InvalidOperationException("Could not find Fili.Theme.MudAvalonia.sln above the test binary.");
+        throw new InvalidOperationException("Could not find Fili.Theme.MudAvalonia.slnx above the test binary.");
     }
 }

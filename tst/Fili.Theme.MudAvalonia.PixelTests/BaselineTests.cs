@@ -187,7 +187,7 @@ public static class Baselines
 
         while (directory is not null)
         {
-            if (File.Exists(Path.Combine(directory.FullName, "Fili.Theme.MudAvalonia.sln")))
+            if (File.Exists(Path.Combine(directory.FullName, "Fili.Theme.MudAvalonia.slnx")))
             {
                 return Path.Combine(
                     directory.FullName, "tst", "Fili.Theme.MudAvalonia.PixelTests", "Baselines");
@@ -197,7 +197,7 @@ public static class Baselines
         }
 
         throw new InvalidOperationException(
-            "Could not find Fili.Theme.MudAvalonia.sln above the test binary, so there is no "
+            "Could not find Fili.Theme.MudAvalonia.slnx above the test binary, so there is no "
             + "source tree to read baselines from.");
     }
 }

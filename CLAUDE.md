@@ -167,8 +167,8 @@ tag, so the two move together.
 
 ```powershell
 dotnet workload install wasm-tools   # once - the solution includes the browser gallery
-dotnet build Fili.Theme.MudAvalonia.sln
-dotnet test  Fili.Theme.MudAvalonia.sln
+dotnet build Fili.Theme.MudAvalonia.slnx
+dotnet test  Fili.Theme.MudAvalonia.slnx
 dotnet run --project src/Fili.Theme.MudAvalonia.Gallery.Desktop
 
 # Accept new pixel baselines, after looking at the diff image the failure printed:

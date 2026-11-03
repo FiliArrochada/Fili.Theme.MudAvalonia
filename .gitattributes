@@ -2,7 +2,7 @@
 
 *.cs       text diff=csharp
 *.csproj   text
-*.sln      text eol=crlf
+*.slnx     text eol=crlf
 *.axaml    text
 *.xaml     text
 *.props    text
