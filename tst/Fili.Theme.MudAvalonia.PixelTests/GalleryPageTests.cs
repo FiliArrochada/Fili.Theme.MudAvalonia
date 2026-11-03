@@ -18,8 +18,8 @@ public class GalleryPageTests
 {
     /// <summary>
     /// The app bar names the theme version it is showing, read from the theme's own assembly:
-    /// "v0.4.0", "+ unreleased" while docs/versions/unreleased.md has work in it, and the commit
-    /// after it whenever the SDK stamped one, as every clone does.
+    /// "v0.4.0" or a prerelease's "v1.0.0-rc.1", "+ unreleased" while docs/versions/unreleased.md
+    /// has work in it, and the commit after it whenever the SDK stamped one, as every clone does.
     /// </summary>
     [Fact]
     public Task TheAppBarShowsTheThemeVersion() => UiThread.RunAsync(() =>
@@ -31,7 +31,7 @@ public class GalleryPageTests
         var text = view.GetVisualDescendants().OfType<TextBlock>().Single(t => t.Name == "ThemeVersion").Text;
         var expected = typeof(FiliThemeVariants).Assembly.GetName().Version!.ToString(3);
 
-        Assert.Matches(@"^v\d+\.\d+\.\d+( \+ unreleased)?( · [0-9a-f]{7})?$", text);
+        Assert.Matches(@"^v\d+\.\d+\.\d+(-[0-9A-Za-z.]+)?( \+ unreleased)?( · [0-9a-f]{7})?$", text);
         Assert.StartsWith($"v{expected}", text);
     });
 
