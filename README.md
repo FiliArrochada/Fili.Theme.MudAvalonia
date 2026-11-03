@@ -103,13 +103,13 @@ The NuGet package keeps its original id, **`Fili.MudAvalonia.Theme`**: a nuget.o
 permanent, and this one already has downloads. Everything else - the assembly, the namespaces,
 the `avares://` paths and the repository - is `Fili.Theme.MudAvalonia`.
 
-```xml
-<PackageReference Include="Fili.MudAvalonia.Theme" Version="0.32.0" />
+```bash
+dotnet add package Fili.MudAvalonia.Theme
 ```
 
-Under Central Package Management the version goes in `Directory.Packages.props` instead, as
-`<PackageVersion Include="Fili.MudAvalonia.Theme" Version="0.32.0" />`, and the reference stays
-version-less.
+That adds the newest release, the version on the NuGet badge above. Under Central Package
+Management the same command writes the version into `Directory.Packages.props` and leaves the
+reference version-less.
 
 **Keep every `Avalonia*` package on one version, 12.1.4 or later.** The theme needs `Avalonia`
 12.1.4 at least, so an app pinned to an older 12.1 patch fails restore with **NU1605** (a package

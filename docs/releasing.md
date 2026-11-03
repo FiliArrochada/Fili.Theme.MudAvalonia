@@ -36,6 +36,11 @@ words **Nothing yet.**: the docs site deploys from `master`, and while that sent
 its version label reads "v<Version> + unreleased", so the site never names a released version for
 work no package has yet.
 
+A bump touches only those pages, `Directory.Build.props` and the lock files. Keep it that way:
+nothing else names the current version. The README installs with `dotnet add package` and shows
+the version through the NuGet badge, the bug report template asks for the reader's version, and
+the solution lists the version index and `unreleased.md`, not each page.
+
 The same page is the package's **release notes on nuget.org**: the pack takes its summary and a
 link to the page at the commit (`PackReleaseNotesFromVersionPage` in the theme's csproj). A pack
 between releases, which has no page of its own, says so and links `unreleased.md`.
