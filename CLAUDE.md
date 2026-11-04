@@ -112,8 +112,9 @@ that pins each, and the control-specific ones.
 - `x:Key="HighContrast"` is not a theme variant; reach it through `x:Static FiliThemeVariants`.
 - Every brush is declared in each variant's dictionary, written once in Light's and copied by
   `ThemeColourGenerator`, so a window or `ThemeVariantScope` paints in its own variant; a lookup
-  naming no variant finds `FallbackBrushes.axaml`, which must stay out of `Palette.axaml`'s merged
-  set (a plain entry there shadows every variant dictionary's).
+  naming no variant, or the application's own, finds `FallbackBrushes.axaml` through
+  `ApplicationVariantBrushes`, so a switch recolours brushes instead of swapping them; it must
+  stay out of `Palette.axaml`'s merged set (a plain entry there shadows every variant dictionary's).
 
 **Templates and controls**
 

@@ -17,39 +17,35 @@
   against a child StyleInclude.
 -->
 <Styles xmlns="https://github.com/avaloniaui"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:theme="using:Fili.Theme.MudAvalonia">
 
   <Styles.Resources>
     <ResourceDictionary>
       <ResourceDictionary.MergedDictionaries>
-        <!-- Tokens first: Accents.axaml binds Simple's key surface to them. -->
-        <MergeResourceInclude Source="avares://Fili.Theme.MudAvalonia/Themes/Palette.axaml" />
-        <MergeResourceInclude Source="avares://Fili.Theme.MudAvalonia/Themes/Typography.axaml" />
-        <MergeResourceInclude Source="avares://Fili.Theme.MudAvalonia/Themes/Geometry.axaml" />
-        <MergeResourceInclude Source="avares://Fili.Theme.MudAvalonia/Themes/Base/Accents.axaml" />
-        <MergeResourceInclude Source="avares://Fili.Theme.MudAvalonia/Themes/Base/InvariantResources.axaml" />
+        <ResourceDictionary>
+          <ResourceDictionary.MergedDictionaries>
+            <!-- Tokens first: Accents.axaml binds Simple's key surface to them. -->
+            <MergeResourceInclude Source="avares://Fili.Theme.MudAvalonia/Themes/Palette.axaml" />
+            <MergeResourceInclude Source="avares://Fili.Theme.MudAvalonia/Themes/Typography.axaml" />
+            <MergeResourceInclude Source="avares://Fili.Theme.MudAvalonia/Themes/Geometry.axaml" />
+            <MergeResourceInclude Source="avares://Fili.Theme.MudAvalonia/Themes/Base/Accents.axaml" />
+            <MergeResourceInclude Source="avares://Fili.Theme.MudAvalonia/Themes/Base/InvariantResources.axaml" />
+          </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+        <!--
+          Every brush again, outside the variant dictionaries, for the application's own variant
+          and for a lookup that names no variant (ApplicationVariantBrushes, VariantScopeTests).
+          Last, so searched first; a lookup for another variant passes it by and finds that
+          variant's brush in the dictionary above.
+        -->
+        <theme:ApplicationVariantBrushes>
+          <ResourceInclude Source="avares://Fili.Theme.MudAvalonia/Themes/FallbackBrushes.axaml" />
+        </theme:ApplicationVariantBrushes>
       </ResourceDictionary.MergedDictionaries>
     </ResourceDictionary>
   </Styles.Resources>
 
   <StyleInclude Source="avares://Fili.Theme.MudAvalonia/Themes/Base/Controls/SimpleControls.axaml" />
-
-  <!--
-    Every brush again, outside the variant dictionaries, for a lookup that names no variant
-    (FindResource(key) in an app's code), which never searches a variant dictionary. Here and not
-    in the dictionary above: a dictionary finds a plain entry in any of its merged dictionaries
-    before a variant dictionary's, so these would shadow every per-variant brush. A Styles
-    searches its own resources before its children's, so a lookup reaches these only when the
-    dictionary above had nothing for it (FallbackBrushes.axaml, VariantScopeTests).
-  -->
-  <Styles>
-    <Styles.Resources>
-      <ResourceDictionary>
-        <ResourceDictionary.MergedDictionaries>
-          <MergeResourceInclude Source="avares://Fili.Theme.MudAvalonia/Themes/FallbackBrushes.axaml" />
-        </ResourceDictionary.MergedDictionaries>
-      </ResourceDictionary>
-    </Styles.Resources>
-  </Styles>
 
 </Styles>

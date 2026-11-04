@@ -198,8 +198,19 @@ one.
 - **A plain entry anywhere in a dictionary's merged set beats a variant dictionary's.** A lookup
   that names no variant (`FindResource(key)`) never searches a variant dictionary, so every brush
   is declared once more in `FallbackBrushes.axaml`. Merged beside `Palette.axaml` it shadowed every
-  per-variant brush, whichever end of the list it sat at; it lives in a nested `Styles` in
-  `FiliBaseTheme.axaml`, which a lookup reaches only after the dictionary above came up empty.
+  per-variant brush, whichever end of the list it sat at: `MergeResourceInclude` folds a file's
+  entries into the dictionary it is merged into. `ApplicationVariantBrushes` holds it instead, in
+  a dictionary of its own, and answers only for the application's variant or none.
+- **Per-variant brushes made a variant switch up to three times as slow**, in 0.32.0 and 0.33.0: found for
+  every lookup, they handed each control a new brush in every brush property on a switch, where
+  one brush per key had only been recoloured. `ApplicationVariantBrushes` answers a lookup for the
+  application's own variant with the application-following brushes, so a switch recolours again;
+  another variant's lookup still finds that variant's. A window or scope whose own variant equals
+  the application's holds those brushes too, and does not look them up again when the
+  application switches, as its own variant did not change: the provider tracks every element that
+  requests a variant and notifies just those subtrees. One notification for the whole application
+  made every control look up every brush again, which cost as much as the switch saved.
+  `VariantScopeTests`, and the benchmark's `SwitchVariant`.
 - **Elevation does not vary between light and dark**, matching MudBlazor - but it DOES vary
   in high contrast, where every raised level becomes a hard 1px ring instead of a shadow. That is
   what gives the variant its separation without a single control template knowing it exists.

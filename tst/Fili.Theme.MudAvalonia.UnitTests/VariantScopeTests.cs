@@ -13,8 +13,9 @@ namespace Fili.Theme.MudAvalonia.UnitTests;
 /// it. Every brush is declared in each variant's dictionary and resolves its colour for that
 /// variant, so a window or a <c>ThemeVariantScope</c> with a variant of its own paints with that
 /// variant's brushes, while a colour an app sets in its application's resources still reaches
-/// them. A lookup that names no variant finds <c>FallbackBrushes.axaml</c>, which follows the
-/// application's variant as every brush did before 0.32.0.
+/// them. A lookup for the application's own variant, or one that names no variant, finds
+/// <c>FallbackBrushes.axaml</c> through <c>ApplicationVariantBrushes</c>: brushes that follow the
+/// application's variant, so a switch recolours them.
 /// </summary>
 public class VariantScopeTests
 {
@@ -110,6 +111,75 @@ public class VariantScopeTests
             Dispatcher.UIThread.RunJobs();
 
             Assert.Equal(DarkSurface, ((ISolidColorBrush)surface.Background!).Color);
+        }
+        finally
+        {
+            window.Close();
+        }
+    }));
+
+    /// <summary>
+    /// A window or scope whose own variant is the application's keeps it when the application
+    /// switches: what is inside it held the application's brushes, which follow the switch, and
+    /// looks its own variant's up again.
+    /// </summary>
+    [Theory]
+    [InlineData("window")]
+    [InlineData("scope")]
+    public Task AVariantEqualToTheApplicationsSurvivesASwitch(string host) => UiThread.RunAsync(() => InApplication(ThemeVariant.Light, () =>
+    {
+        var surface = Painted("FiliSurfaceBrush");
+        var bridge = Painted("ThemeForegroundBrush");
+        var content = new StackPanel { Children = { surface, bridge } };
+        var window = host == "window"
+            ? new Window { RequestedThemeVariant = ThemeVariant.Light, Content = content }
+            : new Window { Content = new ThemeVariantScope { RequestedThemeVariant = ThemeVariant.Light, Child = content } };
+
+        try
+        {
+            window.Show();
+            Dispatcher.UIThread.RunJobs();
+            Application.Current!.RequestedThemeVariant = ThemeVariant.Dark;
+            Dispatcher.UIThread.RunJobs();
+
+            Assert.Equal(LightSurface, ((ISolidColorBrush)surface.Background!).Color);
+            Assert.Equal(ColourOf("FiliTextPrimaryColor", ThemeVariant.Light), ((ISolidColorBrush)bridge.Background!).Color);
+
+            Application.Current.RequestedThemeVariant = ThemeVariant.Light;
+            Dispatcher.UIThread.RunJobs();
+            Assert.Equal(LightSurface, ((ISolidColorBrush)surface.Background!).Color);
+        }
+        finally
+        {
+            window.Close();
+        }
+    }));
+
+    /// <summary>
+    /// A switch of the application's variant recolours the brushes a control already has rather
+    /// than handing it new ones, which made a switch up to three times as slow
+    /// (<c>ApplicationVariantBrushes</c>).
+    /// </summary>
+    [Fact]
+    public Task ASwitchRecoloursTheBrushAControlHas() => UiThread.RunAsync(() => InApplication(ThemeVariant.Light, () =>
+    {
+        var surface = Painted("FiliSurfaceBrush");
+        var bridge = Painted("ThemeForegroundBrush");
+        var window = new Window { Content = new StackPanel { Children = { surface, bridge } } };
+        try
+        {
+            window.Show();
+            Dispatcher.UIThread.RunJobs();
+            var surfaceBrush = surface.Background;
+            var bridgeBrush = bridge.Background;
+
+            Application.Current!.RequestedThemeVariant = ThemeVariant.Dark;
+            Dispatcher.UIThread.RunJobs();
+
+            Assert.Same(surfaceBrush, surface.Background);
+            Assert.Same(bridgeBrush, bridge.Background);
+            Assert.Equal(DarkSurface, ((ISolidColorBrush)surface.Background!).Color);
+            Assert.Equal(ColourOf("FiliTextPrimaryColor", ThemeVariant.Dark), ((ISolidColorBrush)bridge.Background!).Color);
         }
         finally
         {

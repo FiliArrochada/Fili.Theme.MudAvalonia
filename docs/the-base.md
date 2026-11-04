@@ -363,6 +363,12 @@ for something XAML cannot express on its own:
   `FiliLinesDefaultColor`. A `BoxShadows` string cannot carry a `DynamicResource`. It keeps the
   ring per variant and, when the application's resources change the line colour, drops it and
   raises its own change.
+- **`ApplicationVariantBrushes`** answers a brush lookup for the application's own variant, or one
+  naming no variant, with `FallbackBrushes.axaml`'s brushes, which follow the application's
+  variant, so a variant switch recolours the brushes a control has instead of handing it new
+  ones; another variant's lookup passes it by. A dictionary cannot answer for one variant and pass
+  for another, and nothing in XAML can tell the subtrees of a window or scope that requested the
+  application's old variant to look their brushes up again after a switch.
 - **`FocusRing`** is the flag on each window's and popup's `AdornerLayer` that `FiliFocusRing`
   sets, on which the layer draws the focus ring round whichever control the keyboard focuses. A
   style can only test a property, and a popup's layer is in a window of its own. Its `Follows`
