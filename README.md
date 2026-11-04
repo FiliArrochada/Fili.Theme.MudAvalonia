@@ -154,7 +154,7 @@ fix is to let the theme own shape and interaction and keep the app's colour. Gre
 ([Compatibility](docs/compatibility.md)): `ClassVocabularyTests` fails when the theme's selectors
 use a class this table does not list, or the table lists one they do not use.
 
-**All 183 classes:**
+**All 184 classes:**
 
 | | |
 |---|---|
@@ -165,7 +165,7 @@ use a class this table does not list, or the table lists one they do not use.
 | Shape (`Variant`) | `text`, `filled`, `outlined`, `rounded`, `flat` |
 | Size (`Size`) | `small`, `medium`, `large`, `dense` |
 | Placement | `inset`, `middle`, `vertical`, `light`, `underline`, `no-underline`, `border`, `centered`, `hide-indicator` |
-| Component | `icon`, `button-group`, `chip`, `fab`, `extended`, `list-item`, `alert`, `avatar`, `badge`, `card`, `skeleton`, `subheader`, `circle`, `rectangle`, `counter`, `circular`, `nav`, `toolbar`, `drawer-header`, `normal`, `newest-on-top`, `expansion-panels` |
+| Component | `icon`, `button-group`, `chip`, `divider`, `fab`, `extended`, `list-item`, `alert`, `avatar`, `badge`, `card`, `skeleton`, `subheader`, `circle`, `rectangle`, `counter`, `circular`, `nav`, `toolbar`, `drawer-header`, `normal`, `newest-on-top`, `expansion-panels` |
 | Card parts (a `StackPanel`, `DockPanel`, `Grid`, `WrapPanel`, `Border`, `TextBlock`, `Button` or `Image`) | `card-header`, `card-header-avatar`, `card-header-content`, `card-header-actions`, `card-media`, `card-content`, `card-actions` |
 | Badge (`Origin`, `Dot`, `Bordered`, `Overlap`), and the table's `Bordered` | `top-left`, `top-center`, `center-left`, `center-center`, `center-right`, `bottom-left`, `bottom-center`, `bottom-right`, `dot`, `bordered`, `overlap` |
 | Behaviour | `always-show-scroll-buttons`, `arrow`, `arrows-top`, `arrows-bottom`, `bullets-top`, `bullets-center`, `check-mark`, `clearable`, `dense-items`, `editable`, `helper-on-focus`, `hide-close`, `hide-icon`, `hover`, `loading`, `multi-expansion`, `multi-selection`, `no-animation`, `no-arrows`, `no-bullets`, `no-gutters`, `no-outline`, `no-paper`, `placeholder`, `required`, `shrink-label`, `value-label`, `striped`, `wave` |

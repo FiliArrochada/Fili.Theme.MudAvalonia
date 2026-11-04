@@ -58,6 +58,7 @@
       <docs:ParityRow MudBlazor="Color.Inherit (default), Color.Default, Color.Surface" Here="no class" Status="Same" Note="MudText adds no colour for these (mud-surface-text has no rule), so the text takes the colour round it." />
       <docs:ParityRow MudBlazor="Color.Inherit over a colour class" Here="inherit" Status="Same" Note="The surrounding text colour, over a colour class too." />
       <docs:ParityRow MudBlazor="mud-text-secondary (grey)" Here="Foreground set to FiliTextSecondaryBrush" Status="Close" Note="A utility class in MudBlazor, not a Color." />
+      <docs:ParityRow MudBlazor="Truncate" Here="TextTrimming=&quot;CharacterEllipsis&quot;" Status="Close" Note="An Avalonia property: the text keeps to one line and ends in an ellipsis where it overflows, as mud-typography-nowrap does." />
       <docs:ParityRow MudBlazor="Align, GutterBottom, Inline, HtmlTag" Here="TextAlignment, Margin, a Run" Status="Close" Note="Ordinary Avalonia properties; HtmlTag has no counterpart outside HTML." />
       <docs:ParityRow MudBlazor="Typography.cs" Here="Fili{Style}FontSize, …LineHeight, …LetterSpacing per style" Status="Same" Note="Line height and letter spacing converted to absolute pixels." />
       <docs:ParityRow MudBlazor="Typography.Button.TextTransform (uppercase)" Here="FiliButtonTextTransform" Status="Same" Note="CSS's words: none, uppercase, lowercase, capitalize, on a button's string label and on the button class." />

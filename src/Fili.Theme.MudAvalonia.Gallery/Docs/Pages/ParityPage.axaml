@@ -11,7 +11,7 @@
     </TextBlock>
 
     <TextBlock Classes="h5 section" Text="Scope" />
-    <TextBlock Classes="body1 p" Text="Every parameter of a MudBlazor 9.11 component that changes how it looks or behaves has a row on its component's page, and every component is listed below. Where an Avalonia property or class does the same, the row names it, Same or Close; where nothing does, the row is Missing, with the reason in its note. Pure plumbing has no row: ChildContent, Class, Style, UserAttributes, Tag, and callbacks that only report an event." />
+    <TextBlock Classes="body1 p" Text="Every parameter of a MudBlazor component, in the version Compatibility names, that changes how it looks or behaves has a row on its component's page, and every component is listed below. Where an Avalonia property or class does the same, the row names it, Same or Close; where nothing does, the row is Missing, with the reason in its note. Pure plumbing has no row: ChildContent, Class, Style, UserAttributes, Tag, and callbacks that only report an event." />
 
     <TextBlock Classes="h5 section" Text="Properties, not classes" />
     <TextBlock Classes="body1 p">

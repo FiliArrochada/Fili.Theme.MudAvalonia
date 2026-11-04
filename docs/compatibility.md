@@ -78,7 +78,7 @@ Avalonia 13, a major version here too.
 - **What `FiliReducedMotion` covers.** It stops every animation and transition the theme starts
   itself except an indeterminate progress indicator's ([Published resource keys](published-keys.md));
   one the theme adds joins it in the same change, and an app's own transitions are never touched.
-- **The MudBlazor version tracked.** The theme transcribes MudBlazor 9.11; following a newer one
+- **The MudBlazor version tracked.** The theme transcribes MudBlazor 9.12; following a newer one
   is a minor version, with the visible differences listed.
 - **The Avalonia minimum, within Avalonia 12.** `Themes/Base/` is a fork of Avalonia Simple at
   the declared minimum, and the two move together ([Releasing](releasing.md#supported-avalonia-versions)).

@@ -282,15 +282,23 @@ public class AvatarTests
         Assert.Equal(Matrix.Token("FiliTextPrimaryColor"), Matrix.Colour(avatar.BorderBrush));
     });
 
-    /// <summary>Variant.Text has no rule in _avatar.scss: the bare `.mud-avatar`, whatever the colour.</summary>
+    /// <summary>
+    /// Variant.Text is 9.12's `.mud-avatar-text`: no ground and text-primary, or with a colour
+    /// class the colour as the text.
+    /// </summary>
     [Fact]
-    public Task TextIsWhiteOnGrayLightWhateverTheColour() => UiThread.RunAsync(() =>
+    public Task TextIsTextPrimaryOrTheColourOnNoGround() => UiThread.RunAsync(() =>
     {
-        var initials = new TextBlock { Text = "A" };
-        var avatar = Show(initials, "text", "primary");
+        var plain = new TextBlock { Text = "A" };
+        var coloured = new TextBlock { Text = "A" };
+        var bare = Show(plain, "text");
+        var primary = Show(coloured, "text", "primary");
 
-        Assert.Equal(Matrix.Token("FiliGrayLightColor"), Matrix.Colour(avatar.Background));
-        Assert.Equal(Matrix.Token("FiliAvatarBareTextColor"), Matrix.Colour(initials.Foreground));
+        Assert.Equal(Colors.Transparent, Matrix.Colour(bare.Background));
+        Assert.Equal(Matrix.Token("FiliTextPrimaryColor"), Matrix.Colour(plain.Foreground));
+        Assert.Equal(Colors.Transparent, Matrix.Colour(primary.Background));
+        Assert.Equal(Matrix.Token("FiliPrimaryColor"), Matrix.Colour(coloured.Foreground));
+        Assert.Equal(new Thickness(0), primary.BorderThickness);
     });
 
     [Fact]

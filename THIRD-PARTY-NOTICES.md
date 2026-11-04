@@ -295,7 +295,7 @@ otherwise unchanged.
 
 ## MudBlazor - MIT
 
-The design values are transcribed from [MudBlazor](https://github.com/MudBlazor/MudBlazor) 9.11:
+The design values are transcribed from [MudBlazor](https://github.com/MudBlazor/MudBlazor):
 the palette, shadows, typography and layout from `src/MudBlazor/Themes/Models/`, the component
 metrics from `src/MudBlazor/Styles/components/*.scss` and the components' parameter defaults, and
 the icon path data above from `Icons/Material/Filled.cs`.

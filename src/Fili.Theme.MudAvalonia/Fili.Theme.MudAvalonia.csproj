@@ -4,7 +4,7 @@
     <RootNamespace>Fili.Theme.MudAvalonia</RootNamespace>
     <AssemblyName>Fili.Theme.MudAvalonia</AssemblyName>
     <PackageId>Fili.MudAvalonia.Theme</PackageId>
-    <Description>MudBlazor's look for Avalonia 12: MudBlazor 9.11's palette, elevation, typography and component styles as classes on Avalonia's own controls, in light, dark and high contrast. Not affiliated with MudBlazor.</Description>
+    <Description>MudBlazor's look for Avalonia 12: MudBlazor's palette, elevation, typography and component styles as classes on Avalonia's own controls, in light, dark and high contrast. Not affiliated with MudBlazor.</Description>
     <PackageTags>avalonia;avaloniaui;theme;mudblazor;material;material-design;design-tokens;dark-mode</PackageTags>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <PackageIcon>PackageIcon.png</PackageIcon>

@@ -40,6 +40,14 @@
       <Run Text="On a vertical divider, " /><Run Classes="code" Text="inset" /><Run Text=" and " /><Run Classes="code" Text="middle" /><Run Text=" move to the top: 72px above, or 16px above and below. That is why they are classes rather than a " /><Run Classes="code" Text="Margin" /><Run Text=": they turn with the rule." />
     </TextBlock>
 
+    <TextBlock Classes="h5 section" Text="Dividers with content" />
+    <docs:ExampleCard Title="Content"
+                      Description="divider on a ContentControl is MudDivider with content: the content between two lines, 12px either side of it. vertical puts the lines above and below; light, inset and middle work as on a Separator."
+                      Source="Divider/Content" />
+    <TextBlock Classes="body1 p">
+      <Run Text="A " /><Run Classes="code" Text="Separator" /><Run Text=" holds nothing, so a divider with content is a " /><Run Classes="code" Text="ContentControl" /><Run Text=". The content takes the type and colour round it, as MudDivider's text has no class of its own; a text wider than the row is not wrapped." />
+    </TextBlock>
+
     <TextBlock Classes="h5 section" Text="MudBlazor parity" />
     <TextBlock Classes="body1 p">
       <Run Text="Every MudDivider parameter and what it is here. " /><Run Classes="code" Text="Same" /><Run Text=" is transcribed from MudBlazor's source; " /><Run Classes="code" Text="Close" /><Run Text=" gets the same result another way." />
@@ -49,6 +57,7 @@
       <docs:ParityRow MudBlazor="DividerType.Inset / Middle" Here="inset / middle" Status="Same" Note="72px at the start / 16px either side." />
       <docs:ParityRow MudBlazor="Vertical" Here="vertical" Status="Same" Note="1px wide, stretched to its parent's height." />
       <docs:ParityRow MudBlazor="Light" Here="light" Status="Same" Note="The divider-light colour: darker than the divider in light (black at 80% against #E0E0E0), fainter in dark (6% against 12%)." />
+      <docs:ParityRow MudBlazor="ChildContent" Here="divider on a ContentControl" Status="Close" Note="The content between two lines, padded 12px (4px above and below when vertical); a text wider than the row is not wrapped, where the browser wraps it anywhere." />
       <docs:ParityRow MudBlazor="Absolute, FlexItem" Here="a Panel overlay; alignment" Status="Close" Note="Layout, which Avalonia's panels already do." />
     </docs:ParityTable>
   </StackPanel>

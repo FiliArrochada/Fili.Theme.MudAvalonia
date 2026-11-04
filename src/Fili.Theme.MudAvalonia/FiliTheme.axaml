@@ -1007,9 +1007,8 @@
 
     Variant.Filled is the default: text-primary on lines-inputs with no colour (black in High
     Contrast, where lines-inputs is near-white), the colour with its contrast text otherwise. `outlined` is the colour (text-primary with none) as text and as a 1px
-    line on no ground. `text` is the bare `.mud-avatar`: white on gray-light, whatever the colour,
-    since 9.11's _avatar.scss has no text-variant rule. A later one adds `.mud-avatar-text`,
-    text-primary or the colour on no ground, to follow when the theme moves past 9.11. Size.Medium is the default, 40px with 20px text;
+    line on no ground. `text` is `.mud-avatar-text`: no ground, text-primary, or the colour as the
+    text. Size.Medium is the default, 40px with 20px text;
     `small` is 24px with 12px and `large` 56px with 24px. `rounded` is the default 4px radius and
     `square` none. Elevation is the elevation classes, which this Border already takes.
 
@@ -1126,13 +1125,36 @@
     <Setter Property="TextElement.Foreground" Value="{DynamicResource FiliDarkBrush}" />
     <Setter Property="BorderBrush" Value="{DynamicResource FiliDarkBrush}" />
   </Style>
-  <!-- END GENERATED -->
-  <!-- After the colours, which it ignores: `mud-avatar-text-{color}` has no rule. -->
   <Style Selector="Border.avatar.text">
-    <Setter Property="Background" Value="{DynamicResource FiliGrayLightBrush}" />
-    <Setter Property="TextElement.Foreground" Value="{DynamicResource FiliAvatarBareTextBrush}" />
+    <Setter Property="Background" Value="Transparent" />
+    <Setter Property="TextElement.Foreground" Value="{DynamicResource FiliTextPrimaryBrush}" />
     <Setter Property="BorderThickness" Value="0" />
   </Style>
+  <Style Selector="Border.avatar.text.primary">
+    <Setter Property="TextElement.Foreground" Value="{DynamicResource FiliPrimaryBrush}" />
+  </Style>
+  <Style Selector="Border.avatar.text.secondary">
+    <Setter Property="TextElement.Foreground" Value="{DynamicResource FiliSecondaryBrush}" />
+  </Style>
+  <Style Selector="Border.avatar.text.tertiary">
+    <Setter Property="TextElement.Foreground" Value="{DynamicResource FiliTertiaryBrush}" />
+  </Style>
+  <Style Selector="Border.avatar.text.info">
+    <Setter Property="TextElement.Foreground" Value="{DynamicResource FiliInfoBrush}" />
+  </Style>
+  <Style Selector="Border.avatar.text.success">
+    <Setter Property="TextElement.Foreground" Value="{DynamicResource FiliSuccessBrush}" />
+  </Style>
+  <Style Selector="Border.avatar.text.warning">
+    <Setter Property="TextElement.Foreground" Value="{DynamicResource FiliWarningBrush}" />
+  </Style>
+  <Style Selector="Border.avatar.text.error">
+    <Setter Property="TextElement.Foreground" Value="{DynamicResource FiliErrorBrush}" />
+  </Style>
+  <Style Selector="Border.avatar.text.dark">
+    <Setter Property="TextElement.Foreground" Value="{DynamicResource FiliDarkBrush}" />
+  </Style>
+  <!-- END GENERATED -->
 
   <!-- The content, centred (ChildAlignment); an icon is MudIcon's Size.Medium, 24px, at every
        avatar size. -->
@@ -1807,6 +1829,12 @@
        variants - filled being its default. Themes/Controls/Fab.axaml. -->
   <Style Selector="Button.fab">
     <Setter Property="Theme" Value="{DynamicResource FiliFab}" />
+  </Style>
+
+  <!-- MudDivider with content is a theme a ContentControl takes: two lines with the content between
+       them, reading `light`, `vertical`, `inset` and `middle` itself. Themes/Controls/Separator.axaml. -->
+  <Style Selector="ContentControl.divider">
+    <Setter Property="Theme" Value="{DynamicResource FiliTextDivider}" />
   </Style>
 
   <!-- MudBadge is a theme a HeaderedContentControl takes: Content is what it decorates, Header the

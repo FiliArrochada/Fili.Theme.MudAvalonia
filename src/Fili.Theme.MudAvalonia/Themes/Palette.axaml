@@ -87,9 +87,10 @@
       <Color x:Key="FiliSkeletonWaveColor">#25000000</Color>
 
       <!-- The text MudBlazor puts on its two light-grey grounds: text-primary on a default avatar
-           (lines-inputs) and a default badge (gray-light), white on a Variant.Text avatar
-           (gray-light). Tokens of their own only so High Contrast can differ: here they ARE
-           text-primary and white. -->
+           (lines-inputs) and a default badge (gray-light). Tokens of their own only so High
+           Contrast can differ: here they ARE text-primary. FiliAvatarBareTextColor was white on
+           9.11's unstyled Variant.Text avatar; 9.12 styles that one, with no ground and
+           text-primary, so the theme no longer paints with it. Published, so it stays until 2.0. -->
       <Color x:Key="FiliAvatarTextColor">#424242</Color>
       <Color x:Key="FiliAvatarBareTextColor">#FFFFFF</Color>
       <Color x:Key="FiliBadgeTextColor">#424242</Color>

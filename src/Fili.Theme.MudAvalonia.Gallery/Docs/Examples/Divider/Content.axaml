@@ -1,0 +1,23 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <Border Background="{DynamicResource FiliBackgroundGrayBrush}" Padding="24">
+    <StackPanel Spacing="24" HorizontalAlignment="Left">
+      <!-- divider on a ContentControl: the content between two lines. -->
+      <Border Classes="card" Width="400">
+        <StackPanel Classes="card-content" Spacing="16">
+          <Button Classes="filled primary" Content="Sign in" HorizontalAlignment="Stretch" />
+          <ContentControl Classes="divider" Content="OR" />
+          <Button Classes="outlined" Content="Create an account" HorizontalAlignment="Stretch" />
+        </StackPanel>
+      </Border>
+      <!-- vertical, in a horizontal StackPanel: the lines above and below, the row's height. -->
+      <Border Classes="paper" Padding="16,8" HorizontalAlignment="Left">
+        <StackPanel Orientation="Horizontal" Height="72" Spacing="16">
+          <TextBlock Classes="body1" Text="Left" VerticalAlignment="Center" />
+          <ContentControl Classes="divider vertical" Content="or" />
+          <TextBlock Classes="body1" Text="Right" VerticalAlignment="Center" />
+        </StackPanel>
+      </Border>
+    </StackPanel>
+  </Border>
+</UserControl>

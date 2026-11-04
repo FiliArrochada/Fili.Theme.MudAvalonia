@@ -561,3 +561,4 @@ key	FiliStringPrevious	String
 key	FiliFocusRingBrush	SolidColorBrush
 key	FiliFocusRingInnerBrush	SolidColorBrush
 key	FiliFocusRingThickness	Double
+class	divider

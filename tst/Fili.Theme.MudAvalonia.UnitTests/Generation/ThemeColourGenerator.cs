@@ -1516,7 +1516,9 @@ public static class ThemeColourGenerator
 
     // ---------------------------------------------------------------------------------------
     // FiliTheme.axaml region: MudAvatar's Color, from _avatar.scss. Filled is the colour with its
-    // contrast text; outlined the colour as text and as a 1px line.
+    // contrast text; outlined the colour as text and as a 1px line; text (9.12's
+    // `.mud-avatar-text`) no ground and text-primary, or the colour as text. After the filled
+    // colours, whose ground it takes away.
     // ---------------------------------------------------------------------------------------
 
     private static string AvatarRegion()
@@ -1530,6 +1532,12 @@ public static class ThemeColourGenerator
         foreach (var c in Colours)
         {
             o.Append(TopStyle($"Border.avatar.outlined.{c.ToLowerInvariant()}", ("Background", "Transparent"), ("TextElement.Foreground", Res($"Fili{c}Brush")), ("BorderBrush", Res($"Fili{c}Brush"))));
+        }
+
+        o.Append(TopStyle("Border.avatar.text", ("Background", "Transparent"), ("TextElement.Foreground", Res("FiliTextPrimaryBrush")), ("BorderThickness", "0")));
+        foreach (var c in Colours)
+        {
+            o.Append(TopStyle($"Border.avatar.text.{c.ToLowerInvariant()}", ("TextElement.Foreground", Res($"Fili{c}Brush"))));
         }
 
         return o.ToString();

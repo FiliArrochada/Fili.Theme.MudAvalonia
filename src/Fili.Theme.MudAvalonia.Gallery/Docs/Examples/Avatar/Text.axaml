@@ -1,6 +1,6 @@
 <UserControl xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-  <!-- text is the bare .mud-avatar: white on gray-light, whatever colour class it also carries. -->
+  <!-- text is .mud-avatar-text: no ground, text-primary, or the colour class as the text colour. -->
   <Grid ColumnDefinitions="96,96,96" RowDefinitions="Auto,Auto">
     <Border Classes="avatar text" HorizontalAlignment="Center"><TextBlock Text="T" /></Border>
     <Border Grid.Column="1" Classes="avatar text primary" HorizontalAlignment="Center"><TextBlock Text="T" /></Border>

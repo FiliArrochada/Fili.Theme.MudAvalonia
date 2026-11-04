@@ -11,7 +11,8 @@ namespace Fili.Theme.MudAvalonia.UnitTests;
 /// MudBlazor components that are a CLASS on a control Avalonia already has, not new controls:
 /// MudIconButton (<c>Button.icon</c>), MudChip (<c>Button.chip</c>, <c>ToggleButton.chip</c>),
 /// MudAlert (<c>Border.alert</c>), MudSkeleton (<c>Border.skeleton</c>), MudDivider.Light
-/// (<c>Separator.light</c>) and DropShadow="false" (<c>flat</c>).
+/// (<c>Separator.light</c>), MudDivider with content (<c>ContentControl.divider</c>) and
+/// DropShadow="false" (<c>flat</c>).
 /// </summary>
 public class ComponentClassTests
 {
@@ -287,6 +288,47 @@ public class ComponentClassTests
         var separator = Matrix.Show(new Separator { Classes = { "light" }, Width = 100 });
 
         Assert.Equal(Matrix.Token("FiliDividerLightColor"), Matrix.Colour(separator.Background));
+    });
+
+    /// <summary>
+    /// MudDivider with content (9.12): `.mud-divider-with-content`, the content between two 1px
+    /// lines in the divider colour that share the row, at least 16px each, the text padded 12px.
+    /// </summary>
+    [Fact]
+    public Task ADividerWithContentHasALineEitherSide() => UiThread.RunAsync(() =>
+    {
+        var divider = Matrix.Show(new ContentControl { Classes = { "divider" }, Content = "OR", Width = 300 });
+        var start = Matrix.Part<Border>(divider, "PART_StartLine");
+        var end = Matrix.Part<Border>(divider, "PART_EndLine");
+        var text = Matrix.Part<Avalonia.Controls.Presenters.ContentPresenter>(divider, "PART_ContentPresenter");
+
+        Assert.Equal(new Thickness(12, 0), text.Padding);
+        Assert.Equal(1, start.Bounds.Height);
+        Assert.InRange(Math.Abs(start.Bounds.Width - end.Bounds.Width), 0, 1);
+        Assert.True(start.Bounds.Right <= text.Bounds.Left && text.Bounds.Right <= end.Bounds.Left);
+        Assert.Equal(Matrix.Token("FiliDividerColor"), Matrix.Colour(start.Background));
+        Assert.Equal(Matrix.Token("FiliDividerColor"), Matrix.Colour(end.Background));
+    });
+
+    /// <summary>
+    /// `.mud-divider-with-content-vertical`: the lines above and below, 1px wide and at least 8px
+    /// tall, the text padded 4px; `light` and `inset` as on a Separator.
+    /// </summary>
+    [Fact]
+    public Task AVerticalDividerWithContentHasALineAboveAndBelow() => UiThread.RunAsync(() =>
+    {
+        var divider = new ContentControl { Classes = { "divider", "vertical", "light" }, Content = "or" };
+        Matrix.Show(new StackPanel { Orientation = Avalonia.Layout.Orientation.Horizontal, Height = 120, Children = { divider } });
+        var start = Matrix.Part<Border>(divider, "PART_StartLine");
+        var end = Matrix.Part<Border>(divider, "PART_EndLine");
+        var text = Matrix.Part<Avalonia.Controls.Presenters.ContentPresenter>(divider, "PART_ContentPresenter");
+
+        Assert.Equal(new Thickness(0, 4), text.Padding);
+        Assert.Equal(1, start.Bounds.Width);
+        Assert.True(start.Bounds.Bottom <= text.Bounds.Top && text.Bounds.Bottom <= end.Bounds.Top);
+        Assert.Equal(120, divider.Bounds.Height);
+        Assert.Equal(Matrix.Token("FiliDividerLightColor"), Matrix.Colour(start.Background));
+        Assert.Equal(new Thickness(0, 72, 0, 0), Matrix.Show(new ContentControl { Classes = { "divider", "vertical", "inset" } }).Margin);
     });
 
     /// <summary>

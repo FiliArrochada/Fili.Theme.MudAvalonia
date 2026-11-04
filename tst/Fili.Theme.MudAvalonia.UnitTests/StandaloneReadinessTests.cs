@@ -60,8 +60,9 @@ public class StandaloneReadinessTests
 
         // MudBadge. Opt-in through the `badge` class: an unclassed HeaderedContentControl keeps
         // the forked template, as an unclassed Button keeps the text one. A MudChip with nothing
-        // to click is opt-in the same way, through `chip` on a ContentControl.
-        "FiliBadge",
+        // to click is opt-in the same way, through `chip` on a ContentControl, and MudDivider with
+        // content through `divider` on one.
+        "FiliBadge", "FiliTextDivider",
 
         // MudDataGrid, on the Avalonia.Controls.DataGrid package's controls.
         "FiliDataGrid", "FiliDataGridCell", "FiliDataGridColumnHeader", "FiliDataGridRowHeader",

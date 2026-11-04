@@ -80,11 +80,11 @@ public class ClassVocabularyTests
         "material-elevation-overlay",
 
         // Components that are a class on an existing control: MudIconButton, MudChip, MudFab and
-        // a clickable MudListItem on a Button (a MudChip with nothing to click on a ContentControl), MudAlert, MudAvatar, MudCard, MudSkeleton and MudToolBar on a Border, with
+        // a clickable MudListItem on a Button (a MudChip with nothing to click, and MudDivider with content, on a ContentControl), MudAlert, MudAvatar, MudCard, MudSkeleton and MudToolBar on a Border, with
         // MudSkeleton's SkeletonType, MudProgressCircular on a ProgressBar, MudBadge on a
         // HeaderedContentControl, MudNavMenu on a TreeView, MudExpansionPanels on a StackPanel and
         // MudListSubheader on a TextBlock.
-        "alert", "avatar", "badge", "card", "chip", "circle", "circular", "counter",
+        "alert", "avatar", "badge", "card", "chip", "circle", "circular", "counter", "divider",
         "expansion-panels", "fab", "icon", "list-item", "nav", "rectangle", "skeleton", "subheader", "toolbar",
 
         // MudButtonGroup, on a StackPanel of buttons.
