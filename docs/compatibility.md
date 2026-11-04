@@ -1,8 +1,9 @@
 # Compatibility
 
-What an app can rely on from one version of `Fili.MudAvalonia.Theme` to the next. From 1.0 the
-package follows semantic versioning over the interface below; before 1.0, a minor version could
-break it, and each one that did has an "Upgrading" section in [Versions](versions/README.md).
+What an app can rely on from one version of `Fili.MudAvalonia.Theme` to the next. The package
+follows semantic versioning over the interface below: a minor or patch version keeps it, and only
+a major version breaks it. Before 1.0 a minor version could, and each one that did has an
+"Upgrading" section in [Versions](versions/README.md).
 
 A theme's interface is mostly not C#. It is the names an app writes in its own XAML: the two
 include paths, the classes, the resource keys. Those are what this page promises, and each is

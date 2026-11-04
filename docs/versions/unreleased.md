@@ -14,6 +14,8 @@ line goes.
   so a switch recolours the brushes a control has, as before 0.32.0, while a window or scope with
   another variant still paints in that one. On the benchmark screen a switch takes 40% less
   time than in 0.33.0, and allocates a thirteenth of what it did.
+- **The compatibility page states its promise in the present tense:** the package follows
+  semantic versioning over its published interface.
 
 ## Upgrading from 0.33.0
 
