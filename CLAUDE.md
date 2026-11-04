@@ -182,9 +182,8 @@ $env:FILI_REGENERATE = "1"; dotnet test tst/Fili.Theme.MudAvalonia.UnitTests --f
 dotnet run -c Release --project tst/Fili.Theme.MudAvalonia.Benchmarks -- --filter "*"
 ```
 
-Warnings fail the build. A package version change is restored locally in the same commit, which
-rewrites the `packages.lock.json` files; CI restores in locked mode and fails without them. A
-selector change that moves the benchmark screen's style instances moves
+Warnings fail the build. There are no lock files: a package version change is
+`Directory.Packages.props` alone. A selector change that moves the benchmark screen's style instances moves
 `StyleCostTests.StyleInstanceCeiling` with the benchmark's tables beside it.
 
 **Releasing is a tag, and the tag is the human's to push.** Bump `<Version>` with its page in

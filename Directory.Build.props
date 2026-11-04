@@ -56,16 +56,4 @@
     <ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
   </PropertyGroup>
 
-  <!--
-    Each project's packages.lock.json records every package it restores, transitive ones included,
-    with its content hash. A local restore updates them; CI restores in locked mode, so a package
-    graph that moved without its lock file - a new transitive version, a re-published package -
-    fails the restore instead of building something nobody reviewed. Projects only: the scripts in
-    tools/ are run as files, restore nothing, and would write a lock file beside themselves.
-  -->
-  <PropertyGroup Condition="'$(FileBasedProgram)' != 'true'">
-    <RestorePackagesWithLockFile>true</RestorePackagesWithLockFile>
-    <RestoreLockedMode Condition="'$(GITHUB_ACTIONS)' == 'true'">true</RestoreLockedMode>
-  </PropertyGroup>
-
 </Project>
