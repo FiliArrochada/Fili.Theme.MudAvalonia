@@ -7,9 +7,11 @@ reporting.
 
 ## Supported versions
 
-Fixes go into the newest release only. Before 1.0 every minor version may be the last of its line,
-so update to the newest version before reporting; [Versions](docs/versions/README.md) says what
-each one changed.
+Fixes go into the newest 1.x release, as a new patch or minor version. Within a major version the
+package keeps its published interface ([Compatibility](docs/compatibility.md)), so moving to the
+newest 1.x needs no change to an app: update before reporting. A version before 1.0 gets no fix of
+its own, and a prerelease (`1.0.0-rc.1`) is followed by the next one or by the release rather than
+fixed; [Versions](docs/versions/README.md) says what each one changed.
 
 ## Reporting a vulnerability
 
