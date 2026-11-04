@@ -4,7 +4,7 @@
     <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
     <CentralPackageTransitivePinningEnabled>true</CentralPackageTransitivePinningEnabled>
     <!-- The tag Themes/Base/ is forked from (FORK.md): the two move together. -->
-    <AvaloniaVersion>12.1.4</AvaloniaVersion>
+    <AvaloniaVersion>12.1.5</AvaloniaVersion>
   </PropertyGroup>
 
   <ItemGroup Label="Avalonia">

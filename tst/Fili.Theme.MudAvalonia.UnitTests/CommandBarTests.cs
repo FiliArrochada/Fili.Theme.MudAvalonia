@@ -81,6 +81,27 @@ public class CommandBarTests
         Assert.Equal("ADD", string.Concat(label.Inlines!.OfType<Avalonia.Controls.Documents.Run>().Select(r => r.Text)));
     });
 
+    /// <summary>
+    /// The overflow scrolls up and down, as a menu does, so a long one stays on screen: Simple's
+    /// does from Avalonia 12.1.5, and the theme's did not, whatever the Avalonia.
+    /// </summary>
+    [Fact]
+    public Task TheOverflowScrolls() => UiThread.RunAsync(() =>
+    {
+        var (bar, _) = Show();
+        bar.IsOpen = true;
+        Dispatcher.UIThread.RunJobs();
+        var popup = bar.GetVisualDescendants().OfType<Popup>().Single(p => p.Name == "PART_OverflowPopup");
+        var presenter = popup.Child!.GetVisualDescendants().OfType<ItemsControl>().Single(i => i.Name == "PART_OverflowPresenter");
+        var scroller = presenter.GetVisualAncestors().OfType<ScrollViewer>().First();
+
+        Assert.Contains(popup.Child, scroller.GetVisualAncestors());
+        Assert.Equal(ScrollBarVisibility.Auto, scroller.VerticalScrollBarVisibility);
+        Assert.Equal(ScrollBarVisibility.Disabled, scroller.HorizontalScrollBarVisibility);
+        bar.IsOpen = false;
+        Dispatcher.UIThread.RunJobs();
+    });
+
     /// <summary>The overflow button is a MudIconButton with Icons.Material.Filled.MoreVert.</summary>
     [Fact]
     public Task TheOverflowButtonIsMoreVert() => UiThread.RunAsync(() =>

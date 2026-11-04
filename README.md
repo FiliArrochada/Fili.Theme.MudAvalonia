@@ -4,7 +4,7 @@
 [![Downloads](https://img.shields.io/nuget/dt/Fili.MudAvalonia.Theme?logo=nuget&label=downloads)](https://www.nuget.org/packages/Fili.MudAvalonia.Theme)
 [![Build](https://github.com/FiliArrochada/Fili.Theme.MudAvalonia/actions/workflows/build.yml/badge.svg?branch=master)](https://github.com/FiliArrochada/Fili.Theme.MudAvalonia/actions/workflows/build.yml)
 [![Gallery](https://img.shields.io/badge/gallery-live-594AE2)](https://filiarrochada.github.io/Fili.Theme.MudAvalonia/)
-[![Avalonia](https://img.shields.io/badge/Avalonia-12.1.4%2B-8B44AC)](https://avaloniaui.net/)
+[![Avalonia](https://img.shields.io/badge/Avalonia-12-8B44AC)](https://avaloniaui.net/)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue)](LICENSE)
 
 This theme is based on [MudBlazor](https://mudblazor.com/), a wonderful Material Design component
@@ -111,17 +111,17 @@ That adds the newest release, the version on the NuGet badge above. Under Centra
 Management the same command writes the version into `Directory.Packages.props` and leaves the
 reference version-less.
 
-**Keep every `Avalonia*` package on one version, 12.1.4 or later.** The theme needs `Avalonia`
-12.1.4 at least, so an app pinned to an older 12.1 patch fails restore with **NU1605** (a package
-downgrade): raise the app's `Avalonia`, `Avalonia.Desktop`, `Avalonia.Browser` and the rest
-together. The templates are forked from 12.1.4, so a control type a later Avalonia 12 adds stays
-unthemed until a theme release covers it ([Compatibility](docs/compatibility.md)).
+**Keep every `Avalonia*` package on one version, at least the one the theme depends on (below).**
+An app pinned to an older 12.1 patch fails restore with **NU1605** (a package downgrade): raise
+the app's `Avalonia`, `Avalonia.Desktop`, `Avalonia.Browser` and the rest together. The templates
+are forked from that version, so a control type a later Avalonia 12 adds stays unthemed until a
+theme release covers it ([Compatibility](docs/compatibility.md)).
 
 | | |
 |---|---|
 | Package | [`Fili.MudAvalonia.Theme`](https://www.nuget.org/packages/Fili.MudAvalonia.Theme) on nuget.org, with symbols (`.snupkg`) |
 | Target framework | `net10.0` |
-| Depends on | `Avalonia` **12.1.4 or later, below 13**, and nothing else. `Avalonia.Controls.DataGrid` is optional: built against 12.1.0, themed from 12.1.0 up to 13 when the app references it. [Which versions were tested](docs/releasing.md#supported-avalonia-versions) |
+| Depends on | `Avalonia` **12.1.5 or later, below 13**, and nothing else. `Avalonia.Controls.DataGrid` is optional: built against 12.1.0, themed from 12.1.0 up to 13 when the app references it. [Which versions are supported](docs/releasing.md#supported-avalonia-versions) |
 | Fonts | Roboto (Light, Regular, Medium) embedded, under the SIL Open Font License |
 | Licence | MIT for this project's own code; the package as a whole, with the material it bundles, is `MIT AND Apache-2.0 AND MS-PL AND OFL-1.1` ([Licence and attribution](#licence-and-attribution)) |
 

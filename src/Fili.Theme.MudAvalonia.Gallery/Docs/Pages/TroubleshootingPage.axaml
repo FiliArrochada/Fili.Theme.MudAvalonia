@@ -17,7 +17,7 @@
       <Run FontWeight="Bold" Text="Nothing is themed in a trimmed or browser build." /><Run Text=" A " /><Run Classes="code" Text="StyleInclude" /><Run Text=" built in C# loads its file by reflection, which trimming and NativeAOT can strip, and the app then renders with no theme at all. Write the two includes in " /><Run Classes="code" Text="App.axaml" /><Run Text=", where they compile to code." />
     </TextBlock>
     <TextBlock Classes="body1 p">
-      <Run FontWeight="Bold" Text="A control type newer than the theme shows nothing." /><Run Text=" The templates are forked from Avalonia 12.1.4. A control a later Avalonia 12 adds has no template here, and Avalonia has no default theme, until a theme release covers it." />
+      <Run FontWeight="Bold" Text="A control type newer than the theme shows nothing." /><Run Text=" The templates are forked from one Avalonia 12 release. A control a later Avalonia 12 adds has no template here, and Avalonia has no default theme, until a theme release covers it." />
     </TextBlock>
     <TextBlock Classes="body1 p">
       <Run FontWeight="Bold" Text="Your own subclass of a control is a type of its own." /><Run Text=" A theme is found by the control's style key, its exact type, so a " /><Run Classes="code" Text="MyButton : Button" /><Run Text=" misses the Button's and shows its bare content, with no shape, colour or states, until it says it is a Button:" />
@@ -33,7 +33,7 @@
 
     <TextBlock Classes="h5 section" Text="The app does not restore or start" />
     <TextBlock Classes="body1 p">
-      <Run FontWeight="Bold" Text="NU1605, a package downgrade, on restore." /><Run Text=" The theme needs Avalonia 12.1.4 or later, below 13, and the app pins an older patch. Raise every Avalonia package together, to one version." />
+      <Run FontWeight="Bold" Text="NU1605, a package downgrade, on restore." /><Run Text=" The theme needs Avalonia from the version its templates are forked from, below 13, and the app pins an older patch. Raise every Avalonia package together, to one version." />
     </TextBlock>
     <TextBlock Classes="body1 p">
       <Run FontWeight="Bold" Text="NotSupportedException while the theme loads." /><Run Text=" A theme dictionary keyed " /><Run Classes="code" Text="x:Key=&quot;HighContrast&quot;" /><Run Text=" throws, and takes the rest of the theme down with it: Avalonia's converter knows only Light and Dark. Key it " /><Run Classes="code" Text="{}{x:Static theme:FiliThemeVariants.HighContrast}" /><Run Text="." />

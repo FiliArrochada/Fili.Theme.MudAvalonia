@@ -257,6 +257,12 @@ one.
   the keys bubble up from them. A theme whose days are `Focusable="False"`, so a calendar is not
   forty-two Tab stops, must make the calendar focusable, or the keyboard never reaches it
   (`CalendarKeyboardTests`).
+- **From Avalonia 12.1.5 a picker's popup takes the focus when it opens**, so its arrow keys work,
+  and a calendar with focus marks its day `:dayfocused` however it was opened. The keyboard ring
+  drawn on that day showed on every click open, over today's ring. `CalendarView.Keyboard` holds
+  it back until a key is pressed in the calendar or in the picker that opened it, and a press of
+  the pointer drops it again; `:focus-visible` cannot tell, as the popup focuses its calendar the
+  same way however it was opened (`CalendarKeyboardTests`, `DatePickerTests`).
 - **A value written inline in a template is moved by a style only with an activator** - which is
   why the standard field's resting label, `translateY(0px)` in the template, is moved to its text
   line by a `:empty` style rather than a plain `^ /template/` one, and why every float rule after

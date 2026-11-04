@@ -3,6 +3,7 @@ using System.Globalization;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Data.Converters;
+using Avalonia.Input;
 using Avalonia.Interactivity;
 using Avalonia.VisualTree;
 using Calendar = Avalonia.Controls.Calendar;
@@ -49,8 +50,45 @@ internal sealed class CalendarView
     public static readonly AttachedProperty<bool> ClearsDateProperty =
         AvaloniaProperty.RegisterAttached<CalendarView, TextBox, bool>("ClearsDate");
 
+    /// <summary>
+    /// The keyboard is in use in this calendar, or the picker it drops down from: the day and
+    /// month the arrow keys are on draw their ring. Inherited, so the days read it.
+    /// </summary>
+    public static readonly AttachedProperty<bool> KeyboardProperty =
+        AvaloniaProperty.RegisterAttached<CalendarView, Control, bool>("Keyboard", inherits: true);
+
     static CalendarView()
     {
+        // A picker's popup gives its calendar focus when it opens (Avalonia 12.1.5), so the arrow
+        // keys work; :dayfocused is set then, opened by the pointer too, and MudDatePicker draws no
+        // ring for a click. So the ring waits for the keyboard: a key in the calendar, or in the
+        // picker that opened it, which the calendar inherits; a press of the pointer drops it.
+        InputElement.KeyDownEvent.AddClassHandler<CalendarDatePicker>(
+            (picker, _) => picker.SetValue(KeyboardProperty, true), RoutingStrategies.Tunnel, handledEventsToo: true);
+        InputElement.PointerPressedEvent.AddClassHandler<CalendarDatePicker>(
+            (picker, _) => picker.SetValue(KeyboardProperty, false), RoutingStrategies.Tunnel, handledEventsToo: true);
+        InputElement.KeyDownEvent.AddClassHandler<Calendar>(
+            (calendar, _) => calendar.SetValue(KeyboardProperty, true), RoutingStrategies.Tunnel, handledEventsToo: true);
+        InputElement.PointerPressedEvent.AddClassHandler<Calendar>(
+            (calendar, _) => calendar.SetValue(KeyboardProperty, false), RoutingStrategies.Tunnel, handledEventsToo: true);
+        InputElement.GotFocusEvent.AddClassHandler<Calendar>((calendar, e) =>
+        {
+            if (e.Source != calendar)
+            {
+                return;
+            }
+
+            // Tabbed to: the keyboard. Otherwise whatever the picker above it knows, or nothing.
+            if (e.NavigationMethod is NavigationMethod.Tab or NavigationMethod.Directional)
+            {
+                calendar.SetValue(KeyboardProperty, true);
+            }
+            else
+            {
+                calendar.ClearValue(KeyboardProperty);
+            }
+        });
+
         ClearsDateProperty.Changed.AddClassHandler<TextBox>((field, e) =>
         {
             field.RemoveHandler(Button.ClickEvent, OnFieldClick);

@@ -407,14 +407,18 @@
                       Padding="0,4"
                       MinWidth="112"
                       Margin="8">
-                <ItemsControl x:Name="PART_OverflowPresenter"
-                              ItemsSource="{Binding OverflowItems, RelativeSource={RelativeSource TemplatedParent}}">
-                  <ItemsControl.ItemsPanel>
-                    <ItemsPanelTemplate>
-                      <StackPanel />
-                    </ItemsPanelTemplate>
-                  </ItemsControl.ItemsPanel>
-                </ItemsControl>
+                <!-- Scrolls, as a menu does, so a long overflow stays on screen (Simple's since
+                     Avalonia 12.1.5). -->
+                <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
+                  <ItemsControl x:Name="PART_OverflowPresenter"
+                                ItemsSource="{Binding OverflowItems, RelativeSource={RelativeSource TemplatedParent}}">
+                    <ItemsControl.ItemsPanel>
+                      <ItemsPanelTemplate>
+                        <StackPanel />
+                      </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                  </ItemsControl>
+                </ScrollViewer>
               </theme:PartBorder>
             </Popup>
           </Panel>

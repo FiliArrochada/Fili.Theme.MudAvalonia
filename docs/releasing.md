@@ -6,8 +6,7 @@ pushed:
 
 ```powershell
 # 1. bump <Version> in Directory.Build.props, rename docs/versions/unreleased.md to <Version>.md,
-#    run `dotnet restore Fili.Theme.MudAvalonia.slnx --force-evaluate` (the lock files record the
-#    version of each project reference, and CI's locked restore fails on a stale one), commit, push
+#    commit, push
 # 2. tag that exact version and push the tag
 git tag v0.1.0
 git push origin v0.1.0
@@ -36,7 +35,7 @@ words **Nothing yet.**: the docs site deploys from `master`, and while that sent
 its version label reads "v<Version> + unreleased", so the site never names a released version for
 work no package has yet.
 
-A bump touches only those pages, `Directory.Build.props` and the lock files. Keep it that way:
+A bump touches only those pages and `Directory.Build.props`. Keep it that way:
 nothing else names the current version. The README installs with `dotnet add package` and shows
 the version through the NuGet badge, the bug report template asks for the reader's version, and
 the solution lists the version index and `unreleased.md`, not each page.
@@ -80,16 +79,14 @@ repository) and change the hash and the comment together.
 Packages built on a runner set `ContinuousIntegrationBuild`, so the PDBs carry `/_/` paths
 instead of the runner's directory layout, and Source Link points each file at the tagged commit.
 The XAML is the exception: Avalonia's XAML compiler writes its sequence points after the C#
-compiler, with the real path and no path map (12.1.4's `CompileAvaloniaXamlTask` takes none), so
+compiler, with the real path and no path map (its `CompileAvaloniaXamlTask` takes none), so
 its documents keep the runner's path. `MapXamlSourcesInSourceLink` adds that unmapped root to the
 same Source Link map, so a debugger stepping into a theme's XAML still fetches the file at the
 commit.
 
-Restores on a runner are **locked** (`Directory.Build.props`): each project restores exactly what
-its `packages.lock.json` records, hashes included, or fails. Changing a package version means
-restoring locally, which rewrites the lock files, and committing them with the change. The
-browser gallery has none, as the WebAssembly SDK adds packages at the installed SDK's patch
-version. `global.json` keeps `rollForward: latestFeature`: CI installs the SDK it names, and a
+Every package version is in `Directory.Packages.props`, transitive ones pinned there too where
+one matters, and there are no lock files: NuGet resolves the lowest version a range allows, so a
+restore on a runner gets what it got locally, and a package change is that one file. `global.json` keeps `rollForward: latestFeature`: CI installs the SDK it names, and a
 contributor on a later feature band of 10 still builds; the `wasm-tools` workload is installed
 unversioned, so it is the set of whatever SDK is installed, never one for another band.
 
@@ -105,30 +102,20 @@ the push is safe (`--skip-duplicate`), but fixing a bad package means a new vers
 The package declares **`Avalonia` from `AvaloniaVersion` up to but not including 13.0.0**
 (`Directory.Packages.props`): `AvaloniaVersion` is the tag `Themes/Base/` is forked from, and
 the two move together; 13 would be this package's next major version
-([Compatibility](compatibility.md)), so the range stops below it. Measured on 2026-10-13 by building a clean export of the
-repository against each version and running all three suites (unit, pixel, no-DataGrid):
+([Compatibility](compatibility.md)), so the range stops below it. No older patch is promised,
+whether or not it happens to build: a fork promised on an older patch than its tag would be a
+promise no build checks. `PackageContentTests` reads the range from `AvaloniaVersion`, so an
+upgrade names the new version in three places only: `AvaloniaVersion`, `FORK.md` and the
+README's "Depends on" row, the nuget.org page's one statement of it.
 
-| Avalonia | Result |
-|---|---|
-| 12.0.0 - 12.0.5 | Does not compile: the forked templates use 12.1 API (`ScrollBar.PageUp`, `DatePicker.VerticalContentAlignment`) |
-| 12.1.0, 12.1.1 | Does not compile: the forked date and time picker templates use a property those versions lack |
-| 12.1.2 | Builds; every test passes |
-| 12.1.3 | Builds; every test passes |
-| **12.1.4** | Builds; every test passes - the declared minimum |
-
-12.1.2 is therefore the measured floor, two patches under the declared one. The declared one stays,
-because a fork promised on an older patch than its tag would be a promise no build checks.
+To upgrade, follow `FORK.md`: fetch Simple at the new tag, re-apply its two edits, and diff. Then
+set `AvaloniaVersion` and run every suite.
 
 `Avalonia.Controls.DataGrid` is optional and gated at runtime by `MinimumVersion` and
 `BelowVersion` (13.0.0, the next major one) in `FiliTheme.axaml`; `MinimumVersion` is equal to
 its version in `Directory.Packages.props` (`OptionalBoundaryTests` pins the two together, and
-`BelowVersion` to the next major). Both are **12.1.0**, the first 12.1 release: 12.1.0, 12.1.1 and 12.1.2
-each build and pass every test, and every 12.1 release needs Avalonia 12.1.0 or later. 12.0.x
-needs Avalonia 12.0, which the theme cannot compile against. An app with a DataGrid outside the
-gate gets a warning in Avalonia's log and no grid template from this theme: Avalonia has no default
-theme, so the grid shows nothing unless the app includes a DataGrid theme itself
-(`OptionalStyleInclude`). CI builds and
-tests on 12.1.0, the floor; the newest is checked by the measurement above.
-
-To re-measure after an upgrade, export `HEAD` (`git archive`), set every `Avalonia*` version in
-the copy's `Directory.Packages.props`, and build and test it there; never in the working tree.
+`BelowVersion` to the next major), the first 12.1 release, as every 12.1 release of it needs
+Avalonia 12.1.0 or later and 12.0.x needs Avalonia 12.0, which the theme cannot compile against.
+An app with a DataGrid outside the gate gets a warning in Avalonia's log and no grid template
+from this theme: Avalonia has no default theme, so the grid shows nothing unless the app includes
+a DataGrid theme itself (`OptionalStyleInclude`). CI builds and tests on that floor.

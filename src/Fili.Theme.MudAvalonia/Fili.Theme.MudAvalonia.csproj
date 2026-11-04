@@ -131,7 +131,7 @@
   <!--
     Source Link for the XAML. On a runner, ContinuousIntegrationBuild maps the C# paths in the PDB
     to /_/, and Source Link maps /_/ to the commit on GitHub. Avalonia's XAML compiler writes its
-    sequence points after the C# compiler, with the real path and no path map (12.1.4's
+    sequence points after the C# compiler, with the real path and no path map (its
     CompileAvaloniaXamlTask takes none), so a debugger stepping into a theme's XAML found no
     mapping and no file. This adds the unmapped repository root to the same Source Link map,
     before the compiler embeds it: the XAML still carries the runner's path, but it now resolves

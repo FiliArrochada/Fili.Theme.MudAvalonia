@@ -28,8 +28,9 @@ public class PackageContentTests
     }
 
     /// <summary>
-    /// Avalonia is the one dependency, from the version the base is forked from up to but not
-    /// including 13, which would be this package's next major version; the DataGrid is not passed on.
+    /// Avalonia is the one dependency, from the version the base is forked from
+    /// (<c>AvaloniaVersion</c> in Directory.Packages.props) up to but not including 13, which would
+    /// be this package's next major version; the DataGrid is not passed on.
     /// </summary>
     [Fact]
     public void ThePackageDependsOnAvalonia12Only()
@@ -39,7 +40,9 @@ public class PackageContentTests
             .Select(match => match.Groups[1].Value + " " + match.Groups[2].Value)
             .ToArray();
 
-        Assert.Equal(["Avalonia [12.1.4, 13.0.0)"], dependencies);
+        var forked = System.Xml.Linq.XDocument.Load(Path.Combine(GeneratedThemeTests.ThemeDirectory(), "..", "..", "Directory.Packages.props"))
+            .Descendants("AvaloniaVersion").Single().Value;
+        Assert.Equal([$"Avalonia [{forked}, 13.0.0)"], dependencies);
     }
 
     /// <summary>

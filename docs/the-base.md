@@ -428,7 +428,10 @@ for something XAML cannot express on its own:
   year to the years, the date back to the selected month - and gives the toolbar the paper's top
   corners. A template cannot set another control's property on a click. And on the picker's field,
   `ClearsDate` makes the clear button clear the date at once, which the picker otherwise reads from
-  the emptied text only when the field loses focus.
+  the emptied text only when the field loses focus. Its inherited `Keyboard` tells a calendar's
+  days the keyboard is in use, after a key in the calendar or in the picker that opened it, so
+  the ring on the day the arrow keys are on is not drawn for a click: a style can test a property,
+  not which input came last.
 - **`TimeView`** keeps the time picker's text: the field's value as MudTimePicker writes it, and
   the toolbar's hour, minute and period following Avalonia's columns as they turn, before the time
   is accepted. A column's selection is not a property a binding can watch. On the field, it opens

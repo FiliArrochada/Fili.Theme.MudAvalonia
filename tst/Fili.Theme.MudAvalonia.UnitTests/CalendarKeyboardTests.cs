@@ -95,4 +95,58 @@ public class CalendarKeyboardTests
         picker.IsDropDownOpen = false;
         Dispatcher.UIThread.RunJobs();
     });
+
+    private static Calendar PopupCalendar(CalendarDatePicker picker) =>
+        picker.GetVisualDescendants().OfType<Popup>().Single(p => p.Name == "PART_Popup").Child!
+            .GetVisualDescendants().OfType<Calendar>().Single();
+
+    /// <summary>
+    /// The popup gives its calendar focus when it opens (Avalonia 12.1.5), which marks the
+    /// selected day :dayfocused; opened without the keyboard it draws no ring, as MudDatePicker
+    /// draws none for a click, until a key moves it, and a press of the pointer drops it again.
+    /// </summary>
+    [Fact]
+    public Task APickerOpenedWithoutTheKeyboardRingsNothingUntilAKey() => UiThread.RunAsync(() =>
+    {
+        var picker = Matrix.Show(new CalendarDatePicker { Width = 260, SelectedDate = new DateTime(2026, 3, 10) });
+        picker.IsDropDownOpen = true;
+        Dispatcher.UIThread.RunJobs();
+        var calendar = PopupCalendar(picker);
+        var days = calendar.GetVisualDescendants().OfType<CalendarDayButton>().ToList();
+        Assert.Contains(days, d => d.Classes.Contains(":dayfocused"));
+        Assert.DoesNotContain(days, d => d.BorderThickness == new Thickness(2));
+
+        var window = (Window)TopLevel.GetTopLevel(picker)!;
+        window.KeyPressQwerty(PhysicalKey.ArrowRight, RawInputModifiers.None);
+        window.KeyReleaseQwerty(PhysicalKey.ArrowRight, RawInputModifiers.None);
+        Dispatcher.UIThread.RunJobs();
+        var ringed = Assert.Single(days, d => d.Classes.Contains(":dayfocused"));
+        Assert.Equal(new Thickness(2), ringed.BorderThickness);
+
+        calendar.RaiseEvent(new PointerPressedEventArgs(calendar, new Pointer(0, PointerType.Mouse, true), calendar,
+            default, 0, new PointerPointProperties(RawInputModifiers.LeftMouseButton, PointerUpdateKind.LeftButtonPressed), KeyModifiers.None));
+        Dispatcher.UIThread.RunJobs();
+        Assert.Equal(new Thickness(0), ringed.BorderThickness);
+        picker.IsDropDownOpen = false;
+        Dispatcher.UIThread.RunJobs();
+    });
+
+    /// <summary>A picker opened from the keyboard rings the day at once.</summary>
+    [Fact]
+    public Task APickerOpenedFromTheKeyboardRingsAtOnce() => UiThread.RunAsync(() =>
+    {
+        var picker = Matrix.Show(new CalendarDatePicker { Width = 260, SelectedDate = new DateTime(2026, 3, 10) });
+        picker.Focus(NavigationMethod.Tab);
+        Dispatcher.UIThread.RunJobs();
+        var window = (Window)TopLevel.GetTopLevel(picker)!;
+        window.KeyPressQwerty(PhysicalKey.ArrowDown, RawInputModifiers.Alt);
+        window.KeyReleaseQwerty(PhysicalKey.ArrowDown, RawInputModifiers.Alt);
+        Dispatcher.UIThread.RunJobs();
+
+        Assert.True(picker.IsDropDownOpen);
+        var ringed = Assert.Single(PopupCalendar(picker).GetVisualDescendants().OfType<CalendarDayButton>(), d => d.Classes.Contains(":dayfocused"));
+        Assert.Equal(new Thickness(2), ringed.BorderThickness);
+        picker.IsDropDownOpen = false;
+        Dispatcher.UIThread.RunJobs();
+    });
 }

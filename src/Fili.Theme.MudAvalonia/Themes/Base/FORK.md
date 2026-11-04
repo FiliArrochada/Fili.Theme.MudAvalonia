@@ -1,14 +1,14 @@
 # Forked from Avalonia's Simple theme
 
 Everything under `Controls/`, plus `InvariantResources.axaml`, is taken **verbatim** from the
-Avalonia repository at tag **12.1.4** and is under Avalonia's MIT licence:
+Avalonia repository at tag **12.1.5** and is under Avalonia's MIT licence:
 
 - `Controls/*.axaml` — `src/Avalonia.Themes.Simple/Controls/*.xaml`
 - `InvariantResources.axaml` — `src/Avalonia.Themes.Fluent/Strings/InvariantResources.xaml`
   (Simple references it by a relative path but does not carry its own copy)
 
 Copyright (c) AvaloniaUI OÜ. MIT licence:
-<https://github.com/AvaloniaUI/Avalonia/blob/12.1.4/licence.md>. Eight of the date and time
+<https://github.com/AvaloniaUI/Avalonia/blob/12.1.5/licence.md>. Eight of the date and time
 templates keep the Silverlight Toolkit's Ms-PL header they carry in Avalonia. Both notices are in
 the repository's `THIRD-PARTY-NOTICES.md`, which is packed; a file added on an upgrade that brings a
 new notice updates it.

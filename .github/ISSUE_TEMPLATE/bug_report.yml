@@ -18,7 +18,7 @@ body:
     id: avalonia
     attributes:
       label: Avalonia version (and Avalonia.Controls.DataGrid, if used)
-      placeholder: "12.1.4"
+      placeholder: "The Avalonia version in your PackageReference or Directory.Packages.props"
     validations:
       required: true
   - type: dropdown

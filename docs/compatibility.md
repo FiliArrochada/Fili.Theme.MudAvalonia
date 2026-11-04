@@ -83,10 +83,10 @@ Avalonia 13, a major version here too.
 - **The Avalonia minimum, within Avalonia 12.** `Themes/Base/` is a fork of Avalonia Simple at
   the declared minimum, and the two move together ([Releasing](releasing.md#supported-avalonia-versions)).
   Moving to Avalonia 13 is a major version, and the dependency stops below it. The templates are
-  those of the minimum (12.1.4 today): a control type a later Avalonia 12 adds has no template
+  those of the minimum: a control type a later Avalonia 12 adds has no template
   here, so it shows nothing, until a theme release forks or writes one, and a later 12.x runs
   these templates rather than its own Simple theme's. An optional
-  package's gate does the same: the DataGrid is themed from 12.1.0 up to but not including 13.0.0,
+  package's gate does the same: the DataGrid is themed from the version built against up to but not including 13.0.0,
   and skipped with a warning outside that, when the grid has no template at all unless the app
   includes a DataGrid theme of its own.
 

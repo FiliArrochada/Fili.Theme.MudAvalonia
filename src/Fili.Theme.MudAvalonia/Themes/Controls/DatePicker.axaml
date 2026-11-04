@@ -113,7 +113,7 @@
          reaches it; this is that ring - 2px of text-primary - drawn on the day instead. After
          :today and :selected, so it shows on either. Without it, in the year and decade views and
          in a range or multiple selection, nothing showed where the arrow keys were. -->
-    <Style Selector="^:dayfocused">
+    <Style Selector="^:dayfocused[(theme|CalendarView.Keyboard)=True]">
       <Setter Property="BorderBrush" Value="{DynamicResource FiliTextPrimaryBrush}" />
       <Setter Property="BorderThickness" Value="2" />
     </Style>
@@ -176,7 +176,7 @@
     </Style>
     <!-- The keyboard's position in the month and year views, :btnfocused: the day's ring, round
          the cell. -->
-    <Style Selector="^:btnfocused /template/ theme|PartBorder#PART_StateLayer">
+    <Style Selector="^:btnfocused[(theme|CalendarView.Keyboard)=True] /template/ theme|PartBorder#PART_StateLayer">
       <Setter Property="BorderBrush" Value="{DynamicResource FiliTextPrimaryBrush}" />
       <Setter Property="BorderThickness" Value="2" />
       <Setter Property="CornerRadius" Value="{DynamicResource FiliCornerRadius}" />
