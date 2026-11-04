@@ -287,20 +287,21 @@ The benchmark runs in process, on its own headless session, and writes its table
 `BenchmarkDotNet.Artifacts/`. A style-cost change keeps only what its timings show - fewer style
 instances has built slower before - and puts both tables in the change; one that moves the
 instance count moves `StyleCostTests.StyleInstanceCeiling` with it. Measured on 2026-11-04, 0.33.0
-and the change after it (`ApplicationVariantBrushes`) one after the other; the machine was busier
-than for earlier tables, so read the ratio rather than the times:
+and the change after it (`ApplicationVariantBrushes`) one after the other, read as the ratio
+rather than the times: the switch on a busy machine, the build on an idle one, as the mean of two
+alternated runs each:
 
 | Method | Theme | 0.33.0 | After | Allocated, 0.33.0 | Allocated, after |
 |---|---|---:|---:|---:|---:|
-| BuildScreen | Base | 621 ms | 682 ms | 123 MB | 123 MB |
-| BuildScreen | Fili | 1,868 ms | 1,955 ms | 247 MB | 247 MB |
+| BuildScreen | Base | 418 ms | 419 ms | 123 MB | 123 MB |
+| BuildScreen | Fili | 1,289 ms | 1,312 ms | 247 MB | 247 MB |
 | SwitchVariant | Base | 77 ms | 30 ms | 9.3 MB | 1.3 MB |
 | SwitchVariant | Fili | 135 ms | 80 ms | 9.9 MB | 0.7 MB |
 
 Since 0.32.0 every variant has brushes of its own, and a switch handed every control new ones;
 with the application's variant answered by brushes that follow it, a switch recolours them again,
-and allocates what 0.31.0 did. Building moved by less than its own spread (a standard deviation
-of 76 and 172 ms).
+and allocates what 0.31.0 did. Building costs what it did: the theme's 23 ms is less than one
+run's error, about 25 ms.
 
 Accepting rewrites every frame, so restore the ones the change should not have touched, then run
 the suite twice more: a frame that differs between two runs of the same build is an animation
