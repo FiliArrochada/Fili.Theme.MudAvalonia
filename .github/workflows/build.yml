@@ -145,6 +145,12 @@ jobs:
           version="$(dotnet msbuild src/Fili.Theme.MudAvalonia/Fili.Theme.MudAvalonia.csproj -getProperty:Version)"
           dotnet run tools/release-notes.cs -- "$version" "v$version" artifacts/release-notes.md
 
+      # docs/testing.md's totals and each unit class's count, against the tests as built: a change
+      # that adds a test and forgets the page fails here.
+      - name: Check the test counts
+        if: matrix.publish
+        run: dotnet run tools/test-counts.cs -- --check --no-build --configuration Release
+
       # Avalonia.Browser links Skia and HarfBuzz into dotnet.wasm, and that native link is what
       # this workload provides. Without it, even restoring the browser project fails. No version:
       # the SDK installs the workload set of its own feature band, so the workload follows the

@@ -233,8 +233,14 @@ Two workflows, in `.github/workflows/`.
   from `docs/versions/<Version>.md`, and fails if the page is missing, does not open with its
   version, has no `## What changed` list, or links to a file that does not exist. Run it locally with
   `dotnet run tools/release-notes.cs -- 0.26.0 v0.26.0 release-notes.md`.
-- **Both tools are C# file-based apps**, run by `dotnet run` with no project file, so the build
+- **The test counts are checked**: `tools/test-counts.cs --check` lists the tests as built and
+  fails when a total or a class's count on this page is stale, or a class has no row. Locally,
+  `dotnet run tools/test-counts.cs` rewrites the numbers that moved; a new class's row is written
+  by hand.
+- **The tools are C# file-based apps**, run by `dotnet run` with no project file, so the build
   needs nothing but the .NET SDK. The first run compiles in a few seconds and later runs reuse it.
+  `tools/bump.cs`, `tools/bench.cs` and `tools/upstream.cs` are the maintainer's, run by hand
+  ([Releasing](releasing.md)).
 - **Every action is pinned to a commit**, its release in a comment, in both workflows: a tag can
   be moved to other code, a commit cannot ([Releasing](releasing.md) says how to raise one).
 - **Windows** compares the pixel frames because the baselines were rendered there.
@@ -274,7 +280,10 @@ git restore $(git status --porcelain | grep png | grep -v "<the frames you meant
 ```
 
 ```bash
-# Before and after a change to what a style costs, on the same machine, idle:
+# Before and after a change to what a style costs, on the same machine, idle: HEAD from a clean
+# export against the working tree, alternated, as the table below takes it.
+dotnet run tools/bench.cs                               # --filter "*BuildScreen*", --against <ref>, --rounds <n>
+# The benchmark alone:
 dotnet run -c Release --project tst/Fili.Theme.MudAvalonia.Benchmarks -- --filter "*"
 ```
 

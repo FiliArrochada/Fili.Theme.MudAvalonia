@@ -178,8 +178,18 @@ $env:FILI_PIXEL_BASELINES = "accept"; dotnet test tst/Fili.Theme.MudAvalonia.Pix
 # Rewrite the generated regions after editing ThemeColourGenerator:
 $env:FILI_REGENERATE = "1"; dotnet test tst/Fili.Theme.MudAvalonia.UnitTests --filter-class "*GeneratedThemeTests"
 
-# Time a style-cost change, before and after, on an idle machine:
-dotnet run -c Release --project tst/Fili.Theme.MudAvalonia.Benchmarks -- --filter "*"
+# Time a style-cost change against HEAD, on an idle machine (prints testing.md's table):
+dotnet run tools/bench.cs
+
+# The release bump, and the validation baseline once the release is on nuget.org:
+dotnet run tools/bump.cs -- <version>
+dotnet run tools/bump.cs -- baseline
+
+# docs/testing.md's test counts, after adding tests (CI checks them):
+dotnet run tools/test-counts.cs
+
+# The upstreams: what is new, re-forking Avalonia, what a MudBlazor release changed:
+dotnet run tools/upstream.cs -- check | avalonia <tag> | mudblazor <tag>
 ```
 
 Warnings fail the build. There are no lock files: a package version change is
@@ -187,9 +197,10 @@ Warnings fail the build. There are no lock files: a package version change is
 `StyleCostTests.StyleInstanceCeiling` with the benchmark's tables beside it.
 
 **Releasing is a tag, and the tag is the human's to push.** Bump `<Version>` with its page in
-`docs/versions/` (renamed from `unreleased.md`, where work is written as it lands); never tag.
+`docs/versions/` (renamed from `unreleased.md`, where work is written as it lands) with
+`tools/bump.cs`; never tag.
 [`docs/releasing.md`](docs/releasing.md) has the procedure, the page's required shape and the
 package validation baseline to raise after a release.
 
 **`docs/testing.md` describes every test class and workflow** and carries the test totals: a
-change that adds tests updates it.
+change that adds tests updates it (`tools/test-counts.cs` rewrites the numbers; CI fails on stale ones).
