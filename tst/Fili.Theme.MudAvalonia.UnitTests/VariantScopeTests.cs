@@ -4,6 +4,7 @@ using Avalonia.Markup.Xaml.MarkupExtensions;
 using Avalonia.Media;
 using Avalonia.Styling;
 using Avalonia.Threading;
+using Avalonia.VisualTree;
 using Xunit;
 
 namespace Fili.Theme.MudAvalonia.UnitTests;
@@ -277,6 +278,66 @@ public class VariantScopeTests
         }
         finally
         {
+            window.Close();
+        }
+    }));
+
+    /// <summary>
+    /// A popup's host roots a tree of its own (docs/traps.md), so a popup opened from a control in
+    /// a scope must still take the scope's variant: a context menu's sheet and rows, a flyout's
+    /// plain text, which inherits its colour from the popup's root, and a tooltip. The tooltip's
+    /// chip is the same #616161 in light and dark, so high contrast is where it shows.
+    /// </summary>
+    [Theory]
+    [InlineData("Dark")]
+    [InlineData("HighContrast")]
+    public Task APopupOpenedInAScopeTakesTheScopesVariant(string ownVariant) => UiThread.RunAsync(() => InApplication(ThemeVariant.Light, () =>
+    {
+        var own = Variant(ownVariant);
+        var item = new MenuItem { Header = "Copy" };
+        var context = new ContextMenu { Items = { item } };
+        var contextTarget = new Border { Width = 50, Height = 20, Background = Brushes.Transparent, ContextMenu = context };
+        var flyoutText = new TextBlock { Text = "Flyout" };
+        var flyout = new Flyout { Content = flyoutText };
+        var flyoutTarget = new Button { Content = "Flyout", Flyout = flyout };
+        var tip = new ToolTip { Content = "Tip" };
+        var tipped = new Button { Content = "Tipped" };
+        ToolTip.SetTip(tipped, tip);
+        var window = new Window
+        {
+            Content = new ThemeVariantScope
+            {
+                RequestedThemeVariant = own,
+                Child = new StackPanel { Children = { contextTarget, flyoutTarget, tipped } },
+            },
+        };
+
+        try
+        {
+            window.Show();
+            Dispatcher.UIThread.RunJobs();
+            context.Open(contextTarget);
+            flyout.ShowAt(flyoutTarget);
+            ToolTip.SetIsOpen(tipped, true);
+            Dispatcher.UIThread.RunJobs();
+
+            Assert.Equal(own, context.ActualThemeVariant);
+            Assert.Equal(ColourOf("FiliSurfaceColor", own), ((ISolidColorBrush)Matrix.Part<Border>(context, "PART_Border").Background!).Color);
+            Assert.Equal(ColourOf("FiliTextPrimaryColor", own), ((ISolidColorBrush)item.Foreground!).Color);
+            var header = item.GetVisualDescendants().OfType<TextBlock>().First(t => t.Text == "Copy");
+            Assert.Equal(ColourOf("FiliTextPrimaryColor", own), ((ISolidColorBrush)header.Foreground!).Color);
+
+            Assert.Equal(own, flyoutText.ActualThemeVariant);
+            Assert.Equal(ColourOf("FiliTextPrimaryColor", own), ((ISolidColorBrush)flyoutText.Foreground!).Color);
+
+            Assert.Equal(own, tip.ActualThemeVariant);
+            Assert.Equal(ColourOf("FiliTooltipBackgroundColor", own), ((ISolidColorBrush)tip.Background!).Color);
+        }
+        finally
+        {
+            ToolTip.SetIsOpen(tipped, false);
+            flyout.Hide();
+            context.Close();
             window.Close();
         }
     }));
