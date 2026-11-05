@@ -45,7 +45,7 @@ int Bump(string version)
     // The heading, the "Work since" paragraph gone, and the Upgrading heading's target.
     text = Regex.Replace(text, @"\A# Unreleased\n", $"# {version}\n");
     text = Regex.Replace(text, @"\nWork since [^\n]*(?:\n[^\n]+)*\n", "");
-    text = Regex.Replace(text, @"^## Upgrading from (\S+)\s*$", $"## Upgrading from $1 to {version}", RegexOptions.Multiline);
+    text = Regex.Replace(text, @"^## Upgrading from (\S+)[ \t]*$", $"## Upgrading from $1 to {version}", RegexOptions.Multiline);
     var upgrading = Regex.Match(text, @"^## (Upgrading from \S+ to \S+)$", RegexOptions.Multiline);
     if (!upgrading.Success)
     {
