@@ -42,7 +42,7 @@ the version through the NuGet badge, the bug report template asks for the reader
 the solution lists the version index and `unreleased.md`, not each page.
 
 The same page is the package's **release notes on nuget.org**: the pack takes its summary and a
-link to the page at the commit (`PackReleaseNotesFromVersionPage` in the theme's csproj). A pack
+link to the page at the commit (`PackReleaseNotesFromVersionPage` in the theme's `Packaging.targets`). A pack
 between releases, which has no page of its own, says so and links `unreleased.md`.
 
 There is **no package validation baseline**: the C# API is one type, and
@@ -80,7 +80,7 @@ Packages built on a runner set `ContinuousIntegrationBuild`, so the PDBs carry `
 instead of the runner's directory layout, and Source Link points each file at the tagged commit.
 The XAML is the exception: Avalonia's XAML compiler writes its sequence points after the C#
 compiler, with the real path and no path map (its `CompileAvaloniaXamlTask` takes none), so
-its documents keep the runner's path. `MapXamlSourcesInSourceLink` adds that unmapped root to the
+its documents keep the runner's path. `MapXamlSourcesInSourceLink` (`Packaging.targets`) adds that unmapped root to the
 same Source Link map, so a debugger stepping into a theme's XAML still fetches the file at the
 commit.
 
