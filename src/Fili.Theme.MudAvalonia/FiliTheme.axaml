@@ -812,8 +812,10 @@
     MudAlert: `<Border Classes="alert">`, from _alert.scss. Variant.Text is the default; `outlined`
     and `filled` switch it, and a colour class is the Severity (`info`, `success`, `warning`,
     `error`, and any other palette colour). With no colour it is Severity.Normal: text-primary on
-    dark-hover. Text and outlined alerts draw their TEXT in the colour's darken shade and only the
-    icon in the colour itself; filled ones are the colour with its contrast text, at weight 500.
+    dark-hover. Text and outlined alerts draw their TEXT in the colour's alert-text token and only
+    the icon in the colour itself: MudBlazor's darken shade, except where it falls short of 4.5:1
+    on the alert's ground, which since 1.0.1 is that hue moved to 4.5:1 (Palette.axaml); filled
+    ones are the colour with its contrast text, at weight 500.
     The colour is inherited, so put the message and a PathIcon inside and both follow it.
     `dense` is `.mud-dense`: 0 12px.
 

@@ -1545,7 +1545,7 @@ public static class ThemeColourGenerator
 
     // ---------------------------------------------------------------------------------------
     // FiliTheme.axaml region: MudAlert's Severity, from _alert.scss. Text and outlined alerts draw
-    // their text in the colour's alert-text token (its darken shade, lighten in high contrast) and
+    // their text in the colour's alert-text token (its darken shade where that reaches 4.5:1, lighten in high contrast) and
     // the icon in the colour; filled ones the colour with its contrast text.
     // ---------------------------------------------------------------------------------------
 

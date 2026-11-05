@@ -8,7 +8,8 @@ namespace Fili.Theme.MudAvalonia.UnitTests;
 /// <summary>
 /// High contrast is the variant meant to be read by anyone, so its colours are held to WCAG AA,
 /// computed from the tokens: 4.5:1 for text, 3:1 for a line or a rail. Light and dark keep
-/// MudBlazor's own palette, contrast and all; high contrast has no MudBlazor original, and each
+/// MudBlazor's own palette, contrast and all, but for alert text (<c>AlertTextContrastTests</c>,
+/// all three variants); high contrast has no MudBlazor original, and each
 /// of these once fell short - the <c>dark</c> class black on black, alert text at 3.4:1, white on
 /// a hovered chip at 1.5:1, a slider rail at 1.9:1.
 /// </summary>

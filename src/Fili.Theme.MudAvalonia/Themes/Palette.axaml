@@ -147,17 +147,29 @@
       <Color x:Key="FiliDarkLightenColor">#575757</Color>
 
       <!--
-        A text or outlined alert's text, on the colour's hover tint: the darken shade, as
-        _alert.scss paints `mud-alert-text-{severity}` with `mud-palette-{severity}-darken`.
-        A token of its own so that high contrast can lighten it instead.
+        A text or outlined alert's text, on the colour's hover tint (text) or on the ground itself
+        (outlined). _alert.scss paints `mud-alert-text-{severity}` with
+        `mud-palette-{severity}-darken`, and that is kept where it reaches WCAG AA, 4.5:1, on the
+        worst of those grounds (the tint over the page or a surface): primary and dark here.
+        NOT MUDBLAZOR'S, since 1.0.1: every other darken shade fell short, so each is that shade
+        darkened - HSL lightness lowered, hue and saturation kept - to the first value at 4.5:1
+        even with the painted ground one level off the arithmetic, as Skia's can be.
+        Each line names MudBlazor's value and the worst ratio before and after
+        (AlertTextContrastTests).
       -->
       <Color x:Key="FiliPrimaryAlertTextColor">#3E2CDD</Color>
-      <Color x:Key="FiliSecondaryAlertTextColor">#FF1F69</Color>
-      <Color x:Key="FiliTertiaryAlertTextColor">#19A98C</Color>
-      <Color x:Key="FiliInfoAlertTextColor">#0C80DF</Color>
-      <Color x:Key="FiliSuccessAlertTextColor">#00A344</Color>
-      <Color x:Key="FiliWarningAlertTextColor">#D68100</Color>
-      <Color x:Key="FiliErrorAlertTextColor">#F21C0D</Color>
+      <!-- MudBlazor #FF1F69, 3.46:1; 4.55:1. -->
+      <Color x:Key="FiliSecondaryAlertTextColor">#E1004A</Color>
+      <!-- MudBlazor #19A98C, 2.83:1; 4.58:1. -->
+      <Color x:Key="FiliTertiaryAlertTextColor">#13816B</Color>
+      <!-- MudBlazor #0C80DF, 3.82:1; 4.58:1. -->
+      <Color x:Key="FiliInfoAlertTextColor">#0B73C9</Color>
+      <!-- MudBlazor #00A344, 3.16:1; 4.58:1. -->
+      <Color x:Key="FiliSuccessAlertTextColor">#008437</Color>
+      <!-- MudBlazor #D68100, 2.87:1; 4.58:1. -->
+      <Color x:Key="FiliWarningAlertTextColor">#A56300</Color>
+      <!-- MudBlazor #F21C0D, 3.93:1; 4.57:1. -->
+      <Color x:Key="FiliErrorAlertTextColor">#DE1A0C</Color>
       <Color x:Key="FiliDarkAlertTextColor">#2E2E2E</Color>
 
       <!-- A default chip's ground on hover, focus and press: action-disabled, as _chip.scss
@@ -449,15 +461,28 @@
       <Color x:Key="FiliErrorLightenColor">#F87786</Color>
       <Color x:Key="FiliDarkLightenColor">#383843</Color>
 
-      <!-- The darken shade, as in light. -->
-      <Color x:Key="FiliPrimaryAlertTextColor">#5A4BE2</Color>
-      <Color x:Key="FiliSecondaryAlertTextColor">#FF1F69</Color>
-      <Color x:Key="FiliTertiaryAlertTextColor">#19A98C</Color>
-      <Color x:Key="FiliInfoAlertTextColor">#0A85FF</Color>
-      <Color x:Key="FiliSuccessAlertTextColor">#099A6C</Color>
-      <Color x:Key="FiliWarningAlertTextColor">#D68F00</Color>
-      <Color x:Key="FiliErrorAlertTextColor">#F42F46</Color>
-      <Color x:Key="FiliDarkAlertTextColor">#17171C</Color>
+      <!-- NOT MUDBLAZOR'S, since 1.0.1. MudBlazor paints the darken shade here as in light, and
+           on a dark ground every one fell short of 4.5:1 (the worst ground is the tint over the
+           surface, or the surface itself for `dark`). Each is that shade LIGHTENED - HSL
+           lightness raised, hue and saturation kept - to the first value at 4.5:1 even with the
+           painted ground one level off the arithmetic, as Skia's can be. Each line
+           names MudBlazor's value and the worst ratio before and after (AlertTextContrastTests). -->
+      <!-- MudBlazor #5A4BE2, 1.87:1; 4.59:1. -->
+      <Color x:Key="FiliPrimaryAlertTextColor">#A59DEF</Color>
+      <!-- MudBlazor #FF1F69, 2.99:1; 4.57:1. -->
+      <Color x:Key="FiliSecondaryAlertTextColor">#FF7BA6</Color>
+      <!-- MudBlazor #19A98C, 3.59:1; 4.59:1. -->
+      <Color x:Key="FiliTertiaryAlertTextColor">#1CC09F</Color>
+      <!-- MudBlazor #0A85FF, 3.01:1; 4.59:1. -->
+      <Color x:Key="FiliInfoAlertTextColor">#5AADFF</Color>
+      <!-- MudBlazor #099A6C, 3.01:1; 4.59:1. -->
+      <Color x:Key="FiliSuccessAlertTextColor">#0BC086</Color>
+      <!-- MudBlazor #D68F00, 3.91:1; 4.58:1. -->
+      <Color x:Key="FiliWarningAlertTextColor">#E89B00</Color>
+      <!-- MudBlazor #F42F46, 2.85:1; 4.57:1. -->
+      <Color x:Key="FiliErrorAlertTextColor">#F8828F</Color>
+      <!-- MudBlazor #17171C, 1.41:1; 4.58:1. -->
+      <Color x:Key="FiliDarkAlertTextColor">#A0A0B1</Color>
 
       <Color x:Key="FiliChipHoverColor">#42FFFFFF</Color>
       <sys:Double x:Key="FiliSliderRailOpacity">0.30</sys:Double>

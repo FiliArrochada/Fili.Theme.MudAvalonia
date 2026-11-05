@@ -11,7 +11,7 @@
 
     <TextBlock Classes="h5 section" Text="Simple alerts" />
     <docs:ExampleCard Title="Severities"
-                      Description="A colour class is the Severity: info, success, warning, error. With no colour class it is Severity.Normal, text-primary on dark-hover. The text variant is the colour at 6% behind text in the colour's darken shade; only the icon is the colour itself."
+                      Description="A colour class is the Severity: info, success, warning, error. With no colour class it is Severity.Normal, text-primary on dark-hover. The text variant is the colour at 6% behind text in the colour's alert-text shade; only the icon is the colour itself. That shade is MudBlazor's darken where it reaches 4.5:1 on the alert; where it does not, it is deliberately darker in light and lighter in dark, keeping the hue."
                       Source="Alert/Simple" />
     <TextBlock Classes="body1 p">
       <Run Text="An icon is a " /><Run Classes="code" Text="PathIcon" /><Run Text=" inside the alert. The theme draws it as " /><Run Classes="code" Text=".mud-alert-icon" /><Run Text=": 24px, MudIcon's medium size, at .9 opacity, 12px before the message and on its first line. There is no default icon per severity; these examples use the theme's own glyphs, " /><Run Classes="code" Text="FiliEventNoteGeometry" /><Run Text=", " /><Run Classes="code" Text="FiliInfoOutlinedGeometry" /><Run Text=", " /><Run Classes="code" Text="FiliAlertSuccessGeometry" /><Run Text=", " /><Run Classes="code" Text="FiliReportProblemGeometry" /><Run Text=" and " /><Run Classes="code" Text="FiliErrorOutlineGeometry" /><Run Text=", which are MudBlazor's. The padding holds the message's 9px inside the alert's 6px, so a one-line alert is MudAlert's 50px." />
@@ -62,7 +62,7 @@
     <docs:ParityTable>
       <docs:ParityRow MudBlazor="Severity.Normal (default)" Here="alert" Status="Same" Note="Text-primary on dark-hover." />
       <docs:ParityRow MudBlazor="Severity.Info / Success / Warning / Error" Here="info / success / warning / error" Status="Same" Note="Any of the eight colour classes works." />
-      <docs:ParityRow MudBlazor="Variant.Text (default)" Here="no class" Status="Same" Note="The colour's hover ground, its darken text (Fili…AlertTextColor, lighten in high contrast), and the colour on the icon." />
+      <docs:ParityRow MudBlazor="Variant.Text (default)" Here="no class" Status="Close" Note="The colour's hover ground and the colour on the icon, as MudBlazor's. The text is Fili…AlertTextColor: MudBlazor's darken shade where it reaches WCAG AA's 4.5:1 on the alert, and otherwise, since 1.0.1, that hue darkened (light) or lightened (dark) to 4.5:1, as MudBlazor's own fell to as little as 1.4:1; lighten in high contrast." />
       <docs:ParityRow MudBlazor="Variant.Outlined" Here="outlined" Status="Same" Note="A 1px line in the colour." />
       <docs:ParityRow MudBlazor="Variant.Filled" Here="filled" Status="Same" Note="The colour as ground, its contrast text at Medium weight." />
       <docs:ParityRow MudBlazor="Dense" Here="dense" Status="Same" />

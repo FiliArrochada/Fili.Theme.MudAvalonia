@@ -9,7 +9,8 @@ namespace Fili.Theme.MudAvalonia.UnitTests.Generation;
 /// <summary>
 /// Every <c>Fili{Color}Darken</c> and <c>Fili{Color}Lighten</c> token is what MudBlazor's own
 /// algorithm makes of <c>Fili{Color}Color</c>, in every variant, and every
-/// <c>Fili{Color}AlertText</c> is one of the two: darken in light and dark, lighten in high contrast.
+/// <c>Fili{Color}AlertText</c> follows them: darken in light and dark (or, where darken fails AA on
+/// the alert's ground, the same hue moved to 4.5:1), lighten in high contrast.
 ///
 /// <para>
 /// The darken and lighten shades are derived, not transcribed: MudBlazor computes them at runtime
@@ -50,9 +51,28 @@ public class PaletteDerivationTests
 
             Assert.Equal(MudColorPort.Darken(baseColour), Token($"Fili{colour}DarkenColor", variant));
             Assert.Equal(MudColorPort.Lighten(baseColour), Token($"Fili{colour}LightenColor", variant));
-            Assert.Equal(MudColorPort.Darken(baseColour), Token($"Fili{colour}AlertTextColor", variant));
+            AssertAlertTextFollowsDarken(MudColorPort.Darken(baseColour), Token($"Fili{colour}AlertTextColor", variant), variant == ThemeVariant.Light);
         }
     });
+
+    /// <summary>
+    /// Light and dark alert text is MudBlazor's darken shade, or - since 1.0.1, where that shade
+    /// fell short of 4.5:1 on the alert's ground (<c>AlertTextContrastTests</c>) - the same hue
+    /// moved away from the ground: darker in light, lighter in dark.
+    /// </summary>
+    private static void AssertAlertTextFollowsDarken(Color darken, Color alertText, bool light)
+    {
+        if (alertText == darken)
+        {
+            return;
+        }
+
+        var (hue, lightness) = (darken.ToHsl().H, darken.ToHsl().L);
+        var (alertHue, alertLightness) = (alertText.ToHsl().H, alertText.ToHsl().L);
+        var hueDistance = Math.Abs(hue - alertHue) % 360;
+        Assert.True(Math.Min(hueDistance, 360 - hueDistance) < 1, $"{alertText} does not keep the hue of {darken}.");
+        Assert.True(light ? alertLightness < lightness : alertLightness > lightness, $"{alertText} does not move {(light ? "darker" : "lighter")} than {darken}.");
+    }
 
     /// <summary>
     /// High contrast derives its shades the same way. Its alert text is the LIGHTEN shade: on the

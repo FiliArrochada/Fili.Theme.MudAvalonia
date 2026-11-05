@@ -22,8 +22,12 @@ resolves every key in each variant: a new key is listed here in the change that 
 Every colour as a `*Color` and its `*Brush`, in light, dark and high contrast. Values and provenance: [Tokens](../README.md#tokens).
 
 Two kinds are roles rather than colours. `Fili{Colour}AlertTextColor` is a text or outlined
-alert's text on its tint: the colour's darken shade in light and dark, as MudBlazor's, and its
-lighten shade in high contrast, where darken on the tint fell below 4.5:1. `FiliChipHoverColor` is
+alert's text on its tint: the colour's darken shade in light and dark, as MudBlazor's, where that
+reaches WCAG AA's 4.5:1 on the alert's ground (primary and dark in light); since 1.0.1 every other
+one is a deliberate departure from MudBlazor, the darken shade's hue moved to 4.5:1, darker in
+light and lighter in dark (`Palette.axaml` names each MudBlazor value). In high contrast it is the
+lighten shade, where darken on the tint fell below 4.5:1. `AlertTextContrastTests` holds every
+one to 4.5:1 in all three variants. `FiliChipHoverColor` is
 a default chip's ground on hover, focus and press: action-disabled in light and dark, and an
 opaque grey under white text in high contrast.
 

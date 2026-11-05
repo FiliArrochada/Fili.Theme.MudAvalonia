@@ -195,7 +195,10 @@ public class ComponentClassTests
     // MudAlert
     // --------------------------------------------------------------------------------------
 
-    /// <summary>Text and outlined alerts draw their TEXT in the darken shade and the icon in the colour.</summary>
+    /// <summary>
+    /// Text and outlined alerts draw their TEXT in the alert-text token (MudBlazor's darken shade,
+    /// moved to 4.5:1 where that fell short) and the icon in the colour.
+    /// </summary>
     [Theory]
     [MemberData(nameof(Matrix.Colours), MemberType = typeof(Matrix))]
     public Task AlertVariantsFollowTheColour(string colour) => UiThread.RunAsync(() =>
@@ -207,7 +210,7 @@ public class ComponentClassTests
         var alert = Matrix.Show(new Border { Classes = { "alert", cls }, Child = new StackPanel { Children = { icon, text } } });
 
         Assert.Equal(Matrix.Token($"Fili{colour}HoverColor"), Matrix.Colour(alert.Background));
-        Assert.Equal(Matrix.Token($"Fili{colour}DarkenColor"), Matrix.Colour(text.Foreground));
+        Assert.Equal(Matrix.Token($"Fili{colour}AlertTextColor"), Matrix.Colour(text.Foreground));
         Assert.Equal(Matrix.Token($"Fili{colour}Color"), Matrix.Colour(icon.Foreground));
 
         var filledText = new TextBlock { Text = "Message" };
