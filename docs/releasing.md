@@ -5,11 +5,14 @@
 pushed:
 
 ```powershell
-# 1. bump <Version> in Directory.Build.props, rename docs/versions/unreleased.md to <Version>.md,
-#    commit, push
+# 1. the bump: unreleased.md becomes the version's page, its index row, a fresh unreleased.md,
+#    <Version>; the page's summary is written by hand. Then commit and push.
+dotnet run tools/bump.cs -- 0.1.0
 # 2. tag that exact version and push the tag
 git tag v0.1.0
 git push origin v0.1.0
+# 3. once nuget.org lists it: the package validation baseline, in the next commit
+dotnet run tools/bump.cs -- baseline
 ```
 
 The workflow runs the unit and pixel suites on Windows first, because a tag can point at a commit
@@ -27,7 +30,7 @@ under `###` subheadings when a version covers several areas, then its Upgrading 
 without the list fails, as paragraphs read as a wall of text on a release.
 
 Work since the last release is written into `docs/versions/unreleased.md`, and its Upgrading
-section, as it lands. At the bump that page is renamed to `<Version>.md`: its "Work since" line
+section, as it lands. At the bump (`tools/bump.cs`) that page is renamed to `<Version>.md`: its "Work since" line
 goes, its heading and its Upgrading heading lose the unreleased marker, it gets its row in
 `docs/versions/README.md`, and the index's bold moves from the previous release to the new one.
 A fresh `unreleased.md` follows, with its "Work since" line, the `[All versions]` link and the
@@ -47,8 +50,9 @@ between releases, which has no page of its own, says so and links `unreleased.md
 The pack runs **package validation** against `PackageValidationBaselineVersion` in the theme's
 csproj, the last version on nuget.org, and fails on a public member that is gone or changed;
 `PackageContentTests` packs on every build, so a break shows there before any tag. Once
-a release is on nuget.org, raise the baseline to it in the next commit; until then it stays on the
-one before.
+a release is on nuget.org, raise the baseline to it in the next commit
+(`dotnet run tools/bump.cs -- baseline`, which waits for the listing and clears the local HTTP
+cache that hides a version listed minutes ago); until then it stays on the one before.
 
 Package validation sees only the C# API; the theme's real interface is its keys and classes, and
 those are frozen in `tst/Fili.Theme.MudAvalonia.UnitTests/published-baseline.txt`
