@@ -11,11 +11,6 @@
     <!-- A .snupkg beside the .nupkg; `dotnet nuget push` uploads both. -->
     <IncludeSymbols>true</IncludeSymbols>
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
-    <!-- The pack compares the package with the last published one and fails on a public API it
-         drops or breaks: FiliThemeVariants today, and anything made public by mistake. Raised to
-         each version once nuget.org has it (docs/releasing.md). -->
-    <EnablePackageValidation>true</EnablePackageValidation>
-    <PackageValidationBaselineVersion>1.0.0-rc.1</PackageValidationBaselineVersion>
     <!-- FiliThemeVariants' documentation, its one public type's, shows in an app's editor: where
          to set the variant and how to name it in XAML. Packed beside the assembly. -->
     <GenerateDocumentationFile>true</GenerateDocumentationFile>

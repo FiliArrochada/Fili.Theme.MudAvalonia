@@ -11,8 +11,6 @@ dotnet run tools/bump.cs -- 0.1.0
 # 2. tag that exact version and push the tag
 git tag v0.1.0
 git push origin v0.1.0
-# 3. once nuget.org lists it: the package validation baseline, in the next commit
-dotnet run tools/bump.cs -- baseline
 ```
 
 The workflow runs the unit and pixel suites on Windows first, because a tag can point at a commit
@@ -47,16 +45,14 @@ The same page is the package's **release notes on nuget.org**: the pack takes it
 link to the page at the commit (`PackReleaseNotesFromVersionPage` in the theme's csproj). A pack
 between releases, which has no page of its own, says so and links `unreleased.md`.
 
-The pack runs **package validation** against `PackageValidationBaselineVersion` in the theme's
-csproj, the last version on nuget.org, and fails on a public member that is gone or changed;
-`PackageContentTests` packs on every build, so a break shows there before any tag. Once
-a release is on nuget.org, raise the baseline to it in the next commit
-(`dotnet run tools/bump.cs -- baseline`, which waits for the listing and clears the local HTTP
-cache that hides a version listed minutes ago); until then it stays on the one before.
+There is **no package validation baseline**: the C# API is one type, and
+`PublishedInterfaceTests.ThePublicApiIsOneType` pins it, its one member included, on every build.
+Comparing with the last release on nuget.org would find nothing that test misses, and would add a
+step after every release and a network fetch to every pack. `PackageContentTests` packs on every
+build and checks what the package carries and depends on.
 
-Package validation sees only the C# API; the theme's real interface is its keys and classes, and
-those are frozen in `tst/Fili.Theme.MudAvalonia.UnitTests/published-baseline.txt`
-(`PublishedBaselineTests`): every published key with the type it resolves to, and every class. A
+The theme's real interface is its keys and classes, and those are frozen in
+`tst/Fili.Theme.MudAvalonia.UnitTests/published-baseline.txt` (`PublishedBaselineTests`): every published key with the type it resolves to, and every class. A
 change that adds a key or a class appends it there with `FILI_REGENERATE=1` (the test's summary has
 the command), so the release ships with it already frozen. The file only grows; nothing at release
 edits it, and only a major version removes an entry, by hand.

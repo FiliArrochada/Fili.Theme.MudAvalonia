@@ -1,4 +1,4 @@
-// The release bump, and the package validation baseline after it (docs/releasing.md).
+// The release bump (docs/releasing.md).
 //
 //     <version>   docs/versions/unreleased.md becomes <version>.md: its heading is the version,
 //                 its "Work since" line goes, its Upgrading heading gains "to <version>". The
@@ -6,32 +6,24 @@
 //                 bold; a fresh unreleased.md says "Nothing yet."; <Version> in
 //                 Directory.Build.props is the version. Then tools/release-notes.cs checks the
 //                 page as the release would.
-//     baseline    once nuget.org lists the version in Directory.Build.props, moves
-//                 PackageValidationBaselineVersion in the theme's csproj to it, and clears the
-//                 local HTTP cache, which otherwise hides a version listed minutes ago from the
-//                 restore. Before then it says so and changes nothing.
 //
 // Usage, from anywhere:
 //
 //     dotnet run tools/bump.cs -- 1.0.0
-//     dotnet run tools/bump.cs -- baseline
 //
 // It writes the working tree only; the commit, the push and the tag stay the maintainer's.
 
 using System.Diagnostics;
-using System.Text.Json;
 using System.Text.RegularExpressions;
 
 var root = Path.GetFullPath(Path.Combine((string)AppContext.GetData("EntryPointFileDirectoryPath")!, ".."));
 var versions = Path.Combine(root, "docs", "versions");
 var props = Path.Combine(root, "Directory.Build.props");
-var csproj = Path.Combine(root, "src", "Fili.Theme.MudAvalonia", "Fili.Theme.MudAvalonia.csproj");
 
 return args switch
 {
-    ["baseline"] => await Baseline(),
     [var version] when Regex.IsMatch(version, @"^\d+\.\d+\.\d+(-[0-9A-Za-z.]+)?$") => Bump(version),
-    _ => Fail("usage: dotnet run tools/bump.cs -- <version> | baseline"),
+    _ => Fail("usage: dotnet run tools/bump.cs -- <version>"),
 };
 
 int Bump(string version)
@@ -99,35 +91,6 @@ int Bump(string version)
     var check = Run("dotnet", "run", Path.Combine(root, "tools", "release-notes.cs"), "--", version, "v" + version, notes);
     Console.WriteLine(check == 0 ? $"The release notes check passes ({notes})." : "The release notes check FAILED: fix the page before committing.");
     return check;
-}
-
-async Task<int> Baseline()
-{
-    var version = Regex.Match(Read(props), "<Version>([^<]+)</Version>").Groups[1].Value;
-    var project = Read(csproj);
-    var baseline = Regex.Match(project, "<PackageValidationBaselineVersion>([^<]+)</PackageValidationBaselineVersion>").Groups[1].Value;
-    var id = Regex.Match(project, "<PackageId>([^<]+)</PackageId>").Groups[1].Value;
-    if (baseline == version)
-    {
-        Console.WriteLine($"The baseline is {version} already.");
-        return 0;
-    }
-
-    using var http = new HttpClient();
-    using var json = JsonDocument.Parse(await http.GetStringAsync($"https://api.nuget.org/v3-flatcontainer/{id.ToLowerInvariant()}/index.json"));
-    var listed = json.RootElement.GetProperty("versions").EnumerateArray().Any(v => v.GetString() == version.ToLowerInvariant());
-    if (!listed)
-    {
-        Console.WriteLine($"nuget.org does not list {id} {version} yet: the baseline stays {baseline}. Run this again once the release is approved and listed.");
-        return 2;
-    }
-
-    Write(csproj, project.Replace(
-        $"<PackageValidationBaselineVersion>{baseline}</PackageValidationBaselineVersion>",
-        $"<PackageValidationBaselineVersion>{version}</PackageValidationBaselineVersion>"), LineEnding(csproj));
-    Run("dotnet", "nuget", "locals", "http-cache", "--clear");
-    Console.WriteLine($"The baseline is {version} (was {baseline}). Check it with the PackageContentTests before committing.");
-    return 0;
 }
 
 // GitHub's heading anchor: lower case, punctuation but hyphens dropped, spaces to hyphens.
