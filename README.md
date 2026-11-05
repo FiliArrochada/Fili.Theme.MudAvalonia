@@ -101,15 +101,9 @@ compiling its XAML, about 300 ms on a desktop, and under 100 with
 
 The NuGet package keeps its original id, **`Fili.MudAvalonia.Theme`**: a nuget.org id is
 permanent, and this one already has downloads. Everything else - the assembly, the namespaces,
-the `avares://` paths and the repository - is `Fili.Theme.MudAvalonia`.
-
-```bash
-dotnet add package Fili.MudAvalonia.Theme
-```
-
-That adds the newest release, the version on the NuGet badge above. Under Central Package
-Management the same command writes the version into `Directory.Packages.props` and leaves the
-reference version-less.
+the `avares://` paths and the repository - is `Fili.Theme.MudAvalonia`. `dotnet add package`
+([Quick start](#quick-start)) adds the newest release, the version on the NuGet badge; under
+Central Package Management it writes the version into `Directory.Packages.props`.
 
 **Keep every `Avalonia*` package on one version, at least the one the theme depends on (below).**
 An app pinned to an older 12.1 patch fails restore with **NU1605** (a package downgrade): raise
@@ -177,9 +171,6 @@ use a class this table does not list, or the table lists one they do not use.
 | Select arrow colour (`AdornmentColor`) | `adornment-primary`, `adornment-secondary`, `adornment-tertiary`, `adornment-info`, `adornment-success`, `adornment-warning`, `adornment-error`, `adornment-dark`, `adornment-inherit` |
 | Switch thumb icon colour (`ThumbIconColor`) | `thumb-primary`, `thumb-secondary`, `thumb-tertiary`, `thumb-info`, `thumb-success`, `thumb-warning`, `thumb-error`, `thumb-dark` |
 
-An app upgrading from a version before the theme keyed controls by type can delete any
-`Classes="fili"`: the marker class is gone and does nothing.
-
 ## Behaviour worth knowing
 
 - **Button labels are uppercase**, as MudBlazor's `Typography.Button.TextTransform` makes them; tabs
@@ -243,7 +234,7 @@ the details and the contrast table.
 | Strings | `Themes/Strings.axaml` | The names a screen reader hears for the templates' icon buttons, in English: set one to translate it. |
 
 Every key is listed in [Published keys](docs/published-keys.md). The primary differs by variant:
-`#594AE2` in light, `#776BE7` in dark.
+`#594AE2` in light, `#776BE7` in dark, `#D3C4FF` in high contrast.
 
 ## Fonts, and the browser
 
@@ -284,12 +275,7 @@ tst/Fili.Theme.MudAvalonia.PixelTests       gallery frames diffed against commit
 tst/Fili.Theme.MudAvalonia.NoDataGridTests  the theme in an app without the DataGrid package
 ```
 
-Building the solution needs the `wasm-tools` workload, as the browser head is part of it. Read
-[Traps](docs/traps.md) before a non-trivial change; [Testing](docs/testing.md) describes every test
-class and workflow, [Releasing](docs/releasing.md) the tag-driven publish to nuget.org, and
-[The base](docs/the-base.md) the forked templates under every control without a hand-written
-theme. 69 of the 95 templated control types are hand-written; the other 26 wear the fork,
-repaletted onto these tokens.
+How to build, test and send a change is in [Contributing](CONTRIBUTING.md).
 
 ## Licence and attribution
 
