@@ -432,6 +432,12 @@ for something XAML cannot express on its own:
   days the keyboard is in use, after a key in the calendar or in the picker that opened it, so
   the ring on the day the arrow keys are on is not drawn for a click: a style can test a property,
   not which input came last.
+- **`MenuHighlight`** tells a menu's rows whether the keyboard is in use, so `:selected` is tinted
+  only for the keyboard. A menu flyout or context menu focuses and selects its first row however
+  it opens, and the arrow keys move the selection and the focus without `:focus-visible`; its
+  inherited `Keyboard` is, on opening, whether the last input in the window it opened from was a
+  key, then True on a key in the menu and False on a press of the pointer. A style can test a
+  property, not which input came last.
 - **`TimeView`** keeps the time picker's text: the field's value as MudTimePicker writes it, and
   the toolbar's hour, minute and period following Avalonia's columns as they turn, before the time
   is accepted. A column's selection is not a property a binding can watch. On the field, it opens

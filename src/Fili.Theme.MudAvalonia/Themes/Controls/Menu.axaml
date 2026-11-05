@@ -142,7 +142,13 @@
       <Setter Property="Fill" Value="{DynamicResource FiliActionDisabledBrush}" />
     </Style>
 
-    <Style Selector="^:selected /template/ theme|PartBorder#PART_StateLayer">
+    <!-- `:selected` tints only while the keyboard is in use in the menu: MudBlazor tints a row on
+         hover and keyboard focus only. A menu opened by the pointer or from code focuses and
+         selects its first row, so a plain `:selected` tint highlighted that row on every open - a
+         language menu showed its first language beside the ticked one. The arrow keys move the
+         selection and focus without `:focus-visible`, so MenuHighlight.Keyboard says whether a
+         key came last (MenuHighlightTests). -->
+    <Style Selector="^:selected[(theme|MenuHighlight.Keyboard)=True] /template/ theme|PartBorder#PART_StateLayer">
       <Setter Property="Background" Value="{DynamicResource FiliOverlayHoverBrush}" />
     </Style>
     <Style Selector="^:pointerover /template/ theme|PartBorder#PART_StateLayer">

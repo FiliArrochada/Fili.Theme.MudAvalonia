@@ -346,6 +346,15 @@ one.
   `FiliFontFamily` got it everywhere but its menus, drop-downs and calendars. Every root,
   `:is(TopLevel)` (a window, a `PopupRoot`, an `EmbeddableControlRoot`), and an
   `OverlayPopupHost` take the font, size and text colour.
+- **A menu selects its first row when it opens, however it was opened.** A menu flyout or
+  context menu opened by a click, a right click or `ShowAt` focuses and selects its first row,
+  and the arrow keys move the selection and the focus WITHOUT `:focus-visible`. The theme tinted
+  `:selected` with the hover layer, so every pointer-opened menu showed its first row
+  highlighted - a language menu lit "English" beside the ticked "Português", which reads as the
+  wrong choice (found by an adopting app). Dropping the `:selected` tint loses the keyboard's
+  place, as `:focus-visible` never comes. `MenuHighlight.Keyboard` says whether a key came last
+  (in the window when the menu opened, then in the menu), and `:selected` tints only with it
+  (`MenuHighlightTests`). The picker's `CalendarView.Keyboard`, above, is the same shape.
 - **A `MenuFlyout` binds its own `ItemContainerTheme` over its presenter's.** Its presenter's
   theme set the dropdown row as the container theme, and the flyout's binding, null unless the
   app sets one, beat it, so every flyout row was the base's: 24px, no state layer. A submenu's own
