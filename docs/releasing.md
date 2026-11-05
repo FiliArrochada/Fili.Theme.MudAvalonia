@@ -108,9 +108,6 @@ promise no build checks. `PackageContentTests` reads the range from `AvaloniaVer
 upgrade names the new version in three places only: `AvaloniaVersion`, `FORK.md` and the
 README's "Depends on" row, the nuget.org page's one statement of it.
 
-To upgrade, follow `FORK.md`: fetch Simple at the new tag, re-apply its two edits, and diff. Then
-set `AvaloniaVersion` and run every suite.
-
 `Avalonia.Controls.DataGrid` is optional and gated at runtime by `MinimumVersion` and
 `BelowVersion` (13.0.0, the next major one) in `FiliTheme.axaml`; `MinimumVersion` is equal to
 its version in `Directory.Packages.props` (`OptionalBoundaryTests` pins the two together, and
@@ -119,3 +116,23 @@ Avalonia 12.1.0 or later and 12.0.x needs Avalonia 12.0, which the theme cannot 
 An app with a DataGrid outside the gate gets a warning in Avalonia's log and no grid template
 from this theme: Avalonia has no default theme, so the grid shows nothing unless the app includes
 a DataGrid theme itself (`OptionalStyleInclude`). CI builds and tests on that floor.
+
+## Following the upstreams
+
+`dotnet run tools/upstream.cs -- check` shows the newest Avalonia, Avalonia.Controls.DataGrid and
+MudBlazor against the versions the theme is on.
+
+**Avalonia:** `dotnet run tools/upstream.cs -- avalonia <tag>` does `FORK.md`'s fetch and its two
+edits at the new tag, writes the templates that changed into `Themes/Base/`, and moves
+`AvaloniaVersion`, `FORK.md` and the README's row to the tag. It lists the templates that
+changed, the controls added or gone upstream, and any key a template now reads that nothing
+defines, which needs a line in `Accents.axaml`. Then review `git diff`, give a new control its
+place, take the same fix into a hand-written theme where it has one (the CommandBar overflow in
+12.1.5), and run every suite.
+
+**MudBlazor:** `dotnet run tools/upstream.cs -- mudblazor <tag>` changes nothing. It compares the
+tag with the version `docs/compatibility.md` names, in what the theme transcribes: `Themes/Models`
+and `Colors` (a token's value), `Styles` (a control's metrics), each component's `[Parameter]`s
+(a parity row each, a `Class` or `Style` one excepted as plumbing) and the glyphs `Icons.axaml`
+draws. Following it is that list, worked through, and the version in `docs/compatibility.md`
+moved in the same change.

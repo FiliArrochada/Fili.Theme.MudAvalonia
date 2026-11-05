@@ -36,7 +36,8 @@ because `FiliTheme.axaml` is included after `FiliBaseTheme.axaml`.
 
 ## Upgrading Avalonia
 
-Re-run the fetch against the new tag, re-apply the two edits, and diff. Anything that changed in
+`dotnet run tools/upstream.cs -- avalonia <tag>` re-runs the fetch against the new tag and
+re-applies the two edits ([Releasing](../../../../docs/releasing.md#following-the-upstreams)); then diff. Anything that changed in
 a template is an upstream fix worth taking; anything that changed in the key surface needs a line
 in `Accents.axaml`. `StandaloneReadinessTests` pins the templated-control count, so a version that
 adds controls fails the build rather than leaving them unstyled.
