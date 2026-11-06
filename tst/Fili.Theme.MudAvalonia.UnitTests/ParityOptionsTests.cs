@@ -91,7 +91,7 @@ public class ParityOptionsTests
         var row = Row(list, 0);
         var ground = Matrix.Part<Border>(row, "PART_StateLayer").GetBaseValue(Border.BackgroundProperty).GetValueOrDefault();
 
-        Assert.Equal(Matrix.Token($"Fili{colour}Color"), Matrix.Colour(row.Foreground));
+        Assert.Equal(Matrix.Token($"Fili{colour}TextColor"), Matrix.Colour(row.Foreground));
         Assert.Equal(Matrix.Token($"Fili{colour}HoverColor"), Matrix.Colour(ground));
     });
 
@@ -106,17 +106,17 @@ public class ParityOptionsTests
         list.SelectedIndex = 0;
         Dispatcher.UIThread.RunJobs();
         var row = Row(list, 0);
-        Assert.Equal(Matrix.Token("FiliPrimaryColor"), Matrix.Colour(row.Foreground));
+        Assert.Equal(Matrix.Token("FiliPrimaryTextColor"), Matrix.Colour(row.Foreground));
 
         list.Classes.Add("error");
         Dispatcher.UIThread.RunJobs();
-        Assert.Equal(Matrix.Token("FiliErrorColor"), Matrix.Colour(row.Foreground));
+        Assert.Equal(Matrix.Token("FiliErrorTextColor"), Matrix.Colour(row.Foreground));
         Assert.Equal(Matrix.Token("FiliErrorHoverColor"),
             Matrix.Colour(Matrix.Part<Border>(row, "PART_StateLayer").GetBaseValue(Border.BackgroundProperty).GetValueOrDefault()));
 
         list.Classes.Remove("error");
         Dispatcher.UIThread.RunJobs();
-        Assert.Equal(Matrix.Token("FiliPrimaryColor"), Matrix.Colour(row.Foreground));
+        Assert.Equal(Matrix.Token("FiliPrimaryTextColor"), Matrix.Colour(row.Foreground));
     });
 
     [Theory]
@@ -130,7 +130,7 @@ public class ParityOptionsTests
         tree.SelectedItem = leaf;
         Dispatcher.UIThread.RunJobs();
 
-        Assert.Equal(Matrix.Token($"Fili{colour}Color"), Matrix.Colour(Matrix.Part<ContentPresenter>(leaf, "PART_HeaderPresenter").Foreground));
+        Assert.Equal(Matrix.Token($"Fili{colour}TextColor"), Matrix.Colour(Matrix.Part<ContentPresenter>(leaf, "PART_HeaderPresenter").Foreground));
         Assert.Equal(Matrix.Token($"Fili{colour}HoverColor"),
             Matrix.Colour(Matrix.Part<Border>(leaf, "SelectionBorder").GetBaseValue(Border.BackgroundProperty).GetValueOrDefault()));
     });
@@ -152,7 +152,7 @@ public class ParityOptionsTests
     {
         var link = Matrix.Show(new HyperlinkButton { Content = "Docs", Classes = { colour.ToLowerInvariant() } });
 
-        Assert.Equal(Matrix.Token($"Fili{colour}Color"), Matrix.Colour(link.Foreground));
+        Assert.Equal(Matrix.Token($"Fili{colour}TextColor"), Matrix.Colour(link.Foreground));
     });
 
     [Fact]

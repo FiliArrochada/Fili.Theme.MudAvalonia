@@ -32,7 +32,7 @@ public class SplitButtonMatrixTests
     {
         var split = Show(colour.ToLowerInvariant());
 
-        Assert.Equal(Token($"Fili{colour}Color"), Colour(split.Foreground));
+        Assert.Equal(Token($"Fili{colour}TextColor"), Colour(split.Foreground));
         Assert.Equal(Token($"Fili{colour}Color"), Colour(Separator(split).Background));
         Assert.Equal(Colors.Transparent, Colour(Half(split, "PART_PrimaryButton").Background));
         Assert.Equal(new Thickness(0), Root(split).BorderThickness);
@@ -172,7 +172,7 @@ public class TextColourTests
         window.Show();
         Dispatcher.UIThread.RunJobs();
 
-        Assert.True(Application.Current!.TryFindResource($"Fili{colour}Color", ThemeVariant.Light, out var expected));
+        Assert.True(Application.Current!.TryFindResource($"Fili{colour}TextColor", ThemeVariant.Light, out var expected));
         Assert.Equal((Color)expected!, Assert.IsAssignableFrom<ISolidColorBrush>(text.Foreground).Color);
     });
 
@@ -186,7 +186,7 @@ public class TextColourTests
         window.Show();
         Dispatcher.UIThread.RunJobs();
 
-        Assert.True(Application.Current!.TryFindResource("FiliErrorColor", ThemeVariant.Light, out var expected));
+        Assert.True(Application.Current!.TryFindResource("FiliErrorTextColor", ThemeVariant.Light, out var expected));
         Assert.Equal((Color)expected!, Assert.IsAssignableFrom<ISolidColorBrush>(text.Foreground).Color);
     });
 }

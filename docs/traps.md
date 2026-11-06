@@ -160,8 +160,10 @@ one.
   and tab bar colours), are GENERATED** by `ThemeColourGenerator` (unit-test project,
   `Generation/`) from one list of eight colours. Change the generator, never one colour's block by
   hand: `GeneratedThemeTests` fails on any difference, and rewrites the files when
-  `FILI_REGENERATE=1` is set. Each colour needs five
-  tokens - `Fili{C}Color`, `…ContrastTextColor`, `…HoverColor` (the colour at 6%, 35% in high
+  `FILI_REGENERATE=1` is set. Each colour needs six
+  tokens - `Fili{C}Color`, `…ContrastTextColor`, `…TextColor` (the colour as text, at 4.5:1;
+  a Foreground that paints text takes it, a fill, line or lone glyph takes the colour,
+  `TextContrastTests`), `…HoverColor` (the colour at 6%, 35% in high
   contrast), `…DarkenColor` and `…LightenColor`. The last two are MudBlazor's derivation, ported
   as `MudColorPort`, and `PaletteDerivationTests` asserts every one in every variant against it, so
   changing a colour without its shades fails the build. The port must use .NET's own

@@ -107,7 +107,7 @@ public class DropDownButtonMatrixTests
         var cls = colour.ToLowerInvariant();
 
         var text = Matrix.Show(new DropDownButton { Content = "Menu", Classes = { cls } });
-        Assert.Equal(Matrix.Token($"Fili{colour}Color"), Matrix.Colour(text.Foreground));
+        Assert.Equal(Matrix.Token($"Fili{colour}TextColor"), Matrix.Colour(text.Foreground));
         Matrix.Hover(text);
         Assert.Equal(Matrix.Token($"Fili{colour}HoverColor"), Matrix.Colour(Matrix.Part<Border>(text, "PART_StateLayer").Background));
 

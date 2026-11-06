@@ -79,7 +79,8 @@ public class SnackbarTests
 
     /// <summary>
     /// SnackbarVariant.Text: `.mud-snackbar-surface` beats the alert's tint, so the surface, with
-    /// the text in the colour's darken shade at 400 and an action-default close button.
+    /// the text in the colour's alert text at 400 (the darken shade, moved to 4.5:1 where that fell
+    /// short, as an alert's is) and an action-default close button.
     /// </summary>
     [Fact]
     public Task TextIsTheColourOnTheSurface() => UiThread.RunAsync(() =>
@@ -87,7 +88,7 @@ public class SnackbarTests
         var card = Card(NotificationType.Error, "text");
 
         Assert.Equal(Matrix.Token("FiliSurfaceColor"), Matrix.Colour(card.Background));
-        Assert.Equal(Matrix.Token("FiliErrorDarkenColor"), Matrix.Colour(card.Foreground));
+        Assert.Equal(Matrix.Token("FiliErrorAlertTextColor"), Matrix.Colour(card.Foreground));
         Assert.Equal(FontWeight.Normal, card.FontWeight);
         Assert.Equal(new Thickness(0), card.BorderThickness);
         Assert.Equal(Matrix.Token("FiliActionDefaultColor"), Matrix.Colour(Matrix.Part<Button>(card, "PART_CloseButton").Foreground));

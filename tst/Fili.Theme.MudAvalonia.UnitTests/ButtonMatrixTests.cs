@@ -32,7 +32,7 @@ public class ButtonMatrixTests
     {
         var button = Show(colour.ToLowerInvariant());
 
-        Assert.Equal(Token($"Fili{colour}Color"), Colour(button.Foreground));
+        Assert.Equal(Token($"Fili{colour}TextColor"), Colour(button.Foreground));
         Assert.Equal(Colors.Transparent, Colour(Part(button, "PART_Root").Background));
 
         Hover(button);
@@ -46,7 +46,7 @@ public class ButtonMatrixTests
     {
         var button = Show("outlined", colour.ToLowerInvariant());
 
-        Assert.Equal(Token($"Fili{colour}Color"), Colour(button.Foreground));
+        Assert.Equal(Token($"Fili{colour}TextColor"), Colour(button.Foreground));
         Assert.Equal(Token($"Fili{colour}Color"), Colour(Part(button, "PART_Root").BorderBrush));
         Assert.Equal(new Thickness(1), Part(button, "PART_Root").BorderThickness);
 

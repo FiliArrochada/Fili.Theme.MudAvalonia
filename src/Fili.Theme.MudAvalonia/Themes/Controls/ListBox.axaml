@@ -189,7 +189,7 @@
     <Setter Property="FontSize" Value="{DynamicResource FiliBody1FontSize}" />
     <Setter Property="ItemContainerTheme" Value="{StaticResource FiliListBoxItem}" />
     <!-- MudList's Color, primary by default: its rows read it, and a colour class sets it. -->
-    <Setter Property="theme:Accent.RowColour" Value="{DynamicResource FiliPrimaryBrush}" />
+    <Setter Property="theme:Accent.RowColour" Value="{DynamicResource FiliPrimaryTextBrush}" />
     <Setter Property="theme:Accent.RowHover" Value="{DynamicResource FiliPrimaryHoverBrush}" />
     <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Disabled" />
 

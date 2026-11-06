@@ -66,7 +66,13 @@
       <Color x:Key="FiliDrawerBorderColor">#00000000</Color>
 
       <Color x:Key="FiliLinesDefaultColor">#1F000000</Color>
-      <Color x:Key="FiliLinesInputsColor">#BDBDBD</Color>
+      <!-- An unfocused field's underline or outline. NOT MUDBLAZOR'S, since 1.1.0: its #BDBDBD
+           (Colors.Gray.Lighten1) is 1.88:1 on white, and WCAG 1.4.11 asks 3:1 of the edge that
+           shows where a field is. The first grey at 3:1, with a level to spare, on the page and
+           on a filled field's own 9% fill: 3.74:1 on white, 3.05:1 on the fill
+           (InputLineContrastTests). A default avatar's ground keeps #BDBDBD, as
+           FiliAvatarBackgroundColor. -->
+      <Color x:Key="FiliLinesInputsColor">#848484</Color>
       <Color x:Key="FiliDividerColor">#E0E0E0</Color>
       <!-- Palette.cs DividerLight: black at 0.8 (CC), and PaletteDark.cs white at 0.06 (0F).
            `.mud-divider-light` paints it - in light, the STRONGER line, despite the name. -->
@@ -94,6 +100,10 @@
       <Color x:Key="FiliAvatarTextColor">#424242</Color>
       <Color x:Key="FiliAvatarBareTextColor">#FFFFFF</Color>
       <Color x:Key="FiliBadgeTextColor">#424242</Color>
+      <!-- A default avatar's ground: MudBlazor's lines-inputs, #BDBDBD, which _avatar.scss paints.
+           A token of its own since 1.1.0, when lines-inputs darkened to 3:1 for a field's edge:
+           text-primary on the darker grey would fall to 2.7:1, and on this it is 5.35:1. -->
+      <Color x:Key="FiliAvatarBackgroundColor">#BDBDBD</Color>
 
       <!--
         Primary at 6%. MudBlazor Palette.cs derives it as PrimaryColor with HoverOpacity, and it
@@ -171,6 +181,32 @@
       <!-- MudBlazor #F21C0D, 3.93:1; 4.57:1. -->
       <Color x:Key="FiliErrorAlertTextColor">#DE1A0C</Color>
       <Color x:Key="FiliDarkAlertTextColor">#2E2E2E</Color>
+
+      <!--
+        The colour AS TEXT on the page or a surface: `mud-{color}-text`, which MudBlazor paints in
+        the colour itself - a link, a text or outlined button's label, a text or outlined chip, a
+        selected tab, list row or nav link, a focused field's label, an error message, MudText's
+        Color. The colour stays the fill and the line; this is only its text. The colour itself
+        where it reaches WCAG AA, 4.5:1, on the worst of those grounds (the page, a surface, and
+        the colour's 6% hover tint over either, under a text button or a selected row): primary
+        and dark here. NOT MUDBLAZOR'S, since 1.1.0: every other colour fell short, as low as
+        2.04:1, so each is its alert text above, the same hue darkened to 4.5:1 on those same
+        grounds. Each line names the colour and the worst ratio before and after (TextContrastTests).
+      -->
+      <Color x:Key="FiliPrimaryTextColor">#594AE2</Color>
+      <!-- #FF4081, 3.10:1; 4.55:1. -->
+      <Color x:Key="FiliSecondaryTextColor">#E1004A</Color>
+      <!-- #1EC8A5, 2.04:1; 4.58:1. -->
+      <Color x:Key="FiliTertiaryTextColor">#13816B</Color>
+      <!-- #2196F3, 2.94:1; 4.58:1. -->
+      <Color x:Key="FiliInfoTextColor">#0B73C9</Color>
+      <!-- #00C853, 2.13:1; 4.58:1. -->
+      <Color x:Key="FiliSuccessTextColor">#008437</Color>
+      <!-- #FF9800, 2.06:1; 4.58:1. -->
+      <Color x:Key="FiliWarningTextColor">#A56300</Color>
+      <!-- #F44336, 3.41:1; 4.57:1. -->
+      <Color x:Key="FiliErrorTextColor">#DE1A0C</Color>
+      <Color x:Key="FiliDarkTextColor">#424242</Color>
 
       <!-- A default chip's ground on hover, focus and press: action-disabled, as _chip.scss
            paints it. A token of its own so that high contrast can keep white text readable. -->
@@ -284,6 +320,14 @@
       <SolidColorBrush x:Key="FiliWarningAlertTextBrush" Color="{DynamicResource FiliWarningAlertTextColor}" />
       <SolidColorBrush x:Key="FiliErrorAlertTextBrush" Color="{DynamicResource FiliErrorAlertTextColor}" />
       <SolidColorBrush x:Key="FiliDarkAlertTextBrush" Color="{DynamicResource FiliDarkAlertTextColor}" />
+      <SolidColorBrush x:Key="FiliPrimaryTextBrush" Color="{DynamicResource FiliPrimaryTextColor}" />
+      <SolidColorBrush x:Key="FiliSecondaryTextBrush" Color="{DynamicResource FiliSecondaryTextColor}" />
+      <SolidColorBrush x:Key="FiliTertiaryTextBrush" Color="{DynamicResource FiliTertiaryTextColor}" />
+      <SolidColorBrush x:Key="FiliInfoTextBrush" Color="{DynamicResource FiliInfoTextColor}" />
+      <SolidColorBrush x:Key="FiliSuccessTextBrush" Color="{DynamicResource FiliSuccessTextColor}" />
+      <SolidColorBrush x:Key="FiliWarningTextBrush" Color="{DynamicResource FiliWarningTextColor}" />
+      <SolidColorBrush x:Key="FiliErrorTextBrush" Color="{DynamicResource FiliErrorTextColor}" />
+      <SolidColorBrush x:Key="FiliDarkTextBrush" Color="{DynamicResource FiliDarkTextColor}" />
       <SolidColorBrush x:Key="FiliChipHoverBrush" Color="{DynamicResource FiliChipHoverColor}" />
       <SolidColorBrush x:Key="FiliBlackBrush"   Color="{DynamicResource FiliBlackColor}" />
       <SolidColorBrush x:Key="FiliWhiteBrush"   Color="{DynamicResource FiliWhiteColor}" />
@@ -322,6 +366,7 @@
       <SolidColorBrush x:Key="FiliSkeletonBrush"     Color="{DynamicResource FiliSkeletonColor}" />
       <SolidColorBrush x:Key="FiliAvatarTextBrush"     Color="{DynamicResource FiliAvatarTextColor}" />
       <SolidColorBrush x:Key="FiliAvatarBareTextBrush" Color="{DynamicResource FiliAvatarBareTextColor}" />
+      <SolidColorBrush x:Key="FiliAvatarBackgroundBrush" Color="{DynamicResource FiliAvatarBackgroundColor}" />
       <SolidColorBrush x:Key="FiliBadgeTextBrush"      Color="{DynamicResource FiliBadgeTextColor}" />
       <!-- Animation.Wave's two key frames: the band one skeleton wide, entirely off the left edge and
            entirely off the right. FiliTheme.axaml animates Background between them. -->
@@ -391,7 +436,10 @@
       <Color x:Key="FiliWhiteColor">#FFFFFF</Color>
 
       <Color x:Key="FiliTextPrimaryColor">#B3FFFFFF</Color>
-      <Color x:Key="FiliTextSecondaryColor">#80FFFFFF</Color>
+      <!-- NOT MUDBLAZOR'S, since 1.1.0: PaletteDark.cs's white at 0.50 (80) is 4.26:1 on the
+           surface. White at 0.53 (87), the first alpha at 4.5:1 with a level to spare: 4.57:1 on
+           the surface, 4.75:1 on the page (TextContrastTests). -->
+      <Color x:Key="FiliTextSecondaryColor">#87FFFFFF</Color>
       <Color x:Key="FiliTextDisabledColor">#33FFFFFF</Color>
 
       <Color x:Key="FiliActionDefaultColor">#ADADB1</Color>
@@ -410,7 +458,11 @@
       <Color x:Key="FiliDrawerBorderColor">#00000000</Color>
 
       <Color x:Key="FiliLinesDefaultColor">#1FFFFFFF</Color>
-      <Color x:Key="FiliLinesInputsColor">#4DFFFFFF</Color>
+      <!-- NOT MUDBLAZOR'S, since 1.1.0: its white at 0.30 (4D) is 2.50:1 on the surface, short of
+           1.4.11's 3:1 for a field's edge. White at 0.43 (6D), the first alpha at 3:1 with a level
+           to spare on the page, a surface and a filled field's fill over either: 3.52:1 on the
+           surface, 3.06:1 on the fill (InputLineContrastTests). -->
+      <Color x:Key="FiliLinesInputsColor">#6DFFFFFF</Color>
       <Color x:Key="FiliDividerColor">#1FFFFFFF</Color>
       <Color x:Key="FiliDividerLightColor">#0FFFFFFF</Color>
       <Color x:Key="FiliGrayDefaultColor">#9E9E9E</Color>
@@ -430,6 +482,8 @@
       <Color x:Key="FiliAvatarTextColor">#B3FFFFFF</Color>
       <Color x:Key="FiliAvatarBareTextColor">#FFFFFF</Color>
       <Color x:Key="FiliBadgeTextColor">#B3FFFFFF</Color>
+      <!-- MudBlazor's dark lines-inputs, white at 0.30, as in Light. -->
+      <Color x:Key="FiliAvatarBackgroundColor">#4DFFFFFF</Color>
 
       <Color x:Key="FiliPrimaryHoverColor">#0F776BE7</Color>
 
@@ -483,6 +537,28 @@
       <Color x:Key="FiliErrorAlertTextColor">#F8828F</Color>
       <!-- MudBlazor #17171C, 1.41:1; 4.58:1. -->
       <Color x:Key="FiliDarkAlertTextColor">#A0A0B1</Color>
+
+      <!-- The colour as text, as in Light: the colour where it reaches 4.5:1 on the page, the
+           surface and its tint over either (tertiary and warning), and NOT MUDBLAZOR'S, since
+           1.1.0, everywhere else: the alert text above, the colour's hue lightened to 4.5:1.
+           Primary is the one a dark app sees most, as links, text buttons, focused labels and the
+           active nav link; the colour stays the fill of a filled button, whose white text the
+           lighter shade could not carry. Each line names the colour and the worst ratio before
+           and after (TextContrastTests). -->
+      <!-- #776BE7, 2.67:1; 4.59:1. -->
+      <Color x:Key="FiliPrimaryTextColor">#A59DEF</Color>
+      <!-- #FF4081, 3.34:1; 4.57:1. -->
+      <Color x:Key="FiliSecondaryTextColor">#FF7BA6</Color>
+      <Color x:Key="FiliTertiaryTextColor">#1EC8A5</Color>
+      <!-- #3299FF, 3.69:1; 4.59:1. -->
+      <Color x:Key="FiliInfoTextColor">#5AADFF</Color>
+      <!-- #0BBA83, 4.31:1; 4.59:1. -->
+      <Color x:Key="FiliSuccessTextColor">#0BC086</Color>
+      <Color x:Key="FiliWarningTextColor">#FFA800</Color>
+      <!-- #F64E62, 3.30:1; 4.57:1. -->
+      <Color x:Key="FiliErrorTextColor">#F8828F</Color>
+      <!-- #27272F, 1.17:1; 4.58:1. -->
+      <Color x:Key="FiliDarkTextColor">#A0A0B1</Color>
 
       <Color x:Key="FiliChipHoverColor">#42FFFFFF</Color>
       <sys:Double x:Key="FiliSliderRailOpacity">0.30</sys:Double>
@@ -554,6 +630,14 @@
       <SolidColorBrush x:Key="FiliWarningAlertTextBrush" Color="{DynamicResource FiliWarningAlertTextColor}" />
       <SolidColorBrush x:Key="FiliErrorAlertTextBrush" Color="{DynamicResource FiliErrorAlertTextColor}" />
       <SolidColorBrush x:Key="FiliDarkAlertTextBrush" Color="{DynamicResource FiliDarkAlertTextColor}" />
+      <SolidColorBrush x:Key="FiliPrimaryTextBrush" Color="{DynamicResource FiliPrimaryTextColor}" />
+      <SolidColorBrush x:Key="FiliSecondaryTextBrush" Color="{DynamicResource FiliSecondaryTextColor}" />
+      <SolidColorBrush x:Key="FiliTertiaryTextBrush" Color="{DynamicResource FiliTertiaryTextColor}" />
+      <SolidColorBrush x:Key="FiliInfoTextBrush" Color="{DynamicResource FiliInfoTextColor}" />
+      <SolidColorBrush x:Key="FiliSuccessTextBrush" Color="{DynamicResource FiliSuccessTextColor}" />
+      <SolidColorBrush x:Key="FiliWarningTextBrush" Color="{DynamicResource FiliWarningTextColor}" />
+      <SolidColorBrush x:Key="FiliErrorTextBrush" Color="{DynamicResource FiliErrorTextColor}" />
+      <SolidColorBrush x:Key="FiliDarkTextBrush" Color="{DynamicResource FiliDarkTextColor}" />
       <SolidColorBrush x:Key="FiliChipHoverBrush" Color="{DynamicResource FiliChipHoverColor}" />
       <SolidColorBrush x:Key="FiliBlackBrush"   Color="{DynamicResource FiliBlackColor}" />
       <SolidColorBrush x:Key="FiliWhiteBrush"   Color="{DynamicResource FiliWhiteColor}" />
@@ -592,6 +676,7 @@
       <SolidColorBrush x:Key="FiliSkeletonBrush"     Color="{DynamicResource FiliSkeletonColor}" />
       <SolidColorBrush x:Key="FiliAvatarTextBrush"     Color="{DynamicResource FiliAvatarTextColor}" />
       <SolidColorBrush x:Key="FiliAvatarBareTextBrush" Color="{DynamicResource FiliAvatarBareTextColor}" />
+      <SolidColorBrush x:Key="FiliAvatarBackgroundBrush" Color="{DynamicResource FiliAvatarBackgroundColor}" />
       <SolidColorBrush x:Key="FiliBadgeTextBrush"      Color="{DynamicResource FiliBadgeTextColor}" />
       <LinearGradientBrush x:Key="FiliSkeletonWaveStartBrush" StartPoint="-100%,0%" EndPoint="0%,0%">
         <GradientStop Offset="0" Color="{DynamicResource FiliSkeletonColor}" />
@@ -730,6 +815,8 @@
       <Color x:Key="FiliAvatarTextColor">#000000</Color>
       <Color x:Key="FiliAvatarBareTextColor">#000000</Color>
       <Color x:Key="FiliBadgeTextColor">#000000</Color>
+      <!-- lines-inputs, as in light and dark: black avatar text on it is 17.2:1. -->
+      <Color x:Key="FiliAvatarBackgroundColor">#E8E8EE</Color>
 
       <!--
         Selection tint at 35%, where light and dark use 6%. Six percent of anything over black
@@ -777,6 +864,18 @@
       <Color x:Key="FiliWarningAlertTextColor">#FFDC8A</Color>
       <Color x:Key="FiliErrorAlertTextColor">#FFC2CA</Color>
       <Color x:Key="FiliDarkAlertTextColor">#D2D2D2</Color>
+
+      <!-- The colour as text: the colour itself, as every one is raised to clear 10:1 on black
+           and keeps 4.58:1 or more even on its own 35% tint (error the lowest). Declared, not
+           inherited, as Dark's lightened shades are not this variant's hues. -->
+      <Color x:Key="FiliPrimaryTextColor">#D3C4FF</Color>
+      <Color x:Key="FiliSecondaryTextColor">#FF9DC4</Color>
+      <Color x:Key="FiliTertiaryTextColor">#7BF0D6</Color>
+      <Color x:Key="FiliInfoTextColor">#9CD4FF</Color>
+      <Color x:Key="FiliSuccessTextColor">#8CFFC0</Color>
+      <Color x:Key="FiliWarningTextColor">#FFD166</Color>
+      <Color x:Key="FiliErrorTextColor">#FF9AA8</Color>
+      <Color x:Key="FiliDarkTextColor">#BDBDBD</Color>
 
       <!-- Opaque, where light and dark tint with action-disabled: that is #CFCFDA here, the
            legible disabled grey, and white chip text on it fell to 1.5:1. White on this is 6.8:1,
@@ -867,6 +966,14 @@
       <SolidColorBrush x:Key="FiliWarningAlertTextBrush" Color="{DynamicResource FiliWarningAlertTextColor}" />
       <SolidColorBrush x:Key="FiliErrorAlertTextBrush" Color="{DynamicResource FiliErrorAlertTextColor}" />
       <SolidColorBrush x:Key="FiliDarkAlertTextBrush" Color="{DynamicResource FiliDarkAlertTextColor}" />
+      <SolidColorBrush x:Key="FiliPrimaryTextBrush" Color="{DynamicResource FiliPrimaryTextColor}" />
+      <SolidColorBrush x:Key="FiliSecondaryTextBrush" Color="{DynamicResource FiliSecondaryTextColor}" />
+      <SolidColorBrush x:Key="FiliTertiaryTextBrush" Color="{DynamicResource FiliTertiaryTextColor}" />
+      <SolidColorBrush x:Key="FiliInfoTextBrush" Color="{DynamicResource FiliInfoTextColor}" />
+      <SolidColorBrush x:Key="FiliSuccessTextBrush" Color="{DynamicResource FiliSuccessTextColor}" />
+      <SolidColorBrush x:Key="FiliWarningTextBrush" Color="{DynamicResource FiliWarningTextColor}" />
+      <SolidColorBrush x:Key="FiliErrorTextBrush" Color="{DynamicResource FiliErrorTextColor}" />
+      <SolidColorBrush x:Key="FiliDarkTextBrush" Color="{DynamicResource FiliDarkTextColor}" />
       <SolidColorBrush x:Key="FiliChipHoverBrush" Color="{DynamicResource FiliChipHoverColor}" />
       <SolidColorBrush x:Key="FiliBlackBrush"   Color="{DynamicResource FiliBlackColor}" />
       <SolidColorBrush x:Key="FiliWhiteBrush"   Color="{DynamicResource FiliWhiteColor}" />
@@ -905,6 +1012,7 @@
       <SolidColorBrush x:Key="FiliSkeletonBrush"     Color="{DynamicResource FiliSkeletonColor}" />
       <SolidColorBrush x:Key="FiliAvatarTextBrush"     Color="{DynamicResource FiliAvatarTextColor}" />
       <SolidColorBrush x:Key="FiliAvatarBareTextBrush" Color="{DynamicResource FiliAvatarBareTextColor}" />
+      <SolidColorBrush x:Key="FiliAvatarBackgroundBrush" Color="{DynamicResource FiliAvatarBackgroundColor}" />
       <SolidColorBrush x:Key="FiliBadgeTextBrush"      Color="{DynamicResource FiliBadgeTextColor}" />
       <LinearGradientBrush x:Key="FiliSkeletonWaveStartBrush" StartPoint="-100%,0%" EndPoint="0%,0%">
         <GradientStop Offset="0" Color="{DynamicResource FiliSkeletonColor}" />

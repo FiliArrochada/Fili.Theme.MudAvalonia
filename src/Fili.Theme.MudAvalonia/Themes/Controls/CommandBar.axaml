@@ -242,7 +242,7 @@
     <!-- Checked: MudToggleIconButton with ToggledColor="Color.Primary"; with no ToggledIcon an
          unchanged colour would not show the state at all. -->
     <Style Selector="^:checked">
-      <Setter Property="Foreground" Value="{DynamicResource FiliPrimaryBrush}" />
+      <Setter Property="Foreground" Value="{DynamicResource FiliPrimaryTextBrush}" />
     </Style>
     <Style Selector="^:checked:pointerover /template/ theme|PartBorder#PART_StateLayer">
       <Setter Property="Background" Value="{DynamicResource FiliPrimaryHoverBrush}" />

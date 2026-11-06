@@ -62,6 +62,14 @@
   <SolidColorBrush x:Key="FiliWarningAlertTextBrush" Color="{DynamicResource FiliWarningAlertTextColor}" />
   <SolidColorBrush x:Key="FiliErrorAlertTextBrush" Color="{DynamicResource FiliErrorAlertTextColor}" />
   <SolidColorBrush x:Key="FiliDarkAlertTextBrush" Color="{DynamicResource FiliDarkAlertTextColor}" />
+  <SolidColorBrush x:Key="FiliPrimaryTextBrush" Color="{DynamicResource FiliPrimaryTextColor}" />
+  <SolidColorBrush x:Key="FiliSecondaryTextBrush" Color="{DynamicResource FiliSecondaryTextColor}" />
+  <SolidColorBrush x:Key="FiliTertiaryTextBrush" Color="{DynamicResource FiliTertiaryTextColor}" />
+  <SolidColorBrush x:Key="FiliInfoTextBrush" Color="{DynamicResource FiliInfoTextColor}" />
+  <SolidColorBrush x:Key="FiliSuccessTextBrush" Color="{DynamicResource FiliSuccessTextColor}" />
+  <SolidColorBrush x:Key="FiliWarningTextBrush" Color="{DynamicResource FiliWarningTextColor}" />
+  <SolidColorBrush x:Key="FiliErrorTextBrush" Color="{DynamicResource FiliErrorTextColor}" />
+  <SolidColorBrush x:Key="FiliDarkTextBrush" Color="{DynamicResource FiliDarkTextColor}" />
   <SolidColorBrush x:Key="FiliChipHoverBrush" Color="{DynamicResource FiliChipHoverColor}" />
   <SolidColorBrush x:Key="FiliBlackBrush"   Color="{DynamicResource FiliBlackColor}" />
   <SolidColorBrush x:Key="FiliWhiteBrush"   Color="{DynamicResource FiliWhiteColor}" />
@@ -100,6 +108,7 @@
   <SolidColorBrush x:Key="FiliSkeletonBrush"     Color="{DynamicResource FiliSkeletonColor}" />
   <SolidColorBrush x:Key="FiliAvatarTextBrush"     Color="{DynamicResource FiliAvatarTextColor}" />
   <SolidColorBrush x:Key="FiliAvatarBareTextBrush" Color="{DynamicResource FiliAvatarBareTextColor}" />
+  <SolidColorBrush x:Key="FiliAvatarBackgroundBrush" Color="{DynamicResource FiliAvatarBackgroundColor}" />
   <SolidColorBrush x:Key="FiliBadgeTextBrush"      Color="{DynamicResource FiliBadgeTextColor}" />
   <LinearGradientBrush x:Key="FiliSkeletonWaveStartBrush" StartPoint="-100%,0%" EndPoint="0%,0%">
     <GradientStop Offset="0" Color="{DynamicResource FiliSkeletonColor}" />

@@ -33,7 +33,7 @@ public class ToggleItemTests
     {
         var toggle = Show(false);
 
-        Assert.Equal(Matrix.Token("FiliPrimaryColor"), Matrix.Colour(toggle.Foreground));
+        Assert.Equal(Matrix.Token("FiliPrimaryTextColor"), Matrix.Colour(toggle.Foreground));
         Assert.Equal(Colors.Transparent, Fill(Root(toggle)));
         Assert.Equal(new Thickness(0), toggle.BorderThickness);
         Assert.Equal(new Thickness(6), toggle.Padding);
@@ -57,7 +57,7 @@ public class ToggleItemTests
     public Task AColourIsTheTextUnselectedAndTheGroundSelected(string colour) => UiThread.RunAsync(() =>
     {
         var off = Show(false, colour.ToLowerInvariant());
-        Assert.Equal(Matrix.Token($"Fili{colour}Color"), Matrix.Colour(off.Foreground));
+        Assert.Equal(Matrix.Token($"Fili{colour}TextColor"), Matrix.Colour(off.Foreground));
 
         var on = Show(true, colour.ToLowerInvariant());
         Assert.Equal(Matrix.Token($"Fili{colour}Color"), Fill(Root(on)));

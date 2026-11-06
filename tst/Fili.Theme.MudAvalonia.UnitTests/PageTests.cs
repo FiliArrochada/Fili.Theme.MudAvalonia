@@ -120,20 +120,25 @@ public class PageTests
         var items = tabs.GetVisualDescendants().OfType<TabItem>().ToList();
 
         Assert.Equal(48, items[0].Bounds.Height);
-        Assert.Equal(Matrix.Token("FiliPrimaryColor"), Matrix.Colour(items.Single(i => i.IsSelected).Foreground));
+        Assert.Equal(Matrix.Token("FiliPrimaryTextColor"), Matrix.Colour(items.Single(i => i.IsSelected).Foreground));
         Assert.Equal(Matrix.Token("FiliTextPrimaryColor"), Matrix.Colour(items.Single(i => !i.IsSelected).Foreground));
     });
 
     /// <summary>
     /// The selected tab follows an app's own primary, not the forked TabbedPage's
     /// TabbedPageTabItemHeaderForegroundSelected: that is ThemeAccentColor, fixed per variant and
-    /// equal to the default primary, so only an app's own primary tells the two apart.
+    /// equal to the default primary, so only an app's own primary tells the two apart. The tab's
+    /// text is the primary's text token, which an app overriding the primary sets with it.
     /// </summary>
     [Fact]
     public Task ATabbedPagesSelectedTabFollowsAnAppsPrimary() => UiThread.RunAsync(() =>
     {
         var application = Application.Current!;
-        application.Resources.ThemeDictionaries[application.ActualThemeVariant] = new ResourceDictionary { ["FiliPrimaryColor"] = Colors.Orange };
+        application.Resources.ThemeDictionaries[application.ActualThemeVariant] = new ResourceDictionary
+        {
+            ["FiliPrimaryColor"] = Colors.DarkOrange,
+            ["FiliPrimaryTextColor"] = Colors.Orange,
+        };
         try
         {
             var tabs = new TabbedPage { Width = 600, Height = 300 };

@@ -74,14 +74,14 @@ public class ToggleIconButtonTests
     {
         var toggle = Toggle("primary", "unchecked-error");
 
-        Assert.Equal(Matrix.Token("FiliErrorColor"), Matrix.Colour(toggle.Foreground));
+        Assert.Equal(Matrix.Token("FiliErrorTextColor"), Matrix.Colour(toggle.Foreground));
         Check(toggle, true);
-        Assert.Equal(Matrix.Token("FiliPrimaryColor"), Matrix.Colour(toggle.Foreground));
+        Assert.Equal(Matrix.Token("FiliPrimaryTextColor"), Matrix.Colour(toggle.Foreground));
 
         var plain = Toggle("primary");
         Assert.Equal(Matrix.Token("FiliActionDefaultColor"), Matrix.Colour(plain.Foreground));
         Check(plain, true);
-        Assert.Equal(Matrix.Token("FiliPrimaryColor"), Matrix.Colour(plain.Foreground));
+        Assert.Equal(Matrix.Token("FiliPrimaryTextColor"), Matrix.Colour(plain.Foreground));
     });
 
     [Fact]

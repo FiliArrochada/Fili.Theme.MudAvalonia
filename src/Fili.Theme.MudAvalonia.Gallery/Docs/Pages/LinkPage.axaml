@@ -52,7 +52,7 @@
       <docs:ParityRow MudBlazor="Underline.Always / None" Here="underline / no-underline" Status="Same" />
       <docs:ParityRow MudBlazor="Color.Primary (default)" Here="no class" Status="Same" />
       <docs:ParityRow MudBlazor="Color.Secondary / Inherit" Here="secondary / inherit" Status="Same" Note="inherit is the surrounding text colour." />
-      <docs:ParityRow MudBlazor="Color.Tertiary … Color.Dark" Here="tertiary … dark" Status="Same" Note="Every palette colour as the text." />
+      <docs:ParityRow MudBlazor="Color.Tertiary … Color.Dark" Here="tertiary … dark" Status="Close" Note="Every palette colour as the text, Fili…TextColor: since 1.1.0 moved to WCAG AA's 4.5:1 where MudBlazor's colour falls short, as primary does in dark." />
       <docs:ParityRow MudBlazor="Disabled" Here="IsEnabled=&quot;False&quot;" Status="Same" Note="Action-disabled." />
       <docs:ParityRow MudBlazor="Typo" Here="a type class on a TextBlock inside" Status="Close" />
       <docs:ParityRow MudBlazor="StartIcon, EndIcon" Here="an icon in the content marked start-icon / end-icon" Status="Same" Note="As .mud-link-icon-start and -end: the link's own font size and 4px from the text." />

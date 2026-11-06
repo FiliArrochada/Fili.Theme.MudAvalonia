@@ -121,7 +121,7 @@
       <Setter Property="Background" Value="{DynamicResource FiliPrimaryHoverBrush}" />
     </Style>
     <Style Selector="^.primary">
-      <Setter Property="Foreground" Value="{DynamicResource FiliPrimaryBrush}" />
+      <Setter Property="Foreground" Value="{DynamicResource FiliPrimaryTextBrush}" />
     </Style>
     <Style Selector="^.primary:pointerover /template/ theme|PartBorder#PART_StateLayer">
       <Setter Property="Background" Value="{DynamicResource FiliPrimaryHoverBrush}" />
@@ -133,7 +133,7 @@
       <Setter Property="Background" Value="{DynamicResource FiliPrimaryHoverBrush}" />
     </Style>
     <Style Selector="^.secondary">
-      <Setter Property="Foreground" Value="{DynamicResource FiliSecondaryBrush}" />
+      <Setter Property="Foreground" Value="{DynamicResource FiliSecondaryTextBrush}" />
     </Style>
     <Style Selector="^.secondary:pointerover /template/ theme|PartBorder#PART_StateLayer">
       <Setter Property="Background" Value="{DynamicResource FiliSecondaryHoverBrush}" />
@@ -145,7 +145,7 @@
       <Setter Property="Background" Value="{DynamicResource FiliSecondaryHoverBrush}" />
     </Style>
     <Style Selector="^.tertiary">
-      <Setter Property="Foreground" Value="{DynamicResource FiliTertiaryBrush}" />
+      <Setter Property="Foreground" Value="{DynamicResource FiliTertiaryTextBrush}" />
     </Style>
     <Style Selector="^.tertiary:pointerover /template/ theme|PartBorder#PART_StateLayer">
       <Setter Property="Background" Value="{DynamicResource FiliTertiaryHoverBrush}" />
@@ -157,7 +157,7 @@
       <Setter Property="Background" Value="{DynamicResource FiliTertiaryHoverBrush}" />
     </Style>
     <Style Selector="^.info">
-      <Setter Property="Foreground" Value="{DynamicResource FiliInfoBrush}" />
+      <Setter Property="Foreground" Value="{DynamicResource FiliInfoTextBrush}" />
     </Style>
     <Style Selector="^.info:pointerover /template/ theme|PartBorder#PART_StateLayer">
       <Setter Property="Background" Value="{DynamicResource FiliInfoHoverBrush}" />
@@ -169,7 +169,7 @@
       <Setter Property="Background" Value="{DynamicResource FiliInfoHoverBrush}" />
     </Style>
     <Style Selector="^.success">
-      <Setter Property="Foreground" Value="{DynamicResource FiliSuccessBrush}" />
+      <Setter Property="Foreground" Value="{DynamicResource FiliSuccessTextBrush}" />
     </Style>
     <Style Selector="^.success:pointerover /template/ theme|PartBorder#PART_StateLayer">
       <Setter Property="Background" Value="{DynamicResource FiliSuccessHoverBrush}" />
@@ -181,7 +181,7 @@
       <Setter Property="Background" Value="{DynamicResource FiliSuccessHoverBrush}" />
     </Style>
     <Style Selector="^.warning">
-      <Setter Property="Foreground" Value="{DynamicResource FiliWarningBrush}" />
+      <Setter Property="Foreground" Value="{DynamicResource FiliWarningTextBrush}" />
     </Style>
     <Style Selector="^.warning:pointerover /template/ theme|PartBorder#PART_StateLayer">
       <Setter Property="Background" Value="{DynamicResource FiliWarningHoverBrush}" />
@@ -193,7 +193,7 @@
       <Setter Property="Background" Value="{DynamicResource FiliWarningHoverBrush}" />
     </Style>
     <Style Selector="^.error">
-      <Setter Property="Foreground" Value="{DynamicResource FiliErrorBrush}" />
+      <Setter Property="Foreground" Value="{DynamicResource FiliErrorTextBrush}" />
     </Style>
     <Style Selector="^.error:pointerover /template/ theme|PartBorder#PART_StateLayer">
       <Setter Property="Background" Value="{DynamicResource FiliErrorHoverBrush}" />
@@ -205,7 +205,7 @@
       <Setter Property="Background" Value="{DynamicResource FiliErrorHoverBrush}" />
     </Style>
     <Style Selector="^.dark">
-      <Setter Property="Foreground" Value="{DynamicResource FiliDarkBrush}" />
+      <Setter Property="Foreground" Value="{DynamicResource FiliDarkTextBrush}" />
     </Style>
     <Style Selector="^.dark:pointerover /template/ theme|PartBorder#PART_StateLayer">
       <Setter Property="Background" Value="{DynamicResource FiliDarkHoverBrush}" />
@@ -618,67 +618,67 @@
     </Style>
 
     <Style Selector="^.primary:checked">
-      <Setter Property="Foreground" Value="{DynamicResource FiliPrimaryBrush}" />
+      <Setter Property="Foreground" Value="{DynamicResource FiliPrimaryTextBrush}" />
       <Setter Property="theme:Accent.Hover" Value="{DynamicResource FiliPrimaryHoverBrush}" />
     </Style>
     <Style Selector="^.unchecked-primary:unchecked">
-      <Setter Property="Foreground" Value="{DynamicResource FiliPrimaryBrush}" />
+      <Setter Property="Foreground" Value="{DynamicResource FiliPrimaryTextBrush}" />
       <Setter Property="theme:Accent.Hover" Value="{DynamicResource FiliPrimaryHoverBrush}" />
     </Style>
     <Style Selector="^.secondary:checked">
-      <Setter Property="Foreground" Value="{DynamicResource FiliSecondaryBrush}" />
+      <Setter Property="Foreground" Value="{DynamicResource FiliSecondaryTextBrush}" />
       <Setter Property="theme:Accent.Hover" Value="{DynamicResource FiliSecondaryHoverBrush}" />
     </Style>
     <Style Selector="^.unchecked-secondary:unchecked">
-      <Setter Property="Foreground" Value="{DynamicResource FiliSecondaryBrush}" />
+      <Setter Property="Foreground" Value="{DynamicResource FiliSecondaryTextBrush}" />
       <Setter Property="theme:Accent.Hover" Value="{DynamicResource FiliSecondaryHoverBrush}" />
     </Style>
     <Style Selector="^.tertiary:checked">
-      <Setter Property="Foreground" Value="{DynamicResource FiliTertiaryBrush}" />
+      <Setter Property="Foreground" Value="{DynamicResource FiliTertiaryTextBrush}" />
       <Setter Property="theme:Accent.Hover" Value="{DynamicResource FiliTertiaryHoverBrush}" />
     </Style>
     <Style Selector="^.unchecked-tertiary:unchecked">
-      <Setter Property="Foreground" Value="{DynamicResource FiliTertiaryBrush}" />
+      <Setter Property="Foreground" Value="{DynamicResource FiliTertiaryTextBrush}" />
       <Setter Property="theme:Accent.Hover" Value="{DynamicResource FiliTertiaryHoverBrush}" />
     </Style>
     <Style Selector="^.info:checked">
-      <Setter Property="Foreground" Value="{DynamicResource FiliInfoBrush}" />
+      <Setter Property="Foreground" Value="{DynamicResource FiliInfoTextBrush}" />
       <Setter Property="theme:Accent.Hover" Value="{DynamicResource FiliInfoHoverBrush}" />
     </Style>
     <Style Selector="^.unchecked-info:unchecked">
-      <Setter Property="Foreground" Value="{DynamicResource FiliInfoBrush}" />
+      <Setter Property="Foreground" Value="{DynamicResource FiliInfoTextBrush}" />
       <Setter Property="theme:Accent.Hover" Value="{DynamicResource FiliInfoHoverBrush}" />
     </Style>
     <Style Selector="^.success:checked">
-      <Setter Property="Foreground" Value="{DynamicResource FiliSuccessBrush}" />
+      <Setter Property="Foreground" Value="{DynamicResource FiliSuccessTextBrush}" />
       <Setter Property="theme:Accent.Hover" Value="{DynamicResource FiliSuccessHoverBrush}" />
     </Style>
     <Style Selector="^.unchecked-success:unchecked">
-      <Setter Property="Foreground" Value="{DynamicResource FiliSuccessBrush}" />
+      <Setter Property="Foreground" Value="{DynamicResource FiliSuccessTextBrush}" />
       <Setter Property="theme:Accent.Hover" Value="{DynamicResource FiliSuccessHoverBrush}" />
     </Style>
     <Style Selector="^.warning:checked">
-      <Setter Property="Foreground" Value="{DynamicResource FiliWarningBrush}" />
+      <Setter Property="Foreground" Value="{DynamicResource FiliWarningTextBrush}" />
       <Setter Property="theme:Accent.Hover" Value="{DynamicResource FiliWarningHoverBrush}" />
     </Style>
     <Style Selector="^.unchecked-warning:unchecked">
-      <Setter Property="Foreground" Value="{DynamicResource FiliWarningBrush}" />
+      <Setter Property="Foreground" Value="{DynamicResource FiliWarningTextBrush}" />
       <Setter Property="theme:Accent.Hover" Value="{DynamicResource FiliWarningHoverBrush}" />
     </Style>
     <Style Selector="^.error:checked">
-      <Setter Property="Foreground" Value="{DynamicResource FiliErrorBrush}" />
+      <Setter Property="Foreground" Value="{DynamicResource FiliErrorTextBrush}" />
       <Setter Property="theme:Accent.Hover" Value="{DynamicResource FiliErrorHoverBrush}" />
     </Style>
     <Style Selector="^.unchecked-error:unchecked">
-      <Setter Property="Foreground" Value="{DynamicResource FiliErrorBrush}" />
+      <Setter Property="Foreground" Value="{DynamicResource FiliErrorTextBrush}" />
       <Setter Property="theme:Accent.Hover" Value="{DynamicResource FiliErrorHoverBrush}" />
     </Style>
     <Style Selector="^.dark:checked">
-      <Setter Property="Foreground" Value="{DynamicResource FiliDarkBrush}" />
+      <Setter Property="Foreground" Value="{DynamicResource FiliDarkTextBrush}" />
       <Setter Property="theme:Accent.Hover" Value="{DynamicResource FiliDarkHoverBrush}" />
     </Style>
     <Style Selector="^.unchecked-dark:unchecked">
-      <Setter Property="Foreground" Value="{DynamicResource FiliDarkBrush}" />
+      <Setter Property="Foreground" Value="{DynamicResource FiliDarkTextBrush}" />
       <Setter Property="theme:Accent.Hover" Value="{DynamicResource FiliDarkHoverBrush}" />
     </Style>
 

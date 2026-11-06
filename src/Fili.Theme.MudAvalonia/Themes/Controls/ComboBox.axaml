@@ -91,7 +91,7 @@
       <Setter Property="Background" Value="{DynamicResource FiliOverlayPressedBrush}" />
     </Style>
     <Style Selector="^:selected">
-      <Setter Property="Foreground" Value="{DynamicResource FiliPrimaryBrush}" />
+      <Setter Property="Foreground" Value="{DynamicResource FiliPrimaryTextBrush}" />
     </Style>
     <Style Selector="^:disabled">
       <Setter Property="Foreground" Value="{DynamicResource FiliActionDisabledBrush}" />
@@ -436,18 +436,18 @@
     <Style Selector="^:focus /template/ TextBlock#PART_FloatingLabel, ^[IsEditable=True]:focus-within /template/ TextBlock#PART_FloatingLabel">
       <Setter Property="FontSize" Value="{DynamicResource FiliCaptionFontSize}" />
       <Setter Property="RenderTransform" Value="translateY(-14px)" />
-      <Setter Property="Foreground" Value="{DynamicResource FiliPrimaryBrush}" />
+      <Setter Property="Foreground" Value="{DynamicResource FiliPrimaryTextBrush}" />
     </Style>
     <Style Selector="^:dropdownopen /template/ TextBlock#PART_FloatingLabel">
       <Setter Property="FontSize" Value="{DynamicResource FiliCaptionFontSize}" />
       <Setter Property="RenderTransform" Value="translateY(-14px)" />
-      <Setter Property="Foreground" Value="{DynamicResource FiliPrimaryBrush}" />
+      <Setter Property="Foreground" Value="{DynamicResource FiliPrimaryTextBrush}" />
     </Style>
     <Style Selector="^:focus /template/ TextBlock#PART_SelectedLabel, ^[IsEditable=True]:focus-within /template/ TextBlock#PART_SelectedLabel">
-      <Setter Property="Foreground" Value="{DynamicResource FiliPrimaryBrush}" />
+      <Setter Property="Foreground" Value="{DynamicResource FiliPrimaryTextBrush}" />
     </Style>
     <Style Selector="^:dropdownopen /template/ TextBlock#PART_SelectedLabel">
-      <Setter Property="Foreground" Value="{DynamicResource FiliPrimaryBrush}" />
+      <Setter Property="Foreground" Value="{DynamicResource FiliPrimaryTextBrush}" />
     </Style>
 
     <!-- Editable: the input is the one Tab stop, as in Avalonia's own theme. Keyboard focus is on
@@ -550,10 +550,10 @@
       <Setter Property="Background" Value="{DynamicResource FiliErrorBrush}" />
     </Style>
     <Style Selector="^.error /template/ TextBlock#PART_FloatingLabel">
-      <Setter Property="Foreground" Value="{DynamicResource FiliErrorBrush}" />
+      <Setter Property="Foreground" Value="{DynamicResource FiliErrorTextBrush}" />
     </Style>
     <Style Selector="^.error /template/ TextBlock#PART_SelectedLabel">
-      <Setter Property="Foreground" Value="{DynamicResource FiliErrorBrush}" />
+      <Setter Property="Foreground" Value="{DynamicResource FiliErrorTextBrush}" />
     </Style>
     <Style Selector="^[(DataValidationErrors.HasErrors)=True] /template/ theme|PartBorder#PART_Underline">
       <Setter Property="Background" Value="{DynamicResource FiliErrorBrush}" />
@@ -562,10 +562,10 @@
       <Setter Property="Background" Value="{DynamicResource FiliErrorBrush}" />
     </Style>
     <Style Selector="^[(DataValidationErrors.HasErrors)=True] /template/ TextBlock#PART_FloatingLabel">
-      <Setter Property="Foreground" Value="{DynamicResource FiliErrorBrush}" />
+      <Setter Property="Foreground" Value="{DynamicResource FiliErrorTextBrush}" />
     </Style>
     <Style Selector="^[(DataValidationErrors.HasErrors)=True] /template/ TextBlock#PART_SelectedLabel">
-      <Setter Property="Foreground" Value="{DynamicResource FiliErrorBrush}" />
+      <Setter Property="Foreground" Value="{DynamicResource FiliErrorTextBrush}" />
     </Style>
 
     <!-- The helper line (FiliSelectHelperLine), built on a select with helper text or an error;
@@ -576,7 +576,7 @@
       <Setter Property="Content" Value="helper" />
     </Style>
     <Style Selector="^.error /template/ ContentPresenter#PART_HelperLine">
-      <Setter Property="TextElement.Foreground" Value="{DynamicResource FiliErrorBrush}" />
+      <Setter Property="TextElement.Foreground" Value="{DynamicResource FiliErrorTextBrush}" />
     </Style>
 
     <!-- Margin.Dense, as Controls/TextBox.axaml derives it. -->

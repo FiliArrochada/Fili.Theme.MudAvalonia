@@ -195,7 +195,7 @@
 
     <!-- Text and outlined colours: the label, the line, and the hover tint. -->
     <Style Selector="^.primary">
-      <Setter Property="Foreground" Value="{DynamicResource FiliPrimaryBrush}" />
+      <Setter Property="Foreground" Value="{DynamicResource FiliPrimaryTextBrush}" />
       <Setter Property="BorderBrush" Value="{DynamicResource FiliPrimaryBrush}" />
     </Style>
     <Style Selector="^.primary /template/ Button:pointerover">
@@ -211,7 +211,7 @@
       <Setter Property="BorderBrush" Value="{DynamicResource FiliPrimaryHoverBrush}" />
     </Style>
     <Style Selector="^.secondary">
-      <Setter Property="Foreground" Value="{DynamicResource FiliSecondaryBrush}" />
+      <Setter Property="Foreground" Value="{DynamicResource FiliSecondaryTextBrush}" />
       <Setter Property="BorderBrush" Value="{DynamicResource FiliSecondaryBrush}" />
     </Style>
     <Style Selector="^.secondary /template/ Button:pointerover">
@@ -227,7 +227,7 @@
       <Setter Property="BorderBrush" Value="{DynamicResource FiliSecondaryHoverBrush}" />
     </Style>
     <Style Selector="^.tertiary">
-      <Setter Property="Foreground" Value="{DynamicResource FiliTertiaryBrush}" />
+      <Setter Property="Foreground" Value="{DynamicResource FiliTertiaryTextBrush}" />
       <Setter Property="BorderBrush" Value="{DynamicResource FiliTertiaryBrush}" />
     </Style>
     <Style Selector="^.tertiary /template/ Button:pointerover">
@@ -243,7 +243,7 @@
       <Setter Property="BorderBrush" Value="{DynamicResource FiliTertiaryHoverBrush}" />
     </Style>
     <Style Selector="^.info">
-      <Setter Property="Foreground" Value="{DynamicResource FiliInfoBrush}" />
+      <Setter Property="Foreground" Value="{DynamicResource FiliInfoTextBrush}" />
       <Setter Property="BorderBrush" Value="{DynamicResource FiliInfoBrush}" />
     </Style>
     <Style Selector="^.info /template/ Button:pointerover">
@@ -259,7 +259,7 @@
       <Setter Property="BorderBrush" Value="{DynamicResource FiliInfoHoverBrush}" />
     </Style>
     <Style Selector="^.success">
-      <Setter Property="Foreground" Value="{DynamicResource FiliSuccessBrush}" />
+      <Setter Property="Foreground" Value="{DynamicResource FiliSuccessTextBrush}" />
       <Setter Property="BorderBrush" Value="{DynamicResource FiliSuccessBrush}" />
     </Style>
     <Style Selector="^.success /template/ Button:pointerover">
@@ -275,7 +275,7 @@
       <Setter Property="BorderBrush" Value="{DynamicResource FiliSuccessHoverBrush}" />
     </Style>
     <Style Selector="^.warning">
-      <Setter Property="Foreground" Value="{DynamicResource FiliWarningBrush}" />
+      <Setter Property="Foreground" Value="{DynamicResource FiliWarningTextBrush}" />
       <Setter Property="BorderBrush" Value="{DynamicResource FiliWarningBrush}" />
     </Style>
     <Style Selector="^.warning /template/ Button:pointerover">
@@ -291,7 +291,7 @@
       <Setter Property="BorderBrush" Value="{DynamicResource FiliWarningHoverBrush}" />
     </Style>
     <Style Selector="^.error">
-      <Setter Property="Foreground" Value="{DynamicResource FiliErrorBrush}" />
+      <Setter Property="Foreground" Value="{DynamicResource FiliErrorTextBrush}" />
       <Setter Property="BorderBrush" Value="{DynamicResource FiliErrorBrush}" />
     </Style>
     <Style Selector="^.error /template/ Button:pointerover">
@@ -307,7 +307,7 @@
       <Setter Property="BorderBrush" Value="{DynamicResource FiliErrorHoverBrush}" />
     </Style>
     <Style Selector="^.dark">
-      <Setter Property="Foreground" Value="{DynamicResource FiliDarkBrush}" />
+      <Setter Property="Foreground" Value="{DynamicResource FiliDarkTextBrush}" />
       <Setter Property="BorderBrush" Value="{DynamicResource FiliDarkBrush}" />
     </Style>
     <Style Selector="^.dark /template/ Button:pointerover">
@@ -675,7 +675,7 @@
 
     <!-- Colours: the label and glyph, and the colour's hover tint. -->
     <Style Selector="^.primary">
-      <Setter Property="Foreground" Value="{DynamicResource FiliPrimaryBrush}" />
+      <Setter Property="Foreground" Value="{DynamicResource FiliPrimaryTextBrush}" />
     </Style>
     <Style Selector="^.primary:pointerover /template/ theme|PartBorder#PART_StateLayer">
       <Setter Property="Background" Value="{DynamicResource FiliPrimaryHoverBrush}" />
@@ -690,7 +690,7 @@
       <Setter Property="Background" Value="{DynamicResource FiliPrimaryHoverBrush}" />
     </Style>
     <Style Selector="^.secondary">
-      <Setter Property="Foreground" Value="{DynamicResource FiliSecondaryBrush}" />
+      <Setter Property="Foreground" Value="{DynamicResource FiliSecondaryTextBrush}" />
     </Style>
     <Style Selector="^.secondary:pointerover /template/ theme|PartBorder#PART_StateLayer">
       <Setter Property="Background" Value="{DynamicResource FiliSecondaryHoverBrush}" />
@@ -705,7 +705,7 @@
       <Setter Property="Background" Value="{DynamicResource FiliSecondaryHoverBrush}" />
     </Style>
     <Style Selector="^.tertiary">
-      <Setter Property="Foreground" Value="{DynamicResource FiliTertiaryBrush}" />
+      <Setter Property="Foreground" Value="{DynamicResource FiliTertiaryTextBrush}" />
     </Style>
     <Style Selector="^.tertiary:pointerover /template/ theme|PartBorder#PART_StateLayer">
       <Setter Property="Background" Value="{DynamicResource FiliTertiaryHoverBrush}" />
@@ -720,7 +720,7 @@
       <Setter Property="Background" Value="{DynamicResource FiliTertiaryHoverBrush}" />
     </Style>
     <Style Selector="^.info">
-      <Setter Property="Foreground" Value="{DynamicResource FiliInfoBrush}" />
+      <Setter Property="Foreground" Value="{DynamicResource FiliInfoTextBrush}" />
     </Style>
     <Style Selector="^.info:pointerover /template/ theme|PartBorder#PART_StateLayer">
       <Setter Property="Background" Value="{DynamicResource FiliInfoHoverBrush}" />
@@ -735,7 +735,7 @@
       <Setter Property="Background" Value="{DynamicResource FiliInfoHoverBrush}" />
     </Style>
     <Style Selector="^.success">
-      <Setter Property="Foreground" Value="{DynamicResource FiliSuccessBrush}" />
+      <Setter Property="Foreground" Value="{DynamicResource FiliSuccessTextBrush}" />
     </Style>
     <Style Selector="^.success:pointerover /template/ theme|PartBorder#PART_StateLayer">
       <Setter Property="Background" Value="{DynamicResource FiliSuccessHoverBrush}" />
@@ -750,7 +750,7 @@
       <Setter Property="Background" Value="{DynamicResource FiliSuccessHoverBrush}" />
     </Style>
     <Style Selector="^.warning">
-      <Setter Property="Foreground" Value="{DynamicResource FiliWarningBrush}" />
+      <Setter Property="Foreground" Value="{DynamicResource FiliWarningTextBrush}" />
     </Style>
     <Style Selector="^.warning:pointerover /template/ theme|PartBorder#PART_StateLayer">
       <Setter Property="Background" Value="{DynamicResource FiliWarningHoverBrush}" />
@@ -765,7 +765,7 @@
       <Setter Property="Background" Value="{DynamicResource FiliWarningHoverBrush}" />
     </Style>
     <Style Selector="^.error">
-      <Setter Property="Foreground" Value="{DynamicResource FiliErrorBrush}" />
+      <Setter Property="Foreground" Value="{DynamicResource FiliErrorTextBrush}" />
     </Style>
     <Style Selector="^.error:pointerover /template/ theme|PartBorder#PART_StateLayer">
       <Setter Property="Background" Value="{DynamicResource FiliErrorHoverBrush}" />
@@ -780,7 +780,7 @@
       <Setter Property="Background" Value="{DynamicResource FiliErrorHoverBrush}" />
     </Style>
     <Style Selector="^.dark">
-      <Setter Property="Foreground" Value="{DynamicResource FiliDarkBrush}" />
+      <Setter Property="Foreground" Value="{DynamicResource FiliDarkTextBrush}" />
     </Style>
     <Style Selector="^.dark:pointerover /template/ theme|PartBorder#PART_StateLayer">
       <Setter Property="Background" Value="{DynamicResource FiliDarkHoverBrush}" />

@@ -44,7 +44,7 @@
                      FontWeight="Normal"
                      LineHeight="20"
                      LetterSpacing="0.4"
-                     Foreground="{DynamicResource FiliErrorBrush}" />
+                     Foreground="{DynamicResource FiliErrorTextBrush}" />
         </DataTemplate>
       </ItemsControl.ItemTemplate>
     </ItemsControl>
@@ -101,7 +101,7 @@
     </Setter>
 
     <Style Selector="^.error">
-      <Setter Property="Foreground" Value="{DynamicResource FiliErrorBrush}" />
+      <Setter Property="Foreground" Value="{DynamicResource FiliErrorTextBrush}" />
     </Style>
     <Style Selector="^:disabled">
       <Setter Property="Foreground" Value="{DynamicResource FiliTextDisabledBrush}" />

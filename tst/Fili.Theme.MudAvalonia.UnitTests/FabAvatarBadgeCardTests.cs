@@ -107,7 +107,7 @@ public class FabTests
         Assert.Equal(Colors.Transparent, Matrix.Colour(line.Background));
         Assert.Equal(Matrix.Token($"Fili{colour}Color"), Matrix.Colour(line.BorderBrush));
         Assert.Equal(new Thickness(1), line.BorderThickness);
-        Assert.Equal(Matrix.Token($"Fili{colour}Color"), Matrix.Colour(outlined.Foreground));
+        Assert.Equal(Matrix.Token($"Fili{colour}TextColor"), Matrix.Colour(outlined.Foreground));
         Assert.Equal(0, line.BoxShadow.Count);
         Matrix.Hover(outlined);
         Assert.Equal(Matrix.Token($"Fili{colour}HoverColor"), Matrix.Colour(line.Background));
@@ -117,7 +117,7 @@ public class FabTests
         var ground = Matrix.Part<Border>(text, "PART_Root");
         Assert.Equal(Colors.Transparent, Matrix.Colour(ground.Background));
         Assert.Equal(new Thickness(0), ground.BorderThickness);
-        Assert.Equal(Matrix.Token($"Fili{colour}Color"), Matrix.Colour(text.Foreground));
+        Assert.Equal(Matrix.Token($"Fili{colour}TextColor"), Matrix.Colour(text.Foreground));
         Matrix.Hover(text);
         Assert.Equal(Matrix.Token($"Fili{colour}HoverColor"), Matrix.Colour(ground.Background));
         Assert.Equal(0, ground.BoxShadow.Count);
@@ -232,7 +232,7 @@ public class AvatarTests
         Assert.Equal(40, avatar.Bounds.Width);
         Assert.Equal(40, avatar.Bounds.Height);
         Assert.Equal(new CornerRadius(20), avatar.CornerRadius);
-        Assert.Equal(Matrix.Token("FiliLinesInputsColor"), Matrix.Colour(avatar.Background));
+        Assert.Equal(Matrix.Token("FiliAvatarBackgroundColor"), Matrix.Colour(avatar.Background));
         Assert.Equal(Matrix.Token("FiliAvatarTextColor"), Matrix.Colour(initials.Foreground));
         Assert.Equal(20, initials.FontSize);
 
@@ -271,7 +271,7 @@ public class AvatarTests
         Assert.Equal(Colors.Transparent, Matrix.Colour(outlined.Background));
         Assert.Equal(Matrix.Token($"Fili{colour}Color"), Matrix.Colour(outlined.BorderBrush));
         Assert.Equal(new Thickness(1), outlined.BorderThickness);
-        Assert.Equal(Matrix.Token($"Fili{colour}Color"), Matrix.Colour(outlinedText.Foreground));
+        Assert.Equal(Matrix.Token($"Fili{colour}TextColor"), Matrix.Colour(outlinedText.Foreground));
     });
 
     [Fact]
@@ -297,7 +297,7 @@ public class AvatarTests
         Assert.Equal(Colors.Transparent, Matrix.Colour(bare.Background));
         Assert.Equal(Matrix.Token("FiliTextPrimaryColor"), Matrix.Colour(plain.Foreground));
         Assert.Equal(Colors.Transparent, Matrix.Colour(primary.Background));
-        Assert.Equal(Matrix.Token("FiliPrimaryColor"), Matrix.Colour(coloured.Foreground));
+        Assert.Equal(Matrix.Token("FiliPrimaryTextColor"), Matrix.Colour(coloured.Foreground));
         Assert.Equal(new Thickness(0), primary.BorderThickness);
     });
 

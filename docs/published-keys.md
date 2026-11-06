@@ -21,13 +21,22 @@ resolves every key in each variant: a new key is listed here in the change that 
 
 Every colour as a `*Color` and its `*Brush`, in light, dark and high contrast. Values and provenance: [Tokens](../README.md#tokens).
 
-Two kinds are roles rather than colours. `Fili{Colour}AlertTextColor` is a text or outlined
+Four kinds are roles rather than colours. `Fili{Colour}AlertTextColor` is a text or outlined
 alert's text on its tint: the colour's darken shade in light and dark, as MudBlazor's, where that
 reaches WCAG AA's 4.5:1 on the alert's ground (primary and dark in light); since 1.0.1 every other
 one is a deliberate departure from MudBlazor, the darken shade's hue moved to 4.5:1, darker in
 light and lighter in dark (`Palette.axaml` names each MudBlazor value). In high contrast it is the
 lighten shade, where darken on the tint fell below 4.5:1. `AlertTextContrastTests` holds every
-one to 4.5:1 in all three variants. `FiliChipHoverColor` is
+one to 4.5:1 in all three variants. `Fili{Colour}TextColor`, since 1.1.0, is the colour as text on
+the page or a surface (`mud-{color}-text`): a link, a text or outlined button's label, a text or
+outlined chip, a selected tab, row or nav link, a focused field's label, an error message. It is
+the colour itself where that reaches 4.5:1 on the page, a surface and the colour's hover tint over
+either, and the alert text where it does not, a deliberate departure from MudBlazor; the colour
+stays the fill and the line. An app that overrides a colour sets its text key too, or its text
+keeps the shipped colour. `TextContrastTests` holds every one to 4.5:1 in all three variants.
+`FiliAvatarBackgroundColor` is a default avatar's ground, MudBlazor's lines-inputs value, which
+lines-inputs itself left in 1.1.0 when it darkened to 3:1 for a field's edge
+(`InputLineContrastTests`). `FiliChipHoverColor` is
 a default chip's ground on hover, focus and press: action-disabled in light and dark, and an
 opaque grey under white text in high contrast.
 
@@ -47,6 +56,8 @@ paints nothing in it alone.
 - `FiliAppbarBackgroundColor`
 - `FiliAppbarTextBrush`
 - `FiliAppbarTextColor`
+- `FiliAvatarBackgroundBrush`
+- `FiliAvatarBackgroundColor`
 - `FiliAvatarBareTextBrush`
 - `FiliAvatarBareTextColor`
 - `FiliAvatarTextBrush`
@@ -73,6 +84,8 @@ paints nothing in it alone.
 - `FiliDarkHoverColor`
 - `FiliDarkLightenBrush`
 - `FiliDarkLightenColor`
+- `FiliDarkTextBrush`
+- `FiliDarkTextColor`
 - `FiliDividerBrush`
 - `FiliDividerColor`
 - `FiliDividerLightBrush`
@@ -97,6 +110,8 @@ paints nothing in it alone.
 - `FiliErrorHoverColor`
 - `FiliErrorLightenBrush`
 - `FiliErrorLightenColor`
+- `FiliErrorTextBrush`
+- `FiliErrorTextColor`
 - `FiliGrayDarkBrush`
 - `FiliGrayDarkColor`
 - `FiliGrayDarkerBrush`
@@ -119,6 +134,8 @@ paints nothing in it alone.
 - `FiliInfoHoverColor`
 - `FiliInfoLightenBrush`
 - `FiliInfoLightenColor`
+- `FiliInfoTextBrush`
+- `FiliInfoTextColor`
 - `FiliInputFilledBrush`
 - `FiliInputFilledColor`
 - `FiliLinesDefaultBrush`
@@ -145,6 +162,8 @@ paints nothing in it alone.
 - `FiliPrimaryHoverColor`
 - `FiliPrimaryLightenBrush`
 - `FiliPrimaryLightenColor`
+- `FiliPrimaryTextBrush`
+- `FiliPrimaryTextColor`
 - `FiliScrollbarThumbBrush`
 - `FiliScrollbarThumbColor`
 - `FiliScrollbarThumbHoverBrush`
@@ -161,6 +180,8 @@ paints nothing in it alone.
 - `FiliSecondaryHoverColor`
 - `FiliSecondaryLightenBrush`
 - `FiliSecondaryLightenColor`
+- `FiliSecondaryTextBrush`
+- `FiliSecondaryTextColor`
 - `FiliSkeletonBrush`
 - `FiliSkeletonColor`
 - `FiliSkeletonWaveColor`
@@ -178,6 +199,8 @@ paints nothing in it alone.
 - `FiliSuccessHoverColor`
 - `FiliSuccessLightenBrush`
 - `FiliSuccessLightenColor`
+- `FiliSuccessTextBrush`
+- `FiliSuccessTextColor`
 - `FiliSurfaceBrush`
 - `FiliSurfaceColor`
 - `FiliSwitchThumbBrush`
@@ -200,6 +223,8 @@ paints nothing in it alone.
 - `FiliTertiaryHoverColor`
 - `FiliTertiaryLightenBrush`
 - `FiliTertiaryLightenColor`
+- `FiliTertiaryTextBrush`
+- `FiliTertiaryTextColor`
 - `FiliTextDisabledBrush`
 - `FiliTextDisabledColor`
 - `FiliTextPrimaryBrush`
@@ -220,6 +245,8 @@ paints nothing in it alone.
 - `FiliWarningHoverColor`
 - `FiliWarningLightenBrush`
 - `FiliWarningLightenColor`
+- `FiliWarningTextBrush`
+- `FiliWarningTextColor`
 - `FiliWhiteBrush`
 - `FiliWhiteColor`
 

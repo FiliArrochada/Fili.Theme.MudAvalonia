@@ -94,7 +94,7 @@
     <Style Selector="^:today">
       <Setter Property="BorderBrush" Value="{DynamicResource FiliPrimaryBrush}" />
       <Setter Property="BorderThickness" Value="1" />
-      <Setter Property="Foreground" Value="{DynamicResource FiliPrimaryBrush}" />
+      <Setter Property="Foreground" Value="{DynamicResource FiliPrimaryTextBrush}" />
     </Style>
     <!-- After :today, so a selected today is the filled circle, as GetDayClasses returns first. -->
     <Style Selector="^:selected">
@@ -170,7 +170,7 @@
       <Setter Property="Foreground" Value="{DynamicResource FiliTextSecondaryBrush}" />
     </Style>
     <Style Selector="^:selected">
-      <Setter Property="Foreground" Value="{DynamicResource FiliPrimaryBrush}" />
+      <Setter Property="Foreground" Value="{DynamicResource FiliPrimaryTextBrush}" />
       <Setter Property="FontSize" Value="{DynamicResource FiliH5FontSize}" />
       <Setter Property="FontWeight" Value="Medium" />
     </Style>

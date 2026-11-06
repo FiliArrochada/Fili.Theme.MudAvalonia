@@ -361,7 +361,7 @@
     <Style Selector="^:focus /template/ TextBlock#PART_FloatingLabel">
       <Setter Property="FontSize" Value="{DynamicResource FiliCaptionFontSize}" />
       <Setter Property="RenderTransform" Value="translateY(-14px)" />
-      <Setter Property="Foreground" Value="{DynamicResource FiliPrimaryBrush}" />
+      <Setter Property="Foreground" Value="{DynamicResource FiliPrimaryTextBrush}" />
     </Style>
 
     <!-- Required: `.mud-input-required > … > .mud-input-label::after { content: "*" }`. -->
@@ -409,7 +409,7 @@
       <Setter Property="Background" Value="{DynamicResource FiliErrorBrush}" />
     </Style>
     <Style Selector="^[(DataValidationErrors.HasErrors)=True] /template/ TextBlock#PART_FloatingLabel">
-      <Setter Property="Foreground" Value="{DynamicResource FiliErrorBrush}" />
+      <Setter Property="Foreground" Value="{DynamicResource FiliErrorTextBrush}" />
     </Style>
 
     <Style Selector="^.error /template/ theme|PartBorder#PART_Underline">
@@ -419,7 +419,7 @@
       <Setter Property="Background" Value="{DynamicResource FiliErrorBrush}" />
     </Style>
     <Style Selector="^.error /template/ TextBlock#PART_FloatingLabel">
-      <Setter Property="Foreground" Value="{DynamicResource FiliErrorBrush}" />
+      <Setter Property="Foreground" Value="{DynamicResource FiliErrorTextBrush}" />
     </Style>
 
     <!-- Underline="false": `.mud-input-underline` is left off, so neither rule is drawn. -->
@@ -442,10 +442,10 @@
       <Setter Property="Content" Value="helper" />
     </Style>
     <Style Selector="^[(DataValidationErrors.HasErrors)=True] /template/ ContentPresenter#PART_HelperLine">
-      <Setter Property="TextElement.Foreground" Value="{DynamicResource FiliErrorBrush}" />
+      <Setter Property="TextElement.Foreground" Value="{DynamicResource FiliErrorTextBrush}" />
     </Style>
     <Style Selector="^.error /template/ ContentPresenter#PART_HelperLine">
-      <Setter Property="TextElement.Foreground" Value="{DynamicResource FiliErrorBrush}" />
+      <Setter Property="TextElement.Foreground" Value="{DynamicResource FiliErrorTextBrush}" />
     </Style>
 
     <!-- Margin.Dense. -->

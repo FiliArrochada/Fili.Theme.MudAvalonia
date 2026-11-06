@@ -118,7 +118,7 @@
     </Setter>
 
     <Style Selector="^:selected">
-      <Setter Property="Foreground" Value="{DynamicResource FiliPrimaryBrush}" />
+      <Setter Property="Foreground" Value="{DynamicResource FiliPrimaryTextBrush}" />
     </Style>
     <Style Selector="^:selected /template/ theme|PartBorder#PART_Indicator">
       <Setter Property="Opacity" Value="1" />

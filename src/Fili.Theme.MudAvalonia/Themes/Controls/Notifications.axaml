@@ -213,26 +213,27 @@
       <Setter Property="Foreground" Value="{DynamicResource FiliDarkContrastTextBrush}" />
     </Style>
 
-    <!-- Text and outlined: the surface, the text in the colour's darken shade at 400, and an
+    <!-- Text and outlined: the surface, the text in the colour's alert text at 400 (MudBlazor's
+         darken shade, moved to 4.5:1 where that fell short, as an alert's is), and an
          outlined card's 1px line in the colour. The close button is action-default. -->
     <Style Selector="^.text">
       <Setter Property="Background" Value="{DynamicResource FiliSurfaceBrush}" />
       <Setter Property="FontWeight" Value="Normal" />
     </Style>
     <Style Selector="^.text:information">
-      <Setter Property="Foreground" Value="{DynamicResource FiliInfoDarkenBrush}" />
+      <Setter Property="Foreground" Value="{DynamicResource FiliInfoAlertTextBrush}" />
       <Setter Property="BorderBrush" Value="{DynamicResource FiliInfoBrush}" />
     </Style>
     <Style Selector="^.text:success">
-      <Setter Property="Foreground" Value="{DynamicResource FiliSuccessDarkenBrush}" />
+      <Setter Property="Foreground" Value="{DynamicResource FiliSuccessAlertTextBrush}" />
       <Setter Property="BorderBrush" Value="{DynamicResource FiliSuccessBrush}" />
     </Style>
     <Style Selector="^.text:warning">
-      <Setter Property="Foreground" Value="{DynamicResource FiliWarningDarkenBrush}" />
+      <Setter Property="Foreground" Value="{DynamicResource FiliWarningAlertTextBrush}" />
       <Setter Property="BorderBrush" Value="{DynamicResource FiliWarningBrush}" />
     </Style>
     <Style Selector="^.text:error">
-      <Setter Property="Foreground" Value="{DynamicResource FiliErrorDarkenBrush}" />
+      <Setter Property="Foreground" Value="{DynamicResource FiliErrorAlertTextBrush}" />
       <Setter Property="BorderBrush" Value="{DynamicResource FiliErrorBrush}" />
     </Style>
     <Style Selector="^.text.normal">
@@ -247,19 +248,19 @@
       <Setter Property="FontWeight" Value="Normal" />
     </Style>
     <Style Selector="^.outlined:information">
-      <Setter Property="Foreground" Value="{DynamicResource FiliInfoDarkenBrush}" />
+      <Setter Property="Foreground" Value="{DynamicResource FiliInfoAlertTextBrush}" />
       <Setter Property="BorderBrush" Value="{DynamicResource FiliInfoBrush}" />
     </Style>
     <Style Selector="^.outlined:success">
-      <Setter Property="Foreground" Value="{DynamicResource FiliSuccessDarkenBrush}" />
+      <Setter Property="Foreground" Value="{DynamicResource FiliSuccessAlertTextBrush}" />
       <Setter Property="BorderBrush" Value="{DynamicResource FiliSuccessBrush}" />
     </Style>
     <Style Selector="^.outlined:warning">
-      <Setter Property="Foreground" Value="{DynamicResource FiliWarningDarkenBrush}" />
+      <Setter Property="Foreground" Value="{DynamicResource FiliWarningAlertTextBrush}" />
       <Setter Property="BorderBrush" Value="{DynamicResource FiliWarningBrush}" />
     </Style>
     <Style Selector="^.outlined:error">
-      <Setter Property="Foreground" Value="{DynamicResource FiliErrorDarkenBrush}" />
+      <Setter Property="Foreground" Value="{DynamicResource FiliErrorAlertTextBrush}" />
       <Setter Property="BorderBrush" Value="{DynamicResource FiliErrorBrush}" />
     </Style>
     <Style Selector="^.outlined.normal">

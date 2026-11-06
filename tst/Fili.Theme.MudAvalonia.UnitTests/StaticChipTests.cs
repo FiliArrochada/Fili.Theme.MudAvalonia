@@ -51,7 +51,7 @@ public class StaticChipTests
         Assert.Equal(Matrix.Token($"Fili{colour}Color"), Matrix.Colour(outlined.BorderBrush));
         Assert.Equal(1, outlined.BorderThickness.Top);
         Assert.Equal(Matrix.Token($"Fili{colour}HoverColor"), Matrix.Colour(text.Background));
-        Assert.Equal(Matrix.Token($"Fili{colour}Color"), Matrix.Colour(text.Foreground));
+        Assert.Equal(Matrix.Token($"Fili{colour}TextColor"), Matrix.Colour(text.Foreground));
     });
 
     [Theory]

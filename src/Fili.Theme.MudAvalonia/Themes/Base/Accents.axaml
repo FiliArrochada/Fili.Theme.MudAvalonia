@@ -47,11 +47,11 @@
       <Color x:Key="ThemeForegroundMidColor">#8A000000</Color>
       <Color x:Key="ThemeDisabledColor">#42000000</Color>
       <Color x:Key="ThemeBorderLowColor">#E0E0E0</Color>
-      <Color x:Key="ThemeBorderMidColor">#BDBDBD</Color>
+      <Color x:Key="ThemeBorderMidColor">#848484</Color>
       <Color x:Key="ThemeBorderHighColor">#424242</Color>
       <Color x:Key="ThemeControlLowColor">#F5F5F5</Color>
       <Color x:Key="ThemeControlMidColor">#F5F5F5</Color>
-      <Color x:Key="ThemeControlMidHighColor">#BDBDBD</Color>
+      <Color x:Key="ThemeControlMidHighColor">#848484</Color>
       <Color x:Key="ThemeControlHighColor">#8A000000</Color>
       <Color x:Key="ThemeControlHighlightMidColor">#1F000000</Color>
       <Color x:Key="ThemeAccentColor">#594AE2</Color>
@@ -146,15 +146,15 @@
 
     <ResourceDictionary x:Key="Dark">
       <Color x:Key="ThemeForegroundColor">#B3FFFFFF</Color>
-      <Color x:Key="ThemeForegroundLowColor">#80FFFFFF</Color>
+      <Color x:Key="ThemeForegroundLowColor">#87FFFFFF</Color>
       <Color x:Key="ThemeForegroundMidColor">#ADADB1</Color>
       <Color x:Key="ThemeDisabledColor">#42FFFFFF</Color>
       <Color x:Key="ThemeBorderLowColor">#1FFFFFFF</Color>
-      <Color x:Key="ThemeBorderMidColor">#4DFFFFFF</Color>
+      <Color x:Key="ThemeBorderMidColor">#6DFFFFFF</Color>
       <Color x:Key="ThemeBorderHighColor">#B3FFFFFF</Color>
       <Color x:Key="ThemeControlLowColor">#27272F</Color>
       <Color x:Key="ThemeControlMidColor">#27272F</Color>
-      <Color x:Key="ThemeControlMidHighColor">#4DFFFFFF</Color>
+      <Color x:Key="ThemeControlMidHighColor">#6DFFFFFF</Color>
       <Color x:Key="ThemeControlHighColor">#ADADB1</Color>
       <Color x:Key="ThemeControlHighlightMidColor">#29FFFFFF</Color>
       <Color x:Key="ThemeAccentColor">#776BE7</Color>

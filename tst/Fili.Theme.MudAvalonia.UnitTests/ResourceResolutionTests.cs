@@ -58,6 +58,9 @@ public class ResourceResolutionTests
         "FiliSuccessLightenColor", "FiliWarningLightenColor", "FiliErrorLightenColor", "FiliDarkLightenColor",
         "FiliPrimaryAlertTextColor", "FiliSecondaryAlertTextColor", "FiliTertiaryAlertTextColor", "FiliInfoAlertTextColor",
         "FiliSuccessAlertTextColor", "FiliWarningAlertTextColor", "FiliErrorAlertTextColor", "FiliDarkAlertTextColor",
+        "FiliPrimaryTextColor", "FiliSecondaryTextColor", "FiliTertiaryTextColor", "FiliInfoTextColor",
+        "FiliSuccessTextColor", "FiliWarningTextColor", "FiliErrorTextColor", "FiliDarkTextColor",
+        "FiliAvatarBackgroundColor",
         "FiliChipHoverColor",
     ];
 
@@ -100,6 +103,9 @@ public class ResourceResolutionTests
         "FiliSuccessLightenBrush", "FiliWarningLightenBrush", "FiliErrorLightenBrush", "FiliDarkLightenBrush",
         "FiliPrimaryAlertTextBrush", "FiliSecondaryAlertTextBrush", "FiliTertiaryAlertTextBrush", "FiliInfoAlertTextBrush",
         "FiliSuccessAlertTextBrush", "FiliWarningAlertTextBrush", "FiliErrorAlertTextBrush", "FiliDarkAlertTextBrush",
+        "FiliPrimaryTextBrush", "FiliSecondaryTextBrush", "FiliTertiaryTextBrush", "FiliInfoTextBrush",
+        "FiliSuccessTextBrush", "FiliWarningTextBrush", "FiliErrorTextBrush", "FiliDarkTextBrush",
+        "FiliAvatarBackgroundBrush",
         "FiliChipHoverBrush",
         "FiliFocusRingBrush", "FiliFocusRingInnerBrush",
     ];

@@ -256,7 +256,7 @@
       <Setter Property="Background" Value="{DynamicResource FiliPrimaryHoverBrush}" />
     </Style>
     <Style Selector="^:selected /template/ ContentPresenter#PART_HeaderPresenter">
-      <Setter Property="Foreground" Value="{DynamicResource FiliPrimaryBrush}" />
+      <Setter Property="Foreground" Value="{DynamicResource FiliPrimaryTextBrush}" />
     </Style>
 
     <Style Selector="^:disabled /template/ ContentPresenter#PART_HeaderPresenter">
@@ -511,7 +511,7 @@
       <Setter Property="Background" Value="Transparent" />
     </Style>
     <Style Selector="^:selected /template/ ContentPresenter#PART_HeaderPresenter">
-      <Setter Property="Foreground" Value="{DynamicResource FiliPrimaryBrush}" />
+      <Setter Property="Foreground" Value="{DynamicResource FiliPrimaryTextBrush}" />
       <Setter Property="FontWeight" Value="Medium" />
     </Style>
 

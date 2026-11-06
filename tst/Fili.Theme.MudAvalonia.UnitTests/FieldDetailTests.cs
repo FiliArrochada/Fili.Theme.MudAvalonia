@@ -132,7 +132,7 @@ public class FieldDetailTests
         var texts = HelperTexts(box);
         Assert.Contains("Must be an email", texts);
         Assert.DoesNotContain("We never share it", texts);
-        Assert.Equal(Matrix.Token("FiliErrorColor"), Matrix.Colour(Block(box, "PART_CounterLimit").Foreground));
+        Assert.Equal(Matrix.Token("FiliErrorTextColor"), Matrix.Colour(Block(box, "PART_CounterLimit").Foreground));
     });
 
     [Fact]

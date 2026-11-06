@@ -136,35 +136,35 @@
     </Style>
 
     <Style Selector="^.primary">
-      <Setter Property="Foreground" Value="{DynamicResource FiliPrimaryBrush}" />
+      <Setter Property="Foreground" Value="{DynamicResource FiliPrimaryTextBrush}" />
       <Setter Property="theme:Accent.Hover" Value="{DynamicResource FiliPrimaryHoverBrush}" />
     </Style>
     <Style Selector="^.secondary">
-      <Setter Property="Foreground" Value="{DynamicResource FiliSecondaryBrush}" />
+      <Setter Property="Foreground" Value="{DynamicResource FiliSecondaryTextBrush}" />
       <Setter Property="theme:Accent.Hover" Value="{DynamicResource FiliSecondaryHoverBrush}" />
     </Style>
     <Style Selector="^.tertiary">
-      <Setter Property="Foreground" Value="{DynamicResource FiliTertiaryBrush}" />
+      <Setter Property="Foreground" Value="{DynamicResource FiliTertiaryTextBrush}" />
       <Setter Property="theme:Accent.Hover" Value="{DynamicResource FiliTertiaryHoverBrush}" />
     </Style>
     <Style Selector="^.info">
-      <Setter Property="Foreground" Value="{DynamicResource FiliInfoBrush}" />
+      <Setter Property="Foreground" Value="{DynamicResource FiliInfoTextBrush}" />
       <Setter Property="theme:Accent.Hover" Value="{DynamicResource FiliInfoHoverBrush}" />
     </Style>
     <Style Selector="^.success">
-      <Setter Property="Foreground" Value="{DynamicResource FiliSuccessBrush}" />
+      <Setter Property="Foreground" Value="{DynamicResource FiliSuccessTextBrush}" />
       <Setter Property="theme:Accent.Hover" Value="{DynamicResource FiliSuccessHoverBrush}" />
     </Style>
     <Style Selector="^.warning">
-      <Setter Property="Foreground" Value="{DynamicResource FiliWarningBrush}" />
+      <Setter Property="Foreground" Value="{DynamicResource FiliWarningTextBrush}" />
       <Setter Property="theme:Accent.Hover" Value="{DynamicResource FiliWarningHoverBrush}" />
     </Style>
     <Style Selector="^.error">
-      <Setter Property="Foreground" Value="{DynamicResource FiliErrorBrush}" />
+      <Setter Property="Foreground" Value="{DynamicResource FiliErrorTextBrush}" />
       <Setter Property="theme:Accent.Hover" Value="{DynamicResource FiliErrorHoverBrush}" />
     </Style>
     <Style Selector="^.dark">
-      <Setter Property="Foreground" Value="{DynamicResource FiliDarkBrush}" />
+      <Setter Property="Foreground" Value="{DynamicResource FiliDarkTextBrush}" />
       <Setter Property="theme:Accent.Hover" Value="{DynamicResource FiliDarkHoverBrush}" />
     </Style>
 

@@ -562,3 +562,21 @@ key	FiliFocusRingBrush	SolidColorBrush
 key	FiliFocusRingInnerBrush	SolidColorBrush
 key	FiliFocusRingThickness	Double
 class	divider
+key	FiliAvatarBackgroundBrush	SolidColorBrush
+key	FiliAvatarBackgroundColor	Color
+key	FiliDarkTextBrush	SolidColorBrush
+key	FiliDarkTextColor	Color
+key	FiliErrorTextBrush	SolidColorBrush
+key	FiliErrorTextColor	Color
+key	FiliInfoTextBrush	SolidColorBrush
+key	FiliInfoTextColor	Color
+key	FiliPrimaryTextBrush	SolidColorBrush
+key	FiliPrimaryTextColor	Color
+key	FiliSecondaryTextBrush	SolidColorBrush
+key	FiliSecondaryTextColor	Color
+key	FiliSuccessTextBrush	SolidColorBrush
+key	FiliSuccessTextColor	Color
+key	FiliTertiaryTextBrush	SolidColorBrush
+key	FiliTertiaryTextColor	Color
+key	FiliWarningTextBrush	SolidColorBrush
+key	FiliWarningTextColor	Color

@@ -55,7 +55,7 @@ public class ComponentClassTests
     {
         var button = Matrix.Show(new Button { Classes = { "icon", colour.ToLowerInvariant() }, Content = "x" });
 
-        Assert.Equal(Matrix.Token($"Fili{colour}Color"), Matrix.Colour(button.Foreground));
+        Assert.Equal(Matrix.Token($"Fili{colour}TextColor"), Matrix.Colour(button.Foreground));
     });
 
     /// <summary>An outlined or filled icon button is a square-cornered button again, padded 5px.</summary>
@@ -156,7 +156,7 @@ public class ComponentClassTests
 
         var outlined = Matrix.Show(new Button { Classes = { "chip", "outlined", cls }, Content = "Chip" });
         Assert.Equal(Matrix.Token($"Fili{colour}Color"), Matrix.Colour(outlined.BorderBrush));
-        Assert.Equal(Matrix.Token($"Fili{colour}Color"), Matrix.Colour(outlined.Foreground));
+        Assert.Equal(Matrix.Token($"Fili{colour}TextColor"), Matrix.Colour(outlined.Foreground));
 
         // The text chip's 12% hover: the colour itself on the state layer, at Opacity 0.12.
         var text = Matrix.Show(new Button { Classes = { "chip", "text", cls }, Content = "Chip" });
@@ -173,7 +173,7 @@ public class ComponentClassTests
     {
         var filledSelected = Matrix.Show(new ToggleButton { Classes = { "chip", "primary" }, IsChecked = true, Content = "Chip" });
         Assert.Equal(Matrix.Token("FiliPrimaryHoverColor"), Matrix.Colour(Matrix.Part<Border>(filledSelected, "PART_Root").Background));
-        Assert.Equal(Matrix.Token("FiliPrimaryColor"), Matrix.Colour(filledSelected.Foreground));
+        Assert.Equal(Matrix.Token("FiliPrimaryTextColor"), Matrix.Colour(filledSelected.Foreground));
 
         var textSelected = Matrix.Show(new ToggleButton { Classes = { "chip", "text", "primary" }, IsChecked = true, Content = "Chip" });
         Assert.Equal(Matrix.Token("FiliPrimaryColor"), Matrix.Colour(Matrix.Part<Border>(textSelected, "PART_Root").Background));

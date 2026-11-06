@@ -490,7 +490,7 @@ public static class ThemeColourGenerator
         {
             foreach (var p in Prefixes(c, prefixes))
             {
-                o.Append(Style($"^{p}", ("Foreground", Res($"Fili{c}Brush")), ("theme:Accent.Hover", Res($"Fili{c}HoverBrush"))));
+                o.Append(Style($"^{p}", ("Foreground", Res($"Fili{c}TextBrush")), ("theme:Accent.Hover", Res($"Fili{c}HoverBrush"))));
             }
         }
 
@@ -655,7 +655,7 @@ public static class ThemeColourGenerator
 
         foreach (var c in Colours)
         {
-            o.Append(Style($"^.{c.ToLowerInvariant()}", ("Foreground", Res($"Fili{c}Brush")), ("BorderBrush", Res($"Fili{c}Brush"))));
+            o.Append(Style($"^.{c.ToLowerInvariant()}", ("Foreground", Res($"Fili{c}TextBrush")), ("BorderBrush", Res($"Fili{c}Brush"))));
             o.Append(SplitStates($".{c.ToLowerInvariant()}", ("BorderBrush", Res($"Fili{c}HoverBrush"))));
         }
 
@@ -722,7 +722,7 @@ public static class ThemeColourGenerator
 
         foreach (var c in Colours)
         {
-            o.Append(Style($"^.{c.ToLowerInvariant()}", ("Foreground", Res($"Fili{c}Brush"))));
+            o.Append(Style($"^.{c.ToLowerInvariant()}", ("Foreground", Res($"Fili{c}TextBrush"))));
             o.Append(MenuStatesOn($".{c.ToLowerInvariant()}", "PART_StateLayer", ("Background", Res($"Fili{c}HoverBrush"))));
         }
 
@@ -976,7 +976,7 @@ public static class ThemeColourGenerator
         }
         else
         {
-            o.Append(Style($"^{prefix}", ("Background", Res($"Fili{colour}HoverBrush")), ("Foreground", Res($"Fili{colour}Brush")), ("BorderThickness", "0")));
+            o.Append(Style($"^{prefix}", ("Background", Res($"Fili{colour}HoverBrush")), ("Foreground", Res($"Fili{colour}TextBrush")), ("BorderThickness", "0")));
             o.Append(ChipStates(prefix, "PART_Root", ("Background", "Transparent")));
             o.Append(ChipStates(prefix, "PART_StateLayer", ("Background", Res($"Fili{colour}Brush")), ("Opacity", "0.12")));
         }
@@ -1018,7 +1018,7 @@ public static class ThemeColourGenerator
         foreach (var c in Colours)
         {
             var cls = c.ToLowerInvariant();
-            o.Append(Style($"^.{cls}", ("Foreground", Res($"Fili{c}Brush"))));
+            o.Append(Style($"^.{cls}", ("Foreground", Res($"Fili{c}TextBrush"))));
             o.Append(ChipStates($".{cls}", "PART_StateLayer", ("Background", Res($"Fili{c}HoverBrush"))));
         }
 
@@ -1071,7 +1071,7 @@ public static class ThemeColourGenerator
 
     /// <summary>MudLink's Color, `mud-{color}-text`: every palette colour as the text.</summary>
     private static string LinkRegion() =>
-        string.Concat(Colours.Select(c => Style($"^.{c.ToLowerInvariant()}", ("Foreground", Res($"Fili{c}Brush")))));
+        string.Concat(Colours.Select(c => Style($"^.{c.ToLowerInvariant()}", ("Foreground", Res($"Fili{c}TextBrush")))));
 
     /// <summary>
     /// MudTreeView's Color on the selected row: the colour as the header's text over its hover
@@ -1088,7 +1088,7 @@ public static class ThemeColourGenerator
         foreach (var c in Colours.Where(c => c != "Primary"))
         {
             var sel = $"{owner}.{c.ToLowerInvariant()} {row}:selected";
-            o.Append(Style($"{sel} /template/ ContentPresenter#PART_HeaderPresenter", ("Foreground", Res($"Fili{c}Brush"))));
+            o.Append(Style($"{sel} /template/ ContentPresenter#PART_HeaderPresenter", ("Foreground", Res($"Fili{c}TextBrush"))));
             o.Append(Style($"{sel} /template/ {ground}", ("Background", Res($"Fili{c}HoverBrush"))));
         }
 
@@ -1107,7 +1107,7 @@ public static class ThemeColourGenerator
         foreach (var c in Colours.Where(c => c != "Primary"))
         {
             o.Append(Style($"ListBox.{c.ToLowerInvariant()}",
-                ("theme:Accent.RowColour", Res($"Fili{c}Brush")), ("theme:Accent.RowHover", Res($"Fili{c}HoverBrush"))));
+                ("theme:Accent.RowColour", Res($"Fili{c}TextBrush")), ("theme:Accent.RowHover", Res($"Fili{c}HoverBrush"))));
         }
 
         return TopLevel(o.ToString());
@@ -1157,7 +1157,7 @@ public static class ThemeColourGenerator
         foreach (var c in Colours)
         {
             var cls = c.ToLowerInvariant();
-            o.Append(Style($"^.outlined.{cls}", ("Background", "Transparent"), ("Foreground", Res($"Fili{c}Brush")), ("BorderBrush", Res($"Fili{c}Brush"))));
+            o.Append(Style($"^.outlined.{cls}", ("Background", "Transparent"), ("Foreground", Res($"Fili{c}TextBrush")), ("BorderBrush", Res($"Fili{c}Brush"))));
             o.Append(ChipStates($".outlined.{cls}", "PART_StateLayer", ("Background", Res($"Fili{c}HoverBrush"))));
         }
 
@@ -1200,7 +1200,7 @@ public static class ThemeColourGenerator
         foreach (var c in Colours)
         {
             var cls = c.ToLowerInvariant();
-            o.Append(Style($"^.outlined.{cls}:checked", ("Background", Res($"Fili{c}HoverBrush")), ("Foreground", Res($"Fili{c}Brush")), ("BorderThickness", "1")));
+            o.Append(Style($"^.outlined.{cls}:checked", ("Background", Res($"Fili{c}HoverBrush")), ("Foreground", Res($"Fili{c}TextBrush")), ("BorderThickness", "1")));
             o.Append(ChipStates($".outlined.{cls}:checked", "PART_Root", ("Background", "Transparent")));
             o.Append(ChipStates($".outlined.{cls}:checked", "PART_StateLayer", ("Background", Res($"Fili{c}Brush")), ("Opacity", "0.12")));
         }
@@ -1232,14 +1232,14 @@ public static class ThemeColourGenerator
         foreach (var c in Colours)
         {
             var cls = c.ToLowerInvariant();
-            o.Append(Style($"^.outlined.{cls}", ("Background", "Transparent"), ("Foreground", Res($"Fili{c}Brush")), ("BorderBrush", Res($"Fili{c}Brush"))));
+            o.Append(Style($"^.outlined.{cls}", ("Background", "Transparent"), ("Foreground", Res($"Fili{c}TextBrush")), ("BorderBrush", Res($"Fili{c}Brush"))));
         }
 
         o.Append("\n    <!-- Text: the colour at 6% as fill and the colour as text. -->\n");
         o.Append(Style("^.text", ("Background", Res("FiliActionDefaultHoverBrush")), ("Foreground", Res("FiliTextPrimaryBrush")), ("BorderThickness", "0")));
         foreach (var c in Colours)
         {
-            o.Append(Style($"^.text.{c.ToLowerInvariant()}", ("Background", Res($"Fili{c}HoverBrush")), ("Foreground", Res($"Fili{c}Brush")), ("BorderThickness", "0")));
+            o.Append(Style($"^.text.{c.ToLowerInvariant()}", ("Background", Res($"Fili{c}HoverBrush")), ("Foreground", Res($"Fili{c}TextBrush")), ("BorderThickness", "0")));
         }
 
         o.Append("\n    <!-- `.mud-chip-size-small` / `-large`: 24px / 40px, radius half the height. -->\n");
@@ -1310,7 +1310,7 @@ public static class ThemeColourGenerator
         foreach (var c in Colours)
         {
             var cls = c.ToLowerInvariant();
-            o.Append(Style($"^.text.{cls}", ("Background", "Transparent"), ("Foreground", Res($"Fili{c}Brush"))));
+            o.Append(Style($"^.text.{cls}", ("Background", "Transparent"), ("Foreground", Res($"Fili{c}TextBrush"))));
             o.Append(FabStates($".text.{cls}", ("Background", Res($"Fili{c}HoverBrush"))));
         }
 
@@ -1323,7 +1323,7 @@ public static class ThemeColourGenerator
         foreach (var c in Colours)
         {
             var cls = c.ToLowerInvariant();
-            o.Append(Style($"^.outlined.{cls}", ("Background", "Transparent"), ("Foreground", Res($"Fili{c}Brush")), ("BorderBrush", Res($"Fili{c}Brush"))));
+            o.Append(Style($"^.outlined.{cls}", ("Background", "Transparent"), ("Foreground", Res($"Fili{c}TextBrush")), ("BorderBrush", Res($"Fili{c}Brush"))));
             o.Append(FabStates($".outlined.{cls}", ("Background", Res($"Fili{c}HoverBrush"))));
         }
 
@@ -1531,13 +1531,13 @@ public static class ThemeColourGenerator
 
         foreach (var c in Colours)
         {
-            o.Append(TopStyle($"Border.avatar.outlined.{c.ToLowerInvariant()}", ("Background", "Transparent"), ("TextElement.Foreground", Res($"Fili{c}Brush")), ("BorderBrush", Res($"Fili{c}Brush"))));
+            o.Append(TopStyle($"Border.avatar.outlined.{c.ToLowerInvariant()}", ("Background", "Transparent"), ("TextElement.Foreground", Res($"Fili{c}TextBrush")), ("BorderBrush", Res($"Fili{c}Brush"))));
         }
 
         o.Append(TopStyle("Border.avatar.text", ("Background", "Transparent"), ("TextElement.Foreground", Res("FiliTextPrimaryBrush")), ("BorderThickness", "0")));
         foreach (var c in Colours)
         {
-            o.Append(TopStyle($"Border.avatar.text.{c.ToLowerInvariant()}", ("TextElement.Foreground", Res($"Fili{c}Brush"))));
+            o.Append(TopStyle($"Border.avatar.text.{c.ToLowerInvariant()}", ("TextElement.Foreground", Res($"Fili{c}TextBrush"))));
         }
 
         return o.ToString();
@@ -1754,14 +1754,15 @@ public static class ThemeColourGenerator
         }
 
         o.Append(Style("^.normal", ("Background", Res("FiliDarkBrush")), ("Foreground", Res("FiliDarkContrastTextBrush"))));
-        o.Append("\n    <!-- Text and outlined: the surface, the text in the colour's darken shade at 400, and an\n");
+        o.Append("\n    <!-- Text and outlined: the surface, the text in the colour's alert text at 400 (MudBlazor's\n");
+        o.Append("         darken shade, moved to 4.5:1 where that fell short, as an alert's is), and an\n");
         o.Append("         outlined card's 1px line in the colour. The close button is action-default. -->\n");
         foreach (var variant in new[] { ".text", ".outlined" })
         {
             o.Append(Style($"^{variant}", ("Background", Res("FiliSurfaceBrush")), ("FontWeight", "Normal")));
             foreach (var (pseudo, c) in Severities)
             {
-                o.Append(Style($"^{variant}{pseudo}", ("Foreground", Res($"Fili{c}DarkenBrush")), ("BorderBrush", Res($"Fili{c}Brush"))));
+                o.Append(Style($"^{variant}{pseudo}", ("Foreground", Res($"Fili{c}AlertTextBrush")), ("BorderBrush", Res($"Fili{c}Brush"))));
             }
 
             o.Append(Style($"^{variant}.normal", ("Foreground", Res("FiliTextPrimaryBrush")), ("BorderBrush", Res("FiliTextPrimaryBrush"))));
@@ -1779,6 +1780,6 @@ public static class ThemeColourGenerator
     private static string TextBlockRegion() =>
         string.Concat(Colours.Select(c =>
             $"  <Style Selector=\"TextBlock.{c.ToLowerInvariant()}\">\n"
-            + $"    <Setter Property=\"Foreground\" Value=\"{Res($"Fili{c}Brush")}\" />\n"
+            + $"    <Setter Property=\"Foreground\" Value=\"{Res($"Fili{c}TextBrush")}\" />\n"
             + "  </Style>\n"));
 }

@@ -216,7 +216,7 @@ public class NavMenuTests
         var menu = Show();
         Select(menu.Tree, menu.Home);
 
-        Assert.Equal(Matrix.Token("FiliPrimaryColor"), Matrix.Colour(Text(menu.Home).Foreground));
+        Assert.Equal(Matrix.Token("FiliPrimaryTextColor"), Matrix.Colour(Text(menu.Home).Foreground));
         Assert.Equal(FontWeight.Medium, Text(menu.Home).FontWeight);
         Assert.Equal(Matrix.Token("FiliActionDefaultHoverColor"), Matrix.Colour(Rest(Ground(menu.Home))));
     });
@@ -229,7 +229,7 @@ public class NavMenuTests
         var menu = Show(colour.ToLowerInvariant());
         Select(menu.Tree, menu.Home);
 
-        Assert.Equal(Matrix.Token($"Fili{colour}Color"), Matrix.Colour(Text(menu.Home).Foreground));
+        Assert.Equal(Matrix.Token($"Fili{colour}TextColor"), Matrix.Colour(Text(menu.Home).Foreground));
         Assert.Equal(Matrix.Token($"Fili{colour}HoverColor"), Matrix.Colour(Rest(Ground(menu.Home))));
     });
 

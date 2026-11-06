@@ -67,9 +67,10 @@ public static class PrimaryColour
     }
 
     /// <summary>
-    /// What an app overriding the primary sets: the colour, its text, its 6% hover, its darken and
-    /// lighten shades by MudBlazor's rule, the light app bar, which is the primary in MudBlazor, and
-    /// the forked base's accent for the controls the theme leaves to it.
+    /// What an app overriding the primary sets: the colour, its text on a fill, the colour as text
+    /// on the page, its 6% hover, its darken and lighten shades by MudBlazor's rule, the light app
+    /// bar, which is the primary in MudBlazor, and the forked base's accent for the controls the
+    /// theme leaves to it.
     /// </summary>
     public static ResourceDictionary Tokens(Color colour, ThemeVariant variant)
     {
@@ -77,6 +78,7 @@ public static class PrimaryColour
         {
             ["FiliPrimaryColor"] = colour,
             ["FiliPrimaryContrastTextColor"] = ContrastText(colour),
+            ["FiliPrimaryTextColor"] = TextOnTheGround(colour, variant),
             ["FiliPrimaryHoverColor"] = WithAlpha(colour, 0x0F),
             ["FiliPrimaryDarkenColor"] = MudColor.Darken(colour),
             ["FiliPrimaryLightenColor"] = MudColor.Lighten(colour),
@@ -95,6 +97,41 @@ public static class PrimaryColour
     /// <summary>White, as MudBlazor's primary text is, unless black reads better on the colour.</summary>
     public static Color ContrastText(Color colour) =>
         Contrast.Ratio(Colors.White, colour) >= Contrast.Ratio(Colors.Black, colour) ? Colors.White : Colors.Black;
+
+    /// <summary>
+    /// The colour as text, as the theme's own text tokens are: the colour where it reads at 4.5:1 on
+    /// the variant's page and surface and on its 6% hover over either, else the colour mixed
+    /// towards black (light) or white (dark) until it does. A swatch dark enough for white text
+    /// reads on a light page as it is; on a dark one it has to lighten.
+    /// </summary>
+    public static Color TextOnTheGround(Color colour, ThemeVariant variant)
+    {
+        var grounds = new List<Color>();
+        foreach (var key in new[] { "FiliBackgroundColor", "FiliSurfaceColor" })
+        {
+            if (Application.Current?.TryGetResource(key, variant, out var value) == true && value is Color ground)
+            {
+                grounds.Add(ground);
+                grounds.Add(Contrast.Composite(WithAlpha(colour, 0x0F), ground));
+            }
+        }
+
+        var towards = variant == ThemeVariant.Light ? Colors.Black : Colors.White;
+        for (var step = 0; step <= 100; step++)
+        {
+            var t = step / 100d;
+            byte Mix(byte from, byte to) => (byte)Math.Round(from + ((to - from) * t));
+            var text = Color.FromRgb(Mix(colour.R, towards.R), Mix(colour.G, towards.G), Mix(colour.B, towards.B));
+
+            // 4.6 rather than 4.5, a level to spare for how the tint is painted.
+            if (grounds.TrueForAll(g => Contrast.Ratio(text, g) >= 4.6))
+            {
+                return text;
+            }
+        }
+
+        return towards;
+    }
 
     private static Color WithAlpha(Color colour, byte alpha) => Color.FromArgb(alpha, colour.R, colour.G, colour.B);
 

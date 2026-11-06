@@ -22,7 +22,7 @@
 
     <TextBlock Classes="h5 section" Text="Colours" />
     <docs:ExampleCard Title="Color"
-                      Description="A colour class is MudText's Color: the palette colour, on any type class. inherit is Color.Inherit, the colour round the text, over a colour class too. MudBlazor's grey supporting text is its mud-text-secondary utility class, not a Color; here it is a Foreground of FiliTextSecondaryBrush."
+                      Description="A colour class is MudText's Color: the palette colour as text, moved to 4.5:1 where it falls short, on any type class. inherit is Color.Inherit, the colour round the text, over a colour class too. MudBlazor's grey supporting text is its mud-text-secondary utility class, not a Color; here it is a Foreground of FiliTextSecondaryBrush."
                       Source="Typography/Colors" />
     <TextBlock Classes="body1 p">
       <Run Text="No type class sets a colour of its own, as " /><Run Classes="code" Text=".mud-typography-*" /><Run Text=" sets none: a caption or an overline is the colour round it, as MudText's default Color.Inherit is." />
@@ -54,7 +54,7 @@
       <docs:ParityRow MudBlazor="Typo.inherit" Here="no class" Status="Same" Note="The font, size and spacing of the text round it." />
       <docs:ParityRow MudBlazor="Typo.caption / overline" Here="caption / overline" Status="Same" Note="No colour of their own, as .mud-typography-* sets none: the colour round them." />
       <docs:ParityRow MudBlazor="Typo.button" Here="button" Status="Same" Note="14px, 500, a 24.5px line (1.75 of 14, kept to the half pixel), 0.4px tracking, in FiliButtonTextTransform's case." />
-      <docs:ParityRow MudBlazor="Color.Primary … Color.Dark" Here="primary … dark" Status="Same" Note="The palette colour, on any type class." />
+      <docs:ParityRow MudBlazor="Color.Primary … Color.Dark" Here="primary … dark" Status="Close" Note="The palette colour as text, on any type class: Fili…TextColor, the colour where it reaches WCAG AA's 4.5:1 on the page and a surface and, since 1.1.0, that hue darkened (light) or lightened (dark) to 4.5:1 where it does not." />
       <docs:ParityRow MudBlazor="Color.Inherit (default), Color.Default, Color.Surface" Here="no class" Status="Same" Note="MudText adds no colour for these (mud-surface-text has no rule), so the text takes the colour round it." />
       <docs:ParityRow MudBlazor="Color.Inherit over a colour class" Here="inherit" Status="Same" Note="The surrounding text colour, over a colour class too." />
       <docs:ParityRow MudBlazor="mud-text-secondary (grey)" Here="Foreground set to FiliTextSecondaryBrush" Status="Close" Note="A utility class in MudBlazor, not a Color." />
