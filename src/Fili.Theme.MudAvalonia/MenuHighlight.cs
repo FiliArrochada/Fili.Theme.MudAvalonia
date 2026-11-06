@@ -34,8 +34,14 @@ internal sealed class MenuHighlight
     public static readonly AttachedProperty<bool> KeyboardProperty =
         AvaloniaProperty.RegisterAttached<MenuHighlight, Control, bool>("Keyboard", inherits: true);
 
-    /// <summary>On a window: the last key or pointer press in it was a key.</summary>
-    private static readonly AttachedProperty<bool> LastInputWasKeyProperty =
+    /// <summary>
+    /// On a window: the last key or pointer press in it was a key. Every top level starts False
+    /// from a style in <c>FiliTheme.axaml</c>, which also runs this class's static constructor as
+    /// the theme loads: run only when a menu's theme was first built, after the key that opened
+    /// the menu, the handlers missed that key, and the first menu an app opened from the keyboard
+    /// showed no row (MenuHighlightTests run alone).
+    /// </summary>
+    public static readonly AttachedProperty<bool> LastInputWasKeyProperty =
         AvaloniaProperty.RegisterAttached<MenuHighlight, TopLevel, bool>("LastInputWasKey");
 
     static MenuHighlight()

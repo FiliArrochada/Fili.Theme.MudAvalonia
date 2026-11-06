@@ -94,6 +94,9 @@
   -->
   <Style Selector=":is(TopLevel)">
     <Setter Property="theme:Motion.Reduced" Value="{DynamicResource FiliReducedMotion}" />
+    <!-- No input yet. Naming MenuHighlight here registers its key and pointer handlers as the
+         theme loads, before any window has a key to miss (MenuHighlight.cs). -->
+    <Setter Property="theme:MenuHighlight.LastInputWasKey" Value="False" />
   </Style>
 
   <!--
