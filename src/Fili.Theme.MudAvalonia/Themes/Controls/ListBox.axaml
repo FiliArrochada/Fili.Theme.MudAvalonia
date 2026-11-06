@@ -45,7 +45,9 @@
     <Setter Property="theme:IconSlot.Brush" Value="{DynamicResource FiliActionDefaultBrush}" />
     <Setter Property="Template">
       <ControlTemplate>
-        <Panel>
+        <!-- PART_Root holds the selection tint while a selected row is under the pointer, so the
+             state layer can lay the colour over it; see the :selected:pointerover style. -->
+        <Panel x:Name="PART_Root">
           <theme:PartBorder theme:Motion.Reducible="True" x:Name="PART_StateLayer" Background="Transparent">
             <theme:PartBorder.Transitions>
               <Transitions>
@@ -77,7 +79,7 @@
     <Style Selector="^[(theme|MultiSelection.IsOn)=True]">
       <Setter Property="Template">
         <ControlTemplate>
-          <Panel>
+          <Panel x:Name="PART_Root">
             <theme:PartBorder theme:Motion.Reducible="True" x:Name="PART_StateLayer" Background="Transparent">
               <theme:PartBorder.Transitions>
                 <Transitions>
@@ -167,9 +169,17 @@
     <Style Selector="^:selected /template/ theme|PartBorder#PART_StateLayer">
       <Setter Property="Background" Value="{Binding $self.(theme:Accent.RowHover)}" />
     </Style>
-    <!-- Hovering an already-selected row deepens the same tint rather than swapping to grey. -->
+    <!-- Hovering an already-selected row deepens its tint, as a selected nav link's does: the
+         tint moves to PART_Root and the state layer lays the colour at 6.4% over it, fading in
+         with the layer's transition. Until 1.2.1 it swapped to the pressed overlay, under which
+         the row's coloured text fell to 2.9:1 in dark; the text tokens read at 4.5:1 on this
+         deeper tint (TextContrastTests). -->
+    <Style Selector="^:selected:pointerover /template/ Panel#PART_Root">
+      <Setter Property="Background" Value="{Binding $self.(theme:Accent.RowHover)}" />
+    </Style>
     <Style Selector="^:selected:pointerover /template/ theme|PartBorder#PART_StateLayer">
-      <Setter Property="Background" Value="{DynamicResource FiliOverlayPressedBrush}" />
+      <Setter Property="Background" Value="{Binding $self.(theme:Accent.RowFill)}" />
+      <Setter Property="Opacity" Value="0.064" />
     </Style>
 
     <Style Selector="^:disabled">
@@ -191,6 +201,7 @@
     <!-- MudList's Color, primary by default: its rows read it, and a colour class sets it. -->
     <Setter Property="theme:Accent.RowColour" Value="{DynamicResource FiliPrimaryTextBrush}" />
     <Setter Property="theme:Accent.RowHover" Value="{DynamicResource FiliPrimaryHoverBrush}" />
+    <Setter Property="theme:Accent.RowFill" Value="{DynamicResource FiliPrimaryBrush}" />
     <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Disabled" />
 
     <Setter Property="Template">

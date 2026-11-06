@@ -31,7 +31,7 @@ namespace Fili.Theme.MudAvalonia;
 /// contrast text and lighten tint as <see cref="ColourProperty"/> and <see cref="HoverProperty"/>;
 /// one set of styles reads them for every colour, where each colour had its own styles on every
 /// tab. A list's selected row is <see cref="RowColourProperty"/> over <see cref="RowHoverProperty"/>,
-/// inherited from the list: its theme sets primary and a colour class its colour, and the row's
+/// deepened by <see cref="RowFillProperty"/> under the pointer, inherited from the list: its theme sets primary and a colour class its colour, and the row's
 /// own theme reads them, so no style reaches from the list to its rows for a colour. A
 /// multi-selection list's colour class sets the colour and hover of its rows' checkboxes
 /// the same way, and a filled button's the line between it and the button before it in a group
@@ -87,6 +87,13 @@ internal sealed class Accent
     /// <summary>A list's selected row's tint: primary's hover, or the colour's. Inherited.</summary>
     public static readonly AttachedProperty<IBrush?> RowHoverProperty =
         AvaloniaProperty.RegisterAttached<Accent, Control, IBrush?>("RowHover", inherits: true);
+
+    /// <summary>
+    /// A list's selected row's colour, which deepens its tint at 6.4% under the pointer, as a
+    /// selected nav link's does: primary, or the colour class's. Inherited.
+    /// </summary>
+    public static readonly AttachedProperty<IBrush?> RowFillProperty =
+        AvaloniaProperty.RegisterAttached<Accent, Control, IBrush?>("RowFill", inherits: true);
 
     /// <summary>A coloured tab bar's ground.</summary>
     public static readonly AttachedProperty<IBrush?> GroundProperty =
@@ -180,6 +187,10 @@ internal sealed class Accent
     public static IBrush? GetRowHover(Control c) => c.GetValue(RowHoverProperty);
 
     public static void SetRowHover(Control c, IBrush? value) => c.SetValue(RowHoverProperty, value);
+
+    public static IBrush? GetRowFill(Control c) => c.GetValue(RowFillProperty);
+
+    public static void SetRowFill(Control c, IBrush? value) => c.SetValue(RowFillProperty, value);
 
     public static IBrush? GetGround(Control c) => c.GetValue(GroundProperty);
 

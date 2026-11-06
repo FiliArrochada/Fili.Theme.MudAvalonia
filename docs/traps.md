@@ -167,8 +167,11 @@ one.
   selected nav link's the 6% tint deepened by another 6.4%, and each is darker (light) or lighter
   (dark) than the 6% the text was chosen on: text that read at 4.5:1 at rest fell to 4.2:1 under
   the pointer. The text tokens are chosen against the strongest tint (`TextContrastTests`). A
-  selected list or tree row under the pointer swaps its tint for the pressed overlay, which no
-  text token can absorb; it is a known shortfall, not a pattern to copy.
+  hovered state deepens the colour's own tint (a selected list row or select option lays the
+  colour at 6.4% over it, as a selected nav link does), never swaps it for a grey overlay: the
+  pressed overlay under a selected row took its text to 2.9:1 in dark until 1.2.1, and no text
+  token can absorb that. A second coat of the tint is no substitute: high contrast's tint is
+  35%, and two coats took its text under 3:1.
 - **Base type is 14px, not 16.** First thing to check when a ported screen feels off.
 - **MudBlazor's light palette names swatches rather than spelling colours out**, and a port that
   does not read them back gets it subtly wrong. They are `Colors.cs` in MudBlazor:

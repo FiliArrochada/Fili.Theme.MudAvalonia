@@ -46,7 +46,7 @@
 
     <Setter Property="Template">
       <ControlTemplate>
-        <Panel>
+        <Panel x:Name="PART_Root">
           <theme:PartBorder x:Name="PART_StateLayer" Background="Transparent" />
           <theme:PartBorder x:Name="PART_Ripple"
                   theme:Ripple.IsLayer="True" />
@@ -87,8 +87,14 @@
     <Style Selector="^:selected /template/ theme|PartBorder#PART_StateLayer">
       <Setter Property="Background" Value="{DynamicResource FiliPrimaryHoverBrush}" />
     </Style>
+    <!-- A selected option under the pointer deepens its tint with primary at 6.4%, as a list row
+         does (Controls/ListBox.axaml), rather than swapping to the pressed overlay. -->
+    <Style Selector="^:selected:pointerover /template/ Panel#PART_Root">
+      <Setter Property="Background" Value="{DynamicResource FiliPrimaryHoverBrush}" />
+    </Style>
     <Style Selector="^:selected:pointerover /template/ theme|PartBorder#PART_StateLayer">
-      <Setter Property="Background" Value="{DynamicResource FiliOverlayPressedBrush}" />
+      <Setter Property="Background" Value="{DynamicResource FiliPrimaryBrush}" />
+      <Setter Property="Opacity" Value="0.064" />
     </Style>
     <Style Selector="^:selected">
       <Setter Property="Foreground" Value="{DynamicResource FiliPrimaryTextBrush}" />

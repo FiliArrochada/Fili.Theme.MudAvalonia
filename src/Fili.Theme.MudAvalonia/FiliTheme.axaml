@@ -2574,30 +2574,37 @@
   <Style Selector="ListBox.secondary">
     <Setter Property="theme:Accent.RowColour" Value="{DynamicResource FiliSecondaryTextBrush}" />
     <Setter Property="theme:Accent.RowHover" Value="{DynamicResource FiliSecondaryHoverBrush}" />
+    <Setter Property="theme:Accent.RowFill" Value="{DynamicResource FiliSecondaryBrush}" />
   </Style>
   <Style Selector="ListBox.tertiary">
     <Setter Property="theme:Accent.RowColour" Value="{DynamicResource FiliTertiaryTextBrush}" />
     <Setter Property="theme:Accent.RowHover" Value="{DynamicResource FiliTertiaryHoverBrush}" />
+    <Setter Property="theme:Accent.RowFill" Value="{DynamicResource FiliTertiaryBrush}" />
   </Style>
   <Style Selector="ListBox.info">
     <Setter Property="theme:Accent.RowColour" Value="{DynamicResource FiliInfoTextBrush}" />
     <Setter Property="theme:Accent.RowHover" Value="{DynamicResource FiliInfoHoverBrush}" />
+    <Setter Property="theme:Accent.RowFill" Value="{DynamicResource FiliInfoBrush}" />
   </Style>
   <Style Selector="ListBox.success">
     <Setter Property="theme:Accent.RowColour" Value="{DynamicResource FiliSuccessTextBrush}" />
     <Setter Property="theme:Accent.RowHover" Value="{DynamicResource FiliSuccessHoverBrush}" />
+    <Setter Property="theme:Accent.RowFill" Value="{DynamicResource FiliSuccessBrush}" />
   </Style>
   <Style Selector="ListBox.warning">
     <Setter Property="theme:Accent.RowColour" Value="{DynamicResource FiliWarningTextBrush}" />
     <Setter Property="theme:Accent.RowHover" Value="{DynamicResource FiliWarningHoverBrush}" />
+    <Setter Property="theme:Accent.RowFill" Value="{DynamicResource FiliWarningBrush}" />
   </Style>
   <Style Selector="ListBox.error">
     <Setter Property="theme:Accent.RowColour" Value="{DynamicResource FiliErrorTextBrush}" />
     <Setter Property="theme:Accent.RowHover" Value="{DynamicResource FiliErrorHoverBrush}" />
+    <Setter Property="theme:Accent.RowFill" Value="{DynamicResource FiliErrorBrush}" />
   </Style>
   <Style Selector="ListBox.dark">
     <Setter Property="theme:Accent.RowColour" Value="{DynamicResource FiliDarkTextBrush}" />
     <Setter Property="theme:Accent.RowHover" Value="{DynamicResource FiliDarkHoverBrush}" />
+    <Setter Property="theme:Accent.RowFill" Value="{DynamicResource FiliDarkBrush}" />
   </Style>
   <!-- END GENERATED -->
 
@@ -2629,8 +2636,12 @@
   <Style Selector="ListBox.multi-selection ListBoxItem:selected /template/ theme|PartBorder#PART_StateLayer">
     <Setter Property="Background" Value="Transparent" />
   </Style>
+  <Style Selector="ListBox.multi-selection ListBoxItem:selected /template/ Panel#PART_Root">
+    <Setter Property="Background" Value="Transparent" />
+  </Style>
   <Style Selector="ListBox.multi-selection ListBoxItem:selected:pointerover /template/ theme|PartBorder#PART_StateLayer, ListBox.multi-selection ListBoxItem:selected:focus-visible /template/ theme|PartBorder#PART_StateLayer">
     <Setter Property="Background" Value="{DynamicResource FiliOverlayHoverBrush}" />
+    <Setter Property="Opacity" Value="1" />
   </Style>
   <Style Selector="TreeView.multi-selection TreeViewItem:selected /template/ ContentPresenter#PART_HeaderPresenter">
     <Setter Property="Foreground" Value="{DynamicResource FiliTextPrimaryBrush}" />

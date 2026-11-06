@@ -75,7 +75,7 @@
     </TextBlock>
     <docs:ParityTable>
       <docs:ParityRow MudBlazor="MudListItem with OnClick or Href, outside a selecting list" Here="Button.list-item" Status="Same" Note="The row's look and ripple, its label in its own case; dense and no-gutters as on a row." />
-      <docs:ParityRow MudBlazor="selected item" Here="the same" Status="Same" Note="Primary text over primary at 6%, never a filled bar." />
+      <docs:ParityRow MudBlazor="selected item" Here="the same" Status="Same" Note="Primary text over primary at 6%, never a filled bar. Under the pointer the tint deepens by primary at 6.4%, as a selected nav link's does, so the text still reads at 4.5:1." />
       <docs:ParityRow MudBlazor="Dense" Here="dense on the ListBox or an item" Status="Same" Note="4px top and bottom, body2." />
       <docs:ParityRow MudBlazor="the text" Here="the same" Status="Same" Note="Body1, MudListItem's own; body2 when dense." />
       <docs:ParityRow MudBlazor="a row's height" Here="the same" Status="Same" Note="48px, 36 dense: the row's 8px (4px) and the text's 4px round the line." />

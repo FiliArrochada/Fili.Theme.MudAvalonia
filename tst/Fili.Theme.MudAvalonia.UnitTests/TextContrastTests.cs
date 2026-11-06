@@ -128,6 +128,68 @@ public class TextContrastTests
         }
     });
 
+    /// <summary>
+    /// A selected list row of each colour, and a selected select option, under the pointer: the
+    /// row's tint deepened by the colour at 6.4%, as a selected nav link's is, read from the real
+    /// row on the page and a surface. Until 1.2.1 the row swapped its tint for the pressed overlay, and its coloured text
+    /// fell to 2.9:1 in dark.
+    /// </summary>
+    [Theory]
+    [MemberData(nameof(Variants))]
+    public Task ASelectedRowsTextReadsUnderThePointer(string name) => UiThread.RunAsync(() =>
+    {
+        var cases = new List<(string What, Border Ground, ContentControl Row)>();
+        var rows = new StackPanel();
+        foreach (var groundKey in new[] { "FiliBackgroundBrush", "FiliSurfaceBrush" })
+        {
+            var column = new StackPanel { Spacing = 8 };
+            var ground = new Border { Child = column, Padding = new Thickness(8), [!Border.BackgroundProperty] = new DynamicResourceExtension(groundKey) };
+            rows.Children.Add(ground);
+            foreach (var colour in Colours)
+            {
+                var cls = colour.ToLowerInvariant();
+                var item = new ListBoxItem { Content = "Selected row" };
+                var list = new ListBox { Classes = { cls }, Items = { item } };
+                list.SelectedItem = item;
+                column.Children.Add(list);
+                cases.Add(($"a selected row of a {cls} list on {groundKey}", ground, item));
+            }
+
+            var option = new ComboBoxItem { Content = "Selected option", IsSelected = true };
+            column.Children.Add(option);
+            cases.Add(($"a selected select option on {groundKey}", ground, option));
+        }
+
+        var window = new Window { RequestedThemeVariant = Variant(name), Content = rows, Width = 400, Height = 3000 };
+        window.Resources["FiliReducedMotion"] = true;
+        try
+        {
+            window.Show();
+            Dispatcher.UIThread.RunJobs();
+
+            var failures = new List<string>();
+            foreach (var (what, ground, row) in cases)
+            {
+                Assert.True(row.Classes.Contains(":selected"), $"{what} is not selected.");
+                PointAt(window, row);
+                var root = row.GetVisualDescendants().OfType<Panel>().First(p => p.Name == "PART_Root");
+                var layer = Part(row, "PART_StateLayer");
+                Assert.True(root.Background is ISolidColorBrush, $"{what} keeps no tint under the pointer.");
+                Assert.True(layer.Opacity < 0.1, $"{what} lays {layer.Background} at {layer.Opacity} over its tint, not the colour at 6.4%.");
+
+                var under = Over(Solid(root.Background), Solid(ground.Background));
+                under = Over(WithOpacity(Solid(layer.Background), layer.Opacity), under);
+                Check(failures, $"{name}, {what} under the pointer", Solid(row.Foreground), under);
+            }
+
+            Assert.True(failures.Count == 0, string.Join("\n", failures));
+        }
+        finally
+        {
+            window.Close();
+        }
+    });
+
     /// <summary>Text-primary and text-secondary on the page and a surface; the drawer's text on the drawer.</summary>
     [Theory]
     [MemberData(nameof(Variants))]

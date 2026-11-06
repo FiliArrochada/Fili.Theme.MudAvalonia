@@ -1100,9 +1100,9 @@ public static class ThemeColourGenerator
     }
 
     /// <summary>
-    /// MudList's Color on the selected row: the colour as the text over its hover tint. A colour
-    /// is one style on the list, setting the inherited Accent.RowColour and RowHover that its
-    /// rows' own theme reads; no style reaches from the list to its rows, so a row is matched
+    /// MudList's Color on the selected row: the colour as the text over its hover tint, which the
+    /// colour itself deepens under the pointer. A colour is one style on the list, setting the
+    /// inherited Accent.RowColour, RowHover and RowFill that its rows' own theme reads; no style reaches from the list to its rows, so a row is matched
     /// against none of them. Primary is the list's own theme's.
     /// </summary>
     private static string ListSelectionRegion()
@@ -1111,7 +1111,8 @@ public static class ThemeColourGenerator
         foreach (var c in Colours.Where(c => c != "Primary"))
         {
             o.Append(Style($"ListBox.{c.ToLowerInvariant()}",
-                ("theme:Accent.RowColour", Res($"Fili{c}TextBrush")), ("theme:Accent.RowHover", Res($"Fili{c}HoverBrush"))));
+                ("theme:Accent.RowColour", Res($"Fili{c}TextBrush")), ("theme:Accent.RowHover", Res($"Fili{c}HoverBrush")),
+                ("theme:Accent.RowFill", Res($"Fili{c}Brush"))));
         }
 
         return TopLevel(o.ToString());
