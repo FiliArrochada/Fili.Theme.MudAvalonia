@@ -148,8 +148,27 @@ one.
 ## Tokens, resources and variants
 
 - **The primary colour differs between variants.** `#594AE2` is the *light* primary; dark is
-  `#776BE7`. Seeding from the wrong one renders the wrong brand colour everywhere in the only
-  variant users see. Pinned by `PrimaryDiffersBetweenVariants`.
+  `#6F62E6`, MudBlazor's `#776BE7` a shade darker since 1.2.0 so its white text reaches 4.5:1.
+  Seeding from the wrong one renders the wrong brand colour everywhere in the only variant users
+  see. Pinned by `PrimaryDiffersBetweenVariants`.
+- **One colour is three colours: a fill, text and a line.** A palette colour that carries white
+  text as a fill is too dark to read as text on a dark page, and one bright enough to show as a
+  line on a dark page is too light under white text. MudBlazor paints all three in the colour, and
+  dark primary failed two of them at once: 4.17:1 under its white text, 2.14:1 as a checkbox on a
+  filled field. So the colour is the FILL (and an outlined control's border, which its text
+  identifies), `Fili{Colour}TextColor` is its text, at 4.5:1 on every tint a control lays under it,
+  and `Fili{Colour}NonTextColor` its line or glyph, at 3:1: a checked box, a switch's thumb, a
+  slider, a progress bar, a focused underline, a tab indicator, a coloured icon. A new style that
+  paints the colour itself as a Foreground, a glyph's Fill or an indicator is the bug;
+  `TextContrastTests`, `NonTextContrastTests` and `FillContrastTests` read the real controls. A
+  part that is both, the slider's value label, a chip of the colour above a glyph of the colour,
+  takes the fill from another property (the thumb's `BorderBrush`).
+- **A hover tint stacks under the text it tints.** A text chip's hover is the colour at 12%, a
+  selected nav link's the 6% tint deepened by another 6.4%, and each is darker (light) or lighter
+  (dark) than the 6% the text was chosen on: text that read at 4.5:1 at rest fell to 4.2:1 under
+  the pointer. The text tokens are chosen against the strongest tint (`TextContrastTests`). A
+  selected list or tree row under the pointer swaps its tint for the pressed overlay, which no
+  text token can absorb; it is a known shortfall, not a pattern to copy.
 - **Base type is 14px, not 16.** First thing to check when a ported screen feels off.
 - **MudBlazor's light palette names swatches rather than spelling colours out**, and a port that
   does not read them back gets it subtly wrong. They are `Colors.cs` in MudBlazor:
@@ -160,11 +179,12 @@ one.
   and tab bar colours), are GENERATED** by `ThemeColourGenerator` (unit-test project,
   `Generation/`) from one list of eight colours. Change the generator, never one colour's block by
   hand: `GeneratedThemeTests` fails on any difference, and rewrites the files when
-  `FILI_REGENERATE=1` is set. Each colour needs six
-  tokens - `Fili{C}Color`, `…ContrastTextColor`, `…TextColor` (the colour as text, at 4.5:1;
-  a Foreground that paints text takes it, a fill, line or lone glyph takes the colour,
-  `TextContrastTests`), `…HoverColor` (the colour at 6%, 35% in high
-  contrast), `…DarkenColor` and `…LightenColor`. The last two are MudBlazor's derivation, ported
+  `FILI_REGENERATE=1` is set. Each colour needs seven
+  tokens - `Fili{C}Color` (the fill), `…ContrastTextColor` (its text, at 4.5:1 on the fill and on
+  darken, `FillContrastTests`), `…TextColor` (the colour as text, at 4.5:1; a Foreground that
+  paints text takes it, `TextContrastTests`), `…NonTextColor` (the colour as a line or glyph, at
+  3:1; a glyph, an indicator or a focused line takes it, `NonTextContrastTests`), `…HoverColor`
+  (the colour at 6%, 35% in high contrast), `…DarkenColor` and `…LightenColor`. The last two are MudBlazor's derivation, ported
   as `MudColorPort`, and `PaletteDerivationTests` asserts every one in every variant against it, so
   changing a colour without its shades fails the build. The port must use .NET's own
   `Math.Round`, which scales by 100 in double arithmetic before rounding half-to-even (0.465 ->

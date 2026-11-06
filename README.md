@@ -234,7 +234,8 @@ the details and the contrast table.
 | Strings | `Themes/Strings.axaml` | The names a screen reader hears for the templates' icon buttons, in English: set one to translate it. |
 
 Every key is listed in [Published keys](docs/published-keys.md). The primary differs by variant:
-`#594AE2` in light, `#776BE7` in dark, `#D3C4FF` in high contrast.
+`#594AE2` in light, `#6F62E6` in dark (MudBlazor's `#776BE7` a shade darker, so its white text
+reaches 4.5:1), `#D3C4FF` in high contrast.
 
 ## Fonts, and the browser
 

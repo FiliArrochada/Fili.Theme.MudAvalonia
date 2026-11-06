@@ -60,6 +60,8 @@ public class ResourceResolutionTests
         "FiliSuccessAlertTextColor", "FiliWarningAlertTextColor", "FiliErrorAlertTextColor", "FiliDarkAlertTextColor",
         "FiliPrimaryTextColor", "FiliSecondaryTextColor", "FiliTertiaryTextColor", "FiliInfoTextColor",
         "FiliSuccessTextColor", "FiliWarningTextColor", "FiliErrorTextColor", "FiliDarkTextColor",
+        "FiliPrimaryNonTextColor", "FiliSecondaryNonTextColor", "FiliTertiaryNonTextColor", "FiliInfoNonTextColor",
+        "FiliSuccessNonTextColor", "FiliWarningNonTextColor", "FiliErrorNonTextColor", "FiliDarkNonTextColor",
         "FiliAvatarBackgroundColor",
         "FiliChipHoverColor",
     ];
@@ -105,6 +107,8 @@ public class ResourceResolutionTests
         "FiliSuccessAlertTextBrush", "FiliWarningAlertTextBrush", "FiliErrorAlertTextBrush", "FiliDarkAlertTextBrush",
         "FiliPrimaryTextBrush", "FiliSecondaryTextBrush", "FiliTertiaryTextBrush", "FiliInfoTextBrush",
         "FiliSuccessTextBrush", "FiliWarningTextBrush", "FiliErrorTextBrush", "FiliDarkTextBrush",
+        "FiliPrimaryNonTextBrush", "FiliSecondaryNonTextBrush", "FiliTertiaryNonTextBrush", "FiliInfoNonTextBrush",
+        "FiliSuccessNonTextBrush", "FiliWarningNonTextBrush", "FiliErrorNonTextBrush", "FiliDarkNonTextBrush",
         "FiliAvatarBackgroundBrush",
         "FiliChipHoverBrush",
         "FiliFocusRingBrush", "FiliFocusRingInnerBrush",
@@ -159,8 +163,9 @@ public class ResourceResolutionTests
 
     /// <summary>
     /// The brand colour differs between variants, and getting this backwards is the classic
-    /// mistake: #594AE2 is the LIGHT primary, #776BE7 the dark one. An app pinned to one
-    /// variant that seeds from the other renders the wrong brand colour everywhere.
+    /// mistake: #594AE2 is the LIGHT primary, #6F62E6 the dark one (MudBlazor's #776BE7 darkened
+    /// in 1.2.0 so its white text reaches 4.5:1). An app pinned to one variant that seeds from
+    /// the other renders the wrong brand colour everywhere.
     /// </summary>
     [Fact]
     public Task PrimaryDiffersBetweenVariants() => UiThread.RunAsync(() =>
@@ -169,7 +174,7 @@ public class ResourceResolutionTests
         Application.Current!.TryFindResource("FiliPrimaryColor", ThemeVariant.Dark, out var dark);
 
         Assert.Equal(Color.Parse("#594AE2"), Assert.IsType<Color>(light));
-        Assert.Equal(Color.Parse("#776BE7"), Assert.IsType<Color>(dark));
+        Assert.Equal(Color.Parse("#6F62E6"), Assert.IsType<Color>(dark));
     });
 
     /// <summary>

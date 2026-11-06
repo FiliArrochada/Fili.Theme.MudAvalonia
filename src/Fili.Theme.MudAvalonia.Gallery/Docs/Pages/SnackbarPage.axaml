@@ -30,7 +30,7 @@
       <Run Text="These cards sit in the page rather than in a manager; the manager puts the message in a TextBlock with 8px above and below it, as the examples do. A card's close button closes it." />
     </TextBlock>
     <TextBlock Classes="body1 p">
-      <Run Text="Each severity has its own contrast token, " /><Run Classes="code" Text="FiliInfoContrastTextBrush" /><Run Text=" and so on: MudBlazor's white in light and dark, black in high contrast, where the status colours are pastels and white on them would be about 1.6:1." />
+      <Run Text="Each severity has its own contrast token, " /><Run Classes="code" Text="FiliInfoContrastTextBrush" /><Run Text=" and so on: black at 87% on the status colours in light and dark since 1.2.0, where MudBlazor's white falls short of 4.5:1, and black in high contrast, where the status colours are pastels and white on them would be about 1.6:1." />
     </TextBlock>
 
     <TextBlock Classes="h5 section" Text="Variants" />

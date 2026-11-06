@@ -70,6 +70,14 @@
   <SolidColorBrush x:Key="FiliWarningTextBrush" Color="{DynamicResource FiliWarningTextColor}" />
   <SolidColorBrush x:Key="FiliErrorTextBrush" Color="{DynamicResource FiliErrorTextColor}" />
   <SolidColorBrush x:Key="FiliDarkTextBrush" Color="{DynamicResource FiliDarkTextColor}" />
+  <SolidColorBrush x:Key="FiliPrimaryNonTextBrush" Color="{DynamicResource FiliPrimaryNonTextColor}" />
+  <SolidColorBrush x:Key="FiliSecondaryNonTextBrush" Color="{DynamicResource FiliSecondaryNonTextColor}" />
+  <SolidColorBrush x:Key="FiliTertiaryNonTextBrush" Color="{DynamicResource FiliTertiaryNonTextColor}" />
+  <SolidColorBrush x:Key="FiliInfoNonTextBrush" Color="{DynamicResource FiliInfoNonTextColor}" />
+  <SolidColorBrush x:Key="FiliSuccessNonTextBrush" Color="{DynamicResource FiliSuccessNonTextColor}" />
+  <SolidColorBrush x:Key="FiliWarningNonTextBrush" Color="{DynamicResource FiliWarningNonTextColor}" />
+  <SolidColorBrush x:Key="FiliErrorNonTextBrush" Color="{DynamicResource FiliErrorNonTextColor}" />
+  <SolidColorBrush x:Key="FiliDarkNonTextBrush" Color="{DynamicResource FiliDarkNonTextColor}" />
   <SolidColorBrush x:Key="FiliChipHoverBrush" Color="{DynamicResource FiliChipHoverColor}" />
   <SolidColorBrush x:Key="FiliBlackBrush"   Color="{DynamicResource FiliBlackColor}" />
   <SolidColorBrush x:Key="FiliWhiteBrush"   Color="{DynamicResource FiliWhiteColor}" />

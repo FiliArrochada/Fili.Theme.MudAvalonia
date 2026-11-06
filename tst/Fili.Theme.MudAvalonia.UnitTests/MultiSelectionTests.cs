@@ -172,8 +172,8 @@ public class MultiSelectionTests
         var list = List("multi-selection", colour.ToLowerInvariant());
         var row = Row(list, 0);
 
-        Assert.Equal(Matrix.Token($"Fili{colour}Color"), Matrix.Colour(Glyph(row, "PART_CheckUnchecked").Fill));
-        Assert.Equal(Matrix.Token($"Fili{colour}Color"), Matrix.Colour(Glyph(row, "PART_CheckChecked").Fill));
+        Assert.Equal(Matrix.Token($"Fili{colour}NonTextColor"), Matrix.Colour(Glyph(row, "PART_CheckUnchecked").Fill));
+        Assert.Equal(Matrix.Token($"Fili{colour}NonTextColor"), Matrix.Colour(Glyph(row, "PART_CheckChecked").Fill));
 
         Matrix.Hover(Box(row));
         Assert.Equal(Matrix.Token($"Fili{colour}HoverColor"), Matrix.Colour(Matrix.Part<Ellipse>(row, "PART_CheckHalo").Fill));
@@ -203,7 +203,7 @@ public class MultiSelectionTests
         Assert.True(Box(leaf).IsVisible);
         Assert.Equal(32, Box(leaf).Width);
         Assert.True(Glyph(leaf, "PART_CheckChecked").IsVisible);
-        Assert.Equal(Matrix.Token("FiliSuccessColor"), Matrix.Colour(Glyph(leaf, "PART_CheckChecked").Fill));
+        Assert.Equal(Matrix.Token("FiliSuccessNonTextColor"), Matrix.Colour(Glyph(leaf, "PART_CheckChecked").Fill));
         Assert.Equal(Matrix.Token("FiliTextPrimaryColor"), Matrix.Colour(Matrix.Part<Avalonia.Controls.Presenters.ContentPresenter>(leaf, "PART_HeaderPresenter").Foreground));
 
         tree.Classes.Add("dense");

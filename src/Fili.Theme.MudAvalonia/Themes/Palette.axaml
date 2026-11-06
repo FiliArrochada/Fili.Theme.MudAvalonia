@@ -19,24 +19,37 @@
     <!-- ============================== LIGHT ============================== -->
     <ResourceDictionary x:Key="Light">
 
+      <!--
+        The ContrastText values are the text on a fill of the colour: a filled button, chip, FAB,
+        alert, snackbar, badge, avatar, tooltip or tab bar, and its darken shade under the pointer.
+        Palette.cs makes every one Colors.Shades.White, and PaletteDark.cs overrides none. NOT
+        MUDBLAZOR'S, since 1.2.0, where white falls short of WCAG AA's 4.5:1 on the fill or its
+        darken shade: secondary, tertiary, info, success, warning and error take black at 87%
+        (DE), Material's text on a light fill, which reaches 4.60:1 or more on both. Each line
+        names white's worst ratio, on the fill or the darken shade, and black's
+        (FillContrastTests). Primary and dark keep white, 6.00:1 and 10.05:1.
+      -->
       <Color x:Key="FiliPrimaryColor">#594AE2</Color>
       <Color x:Key="FiliPrimaryContrastTextColor">#FFFFFF</Color>
       <Color x:Key="FiliSecondaryColor">#FF4081</Color>
-      <Color x:Key="FiliSecondaryContrastTextColor">#FFFFFF</Color>
+      <!-- White 3.33:1; 5.19:1. -->
+      <Color x:Key="FiliSecondaryContrastTextColor">#DE000000</Color>
       <Color x:Key="FiliTertiaryColor">#1EC8A5</Color>
-      <Color x:Key="FiliTertiaryContrastTextColor">#FFFFFF</Color>
+      <!-- White 2.13:1; 6.29:1. -->
+      <Color x:Key="FiliTertiaryContrastTextColor">#DE000000</Color>
 
-      <!-- The four status ContrastText values are Palette.cs's Colors.Shades.White, which
-           PaletteDark.cs does not override. They are what text on a filled status colour
-           (a snackbar) is painted in. -->
       <Color x:Key="FiliInfoColor">#2196F3</Color>
-      <Color x:Key="FiliInfoContrastTextColor">#FFFFFF</Color>
+      <!-- White 3.12:1; 4.70:1. -->
+      <Color x:Key="FiliInfoContrastTextColor">#DE000000</Color>
       <Color x:Key="FiliSuccessColor">#00C853</Color>
-      <Color x:Key="FiliSuccessContrastTextColor">#FFFFFF</Color>
+      <!-- White 2.24:1; 5.69:1. -->
+      <Color x:Key="FiliSuccessContrastTextColor">#DE000000</Color>
       <Color x:Key="FiliWarningColor">#FF9800</Color>
-      <Color x:Key="FiliWarningContrastTextColor">#FFFFFF</Color>
+      <!-- White 2.16:1; 6.20:1. -->
+      <Color x:Key="FiliWarningContrastTextColor">#DE000000</Color>
       <Color x:Key="FiliErrorColor">#F44336</Color>
-      <Color x:Key="FiliErrorContrastTextColor">#FFFFFF</Color>
+      <!-- White 3.68:1; 4.60:1. -->
+      <Color x:Key="FiliErrorContrastTextColor">#DE000000</Color>
       <Color x:Key="FiliDarkColor">#424242</Color>
       <Color x:Key="FiliDarkContrastTextColor">#FFFFFF</Color>
       <Color x:Key="FiliBlackColor">#272C34</Color>
@@ -186,27 +199,55 @@
         The colour AS TEXT on the page or a surface: `mud-{color}-text`, which MudBlazor paints in
         the colour itself - a link, a text or outlined button's label, a text or outlined chip, a
         selected tab, list row or nav link, a focused field's label, an error message, MudText's
-        Color. The colour stays the fill and the line; this is only its text. The colour itself
-        where it reaches WCAG AA, 4.5:1, on the worst of those grounds (the page, a surface, and
-        the colour's 6% hover tint over either, under a text button or a selected row): primary
-        and dark here. NOT MUDBLAZOR'S, since 1.1.0: every other colour fell short, as low as
-        2.04:1, so each is its alert text above, the same hue darkened to 4.5:1 on those same
-        grounds. Each line names the colour and the worst ratio before and after (TextContrastTests).
+        Color. The colour stays the fill; this is only its text. The colour itself where it
+        reaches WCAG AA, 4.5:1, on the worst of those grounds (the page, a surface, the colour's 6%
+        hover tint over either, under a text button or a selected row, and the colour at 12% over
+        either, under a text chip or a selected nav link on hover): primary and dark here. NOT
+        MUDBLAZOR'S, since 1.1.0: every other colour fell short, as low as 2.04:1, so each is the
+        same hue darkened to 4.5:1 on those grounds, a step darker than its alert text since 1.2.0,
+        when the 12% hover joined them. Each line names the colour and the worst ratio before and
+        after (TextContrastTests).
       -->
       <Color x:Key="FiliPrimaryTextColor">#594AE2</Color>
-      <!-- #FF4081, 3.10:1; 4.55:1. -->
-      <Color x:Key="FiliSecondaryTextColor">#E1004A</Color>
-      <!-- #1EC8A5, 2.04:1; 4.58:1. -->
-      <Color x:Key="FiliTertiaryTextColor">#13816B</Color>
-      <!-- #2196F3, 2.94:1; 4.58:1. -->
-      <Color x:Key="FiliInfoTextColor">#0B73C9</Color>
-      <!-- #00C853, 2.13:1; 4.58:1. -->
-      <Color x:Key="FiliSuccessTextColor">#008437</Color>
-      <!-- #FF9800, 2.06:1; 4.58:1. -->
-      <Color x:Key="FiliWarningTextColor">#A56300</Color>
-      <!-- #F44336, 3.41:1; 4.57:1. -->
-      <Color x:Key="FiliErrorTextColor">#DE1A0C</Color>
+      <!-- #FF4081, 2.86:1; 4.57:1. -->
+      <Color x:Key="FiliSecondaryTextColor">#D60046</Color>
+      <!-- #1EC8A5, 1.93:1; 4.58:1. -->
+      <Color x:Key="FiliTertiaryTextColor">#127D67</Color>
+      <!-- #2196F3, 2.74:1; 4.59:1. -->
+      <Color x:Key="FiliInfoTextColor">#0B6EC1</Color>
+      <!-- #00C853, 2.00:1; 4.60:1. -->
+      <Color x:Key="FiliSuccessTextColor">#007F35</Color>
+      <!-- #FF9800, 1.95:1; 4.57:1. -->
+      <Color x:Key="FiliWarningTextColor">#A06000</Color>
+      <!-- #F44336, 3.14:1; 4.54:1. -->
+      <Color x:Key="FiliErrorTextColor">#D4190B</Color>
       <Color x:Key="FiliDarkTextColor">#424242</Color>
+
+      <!--
+        The colour as a LINE OR GLYPH, the WCAG 1.4.11 non-text uses that show a control's state
+        or value: a checked checkbox or radio, an on switch's thumb, a slider's thumb and track, a
+        progress bar, a focused or invalid field's underline or outline, a tab's indicator, an
+        active nav link's line and icon, an alert's icon, a coloured icon. The colour itself where
+        it reaches 3:1 on the worst of their grounds (the page, a surface, a filled field's fill
+        over either, and the colour's 6% hover tint over either): primary, error and dark here.
+        NOT MUDBLAZOR'S, since 1.2.0: every other colour fell short, as low as 1.74:1, so each is
+        the same hue darkened to 3:1 with a level to spare. The colour stays the fill of a filled
+        control and the border of an outlined one, which its text identifies. Each line names the
+        colour and the worst ratio before and after (NonTextContrastTests).
+      -->
+      <Color x:Key="FiliPrimaryNonTextColor">#594AE2</Color>
+      <!-- #FF4081, 2.72:1; 3.02:1. -->
+      <Color x:Key="FiliSecondaryNonTextColor">#FF206C</Color>
+      <!-- #1EC8A5, 1.74:1; 3.05:1. -->
+      <Color x:Key="FiliTertiaryNonTextColor">#16957B</Color>
+      <!-- #2196F3, 2.55:1; 3.03:1. -->
+      <Color x:Key="FiliInfoNonTextColor">#0D87E9</Color>
+      <!-- #00C853, 1.83:1; 3.05:1. -->
+      <Color x:Key="FiliSuccessNonTextColor">#00993F</Color>
+      <!-- #FF9800, 1.76:1; 3.05:1. -->
+      <Color x:Key="FiliWarningNonTextColor">#BF7200</Color>
+      <Color x:Key="FiliErrorNonTextColor">#F44336</Color>
+      <Color x:Key="FiliDarkNonTextColor">#424242</Color>
 
       <!-- A default chip's ground on hover, focus and press: action-disabled, as _chip.scss
            paints it. A token of its own so that high contrast can keep white text readable. -->
@@ -328,6 +369,14 @@
       <SolidColorBrush x:Key="FiliWarningTextBrush" Color="{DynamicResource FiliWarningTextColor}" />
       <SolidColorBrush x:Key="FiliErrorTextBrush" Color="{DynamicResource FiliErrorTextColor}" />
       <SolidColorBrush x:Key="FiliDarkTextBrush" Color="{DynamicResource FiliDarkTextColor}" />
+      <SolidColorBrush x:Key="FiliPrimaryNonTextBrush" Color="{DynamicResource FiliPrimaryNonTextColor}" />
+      <SolidColorBrush x:Key="FiliSecondaryNonTextBrush" Color="{DynamicResource FiliSecondaryNonTextColor}" />
+      <SolidColorBrush x:Key="FiliTertiaryNonTextBrush" Color="{DynamicResource FiliTertiaryNonTextColor}" />
+      <SolidColorBrush x:Key="FiliInfoNonTextBrush" Color="{DynamicResource FiliInfoNonTextColor}" />
+      <SolidColorBrush x:Key="FiliSuccessNonTextBrush" Color="{DynamicResource FiliSuccessNonTextColor}" />
+      <SolidColorBrush x:Key="FiliWarningNonTextBrush" Color="{DynamicResource FiliWarningNonTextColor}" />
+      <SolidColorBrush x:Key="FiliErrorNonTextBrush" Color="{DynamicResource FiliErrorNonTextColor}" />
+      <SolidColorBrush x:Key="FiliDarkNonTextBrush" Color="{DynamicResource FiliDarkNonTextColor}" />
       <SolidColorBrush x:Key="FiliChipHoverBrush" Color="{DynamicResource FiliChipHoverColor}" />
       <SolidColorBrush x:Key="FiliBlackBrush"   Color="{DynamicResource FiliBlackColor}" />
       <SolidColorBrush x:Key="FiliWhiteBrush"   Color="{DynamicResource FiliWhiteColor}" />
@@ -415,21 +464,35 @@
     <!-- ============================== DARK =============================== -->
     <ResourceDictionary x:Key="Dark">
 
-      <Color x:Key="FiliPrimaryColor">#776BE7</Color>
+      <!-- NOT MUDBLAZOR'S, since 1.2.0: PaletteDark.cs's #776BE7 carries its white text at
+           4.17:1, and black would fall to 3.29:1 on its darken shade under the pointer. The same
+           hue darkened to the first value where white reaches 4.5:1 with a level to spare:
+           4.60:1, 6.58:1 on its darken shade (FillContrastTests). Its darken, lighten and hover
+           shades follow it by MudBlazor's rule. Every LINE or GLYPH in primary paints
+           FiliPrimaryNonTextColor below, which is lighter, not this. -->
+      <Color x:Key="FiliPrimaryColor">#6F62E6</Color>
       <Color x:Key="FiliPrimaryContrastTextColor">#FFFFFF</Color>
+      <!-- Black at 87% where white falls short of 4.5:1, as in Light: each line names white's
+           worst ratio, on the fill or its darken shade, and black's (FillContrastTests). -->
       <Color x:Key="FiliSecondaryColor">#FF4081</Color>
-      <Color x:Key="FiliSecondaryContrastTextColor">#FFFFFF</Color>
+      <!-- White 3.33:1; 5.19:1. -->
+      <Color x:Key="FiliSecondaryContrastTextColor">#DE000000</Color>
       <Color x:Key="FiliTertiaryColor">#1EC8A5</Color>
-      <Color x:Key="FiliTertiaryContrastTextColor">#FFFFFF</Color>
+      <!-- White 2.13:1; 6.29:1. -->
+      <Color x:Key="FiliTertiaryContrastTextColor">#DE000000</Color>
 
       <Color x:Key="FiliInfoColor">#3299FF</Color>
-      <Color x:Key="FiliInfoContrastTextColor">#FFFFFF</Color>
+      <!-- White 2.94:1; 5.27:1. -->
+      <Color x:Key="FiliInfoContrastTextColor">#DE000000</Color>
       <Color x:Key="FiliSuccessColor">#0BBA83</Color>
-      <Color x:Key="FiliSuccessContrastTextColor">#FFFFFF</Color>
+      <!-- White 2.51:1; 5.28:1. -->
+      <Color x:Key="FiliSuccessContrastTextColor">#DE000000</Color>
       <Color x:Key="FiliWarningColor">#FFA800</Color>
-      <Color x:Key="FiliWarningContrastTextColor">#FFFFFF</Color>
+      <!-- White 1.93:1; 6.82:1. -->
+      <Color x:Key="FiliWarningContrastTextColor">#DE000000</Color>
       <Color x:Key="FiliErrorColor">#F64E62</Color>
-      <Color x:Key="FiliErrorContrastTextColor">#FFFFFF</Color>
+      <!-- White 3.40:1; 4.89:1. -->
+      <Color x:Key="FiliErrorContrastTextColor">#DE000000</Color>
       <Color x:Key="FiliDarkColor">#27272F</Color>
       <Color x:Key="FiliDarkContrastTextColor">#FFFFFF</Color>
       <Color x:Key="FiliBlackColor">#27272F</Color>
@@ -485,7 +548,7 @@
       <!-- MudBlazor's dark lines-inputs, white at 0.30, as in Light. -->
       <Color x:Key="FiliAvatarBackgroundColor">#4DFFFFFF</Color>
 
-      <Color x:Key="FiliPrimaryHoverColor">#0F776BE7</Color>
+      <Color x:Key="FiliPrimaryHoverColor">#0F6F62E6</Color>
 
       <!-- `mud-palette-{color}-hover`, the colour at 0F. -->
       <Color x:Key="FiliSecondaryHoverColor">#0FFF4081</Color>
@@ -498,7 +561,7 @@
       <Color x:Key="FiliActionDefaultHoverColor">#0FADADB1</Color>
 
       <!-- ColorRgbDarken of the dark palette's own colours; PaletteDark.cs sets none itself. -->
-      <Color x:Key="FiliPrimaryDarkenColor">#5A4BE2</Color>
+      <Color x:Key="FiliPrimaryDarkenColor">#5141E1</Color>
       <Color x:Key="FiliSecondaryDarkenColor">#FF1F69</Color>
       <Color x:Key="FiliTertiaryDarkenColor">#19A98C</Color>
       <Color x:Key="FiliInfoDarkenColor">#0A85FF</Color>
@@ -506,7 +569,7 @@
       <Color x:Key="FiliWarningDarkenColor">#D68F00</Color>
       <Color x:Key="FiliErrorDarkenColor">#F42F46</Color>
       <Color x:Key="FiliDarkDarkenColor">#17171C</Color>
-      <Color x:Key="FiliPrimaryLightenColor">#978DEC</Color>
+      <Color x:Key="FiliPrimaryLightenColor">#8E83EC</Color>
       <Color x:Key="FiliSecondaryLightenColor">#FF6699</Color>
       <Color x:Key="FiliTertiaryLightenColor">#2ADFBB</Color>
       <Color x:Key="FiliInfoLightenColor">#5CADFF</Color>
@@ -521,7 +584,8 @@
            lightness raised, hue and saturation kept - to the first value at 4.5:1 even with the
            painted ground one level off the arithmetic, as Skia's can be. Each line
            names MudBlazor's value and the worst ratio before and after (AlertTextContrastTests). -->
-      <!-- MudBlazor #5A4BE2, 1.87:1; 4.59:1. -->
+      <!-- MudBlazor #5A4BE2, 1.87:1; 4.59:1. Since 1.2.0 the darken shade is #5141E1, of the
+           darker primary, and this is unchanged: the same hue, still 4.5:1 on the tint. -->
       <Color x:Key="FiliPrimaryAlertTextColor">#A59DEF</Color>
       <!-- MudBlazor #FF1F69, 2.99:1; 4.57:1. -->
       <Color x:Key="FiliSecondaryAlertTextColor">#FF7BA6</Color>
@@ -539,26 +603,46 @@
       <Color x:Key="FiliDarkAlertTextColor">#A0A0B1</Color>
 
       <!-- The colour as text, as in Light: the colour where it reaches 4.5:1 on the page, the
-           surface and its tint over either (tertiary and warning), and NOT MUDBLAZOR'S, since
-           1.1.0, everywhere else: the alert text above, the colour's hue lightened to 4.5:1.
-           Primary is the one a dark app sees most, as links, text buttons, focused labels and the
-           active nav link; the colour stays the fill of a filled button, whose white text the
-           lighter shade could not carry. Each line names the colour and the worst ratio before
-           and after (TextContrastTests). -->
-      <!-- #776BE7, 2.67:1; 4.59:1. -->
-      <Color x:Key="FiliPrimaryTextColor">#A59DEF</Color>
-      <!-- #FF4081, 3.34:1; 4.57:1. -->
-      <Color x:Key="FiliSecondaryTextColor">#FF7BA6</Color>
-      <Color x:Key="FiliTertiaryTextColor">#1EC8A5</Color>
-      <!-- #3299FF, 3.69:1; 4.59:1. -->
-      <Color x:Key="FiliInfoTextColor">#5AADFF</Color>
-      <!-- #0BBA83, 4.31:1; 4.59:1. -->
-      <Color x:Key="FiliSuccessTextColor">#0BC086</Color>
+           surface and its 6% and 12% tints over either (warning), and NOT
+           MUDBLAZOR'S, since 1.1.0, everywhere else: the colour's hue lightened to 4.5:1, a step
+           lighter than its alert text since 1.2.0. Primary is the one a dark app sees most, as
+           links, text buttons, focused labels and the active nav link; the colour stays the fill
+           of a filled button, whose white text the lighter shade could not carry. Each line
+           names the colour and the worst ratio before and after (TextContrastTests). -->
+      <!-- #6F62E6, 2.29:1; 4.58:1. -->
+      <Color x:Key="FiliPrimaryTextColor">#AAA2F0</Color>
+      <!-- #FF4081, 3.13:1; 4.58:1. -->
+      <Color x:Key="FiliSecondaryTextColor">#FF85AD</Color>
+      <!-- #1EC8A5, 4.48:1; 4.57:1. -->
+      <Color x:Key="FiliTertiaryTextColor">#1ECAA7</Color>
+      <!-- #3299FF, 3.40:1; 4.60:1. -->
+      <Color x:Key="FiliInfoTextColor">#69B5FF</Color>
+      <!-- #0BBA83, 3.93:1; 4.62:1. -->
+      <Color x:Key="FiliSuccessTextColor">#0CCA8D</Color>
       <Color x:Key="FiliWarningTextColor">#FFA800</Color>
-      <!-- #F64E62, 3.30:1; 4.57:1. -->
-      <Color x:Key="FiliErrorTextColor">#F8828F</Color>
-      <!-- #27272F, 1.17:1; 4.58:1. -->
+      <!-- #F64E62, 3.07:1; 4.59:1. -->
+      <Color x:Key="FiliErrorTextColor">#F98C98</Color>
+      <!-- #27272F, 1.15:1; 4.58:1. -->
       <Color x:Key="FiliDarkTextColor">#A0A0B1</Color>
+
+      <!-- The colour as a line or glyph, as in Light: the colour where it reaches 3:1 on the
+           page, the surface, a filled field's fill and its tint over either (tertiary, info,
+           success and warning), and NOT MUDBLAZOR'S, since 1.2.0, everywhere else: the colour's
+           hue lightened to 3:1 with a level to spare. Primary is the darker fill above lightened;
+           MudBlazor's #776BE7 was 2.14:1 on a filled field. Each line names the colour and the
+           worst ratio before and after (NonTextContrastTests). -->
+      <!-- #6F62E6, 1.94:1; 3.08:1. -->
+      <Color x:Key="FiliPrimaryNonTextColor">#958CED</Color>
+      <!-- #FF4081, 2.68:1; 3.06:1. -->
+      <Color x:Key="FiliSecondaryNonTextColor">#FF5C94</Color>
+      <Color x:Key="FiliTertiaryNonTextColor">#1EC8A5</Color>
+      <Color x:Key="FiliInfoNonTextColor">#3299FF</Color>
+      <Color x:Key="FiliSuccessNonTextColor">#0BBA83</Color>
+      <Color x:Key="FiliWarningNonTextColor">#FFA800</Color>
+      <!-- #F64E62, 2.63:1; 3.08:1. -->
+      <Color x:Key="FiliErrorNonTextColor">#F7697A</Color>
+      <!-- #27272F, 1.17:1; 3.07:1. -->
+      <Color x:Key="FiliDarkNonTextColor">#9696A8</Color>
 
       <Color x:Key="FiliChipHoverColor">#42FFFFFF</Color>
       <sys:Double x:Key="FiliSliderRailOpacity">0.30</sys:Double>
@@ -638,6 +722,14 @@
       <SolidColorBrush x:Key="FiliWarningTextBrush" Color="{DynamicResource FiliWarningTextColor}" />
       <SolidColorBrush x:Key="FiliErrorTextBrush" Color="{DynamicResource FiliErrorTextColor}" />
       <SolidColorBrush x:Key="FiliDarkTextBrush" Color="{DynamicResource FiliDarkTextColor}" />
+      <SolidColorBrush x:Key="FiliPrimaryNonTextBrush" Color="{DynamicResource FiliPrimaryNonTextColor}" />
+      <SolidColorBrush x:Key="FiliSecondaryNonTextBrush" Color="{DynamicResource FiliSecondaryNonTextColor}" />
+      <SolidColorBrush x:Key="FiliTertiaryNonTextBrush" Color="{DynamicResource FiliTertiaryNonTextColor}" />
+      <SolidColorBrush x:Key="FiliInfoNonTextBrush" Color="{DynamicResource FiliInfoNonTextColor}" />
+      <SolidColorBrush x:Key="FiliSuccessNonTextBrush" Color="{DynamicResource FiliSuccessNonTextColor}" />
+      <SolidColorBrush x:Key="FiliWarningNonTextBrush" Color="{DynamicResource FiliWarningNonTextColor}" />
+      <SolidColorBrush x:Key="FiliErrorNonTextBrush" Color="{DynamicResource FiliErrorNonTextColor}" />
+      <SolidColorBrush x:Key="FiliDarkNonTextBrush" Color="{DynamicResource FiliDarkNonTextColor}" />
       <SolidColorBrush x:Key="FiliChipHoverBrush" Color="{DynamicResource FiliChipHoverColor}" />
       <SolidColorBrush x:Key="FiliBlackBrush"   Color="{DynamicResource FiliBlackColor}" />
       <SolidColorBrush x:Key="FiliWhiteBrush"   Color="{DynamicResource FiliWhiteColor}" />
@@ -865,17 +957,36 @@
       <Color x:Key="FiliErrorAlertTextColor">#FFC2CA</Color>
       <Color x:Key="FiliDarkAlertTextColor">#D2D2D2</Color>
 
-      <!-- The colour as text: the colour itself, as every one is raised to clear 10:1 on black
-           and keeps 4.58:1 or more even on its own 35% tint (error the lowest). Declared, not
-           inherited, as Dark's lightened shades are not this variant's hues. -->
-      <Color x:Key="FiliPrimaryTextColor">#D3C4FF</Color>
-      <Color x:Key="FiliSecondaryTextColor">#FF9DC4</Color>
+      <!-- The colour as text: the colour itself where it reaches 4.5:1 on its own 35% tint and on
+           that tint deepened by a selected nav link's hover, 39%, over black and the surface
+           (tertiary, info, success and warning). Since 1.2.0 the others are a little lighter, the
+           same hue raised to 4.5:1 on the deepened tint, where the colour fell as low as 4.10:1.
+           Each line names the colour and the worst ratio before and after. Declared, not
+           inherited, as Dark's lightened shades are not this variant's hues (TextContrastTests). -->
+      <!-- #D3C4FF, just under 4.5:1; 4.61:1. -->
+      <Color x:Key="FiliPrimaryTextColor">#D5C7FF</Color>
+      <!-- #FF9DC4, 4.17:1; 4.59:1. -->
+      <Color x:Key="FiliSecondaryTextColor">#FFABCC</Color>
       <Color x:Key="FiliTertiaryTextColor">#7BF0D6</Color>
       <Color x:Key="FiliInfoTextColor">#9CD4FF</Color>
       <Color x:Key="FiliSuccessTextColor">#8CFFC0</Color>
       <Color x:Key="FiliWarningTextColor">#FFD166</Color>
-      <Color x:Key="FiliErrorTextColor">#FF9AA8</Color>
-      <Color x:Key="FiliDarkTextColor">#BDBDBD</Color>
+      <!-- #FF9AA8, 4.10:1; 4.61:1. -->
+      <Color x:Key="FiliErrorTextColor">#FFABB6</Color>
+      <!-- #BDBDBD, 4.22:1; 4.60:1. -->
+      <Color x:Key="FiliDarkTextColor">#C5C5C5</Color>
+
+      <!-- The colour as a line or glyph: the colour itself, as every one clears 4.5:1 on black,
+           the surface, a filled field's fill and its own 35% tint, far past 1.4.11's 3:1.
+           Declared, not inherited, as Dark's lightened shades are not this variant's hues. -->
+      <Color x:Key="FiliPrimaryNonTextColor">#D3C4FF</Color>
+      <Color x:Key="FiliSecondaryNonTextColor">#FF9DC4</Color>
+      <Color x:Key="FiliTertiaryNonTextColor">#7BF0D6</Color>
+      <Color x:Key="FiliInfoNonTextColor">#9CD4FF</Color>
+      <Color x:Key="FiliSuccessNonTextColor">#8CFFC0</Color>
+      <Color x:Key="FiliWarningNonTextColor">#FFD166</Color>
+      <Color x:Key="FiliErrorNonTextColor">#FF9AA8</Color>
+      <Color x:Key="FiliDarkNonTextColor">#BDBDBD</Color>
 
       <!-- Opaque, where light and dark tint with action-disabled: that is #CFCFDA here, the
            legible disabled grey, and white chip text on it fell to 1.5:1. White on this is 6.8:1,
@@ -974,6 +1085,14 @@
       <SolidColorBrush x:Key="FiliWarningTextBrush" Color="{DynamicResource FiliWarningTextColor}" />
       <SolidColorBrush x:Key="FiliErrorTextBrush" Color="{DynamicResource FiliErrorTextColor}" />
       <SolidColorBrush x:Key="FiliDarkTextBrush" Color="{DynamicResource FiliDarkTextColor}" />
+      <SolidColorBrush x:Key="FiliPrimaryNonTextBrush" Color="{DynamicResource FiliPrimaryNonTextColor}" />
+      <SolidColorBrush x:Key="FiliSecondaryNonTextBrush" Color="{DynamicResource FiliSecondaryNonTextColor}" />
+      <SolidColorBrush x:Key="FiliTertiaryNonTextBrush" Color="{DynamicResource FiliTertiaryNonTextColor}" />
+      <SolidColorBrush x:Key="FiliInfoNonTextBrush" Color="{DynamicResource FiliInfoNonTextColor}" />
+      <SolidColorBrush x:Key="FiliSuccessNonTextBrush" Color="{DynamicResource FiliSuccessNonTextColor}" />
+      <SolidColorBrush x:Key="FiliWarningNonTextBrush" Color="{DynamicResource FiliWarningNonTextColor}" />
+      <SolidColorBrush x:Key="FiliErrorNonTextBrush" Color="{DynamicResource FiliErrorNonTextColor}" />
+      <SolidColorBrush x:Key="FiliDarkNonTextBrush" Color="{DynamicResource FiliDarkNonTextColor}" />
       <SolidColorBrush x:Key="FiliChipHoverBrush" Color="{DynamicResource FiliChipHoverColor}" />
       <SolidColorBrush x:Key="FiliBlackBrush"   Color="{DynamicResource FiliBlackColor}" />
       <SolidColorBrush x:Key="FiliWhiteBrush"   Color="{DynamicResource FiliWhiteColor}" />

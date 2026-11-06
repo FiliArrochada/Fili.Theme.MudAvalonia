@@ -315,7 +315,7 @@ public class NavMenuTests
         var open = Matrix.Part<Path>(menu.Group, "PART_ExpandIcon");
 
         Assert.Equal(Matrix.Token("FiliDrawerIconColor"), Matrix.Colour(closed.Fill));
-        Assert.Equal(Matrix.Token("FiliPrimaryColor"), Matrix.Colour(open.Fill));
+        Assert.Equal(Matrix.Token("FiliPrimaryNonTextColor"), Matrix.Colour(open.Fill));
         Assert.Same(open.FindResource("FiliArrowDropDownGeometry"), closed.Data);
         Assert.Equal(TransformOperations.Parse("rotate(-180deg)").Value, Assert.IsType<TransformOperations>(open.GetBaseValue(Visual.RenderTransformProperty).GetValueOrDefault()).Value);
     });
@@ -341,7 +341,7 @@ public class NavMenuTests
         Assert.Equal(new Thickness(16, 4), menu.Home.Padding);
         Assert.Equal(new CornerRadius(4), Ground(menu.Home).CornerRadius);
         Assert.Equal(new Thickness(0, 0, 2, 0), Ground(menu.Home).BorderThickness);
-        Assert.Equal(Matrix.Token("FiliSuccessColor"), Matrix.Colour(Ground(menu.Home).BorderBrush));
+        Assert.Equal(Matrix.Token("FiliSuccessNonTextColor"), Matrix.Colour(Ground(menu.Home).BorderBrush));
         Assert.Equal(new Thickness(0), Ground(menu.Child).BorderThickness);
     });
 
@@ -359,7 +359,7 @@ public class NavMenuTests
         Assert.Equal(Matrix.Token("FiliDrawerIconColor"), Matrix.Colour(icon.Foreground));
 
         Select(tree, link);
-        Assert.Equal(Matrix.Token("FiliInfoColor"), Matrix.Colour(icon.Foreground));
+        Assert.Equal(Matrix.Token("FiliInfoNonTextColor"), Matrix.Colour(icon.Foreground));
     });
 
     [Fact]

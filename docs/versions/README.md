@@ -10,7 +10,8 @@ Each version has its own page: what changed, and, where existing markup changes 
 | Version | Upgrading |
 |---|---|
 | *[Unreleased](unreleased.md)* | Nothing to change |
-| **[1.1.0](1.1.0.md)** | [Upgrading from 1.0.1](1.1.0.md#upgrading-from-101-to-110) |
+| **[1.2.0](1.2.0.md)** | [Upgrading from 1.1.0](1.2.0.md#upgrading-from-110-to-120) |
+| [1.1.0](1.1.0.md) | [Upgrading from 1.0.1](1.1.0.md#upgrading-from-101-to-110) |
 | [1.0.1](1.0.1.md) | [Upgrading from 1.0.0](1.0.1.md#upgrading-from-100-to-101) |
 | [1.0.0](1.0.0.md) | [Upgrading from 1.0.0-rc.2](1.0.0.md#upgrading-from-100-rc2-to-100) |
 | [1.0.0-rc.2](1.0.0-rc.2.md) | [Upgrading from 1.0.0-rc.1](1.0.0-rc.2.md#upgrading-from-100-rc1-to-100-rc2) |

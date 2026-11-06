@@ -21,7 +21,7 @@ resolves every key in each variant: a new key is listed here in the change that 
 
 Every colour as a `*Color` and its `*Brush`, in light, dark and high contrast. Values and provenance: [Tokens](../README.md#tokens).
 
-Four kinds are roles rather than colours. `Fili{Colour}AlertTextColor` is a text or outlined
+Five kinds are roles rather than colours. `Fili{Colour}AlertTextColor` is a text or outlined
 alert's text on its tint: the colour's darken shade in light and dark, as MudBlazor's, where that
 reaches WCAG AA's 4.5:1 on the alert's ground (primary and dark in light); since 1.0.1 every other
 one is a deliberate departure from MudBlazor, the darken shade's hue moved to 4.5:1, darker in
@@ -30,10 +30,17 @@ lighten shade, where darken on the tint fell below 4.5:1. `AlertTextContrastTest
 one to 4.5:1 in all three variants. `Fili{Colour}TextColor`, since 1.1.0, is the colour as text on
 the page or a surface (`mud-{color}-text`): a link, a text or outlined button's label, a text or
 outlined chip, a selected tab, row or nav link, a focused field's label, an error message. It is
-the colour itself where that reaches 4.5:1 on the page, a surface and the colour's hover tint over
-either, and the alert text where it does not, a deliberate departure from MudBlazor; the colour
-stays the fill and the line. An app that overrides a colour sets its text key too, or its text
-keeps the shipped colour. `TextContrastTests` holds every one to 4.5:1 in all three variants.
+the colour itself where that reaches 4.5:1 on the page, a surface and the colour's 6% and 12%
+tints over either, and that hue moved to 4.5:1 where it does not, a deliberate departure from
+MudBlazor; the colour stays the fill. `Fili{Colour}NonTextColor`, since 1.2.0, is the colour as a
+line or glyph, WCAG 1.4.11's non-text contrast: a checked checkbox or radio, an on switch's thumb,
+a slider, a progress bar, a focused or invalid field's underline or outline, a tab's indicator, an
+active nav link's line and icon, an alert's icon, a coloured icon. It is the colour itself where
+that reaches 3:1 on the page, a surface, a filled field's fill and the colour's hover tint over
+either, and that hue moved to 3:1 where it does not; `NonTextContrastTests` holds every one there.
+An app that overrides a colour sets its text and non-text keys too, or they keep the shipped
+colour. `TextContrastTests` holds every text key to 4.5:1 in all three variants, and
+`FillContrastTests` every `Fili{Colour}ContrastTextColor` to 4.5:1 on its fill and darken shade.
 `FiliAvatarBackgroundColor` is a default avatar's ground, MudBlazor's lines-inputs value, which
 lines-inputs itself left in 1.1.0 when it darkened to 3:1 for a field's edge
 (`InputLineContrastTests`). `FiliChipHoverColor` is
@@ -84,6 +91,8 @@ paints nothing in it alone.
 - `FiliDarkHoverColor`
 - `FiliDarkLightenBrush`
 - `FiliDarkLightenColor`
+- `FiliDarkNonTextBrush`
+- `FiliDarkNonTextColor`
 - `FiliDarkTextBrush`
 - `FiliDarkTextColor`
 - `FiliDividerBrush`
@@ -110,6 +119,8 @@ paints nothing in it alone.
 - `FiliErrorHoverColor`
 - `FiliErrorLightenBrush`
 - `FiliErrorLightenColor`
+- `FiliErrorNonTextBrush`
+- `FiliErrorNonTextColor`
 - `FiliErrorTextBrush`
 - `FiliErrorTextColor`
 - `FiliGrayDarkBrush`
@@ -134,6 +145,8 @@ paints nothing in it alone.
 - `FiliInfoHoverColor`
 - `FiliInfoLightenBrush`
 - `FiliInfoLightenColor`
+- `FiliInfoNonTextBrush`
+- `FiliInfoNonTextColor`
 - `FiliInfoTextBrush`
 - `FiliInfoTextColor`
 - `FiliInputFilledBrush`
@@ -162,6 +175,8 @@ paints nothing in it alone.
 - `FiliPrimaryHoverColor`
 - `FiliPrimaryLightenBrush`
 - `FiliPrimaryLightenColor`
+- `FiliPrimaryNonTextBrush`
+- `FiliPrimaryNonTextColor`
 - `FiliPrimaryTextBrush`
 - `FiliPrimaryTextColor`
 - `FiliScrollbarThumbBrush`
@@ -180,6 +195,8 @@ paints nothing in it alone.
 - `FiliSecondaryHoverColor`
 - `FiliSecondaryLightenBrush`
 - `FiliSecondaryLightenColor`
+- `FiliSecondaryNonTextBrush`
+- `FiliSecondaryNonTextColor`
 - `FiliSecondaryTextBrush`
 - `FiliSecondaryTextColor`
 - `FiliSkeletonBrush`
@@ -199,6 +216,8 @@ paints nothing in it alone.
 - `FiliSuccessHoverColor`
 - `FiliSuccessLightenBrush`
 - `FiliSuccessLightenColor`
+- `FiliSuccessNonTextBrush`
+- `FiliSuccessNonTextColor`
 - `FiliSuccessTextBrush`
 - `FiliSuccessTextColor`
 - `FiliSurfaceBrush`
@@ -223,6 +242,8 @@ paints nothing in it alone.
 - `FiliTertiaryHoverColor`
 - `FiliTertiaryLightenBrush`
 - `FiliTertiaryLightenColor`
+- `FiliTertiaryNonTextBrush`
+- `FiliTertiaryNonTextColor`
 - `FiliTertiaryTextBrush`
 - `FiliTertiaryTextColor`
 - `FiliTextDisabledBrush`
@@ -245,6 +266,8 @@ paints nothing in it alone.
 - `FiliWarningHoverColor`
 - `FiliWarningLightenBrush`
 - `FiliWarningLightenColor`
+- `FiliWarningNonTextBrush`
+- `FiliWarningNonTextColor`
 - `FiliWarningTextBrush`
 - `FiliWarningTextColor`
 - `FiliWhiteBrush`

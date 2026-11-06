@@ -178,12 +178,12 @@ public class ParityOptionsTests
     {
         var toggle = Matrix.Show(new ToggleSwitch { Classes = { "unchecked-error" } });
 
-        Assert.Equal(Matrix.Token("FiliErrorColor"), Matrix.Colour(Matrix.Part<Border>(toggle, "PART_Thumb").Background));
-        Assert.Equal(Matrix.Token("FiliErrorColor"), Matrix.Colour(Matrix.Part<Border>(toggle, "PART_Track").Background));
+        Assert.Equal(Matrix.Token("FiliErrorNonTextColor"), Matrix.Colour(Matrix.Part<Border>(toggle, "PART_Thumb").Background));
+        Assert.Equal(Matrix.Token("FiliErrorNonTextColor"), Matrix.Colour(Matrix.Part<Border>(toggle, "PART_Track").Background));
 
         toggle.IsChecked = true;
         Dispatcher.UIThread.RunJobs();
-        Assert.NotEqual(Matrix.Token("FiliErrorColor"), Matrix.Colour(Matrix.Part<Border>(toggle, "PART_Track").Background));
+        Assert.NotEqual(Matrix.Token("FiliErrorNonTextColor"), Matrix.Colour(Matrix.Part<Border>(toggle, "PART_Track").Background));
     });
 
     /// <summary>`.mud-checkbox-dense` / `.mud-radio-dense`: 4px round the glyph, so 28 / 32 / 44px.</summary>
@@ -359,7 +359,7 @@ public class ParityOptionsTests
     {
         var icon = Matrix.Show(new PathIcon { Classes = { colour.ToLowerInvariant() } });
 
-        Assert.Equal(Matrix.Token($"Fili{colour}Color"), Matrix.Colour(icon.Foreground));
+        Assert.Equal(Matrix.Token($"Fili{colour}NonTextColor"), Matrix.Colour(icon.Foreground));
     });
 
     /// <summary>An icon's own colour beats the one its alert gives it, as MudIcon's IconColor does.</summary>
@@ -369,7 +369,7 @@ public class ParityOptionsTests
         var icon = new PathIcon { Classes = { "error" } };
         Matrix.Show(new Border { Classes = { "alert", "info" }, Child = icon });
 
-        Assert.Equal(Matrix.Token("FiliErrorColor"), Matrix.Colour(icon.Foreground));
+        Assert.Equal(Matrix.Token("FiliErrorNonTextColor"), Matrix.Colour(icon.Foreground));
     });
 
     /// <summary>MudDrawer's Color: `.mud-theme-{color}`, the pane in the colour and its contrast text.</summary>

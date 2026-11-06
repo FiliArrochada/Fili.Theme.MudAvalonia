@@ -72,7 +72,10 @@
     /template/ boundary.
   -->
   <ControlTheme x:Key="FiliSliderThumb" TargetType="Thumb">
-    <Setter Property="Background" Value="{DynamicResource FiliPrimaryBrush}" />
+    <Setter Property="Background" Value="{DynamicResource FiliPrimaryNonTextBrush}" />
+    <!-- The value label's chip: the colour itself, a fill under its contrast text, where the knob
+         is the colour as a glyph (Background, NonText, 3:1 on the page). -->
+    <Setter Property="BorderBrush" Value="{DynamicResource FiliPrimaryBrush}" />
     <Setter Property="Width" Value="40" />
     <Setter Property="Height" Value="40" />
     <Setter Property="Padding" Value="14" />
@@ -97,9 +100,9 @@
             in that: centred on the knob, up to 160px wide. `translateY(-125%)` of the chip is
             -27.5px at its height, 12px text at line-height normal plus 4px above and below.
 
-            The Slider turns it on through the thumb's Tag and colours its text through the
-            thumb's Foreground, because a style may cross only one /template/ boundary and this
-            sits inside the thumb's. The value is formatted with at most two decimals: MudSlider
+            The Slider turns it on through the thumb's Tag and colours its chip and text through
+            the thumb's BorderBrush and Foreground, because a style may cross only one /template/
+            boundary and this sits inside the thumb's. The value is formatted with at most two decimals: MudSlider
             snaps to Step, 1 by default, while an Avalonia slider drags continuously.
           -->
           <Panel theme:Motion.Reducible="True" x:Name="PART_ValueLabel"
@@ -116,7 +119,7 @@
             <theme:PartBorder HorizontalAlignment="Center"
                     Padding="8,4"
                     CornerRadius="2"
-                    Background="{TemplateBinding Background}"
+                    Background="{TemplateBinding BorderBrush}"
                     RenderTransform="translateY(-27.5px)">
               <TextBlock Text="{Binding $parent[Slider].Value, StringFormat='{}{0:0.##}'}"
                          FontFamily="{DynamicResource FiliFontFamily}"
@@ -145,7 +148,7 @@
 
   <ControlTheme x:Key="FiliSlider" TargetType="Slider">
     <Setter Property="Background" Value="{DynamicResource FiliLinesInputsBrush}" />
-    <Setter Property="Foreground" Value="{DynamicResource FiliPrimaryBrush}" />
+    <Setter Property="Foreground" Value="{DynamicResource FiliPrimaryNonTextBrush}" />
     <Setter Property="FontFamily" Value="{DynamicResource FiliFontFamily}" />
     <Setter Property="MinHeight" Value="40" />
     <!-- The value label rises above the thumb, outside the slider's bounds. -->
@@ -352,53 +355,63 @@
     </Style>
 
     <!-- Colours: the thumb, the rail at 30%, the filled part and the ticks all follow
-         Foreground; the thumb's own Foreground is the value label's text. -->
+         Foreground, the colour as a line or glyph (NonText), 3:1 on the page; the value
+         label is a chip of the colour itself, the thumb's BorderBrush, with its contrast
+         text, the thumb's own Foreground. -->
     <Style Selector="^.primary">
-      <Setter Property="Foreground" Value="{DynamicResource FiliPrimaryBrush}" />
+      <Setter Property="Foreground" Value="{DynamicResource FiliPrimaryNonTextBrush}" />
     </Style>
     <Style Selector="^.primary /template/ Thumb#PART_Thumb">
+      <Setter Property="BorderBrush" Value="{DynamicResource FiliPrimaryBrush}" />
       <Setter Property="Foreground" Value="{DynamicResource FiliPrimaryContrastTextBrush}" />
     </Style>
     <Style Selector="^.secondary">
-      <Setter Property="Foreground" Value="{DynamicResource FiliSecondaryBrush}" />
+      <Setter Property="Foreground" Value="{DynamicResource FiliSecondaryNonTextBrush}" />
     </Style>
     <Style Selector="^.secondary /template/ Thumb#PART_Thumb">
+      <Setter Property="BorderBrush" Value="{DynamicResource FiliSecondaryBrush}" />
       <Setter Property="Foreground" Value="{DynamicResource FiliSecondaryContrastTextBrush}" />
     </Style>
     <Style Selector="^.tertiary">
-      <Setter Property="Foreground" Value="{DynamicResource FiliTertiaryBrush}" />
+      <Setter Property="Foreground" Value="{DynamicResource FiliTertiaryNonTextBrush}" />
     </Style>
     <Style Selector="^.tertiary /template/ Thumb#PART_Thumb">
+      <Setter Property="BorderBrush" Value="{DynamicResource FiliTertiaryBrush}" />
       <Setter Property="Foreground" Value="{DynamicResource FiliTertiaryContrastTextBrush}" />
     </Style>
     <Style Selector="^.info">
-      <Setter Property="Foreground" Value="{DynamicResource FiliInfoBrush}" />
+      <Setter Property="Foreground" Value="{DynamicResource FiliInfoNonTextBrush}" />
     </Style>
     <Style Selector="^.info /template/ Thumb#PART_Thumb">
+      <Setter Property="BorderBrush" Value="{DynamicResource FiliInfoBrush}" />
       <Setter Property="Foreground" Value="{DynamicResource FiliInfoContrastTextBrush}" />
     </Style>
     <Style Selector="^.success">
-      <Setter Property="Foreground" Value="{DynamicResource FiliSuccessBrush}" />
+      <Setter Property="Foreground" Value="{DynamicResource FiliSuccessNonTextBrush}" />
     </Style>
     <Style Selector="^.success /template/ Thumb#PART_Thumb">
+      <Setter Property="BorderBrush" Value="{DynamicResource FiliSuccessBrush}" />
       <Setter Property="Foreground" Value="{DynamicResource FiliSuccessContrastTextBrush}" />
     </Style>
     <Style Selector="^.warning">
-      <Setter Property="Foreground" Value="{DynamicResource FiliWarningBrush}" />
+      <Setter Property="Foreground" Value="{DynamicResource FiliWarningNonTextBrush}" />
     </Style>
     <Style Selector="^.warning /template/ Thumb#PART_Thumb">
+      <Setter Property="BorderBrush" Value="{DynamicResource FiliWarningBrush}" />
       <Setter Property="Foreground" Value="{DynamicResource FiliWarningContrastTextBrush}" />
     </Style>
     <Style Selector="^.error">
-      <Setter Property="Foreground" Value="{DynamicResource FiliErrorBrush}" />
+      <Setter Property="Foreground" Value="{DynamicResource FiliErrorNonTextBrush}" />
     </Style>
     <Style Selector="^.error /template/ Thumb#PART_Thumb">
+      <Setter Property="BorderBrush" Value="{DynamicResource FiliErrorBrush}" />
       <Setter Property="Foreground" Value="{DynamicResource FiliErrorContrastTextBrush}" />
     </Style>
     <Style Selector="^.dark">
-      <Setter Property="Foreground" Value="{DynamicResource FiliDarkBrush}" />
+      <Setter Property="Foreground" Value="{DynamicResource FiliDarkNonTextBrush}" />
     </Style>
     <Style Selector="^.dark /template/ Thumb#PART_Thumb">
+      <Setter Property="BorderBrush" Value="{DynamicResource FiliDarkBrush}" />
       <Setter Property="Foreground" Value="{DynamicResource FiliDarkContrastTextBrush}" />
     </Style>
 

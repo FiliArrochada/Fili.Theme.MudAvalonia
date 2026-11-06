@@ -211,7 +211,7 @@ public class ComponentClassTests
 
         Assert.Equal(Matrix.Token($"Fili{colour}HoverColor"), Matrix.Colour(alert.Background));
         Assert.Equal(Matrix.Token($"Fili{colour}AlertTextColor"), Matrix.Colour(text.Foreground));
-        Assert.Equal(Matrix.Token($"Fili{colour}Color"), Matrix.Colour(icon.Foreground));
+        Assert.Equal(Matrix.Token($"Fili{colour}NonTextColor"), Matrix.Colour(icon.Foreground));
 
         var filledText = new TextBlock { Text = "Message" };
         var filled = Matrix.Show(new Border { Classes = { "alert", "filled", cls }, Child = filledText });
@@ -354,7 +354,7 @@ public class ComponentClassTests
         Matrix.Show(alert);
 
         Assert.Equal(24, icon.Bounds.Width);
-        Assert.Equal(Matrix.Token("FiliErrorColor"), Matrix.Colour(icon.Foreground));
+        Assert.Equal(Matrix.Token("FiliErrorNonTextColor"), Matrix.Colour(icon.Foreground));
         Assert.Equal(20, close.Bounds.Width);
         Assert.Equal(0, close.Margin.Right);
     });

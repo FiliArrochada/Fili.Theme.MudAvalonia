@@ -865,56 +865,56 @@
     <Setter Property="TextElement.Foreground" Value="{DynamicResource FiliPrimaryAlertTextBrush}" />
   </Style>
   <Style Selector="Border.alert.primary > PathIcon, Border.alert.primary > :is(Panel) > PathIcon">
-    <Setter Property="Foreground" Value="{DynamicResource FiliPrimaryBrush}" />
+    <Setter Property="Foreground" Value="{DynamicResource FiliPrimaryNonTextBrush}" />
   </Style>
   <Style Selector="Border.alert.secondary">
     <Setter Property="Background" Value="{DynamicResource FiliSecondaryHoverBrush}" />
     <Setter Property="TextElement.Foreground" Value="{DynamicResource FiliSecondaryAlertTextBrush}" />
   </Style>
   <Style Selector="Border.alert.secondary > PathIcon, Border.alert.secondary > :is(Panel) > PathIcon">
-    <Setter Property="Foreground" Value="{DynamicResource FiliSecondaryBrush}" />
+    <Setter Property="Foreground" Value="{DynamicResource FiliSecondaryNonTextBrush}" />
   </Style>
   <Style Selector="Border.alert.tertiary">
     <Setter Property="Background" Value="{DynamicResource FiliTertiaryHoverBrush}" />
     <Setter Property="TextElement.Foreground" Value="{DynamicResource FiliTertiaryAlertTextBrush}" />
   </Style>
   <Style Selector="Border.alert.tertiary > PathIcon, Border.alert.tertiary > :is(Panel) > PathIcon">
-    <Setter Property="Foreground" Value="{DynamicResource FiliTertiaryBrush}" />
+    <Setter Property="Foreground" Value="{DynamicResource FiliTertiaryNonTextBrush}" />
   </Style>
   <Style Selector="Border.alert.info">
     <Setter Property="Background" Value="{DynamicResource FiliInfoHoverBrush}" />
     <Setter Property="TextElement.Foreground" Value="{DynamicResource FiliInfoAlertTextBrush}" />
   </Style>
   <Style Selector="Border.alert.info > PathIcon, Border.alert.info > :is(Panel) > PathIcon">
-    <Setter Property="Foreground" Value="{DynamicResource FiliInfoBrush}" />
+    <Setter Property="Foreground" Value="{DynamicResource FiliInfoNonTextBrush}" />
   </Style>
   <Style Selector="Border.alert.success">
     <Setter Property="Background" Value="{DynamicResource FiliSuccessHoverBrush}" />
     <Setter Property="TextElement.Foreground" Value="{DynamicResource FiliSuccessAlertTextBrush}" />
   </Style>
   <Style Selector="Border.alert.success > PathIcon, Border.alert.success > :is(Panel) > PathIcon">
-    <Setter Property="Foreground" Value="{DynamicResource FiliSuccessBrush}" />
+    <Setter Property="Foreground" Value="{DynamicResource FiliSuccessNonTextBrush}" />
   </Style>
   <Style Selector="Border.alert.warning">
     <Setter Property="Background" Value="{DynamicResource FiliWarningHoverBrush}" />
     <Setter Property="TextElement.Foreground" Value="{DynamicResource FiliWarningAlertTextBrush}" />
   </Style>
   <Style Selector="Border.alert.warning > PathIcon, Border.alert.warning > :is(Panel) > PathIcon">
-    <Setter Property="Foreground" Value="{DynamicResource FiliWarningBrush}" />
+    <Setter Property="Foreground" Value="{DynamicResource FiliWarningNonTextBrush}" />
   </Style>
   <Style Selector="Border.alert.error">
     <Setter Property="Background" Value="{DynamicResource FiliErrorHoverBrush}" />
     <Setter Property="TextElement.Foreground" Value="{DynamicResource FiliErrorAlertTextBrush}" />
   </Style>
   <Style Selector="Border.alert.error > PathIcon, Border.alert.error > :is(Panel) > PathIcon">
-    <Setter Property="Foreground" Value="{DynamicResource FiliErrorBrush}" />
+    <Setter Property="Foreground" Value="{DynamicResource FiliErrorNonTextBrush}" />
   </Style>
   <Style Selector="Border.alert.dark">
     <Setter Property="Background" Value="{DynamicResource FiliDarkHoverBrush}" />
     <Setter Property="TextElement.Foreground" Value="{DynamicResource FiliDarkAlertTextBrush}" />
   </Style>
   <Style Selector="Border.alert.dark > PathIcon, Border.alert.dark > :is(Panel) > PathIcon">
-    <Setter Property="Foreground" Value="{DynamicResource FiliDarkBrush}" />
+    <Setter Property="Foreground" Value="{DynamicResource FiliDarkNonTextBrush}" />
   </Style>
   <Style Selector="Border.alert.outlined.primary">
     <Setter Property="Background" Value="Transparent" />
@@ -1522,104 +1522,104 @@
     <Setter Property="theme:Accent.Bar" Value="True" />
     <Setter Property="theme:Accent.Ground" Value="{DynamicResource FiliPrimaryBrush}" />
     <Setter Property="theme:Accent.Colour" Value="{DynamicResource FiliPrimaryContrastTextBrush}" />
-    <Setter Property="theme:Accent.Hover" Value="{DynamicResource FiliPrimaryLightenBrush}" />
+    <Setter Property="theme:Accent.Hover" Value="{DynamicResource FiliPrimaryDarkenBrush}" />
   </Style>
   <Style Selector="TabStrip.primary">
     <Setter Property="theme:Accent.Bar" Value="True" />
     <Setter Property="theme:Accent.Ground" Value="{DynamicResource FiliPrimaryBrush}" />
     <Setter Property="theme:Accent.Colour" Value="{DynamicResource FiliPrimaryContrastTextBrush}" />
-    <Setter Property="theme:Accent.Hover" Value="{DynamicResource FiliPrimaryLightenBrush}" />
+    <Setter Property="theme:Accent.Hover" Value="{DynamicResource FiliPrimaryDarkenBrush}" />
     <Setter Property="Background" Value="{DynamicResource FiliPrimaryBrush}" />
   </Style>
   <Style Selector="TabControl.secondary">
     <Setter Property="theme:Accent.Bar" Value="True" />
     <Setter Property="theme:Accent.Ground" Value="{DynamicResource FiliSecondaryBrush}" />
     <Setter Property="theme:Accent.Colour" Value="{DynamicResource FiliSecondaryContrastTextBrush}" />
-    <Setter Property="theme:Accent.Hover" Value="{DynamicResource FiliSecondaryLightenBrush}" />
+    <Setter Property="theme:Accent.Hover" Value="{DynamicResource FiliSecondaryDarkenBrush}" />
   </Style>
   <Style Selector="TabStrip.secondary">
     <Setter Property="theme:Accent.Bar" Value="True" />
     <Setter Property="theme:Accent.Ground" Value="{DynamicResource FiliSecondaryBrush}" />
     <Setter Property="theme:Accent.Colour" Value="{DynamicResource FiliSecondaryContrastTextBrush}" />
-    <Setter Property="theme:Accent.Hover" Value="{DynamicResource FiliSecondaryLightenBrush}" />
+    <Setter Property="theme:Accent.Hover" Value="{DynamicResource FiliSecondaryDarkenBrush}" />
     <Setter Property="Background" Value="{DynamicResource FiliSecondaryBrush}" />
   </Style>
   <Style Selector="TabControl.tertiary">
     <Setter Property="theme:Accent.Bar" Value="True" />
     <Setter Property="theme:Accent.Ground" Value="{DynamicResource FiliTertiaryBrush}" />
     <Setter Property="theme:Accent.Colour" Value="{DynamicResource FiliTertiaryContrastTextBrush}" />
-    <Setter Property="theme:Accent.Hover" Value="{DynamicResource FiliTertiaryLightenBrush}" />
+    <Setter Property="theme:Accent.Hover" Value="{DynamicResource FiliTertiaryDarkenBrush}" />
   </Style>
   <Style Selector="TabStrip.tertiary">
     <Setter Property="theme:Accent.Bar" Value="True" />
     <Setter Property="theme:Accent.Ground" Value="{DynamicResource FiliTertiaryBrush}" />
     <Setter Property="theme:Accent.Colour" Value="{DynamicResource FiliTertiaryContrastTextBrush}" />
-    <Setter Property="theme:Accent.Hover" Value="{DynamicResource FiliTertiaryLightenBrush}" />
+    <Setter Property="theme:Accent.Hover" Value="{DynamicResource FiliTertiaryDarkenBrush}" />
     <Setter Property="Background" Value="{DynamicResource FiliTertiaryBrush}" />
   </Style>
   <Style Selector="TabControl.info">
     <Setter Property="theme:Accent.Bar" Value="True" />
     <Setter Property="theme:Accent.Ground" Value="{DynamicResource FiliInfoBrush}" />
     <Setter Property="theme:Accent.Colour" Value="{DynamicResource FiliInfoContrastTextBrush}" />
-    <Setter Property="theme:Accent.Hover" Value="{DynamicResource FiliInfoLightenBrush}" />
+    <Setter Property="theme:Accent.Hover" Value="{DynamicResource FiliInfoDarkenBrush}" />
   </Style>
   <Style Selector="TabStrip.info">
     <Setter Property="theme:Accent.Bar" Value="True" />
     <Setter Property="theme:Accent.Ground" Value="{DynamicResource FiliInfoBrush}" />
     <Setter Property="theme:Accent.Colour" Value="{DynamicResource FiliInfoContrastTextBrush}" />
-    <Setter Property="theme:Accent.Hover" Value="{DynamicResource FiliInfoLightenBrush}" />
+    <Setter Property="theme:Accent.Hover" Value="{DynamicResource FiliInfoDarkenBrush}" />
     <Setter Property="Background" Value="{DynamicResource FiliInfoBrush}" />
   </Style>
   <Style Selector="TabControl.success">
     <Setter Property="theme:Accent.Bar" Value="True" />
     <Setter Property="theme:Accent.Ground" Value="{DynamicResource FiliSuccessBrush}" />
     <Setter Property="theme:Accent.Colour" Value="{DynamicResource FiliSuccessContrastTextBrush}" />
-    <Setter Property="theme:Accent.Hover" Value="{DynamicResource FiliSuccessLightenBrush}" />
+    <Setter Property="theme:Accent.Hover" Value="{DynamicResource FiliSuccessDarkenBrush}" />
   </Style>
   <Style Selector="TabStrip.success">
     <Setter Property="theme:Accent.Bar" Value="True" />
     <Setter Property="theme:Accent.Ground" Value="{DynamicResource FiliSuccessBrush}" />
     <Setter Property="theme:Accent.Colour" Value="{DynamicResource FiliSuccessContrastTextBrush}" />
-    <Setter Property="theme:Accent.Hover" Value="{DynamicResource FiliSuccessLightenBrush}" />
+    <Setter Property="theme:Accent.Hover" Value="{DynamicResource FiliSuccessDarkenBrush}" />
     <Setter Property="Background" Value="{DynamicResource FiliSuccessBrush}" />
   </Style>
   <Style Selector="TabControl.warning">
     <Setter Property="theme:Accent.Bar" Value="True" />
     <Setter Property="theme:Accent.Ground" Value="{DynamicResource FiliWarningBrush}" />
     <Setter Property="theme:Accent.Colour" Value="{DynamicResource FiliWarningContrastTextBrush}" />
-    <Setter Property="theme:Accent.Hover" Value="{DynamicResource FiliWarningLightenBrush}" />
+    <Setter Property="theme:Accent.Hover" Value="{DynamicResource FiliWarningDarkenBrush}" />
   </Style>
   <Style Selector="TabStrip.warning">
     <Setter Property="theme:Accent.Bar" Value="True" />
     <Setter Property="theme:Accent.Ground" Value="{DynamicResource FiliWarningBrush}" />
     <Setter Property="theme:Accent.Colour" Value="{DynamicResource FiliWarningContrastTextBrush}" />
-    <Setter Property="theme:Accent.Hover" Value="{DynamicResource FiliWarningLightenBrush}" />
+    <Setter Property="theme:Accent.Hover" Value="{DynamicResource FiliWarningDarkenBrush}" />
     <Setter Property="Background" Value="{DynamicResource FiliWarningBrush}" />
   </Style>
   <Style Selector="TabControl.error">
     <Setter Property="theme:Accent.Bar" Value="True" />
     <Setter Property="theme:Accent.Ground" Value="{DynamicResource FiliErrorBrush}" />
     <Setter Property="theme:Accent.Colour" Value="{DynamicResource FiliErrorContrastTextBrush}" />
-    <Setter Property="theme:Accent.Hover" Value="{DynamicResource FiliErrorLightenBrush}" />
+    <Setter Property="theme:Accent.Hover" Value="{DynamicResource FiliErrorDarkenBrush}" />
   </Style>
   <Style Selector="TabStrip.error">
     <Setter Property="theme:Accent.Bar" Value="True" />
     <Setter Property="theme:Accent.Ground" Value="{DynamicResource FiliErrorBrush}" />
     <Setter Property="theme:Accent.Colour" Value="{DynamicResource FiliErrorContrastTextBrush}" />
-    <Setter Property="theme:Accent.Hover" Value="{DynamicResource FiliErrorLightenBrush}" />
+    <Setter Property="theme:Accent.Hover" Value="{DynamicResource FiliErrorDarkenBrush}" />
     <Setter Property="Background" Value="{DynamicResource FiliErrorBrush}" />
   </Style>
   <Style Selector="TabControl.dark">
     <Setter Property="theme:Accent.Bar" Value="True" />
     <Setter Property="theme:Accent.Ground" Value="{DynamicResource FiliDarkBrush}" />
     <Setter Property="theme:Accent.Colour" Value="{DynamicResource FiliDarkContrastTextBrush}" />
-    <Setter Property="theme:Accent.Hover" Value="{DynamicResource FiliDarkLightenBrush}" />
+    <Setter Property="theme:Accent.Hover" Value="{DynamicResource FiliDarkDarkenBrush}" />
   </Style>
   <Style Selector="TabStrip.dark">
     <Setter Property="theme:Accent.Bar" Value="True" />
     <Setter Property="theme:Accent.Ground" Value="{DynamicResource FiliDarkBrush}" />
     <Setter Property="theme:Accent.Colour" Value="{DynamicResource FiliDarkContrastTextBrush}" />
-    <Setter Property="theme:Accent.Hover" Value="{DynamicResource FiliDarkLightenBrush}" />
+    <Setter Property="theme:Accent.Hover" Value="{DynamicResource FiliDarkDarkenBrush}" />
     <Setter Property="Background" Value="{DynamicResource FiliDarkBrush}" />
   </Style>
   <Style Selector="TabControl[(theme|Accent.Bar)=True] /template/ theme|PartBorder#PART_TabBar">
@@ -1674,52 +1674,52 @@
     <Setter Property="Foreground" Value="{Binding (theme:Accent.Colour), RelativeSource={RelativeSource TemplatedParent}}" />
   </Style>
   <Style Selector="TabControl.indicator-primary > TabItem /template/ theme|PartBorder#PART_Indicator">
-    <Setter Property="Background" Value="{DynamicResource FiliPrimaryBrush}" />
+    <Setter Property="Background" Value="{DynamicResource FiliPrimaryNonTextBrush}" />
   </Style>
   <Style Selector="TabStrip.indicator-primary > TabStripItem:selected /template/ theme|PartBorder#PART_Indicator">
-    <Setter Property="Background" Value="{DynamicResource FiliPrimaryBrush}" />
+    <Setter Property="Background" Value="{DynamicResource FiliPrimaryNonTextBrush}" />
   </Style>
   <Style Selector="TabControl.indicator-secondary > TabItem /template/ theme|PartBorder#PART_Indicator">
-    <Setter Property="Background" Value="{DynamicResource FiliSecondaryBrush}" />
+    <Setter Property="Background" Value="{DynamicResource FiliSecondaryNonTextBrush}" />
   </Style>
   <Style Selector="TabStrip.indicator-secondary > TabStripItem:selected /template/ theme|PartBorder#PART_Indicator">
-    <Setter Property="Background" Value="{DynamicResource FiliSecondaryBrush}" />
+    <Setter Property="Background" Value="{DynamicResource FiliSecondaryNonTextBrush}" />
   </Style>
   <Style Selector="TabControl.indicator-tertiary > TabItem /template/ theme|PartBorder#PART_Indicator">
-    <Setter Property="Background" Value="{DynamicResource FiliTertiaryBrush}" />
+    <Setter Property="Background" Value="{DynamicResource FiliTertiaryNonTextBrush}" />
   </Style>
   <Style Selector="TabStrip.indicator-tertiary > TabStripItem:selected /template/ theme|PartBorder#PART_Indicator">
-    <Setter Property="Background" Value="{DynamicResource FiliTertiaryBrush}" />
+    <Setter Property="Background" Value="{DynamicResource FiliTertiaryNonTextBrush}" />
   </Style>
   <Style Selector="TabControl.indicator-info > TabItem /template/ theme|PartBorder#PART_Indicator">
-    <Setter Property="Background" Value="{DynamicResource FiliInfoBrush}" />
+    <Setter Property="Background" Value="{DynamicResource FiliInfoNonTextBrush}" />
   </Style>
   <Style Selector="TabStrip.indicator-info > TabStripItem:selected /template/ theme|PartBorder#PART_Indicator">
-    <Setter Property="Background" Value="{DynamicResource FiliInfoBrush}" />
+    <Setter Property="Background" Value="{DynamicResource FiliInfoNonTextBrush}" />
   </Style>
   <Style Selector="TabControl.indicator-success > TabItem /template/ theme|PartBorder#PART_Indicator">
-    <Setter Property="Background" Value="{DynamicResource FiliSuccessBrush}" />
+    <Setter Property="Background" Value="{DynamicResource FiliSuccessNonTextBrush}" />
   </Style>
   <Style Selector="TabStrip.indicator-success > TabStripItem:selected /template/ theme|PartBorder#PART_Indicator">
-    <Setter Property="Background" Value="{DynamicResource FiliSuccessBrush}" />
+    <Setter Property="Background" Value="{DynamicResource FiliSuccessNonTextBrush}" />
   </Style>
   <Style Selector="TabControl.indicator-warning > TabItem /template/ theme|PartBorder#PART_Indicator">
-    <Setter Property="Background" Value="{DynamicResource FiliWarningBrush}" />
+    <Setter Property="Background" Value="{DynamicResource FiliWarningNonTextBrush}" />
   </Style>
   <Style Selector="TabStrip.indicator-warning > TabStripItem:selected /template/ theme|PartBorder#PART_Indicator">
-    <Setter Property="Background" Value="{DynamicResource FiliWarningBrush}" />
+    <Setter Property="Background" Value="{DynamicResource FiliWarningNonTextBrush}" />
   </Style>
   <Style Selector="TabControl.indicator-error > TabItem /template/ theme|PartBorder#PART_Indicator">
-    <Setter Property="Background" Value="{DynamicResource FiliErrorBrush}" />
+    <Setter Property="Background" Value="{DynamicResource FiliErrorNonTextBrush}" />
   </Style>
   <Style Selector="TabStrip.indicator-error > TabStripItem:selected /template/ theme|PartBorder#PART_Indicator">
-    <Setter Property="Background" Value="{DynamicResource FiliErrorBrush}" />
+    <Setter Property="Background" Value="{DynamicResource FiliErrorNonTextBrush}" />
   </Style>
   <Style Selector="TabControl.indicator-dark > TabItem /template/ theme|PartBorder#PART_Indicator">
-    <Setter Property="Background" Value="{DynamicResource FiliDarkBrush}" />
+    <Setter Property="Background" Value="{DynamicResource FiliDarkNonTextBrush}" />
   </Style>
   <Style Selector="TabStrip.indicator-dark > TabStripItem:selected /template/ theme|PartBorder#PART_Indicator">
-    <Setter Property="Background" Value="{DynamicResource FiliDarkBrush}" />
+    <Setter Property="Background" Value="{DynamicResource FiliDarkNonTextBrush}" />
   </Style>
   <!-- END GENERATED -->
 
@@ -2331,13 +2331,13 @@
   </Style>
   <!-- GENERATED by ThemeColourGenerator: nav menu colours. -->
   <Style Selector="TreeView.nav.secondary TreeViewItem:selected /template/ theme|PartBorder#SelectionBorder">
-    <Setter Property="BorderBrush" Value="{DynamicResource FiliSecondaryBrush}" />
+    <Setter Property="BorderBrush" Value="{DynamicResource FiliSecondaryNonTextBrush}" />
   </Style>
   <Style Selector="TreeView.nav.secondary TreeViewItem:selected">
-    <Setter Property="theme:IconSlot.Brush" Value="{DynamicResource FiliSecondaryBrush}" />
+    <Setter Property="theme:IconSlot.Brush" Value="{DynamicResource FiliSecondaryNonTextBrush}" />
   </Style>
   <Style Selector="TreeView.nav.secondary TreeViewItem[IsExpanded=True] /template/ Path#PART_ExpandIcon">
-    <Setter Property="Fill" Value="{DynamicResource FiliSecondaryBrush}" />
+    <Setter Property="Fill" Value="{DynamicResource FiliSecondaryNonTextBrush}" />
   </Style>
   <Style Selector="TreeView.nav.secondary TreeViewItem:selected /template/ theme|PartBorder#PART_Tint:pointerover">
     <Setter Property="Background" Value="{DynamicResource FiliSecondaryBrush}" />
@@ -2348,13 +2348,13 @@
     <Setter Property="Opacity" Value="0.064" />
   </Style>
   <Style Selector="TreeView.nav.tertiary TreeViewItem:selected /template/ theme|PartBorder#SelectionBorder">
-    <Setter Property="BorderBrush" Value="{DynamicResource FiliTertiaryBrush}" />
+    <Setter Property="BorderBrush" Value="{DynamicResource FiliTertiaryNonTextBrush}" />
   </Style>
   <Style Selector="TreeView.nav.tertiary TreeViewItem:selected">
-    <Setter Property="theme:IconSlot.Brush" Value="{DynamicResource FiliTertiaryBrush}" />
+    <Setter Property="theme:IconSlot.Brush" Value="{DynamicResource FiliTertiaryNonTextBrush}" />
   </Style>
   <Style Selector="TreeView.nav.tertiary TreeViewItem[IsExpanded=True] /template/ Path#PART_ExpandIcon">
-    <Setter Property="Fill" Value="{DynamicResource FiliTertiaryBrush}" />
+    <Setter Property="Fill" Value="{DynamicResource FiliTertiaryNonTextBrush}" />
   </Style>
   <Style Selector="TreeView.nav.tertiary TreeViewItem:selected /template/ theme|PartBorder#PART_Tint:pointerover">
     <Setter Property="Background" Value="{DynamicResource FiliTertiaryBrush}" />
@@ -2365,13 +2365,13 @@
     <Setter Property="Opacity" Value="0.064" />
   </Style>
   <Style Selector="TreeView.nav.info TreeViewItem:selected /template/ theme|PartBorder#SelectionBorder">
-    <Setter Property="BorderBrush" Value="{DynamicResource FiliInfoBrush}" />
+    <Setter Property="BorderBrush" Value="{DynamicResource FiliInfoNonTextBrush}" />
   </Style>
   <Style Selector="TreeView.nav.info TreeViewItem:selected">
-    <Setter Property="theme:IconSlot.Brush" Value="{DynamicResource FiliInfoBrush}" />
+    <Setter Property="theme:IconSlot.Brush" Value="{DynamicResource FiliInfoNonTextBrush}" />
   </Style>
   <Style Selector="TreeView.nav.info TreeViewItem[IsExpanded=True] /template/ Path#PART_ExpandIcon">
-    <Setter Property="Fill" Value="{DynamicResource FiliInfoBrush}" />
+    <Setter Property="Fill" Value="{DynamicResource FiliInfoNonTextBrush}" />
   </Style>
   <Style Selector="TreeView.nav.info TreeViewItem:selected /template/ theme|PartBorder#PART_Tint:pointerover">
     <Setter Property="Background" Value="{DynamicResource FiliInfoBrush}" />
@@ -2382,13 +2382,13 @@
     <Setter Property="Opacity" Value="0.064" />
   </Style>
   <Style Selector="TreeView.nav.success TreeViewItem:selected /template/ theme|PartBorder#SelectionBorder">
-    <Setter Property="BorderBrush" Value="{DynamicResource FiliSuccessBrush}" />
+    <Setter Property="BorderBrush" Value="{DynamicResource FiliSuccessNonTextBrush}" />
   </Style>
   <Style Selector="TreeView.nav.success TreeViewItem:selected">
-    <Setter Property="theme:IconSlot.Brush" Value="{DynamicResource FiliSuccessBrush}" />
+    <Setter Property="theme:IconSlot.Brush" Value="{DynamicResource FiliSuccessNonTextBrush}" />
   </Style>
   <Style Selector="TreeView.nav.success TreeViewItem[IsExpanded=True] /template/ Path#PART_ExpandIcon">
-    <Setter Property="Fill" Value="{DynamicResource FiliSuccessBrush}" />
+    <Setter Property="Fill" Value="{DynamicResource FiliSuccessNonTextBrush}" />
   </Style>
   <Style Selector="TreeView.nav.success TreeViewItem:selected /template/ theme|PartBorder#PART_Tint:pointerover">
     <Setter Property="Background" Value="{DynamicResource FiliSuccessBrush}" />
@@ -2399,13 +2399,13 @@
     <Setter Property="Opacity" Value="0.064" />
   </Style>
   <Style Selector="TreeView.nav.warning TreeViewItem:selected /template/ theme|PartBorder#SelectionBorder">
-    <Setter Property="BorderBrush" Value="{DynamicResource FiliWarningBrush}" />
+    <Setter Property="BorderBrush" Value="{DynamicResource FiliWarningNonTextBrush}" />
   </Style>
   <Style Selector="TreeView.nav.warning TreeViewItem:selected">
-    <Setter Property="theme:IconSlot.Brush" Value="{DynamicResource FiliWarningBrush}" />
+    <Setter Property="theme:IconSlot.Brush" Value="{DynamicResource FiliWarningNonTextBrush}" />
   </Style>
   <Style Selector="TreeView.nav.warning TreeViewItem[IsExpanded=True] /template/ Path#PART_ExpandIcon">
-    <Setter Property="Fill" Value="{DynamicResource FiliWarningBrush}" />
+    <Setter Property="Fill" Value="{DynamicResource FiliWarningNonTextBrush}" />
   </Style>
   <Style Selector="TreeView.nav.warning TreeViewItem:selected /template/ theme|PartBorder#PART_Tint:pointerover">
     <Setter Property="Background" Value="{DynamicResource FiliWarningBrush}" />
@@ -2416,13 +2416,13 @@
     <Setter Property="Opacity" Value="0.064" />
   </Style>
   <Style Selector="TreeView.nav.error TreeViewItem:selected /template/ theme|PartBorder#SelectionBorder">
-    <Setter Property="BorderBrush" Value="{DynamicResource FiliErrorBrush}" />
+    <Setter Property="BorderBrush" Value="{DynamicResource FiliErrorNonTextBrush}" />
   </Style>
   <Style Selector="TreeView.nav.error TreeViewItem:selected">
-    <Setter Property="theme:IconSlot.Brush" Value="{DynamicResource FiliErrorBrush}" />
+    <Setter Property="theme:IconSlot.Brush" Value="{DynamicResource FiliErrorNonTextBrush}" />
   </Style>
   <Style Selector="TreeView.nav.error TreeViewItem[IsExpanded=True] /template/ Path#PART_ExpandIcon">
-    <Setter Property="Fill" Value="{DynamicResource FiliErrorBrush}" />
+    <Setter Property="Fill" Value="{DynamicResource FiliErrorNonTextBrush}" />
   </Style>
   <Style Selector="TreeView.nav.error TreeViewItem:selected /template/ theme|PartBorder#PART_Tint:pointerover">
     <Setter Property="Background" Value="{DynamicResource FiliErrorBrush}" />
@@ -2433,13 +2433,13 @@
     <Setter Property="Opacity" Value="0.064" />
   </Style>
   <Style Selector="TreeView.nav.dark TreeViewItem:selected /template/ theme|PartBorder#SelectionBorder">
-    <Setter Property="BorderBrush" Value="{DynamicResource FiliDarkBrush}" />
+    <Setter Property="BorderBrush" Value="{DynamicResource FiliDarkNonTextBrush}" />
   </Style>
   <Style Selector="TreeView.nav.dark TreeViewItem:selected">
-    <Setter Property="theme:IconSlot.Brush" Value="{DynamicResource FiliDarkBrush}" />
+    <Setter Property="theme:IconSlot.Brush" Value="{DynamicResource FiliDarkNonTextBrush}" />
   </Style>
   <Style Selector="TreeView.nav.dark TreeViewItem[IsExpanded=True] /template/ Path#PART_ExpandIcon">
-    <Setter Property="Fill" Value="{DynamicResource FiliDarkBrush}" />
+    <Setter Property="Fill" Value="{DynamicResource FiliDarkNonTextBrush}" />
   </Style>
   <Style Selector="TreeView.nav.dark TreeViewItem:selected /template/ theme|PartBorder#PART_Tint:pointerover">
     <Setter Property="Background" Value="{DynamicResource FiliDarkBrush}" />
@@ -2652,35 +2652,35 @@
     <Setter Property="theme:Accent.Hover" Value="{DynamicResource FiliActionDefaultHoverBrush}" />
   </Style>
   <Style Selector="ListBox.multi-selection.primary, TreeView.multi-selection.primary">
-    <Setter Property="theme:Accent.Colour" Value="{DynamicResource FiliPrimaryBrush}" />
+    <Setter Property="theme:Accent.Colour" Value="{DynamicResource FiliPrimaryNonTextBrush}" />
     <Setter Property="theme:Accent.Hover" Value="{DynamicResource FiliPrimaryHoverBrush}" />
   </Style>
   <Style Selector="ListBox.multi-selection.secondary, TreeView.multi-selection.secondary">
-    <Setter Property="theme:Accent.Colour" Value="{DynamicResource FiliSecondaryBrush}" />
+    <Setter Property="theme:Accent.Colour" Value="{DynamicResource FiliSecondaryNonTextBrush}" />
     <Setter Property="theme:Accent.Hover" Value="{DynamicResource FiliSecondaryHoverBrush}" />
   </Style>
   <Style Selector="ListBox.multi-selection.tertiary, TreeView.multi-selection.tertiary">
-    <Setter Property="theme:Accent.Colour" Value="{DynamicResource FiliTertiaryBrush}" />
+    <Setter Property="theme:Accent.Colour" Value="{DynamicResource FiliTertiaryNonTextBrush}" />
     <Setter Property="theme:Accent.Hover" Value="{DynamicResource FiliTertiaryHoverBrush}" />
   </Style>
   <Style Selector="ListBox.multi-selection.info, TreeView.multi-selection.info">
-    <Setter Property="theme:Accent.Colour" Value="{DynamicResource FiliInfoBrush}" />
+    <Setter Property="theme:Accent.Colour" Value="{DynamicResource FiliInfoNonTextBrush}" />
     <Setter Property="theme:Accent.Hover" Value="{DynamicResource FiliInfoHoverBrush}" />
   </Style>
   <Style Selector="ListBox.multi-selection.success, TreeView.multi-selection.success">
-    <Setter Property="theme:Accent.Colour" Value="{DynamicResource FiliSuccessBrush}" />
+    <Setter Property="theme:Accent.Colour" Value="{DynamicResource FiliSuccessNonTextBrush}" />
     <Setter Property="theme:Accent.Hover" Value="{DynamicResource FiliSuccessHoverBrush}" />
   </Style>
   <Style Selector="ListBox.multi-selection.warning, TreeView.multi-selection.warning">
-    <Setter Property="theme:Accent.Colour" Value="{DynamicResource FiliWarningBrush}" />
+    <Setter Property="theme:Accent.Colour" Value="{DynamicResource FiliWarningNonTextBrush}" />
     <Setter Property="theme:Accent.Hover" Value="{DynamicResource FiliWarningHoverBrush}" />
   </Style>
   <Style Selector="ListBox.multi-selection.error, TreeView.multi-selection.error">
-    <Setter Property="theme:Accent.Colour" Value="{DynamicResource FiliErrorBrush}" />
+    <Setter Property="theme:Accent.Colour" Value="{DynamicResource FiliErrorNonTextBrush}" />
     <Setter Property="theme:Accent.Hover" Value="{DynamicResource FiliErrorHoverBrush}" />
   </Style>
   <Style Selector="ListBox.multi-selection.dark, TreeView.multi-selection.dark">
-    <Setter Property="theme:Accent.Colour" Value="{DynamicResource FiliDarkBrush}" />
+    <Setter Property="theme:Accent.Colour" Value="{DynamicResource FiliDarkNonTextBrush}" />
     <Setter Property="theme:Accent.Hover" Value="{DynamicResource FiliDarkHoverBrush}" />
   </Style>
   <Style Selector="ListBox.multi-selection ListBoxItem /template/ Panel#PART_CheckBox > Path">
@@ -2730,28 +2730,28 @@
     <Setter Property="Height" Value="36" />
   </Style>
   <Style Selector="PathIcon.primary">
-    <Setter Property="Foreground" Value="{DynamicResource FiliPrimaryBrush}" />
+    <Setter Property="Foreground" Value="{DynamicResource FiliPrimaryNonTextBrush}" />
   </Style>
   <Style Selector="PathIcon.secondary">
-    <Setter Property="Foreground" Value="{DynamicResource FiliSecondaryBrush}" />
+    <Setter Property="Foreground" Value="{DynamicResource FiliSecondaryNonTextBrush}" />
   </Style>
   <Style Selector="PathIcon.tertiary">
-    <Setter Property="Foreground" Value="{DynamicResource FiliTertiaryBrush}" />
+    <Setter Property="Foreground" Value="{DynamicResource FiliTertiaryNonTextBrush}" />
   </Style>
   <Style Selector="PathIcon.info">
-    <Setter Property="Foreground" Value="{DynamicResource FiliInfoBrush}" />
+    <Setter Property="Foreground" Value="{DynamicResource FiliInfoNonTextBrush}" />
   </Style>
   <Style Selector="PathIcon.success">
-    <Setter Property="Foreground" Value="{DynamicResource FiliSuccessBrush}" />
+    <Setter Property="Foreground" Value="{DynamicResource FiliSuccessNonTextBrush}" />
   </Style>
   <Style Selector="PathIcon.warning">
-    <Setter Property="Foreground" Value="{DynamicResource FiliWarningBrush}" />
+    <Setter Property="Foreground" Value="{DynamicResource FiliWarningNonTextBrush}" />
   </Style>
   <Style Selector="PathIcon.error">
-    <Setter Property="Foreground" Value="{DynamicResource FiliErrorBrush}" />
+    <Setter Property="Foreground" Value="{DynamicResource FiliErrorNonTextBrush}" />
   </Style>
   <Style Selector="PathIcon.dark">
-    <Setter Property="Foreground" Value="{DynamicResource FiliDarkBrush}" />
+    <Setter Property="Foreground" Value="{DynamicResource FiliDarkNonTextBrush}" />
   </Style>
   <!-- END GENERATED -->
 

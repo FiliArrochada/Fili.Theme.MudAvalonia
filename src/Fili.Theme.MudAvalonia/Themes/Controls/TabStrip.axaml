@@ -104,7 +104,7 @@
       <Setter Property="Foreground" Value="{DynamicResource FiliPrimaryTextBrush}" />
     </Style>
     <Style Selector="^:selected /template/ theme|PartBorder#PART_Indicator">
-      <Setter Property="Background" Value="{DynamicResource FiliPrimaryBrush}" />
+      <Setter Property="Background" Value="{DynamicResource FiliPrimaryNonTextBrush}" />
     </Style>
 
     <Style Selector="^:disabled">

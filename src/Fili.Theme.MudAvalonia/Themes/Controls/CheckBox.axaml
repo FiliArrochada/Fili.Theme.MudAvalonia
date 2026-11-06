@@ -153,46 +153,46 @@
     </Style>
 
     <!-- Colours: every glyph, checked or not, the halo, and the ripple (`.mud-{color}-text`'s
-         ripple colour). -->
+         ripple colour); the glyph and ripple in the colour as a glyph, 3:1 on the page. -->
     <Style Selector="^.primary">
-      <Setter Property="theme:Accent.Colour" Value="{DynamicResource FiliPrimaryBrush}" />
+      <Setter Property="theme:Accent.Colour" Value="{DynamicResource FiliPrimaryNonTextBrush}" />
       <Setter Property="theme:Accent.Hover" Value="{DynamicResource FiliPrimaryHoverBrush}" />
-      <Setter Property="theme:Accent.Ripple" Value="{DynamicResource FiliPrimaryBrush}" />
+      <Setter Property="theme:Accent.Ripple" Value="{DynamicResource FiliPrimaryNonTextBrush}" />
     </Style>
     <Style Selector="^.secondary">
-      <Setter Property="theme:Accent.Colour" Value="{DynamicResource FiliSecondaryBrush}" />
+      <Setter Property="theme:Accent.Colour" Value="{DynamicResource FiliSecondaryNonTextBrush}" />
       <Setter Property="theme:Accent.Hover" Value="{DynamicResource FiliSecondaryHoverBrush}" />
-      <Setter Property="theme:Accent.Ripple" Value="{DynamicResource FiliSecondaryBrush}" />
+      <Setter Property="theme:Accent.Ripple" Value="{DynamicResource FiliSecondaryNonTextBrush}" />
     </Style>
     <Style Selector="^.tertiary">
-      <Setter Property="theme:Accent.Colour" Value="{DynamicResource FiliTertiaryBrush}" />
+      <Setter Property="theme:Accent.Colour" Value="{DynamicResource FiliTertiaryNonTextBrush}" />
       <Setter Property="theme:Accent.Hover" Value="{DynamicResource FiliTertiaryHoverBrush}" />
-      <Setter Property="theme:Accent.Ripple" Value="{DynamicResource FiliTertiaryBrush}" />
+      <Setter Property="theme:Accent.Ripple" Value="{DynamicResource FiliTertiaryNonTextBrush}" />
     </Style>
     <Style Selector="^.info">
-      <Setter Property="theme:Accent.Colour" Value="{DynamicResource FiliInfoBrush}" />
+      <Setter Property="theme:Accent.Colour" Value="{DynamicResource FiliInfoNonTextBrush}" />
       <Setter Property="theme:Accent.Hover" Value="{DynamicResource FiliInfoHoverBrush}" />
-      <Setter Property="theme:Accent.Ripple" Value="{DynamicResource FiliInfoBrush}" />
+      <Setter Property="theme:Accent.Ripple" Value="{DynamicResource FiliInfoNonTextBrush}" />
     </Style>
     <Style Selector="^.success">
-      <Setter Property="theme:Accent.Colour" Value="{DynamicResource FiliSuccessBrush}" />
+      <Setter Property="theme:Accent.Colour" Value="{DynamicResource FiliSuccessNonTextBrush}" />
       <Setter Property="theme:Accent.Hover" Value="{DynamicResource FiliSuccessHoverBrush}" />
-      <Setter Property="theme:Accent.Ripple" Value="{DynamicResource FiliSuccessBrush}" />
+      <Setter Property="theme:Accent.Ripple" Value="{DynamicResource FiliSuccessNonTextBrush}" />
     </Style>
     <Style Selector="^.warning">
-      <Setter Property="theme:Accent.Colour" Value="{DynamicResource FiliWarningBrush}" />
+      <Setter Property="theme:Accent.Colour" Value="{DynamicResource FiliWarningNonTextBrush}" />
       <Setter Property="theme:Accent.Hover" Value="{DynamicResource FiliWarningHoverBrush}" />
-      <Setter Property="theme:Accent.Ripple" Value="{DynamicResource FiliWarningBrush}" />
+      <Setter Property="theme:Accent.Ripple" Value="{DynamicResource FiliWarningNonTextBrush}" />
     </Style>
     <Style Selector="^.error">
-      <Setter Property="theme:Accent.Colour" Value="{DynamicResource FiliErrorBrush}" />
+      <Setter Property="theme:Accent.Colour" Value="{DynamicResource FiliErrorNonTextBrush}" />
       <Setter Property="theme:Accent.Hover" Value="{DynamicResource FiliErrorHoverBrush}" />
-      <Setter Property="theme:Accent.Ripple" Value="{DynamicResource FiliErrorBrush}" />
+      <Setter Property="theme:Accent.Ripple" Value="{DynamicResource FiliErrorNonTextBrush}" />
     </Style>
     <Style Selector="^.dark">
-      <Setter Property="theme:Accent.Colour" Value="{DynamicResource FiliDarkBrush}" />
+      <Setter Property="theme:Accent.Colour" Value="{DynamicResource FiliDarkNonTextBrush}" />
       <Setter Property="theme:Accent.Hover" Value="{DynamicResource FiliDarkHoverBrush}" />
-      <Setter Property="theme:Accent.Ripple" Value="{DynamicResource FiliDarkBrush}" />
+      <Setter Property="theme:Accent.Ripple" Value="{DynamicResource FiliDarkNonTextBrush}" />
     </Style>
 
     <!-- `inherit`: Color.Inherit, the colour round the control, and the action-default halo
@@ -205,44 +205,44 @@
     <!-- UncheckedColor: `unchecked-{colour}`, the colour of the glyph, its halo and its ripple
          while NOT checked (MudCheckBox: false or null), in place of the colour class. -->
     <Style Selector="^.unchecked-primary">
-      <Setter Property="theme:Accent.UncheckedColour" Value="{DynamicResource FiliPrimaryBrush}" />
+      <Setter Property="theme:Accent.UncheckedColour" Value="{DynamicResource FiliPrimaryNonTextBrush}" />
       <Setter Property="theme:Accent.UncheckedHover" Value="{DynamicResource FiliPrimaryHoverBrush}" />
-      <Setter Property="theme:Accent.UncheckedRipple" Value="{DynamicResource FiliPrimaryBrush}" />
+      <Setter Property="theme:Accent.UncheckedRipple" Value="{DynamicResource FiliPrimaryNonTextBrush}" />
     </Style>
     <Style Selector="^.unchecked-secondary">
-      <Setter Property="theme:Accent.UncheckedColour" Value="{DynamicResource FiliSecondaryBrush}" />
+      <Setter Property="theme:Accent.UncheckedColour" Value="{DynamicResource FiliSecondaryNonTextBrush}" />
       <Setter Property="theme:Accent.UncheckedHover" Value="{DynamicResource FiliSecondaryHoverBrush}" />
-      <Setter Property="theme:Accent.UncheckedRipple" Value="{DynamicResource FiliSecondaryBrush}" />
+      <Setter Property="theme:Accent.UncheckedRipple" Value="{DynamicResource FiliSecondaryNonTextBrush}" />
     </Style>
     <Style Selector="^.unchecked-tertiary">
-      <Setter Property="theme:Accent.UncheckedColour" Value="{DynamicResource FiliTertiaryBrush}" />
+      <Setter Property="theme:Accent.UncheckedColour" Value="{DynamicResource FiliTertiaryNonTextBrush}" />
       <Setter Property="theme:Accent.UncheckedHover" Value="{DynamicResource FiliTertiaryHoverBrush}" />
-      <Setter Property="theme:Accent.UncheckedRipple" Value="{DynamicResource FiliTertiaryBrush}" />
+      <Setter Property="theme:Accent.UncheckedRipple" Value="{DynamicResource FiliTertiaryNonTextBrush}" />
     </Style>
     <Style Selector="^.unchecked-info">
-      <Setter Property="theme:Accent.UncheckedColour" Value="{DynamicResource FiliInfoBrush}" />
+      <Setter Property="theme:Accent.UncheckedColour" Value="{DynamicResource FiliInfoNonTextBrush}" />
       <Setter Property="theme:Accent.UncheckedHover" Value="{DynamicResource FiliInfoHoverBrush}" />
-      <Setter Property="theme:Accent.UncheckedRipple" Value="{DynamicResource FiliInfoBrush}" />
+      <Setter Property="theme:Accent.UncheckedRipple" Value="{DynamicResource FiliInfoNonTextBrush}" />
     </Style>
     <Style Selector="^.unchecked-success">
-      <Setter Property="theme:Accent.UncheckedColour" Value="{DynamicResource FiliSuccessBrush}" />
+      <Setter Property="theme:Accent.UncheckedColour" Value="{DynamicResource FiliSuccessNonTextBrush}" />
       <Setter Property="theme:Accent.UncheckedHover" Value="{DynamicResource FiliSuccessHoverBrush}" />
-      <Setter Property="theme:Accent.UncheckedRipple" Value="{DynamicResource FiliSuccessBrush}" />
+      <Setter Property="theme:Accent.UncheckedRipple" Value="{DynamicResource FiliSuccessNonTextBrush}" />
     </Style>
     <Style Selector="^.unchecked-warning">
-      <Setter Property="theme:Accent.UncheckedColour" Value="{DynamicResource FiliWarningBrush}" />
+      <Setter Property="theme:Accent.UncheckedColour" Value="{DynamicResource FiliWarningNonTextBrush}" />
       <Setter Property="theme:Accent.UncheckedHover" Value="{DynamicResource FiliWarningHoverBrush}" />
-      <Setter Property="theme:Accent.UncheckedRipple" Value="{DynamicResource FiliWarningBrush}" />
+      <Setter Property="theme:Accent.UncheckedRipple" Value="{DynamicResource FiliWarningNonTextBrush}" />
     </Style>
     <Style Selector="^.unchecked-error">
-      <Setter Property="theme:Accent.UncheckedColour" Value="{DynamicResource FiliErrorBrush}" />
+      <Setter Property="theme:Accent.UncheckedColour" Value="{DynamicResource FiliErrorNonTextBrush}" />
       <Setter Property="theme:Accent.UncheckedHover" Value="{DynamicResource FiliErrorHoverBrush}" />
-      <Setter Property="theme:Accent.UncheckedRipple" Value="{DynamicResource FiliErrorBrush}" />
+      <Setter Property="theme:Accent.UncheckedRipple" Value="{DynamicResource FiliErrorNonTextBrush}" />
     </Style>
     <Style Selector="^.unchecked-dark">
-      <Setter Property="theme:Accent.UncheckedColour" Value="{DynamicResource FiliDarkBrush}" />
+      <Setter Property="theme:Accent.UncheckedColour" Value="{DynamicResource FiliDarkNonTextBrush}" />
       <Setter Property="theme:Accent.UncheckedHover" Value="{DynamicResource FiliDarkHoverBrush}" />
-      <Setter Property="theme:Accent.UncheckedRipple" Value="{DynamicResource FiliDarkBrush}" />
+      <Setter Property="theme:Accent.UncheckedRipple" Value="{DynamicResource FiliDarkNonTextBrush}" />
     </Style>
 
     <!-- `unchecked-inherit`: Color.Inherit, the colour round the control, and the action-default halo

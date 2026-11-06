@@ -48,9 +48,9 @@
     </TextBlock>
 
     <TextBlock Classes="h5 section" Text="The default colours" />
-    <TextBlock Classes="body1 p" Text="Light and dark are MudBlazor's own palettes, transcribed, and several of their pairs fall below WCAG AA: 4.5:1 for text, 3:1 for large text and for the lines of a control. High contrast is this package's own and clears them; HighContrastLegibilityTests holds it there. Computed from the palette's values on the page background:" />
+    <TextBlock Classes="body1 p" Text="Light and dark start from MudBlazor's own palettes, transcribed, and several of their pairs fell below WCAG AA: 4.5:1 for text, 3:1 for large text and for what shows a control or its state. Where one did, the theme moves that value and says so beside it in Palette.axaml (1.0.1, 1.1.0 and 1.2.0), and TextContrastTests, FillContrastTests, NonTextContrastTests and InputLineContrastTests hold every pair there; high contrast is this package's own, and HighContrastLegibilityTests holds it. Computed on the page background, with MudBlazor's ratio where the theme's differs:" />
     <Grid ColumnDefinitions="Auto,Auto,Auto,Auto" ColumnSpacing="24" RowSpacing="8" Margin="0,0,0,16"
-          RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto">
+          RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto">
       <TextBlock Grid.Row="0" Grid.Column="0" Classes="subtitle2" Text="Pair" />
       <TextBlock Grid.Row="0" Grid.Column="1" Classes="subtitle2" Text="Light" />
       <TextBlock Grid.Row="0" Grid.Column="2" Classes="subtitle2" Text="Dark" />
@@ -63,46 +63,61 @@
 
       <TextBlock Grid.Row="2" Grid.Column="0" Classes="body2" Text="Secondary text" />
       <TextBlock Grid.Row="2" Grid.Column="1" Classes="body2" Text="4.6" />
-      <TextBlock Grid.Row="2" Grid.Column="2" Classes="body2" Text="4.4, below 4.5" />
+      <TextBlock Grid.Row="2" Grid.Column="2" Classes="body2" Text="4.8 (MudBlazor's 4.4)" />
       <TextBlock Grid.Row="2" Grid.Column="3" Classes="body2" Text="17.2" />
 
       <TextBlock Grid.Row="3" Grid.Column="0" Classes="body2" Text="Primary as text" />
       <TextBlock Grid.Row="3" Grid.Column="1" Classes="body2" Text="6.0" />
-      <TextBlock Grid.Row="3" Grid.Column="2" Classes="body2" Text="3.0, below 4.5" />
-      <TextBlock Grid.Row="3" Grid.Column="3" Classes="body2" Text="13.1" />
+      <TextBlock Grid.Row="3" Grid.Column="2" Classes="body2" Text="5.4 (MudBlazor's 3.0)" />
+      <TextBlock Grid.Row="3" Grid.Column="3" Classes="body2" Text="13.4" />
 
       <TextBlock Grid.Row="4" Grid.Column="0" Classes="body2" Text="Error text" />
-      <TextBlock Grid.Row="4" Grid.Column="1" Classes="body2" Text="3.7, below 4.5" />
-      <TextBlock Grid.Row="4" Grid.Column="2" Classes="body2" Text="3.7, below 4.5" />
-      <TextBlock Grid.Row="4" Grid.Column="3" Classes="body2" Text="10.4" />
+      <TextBlock Grid.Row="4" Grid.Column="1" Classes="body2" Text="5.3 (MudBlazor's 3.7)" />
+      <TextBlock Grid.Row="4" Grid.Column="2" Classes="body2" Text="5.5 (MudBlazor's 3.7)" />
+      <TextBlock Grid.Row="4" Grid.Column="3" Classes="body2" Text="11.8" />
 
-      <TextBlock Grid.Row="5" Grid.Column="0" Classes="body2" Text="Text on a warning fill" />
-      <TextBlock Grid.Row="5" Grid.Column="1" Classes="body2" Text="2.2, below 3" />
-      <TextBlock Grid.Row="5" Grid.Column="2" Classes="body2" Text="1.9, below 3" />
-      <TextBlock Grid.Row="5" Grid.Column="3" Classes="body2" Text="14.6" />
+      <TextBlock Grid.Row="5" Grid.Column="0" Classes="body2" Text="Text on a primary fill" />
+      <TextBlock Grid.Row="5" Grid.Column="1" Classes="body2" Text="6.0" />
+      <TextBlock Grid.Row="5" Grid.Column="2" Classes="body2" Text="4.6 (MudBlazor's 4.2)" />
+      <TextBlock Grid.Row="5" Grid.Column="3" Classes="body2" Text="13.1" />
 
-      <TextBlock Grid.Row="6" Grid.Column="0" Classes="body2" Text="Text on a success fill" />
-      <TextBlock Grid.Row="6" Grid.Column="1" Classes="body2" Text="2.2, below 3" />
-      <TextBlock Grid.Row="6" Grid.Column="2" Classes="body2" Text="2.5, below 3" />
-      <TextBlock Grid.Row="6" Grid.Column="3" Classes="body2" Text="17.2" />
+      <TextBlock Grid.Row="6" Grid.Column="0" Classes="body2" Text="Text on a warning fill" />
+      <TextBlock Grid.Row="6" Grid.Column="1" Classes="body2" Text="8.4 (MudBlazor's 2.2)" />
+      <TextBlock Grid.Row="6" Grid.Column="2" Classes="body2" Text="9.2 (MudBlazor's 1.9)" />
+      <TextBlock Grid.Row="6" Grid.Column="3" Classes="body2" Text="14.6" />
 
-      <TextBlock Grid.Row="7" Grid.Column="0" Classes="body2" Text="Text on a tertiary fill" />
-      <TextBlock Grid.Row="7" Grid.Column="1" Classes="body2" Text="2.1, below 3" />
-      <TextBlock Grid.Row="7" Grid.Column="2" Classes="body2" Text="2.1, below 3" />
-      <TextBlock Grid.Row="7" Grid.Column="3" Classes="body2" Text="15.3" />
+      <TextBlock Grid.Row="7" Grid.Column="0" Classes="body2" Text="Text on a success fill" />
+      <TextBlock Grid.Row="7" Grid.Column="1" Classes="body2" Text="8.1 (MudBlazor's 2.2)" />
+      <TextBlock Grid.Row="7" Grid.Column="2" Classes="body2" Text="7.3 (MudBlazor's 2.5)" />
+      <TextBlock Grid.Row="7" Grid.Column="3" Classes="body2" Text="17.2" />
 
-      <TextBlock Grid.Row="8" Grid.Column="0" Classes="body2" Text="A field's outline" />
-      <TextBlock Grid.Row="8" Grid.Column="1" Classes="body2" Text="1.9, below 3" />
-      <TextBlock Grid.Row="8" Grid.Column="2" Classes="body2" Text="2.6, below 3" />
-      <TextBlock Grid.Row="8" Grid.Column="3" Classes="body2" Text="17.2" />
+      <TextBlock Grid.Row="8" Grid.Column="0" Classes="body2" Text="Text on a tertiary fill" />
+      <TextBlock Grid.Row="8" Grid.Column="1" Classes="body2" Text="8.5 (MudBlazor's 2.1)" />
+      <TextBlock Grid.Row="8" Grid.Column="2" Classes="body2" Text="8.5 (MudBlazor's 2.1)" />
+      <TextBlock Grid.Row="8" Grid.Column="3" Classes="body2" Text="15.3" />
 
-      <TextBlock Grid.Row="9" Grid.Column="0" Classes="body2" Text="Disabled text (exempt)" />
-      <TextBlock Grid.Row="9" Grid.Column="1" Classes="body2" Text="2.7" />
-      <TextBlock Grid.Row="9" Grid.Column="2" Classes="body2" Text="1.9" />
-      <TextBlock Grid.Row="9" Grid.Column="3" Classes="body2" Text="13.6" />
+      <TextBlock Grid.Row="9" Grid.Column="0" Classes="body2" Text="A checked success checkbox" />
+      <TextBlock Grid.Row="9" Grid.Column="1" Classes="body2" Text="3.7 (MudBlazor's 2.2)" />
+      <TextBlock Grid.Row="9" Grid.Column="2" Classes="body2" Text="5.0" />
+      <TextBlock Grid.Row="9" Grid.Column="3" Classes="body2" Text="17.2" />
+
+      <TextBlock Grid.Row="10" Grid.Column="0" Classes="body2" Text="A checked primary checkbox" />
+      <TextBlock Grid.Row="10" Grid.Column="1" Classes="body2" Text="6.0" />
+      <TextBlock Grid.Row="10" Grid.Column="2" Classes="body2" Text="4.3 (MudBlazor's 3.0)" />
+      <TextBlock Grid.Row="10" Grid.Column="3" Classes="body2" Text="13.1" />
+
+      <TextBlock Grid.Row="11" Grid.Column="0" Classes="body2" Text="A field's outline" />
+      <TextBlock Grid.Row="11" Grid.Column="1" Classes="body2" Text="3.7 (MudBlazor's 1.9)" />
+      <TextBlock Grid.Row="11" Grid.Column="2" Classes="body2" Text="3.6 (MudBlazor's 2.6)" />
+      <TextBlock Grid.Row="11" Grid.Column="3" Classes="body2" Text="17.2" />
+
+      <TextBlock Grid.Row="12" Grid.Column="0" Classes="body2" Text="Disabled text (exempt)" />
+      <TextBlock Grid.Row="12" Grid.Column="1" Classes="body2" Text="2.7" />
+      <TextBlock Grid.Row="12" Grid.Column="2" Classes="body2" Text="1.9" />
+      <TextBlock Grid.Row="12" Grid.Column="3" Classes="body2" Text="13.6" />
     </Grid>
     <TextBlock Classes="body1 p">
-      <Run Text="An app that must meet AA in light or dark overrides the colours that fall short, with their " /><Run Classes="code" Text="Hover" /><Run Text=", " /><Run Classes="code" Text="Darken" /><Run Text=", " /><Run Classes="code" Text="Lighten" /><Run Text=" and " /><Run Classes="code" Text="ContrastText" /><Run Text=" shades, as the Theming page shows, or uses high contrast. A fix to the shipped values that moves away from MudBlazor's look would be named in the release notes; the compatibility promise allows one in a minor version." />
+      <Run Text="An app that overrides a colour keeps AA by overriding its " /><Run Classes="code" Text="Hover" /><Run Text=", " /><Run Classes="code" Text="Darken" /><Run Text=", " /><Run Classes="code" Text="Lighten" /><Run Text=", " /><Run Classes="code" Text="ContrastText" /><Run Text=", " /><Run Classes="code" Text="Text" /><Run Text=" and " /><Run Classes="code" Text="NonText" /><Run Text=" shades with it, as the Theming page shows. Each fix to the shipped values that moves away from MudBlazor's look is named in the release notes; the compatibility promise allows one in a minor version." />
     </TextBlock>
     <StackPanel Orientation="Horizontal" Spacing="8" Margin="0,0,0,16">
       <TextBlock Classes="body1" Text="See also:" VerticalAlignment="Center" />

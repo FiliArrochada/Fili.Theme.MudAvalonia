@@ -526,7 +526,7 @@ public class DataGridTests
         Assert.True(bar.IsIndeterminate);
         Assert.Equal(4, bar.Bounds.Height);
         Assert.Equal(grid.Bounds.Width, bar.Bounds.Width);
-        Assert.Equal(Matrix.Token("FiliInfoColor"), Matrix.Colour(bar.Foreground));
+        Assert.Equal(Matrix.Token("FiliInfoNonTextColor"), Matrix.Colour(bar.Foreground));
 
         var header = Header(grid, "Name");
         var top = bar.TranslatePoint(default, grid)!.Value.Y;
@@ -536,8 +536,8 @@ public class DataGridTests
 
     /// <summary>LoadingProgressColor: a colour class on the grid, track and bar.</summary>
     [Theory]
-    [InlineData("primary", "FiliPrimaryColor")]
-    [InlineData("error", "FiliErrorColor")]
+    [InlineData("primary", "FiliPrimaryNonTextColor")]
+    [InlineData("error", "FiliErrorNonTextColor")]
     public Task LoadingProgressColorIsAColourClass(string colour, string token) => UiThread.RunAsync(() =>
     {
         var bar = Matrix.Part<ProgressBar>(Show(null, "loading", colour), "PART_LoadingBar");

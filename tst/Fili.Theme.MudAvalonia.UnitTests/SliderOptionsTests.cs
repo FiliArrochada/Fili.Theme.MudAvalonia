@@ -26,7 +26,7 @@ public class SliderOptionsTests
         var solid = Matrix.Part<RepeatButton>(slider, "PART_DecreaseButton");
 
         Assert.Equal(1, solid.Opacity);
-        Assert.Equal(Matrix.Token("FiliSecondaryColor"), Matrix.Colour(solid.Background));
+        Assert.Equal(Matrix.Token("FiliSecondaryNonTextColor"), Matrix.Colour(solid.Background));
         Assert.Equal(0.30, Matrix.Part<Border>(slider, "PART_Rail").Opacity, 2);
     });
 
@@ -46,7 +46,7 @@ public class SliderOptionsTests
         var thumb = Matrix.Part<Thumb>(slider, "PART_Thumb");
         var halo = Matrix.Part<Ellipse>(thumb, "PART_Ring");
 
-        Assert.Equal(Matrix.Token("FiliSecondaryColor"), Matrix.Colour(slider.Foreground));
+        Assert.Equal(Matrix.Token("FiliSecondaryNonTextColor"), Matrix.Colour(slider.Foreground));
         Assert.Equal(0.114, Matrix.Part<Border>(slider, "PART_Rail").Opacity, 3);
         Assert.Equal(0.38, thumb.Opacity, 2);
         Assert.Equal(new Thickness(ring), thumb.BorderThickness);
@@ -86,7 +86,7 @@ public class SliderOptionsTests
         var dots = Dots(slider);
         Assert.Equal(5, dots.Count);
         Assert.All(dots, d => Assert.Equal(dot, d.Bounds.Width));
-        Assert.All(dots, d => Assert.Equal(Matrix.Token("FiliSuccessColor"), Matrix.Colour(d.Fill)));
+        Assert.All(dots, d => Assert.Equal(Matrix.Token("FiliSuccessNonTextColor"), Matrix.Colour(d.Fill)));
 
         var track = Matrix.Part<Track>(slider, "PART_Track");
         var centres = dots

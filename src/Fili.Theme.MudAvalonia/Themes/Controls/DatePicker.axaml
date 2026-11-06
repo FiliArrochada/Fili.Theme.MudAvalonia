@@ -92,7 +92,7 @@
       <Setter Property="Background" Value="{DynamicResource FiliActionDefaultHoverBrush}" />
     </Style>
     <Style Selector="^:today">
-      <Setter Property="BorderBrush" Value="{DynamicResource FiliPrimaryBrush}" />
+      <Setter Property="BorderBrush" Value="{DynamicResource FiliPrimaryNonTextBrush}" />
       <Setter Property="BorderThickness" Value="1" />
       <Setter Property="Foreground" Value="{DynamicResource FiliPrimaryTextBrush}" />
     </Style>

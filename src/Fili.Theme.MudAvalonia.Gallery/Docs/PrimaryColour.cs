@@ -6,7 +6,7 @@ using Avalonia.Styling;
 namespace Fili.Theme.MudAvalonia.Gallery.Docs;
 
 /// <summary>
-/// The app bar's primary colour picker: a colour becomes the five primary tokens an app overrides
+/// The app bar's primary colour picker: a colour becomes the primary tokens an app overrides
 /// (see the Theming page), in light and dark, so every page shows the theme in that colour. High
 /// contrast keeps its own primary, which is derived for contrast rather than chosen.
 /// </summary>
@@ -68,7 +68,7 @@ public static class PrimaryColour
 
     /// <summary>
     /// What an app overriding the primary sets: the colour, its text on a fill, the colour as text
-    /// on the page, its 6% hover, its darken and lighten shades by MudBlazor's rule, the light app
+    /// on the page, the colour as a line or glyph, its 6% hover, its darken and lighten shades by MudBlazor's rule, the light app
     /// bar, which is the primary in MudBlazor, and the forked base's accent for the controls the
     /// theme leaves to it.
     /// </summary>
@@ -79,6 +79,7 @@ public static class PrimaryColour
             ["FiliPrimaryColor"] = colour,
             ["FiliPrimaryContrastTextColor"] = ContrastText(colour),
             ["FiliPrimaryTextColor"] = TextOnTheGround(colour, variant),
+            ["FiliPrimaryNonTextColor"] = LineOnTheGround(colour, variant),
             ["FiliPrimaryHoverColor"] = WithAlpha(colour, 0x0F),
             ["FiliPrimaryDarkenColor"] = MudColor.Darken(colour),
             ["FiliPrimaryLightenColor"] = MudColor.Lighten(colour),
@@ -100,11 +101,46 @@ public static class PrimaryColour
 
     /// <summary>
     /// The colour as text, as the theme's own text tokens are: the colour where it reads at 4.5:1 on
-    /// the variant's page and surface and on its 6% hover over either, else the colour mixed
-    /// towards black (light) or white (dark) until it does. A swatch dark enough for white text
-    /// reads on a light page as it is; on a dark one it has to lighten.
+    /// the variant's page and surface, on its 6% hover over either and on the colour at 12% over
+    /// either (a hovered text chip), else the colour mixed towards black (light) or white (dark)
+    /// until it does. A swatch dark enough for white text reads on a light page as it is; on a
+    /// dark one it has to lighten.
     /// </summary>
     public static Color TextOnTheGround(Color colour, ThemeVariant variant)
+    {
+        var grounds = new List<Color>();
+        foreach (var ground in Grounds(variant))
+        {
+            grounds.Add(ground);
+            grounds.Add(Contrast.Composite(WithAlpha(colour, 0x0F), ground));
+            grounds.Add(Contrast.Composite(WithAlpha(colour, 0x1F), ground));
+        }
+
+        // 4.6 rather than 4.5, a level to spare for how the tint is painted.
+        return Towards(colour, variant, grounds, 4.6);
+    }
+
+    /// <summary>
+    /// The colour as a line or glyph, as the theme's own non-text tokens are: the colour where it
+    /// shows at 3:1 on the variant's page and surface, a filled field's fill and its 6% hover over
+    /// either, else the colour mixed towards black (light) or white (dark) until it does.
+    /// </summary>
+    public static Color LineOnTheGround(Color colour, ThemeVariant variant)
+    {
+        var grounds = new List<Color>();
+        var fill = Application.Current?.TryGetResource("FiliInputFilledColor", variant, out var value) == true && value is Color f ? f : Colors.Transparent;
+        foreach (var ground in Grounds(variant))
+        {
+            grounds.Add(ground);
+            grounds.Add(Contrast.Composite(fill, ground));
+            grounds.Add(Contrast.Composite(WithAlpha(colour, 0x0F), ground));
+        }
+
+        // 3.1 rather than 3, a level to spare, as for the text.
+        return Towards(colour, variant, grounds, 3.1);
+    }
+
+    private static List<Color> Grounds(ThemeVariant variant)
     {
         var grounds = new List<Color>();
         foreach (var key in new[] { "FiliBackgroundColor", "FiliSurfaceColor" })
@@ -112,21 +148,23 @@ public static class PrimaryColour
             if (Application.Current?.TryGetResource(key, variant, out var value) == true && value is Color ground)
             {
                 grounds.Add(ground);
-                grounds.Add(Contrast.Composite(WithAlpha(colour, 0x0F), ground));
             }
         }
 
+        return grounds;
+    }
+
+    private static Color Towards(Color colour, ThemeVariant variant, List<Color> grounds, double ratio)
+    {
         var towards = variant == ThemeVariant.Light ? Colors.Black : Colors.White;
         for (var step = 0; step <= 100; step++)
         {
             var t = step / 100d;
             byte Mix(byte from, byte to) => (byte)Math.Round(from + ((to - from) * t));
-            var text = Color.FromRgb(Mix(colour.R, towards.R), Mix(colour.G, towards.G), Mix(colour.B, towards.B));
-
-            // 4.6 rather than 4.5, a level to spare for how the tint is painted.
-            if (grounds.TrueForAll(g => Contrast.Ratio(text, g) >= 4.6))
+            var shade = Color.FromRgb(Mix(colour.R, towards.R), Mix(colour.G, towards.G), Mix(colour.B, towards.B));
+            if (grounds.TrueForAll(g => Contrast.Ratio(shade, g) >= ratio))
             {
-                return text;
+                return shade;
             }
         }
 

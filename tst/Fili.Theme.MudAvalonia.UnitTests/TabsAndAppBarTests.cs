@@ -284,7 +284,7 @@ public class TabsAndAppBarTests
         Assert.Equal(contrast, Matrix.Colour(Named<Border>(Item(tabs, 0), "PART_Indicator").Background));
 
         Matrix.Hover(Item(tabs, 0));
-        Assert.Equal(Matrix.Token($"Fili{colour}LightenColor"), Matrix.Colour(Named<Border>(Item(tabs, 0), "PART_StateLayer").Background));
+        Assert.Equal(Matrix.Token($"Fili{colour}DarkenColor"), Matrix.Colour(Named<Border>(Item(tabs, 0), "PART_StateLayer").Background));
     });
 
     [Theory]

@@ -66,6 +66,8 @@ public class HighContrastTests
         "FiliSuccessAlertTextColor", "FiliWarningAlertTextColor", "FiliErrorAlertTextColor", "FiliDarkAlertTextColor",
         "FiliPrimaryTextColor", "FiliSecondaryTextColor", "FiliTertiaryTextColor", "FiliInfoTextColor",
         "FiliSuccessTextColor", "FiliWarningTextColor", "FiliErrorTextColor", "FiliDarkTextColor",
+        "FiliPrimaryNonTextColor", "FiliSecondaryNonTextColor", "FiliTertiaryNonTextColor", "FiliInfoNonTextColor",
+        "FiliSuccessNonTextColor", "FiliWarningNonTextColor", "FiliErrorNonTextColor", "FiliDarkNonTextColor",
         "FiliAvatarBackgroundColor",
         "FiliChipHoverColor",
     ];

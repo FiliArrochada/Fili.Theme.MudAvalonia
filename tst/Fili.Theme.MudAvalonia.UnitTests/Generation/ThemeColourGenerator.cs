@@ -774,7 +774,9 @@ public static class ThemeColourGenerator
     // `.mud-icon-button`, whose colour is action-default - so Color.Default is a GREY glyph, on
     // and off - and whose halo is action-default-hover on hover, focus and press. A colour adds
     // `mud-{color}-text` to the icon in every state (UncheckedColor is null) and the colour's hover
-    // tint to the halo. Size is MudIcon's: 20 / 24 / 36px, scaled with its halo.
+    // tint to the halo. The glyph is the colour as a glyph, Fili{Colour}NonText, which reaches
+    // WCAG 1.4.11's 3:1 where MudBlazor's colour does not (since 1.2.0, NonTextContrastTests).
+    // Size is MudIcon's: 20 / 24 / 36px, scaled with its halo.
     // ---------------------------------------------------------------------------------------
 
     private static string GlyphRegion(string scaled)
@@ -790,12 +792,12 @@ public static class ThemeColourGenerator
         o.Append(Style("^", ("theme:Accent.Colour", Res("FiliActionDefaultBrush")), ("theme:Accent.Hover", Res("FiliActionDefaultHoverBrush"))));
         o.Append(string.Concat(States.Select(s => Style($"^{s} /template/ Ellipse#PART_StateLayer", ("Opacity", "1")))));
         o.Append("\n    <!-- Colours: every glyph, checked or not, the halo, and the ripple (`.mud-{color}-text`'s\n");
-        o.Append("         ripple colour). -->\n");
+        o.Append("         ripple colour); the glyph and ripple in the colour as a glyph, 3:1 on the page. -->\n");
 
         foreach (var c in Colours)
         {
             o.Append(Style($"^.{c.ToLowerInvariant()}",
-                ("theme:Accent.Colour", Res($"Fili{c}Brush")), ("theme:Accent.Hover", Res($"Fili{c}HoverBrush")), ("theme:Accent.Ripple", Res($"Fili{c}Brush"))));
+                ("theme:Accent.Colour", Res($"Fili{c}NonTextBrush")), ("theme:Accent.Hover", Res($"Fili{c}HoverBrush")), ("theme:Accent.Ripple", Res($"Fili{c}NonTextBrush"))));
         }
 
         o.Append(InheritLook("inherit", "Colour", "Hover"));
@@ -808,7 +810,7 @@ public static class ThemeColourGenerator
         foreach (var c in Colours)
         {
             o.Append(Style($"^.unchecked-{c.ToLowerInvariant()}",
-                ("theme:Accent.UncheckedColour", Res($"Fili{c}Brush")), ("theme:Accent.UncheckedHover", Res($"Fili{c}HoverBrush")), ("theme:Accent.UncheckedRipple", Res($"Fili{c}Brush"))));
+                ("theme:Accent.UncheckedColour", Res($"Fili{c}NonTextBrush")), ("theme:Accent.UncheckedHover", Res($"Fili{c}HoverBrush")), ("theme:Accent.UncheckedRipple", Res($"Fili{c}NonTextBrush"))));
         }
 
         o.Append(InheritLook("unchecked-inherit", "UncheckedColour", "UncheckedHover"));
@@ -874,11 +876,11 @@ public static class ThemeColourGenerator
         }
 
         o.Append("\n    <!-- Colours paint the thumb and the track only when ON, with the colour's hover tint and\n");
-        o.Append("         ripple (Accent). -->\n");
+        o.Append("         ripple (Accent): the colour as a glyph, so the thumb reaches 3:1 on the page. -->\n");
         foreach (var c in Colours)
         {
             o.Append(Style($"^.{c.ToLowerInvariant()}",
-                ("theme:Accent.Colour", Res($"Fili{c}Brush")), ("theme:Accent.Hover", Res($"Fili{c}HoverBrush")), ("theme:Accent.Ripple", Res($"Fili{c}Brush"))));
+                ("theme:Accent.Colour", Res($"Fili{c}NonTextBrush")), ("theme:Accent.Hover", Res($"Fili{c}HoverBrush")), ("theme:Accent.Ripple", Res($"Fili{c}NonTextBrush"))));
         }
 
         // MudSwitch's UncheckedColor: `mud-{color}-text` on the thumb (its currentColor) and
@@ -888,7 +890,7 @@ public static class ThemeColourGenerator
         foreach (var c in Colours)
         {
             o.Append(Style($"^.unchecked-{c.ToLowerInvariant()}",
-                ("theme:Accent.UncheckedColour", Res($"Fili{c}Brush")), ("theme:Accent.UncheckedHover", Res($"Fili{c}HoverBrush")), ("theme:Accent.UncheckedRipple", Res($"Fili{c}Brush"))));
+                ("theme:Accent.UncheckedColour", Res($"Fili{c}NonTextBrush")), ("theme:Accent.UncheckedHover", Res($"Fili{c}HoverBrush")), ("theme:Accent.UncheckedRipple", Res($"Fili{c}NonTextBrush"))));
         }
 
         return o.ToString();
@@ -914,13 +916,15 @@ public static class ThemeColourGenerator
         o.Append("    <!-- Small, the default: a 12px thumb, so the knob is inset 14px. -->\n");
         o.Append(SliderStates("", 14));
         o.Append("\n    <!-- Colours: the thumb, the rail at 30%, the filled part and the ticks all follow\n");
-        o.Append("         Foreground; the thumb's own Foreground is the value label's text. -->\n");
+        o.Append("         Foreground, the colour as a line or glyph (NonText), 3:1 on the page; the value\n");
+        o.Append("         label is a chip of the colour itself, the thumb's BorderBrush, with its contrast\n");
+        o.Append("         text, the thumb's own Foreground. -->\n");
 
         foreach (var c in Colours)
         {
             var cls = c.ToLowerInvariant();
-            o.Append(Style($"^.{cls}", ("Foreground", Res($"Fili{c}Brush"))));
-            o.Append(Style($"^.{cls} /template/ Thumb#PART_Thumb", ("Foreground", Res($"Fili{c}ContrastTextBrush"))));
+            o.Append(Style($"^.{cls}", ("Foreground", Res($"Fili{c}NonTextBrush"))));
+            o.Append(Style($"^.{cls} /template/ Thumb#PART_Thumb", ("BorderBrush", Res($"Fili{c}Brush")), ("Foreground", Res($"Fili{c}ContrastTextBrush"))));
         }
 
         foreach (var (size, rail, thumb) in SliderSizes)
@@ -946,12 +950,12 @@ public static class ThemeColourGenerator
     // ---------------------------------------------------------------------------------------
 
     private static string ProgressRegion() =>
-        string.Concat(Colours.Select(c => Style($"^.{c.ToLowerInvariant()}", ("Background", Res($"Fili{c}Brush")), ("Foreground", Res($"Fili{c}Brush")))));
+        string.Concat(Colours.Select(c => Style($"^.{c.ToLowerInvariant()}", ("Background", Res($"Fili{c}NonTextBrush")), ("Foreground", Res($"Fili{c}NonTextBrush")))));
 
     // ProgressCircular.axaml: `mud-{color}-text` on MudProgressCircular's root. The ring strokes in
     // the foreground and there is no track, so a colour is the foreground and nothing else.
     private static string CircularRegion() =>
-        string.Concat(Colours.Select(c => Style($"^.{c.ToLowerInvariant()}", ("Foreground", Res($"Fili{c}Brush")))));
+        string.Concat(Colours.Select(c => Style($"^.{c.ToLowerInvariant()}", ("Foreground", Res($"Fili{c}NonTextBrush")))));
 
     // ---------------------------------------------------------------------------------------
     // Chip.axaml: MudChip, from _chip.scss. Filled is the default variant. The 12% tint of a text
@@ -1114,7 +1118,8 @@ public static class ThemeColourGenerator
     }
 
     /// <summary>
-    /// MudNavMenu's Color beyond the tree's selection colours: the active link's line and icon,
+    /// MudNavMenu's Color beyond the tree's selection colours: the active link's line and icon
+    /// (the colour as a glyph, Fili{Colour}NonText, at 3:1),
     /// an open group's arrow, and the colour at 12% under the pointer or keyboard focus. That 12%
     /// replaces the 6% hover tint in MudBlazor; here it is laid over it, so the layer is 6.4%,
     /// which with the 6% under it makes 12%.
@@ -1125,9 +1130,9 @@ public static class ThemeColourGenerator
         foreach (var c in Colours.Where(c => c != "Primary"))
         {
             var nav = $"TreeView.nav.{c.ToLowerInvariant()} TreeViewItem";
-            o.Append(Style($"{nav}:selected /template/ Border#SelectionBorder", ("BorderBrush", Res($"Fili{c}Brush"))));
-            o.Append(Style($"{nav}:selected", ("theme:IconSlot.Brush", Res($"Fili{c}Brush"))));
-            o.Append(Style($"{nav}[IsExpanded=True] /template/ Path#PART_ExpandIcon", ("Fill", Res($"Fili{c}Brush"))));
+            o.Append(Style($"{nav}:selected /template/ Border#SelectionBorder", ("BorderBrush", Res($"Fili{c}NonTextBrush"))));
+            o.Append(Style($"{nav}:selected", ("theme:IconSlot.Brush", Res($"Fili{c}NonTextBrush"))));
+            o.Append(Style($"{nav}[IsExpanded=True] /template/ Path#PART_ExpandIcon", ("Fill", Res($"Fili{c}NonTextBrush"))));
             o.Append(Style($"{nav}:selected /template/ Border#PART_Tint:pointerover", ("Background", Res($"Fili{c}Brush")), ("Opacity", "0.064")));
             o.Append(Style($"{nav}:selected:focus-visible /template/ Border#PART_Tint", ("Background", Res($"Fili{c}Brush")), ("Opacity", "0.064")));
         }
@@ -1261,7 +1266,7 @@ public static class ThemeColourGenerator
         var o = new StringBuilder();
         foreach (var c in Colours)
         {
-            o.Append(Style($"^.adornment-{c.ToLowerInvariant()} /template/ Path#PART_Chevron", ("Fill", Res($"Fili{c}Brush"))));
+            o.Append(Style($"^.adornment-{c.ToLowerInvariant()} /template/ Path#PART_Chevron", ("Fill", Res($"Fili{c}NonTextBrush"))));
         }
 
         o.Append(Style("^.adornment-inherit", ("theme:InheritedColour.Brush", "{Binding $parent[Control].(TextElement.Foreground)}")));
@@ -1438,7 +1443,7 @@ public static class ThemeColourGenerator
     // DataGrid.axaml: MudDataGrid's LoadingProgressColor, a colour class on the grid painting its
     // loading bar's track and bar as ProgressRegion does a bar's own.
     private static string DataGridLoadingRegion() =>
-        string.Concat(Colours.Select(c => Style($"^.{c.ToLowerInvariant()} /template/ ProgressBar#PART_LoadingBar", ("Background", Res($"Fili{c}Brush")), ("Foreground", Res($"Fili{c}Brush")))));
+        string.Concat(Colours.Select(c => Style($"^.{c.ToLowerInvariant()} /template/ ProgressBar#PART_LoadingBar", ("Background", Res($"Fili{c}NonTextBrush")), ("Foreground", Res($"Fili{c}NonTextBrush")))));
 
     /// <summary>`.mud-elevation-{n}` inside a control theme, on the named Border of its template.</summary>
     private static string ElevationRegion(string part) =>
@@ -1546,7 +1551,7 @@ public static class ThemeColourGenerator
     // ---------------------------------------------------------------------------------------
     // FiliTheme.axaml region: MudAlert's Severity, from _alert.scss. Text and outlined alerts draw
     // their text in the colour's alert-text token (its darken shade where that reaches 4.5:1, lighten in high contrast) and
-    // the icon in the colour; filled ones the colour with its contrast text.
+    // the icon in the colour as a glyph (NonText, 3:1 since 1.2.0); filled ones the colour with its contrast text.
     // ---------------------------------------------------------------------------------------
 
     private static string TopStyle(string selector, params (string Property, string Value)[] setters) =>
@@ -1567,7 +1572,7 @@ public static class ThemeColourGenerator
         {
             var cls = c.ToLowerInvariant();
             o.Append(TopStyle($"Border.alert.{cls}", ("Background", Res($"Fili{c}HoverBrush")), ("TextElement.Foreground", Res($"Fili{c}AlertTextBrush"))));
-            o.Append(TopStyle(AlertIcon($"Border.alert.{cls}"), ("Foreground", Res($"Fili{c}Brush"))));
+            o.Append(TopStyle(AlertIcon($"Border.alert.{cls}"), ("Foreground", Res($"Fili{c}NonTextBrush"))));
         }
 
         foreach (var c in Colours)
@@ -1588,8 +1593,10 @@ public static class ThemeColourGenerator
     // ---------------------------------------------------------------------------------------
     // FiliTheme.axaml region: MudTabs' Color, from _tabs.scss's .mud-tabs-tabbar-{color}: the bar
     // in the colour, every tab and the indicator in its contrast text, a disabled tab still
-    // text-disabled, {color}-lighten on the active tab's hover, and the scroll arrows in the
-    // contrast text, ScrollIconColor's default Inherit. A tab's theme cannot see its
+    // text-disabled, and the scroll arrows in the contrast text, ScrollIconColor's default
+    // Inherit. The active tab's hover is {color}-darken, NOT MUDBLAZOR'S {color}-lighten, since
+    // 1.2.0: white text on primary's lighten is 4.17:1, and the darken shade carries the contrast
+    // text as a filled button's hover does (FillContrastTests). A tab's theme cannot see its
     // parent's class, so these are child selectors here rather than nested styles in the theme.
     // ---------------------------------------------------------------------------------------
 
@@ -1598,7 +1605,7 @@ public static class ThemeColourGenerator
         // A colour is one style on the bar, setting Accent's values; one set of styles below reads
         // them for every colour, so a tab is matched against those rather than against each
         // colour's. The ground is the colour, the tabs and the indicator its contrast text, a
-        // selected tab's hover its lighten tint.
+        // selected tab's hover its darken shade.
         var o = new StringBuilder();
         foreach (var c in Colours)
         {
@@ -1606,7 +1613,7 @@ public static class ThemeColourGenerator
             (string, string)[] bar =
             [
                 ("theme:Accent.Bar", "True"), ("theme:Accent.Ground", Res($"Fili{c}Brush")),
-                ("theme:Accent.Colour", Res($"Fili{c}ContrastTextBrush")), ("theme:Accent.Hover", Res($"Fili{c}LightenBrush")),
+                ("theme:Accent.Colour", Res($"Fili{c}ContrastTextBrush")), ("theme:Accent.Hover", Res($"Fili{c}DarkenBrush")),
             ];
             o.Append(TopStyle($"TabControl.{cls}", bar));
             o.Append(TopStyle($"TabStrip.{cls}", [.. bar, ("Background", Res($"Fili{c}Brush"))]));
@@ -1638,8 +1645,8 @@ public static class ThemeColourGenerator
         foreach (var c in Colours)
         {
             var cls = $"indicator-{c.ToLowerInvariant()}";
-            o.Append(TopStyle($"TabControl.{cls} > TabItem /template/ Border#PART_Indicator", ("Background", Res($"Fili{c}Brush"))));
-            o.Append(TopStyle($"TabStrip.{cls} > TabStripItem:selected /template/ Border#PART_Indicator", ("Background", Res($"Fili{c}Brush"))));
+            o.Append(TopStyle($"TabControl.{cls} > TabItem /template/ Border#PART_Indicator", ("Background", Res($"Fili{c}NonTextBrush"))));
+            o.Append(TopStyle($"TabStrip.{cls} > TabStripItem:selected /template/ Border#PART_Indicator", ("Background", Res($"Fili{c}NonTextBrush"))));
         }
 
         return o.ToString();
@@ -1674,14 +1681,15 @@ public static class ThemeColourGenerator
 
     // ---------------------------------------------------------------------------------------
     // FiliTheme.axaml region: MudIcon's Size and Color on a PathIcon. `.mud-icon-size-*` is
-    // 1.25 / 1.5 / 2.25rem; a colour is `.mud-{color}-text`.
+    // 1.25 / 1.5 / 2.25rem; a colour is `.mud-{color}-text`, here the colour as a glyph
+    // (Fili{Colour}NonText), 3:1 on the page since 1.2.0.
     // ---------------------------------------------------------------------------------------
 
     private static string IconRegion() =>
         TopStyle("PathIcon.small", ("Width", "20"), ("Height", "20"))
         + TopStyle("PathIcon.medium", ("Width", "24"), ("Height", "24"))
         + TopStyle("PathIcon.large", ("Width", "36"), ("Height", "36"))
-        + string.Concat(Colours.Select(c => TopStyle($"PathIcon.{c.ToLowerInvariant()}", ("Foreground", Res($"Fili{c}Brush")))));
+        + string.Concat(Colours.Select(c => TopStyle($"PathIcon.{c.ToLowerInvariant()}", ("Foreground", Res($"Fili{c}NonTextBrush")))));
 
     // ---------------------------------------------------------------------------------------
     // FiliTheme.axaml region: MudDrawer's Color, `.mud-theme-{color}`: the pane in the colour,
@@ -1712,7 +1720,7 @@ public static class ThemeColourGenerator
         {
             var lc = c.ToLowerInvariant();
             o.Append(TopStyle($"ListBox.multi-selection.{lc}, TreeView.multi-selection.{lc}",
-                ("theme:Accent.Colour", Res($"Fili{c}Brush")), ("theme:Accent.Hover", Res($"Fili{c}HoverBrush"))));
+                ("theme:Accent.Colour", Res($"Fili{c}NonTextBrush")), ("theme:Accent.Hover", Res($"Fili{c}HoverBrush"))));
         }
 
         foreach (var (list, row) in new[] { ("ListBox", "ListBoxItem"), ("TreeView", "TreeViewItem") })

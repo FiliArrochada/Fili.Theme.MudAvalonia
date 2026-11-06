@@ -470,7 +470,7 @@
     <Style Selector="^[IsExpanded=True] /template/ Path#PART_ExpandIcon">
       <!-- `.mud-transform`: rotate(-180deg), so it turns anticlockwise (_navmenu.scss). -->
       <Setter Property="RenderTransform" Value="rotate(-180deg)" />
-      <Setter Property="Fill" Value="{DynamicResource FiliPrimaryBrush}" />
+      <Setter Property="Fill" Value="{DynamicResource FiliPrimaryNonTextBrush}" />
     </Style>
 
     <!-- The indent beyond the 16px padding, by depth: 36, 48, 60 and 72px in all. -->
@@ -505,7 +505,7 @@
     <!-- The active link: 500, primary over action-default-hover, which hovering keeps. -->
     <Style Selector="^:selected /template/ theme|PartBorder#SelectionBorder">
       <Setter Property="Background" Value="{DynamicResource FiliActionDefaultHoverBrush}" />
-      <Setter Property="BorderBrush" Value="{DynamicResource FiliPrimaryBrush}" />
+      <Setter Property="BorderBrush" Value="{DynamicResource FiliPrimaryNonTextBrush}" />
     </Style>
     <Style Selector="^:selected /template/ theme|PartBorder#PART_Tint:pointerover">
       <Setter Property="Background" Value="Transparent" />

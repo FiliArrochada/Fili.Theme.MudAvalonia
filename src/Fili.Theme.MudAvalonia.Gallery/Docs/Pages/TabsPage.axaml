@@ -29,7 +29,7 @@
 
     <TextBlock Classes="h5 section" Text="Colours" />
     <docs:ExampleCard Title="Bar colour"
-                      Description="A colour class on the TabControl or TabStrip is MudTabs' Color, the colour of the bar: the tabs and the indicator take its contrast text, and the active tab's hover is the colour's lighten shade."
+                      Description="A colour class on the TabControl or TabStrip is MudTabs' Color, the colour of the bar: the tabs and the indicator take its contrast text, and the active tab's hover is the colour's darken shade, where MudBlazor's lighten left white text on primary at 4.17:1."
                       Source="Tabs/Colors" />
     <docs:ExampleCard Title="Indicator colour"
                       Description="indicator-primary through indicator-dark is MudTabs' SliderColor: the indicator alone, over any bar colour."
@@ -91,7 +91,7 @@
       <docs:ParityRow MudBlazor="tab text" Here="the same" Status="Same" Note="Text-primary, primary when active, text-disabled when disabled." />
       <docs:ParityRow MudBlazor="hover" Here="the same" Status="Same" Note="Action-default-hover, and primary-hover on the active tab." />
       <docs:ParityRow MudBlazor="MinimumTabWidth (160px)" Here="the same" Status="Same" />
-      <docs:ParityRow MudBlazor="Color" Here="a colour class on the TabControl or TabStrip" Status="Same" Note="The bar in the colour, tabs and indicator in its contrast text, and the colour's lighten shade on the active tab's hover." />
+      <docs:ParityRow MudBlazor="Color" Here="a colour class on the TabControl or TabStrip" Status="Close" Note="The bar in the colour, tabs and indicator in its contrast text. The active tab's hover is the colour's darken shade, not MudBlazor's lighten, since 1.2.0: white text on primary's lighten is 4.17:1, and the darken shade carries the contrast text at 4.5:1, as a filled button's hover does." />
       <docs:ParityRow MudBlazor="Border / Outlined" Here="border / outlined" Status="Same" Note="A lines-default rule under the bar, or round it." />
       <docs:ParityRow MudBlazor="Rounded / Centered" Here="rounded / centered" Status="Same" />
       <docs:ParityRow MudBlazor="(none: Material's fixed tabs)" Here="material-fixed-tabs" Status="Extra" Note="Material's own, beyond MudBlazor: the tabs share the bar in equal parts under MinimumTabWidth and never scroll." />

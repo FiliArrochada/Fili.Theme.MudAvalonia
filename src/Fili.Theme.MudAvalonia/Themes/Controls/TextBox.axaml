@@ -159,7 +159,7 @@
     <Setter Property="Padding" Value="0" />
     <Setter Property="FontFamily" Value="{DynamicResource FiliFontFamily}" />
     <Setter Property="FontSize" Value="{DynamicResource FiliBody1FontSize}" />
-    <Setter Property="CaretBrush" Value="{DynamicResource FiliPrimaryBrush}" />
+    <Setter Property="CaretBrush" Value="{DynamicResource FiliPrimaryNonTextBrush}" />
     <Setter Property="SelectionBrush" Value="{DynamicResource FiliPrimaryBrush}" />
     <Setter Property="SelectionForegroundBrush" Value="{DynamicResource FiliPrimaryContrastTextBrush}" />
     <Setter Property="VerticalContentAlignment" Value="Center" />
@@ -289,7 +289,7 @@
             <theme:PartBorder theme:Motion.Reducible="True" x:Name="PART_UnderlineActive"
                     Height="2"
                     VerticalAlignment="Bottom"
-                    Background="{DynamicResource FiliPrimaryBrush}"
+                    Background="{DynamicResource FiliPrimaryNonTextBrush}"
                     RenderTransformOrigin="50%,50%"
                     RenderTransform="scaleX(0)">
               <theme:PartBorder.Transitions>
@@ -403,20 +403,20 @@
       nothing: the app looked fine and the value was rejected silently.
     -->
     <Style Selector="^[(DataValidationErrors.HasErrors)=True] /template/ theme|PartBorder#PART_Underline">
-      <Setter Property="Background" Value="{DynamicResource FiliErrorBrush}" />
+      <Setter Property="Background" Value="{DynamicResource FiliErrorNonTextBrush}" />
     </Style>
     <Style Selector="^[(DataValidationErrors.HasErrors)=True] /template/ theme|PartBorder#PART_UnderlineActive">
-      <Setter Property="Background" Value="{DynamicResource FiliErrorBrush}" />
+      <Setter Property="Background" Value="{DynamicResource FiliErrorNonTextBrush}" />
     </Style>
     <Style Selector="^[(DataValidationErrors.HasErrors)=True] /template/ TextBlock#PART_FloatingLabel">
       <Setter Property="Foreground" Value="{DynamicResource FiliErrorTextBrush}" />
     </Style>
 
     <Style Selector="^.error /template/ theme|PartBorder#PART_Underline">
-      <Setter Property="Background" Value="{DynamicResource FiliErrorBrush}" />
+      <Setter Property="Background" Value="{DynamicResource FiliErrorNonTextBrush}" />
     </Style>
     <Style Selector="^.error /template/ theme|PartBorder#PART_UnderlineActive">
-      <Setter Property="Background" Value="{DynamicResource FiliErrorBrush}" />
+      <Setter Property="Background" Value="{DynamicResource FiliErrorNonTextBrush}" />
     </Style>
     <Style Selector="^.error /template/ TextBlock#PART_FloatingLabel">
       <Setter Property="Foreground" Value="{DynamicResource FiliErrorTextBrush}" />
@@ -751,7 +751,7 @@
       <Setter Property="BorderBrush" Value="{DynamicResource FiliTextPrimaryBrush}" />
     </Style>
     <Style Selector="^:focus /template/ theme|PartBorder#PART_Root">
-      <Setter Property="BorderBrush" Value="{DynamicResource FiliPrimaryBrush}" />
+      <Setter Property="BorderBrush" Value="{DynamicResource FiliPrimaryNonTextBrush}" />
       <Setter Property="BorderThickness" Value="2" />
     </Style>
 
@@ -774,10 +774,10 @@
       <Setter Property="BorderBrush" Value="{DynamicResource FiliActionDisabledBackgroundBrush}" />
     </Style>
     <Style Selector="^.error /template/ theme|PartBorder#PART_Root">
-      <Setter Property="BorderBrush" Value="{DynamicResource FiliErrorBrush}" />
+      <Setter Property="BorderBrush" Value="{DynamicResource FiliErrorNonTextBrush}" />
     </Style>
     <Style Selector="^[(DataValidationErrors.HasErrors)=True] /template/ theme|PartBorder#PART_Root">
-      <Setter Property="BorderBrush" Value="{DynamicResource FiliErrorBrush}" />
+      <Setter Property="BorderBrush" Value="{DynamicResource FiliErrorNonTextBrush}" />
     </Style>
 
     <!-- MudInputControl's helper container is px-2 under an outlined field. -->

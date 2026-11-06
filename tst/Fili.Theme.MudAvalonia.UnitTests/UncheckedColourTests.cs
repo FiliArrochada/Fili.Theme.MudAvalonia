@@ -19,8 +19,8 @@ public class UncheckedColourTests
     {
         var box = Matrix.Show(new CheckBox { IsChecked = false, Content = "Box", Classes = { "primary", $"unchecked-{colour.ToLowerInvariant()}" } });
 
-        Assert.Equal(Matrix.Token($"Fili{colour}Color"), Matrix.Colour(Matrix.Part<Path>(box, "PART_Glyph").Fill));
-        Assert.Equal(Matrix.Token($"Fili{colour}Color"), Matrix.Colour(Matrix.GlyphFill(box, null)));
+        Assert.Equal(Matrix.Token($"Fili{colour}NonTextColor"), Matrix.Colour(Matrix.Part<Path>(box, "PART_Glyph").Fill));
+        Assert.Equal(Matrix.Token($"Fili{colour}NonTextColor"), Matrix.Colour(Matrix.GlyphFill(box, null)));
 
         Matrix.Hover(box);
         Assert.Equal(Matrix.Token($"Fili{colour}HoverColor"), Matrix.Colour(Matrix.Part<Ellipse>(box, "PART_StateLayer").Fill));
@@ -32,7 +32,7 @@ public class UncheckedColourTests
     {
         var box = Matrix.Show(new CheckBox { IsChecked = true, Content = "Box", Classes = { "primary", "unchecked-error" } });
 
-        Assert.Equal(Matrix.Token("FiliPrimaryColor"), Matrix.Colour(Matrix.Part<Path>(box, "PART_Glyph").Fill));
+        Assert.Equal(Matrix.Token("FiliPrimaryNonTextColor"), Matrix.Colour(Matrix.Part<Path>(box, "PART_Glyph").Fill));
         Matrix.Hover(box);
         Assert.Equal(Matrix.Token("FiliPrimaryHoverColor"), Matrix.Colour(Matrix.Part<Ellipse>(box, "PART_StateLayer").Fill));
     });
@@ -51,11 +51,11 @@ public class UncheckedColourTests
     public Task ARadioTakesTheUncheckedColourUntilChecked() => UiThread.RunAsync(() =>
     {
         var off = Matrix.Show(new RadioButton { IsChecked = false, Content = "Off", GroupName = "u1", Classes = { "secondary", "unchecked-success" } });
-        Assert.Equal(Matrix.Token("FiliSuccessColor"), Matrix.Colour(Matrix.Part<Path>(off, "PART_Unchecked").Fill));
+        Assert.Equal(Matrix.Token("FiliSuccessNonTextColor"), Matrix.Colour(Matrix.Part<Path>(off, "PART_Unchecked").Fill));
         Matrix.Hover(off);
         Assert.Equal(Matrix.Token("FiliSuccessHoverColor"), Matrix.Colour(Matrix.Part<Ellipse>(off, "PART_StateLayer").Fill));
 
         var on = Matrix.Show(new RadioButton { IsChecked = true, Content = "On", GroupName = "u2", Classes = { "secondary", "unchecked-success" } });
-        Assert.Equal(Matrix.Token("FiliSecondaryColor"), Matrix.Colour(Matrix.Part<Path>(on, "PART_Checked").Fill));
+        Assert.Equal(Matrix.Token("FiliSecondaryNonTextColor"), Matrix.Colour(Matrix.Part<Path>(on, "PART_Checked").Fill));
     });
 }

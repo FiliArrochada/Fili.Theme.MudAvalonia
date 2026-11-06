@@ -105,7 +105,7 @@ public class RemainingOptionsTests
     {
         var tabs = Tabs(Dock.Top, "primary", $"indicator-{colour.ToLowerInvariant()}");
 
-        Assert.Equal(Matrix.Token($"Fili{colour}Color"), Matrix.Colour(Named<Border>(Item(tabs, 0), "PART_Indicator").Background));
+        Assert.Equal(Matrix.Token($"Fili{colour}NonTextColor"), Matrix.Colour(Named<Border>(Item(tabs, 0), "PART_Indicator").Background));
         Assert.Equal(Matrix.Token("FiliPrimaryContrastTextColor"), Matrix.Colour(Item(tabs, 0).Foreground));
     });
 
@@ -118,7 +118,7 @@ public class RemainingOptionsTests
         strip.SelectedIndex = 0;
         Matrix.Show(strip);
 
-        Assert.Equal(Matrix.Token("FiliSuccessColor"), Matrix.Colour(Named<Border>((TabStripItem)strip.Items[0]!, "PART_Indicator").Background));
+        Assert.Equal(Matrix.Token("FiliSuccessNonTextColor"), Matrix.Colour(Named<Border>((TabStripItem)strip.Items[0]!, "PART_Indicator").Background));
     });
 
     // --------------------------------------------------------------------------------------

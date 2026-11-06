@@ -59,7 +59,7 @@ public class ProgressCircularTests
     {
         var bar = Show(colour.ToLowerInvariant());
 
-        Assert.Equal(Matrix.Token($"Fili{colour}Color"), Matrix.Colour(Matrix.Part<Arc>(bar, "PART_Circle").Stroke));
+        Assert.Equal(Matrix.Token($"Fili{colour}NonTextColor"), Matrix.Colour(Matrix.Part<Arc>(bar, "PART_Circle").Stroke));
     });
 
     [Fact]

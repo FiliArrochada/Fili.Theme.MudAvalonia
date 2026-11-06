@@ -1,7 +1,7 @@
 <UserControl xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-  <!-- The text on each fill is that colour's ContrastText token: white in light and dark,
-       black in high contrast. -->
+  <!-- The text on each fill is that colour's ContrastText token: white on primary and dark and
+       black at 87% on the brighter fills in light and dark, black in high contrast. -->
   <WrapPanel Orientation="Horizontal">
     <Button Classes="filled primary" Content="Primary" Margin="0,0,8,8" />
     <Button Classes="filled info" Content="Info" Margin="0,0,8,8" />

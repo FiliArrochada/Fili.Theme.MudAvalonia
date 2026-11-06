@@ -168,8 +168,8 @@ public class SelectionGlyphMatrixTests
             Matrix.Show(control);
 
             // UncheckedColor is null in MudBlazor, so the colour reaches the unchecked glyph too.
-            Assert.Equal(Matrix.Token($"Fili{colour}Color"), Matrix.Colour(Matrix.GlyphFill(control, false)));
-            Assert.Equal(Matrix.Token($"Fili{colour}Color"), Matrix.Colour(Matrix.GlyphFill(control, true)));
+            Assert.Equal(Matrix.Token($"Fili{colour}NonTextColor"), Matrix.Colour(Matrix.GlyphFill(control, false)));
+            Assert.Equal(Matrix.Token($"Fili{colour}NonTextColor"), Matrix.Colour(Matrix.GlyphFill(control, true)));
 
             Matrix.Hover(control);
             Assert.Equal(1, Matrix.Part<Shapes.Ellipse>(control, "PART_StateLayer").Opacity);
@@ -234,8 +234,8 @@ public class SwitchMatrixTests
         Assert.Equal(Matrix.Token("FiliSwitchThumbColor"), Matrix.Colour(Matrix.Part<Border>(off, "PART_Thumb").Background));
         Assert.Equal(Matrix.Token("FiliActionDefaultColor"), Matrix.Colour(Matrix.Part<Border>(off, "PART_Track").Background));
 
-        Assert.Equal(Matrix.Token($"Fili{colour}Color"), Matrix.Colour(Matrix.Part<Border>(on, "PART_Thumb").Background));
-        Assert.Equal(Matrix.Token($"Fili{colour}Color"), Matrix.Colour(Matrix.Part<Border>(on, "PART_Track").Background));
+        Assert.Equal(Matrix.Token($"Fili{colour}NonTextColor"), Matrix.Colour(Matrix.Part<Border>(on, "PART_Thumb").Background));
+        Assert.Equal(Matrix.Token($"Fili{colour}NonTextColor"), Matrix.Colour(Matrix.Part<Border>(on, "PART_Track").Background));
     });
 
     /// <summary>
@@ -301,7 +301,7 @@ public class SliderMatrixTests
     {
         var slider = Matrix.Show(new Slider { Width = 200, Value = 40 });
 
-        Assert.Equal(Matrix.Token("FiliPrimaryColor"), Matrix.Colour(slider.Foreground));
+        Assert.Equal(Matrix.Token("FiliPrimaryNonTextColor"), Matrix.Colour(slider.Foreground));
         Assert.Equal(2, Matrix.Part<RepeatButton>(slider, "PART_DecreaseButton").Height);
         Assert.Equal(new Thickness(14), Matrix.Part<Thumb>(slider, "PART_Thumb").Padding);
 
@@ -318,8 +318,8 @@ public class SliderMatrixTests
     {
         var slider = Matrix.Show(new Slider { Width = 200, Value = 40, Classes = { colour.ToLowerInvariant() } });
 
-        Assert.Equal(Matrix.Token($"Fili{colour}Color"), Matrix.Colour(Matrix.Part<Thumb>(slider, "PART_Thumb").Background));
-        Assert.Equal(Matrix.Token($"Fili{colour}Color"), Matrix.Colour(Matrix.Part<RepeatButton>(slider, "PART_DecreaseButton").Background));
+        Assert.Equal(Matrix.Token($"Fili{colour}NonTextColor"), Matrix.Colour(Matrix.Part<Thumb>(slider, "PART_Thumb").Background));
+        Assert.Equal(Matrix.Token($"Fili{colour}NonTextColor"), Matrix.Colour(Matrix.Part<RepeatButton>(slider, "PART_DecreaseButton").Background));
     });
 
     [Theory]
@@ -376,7 +376,7 @@ public class ProgressColourTests
     {
         var bar = Matrix.Show(new ProgressBar { Width = 200, Value = 50, Classes = { colour.ToLowerInvariant() } });
 
-        Assert.Equal(Matrix.Token($"Fili{colour}Color"), Matrix.Colour(bar.Foreground));
+        Assert.Equal(Matrix.Token($"Fili{colour}NonTextColor"), Matrix.Colour(bar.Foreground));
     });
 }
 
