@@ -62,9 +62,10 @@ key that expires within the hour, so no key is stored anywhere. Three one-time s
 
 1. On nuget.org, under *Trusted Publishing*, add a policy for owner `FiliArrochada`, repository
    `Fili.Theme.MudAvalonia`, workflow `release.yml`.
-2. In this repository's *Settings → Secrets and variables → Actions → Variables*, set
-   `NUGET_USER` to the nuget.org username that owns that policy. It is a name, not a secret; the
-   workflow fails early with a clear message if it is missing.
+2. The organisation's *Settings → Secrets and variables → Actions → Variables* holds `NUGET_USER`,
+   the nuget.org username that owns that policy, for every repository. It is a name, not a
+   secret; a repository variable of the same name would override it, and the workflow fails
+   early with a clear message if neither is set.
 3. In *Settings → Environments*, create `nuget` with the maintainer as a required reviewer and a
    deployment tag rule of `v*`. The publish job runs in that environment, so after the tests pass
    it waits for an approval: a pushed tag alone never reaches nuget.org. Until the environment is

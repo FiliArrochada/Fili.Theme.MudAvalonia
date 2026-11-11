@@ -14,8 +14,9 @@ name: release
 # that lives for one hour, so no long-lived key is stored anywhere. One-time setup:
 #   - nuget.org -> account -> Trusted Publishing: add a policy for repository owner
 #     FiliArrochada, repository Fili.Theme.MudAvalonia, workflow file release.yml
-#   - this repository -> Settings -> Secrets and variables -> Actions -> Variables:
-#     NUGET_USER = the nuget.org username that owns that policy (a name, not a secret)
+#   - the organisation -> Settings -> Secrets and variables -> Actions -> Variables:
+#     NUGET_USER = the nuget.org username that owns that policy (a name, not a secret); a
+#     repository variable of the same name would override it
 #   - this repository -> Settings -> Environments -> nuget: required reviewers (the maintainer),
 #     and deployment tags `v*`. The publish job waits there for a reviewer's approval, so a pushed
 #     tag alone never reaches nuget.org. Without the environment GitHub creates it on the first
@@ -142,7 +143,7 @@ jobs:
           NUGET_USER: ${{ vars.NUGET_USER }}
         run: |
           if [ -z "$NUGET_USER" ]; then
-            echo "::error::Repository variable NUGET_USER is not set. See the header of release.yml."
+            echo "::error::Variable NUGET_USER (organisation or repository) is not set. See the header of release.yml."
             exit 1
           fi
 
